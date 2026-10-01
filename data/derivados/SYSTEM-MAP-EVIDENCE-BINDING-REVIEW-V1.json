@@ -6,10 +6,10 @@
     "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
   ],
   "PROVENANCE": {
-    "HEAD": "b380663a6e382b6657d1c6433c6cae9eb6d3ee72",
-    "BRANCH": "coord/servico-com-release",
-    "GENERATED_AT": "2026-10-01T04:13:43+00:00",
-    "SOURCE_TREE_FINGERPRINT": "563b7a1648f10d881336f35d8dfe3bee6f0740a39afa776c4399b46602373346"
+    "HEAD": "a1cf01128a948f2357a1b221e4e0e09bf0c84c30",
+    "BRANCH": "coord/sysmap-10-regressoes",
+    "GENERATED_AT": "2026-10-01T19:41:44+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a4d5d8b03db08d39df70ad2191a33096e1f77013a51c2c68dea4d30e2417073c"
   },
   "CARIMBOS_NAO_COMPARAVEIS": [
     "HEAD",
@@ -20,11 +20,11 @@
     "PROVENANCE"
   ],
   "RESUMO": {
-    "ARESTAS_TOTAL": 1947,
+    "ARESTAS_TOTAL": 1978,
     "LINHAS_PARTILHADAS": 184,
     "LINHAS_PARTILHADAS_ENTRE_TIPOS": 81,
-    "ARESTAS_REVISTAS": 225,
-    "SUPPORTED": 183,
+    "ARESTAS_REVISTAS": 226,
+    "SUPPORTED": 184,
     "AMBIGUOUS": 27,
     "UNSUPPORTED": 15,
     "SEM_PORQUE": [],
@@ -32,7 +32,7 @@
       "AMBIGUOUS·READS": 27,
       "SUPPORTED·ALIMENTA": 2,
       "SUPPORTED·IMPORTS": 35,
-      "SUPPORTED·READS": 123,
+      "SUPPORTED·READS": 124,
       "SUPPORTED·RUNS": 23,
       "UNSUPPORTED·ABRE_O_CANAL": 3,
       "UNSUPPORTED·ENTREGA_A_LISTA": 4,
@@ -103,6 +103,34 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-ADMISSAO--READS-->C-INTEGRA-ONDA2",
+      "FROM": "C-ADMISSAO",
+      "TO": "C-INTEGRA-ONDA2",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 14,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ADMISSAO--READS-->C-INTEGRA-ONDA2",
+        "FROM": "C-ADMISSAO",
+        "TO": "C-INTEGRA-ONDA2",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-COLETA",
       "FROM": "C-ADMISSAO",
       "TO": "C-PROVA-COLETA",
@@ -110,8 +138,28 @@
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
         {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 172,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/a_maquina_depois_do_crash.py",
+          "line": 293,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/a_maquina_sob_carga.py",
+          "line": 202,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": "provas/c2_juiz_mutacao.py",
           "line": 24,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/censo_corpus_rotulado_admission.py",
+          "line": 120,
           "SUPPORTS": "YES"
         },
         {
@@ -145,8 +193,8 @@
           "SUPPORTS": "YES"
         },
         {
-          "file": "provas/os_portoes_da_collection.py",
-          "line": 487,
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 167,
           "SUPPORTS": "YES"
         }
       ],
@@ -972,7 +1020,7 @@
       "OLD_EVIDENCE": [
         {
           "file": "tests/test_pote_no_casco.mjs",
-          "line": 27,
+          "line": 33,
           "SUPPORTS": "YES"
         }
       ],
@@ -1240,7 +1288,7 @@
         },
         {
           "file": "tests/test_pote_no_casco.mjs",
-          "line": 27,
+          "line": 33,
           "SUPPORTS": "AMBIGUOUS"
         }
       ],
@@ -5103,12 +5151,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5411,
+          "line": 5424,
           "SUPPORTS": "YES"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5411,
+          "line": 5424,
           "SUPPORTS": "YES"
         }
       ],
@@ -6424,12 +6472,12 @@
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 338,
+          "line": 342,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 338,
+          "line": 342,
           "SUPPORTS": "YES"
         }
       ],

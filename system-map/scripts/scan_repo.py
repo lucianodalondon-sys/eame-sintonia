@@ -215,6 +215,9 @@ def prova(caminho: str, n: int, linha: str) -> dict:
 # 2b · A CONSTANTE QUE GUARDA UM CAMINHO
 # ─────────────────────────────────────────────────────────────────────────────
 ESCRITA_PATHLIB = ("write_text", "write_bytes")
+# `os.replace(TEMP, CONST)` · a escrita atomica. O corpo vai para um temporario
+# e so o DESTINO (segundo argumento) fica com o nome do artefacto.
+ESCRITA_POR_TROCA = ("replace", "rename")
 
 
 def escritas_por_constante(caminho: str, unicos: dict,
@@ -270,6 +273,14 @@ def escritas_por_constante(caminho: str, unicos: dict,
     A ligacao viva e a ULTIMA ANTES daquela linha, no escopo MAIS PROXIMO: se
     houver uma dentro da propria funcao usa-se essa, senao sobe-se para fora.
     Nao havendo nenhuma antes, nao se responde — adivinhar seria inventar.
+
+    3 · A ESCRITA ATOMICA ESCREVE COM OUTRO NOME.
+
+    A porta de admissao deixou de usar `LIVRO.write_text(...)` (um processo
+    morto a meio truncava o livro bom) e passou a escrever num temporario e a
+    fazer `os.replace(temporario, str(LIVRO))`. O livro continuou a ser escrito;
+    o mapa deixou de o ver, e `LIVRO-DE-DECISOES.json` voltou a ficar sem autor.
+    O destino de `os.replace` / `os.rename` e uma escrita. A origem nao e.
     """
     # `texto` existe para o teste poder dar codigo sintetico sem escrever
     # ficheiro nenhum na arvore. Em producao vem sempre do disco.
@@ -340,6 +351,20 @@ def escritas_por_constante(caminho: str, unicos: dict,
                 and no.func.attr in ESCRITA_PATHLIB
                 and isinstance(no.func.value, ast.Name)):
             nome, tipo, marca = no.func.value.id, "WRITES", no.func.attr
+        elif (isinstance(no.func, ast.Attribute)
+                and no.func.attr in ESCRITA_POR_TROCA
+                and getattr(no.func.value, "id", "") == "os"
+                and len(no.args) >= 2):
+            # So o DESTINO conta: `os.replace(CONST, outro)` tira o ficheiro
+            # dali, nao o escreve. `str(CONST)` e o mesmo nome embrulhado.
+            destino = no.args[1]
+            if (isinstance(destino, ast.Call)
+                    and getattr(destino.func, "id", "") == "str"
+                    and len(destino.args) == 1):
+                destino = destino.args[0]
+            if not isinstance(destino, ast.Name):
+                continue
+            nome, tipo, marca = destino.id, "WRITES", "os." + no.func.attr
         else:
             continue
         alvo = qual(nome, escopo, no.lineno)

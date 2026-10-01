@@ -600,6 +600,27 @@ prova("sem_ligacao_antes_da_linha_o_censo_cala_se",
       not SCAN.escritas_por_constante("sintetico.py", _UNICOS, _DEPOIS),
       "nome so ligado DEPOIS da escrita: nao ha como saber, e nao se inventa")
 
+# A ESCRITA ATOMICA · `os.replace(temporario, str(LIVRO))` escreve o LIVRO.
+# E o caso real de `admissao/admissao.py` desde 42555816c.
+_TROCA = """
+import os, pathlib
+LIVRO = pathlib.Path('data/UM.json')
+def escrever(temporario):
+    os.replace(temporario, str(LIVRO))
+"""
+_t = [(a, t, n) for a, t, n, *_ in SCAN.escritas_por_constante(
+    "sintetico.py", _UNICOS, _TROCA)]
+prova("escrita_atomica_tem_autor", _t == [("data/UM.json", "WRITES", 5)],
+      f"o destino de `os.replace` e uma escrita; medido: {_t}")
+
+# MUTACAO 4 · a ORIGEM de `os.replace` sai dali; nao e escrita naquele nome.
+prova("mutacao_origem_da_troca_nao_vira_autor",
+      not SCAN.escritas_por_constante(
+          "sintetico.py", _UNICOS,
+          _TROCA.replace("os.replace(temporario, str(LIVRO))",
+                         "os.replace(str(LIVRO), temporario)")),
+      "`os.replace(LIVRO, outro)` tira o LIVRO do sitio; dar-lhe autoria e inventar")
+
 # ── e no repositorio de verdade: os tres artefactos que nao tinham autor ─────
 _AUTORES = {}
 for _e in G["FILE_EDGES"]:

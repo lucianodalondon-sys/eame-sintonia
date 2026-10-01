@@ -382,6 +382,19 @@ def as_fontes() -> tuple[list, list]:
              "RED": "verificada e descartada, com motivo escrito",
              "NAO SEI": "nao foi possivel verificar — NAO SEI"}
 
+    # O atlas tem QUATRO vereditos, e so quatro (a tabela VERDICT no topo dele).
+    # `ES-T7-001..027` diz `PARCIAL` — «8 de 18 rotas de feed provadas» — numa
+    # ficha que vale por 27 identidades. Por identidade, NAO SEI qual delas esta
+    # entre as provadas; pintar as 27 de amarelo ou de verde seria inventar. O
+    # texto do atlas fica ao lado, inteiro, para ninguem achar que nao se olhou.
+    def estado_do_atlas(x: dict) -> tuple[str, str]:
+        v = x["verdict"]
+        if v in marca:
+            return v, marca[v]
+        return "NAO SEI", (f"o atlas diz «{v}», que nao e um dos quatro vereditos "
+                           "dele (GREEN · YELLOW · RED · NAO SEI) — por esta "
+                           "identidade, NAO SEI")
+
     grupos = [{
         "titulo": "BASES OFICIAIS E ABERTAS",
         "subtitulo": (f"{c['sources']} fichas no atlas · {c['with_contract']} com "
@@ -392,7 +405,7 @@ def as_fontes() -> tuple[list, list]:
         "itens": [{
             "id": x["source_id"], "nome": x["name"], "pais": x["country"],
             "assunto": f"{x['territory']} · {x['territory_name']}",
-            "estado": x["verdict"], "estado_texto": marca.get(x["verdict"], ""),
+            "estado": estado_do_atlas(x)[0], "estado_texto": estado_do_atlas(x)[1],
             "sabe_coletar": x["sabe_coletar"],
             "como_se_entra": (x.get("access_method") or "")[:180],
             "dono": x.get("owner", ""),

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  8d9b750f8f58448b37ffa6ba6a80f564eeef7fec
-BRANCH           casco-sobre-cand-v1
-GERADO_EM        2026-10-01T13:11:34-03:00
+HEAD_DA_MEDICAO  a1cf01128a948f2357a1b221e4e0e09bf0c84c30
+BRANCH           coord/sysmap-10-regressoes
+GERADO_EM        2026-10-01T14:11:30-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -680,7 +680,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | | |
 |---|---|
 | **peça real** | `admissao/admissao.py`, `admissao/idioma.py` |
-| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ROTA-M2 |
@@ -689,14 +689,14 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · dado** | C-IT-TEXTO-DERIVADO, C-IT-TEXTO-PESQUISAVEL, C-SCRAP-SOCIAL |
 | **o que entra · ficheiros** | `admissao/idioma.py`, `curadoria/politica_nao_sei.py`, `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
-| **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 10 · saem 55 |
-| **arestas provadas** | entram 8 · saem 54 |
+| **o que sai · ficheiros** | `data/samples/LIVRO-DE-DECISOES.json` |
+| **arestas no mapa** | entram 10 · saem 62 |
+| **arestas provadas** | entram 8 · saem 61 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 60 · NÃO SEI 3 · OBSERVED 2 |
+| **prova das ligações** | CODE 67 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1175,13 +1175,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json`, `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json` |
-| **arestas no mapa** | entram 8 · saem 10 |
-| **arestas provadas** | entram 8 · saem 10 |
+| **arestas no mapa** | entram 9 · saem 10 |
+| **arestas provadas** | entram 9 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 5 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 |
+| **prova das ligações** | CODE 19 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2281,13 +2281,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 0 |
-| **arestas provadas** | entram 1 · saem 0 |
+| **arestas no mapa** | entram 2 · saem 0 |
+| **arestas provadas** | entram 2 · saem 0 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 1 |
+| **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
