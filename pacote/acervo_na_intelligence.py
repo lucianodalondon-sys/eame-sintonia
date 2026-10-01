@@ -302,11 +302,13 @@ def _fato(x: dict, r: dict) -> dict:
     col = _colecao(x)
     f = {}
     if col in ("scienceCorpus", "scienceRecords"):
-        f["doi"] = r.get("DOI")
-        f["title"] = r.get("TITLE")
-        f["authors"] = r.get("ORCID") or r.get("AUTHOR")
-        f["institutions"] = r.get("INSTITUTION")
-        f["material_type"] = r.get("MATERIAL_TYPE")
+        # ERRO A (LAB F2, 01/10): `NOT_ESTABLISHED` e o «nao sei» do handoff antigo, nunca um DOI.
+        # O motor so conhece as palavras de ignorancia da casa; o adaptador traduz ANTES (_v).
+        f["doi"] = _v(r.get("DOI"))
+        f["title"] = _v(r.get("TITLE"))
+        f["authors"] = _v(r.get("ORCID")) if not _ign(r.get("ORCID")) else _v(r.get("AUTHOR"))
+        f["institutions"] = _v(r.get("INSTITUTION"))
+        f["material_type"] = _v(r.get("MATERIAL_TYPE"))
         # so o que o produtor PROVOU com trecho (PROVED_*_EVIDENCE); CROP/ISSUE soltos
         # do handoff antigo nao tem evidencia e nao entram como cultura/problema.
         if not _ign(r.get("PROVED_CROP")) and not _ign(r.get("PROVED_CROP_EVIDENCE")):
@@ -338,6 +340,23 @@ def _texto(x: dict, r: dict) -> str:
         if not _ign(r.get(k)):
             return str(r[k])[:300]
     return NAO_SEI
+
+
+#: ERRO A, a consequencia (01/10): sem o DOI falso, 85 estudos do acervo perdiam a triagem de estudo
+#: (o motor so tria por DOI/TRIAL_ID/especie no FATO ou pela NATUREZA que a ADMISSAO declarou). Neste
+#: acervo quem admite e a ENTRADA (ADMITIDO_POR), e ela ja declara TIPO = ciencia por item. Escreve-se essa
+#: declaracao na MESMA forma da admissao da Sala (admissao.py: ORIGEM.CAP_SCI + EXTRATOR_DO_ESTUDO), com os
+#: nomes do dono (leis/estudo_chaves.NATUREZA, LEI_CAP_SCI) — nunca uma segunda copia. So a natureza:
+#: cultura/problema/lugar continuam a vir do FATO provado (PROVED_*), nunca daqui.
+EXTRATOR_DA_NATUREZA = "ENTRADA_INTELLIGENCE_ACERVO/v1 (TIPO=ciencia)"
+
+
+def _natureza_declarada(x: dict):
+    if x.get("TIPO") != "ciencia":
+        return NAO_SEI
+    import estudo_chaves as EC                                     # noqa: PLC0415 (leis/)
+    return {"ORIGEM": {"CAP_SCI": {"NATUREZA": EC.NATUREZA, "E_INCIDENCIA_DE_CAMPO": "NAO", "LEI": EC.LEI_CAP_SCI},
+                       "EXTRATOR_DO_ESTUDO": EXTRATOR_DA_NATUREZA}}
 
 
 def ready(x: dict, r: dict, sha: str) -> tuple:
@@ -374,7 +393,7 @@ def ready(x: dict, r: dict, sha: str) -> tuple:
         "TEMPO_LUGAR_EVIDENCIA": {"FACT_LOCATION_VEIO_DE": NAO_SEI, "CAPTURA": como},
         "SOURCE_DECLARED_EVIDENCE_CLASS": NAO_SEI,
         "FATO": _fato(x, r),
-        "JANELA_DECLARADA": NAO_SEI,
+        "JANELA_DECLARADA": _natureza_declarada(x),
         "CORRIDA": NAO_SEI,
         "ADMITIDO_POR": "ENTRADA_INTELLIGENCE_ACERVO/v1 (" + x["ACERVO_ID"] + ")",
     }
@@ -695,6 +714,52 @@ FORA_DA_CORRIDA_PORQUE = ("o SOURCE_ID/ITEM_ID contem %s, e a corrida G0/v4 recu
                           "PALAVRAS_QUE_O_REQUISITO_RECUSA): com ele dentro a corrida inteira termina em ERROR")
 
 
+#: ERRO B (LAB F2, 01/10): o handoff antigo traz o MESMO estudo em scienceCorpus e scienceRecords.
+#: Identidade = o DOI real (minusculo); sem DOI, so quando as duas listas trazem o mesmo titulo
+#: normalizado + a mesma PUBLISHED_AT (o mesmo registo copiado). Titulo igual com DOI diferente
+#: NAO e o mesmo estudo (preprint != artigo, ficheiro suplementar != artigo): fica.
+#: O melhor = mais campos com valor (nao ignorancia); empate -> scienceCorpus; depois o ACERVO_ID.
+COLECOES_DE_CIENCIA = ("scienceCorpus", "scienceRecords")
+DUPLICADO_PORQUE = ("o mesmo estudo (%s) ja entra pela copia %s, com mais campos com valor (%d contra %d): "
+                    "uma copia pior nao e artigo novo")
+
+
+def _chave_do_estudo(x: dict, r: dict):
+    d = r.get("DOI")
+    if not _ign(d) and str(d).strip().lower().startswith("10."):
+        return "DOI:" + str(d).strip().lower().rstrip(".")
+    t = re.sub(r"\W+", " ", str(r.get("TITLE") or "").lower()).strip()
+    if t and not _ign(r.get("PUBLISHED_AT")):
+        return "SEM_DOI:%s|%s" % (t, r.get("PUBLISHED_AT"))
+    return None
+
+
+def _cheios(r: dict) -> int:
+    return sum(1 for v in r.values() if not _ign(v) and v not in ([], {}, False))
+
+
+def duplicados_da_ciencia(lista: list, regs: dict) -> dict:
+    """-> {ACERVO_ID descartado: (ACERVO_ID que fica, chave, cheios_fica, cheios_sai)}."""
+    grupos = {}
+    for x in lista:
+        if _colecao(x) not in COLECOES_DE_CIENCIA:
+            continue
+        k = _chave_do_estudo(x, regs[x["ACERVO_ID"]])
+        if k:
+            grupos.setdefault(k, []).append(x["ACERVO_ID"])
+    sai = {}
+    for k, ids in grupos.items():
+        if len(ids) < 2:
+            continue
+        if k.startswith("SEM_DOI:") and len({i.split("::")[1] for i in ids}) < 2:
+            continue   # sem DOI, so a mesma copia nas DUAS listas
+        ordem = sorted(ids, key=lambda i: (-_cheios(regs[i]), i.split("::")[1] != "scienceCorpus", i))
+        fica = ordem[0]
+        for i in ordem[1:]:
+            sai[i] = (fica, k, _cheios(regs[fica]), _cheios(regs[i]))
+    return sai
+
+
 def nomeia_palavra_da_collection(item: dict) -> list:
     escopo = json.dumps({"ITEM_ID": item.get("ITEM_ID"), "SOURCE_ID": item.get("SOURCE_ID"),
                          "UNIVERSO": item.get("UNIVERSO")}, ensure_ascii=False).upper()
@@ -704,8 +769,15 @@ def nomeia_palavra_da_collection(item: dict) -> list:
 def correr(entrada=ENTRADA, origem=ORIGEM, hoje: date = HOJE, source_head=NAO_SEI, referencia=None) -> dict:
     e, regs = ler_entrada(Path(entrada), Path(origem))
     sha = e["ORIGEM"]["SHA256"]
-    itens, raw, como, fora_da_corrida = [], {}, {}, []
+    itens, raw, como, fora_da_corrida, duplicados = [], {}, {}, [], []
+    dup = duplicados_da_ciencia(e["LISTA"], regs)
     for x in e["LISTA"]:
+        if x["ACERVO_ID"] in dup:
+            fica, k, cf, cs = dup[x["ACERVO_ID"]]
+            duplicados.append({"ITEM_ID": x["ACERVO_ID"], "TIPO": x["TIPO"], "FICA": fica, "CHAVE": k,
+                               "MOTIVO": "DUPLICADO_DO_MESMO_ESTUDO",
+                               "DETALHE": DUPLICADO_PORQUE % (k, fica, cf, cs)})
+            continue
         it, rw, cm = ready(x, regs[x["ACERVO_ID"]], sha)
         sujo = nomeia_palavra_da_collection(it)
         if sujo:
@@ -773,6 +845,7 @@ def correr(entrada=ENTRADA, origem=ORIGEM, hoje: date = HOJE, source_head=NAO_SE
         "CAPACIDADE_DO_TIPO": CAPACIDADE_DO_TIPO,
         "CAPTURA_POR_ITEM": como,
         "FORA_DA_CORRIDA": fora_da_corrida,
+        "DUPLICADOS": duplicados,
         # o lugar que cada READY levou, onde nao e NAO SEI: a prova de que a fonte ficou no campo dela
         "LUGAR_POR_ITEM": {x["READY"]["ITEM_ID"]: {c: x["READY"][c] for c in
                                                    ("SOURCE_LOCATION", "SOURCE_LOCATION_BASIS", "FACT_LOCATION")}
@@ -869,7 +942,9 @@ def resumo(livro: dict, pote: dict) -> dict:
         t["ENTRARAM"] += 1
         if x["ACERVO_ID"] not in lin:
             t["RECUSADOS"] += 1
-            m = "NAO_ENTRA_NA_CORRIDA_G0 (SOURCE_ID com palavra da Collection)"
+            dups = {d["ITEM_ID"] for d in (livro.get("ACERVO") or {}).get("DUPLICADOS") or []}
+            m = ("DUPLICADO_DO_MESMO_ESTUDO (fica a melhor copia)" if x["ACERVO_ID"] in dups
+                 else "NAO_ENTRA_NA_CORRIDA_G0 (SOURCE_ID com palavra da Collection)")
             t["PORQUE"][m] = t["PORQUE"].get(m, 0) + 1
             continue
         l = lin[x["ACERVO_ID"]]

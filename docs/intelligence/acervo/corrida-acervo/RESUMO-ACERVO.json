@@ -1,8 +1,8 @@
 {
  "SCHEMA": "RESUMO_ACERVO_NA_INTELLIGENCE/v1",
  "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
- "INTELLIGENCE_RUN_ID": "IR-c25ca7c56d432a223e5e",
- "SOURCE_HEAD": "bca9422b657207c1c1e0a6b94cef51318698244c",
+ "INTELLIGENCE_RUN_ID": "IR-963f22b46b757e554225",
+ "SOURCE_HEAD": "08a19207bc583f139a9cb0a9aa287736cfb63f99",
  "POR_TIPO": {
   "agromet": {
    "ENTRARAM": 44,
@@ -35,10 +35,10 @@
   "ciencia": {
    "ENTRARAM": 851,
    "G0_PASSOU": 0,
-   "VIRARAM_OBJETO": 849,
-   "RECUSADOS": 2,
+   "VIRARAM_OBJETO": 763,
+   "RECUSADOS": 88,
    "PORQUE": {
-    "G0: FACT_TIME": 2
+    "DUPLICADO_DO_MESMO_ESTUDO (fica a melhor copia)": 88
    }
   },
   "evento": {
@@ -138,7 +138,7 @@
    "PORQUE_VAZIO": null
   },
   "science": {
-   "OBJETOS": 849,
+   "OBJETOS": 763,
    "RECUSADOS_AQUI": 0,
    "ESTADO": "COM_OBJETOS",
    "PORQUE_VAZIO": null
@@ -186,15 +186,15 @@
   "TEXTO_NAO_ESTA_NO_REPOSITORIO": 141
  },
  "CAP_SCI": {
-  "JULGADOS": 849,
-  "FORA": 1224,
+  "JULGADOS": 763,
+  "FORA": 1222,
   "TENTATIVAS_DE_LIGACAO_AO_ROTULO": {
-   "NOT_POSSIBLE": 849
+   "NOT_POSSIBLE": 763
   },
   "LIGACOES_PARTIAL_OU_CANDIDATE": 0,
   "APLICABILIDADE": {
    "PARCIAL": 279,
-   "TEMA_NAO_PROVADO": 570
+   "TEMA_NAO_PROVADO": 484
   }
  },
  "CAP_WIN": {
@@ -203,15 +203,15 @@
  "CAPACIDADES_EXECUTADAS": {
   "CAP-WIN": {
    "VERSION": "CAP-WIN/v1",
-   "RUN": "IR-c25ca7c56d432a223e5e"
+   "RUN": "IR-963f22b46b757e554225"
   },
   "CAP-SCI": {
    "VERSION": "CAP-SCI/v1",
-   "RUN": "IR-c25ca7c56d432a223e5e"
+   "RUN": "IR-963f22b46b757e554225"
   },
   "CAP-COMP": {
    "VIA": "CAP-COMP (coleta/concorrencia_meta.adama_no_anuncio pela porta)",
-   "RUN": "IR-c25ca7c56d432a223e5e",
+   "RUN": "IR-963f22b46b757e554225",
    "MEDIDA": {
     "REFERENCIA_ADAMA": {
      "PORTA": "motor/porta_da_referencia.py",
@@ -249,12 +249,12 @@
   },
   "CAP-MKT": {
    "VIA": "CAP-MKT (P8: pacote/pote_intelligence_casco.ler_serie)",
-   "RUN": "IR-c25ca7c56d432a223e5e"
+   "RUN": "IR-963f22b46b757e554225"
   },
   "CAP-FIELD": {
    "VIA": "CAP-FIELD (motor/voce_dal_campo)",
    "REGRA": "voce-v1",
-   "RUN": "IR-c25ca7c56d432a223e5e",
+   "RUN": "IR-963f22b46b757e554225",
    "MEDIDA": {
     "DOCUMENTOS_LIDOS": 101,
     "SEM_TEXTO_NO_REPO": 141,

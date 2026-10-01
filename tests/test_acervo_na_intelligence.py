@@ -78,7 +78,9 @@ class A_CorridaInteira(unittest.TestCase):
         linhas = {l["ITEM_ID"] for l in self.livro["LINEAGE"]}
         self.assertEqual(len(fora), 7)
         self.assertFalse(ids & linhas)
-        self.assertEqual(len(linhas) + len(fora), 2080)
+        dups = self.livro["ACERVO"]["DUPLICADOS"]
+        self.assertFalse({d["ITEM_ID"] for d in dups} & linhas)
+        self.assertEqual(len(linhas) + len(fora) + len(dups), 2080)   # ninguem some: fora + duplicado contados
         for x in fora:
             self.assertIn("API", x["DETALHE"])
 
@@ -198,7 +200,7 @@ class B_AsLeisNoPote(unittest.TestCase):
                 n += 1
                 self.assertEqual(l["FACT_TIME"], NAO_SEI, iid)
                 self.assertNotEqual(l["G0"], "PASSOU", iid)
-        self.assertEqual(n, 1300)   # 851 + 184 + 8 + 79 + 133 + 38 + 7 (6 agromet ficaram FORA_DA_CORRIDA)
+        self.assertEqual(n, 1212)   # (851 - 88 duplicados) + 184 + 8 + 79 + 133 + 38 + 7 (6 agromet FORA_DA_CORRIDA)
 
     def test_B7_prova_ate_ao_registo_de_origem(self):
         sha = self.livro["ACERVO"]["ORIGEM"]["SHA256"][:12]
@@ -271,6 +273,78 @@ class B_AsLeisNoPote(unittest.TestCase):
 def _x(col, rid="X-1", tipo="anuncio", url="https://exemplo/1"):
     return {"ACERVO_ID": f"italy-handoff-v21.js::{col}::{rid}", "TIPO": tipo, "SOURCE_IDS": ["SRC_A"],
             "URL": url}
+
+
+class D_F2Science(unittest.TestCase):
+    """LAB F2 (01/10): A placeholder de DOI, B o mesmo estudo nas duas listas do handoff."""
+    @classmethod
+    def setUpClass(cls):
+        c = corrida()
+        cls.livro, cls.pote = c["livro"], c["pote"]
+        cls.sci = objetos(cls.pote, "science")
+
+    def test_FA1_not_established_nunca_e_doi(self):
+        self.assertNotIn("NOT_ESTABLISHED", json.dumps(self.pote["COMPARTIMENTOS"]["science"], ensure_ascii=False))
+        sem = [o for o in self.sci if o["CHAVES"]["DOI"] == NAO_SEI]
+        self.assertEqual(len(sem), 85)
+        for o in sem:
+            self.assertIn("DOI", o["CHAVES_NAO_SEI"], o["OBJETO_ID"])
+
+    def test_FA2_estudo_sem_doi_continua_estudo(self):
+        # a placeholder sai e o estudo nao cai da triagem: os 85 continuam em science, sem tempo, sem acao
+        for o in self.sci:
+            self.assertEqual(o["RESULTADO"], "NO_DEFENSIBLE_ACTION_YET", o["OBJETO_ID"])
+        self.assertEqual(len(self.sci), 763)
+
+    def test_FA3_fato_traduz_a_placeholder(self):
+        r = {"DOI": "NOT_ESTABLISHED", "TITLE": "t", "ORCID": "NOT_ESTABLISHED", "AUTHOR": "Ana",
+             "INSTITUTION": "NOT_ESTABLISHED", "MATERIAL_TYPE": "PREPRINT"}
+        f = A._fato({"ACERVO_ID": "italy-handoff-v21.js::scienceCorpus::X"}, r)
+        self.assertEqual(f["doi"], NAO_SEI)
+        self.assertEqual(f["institutions"], NAO_SEI)
+        self.assertEqual(f["authors"], "Ana")
+        f = A._fato({"ACERVO_ID": "italy-handoff-v21.js::scienceCorpus::X"}, dict(r, DOI="10.1/x"))
+        self.assertEqual(f["doi"], "10.1/x")          # contraprova: DOI real passa
+
+    def test_FB1_um_doi_um_objeto(self):
+        d = {}
+        for o in self.sci:
+            if o["CHAVES"]["DOI"] != NAO_SEI:
+                d.setdefault(o["CHAVES"]["DOI"].lower(), []).append(o["OBJETO_ID"])
+        self.assertEqual({k: v for k, v in d.items() if len(v) > 1}, {})
+
+    def test_FB2_duplicado_contado_e_fica_o_melhor(self):
+        dups = self.livro["ACERVO"]["DUPLICADOS"]
+        self.assertEqual(len(dups), 88)
+        e, regs = A.ler_entrada()
+        for x in dups:
+            self.assertEqual(x["MOTIVO"], "DUPLICADO_DO_MESMO_ESTUDO")
+            self.assertGreaterEqual(A._cheios(regs[x["FICA"]]), A._cheios(regs[x["ITEM_ID"]]), x["ITEM_ID"])
+            self.assertNotEqual(x["FICA"], x["ITEM_ID"])
+
+    def test_FB3_regra_do_duplicado(self):
+        L = lambda c, i: {"ACERVO_ID": "italy-handoff-v21.js::%s::%s" % (c, i)}
+        lista = [L("scienceCorpus", "a"), L("scienceRecords", "b"), L("scienceCorpus", "c"),
+                 L("scienceCorpus", "d"), L("scienceRecords", "e"), L("scienceCorpus", "f")]
+        regs = {lista[0]["ACERVO_ID"]: {"DOI": "10.1/X", "TITLE": "T", "PROVED_CROP": "VINE"},
+                lista[1]["ACERVO_ID"]: {"DOI": "10.1/x", "TITLE": "T"},
+                # titulo igual, DOI diferente (preprint vs artigo): NAO e duplicado
+                lista[2]["ACERVO_ID"]: {"DOI": "10.1/y", "TITLE": "T"},
+                # sem DOI, mesmo titulo + mesma data nas DUAS listas: duplicado
+                lista[3]["ACERVO_ID"]: {"DOI": "NOT_ESTABLISHED", "TITLE": "U", "PUBLISHED_AT": "2022-12-01", "V": 1},
+                lista[4]["ACERVO_ID"]: {"DOI": None, "TITLE": "U", "PUBLISHED_AT": "2022-12-01"},
+                # sem DOI, mesmo titulo, so numa lista: NAO (nao se adivinha)
+                lista[5]["ACERVO_ID"]: {"DOI": "NOT_ESTABLISHED", "TITLE": "U", "PUBLISHED_AT": "2022-12-01"}}
+        sai = A.duplicados_da_ciencia(lista, regs)
+        self.assertEqual(sai[lista[1]["ACERVO_ID"]][0], lista[0]["ACERVO_ID"])
+        self.assertNotIn(lista[2]["ACERVO_ID"], sai)
+        self.assertNotIn(lista[0]["ACERVO_ID"], sai)
+        self.assertIn(lista[4]["ACERVO_ID"], sai)
+        self.assertIn(lista[5]["ACERVO_ID"], sai)      # 3 copias: 2 listas -> o grupo e o mesmo estudo
+        self.assertNotIn(lista[3]["ACERVO_ID"], sai)   # a mais cheia fica
+        self.assertEqual(A.duplicados_da_ciencia(lista[5:], regs), {})
+        # sem DOI, mesmo titulo+data mas as duas copias na MESMA lista: nao se adivinha (mata M4)
+        self.assertEqual(A.duplicados_da_ciencia([lista[3], lista[5]], regs), {})
 
 
 class C_AsRegras(unittest.TestCase):
