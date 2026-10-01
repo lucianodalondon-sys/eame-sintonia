@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -34,6 +35,17 @@ def comando_de_backup(dsn: str, ficheiro: Path) -> list[str]:
     """O comando exacto do backup_sala.cmd — o que se corre IMEDIATAMENTE antes da micro."""
     return [str(E.PG_BIN / ("pg_dump.exe" if os.name == "nt" else "pg_dump")), "-Fc", "-Z", "6",
             "--no-owner", "--no-privileges", "-f", str(ficheiro), dsn]
+
+
+def saida_recusada(texto: str) -> str | None:
+    """A limpeza apaga <saida>/pg sem perguntar: com --saida vazia seria ./pg de onde se corre, com a raiz
+    de um disco seria C:/pg. Recusa-se antes de tocar em qualquer coisa (a Sala incluida)."""
+    if not texto.strip():
+        return "SAIDA_VAZIA"
+    p = Path(texto).resolve()
+    if p == Path(p.anchor):
+        return "SAIDA_E_A_RAIZ_DE_UM_DISCO"
+    return None
 
 
 def _pg(nome: str) -> str:
@@ -67,6 +79,8 @@ def provar(dsn_real: str, saida: Path, *, com_a_copia=None, ler_real_do_ficheiro
     esteira le a Intelligence dali, nunca da Sala: RUNBOOK-R7 §1). O que ele devolve fica em
     `COM_A_COPIA`. `ler_real_do_ficheiro=False`: a fotografia da Sala real usa `dsn_real` em vez
     do SALA_DSN.txt (o servico ja tem o endereco no ambiente)."""
+    if saida_recusada(str(saida)):
+        raise ValueError("SAIDA RECUSADA: %s (%s)" % (saida_recusada(str(saida)), saida))
     saida.mkdir(parents=True, exist_ok=True)
     real = None if ler_real_do_ficheiro else dsn_real
     foto_real_antes = _fotografia_de(real)
@@ -77,6 +91,11 @@ def provar(dsn_real: str, saida: Path, *, com_a_copia=None, ler_real_do_ficheiro
     lista = subprocess.run([_pg("pg_restore"), "-l", str(dump)],
                            capture_output=True, text=True, encoding="utf-8", errors="replace")
     base = E.Base(saida / "pg")
+    # Sobra de uma prova interrompida a meio (ciclo morto, kill, queda) nao pode travar esta:
+    # o initdb recusa uma pasta que ja existe e nao esta vazia, e um Postgres deixado de pe
+    # por um ciclo morto segura os ficheiros. Desce-se o que ficou e limpa-se antes de comecar.
+    base.descer()
+    shutil.rmtree(base.pasta, ignore_errors=True)
     resultado = {"QUANDO": E.agora(), "DUMP": str(dump), "PG_DUMP_CODIGO": r.returncode,
                  "PG_DUMP_ERRO": r.stderr[-300:], "BYTES": dump.stat().st_size if dump.exists() else 0,
                  "INDICE_TEM_SALA_DE_ESPERA": "sala_de_espera" in lista.stdout,
@@ -164,9 +183,12 @@ def podar(raiz: Path, em_curso: Path, guardar: int = 3) -> dict:
 
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
-    saida = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--saida=")),
-                 Path(os.environ.get("TEMP", "/tmp")) / ("prova-backup-sala-" +
-                                                         datetime.now().strftime("%Y%m%d-%H%M%S")))
+    pedida = next((a.split("=", 1)[1] for a in argv if a.startswith("--saida=")), None)
+    if pedida is not None and saida_recusada(pedida):
+        print(json.dumps({"RECUSADO": saida_recusada(pedida), "SAIDA": pedida}, ensure_ascii=False), flush=True)
+        return 2
+    saida = Path(pedida) if pedida is not None else (
+        Path(os.environ.get("TEMP", "/tmp")) / ("prova-backup-sala-" + datetime.now().strftime("%Y%m%d-%H%M%S")))
     resultado = provar(MC._dsn(), saida)
     print(json.dumps({k: resultado[k] for k in ("PG_DUMP_CODIGO", "BYTES", "INDICE_TEM_SALA_DE_ESPERA",
                                                   "SALA_REAL_MUDOU_DURANTE_O_DUMP", "IGUAL_A_SALA_REAL",
