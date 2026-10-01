@@ -196,6 +196,14 @@ CONFERENCIAS_CONHECIMENTO = ("K1_PROVA_DO_DOCUMENTO", "K2_OBRA_CIENTIFICA_DECLAR
 #: inferido do texto. Fora da lista (editorial, erratum, letter, paratext, ...) nao e estudo -> fica bloqueado.
 TIPOS_DE_OBRA_CIENTIFICA = ("article", "review", "preprint", "conference-paper", "conference-abstract", "dataset",
                             "data-paper", "dissertation", "book-chapter", "report")
+#: P1/1B CAP-SCI (dono 01/10 «rotear primeiro»): obra que a fonte DECLARA nao-primaria. Nao e estudo -> nunca vai ao
+#: cliente como evidencia; mas e obra cientifica com identidade -> PRESERVA-SE em science (Biblia CAP-SCI: forca
+#: NAO_APLICAVEL, «nao e evidencia primaria»). So entra aqui tipo que apareceu nos 313 (editorial, 5 casos).
+TIPOS_DE_OBRA_SECUNDARIA = ("editorial",)
+#: P1/1B: CAP-SCI so sustenta leitura para decisao quando o TEMA esta provado (cultura E problema, motor
+#: capacidade_cientifica.julgar_estudo). TEMA_NAO_PROVADO = conhecimento guardado, nao material de cliente.
+APLICABILIDADE_PARA_CLIENTE = ("PARCIAL", "COMPLETA")
+DESTINO_CLIENTE, DESTINO_PRESERVADO, DESTINO_BLOQUEADO = "LIBERADO_PARA_CLIENTE", "PRESERVADO_EM_SCIENCE", "BLOQUEADO"
 _DOI = re.compile(r"^10\.\d{4,9}/\S+$")
 _OBRA_OPENALEX = re.compile(r"^https?://openalex\.org/W\d+$")
 
@@ -266,8 +274,13 @@ def conferir_conhecimento(o: dict, comp: str, linhas: dict, armazem: Path | None
     #      «parece» ciencia. Pagina institucional, noticia, editorial, obituario-sem-tipo: nao passam.
     doc = str(p0.get("DOCUMENT_ID"))
     tipo = (registo or {}).get("type")
+    secundaria = False
     if not (_DOI.match(doc) or _OBRA_OPENALEX.match(doc)):
         c["K2_OBRA_CIENTIFICA_DECLARADA_PELA_FONTE"] = "FALHOU: DOCUMENT_ID nao e identidade de obra (DOI/OpenAlex)"
+    elif tipo in TIPOS_DE_OBRA_SECUNDARIA:
+        secundaria = True
+        c["K2_OBRA_CIENTIFICA_DECLARADA_PELA_FONTE"] = (
+            "FALHOU: tipo da obra no registo da fonte = %r (obra secundaria: nao e evidencia primaria)" % (tipo,))
     elif tipo not in TIPOS_DE_OBRA_CIENTIFICA:
         c["K2_OBRA_CIENTIFICA_DECLARADA_PELA_FONTE"] = "FALHOU: tipo da obra no registo da fonte = %r" % (tipo,)
     else:
@@ -295,11 +308,28 @@ def conferir_conhecimento(o: dict, comp: str, linhas: dict, armazem: Path | None
     c["K7_SO_SAIDA_DA_INTELLIGENCE"] = (PASSOU if o.get("ESPECIE_DITA_POR") == "INTELLIGENCE" and prova
                                         and all(_sabido(p.get("ITEM_ID")) for p in prova)
                                         else "FALHOU: nao e objeto da Intelligence com item da Sala")
-    ok = all(c[x] == PASSOU for x in CONFERENCIAS_CONHECIMENTO)
+    # K8 — CAP-SCI (Biblia §34, motor capacidade_cientifica.julgar_estudo): sem CULTURA e PROBLEMA provados o estudo
+    #      nao tem leitura («SEM_LEITURA_TEMA_NAO_PROVADO»). Guarda-se em science; nao e material de cliente.
+    aplic = (((o.get("FORA_DO_CONTRATO") or {}).get("INTERPRETACAO_DO_SISTEMA") or {}).get("APLICABILIDADE")
+             or {}).get("ESTADO", NS)
+    c["K8_TEMA_PROVADO_CAP_SCI"] = (PASSOU if aplic in APLICABILIDADE_PARA_CLIENTE else
+                                    "FALHOU: APLICABILIDADE=%s (CAP-SCI: sem cultura e problema provados nao ha "
+                                    "leitura para decisao)" % (aplic,))
+    ok = all(c[x] == PASSOU for x in CONFERENCIAS_CONHECIMENTO) and c["K8_TEMA_PROVADO_CAP_SCI"] == PASSOU
+    # PRESERVAR: a obra e provada (byte, identidade DOI/OpenAlex, titulo literal, sem tempo, unica, da Intelligence)
+    # mas a CAP-SCI nao a deixa ir ao cliente (obra secundaria declarada pela fonte ou tema nao provado). Nao e
+    # bloqueio nem liberacao: e conhecimento guardado em science, NAO_PARA_CLIENTE, NO_DEFENSIBLE_ACTION_YET.
+    prova_da_obra = (all(c[x] == PASSOU for x in ("K1_PROVA_DO_DOCUMENTO", "K3_SEM_USO_QUE_EXIGE_TEMPO",
+                                                   "K5_SEM_OBRA_DUPLICADA", "C6_ESPECIE_DO_COMPARTIMENTO",
+                                                   "K7_SO_SAIDA_DA_INTELLIGENCE"))
+                     and (c["K2_OBRA_CIENTIFICA_DECLARADA_PELA_FONTE"] == PASSOU or secundaria))
+    c["DESTINO"] = DESTINO_CLIENTE if ok else (DESTINO_PRESERVADO if prova_da_obra else DESTINO_BLOQUEADO)
+    falhas = [x for x in CONFERENCIAS_CONHECIMENTO + ("K8_TEMA_PROVADO_CAP_SCI",) if c[x] != PASSOU]
     c["C8_DECISAO_DO_DONO"] = (PASSOU + " · " + REGRA + " · " + REGUA_CONHECIMENTO + " · " + DECISAO) if ok else \
-        "FALHOU: %s (%s) so libera com todas PASSOU (falhou: %s)" % (
-            REGRA, REGUA_CONHECIMENTO, ", ".join(x for x in CONFERENCIAS_CONHECIMENTO if c[x] != PASSOU))
-    if ok:
+        "FALHOU: %s (%s) so libera com todas PASSOU (falhou: %s)%s" % (
+            REGRA, REGUA_CONHECIMENTO, ", ".join(falhas),
+            " -> PRESERVADO_EM_SCIENCE (obra provada, nao vai ao cliente)" if prova_da_obra else "")
+    if ok or prova_da_obra:
         vistos.add(k)
         c["_TITULO_EM"] = titulo_em
         c["_TITULO"] = (registo or {}).get("title") or (registo or {}).get("display_name")
@@ -320,12 +350,20 @@ def liberar(pote: dict, linhas: dict, armazem: Path | None, run_id: str) -> tupl
         for o in e["OBJETOS"]:
             c = conferir_por_natureza(o, comp, linhas, armazem, vistos, cache)
             ok = c["C8_DECISAO_DO_DONO"].startswith(PASSOU)
+            c.setdefault("DESTINO", DESTINO_CLIENTE if ok else DESTINO_BLOQUEADO)
+            preservado = c["DESTINO"] == DESTINO_PRESERVADO
             titulo, titulo_em = c.pop("_TITULO", None), c.pop("_TITULO_EM", None)
             o["LIBERACAO"] = "LIBERADO_PARA_CLIENTE" if ok else "NAO_PARA_CLIENTE"
             o["CONFERENCIA_DE_LIBERACAO"] = c
             o["LIBERADO_POR"] = REGRA if ok else NS
             o["LIBERADO_NA_CORRIDA"] = run_id
-            if ok and c["REGUA"] == REGUA_CONHECIMENTO:
+            if preservado:
+                # CAP-SCI: valor guardado em science, nunca cliente; a prova cita a obra (titulo literal)
+                o["DESTINO_DO_OBJETO"] = DESTINO_PRESERVADO
+                o["NATUREZA_DO_OBJETO"] = "CONHECIMENTO"
+                for p in o["PROVA"]:
+                    p.update({"TRECHO_DA_AFIRMACAO": titulo, "SECAO": {"AFIRMACAO_EM": titulo_em}})
+            elif ok and c["REGUA"] == REGUA_CONHECIMENTO:
                 # conhecimento: a prova cita a OBRA (titulo literal, com posicao) — nunca data/lugar de fato
                 for p in o["PROVA"]:
                     p.update({"TRECHO_DA_AFIRMACAO": titulo, "SECAO": {"AFIRMACAO_EM": titulo_em}})
@@ -382,7 +420,9 @@ def entregar(pote_cliente: dict, pote_todo: dict, conf: dict, entrega: Path, ext
                                            encoding="utf-8", newline="\n")
     w("POTE.json", pote_cliente)
     w("POTE-EXPERIMENTAL.json", pote_todo)
-    bloq = {oid: c for oid, c in conf.items() if c["LIBERACAO"] != "LIBERADO_PARA_CLIENTE"}
+    bloq = {oid: c for oid, c in conf.items() if c["LIBERACAO"] != "LIBERADO_PARA_CLIENTE"
+            and c.get("DESTINO") != DESTINO_PRESERVADO}
+    pres = [oid for oid, c in conf.items() if c.get("DESTINO") == DESTINO_PRESERVADO]
     w("BLOQUEADOS.json", {"REGRA": REGRA, "N": len(bloq), "OBJETOS": bloq})
     man = dict(extra, INTELLIGENCE_RUN_ID=pote_cliente.get("INTELLIGENCE_RUN_ID"),
                RESULT_STATE=pote_cliente.get("RESULT_STATE"), CORRIDA_SINTETICA=pote_cliente.get("CORRIDA_SINTETICA"),
@@ -396,6 +436,8 @@ def entregar(pote_cliente: dict, pote_todo: dict, conf: dict, entrega: Path, ext
                      "CONTRATO": pote_cliente.get("SCHEMA"), "OBJETOS_LIBERADOS": pote_cliente["OBJETOS_LIBERADOS"]},
                POTE_EXPERIMENTAL={"ARQUIVO": "POTE-EXPERIMENTAL.json", "SHA256_ARQUIVO": _sha(nova / "POTE-EXPERIMENTAL.json")},
                BLOQUEADOS=len(bloq), VALIDAR_POTE_V2="PASSA",
+               # CAP-SCI (P1/1B): obras provadas guardadas em science, NAO_PARA_CLIENTE, fora de BLOQUEADOS
+               PRESERVADOS_EM_SCIENCE=pres,
                # K2 · EIXO 2 no manifesto: onde este pote pode aparecer (nunca producao por esta via, D141)
                AMBIENTE=pote_cliente.get("AMBIENTE", NS), PRODUCAO=pote_cliente.get("PRODUCAO", NS),
                EIXOS=pote_cliente.get("EIXOS", NS),

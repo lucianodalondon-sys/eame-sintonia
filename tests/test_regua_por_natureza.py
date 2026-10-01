@@ -42,7 +42,7 @@ class Base(unittest.TestCase):
         L.PORTA.conferir_ligacao = self._lig
         self.tmp.cleanup()
 
-    def obra(self, doc, tipo, item="SINT-1", titulo=TITULO, texto=TEXTO):
+    def obra(self, doc, tipo, item="SINT-1", titulo=TITULO, texto=TEXTO, aplic="PARCIAL"):
         raw = json.dumps({"title": titulo, "type": tipo}).encode("utf-8")
         nome = hashlib.sha256(raw).hexdigest()[:12] + ".json"
         (self.armazem / nome).write_bytes(raw)
@@ -55,7 +55,8 @@ class Base(unittest.TestCase):
                        "FACT_TIME": "NAO SEI", "RAW_SHA256": self.linhas[item]["raw_sha256"],
                        "RAW_STORAGE_PATH": nome}],
             "FORA_DO_CONTRATO": {"ESPECIE_DO_MOTOR": "CONHECIMENTO/ESTUDO (uso sem tempo, P7)",
-                                 "INTERPRETACAO_DO_SISTEMA": {"USO": {"G0_FALTA": ["FACT_TIME"]}}}}
+                                 "INTERPRETACAO_DO_SISTEMA": {"USO": {"G0_FALTA": ["FACT_TIME"]},
+                                                              "APLICABILIDADE": {"ESTADO": aplic}}}}
 
     def conferir(self, o, comp="science", vistos=None):
         return L.conferir_por_natureza(o, comp, self.linhas, self.armazem, set() if vistos is None else vistos, {})
@@ -157,6 +158,66 @@ class ReguaDeConhecimento(Base):
         self.assertNotIn("TRECHO_DO_LUGAR", p)
         self.assertEqual(o["RESULTADO"], "NO_DEFENSIBLE_ACTION_YET")
         self.assertIs(o["USO_EXIGE_TEMPO"], False)
+
+
+class CapSciRotaDeDestino(Base):
+    """P1/1B (dono 01/10, PASSO 1 CAP-SCI): a CAP-SCI decide o DESTINO de uma obra provada — cliente so com tema
+    provado; tema nao provado ou obra secundaria declarada (editorial) = PRESERVADO_EM_SCIENCE, nunca cliente;
+    sem identidade de obra (pagina institucional) continua BLOQUEADO."""
+
+    def test_tema_nao_provado_nao_vai_ao_cliente(self):
+        c = self.conferir(self.obra("10.9999/sint.10", "article", item="SINT-10", aplic="TEMA_NAO_PROVADO"))
+        self.assertTrue(c["K8_TEMA_PROVADO_CAP_SCI"].startswith("FALHOU"))
+        self.assertTrue(c["C8_DECISAO_DO_DONO"].startswith("FALHOU"))
+        self.assertEqual(c["DESTINO"], L.DESTINO_PRESERVADO)
+
+    def test_aplicabilidade_ausente_e_nao_sei_nao_cliente(self):
+        o = self.obra("10.9999/sint.11", "article", item="SINT-11")
+        del o["FORA_DO_CONTRATO"]["INTERPRETACAO_DO_SISTEMA"]["APLICABILIDADE"]
+        c = self.conferir(o)
+        self.assertIn("NAO SEI", c["K8_TEMA_PROVADO_CAP_SCI"])
+        self.assertNotEqual(c["DESTINO"], L.DESTINO_CLIENTE)
+
+    def test_tema_provado_continua_a_ir_ao_cliente(self):
+        c = self.conferir(self.obra("10.9999/sint.12", "article", item="SINT-12", aplic="COMPLETA"))
+        self.assertEqual(c["DESTINO"], L.DESTINO_CLIENTE)
+        self.assertTrue(c["C8_DECISAO_DO_DONO"].startswith(L.PASSOU))
+
+    def test_editorial_e_preservado_nao_cliente(self):
+        c = self.conferir(self.obra("10.9999/sint.13", "editorial", item="SINT-13"))
+        self.assertTrue(c["C8_DECISAO_DO_DONO"].startswith("FALHOU"))
+        self.assertEqual(c["DESTINO"], L.DESTINO_PRESERVADO)
+
+    def test_tipo_desconhecido_continua_bloqueado(self):
+        c = self.conferir(self.obra("10.9999/sint.14", "erratum", item="SINT-14"))
+        self.assertEqual(c["DESTINO"], L.DESTINO_BLOQUEADO)
+
+    def test_pagina_institucional_continua_bloqueada(self):
+        c = self.conferir(self.obra("SRC:URL:noticia-sintetica-2", "article", item="SINT-15"))
+        self.assertEqual(c["DESTINO"], L.DESTINO_BLOQUEADO)
+
+    def test_titulo_fora_do_texto_nao_e_preservado(self):
+        c = self.conferir(self.obra("10.9999/sint.16", "article", item="SINT-16", texto="outro",
+                                    aplic="TEMA_NAO_PROVADO"))
+        self.assertEqual(c["DESTINO"], L.DESTINO_BLOQUEADO)
+
+    def test_preservado_fica_no_pote_experimental_nao_para_cliente_com_titulo_literal(self):
+        o = self.liberar(self.obra("10.9999/sint.17", "article", item="SINT-17", aplic="TEMA_NAO_PROVADO"))[0]
+        self.assertEqual(o["LIBERACAO"], "NAO_PARA_CLIENTE")
+        self.assertEqual(o["DESTINO_DO_OBJETO"], L.DESTINO_PRESERVADO)
+        p = o["PROVA"][0]
+        self.assertEqual(TEXTO[p["SECAO"]["AFIRMACAO_EM"]:][:len(p["TRECHO_DA_AFIRMACAO"])], p["TRECHO_DA_AFIRMACAO"])
+        self.assertNotIn("TRECHO_DA_DATA", p)
+        self.assertEqual(L.so_liberados({"COMPARTIMENTOS": {"science": {"OBJETOS": [o]}}})["OBJETOS_LIBERADOS"], 0)
+
+    def test_mesma_obra_preservada_nao_conta_duas_vezes(self):
+        a = self.obra("10.9999/sint.18", "article", item="SINT-18", aplic="TEMA_NAO_PROVADO")
+        b = copy.deepcopy(a)
+        b["OBJETO_ID"] = "SINT-O-dup18"
+        x, y = self.liberar(a, b)
+        self.assertEqual(x["DESTINO_DO_OBJETO"], L.DESTINO_PRESERVADO)
+        self.assertNotIn("DESTINO_DO_OBJETO", y)
+        self.assertEqual(y["CONFERENCIA_DE_LIBERACAO"]["DESTINO"], L.DESTINO_BLOQUEADO)
 
 
 if __name__ == "__main__":
