@@ -255,6 +255,9 @@ def entregar(pote_cliente: dict, pote_todo: dict, conf: dict, entrega: Path, ext
                      "CONTRATO": pote_cliente.get("SCHEMA"), "OBJETOS_LIBERADOS": pote_cliente["OBJETOS_LIBERADOS"]},
                POTE_EXPERIMENTAL={"ARQUIVO": "POTE-EXPERIMENTAL.json", "SHA256_ARQUIVO": _sha(nova / "POTE-EXPERIMENTAL.json")},
                BLOQUEADOS=len(bloq), VALIDAR_POTE_V2="PASSA",
+               # K2 · EIXO 2 no manifesto: onde este pote pode aparecer (nunca producao por esta via, D141)
+               AMBIENTE=pote_cliente.get("AMBIENTE", NS), PRODUCAO=pote_cliente.get("PRODUCAO", NS),
+               EIXOS=pote_cliente.get("EIXOS", NS),
                LIBERADOS=[oid for oid, c in conf.items() if c["LIBERACAO"] == "LIBERADO_PARA_CLIENTE"])
     w("MANIFESTO.json", man)
     (nova / "SHA256SUMS.txt").write_text("".join("%s *%s\n" % (_sha(nova / n), n) for n in
@@ -302,6 +305,8 @@ def main(argv=None) -> int:
     run = pote.get("INTELLIGENCE_RUN_ID", NS)
     por_item = {str(l["item_id"]): l for l in limpo["LINHAS"]}
     todo, conf = liberar(pote, por_item, Path(x.armazem), run)
+    # K2 (01/10): os DOIS eixos — o objeto diz uma coisa sobre o cliente (LIBERACAO), a raiz diz o ambiente
+    todo = P.aplicar_eixos(todo)
     cliente = so_liberados(todo)
     for nome, p in (("EXPERIMENTAL", todo), ("PARA_CLIENTE", cliente)):
         v = P.conferir_pote(p) + VP.validar(p)

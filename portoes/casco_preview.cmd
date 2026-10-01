@@ -1,0 +1,37 @@
+@echo off
+rem SINTONIA-CASCO-PREVIEW (D156, coordenador 29/09) - UMA RODADA do gatilho do preview.
+rem A tarefa agendada do Windows SINTONIA-CASCO-PREVIEW chama este ficheiro a cada 10 minutos.
+rem Ela publica SO no PREVIEW, e so quando o MANIFESTO/SHA256SUMS de PARA-O-CASCO/ mudou e conferem.
+rem
+rem   DESLIGAR (bandeira): criar o ficheiro  %SINTONIA_CASCO%\estado\PARAR   -> cada rodada diz PARADO e nao publica
+rem   RELIGAR:             apagar esse ficheiro
+rem   PAUSAR A TAREFA:     schtasks /change /tn SINTONIA-CASCO-PREVIEW /disable     (voltar: /enable)
+rem   REMOVER A TAREFA:    schtasks /delete /tn SINTONIA-CASCO-PREVIEW /f
+rem   VER O REGISTO:       %SINTONIA_CASCO%\estado\RODADAS.ndjson  (uma linha por rodada)  e  tarefa.log
+rem   O PREVIEW ATUAL:     %SINTONIA_PREVIEW_ATUAL% (URL, deployment, os dois sha do pote) - o LAB le daqui
+rem
+rem Producao: nao existe caminho. O gatilho so aceita --modo ensaio/preview (recusa producao antes do publicador),
+rem e o implantador do preview publica num endereco de deployment, nunca no CANONICAL_HOST.
+setlocal
+if not defined SINTONIA_CASCO set "SINTONIA_CASCO=%USERPROFILE%\sintonia-casco-preview"
+if not exist "%SINTONIA_CASCO%\estado" mkdir "%SINTONIA_CASCO%\estado"
+if not defined SINTONIA_PREVIEW_ATUAL set "SINTONIA_PREVIEW_ATUAL=%USERPROFILE%\auditoria-madrugada\PREVIEW-ATUAL.json"
+rem Publicar e trabalho PESADO: a rodada pega a LOCK-PESADO da maquina antes, solta depois; de outro = espera.
+if not defined SINTONIA_LOCK_PESADO set "SINTONIA_LOCK_PESADO=%USERPROFILE%\auditoria-madrugada\LOCK-PESADO.txt"
+rem O PATH de uma tarefa agendada NAO e o do terminal: a cadeia do mapa usa `tr` e outras ferramentas do Git (usr\bin).
+rem Medido 29/09 11:46: sem usr\bin o C3 reprovou (git ls-files -z ^| tr ... saiu 255). O portao barrou; nada foi ao ar.
+rem usr\bin vai no FIM: la ha um find/sort do Unix que, a frente, taparia os do Windows.
+set "PATH=%SINTONIA_CASCO%\venv\Scripts;%ProgramFiles%\nodejs;%APPDATA%\npm;%ProgramFiles%\Git\cmd;%PATH%;%ProgramFiles%\Git\mingw64\bin;%ProgramFiles%\Git\usr\bin"
+rem Numa tarefa agendada a variavel chama-se «Path»; no terminal, «PATH». Medido 29/09 (tarefa descartavel): um
+rem ambiente copiado com PATH novo fica com as DUAS chaves (Path e PATH). O vercel build falhou na tarefa com
+rem «spawn cmd.exe ENOENT» e funcionou no terminal; a unica diferenca medida e esta. Uma chave so, PATH:
+set "_P=%PATH%"
+set "Path="
+set "PATH=%_P%"
+set "_P="
+set "PYTHONUTF8=1"
+set "PYTHONUNBUFFERED=1"
+set "PYTHONDONTWRITEBYTECODE=1"
+cd /d "%~dp0.."
+python3 portoes\publicar_preview_da_pasta.py --rodada --modo preview --estado "%SINTONIA_CASCO%\estado" --preview-atual "%SINTONIA_PREVIEW_ATUAL%" --lock-pesado "%SINTONIA_LOCK_PESADO%" >> "%SINTONIA_CASCO%\estado\tarefa.log" 2>&1
+endlocal

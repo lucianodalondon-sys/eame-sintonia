@@ -1,0 +1,325 @@
+{
+ "MUTANTES": [
+  {
+   "MUTANTE": "M1 gatilho aceita producao",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_producao_e_recusada_antes_do_publicador (tests.test_publicar_preview_da_pasta.G2_SoPreview.test_producao_e_recusada_antes_do_publicador)"
+   ]
+  },
+  {
+   "MUTANTE": "M2 nao confere o sha de cada linha",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_byte_trocado_depois_da_soma (tests.test_publicar_preview_da_pasta.G1_Incompleta.test_byte_trocado_depois_da_soma)"
+   ]
+  },
+  {
+   "MUTANTE": "M3 aceita SHA256SUMS a meio",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_sha256sums_a_meio (tests.test_publicar_preview_da_pasta.G1_Incompleta.test_sha256sums_a_meio)",
+    "FAIL: test_a_completa_mais_recente_vence_e_a_incompleta_nao_conta (tests.test_publicar_preview_da_pasta.G3_ARaiz.test_a_completa_mais_recente_vence_e_a_incompleta_nao_conta)"
+   ]
+  },
+  {
+   "MUTANTE": "M4 pote fora da soma passa",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "ERROR: test_pote_para_cliente_fora_da_soma (tests.test_publicar_preview_da_pasta.G1_Incompleta.test_pote_para_cliente_fora_da_soma)"
+   ]
+  },
+  {
+   "MUTANTE": "M5 sha do manifesto ignorado",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_sha_do_manifesto_diferente_do_ficheiro (tests.test_publicar_preview_da_pasta.G1_Incompleta.test_sha_do_manifesto_diferente_do_ficheiro)"
+   ]
+  },
+  {
+   "MUTANTE": "M6 servidor local ignora o redirect",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_o_servidor_local_cumpre_o_redirect_antes_do_ficheiro (tests.test_publicar_portal_sozinho.P1_AsTelas.test_o_servidor_local_cumpre_o_redirect_antes_do_ficheiro)"
+   ]
+  },
+  {
+   "MUTANTE": "M7 casa que abre passa na conferencia",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_casa_nao_medida_bloqueia (tests.test_publicar_portal_sozinho.P1_AsTelas.test_casa_nao_medida_bloqueia)",
+    "FAIL: test_casa_que_ainda_abre_bloqueia (tests.test_publicar_portal_sozinho.P1_AsTelas.test_casa_que_ainda_abre_bloqueia)",
+    "FAIL: test_casa_redirecionada_para_outro_sitio_bloqueia (tests.test_publicar_portal_sozinho.P1_AsTelas.test_casa_redirecionada_para_outro_sitio_bloqueia)"
+   ]
+  },
+  {
+   "MUTANTE": "M8 vercel.json sem o redirect da casa",
+   "FICHEIRO": "vercel.json",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_o_vercel_json_redireciona_a_casa_para_a_porta (tests.test_publicar_portal_sozinho.P1_AsTelas.test_o_vercel_json_redireciona_a_casa_para_a_porta)"
+   ]
+  },
+  {
+   "MUTANTE": "M9 RESULT_STATE ignorado",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_result_state_ruim_nao_chama (tests.test_publicar_preview_da_pasta.G4_AEntregaDaL2.test_result_state_ruim_nao_chama)"
+   ]
+  },
+  {
+   "MUTANTE": "M10 congela sem medir de novo",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_pote_trocado_depois_da_conferencia_nao_vai (tests.test_publicar_preview_da_pasta.G4_AEntregaDaL2.test_pote_trocado_depois_da_conferencia_nao_vai)"
+   ]
+  },
+  {
+   "MUTANTE": "M11 publica a pasta viva e nao a copia",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_entrega_l2_completa_publica_a_copia_congelada (tests.test_publicar_preview_da_pasta.G4_AEntregaDaL2.test_entrega_l2_completa_publica_a_copia_congelada)"
+   ]
+  },
+  {
+   "MUTANTE": "M12 default deixa de ser a entrega",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_entrega_l2_completa_publica_a_copia_congelada (tests.test_publicar_preview_da_pasta.G4_AEntregaDaL2.test_entrega_l2_completa_publica_a_copia_congelada)"
+   ]
+  },
+  {
+   "MUTANTE": "M13 fotografo esquece as redirecionadas",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_o_fotografo_visita_toda_tela_que_uma_conferencia_le (tests.test_publicar_portal_sozinho.P1_AsTelas.test_o_fotografo_visita_toda_tela_que_uma_conferencia_le)"
+   ]
+  },
+  {
+   "MUTANTE": "M14 D152 toda rota de cliente cede ao pote (debug em todo lado)",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P1 sem pote, #meeting desenha o legado (isMeeting)",
+    "FAIL: P1 sem pote, #radarfuturo desenha o legado (isRadarFuturo)",
+    "FAIL: P1 sem pote, #future desenha o legado (isFuture)"
+   ]
+  },
+  {
+   "MUTANTE": "M15 D152 LIVE com numero fixo",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P2 [it] #meeting LIVE = a contagem do compartimento meeting no pote, com a corrida",
+    "FAIL: P2 [it] #radarfuturo LIVE = a contagem do compartimento future no pote, com a corrida",
+    "FAIL: P2 [en] #meeting LIVE = a contagem do compartimento meeting no pote, com a corrida"
+   ]
+  },
+  {
+   "MUTANTE": "M16 D152 a barra conta o pote em toda voz",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_a_barra_conta_o_pote (tests.test_publicar_portal_sozinho.P4_OCasco.test_a_barra_conta_o_pote)"
+   ]
+  },
+  {
+   "MUTANTE": "M17 D152 SNAPSHOT do Radar sem a data do pacote",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P7 o SNAPSHOT tem a data do proprio pacote, nao escrita a mao"
+   ]
+  },
+  {
+   "MUTANTE": "M18 D152 conferencia do LIVE desligada",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_live_com_numero_que_nao_e_o_do_pote (tests.test_publicar_portal_sozinho.P1_AsTelas.test_live_com_numero_que_nao_e_o_do_pote)",
+    "FAIL: test_live_numa_tela_que_nao_o_tem (tests.test_publicar_portal_sozinho.P1_AsTelas.test_live_numa_tela_que_nao_o_tem)",
+    "FAIL: test_snapshot_sem_rotulo (tests.test_publicar_portal_sozinho.P1_AsTelas.test_snapshot_sem_rotulo)"
+   ]
+  },
+  {
+   "MUTANTE": "M19 D152 camada tecnica no cliente passa",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_camada_tecnica_na_tela_do_cliente (tests.test_publicar_portal_sozinho.P1_AsTelas.test_camada_tecnica_na_tela_do_cliente)",
+    "FAIL: test_sha_servido_nao_e_o_do_pote (tests.test_publicar_portal_sozinho.P1_AsTelas.test_sha_servido_nao_e_o_do_pote)",
+    "FAIL: test_tela_que_faltou (tests.test_publicar_portal_sozinho.P1_AsTelas.test_tela_que_faltou)"
+   ]
+  },
+  {
+   "MUTANTE": "M20 D152 caso antigo fora do snapshot passa",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_a_caixa_oggi_do_legado (tests.test_publicar_portal_sozinho.P1_AsTelas.test_a_caixa_oggi_do_legado)",
+    "FAIL: test_d152_caso_antigo_fora_do_snapshot (tests.test_publicar_portal_sozinho.P1_AsTelas.test_d152_caso_antigo_fora_do_snapshot)",
+    "FAIL: test_detector_que_nao_mediu_nao_vale_zero (tests.test_publicar_portal_sozinho.P1_AsTelas.test_detector_que_nao_mediu_nao_vale_zero)"
+   ]
+  },
+  {
+   "MUTANTE": "M21 D152 prova sem o trecho",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P7 toda ligacao do bloco do pote resolve — p.trecho"
+   ]
+  },
+  {
+   "MUTANTE": "M22 D152 debug sem o pote inteiro passa",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_debug_sem_o_pote_inteiro (tests.test_publicar_portal_sozinho.P1_AsTelas.test_debug_sem_o_pote_inteiro)",
+    "FAIL: test_pote_recusado_no_debug (tests.test_publicar_portal_sozinho.P1_AsTelas.test_pote_recusado_no_debug)"
+   ]
+  },
+  {
+   "MUTANTE": "M23 D156 rodada ignora PARAR",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_parar_desliga (tests.test_publicar_preview_da_pasta.G5_ARodada.test_parar_desliga)"
+   ]
+  },
+  {
+   "MUTANTE": "M24 D156 sem trava de instancia unica",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_trava_de_instancia_unica (tests.test_publicar_preview_da_pasta.G5_ARodada.test_trava_de_instancia_unica)"
+   ]
+  },
+  {
+   "MUTANTE": "M25 D156 publica mesmo com a assinatura igual",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_falha_do_transporte_tenta_de_novo_e_nao_gira_para_sempre (tests.test_publicar_preview_da_pasta.G5_ARodada.test_falha_do_transporte_tenta_de_novo_e_nao_gira_para_sempre)",
+    "FAIL: test_pote_novo_valido_publica_sozinho_e_depois_igual (tests.test_publicar_preview_da_pasta.G5_ARodada.test_pote_novo_valido_publica_sozinho_e_depois_igual)"
+   ]
+  },
+  {
+   "MUTANTE": "M26 D156 recusa sem dizer o motivo",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "ERROR: test_b1_ficheiro_em_falta (tests.test_publicar_preview_da_pasta.G5_ARodada.test_b1_ficheiro_em_falta) (caso='falta-pote')",
+    "ERROR: test_b1_ficheiro_em_falta (tests.test_publicar_preview_da_pasta.G5_ARodada.test_b1_ficheiro_em_falta) (caso='falta-manifesto')",
+    "ERROR: test_b1_result_state_nao_final (tests.test_publicar_preview_da_pasta.G5_ARodada.test_b1_result_state_nao_final)"
+   ]
+  },
+  {
+   "MUTANTE": "M27 D156 destino de producao aceite na rodada",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_producao_recusada_na_rodada (tests.test_publicar_preview_da_pasta.G5_ARodada.test_producao_recusada_na_rodada)"
+   ]
+  },
+  {
+   "MUTANTE": "M28 D156 debug sem o motivo da recusa",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P7 toda ligacao do bloco do pote resolve — poteDbg.temRecusa, poteDbg.recusaTexto",
+    "FAIL: P12 entrega recusada: o debug diz o motivo e que o ultimo bom continua",
+    "FAIL: P12 entrega aceite: nada a dizer"
+   ]
+  },
+  {
+   "MUTANTE": "M29 D156 DEMO dito como LIVE",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P12 pote de teste (CORRIDA_SINTETICA=true): a linha diz DEMO, nunca LIVE"
+   ]
+  },
+  {
+   "MUTANTE": "M30 D156 conferencia ENTREGA_DITA desligada",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_d156_recusa_dita_no_debug_e_so_la (tests.test_publicar_portal_sozinho.P1_AsTelas.test_d156_recusa_dita_no_debug_e_so_la)",
+    "FAIL: test_d156_recusa_na_tela_sem_recusa_nenhuma (tests.test_publicar_portal_sozinho.P1_AsTelas.test_d156_recusa_na_tela_sem_recusa_nenhuma)",
+    "FAIL: test_d156_recusa_que_o_debug_nao_diz (tests.test_publicar_portal_sozinho.P1_AsTelas.test_d156_recusa_que_o_debug_nao_diz)"
+   ]
+  },
+  {
+   "MUTANTE": "M31 D156 prova reversa finge o byte do sintetico",
+   "FICHEIRO": "portoes/prova_reversa_do_pote.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_pote_sintetico_nao_finge_o_byte (tests.test_prova_reversa_do_pote.A_ProvaReversa.test_pote_sintetico_nao_finge_o_byte)"
+   ]
+  },
+  {
+   "MUTANTE": "M32 D156 prova reversa nao compara o sha no ar",
+   "FICHEIRO": "portoes/prova_reversa_do_pote.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_sha_no_ar_diferente_reprova (tests.test_prova_reversa_do_pote.A_ProvaReversa.test_sha_no_ar_diferente_reprova)"
+   ]
+  },
+  {
+   "MUTANTE": "M33 D156 prova reversa aceita DOM diferente",
+   "FICHEIRO": "portoes/prova_reversa_do_pote.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_objeto_que_falta_no_dom_reprova (tests.test_prova_reversa_do_pote.A_ProvaReversa.test_objeto_que_falta_no_dom_reprova)"
+   ]
+  },
+  {
+   "MUTANTE": "M34 D156 vazio sem porque passa",
+   "FICHEIRO": "portoes/prova_reversa_do_pote.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_f2_vazio_sem_o_porque_nao_e_legitimo (tests.test_prova_reversa_do_pote.A_ProvaReversa.test_f2_vazio_sem_o_porque_nao_e_legitimo)"
+   ]
+  },
+  {
+   "MUTANTE": "M35 D156 tela com erro de pintura passa",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_tela_com_erro_de_pintura_reprova (tests.test_publicar_portal_sozinho.P1_AsTelas.test_tela_com_erro_de_pintura_reprova)"
+   ]
+  },
+  {
+   "MUTANTE": "M36 D156 rodada ignora a LOCK-PESADO",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_lock_pesado_de_outra_sessao_espera (tests.test_publicar_preview_da_pasta.G5_ARodada.test_lock_pesado_de_outra_sessao_espera)",
+    "FAIL: test_lock_pesado_pego_durante_e_solto_depois (tests.test_publicar_preview_da_pasta.G5_ARodada.test_lock_pesado_pego_durante_e_solto_depois)"
+   ]
+  },
+  {
+   "MUTANTE": "M37 D156 LOCK-PESADO nunca solto",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_lock_pesado_pego_durante_e_solto_depois (tests.test_publicar_preview_da_pasta.G5_ARodada.test_lock_pesado_pego_durante_e_solto_depois)",
+    "FAIL: test_lock_pesado_solto_mesmo_quando_o_publicador_rebenta (tests.test_publicar_preview_da_pasta.G5_ARodada.test_lock_pesado_solto_mesmo_quando_o_publicador_rebenta)"
+   ]
+  }
+ ],
+ "MORTOS": 37,
+ "TOTAL": 37
+}

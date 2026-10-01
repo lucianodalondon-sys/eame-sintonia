@@ -77,6 +77,9 @@
      dados. O pote vive em sintonia-pote.js, GERADO por pacote/pote_intelligence_casco.py a partir de UMA corrida:
      fora do Git e do deploy, e so pedido com ?pote=local. Com ele, cada ferramenta desenha o seu compartimento
      COM PRECEDENCIA sobre o snapshot e a demo; sem ele, nada muda. -->
+<!-- D126 (PORTAL-PUBLICA-SOZINHO): o pote PUBLICADO. No Git e so o lugar (null); o publicador
+     (portoes/publicar_portal_sozinho.py) escreve o envelope conferido na copia que implanta. -->
+<script src="sintonia-pote-publicado.js"></script>
 <script src="sintonia-pote-casco.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
@@ -183,7 +186,7 @@
     <div style="display:flex;flex-direction:column;gap:2px">
       <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;color:#8F8886;padding:0 8px 6px">INTELLIGENCE</div>
       <sc-for list="{{ nav }}" as="n" hint-placeholder-count="10">
-        <div onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
+        <div data-nav-view="{{ n.view }}" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
           <span style="width:6px;height:6px;border-radius:50%;background:{{ n.dot }};flex:0 0 6px"></span>
           <span style="font-size:12.5px;font-weight:{{ n.weight }};color:{{ n.color }};flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ n.label }}">{{ n.label }}</span>
           <span style="font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ n.count }}</span>
@@ -191,7 +194,7 @@
       </sc-for>
       <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;color:#F5B317;padding:0 8px 6px">{{ t.navEvidenceGroup }}</div>
             <sc-for list="{{ navEvidence }}" as="n" hint-placeholder-count="8">
-        <div onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
+        <div data-nav-view="{{ n.view }}" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
           <span style="width:6px;height:6px;border-radius:50%;background:{{ n.dot }};flex:0 0 6px"></span>
           <span style="font-size:12.5px;font-weight:{{ n.weight }};color:{{ n.color }};flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ n.label }}">{{ n.label }}</span>
           <span style="font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ n.count }}</span>
@@ -201,19 +204,19 @@
       <div style="display:flex;flex-direction:column;gap:2px;padding-top:10px;margin-top:6px;border-top:1px solid rgba(255,255,255,0.08)">
         <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;color:#F5B317;padding:0 8px 6px">{{ t.navIntegrations }}</div>
         <sc-for list="{{ navIntegrationItems }}" as="n" hint-placeholder-count="1">
-        <div onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
+        <div data-nav-view="{{ n.view }}" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
           <span style="width:6px;height:6px;border-radius:50%;background:{{ n.dot }};flex:0 0 6px"></span>
           <span style="font-size:12.5px;font-weight:{{ n.weight }};color:{{ n.color }};flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ n.label }}">{{ n.label }}</span>
           <span style="font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ n.count }}</span>
         </div>
       </sc-for>
     </div>
-    <div style="display:flex;flex-direction:column;gap:8px;padding:10px 10px;border-radius:10px;background:rgba(0,152,69,0.08);border:1px solid rgba(0,152,69,0.25)">
+    <sc-if value="{{ oggiDoLegado }}" hint-placeholder-val="{{ true }}"><div data-oggi-legado="1" style="display:flex;flex-direction:column;gap:8px;padding:10px 10px;border-radius:10px;background:rgba(0,152,69,0.08);border:1px solid rgba(0,152,69,0.25)">
       <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ t.lblToday }} · {{ todayLabel }}</div>
       <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiOpenShort }}</span><span style="font-weight:700;color:#00B152">{{ kpi.windowOpen }}</span></div>
       <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiWindowsShort }}</span><span style="font-weight:700;color:#fff">{{ kpi.windows }}</span></div>
       <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiMovementsShort }}</span><span style="font-weight:700;color:#fff">{{ kpi.movements }}</span></div>
-    </div>
+    </div></sc-if>
     <div style="margin-top:auto;display:flex;flex-direction:column;gap:7px;padding:0 8px">
       <img src="assets/Adama_H_white.png" alt="ADAMA" style="width:92px;height:auto;display:block;opacity:0.9">
       <div style="font-size:10px;letter-spacing:0.12em;color:#8F8886">Listen &gt; Learn &gt; Deliver</div>
@@ -487,6 +490,20 @@
     -->
     <sc-if value="{{ isMeeting }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
+      <!-- D152 · A LINHA LIVE E O SNAPSHOT, SEPARADOS. So com o pote pedido (publicado ou ?pote=local). A linha
+           LIVE diz QUANTOS objetos a corrida da Intelligence traz para esta ferramenta, qual corrida e ate que
+           corte; o que esta ferramenta ja mostrava continua abaixo, inteiro, rotulado SNAPSHOT com a data do
+           proprio pacote. Nenhum numero de um lado entra no outro. -->
+      <sc-if value="{{ temLive }}" hint-placeholder-val="{{ false }}">
+      <div data-live="1" data-live-demo="{{ poteLive.eDemo }}" style="border-radius:12px;border:1px solid rgba(0,152,69,0.45);background:#1C1817;padding:11px 15px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.14em;color:#00B152"><span style="width:7px;height:7px;border-radius:50%;background:#009845"></span>{{ poteLive.rotulo }}</span>
+        <b data-live-n="{{ poteLive.n }}" style="font-size:22px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ poteLive.n }}</b>
+        <span style="font-size:12px;color:#EDEAE9">{{ poteLive.texto }}</span>
+        <span style="font-family:var(--font-secondary);font-size:11px;color:#8F8886">{{ poteLive.L.corsa }} <b style="color:#C9C3C1">{{ poteLive.run }}</b> · {{ poteLive.L.liveTaglio }} <b style="color:#C9C3C1">{{ poteLive.quando }}</b></span>
+      </div>
+      <div data-snapshot-titulo="{{ meetingMeta.MEETING_CUTOFF }}" style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.14em;color:#8F8886">{{ poteLive.snapshot }} {{ meetingMeta.MEETING_CUTOFF }} · <span style="font-weight:400;letter-spacing:0.02em">{{ poteLive.snapshotTexto }}</span></div>
+      </sc-if>
+      <div data-snapshot="{{ meetingMeta.MEETING_CUTOFF }}" style="display:flex;flex-direction:column;gap:14px;border:{{ snapBorda }};border-radius:14px;padding:{{ snapPad }}">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:4px">
           <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:nowrap"><h1 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.015em;color:#fff;white-space:nowrap">{{ mt.nav }}</h1><span style="padding:3px 9px;border-radius:9999px;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45);font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152">{{ meetingTotal }}</span></div>
@@ -681,6 +698,7 @@
         </sc-if>
       </div>
       <sc-if value="{{ meetingHasMore }}" hint-placeholder-val="{{ false }}"><span onClick="{{ meetingMore }}" data-meeting-more="1" style="align-self:flex-start;display:inline-flex;align-items:center;height:32px;padding:0 16px;border-radius:9999px;cursor:pointer;font-size:11px;font-weight:700;color:#fff;background:rgba(0,152,69,0.16);border:1px solid rgba(0,152,69,0.45)">{{ mt.all }}</span></sc-if>
+      </div>
     </div>
     </sc-if>
 
@@ -2891,6 +2909,20 @@
          leitura, nao a leitura.                                            -->
     <sc-if value="{{ isRadarFuturo }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:16px">
+      <!-- D152 · A LINHA LIVE E O SNAPSHOT, SEPARADOS. So com o pote pedido (publicado ou ?pote=local). A linha
+           LIVE diz QUANTOS objetos a corrida da Intelligence traz para esta ferramenta, qual corrida e ate que
+           corte; o que esta ferramenta ja mostrava continua abaixo, inteiro, rotulado SNAPSHOT com a data do
+           proprio pacote. Nenhum numero de um lado entra no outro. -->
+      <sc-if value="{{ temLive }}" hint-placeholder-val="{{ false }}">
+      <div data-live="1" data-live-demo="{{ poteLive.eDemo }}" style="border-radius:12px;border:1px solid rgba(0,152,69,0.45);background:#1C1817;padding:11px 15px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.14em;color:#00B152"><span style="width:7px;height:7px;border-radius:50%;background:#009845"></span>{{ poteLive.rotulo }}</span>
+        <b data-live-n="{{ poteLive.n }}" style="font-size:22px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ poteLive.n }}</b>
+        <span style="font-size:12px;color:#EDEAE9">{{ poteLive.texto }}</span>
+        <span style="font-family:var(--font-secondary);font-size:11px;color:#8F8886">{{ poteLive.L.corsa }} <b style="color:#C9C3C1">{{ poteLive.run }}</b> · {{ poteLive.L.liveTaglio }} <b style="color:#C9C3C1">{{ poteLive.quando }}</b></span>
+      </div>
+      <div data-snapshot-titulo="{{ snapRF }}" style="font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.14em;color:#8F8886">{{ poteLive.snapshot }} {{ snapRF }} · <span style="font-weight:400;letter-spacing:0.02em">{{ poteLive.snapshotTexto }}</span></div>
+      </sc-if>
+      <div data-snapshot="{{ snapRF }}" style="display:flex;flex-direction:column;gap:16px;border:{{ snapBorda }};border-radius:14px;padding:{{ snapPad }}">
       <div style="display:flex;flex-direction:column;gap:6px">
         <h1 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.015em;color:#fff">{{ pageTitle }}</h1>
         <sc-if value="{{ rfMeta.has }}" hint-placeholder-val="{{ true }}">
@@ -2941,6 +2973,7 @@
       </sc-for>
 
       <div style="font-size:11.5px;line-height:1.6;color:#8F8886;max-width:80ch">{{ t.rfLegend }}</div>
+      </div>
     </div>
     </sc-if>
 
@@ -3639,11 +3672,15 @@
          compartimento invece del legado. Non e una schermata nuova. La specie ha colore proprio: il futuro
          (tratteggiato, blu secondario) non si confonde con l'opportunita (verde). NON SO resta scritto. -->
     <sc-if value="{{ poteVista }}" hint-placeholder-val="{{ false }}">
-    <div data-view="pote" data-pote-compartimento="{{ pote.comp.codigo }}" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
-      <div data-marca="1" style="border-radius:10px;background:#000;color:#fff;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.08em">{{ pote.faixa }}</div>
+    <div data-view="pote" data-pote-debug="1" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
+      <div data-marca="1" style="border-radius:10px;background:#000;color:#fff;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.08em">{{ poteDbg.faixa }}</div>
       <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ pageTitle }}</h1>
-        <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:var(--font-secondary);font-size:12px;color:#C9C3C1"><sc-for list="{{ pote.run }}" as="r" hint-placeholder-count="5"><span>{{ r.k }} <b style="color:{{ r.color }}">{{ r.v }}</b></span></sc-for></div></div>
-      <sc-if value="{{ pote.recusado }}" hint-placeholder-val="{{ false }}"><div data-pote-recusado="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ pote.recusa }}</div></sc-if>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:var(--font-secondary);font-size:12px;color:#C9C3C1"><sc-for list="{{ poteDbg.run }}" as="r" hint-placeholder-count="5"><span>{{ r.k }} <b style="color:{{ r.color }}">{{ r.v }}</b></span></sc-for></div></div>
+      <sc-if value="{{ poteDbg.recusado }}" hint-placeholder-val="{{ false }}"><div data-pote-recusado="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ poteDbg.recusa }}</div></sc-if>
+      <sc-if value="{{ poteDbg.temRecusa }}" hint-placeholder-val="{{ false }}"><div data-entrega-recusada="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.45);background:#1C1817;padding:9px 14px;font-size:12px;color:#F5B317;word-break:break-word">{{ poteDbg.recusaTexto }}</div></sc-if>
+      <sc-if value="{{ poteDbg.assente }}" hint-placeholder-val="{{ false }}"><div data-pote-vazio="{{ poteDbg.assenteTitulo }}" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><div style="font-size:12px;font-weight:700;color:#F5B317">{{ poteDbg.assenteTitulo }}</div><div style="font-size:12px;color:#EDEAE9">{{ poteDbg.assenteTexto }}</div></div></sc-if>
+      <sc-for list="{{ poteDbg.comps }}" as="pote" hint-placeholder-count="2">
+      <div data-pote-compartimento="{{ pote.comp.codigo }}" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(255,255,255,0.10);padding-top:12px">
       <sc-if value="{{ pote.temComp }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;color:#EDEAE9"><b>{{ pote.comp.nome }}</b> · {{ pote.comp.estado }} · <b style="color:#fff;font-variant-numeric:tabular-nums">{{ pote.comp.n }}</b> {{ pote.comp.leitura }} · {{ pote.comp.recusados }} · {{ pote.comp.especies }}</div></sc-if>
       <sc-if value="{{ pote.vazio }}" hint-placeholder-val="{{ false }}"><div data-pote-vazio="{{ pote.vazioTitulo }}" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><div style="font-size:12px;font-weight:700;color:#F5B317">{{ pote.vazioTitulo }}</div><div style="font-size:12px;color:#EDEAE9">{{ pote.vazioTexto }}</div></div></sc-if>
       <div style="display:flex;flex-direction:column;gap:10px">
@@ -3667,12 +3704,14 @@
             <div style="font-size:11px;line-height:1.5;color:#C9C3C1">{{ o.porque.k }} <b style="color:{{ o.porque.color }}">{{ o.porque.v }}</b> · {{ o.contradiz.k }} <b style="color:{{ o.contradiz.color }}">{{ o.contradiz.v }}</b> · {{ o.incerteza.k }} <b style="color:{{ o.incerteza.color }}">{{ o.incerteza.v }}</b></div>
             <div style="display:flex;flex-direction:column;gap:5px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px">
               <span style="font-size:10px;font-weight:700;color:#8F8886;letter-spacing:0.08em">{{ pote.L.prova }}</span>
-              <sc-for list="{{ o.provas }}" as="p" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:2px;font-size:10.5px;color:#EDEAE9"><span style="word-break:break-word">{{ p.cadeia }}</span><span style="color:#8F8886">{{ p.upstream }}</span><sc-if value="{{ p.temUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ p.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;word-break:break-all">{{ p.urlTexto }}</a></sc-if><sc-if value="{{ p.semUrl }}" hint-placeholder-val="{{ false }}"><span style="color:{{ p.urlColor }};word-break:break-all">{{ p.urlTexto }}</span></sc-if><span style="color:#8F8886">{{ p.datas }}</span><span style="color:#8F8886">{{ p.origem }}</span></div></sc-for>
+              <sc-for list="{{ o.provas }}" as="p" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:2px;font-size:10.5px;color:#EDEAE9"><span style="word-break:break-word">{{ p.cadeia }}</span><span style="color:#8F8886">{{ p.upstream }}</span><sc-if value="{{ p.temUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ p.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;word-break:break-all">{{ p.urlTexto }}</a></sc-if><sc-if value="{{ p.semUrl }}" hint-placeholder-val="{{ false }}"><span style="color:{{ p.urlColor }};word-break:break-all">{{ p.urlTexto }}</span></sc-if><span style="color:#8F8886">{{ p.datas }}</span><span style="color:#8F8886">{{ p.origem }}</span><span data-pote-trecho="1" style="color:#EDEAE9;word-break:break-word">{{ p.trecho }}</span><span data-pote-raw="1" style="color:#8F8886;word-break:break-all">{{ p.raw }}</span></div></sc-for>
             </div>
           </div>
         </sc-for>
       </div>
       <sc-if value="{{ pote.temLacunas }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ pote.L.lacune }}</div><sc-for list="{{ pote.lacunas }}" as="g" hint-placeholder-count="1"><div style="font-size:10.5px;color:#C9C3C1;word-break:break-word">{{ g.t }}</div></sc-for></div></sc-if>
+      </div>
+      </sc-for>
     </div>
     </sc-if>
 
@@ -3888,7 +3927,9 @@ class Component extends DCLogic {
        nao mais uma pagina a parte: quem recarrega em #radarfuturo tem de voltar
        aos 44, e nao ao radar. */
     const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
-      'science', 'portfolio', 'archive', 'sources', 'radarfuturo', 'etichette', 'sala', 'painel'];
+      'science', 'portfolio', 'archive', 'sources', 'radarfuturo', 'etichette', 'sala', 'painel',
+      /* D152 · rota INTERNA (nenhuma voz do menu a oferece): a camada tecnica do pote. */
+      'debug-intelligence-pot'];
     try {
       const h = String((typeof window !== 'undefined' && window.location && window.location.hash) || '').replace(/^#/, '');
       return AMMESSE.includes(h) ? h : 'meeting';
@@ -4058,15 +4099,25 @@ class Component extends DCLogic {
      compartimento reclama (sala, painel, detalhes), devolve null — e o casco
      fica exatamente como estava. */
   static FLAGS_DO_LEGADO = ['isMeeting', 'isRadarFuturo', 'isFuture', 'isArchive', 'isWindows', 'isMarket',
-    'isVoices', 'isCompetitors', 'isScience', 'isPortfolio', 'isEtichette', 'isSources'];
+    'isVoices', 'isCompetitors', 'isScience', 'isPortfolio', 'isEtichette', 'isSources', 'isField'];
   _poteTemPrecedencia(v) {
     const W = (typeof window !== 'undefined') ? window : {};
     const P = W.SINTONIA_POTE_CASCO || null;
-    // POTE-V2-UNICO (D97): o leitor decide tambem o caso «pedido e nao chegou» (NAO SEI, sem legado).
-    const pv = P ? P.vm(W.SINTONIA_POTE || null, this.state.view, this.state.lang) : null;
-    v.poteVista = !!pv;
-    v.pote = pv || {};
-    if (pv) for (const k of Component.FLAGS_DO_LEGADO) v[k] = false;
+    /* D151/D152 (dono, 29/09): o cliente ve o casco ORIGINAL. So a rota interna #debug-intelligence-pot desenha
+       o pote (todos os compartimentos, com a faixa e as provas); as rotas de cliente NAO cedem ao pote. O Radar
+       e o Radar Futuro ganham so a linha LIVE (quantidade + corrida + corte) e o que ja mostravam fica SEPARADO,
+       como SNAPSHOT com a data do proprio pacote. Nada e apagado, nada e misturado. */
+    const pd = (P && P.debug) ? P.debug(W.SINTONIA_POTE || null, this.state.view, this.state.lang) : null;
+    v.poteVista = !!pd;
+    v.poteDbg = pd || {};
+    if (pd) for (const k of Component.FLAGS_DO_LEGADO) v[k] = false;
+    const lv = (P && P.live) ? P.live(W.SINTONIA_POTE || null, this.state.view, this.state.lang) : null;
+    v.temLive = !!lv;
+    v.poteLive = lv || {};
+    const casaRef = (W.ITALY_CASA && W.ITALY_CASA.DATA_DE_REFERENCIA) || 'NAO SEI';
+    v.snapRF = casaRef;
+    v.snapBorda = lv ? '1px dashed rgba(203,197,195,0.30)' : '0';
+    v.snapPad = lv ? '14px' : '0';
     return v;
   }
 
@@ -5917,13 +5968,32 @@ class Component extends DCLogic {
        il proprietario non c'e: scrivere 44 a mano farebbe una seconda verita,
        e una seconda verita e quella che non cambia quando il motore cambia. */
     const CASA_RF = (window.ITALY_CASA && window.ITALY_CASA.RADAR_FUTURO) || null;
+    /* ══ D122 · COM O POTE, O CONTADOR E DO POTE ══════════════════════════
+       A vista ja desenhava so o pote; a barra ao lado continuava a escrever
+       os 43 e os 44 de antes. Medido no navegador: a rota sem nenhum caso
+       antigo, e a voz dela com o numero antigo ao lado.
+
+           UMA TELA SO DO POTE COM O CONTADOR DO LEGADO SAO DUAS VERDADES.
+
+       `contagemDaVista` (sintonia-pote-casco.js) devolve null sem pote
+       pedido — e o contador fica o de sempre —, o numero de objetos do
+       compartimento da rota com pote valido, e NAO SEI no resto. */
+    const PC_ = window.SINTONIA_POTE_CASCO || null;
+    const poteConta = (view, legado) => {
+      const x = PC_ && PC_.contagemDaVista ? PC_.contagemDaVista(window.SINTONIA_POTE || null, view) : null;
+      /* D156 (ressalva A-2 do Casco owner): o numero de uma corrida de TESTE na barra diz DEMO ao lado,
+         senao quem so olha a barra le a contagem de um pote sintetico como se fosse a do real. */
+      const demo = typeof x === 'number' && PC_.eDemo && PC_.eDemo(window.SINTONIA_POTE || null);
+      return x === null ? legado : (demo ? 'DEMO · ' + x : x);
+    };
     /* Il nome resta del suo proprietario; qui cambia solo la CASSA, perche in
        questa barra tutte le voci sono in maiuscoletto iniziale e una sola voce
        in maiuscole griderebbe. La cassa e presentazione, non un secondo nome. */
     const navRadarFuturo = {
+      view: 'radarfuturo',
       label: String(mtL('casaRadarName') || '').toLowerCase()
         .replace(/(^|[\s·-])([a-zà-ÿ])/g, (m0, a, b) => a + b.toUpperCase()),
-      count: (CASA_RF && typeof CASA_RF.RENDERIZAVEIS === 'number') ? CASA_RF.RENDERIZAVEIS : '',
+      count: poteConta('radarfuturo', (CASA_RF && typeof CASA_RF.RENDERIZAVEIS === 'number') ? CASA_RF.RENDERIZAVEIS : ''),
       /* ══ O RADAR FUTURO DEIXA DE SER OUTRA PAGINA ═════════════════════
          `casa.html` tem identidade visual propria — outra grelha, outra escala,
          outro cabecalho — e um leitor que salta para la sente que saiu do
@@ -5960,7 +6030,7 @@ class Component extends DCLogic {
        dalla barra perche la casa e adesso la PRIMA PAGINA — ripeterla qui era
        stampare due volte lo stesso numero. */
     const STRUMENTI = ['meeting', 'portfolio'];
-    const navRow = (n) => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; };
+    const navRow = (n) => { const on = activeOf[s.view] === n[0]; return { view: n[0], label: n[1], count: poteConta(n[0], n[2]), go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; };
     const nav = navDef.filter(n => STRUMENTI.includes(n[0])).map(navRow);
     /* Il Radar Futuro e EVIDENZA, non uno strumento, e adesso APRE l'evidenza:
        e la popolazione che regge le opportunita di domani, e l'unica porta
@@ -6056,7 +6126,7 @@ class Component extends DCLogic {
         cumpridos: (I.criteriosCumpridos || []).join(' '), emFalta: (I.criteriosEmFalta || []).join(' '), travaProva: pv(I.prova),
         emenda: I.emenda, defeitos, defeitosProva: pv(I.fonteDosDefeitos), falta };
     })();
-    const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
+    const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { view: n[0], label: n[1], count: poteConta(n[0], n[2]), go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
     /* §2 · The detail must open the SAME entity the card opened. The 29 legacy
        presentation cases are a DEMO_SCENARIO collection and they REUSE the real
@@ -12240,7 +12310,10 @@ class Component extends DCLogic {
          oggetto, un solo contatore, un solo proprietario. */
       frRadar: { has: navRadarFuturo.count !== '', label: navRadarFuturo.label,
         count: navRadarFuturo.count, go: navRadarFuturo.go },
-      kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
+      kpi: K, todayLabel, pageTitle: s.view === 'debug-intelligence-pot' ? 'INTELLIGENCE POT · DEBUG' : titles[s.view], crumb, hasCrumb: !!crumb,
+      /* D122/D126 · a caixa «oggi» conta as janelas do pacote de 02/09. Com o pote pedido (publicado ou
+         ?pote=local) ela sai: um numero do legado ao lado do pote seria a mesma tela a contar duas corridas. */
+      oggiDoLegado: !(typeof window !== 'undefined' && window.SINTONIA_POTE_PEDIDO === true),
 
       /* ══ SUPERFICIE CANONICA DELLA RIUNIONE ═══════════════════════════════
          Ogni valore qui sotto e gia stato deciso dal motore e copiato
