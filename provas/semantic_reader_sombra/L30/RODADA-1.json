@@ -1,0 +1,884 @@
+{
+ "SCHEMA": "SEMANTIC-READER-SOMBRA-RODADA/v1",
+ "MARCA": "EXPERIMENTAL / NAO_PARA_CLIENTE",
+ "MODELO": "claude-opus-5",
+ "PROMPT_VERSION": "SR-SOMBRA-PROMPT/v1",
+ "PROMPT_SHA256": "78963c0a7809e65ed440eef82bb960ad0e60f6758196a97076b6f73c36951eca",
+ "LOTE_SHA256": "3827c7d701ac880d2dfa8de0dda321fcfe85de862e2d05f5018ba4750a9ccd62",
+ "COPIA_SHA256": "943a20f810e9cbef3cedf302e8828edb6846454b936ca5747ab0e54321ff2e71",
+ "TEMPO_TOTAL_S": 75.0,
+ "ITENS": [
+  {
+   "ID": "L30-01",
+   "CHAVE": "derived:841|XX-T10-2026-09-22-193411-0a8a01dbc999da85|4",
+   "TEXTO_SHA256": "e59a67e7db7c25a8bdb9300889577c1def5e258045db1cb90bea02d967132610",
+   "CUSTO": {
+    "SEGUNDOS": 17.5,
+    "CUSTO_USD": 0.110065,
+    "TOKENS_ENTRADA": 10515,
+    "TOKENS_SAIDA": 197,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"settimana 39/2026, effettuata oggi 22 settembre\", \"INICIO\": \"2026-09-22\", \"FIM\": \"2026-09-22\", \"TIPO\": \"COTACAO\", \"TRECHO\": \"Nella rilevazione della settimana 39/2026, effettuata oggi 22 settembre, il panel Uva e-commerce Italia di myfruit.it ha registrato prezzi\", \"PORQUE\": \"O trecho liga a data da recolha de preços (facto principal) ao ano 2026 escrito na semana 39/2026.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "settimana 39/2026, effettuata oggi 22 settembre",
+    "INICIO": "2026-09-22",
+    "FIM": "2026-09-22",
+    "TIPO": "COTACAO",
+    "TRECHO": "Nella rilevazione della settimana 39/2026, effettuata oggi 22 settembre, il panel Uva e-commerce Italia di myfruit.it ha registrato prezzi",
+    "PORQUE": "O trecho liga a data da recolha de preços (facto principal) ao ano 2026 escrito na semana 39/2026."
+   },
+   "FACT_TIME": "settimana 39/2026, effettuata oggi 22 settembre",
+   "INICIO": "2026-09-22",
+   "FIM": "2026-09-22",
+   "TIPO": "COTACAO",
+   "TRECHO_LITERAL": "Nella rilevazione della settimana 39/2026, effettuata oggi 22 settembre, il panel Uva e-commerce Italia di myfruit.it ha registrato prezzi",
+   "POSICAO": [
+    1268,
+    1406
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-02",
+   "CHAVE": "derived:991|IT-T10-2026-09-25-223427-8e033fd16d95a9d7|0",
+   "TEXTO_SHA256": "8cab5f4f034665d0d33725e1501bccb582edd0795d02fd62bd2cc23f717048c3",
+   "CUSTO": {
+    "SEGUNDOS": 11.9,
+    "CUSTO_USD": 0.10571500000000002,
+    "TOKENS_ENTRADA": 10150,
+    "TOKENS_SAIDA": 169,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"A única data com ano no texto (25 settembre 2026) é a data de publicação, e as referências ao facto só dizem \\\"settimana\\\" sem ano escrito.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "A única data com ano no texto (25 settembre 2026) é a data de publicação, e as referências ao facto só dizem \"settimana\" sem ano escrito."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  },
+  {
+   "ID": "L30-03",
+   "CHAVE": "derived:768|XX-T10-2026-09-21-224321-0eec1f579e86f4f7|4",
+   "TEXTO_SHA256": "22c905dcdf40d2202186a1e5c49171abe860c18519575bfbeeed1dd9423f8c74",
+   "CUSTO": {
+    "SEGUNDOS": 12.2,
+    "CUSTO_USD": 0.106255,
+    "TOKENS_ENTRADA": 10139,
+    "TOKENS_SAIDA": 195,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"settimana 38/2026\", \"INICIO\": \"2026-09-14\", \"FIM\": \"2026-09-20\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"Il Report Planner Uva di myfruit.it , aggiornato alla settimana 38/2026, conferma un quadro già emerso nelle rilevazioni precedenti\", \"PORQUE\": \"As cotações da uva de mesa relatadas referem-se à semana 38 de 2026, com o ano escrito no próprio trecho.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "settimana 38/2026",
+    "INICIO": "2026-09-14",
+    "FIM": "2026-09-20",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "Il Report Planner Uva di myfruit.it , aggiornato alla settimana 38/2026, conferma un quadro già emerso nelle rilevazioni precedenti",
+    "PORQUE": "As cotações da uva de mesa relatadas referem-se à semana 38 de 2026, com o ano escrito no próprio trecho."
+   },
+   "FACT_TIME": "settimana 38/2026",
+   "INICIO": "2026-09-14",
+   "FIM": "2026-09-20",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "Il Report Planner Uva di myfruit.it , aggiornato alla settimana 38/2026, conferma un quadro già emerso nelle rilevazioni precedenti",
+   "POSICAO": [
+    1276,
+    1407
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-04",
+   "CHAVE": "derived:834|XX-T10-2026-09-22-193411-0a8a01dbc999da85|0",
+   "TEXTO_SHA256": "897fb9e4d95e46c18ee3b38944c65eab62a13ff820d848b8b12e304aed4ebb8d",
+   "CUSTO": {
+    "SEGUNDOS": 17.0,
+    "CUSTO_USD": 0.1327265,
+    "TOKENS_ENTRADA": 41088,
+    "TOKENS_SAIDA": 131,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"A unica data com ano (22 settembre 2026) e a data de publicacao da pagina; as cotacoes nao trazem data com ano escrita no texto.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "A unica data com ano (22 settembre 2026) e a data de publicacao da pagina; as cotacoes nao trazem data com ano escrita no texto."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  },
+  {
+   "ID": "L30-05",
+   "CHAVE": "derived:busca-d0536d4ce7c99deb|LINHA-BUSCA-RAW-20260927T152708|37",
+   "TEXTO_SHA256": "2ef5550ae9df457f50d359385ecd03783f57ac51fc121f795fcc8845b190559e",
+   "CUSTO": {
+    "SEGUNDOS": 12.2,
+    "CUSTO_USD": 0.107655,
+    "TOKENS_ENTRADA": 10284,
+    "TOKENS_SAIDA": 193,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"gennaio 2026\", \"INICIO\": \"2026-01\", \"FIM\": \"2026-01\", \"TIPO\": \"DIA_DO_FACTO\", \"TRECHO\": \"lo scorso mese (gennaio 2026) il Servizio Fitosanitario Regionale Siciliano ha ricevuto una segnalazione dal Laboratorio di Entomologia dell’Università di Catania\", \"PORQUE\": \"O facto principal é a primeira sinalização do tripide na Sicília, datada no texto de janeiro de 2026.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "gennaio 2026",
+    "INICIO": "2026-01",
+    "FIM": "2026-01",
+    "TIPO": "DIA_DO_FACTO",
+    "TRECHO": "lo scorso mese (gennaio 2026) il Servizio Fitosanitario Regionale Siciliano ha ricevuto una segnalazione dal Laboratorio di Entomologia dell’Università di Catania",
+    "PORQUE": "O facto principal é a primeira sinalização do tripide na Sicília, datada no texto de janeiro de 2026."
+   },
+   "FACT_TIME": "gennaio 2026",
+   "INICIO": "2026-01",
+   "FIM": "2026-01",
+   "TIPO": "DIA_DO_FACTO",
+   "TRECHO_LITERAL": "lo scorso mese (gennaio 2026) il Servizio Fitosanitario Regionale Siciliano ha ricevuto una segnalazione dal Laboratorio di Entomologia dell’Università di Catania",
+   "POSICAO": [
+    1693,
+    1855
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-06",
+   "CHAVE": "derived:1054|IT-T7-2026-09-25-225528-d9f10c587a3e0722|0",
+   "TEXTO_SHA256": "b17fdf79140b421c232351530318d91488ef529127e98549f1028238505e6048",
+   "CUSTO": {
+    "SEGUNDOS": 17.4,
+    "CUSTO_USD": 0.09479499999999999,
+    "TOKENS_ENTRADA": 8458,
+    "TOKENS_SAIDA": 409,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "```json\n{\"FACT_TIME\": \"04 June 2026\", \"INICIO\": \"2026-06-04\", \"FIM\": \"2026-06-04\", \"TIPO\": \"DIA_DO_FACTO\", \"TRECHO\": \"04 June 2026 – Il Consorzio Casalasco delPomodoro conferma il proprio percorso di sviluppo e consolidamento evidenziandorisultati di crescita significativi nel triennio 2024–2026\", \"PORQUE\": \"A data abre o relato e liga-se diretamente ao facto principal: a constatacao/apresentacao dos resultados de crescimento do Consorzio.\"}\n```",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "04 June 2026",
+    "INICIO": "2026-06-04",
+    "FIM": "2026-06-04",
+    "TIPO": "DIA_DO_FACTO",
+    "TRECHO": "04 June 2026 – Il Consorzio Casalasco delPomodoro conferma il proprio percorso di sviluppo e consolidamento evidenziandorisultati di crescita significativi nel triennio 2024–2026",
+    "PORQUE": "A data abre o relato e liga-se diretamente ao facto principal: a constatacao/apresentacao dos resultados de crescimento do Consorzio."
+   },
+   "FACT_TIME": "04 June 2026",
+   "INICIO": "2026-06-04",
+   "FIM": "2026-06-04",
+   "TIPO": "DIA_DO_FACTO",
+   "TRECHO_LITERAL": "04 June 2026 – Il Consorzio Casalasco delPomodoro conferma il proprio percorso di sviluppo e consolidamento evidenziandorisultati di crescita significativi nel triennio 2024–2026",
+   "POSICAO": [
+    724,
+    902
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-07",
+   "CHAVE": "derived:busca-5c06c7feaf3846fd|LINHA-BUSCA-RAW-20260927T152708|16",
+   "TEXTO_SHA256": "b4a80e04c222f404286705f54b094d0b8971e6ca4d875f73def43899d68bc4c4",
+   "CUSTO": {
+    "SEGUNDOS": 15.0,
+    "CUSTO_USD": 0.098385,
+    "TOKENS_ENTRADA": 9027,
+    "TOKENS_SAIDA": 325,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"A semana de observacao (27.04 – 3.05) e o monitoramento de giovedì 30 aprile aparecem sem o ano escrito ao lado; a unica data com ano (04.05.2026) e a da publicacao do boletim.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "A semana de observacao (27.04 – 3.05) e o monitoramento de giovedì 30 aprile aparecem sem o ano escrito ao lado; a unica data com ano (04.05.2026) e a da publicacao do boletim."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  },
+  {
+   "ID": "L30-08",
+   "CHAVE": "derived:busca-8d9b4eee2b9959aa|LINHA-BUSCA-RAW-20260927T152708|35",
+   "TEXTO_SHA256": "21baf707298d0a8bd73ce0e6885a352743a566a121bdbc19164b5096f717d30e",
+   "CUSTO": {
+    "SEGUNDOS": 12.6,
+    "CUSTO_USD": 0.10876000000000001,
+    "TOKENS_ENTRADA": 10457,
+    "TOKENS_SAIDA": 168,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"settimana 39 dal 22/09/2026 al 29/09/2026\", \"INICIO\": \"2026-09-22\", \"FIM\": \"2026-09-29\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"BOLLETTINO settimana 39 dal 22/09/2026 al 29/09/2026\", \"PORQUE\": \"O boletim indica no proprio corpo a semana de observacao, com ano escrito.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "settimana 39 dal 22/09/2026 al 29/09/2026",
+    "INICIO": "2026-09-22",
+    "FIM": "2026-09-29",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "BOLLETTINO settimana 39 dal 22/09/2026 al 29/09/2026",
+    "PORQUE": "O boletim indica no proprio corpo a semana de observacao, com ano escrito."
+   },
+   "FACT_TIME": "settimana 39 dal 22/09/2026 al 29/09/2026",
+   "INICIO": "2026-09-22",
+   "FIM": "2026-09-29",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "BOLLETTINO settimana 39 dal 22/09/2026 al 29/09/2026",
+   "POSICAO": [
+    2760,
+    2812
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-09",
+   "CHAVE": "derived:6|IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc|0",
+   "TEXTO_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "CUSTO": {
+    "SEGUNDOS": 16.7,
+    "CUSTO_USD": 0.19552650000000002,
+    "TOKENS_ENTRADA": 47308,
+    "TOKENS_SAIDA": 155,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"N° 27 del 16/09/2026\", \"INICIO\": \"2026-09-16\", \"FIM\": \"2026-09-16\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"N° 27 del 16/09/2026\", \"PORQUE\": \"É o número e a data do próprio boletim fitossanitário, que liga as observações de campo relatadas à semana de 16/09/2026.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "N° 27 del 16/09/2026",
+    "INICIO": "2026-09-16",
+    "FIM": "2026-09-16",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "N° 27 del 16/09/2026",
+    "PORQUE": "É o número e a data do próprio boletim fitossanitário, que liga as observações de campo relatadas à semana de 16/09/2026."
+   },
+   "FACT_TIME": "N° 27 del 16/09/2026",
+   "INICIO": "2026-09-16",
+   "FIM": "2026-09-16",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "N° 27 del 16/09/2026",
+   "POSICAO": [
+    445,
+    465
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-10",
+   "CHAVE": "derived:1|XX-T3-2026-09-18-134205-772b57c43c0130fe|0",
+   "TEXTO_SHA256": "3aecd222f072a217b9c3ad395a79b8e7ca97d9fae68997923d805e8a7b941e90",
+   "CUSTO": {
+    "SEGUNDOS": 14.3,
+    "CUSTO_USD": 0.179865,
+    "TOKENS_ENTRADA": 17445,
+    "TOKENS_SAIDA": 217,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"14/09/2026 - 20/09/2026\", \"INICIO\": \"2026-09-14\", \"FIM\": \"2026-09-20\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"MOSCA DELLE OLIVE\\n\\n14/09/2026 - 20/09/2026\\n\\nCOMPRENSORIO - BR - COLLINA LITORANEA\", \"PORQUE\": \"O boletim de monitoramento da mosca das olivas indica a semana de observacao 14/09/2026 a 20/09/2026, repetida em todos os comprensori.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "14/09/2026 - 20/09/2026",
+    "INICIO": "2026-09-14",
+    "FIM": "2026-09-20",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "MOSCA DELLE OLIVE\n\n14/09/2026 - 20/09/2026\n\nCOMPRENSORIO - BR - COLLINA LITORANEA",
+    "PORQUE": "O boletim de monitoramento da mosca das olivas indica a semana de observacao 14/09/2026 a 20/09/2026, repetida em todos os comprensori."
+   },
+   "FACT_TIME": "14/09/2026 - 20/09/2026",
+   "INICIO": "2026-09-14",
+   "FIM": "2026-09-20",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "MOSCA DELLE OLIVE\r\n\r\n14/09/2026 - 20/09/2026\r\n\r\nCOMPRENSORIO - BR - COLLINA LITORANEA",
+   "POSICAO": [
+    35,
+    120
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-11",
+   "CHAVE": "derived:busca-97a09bf885e5324c|LINHA-BUSCA-RAW-20260927T152708|7",
+   "TEXTO_SHA256": "a8fefaebd9e39e824ac567c9e1fb4537ad359feddf9d7aa308c849fbb7e8d6c4",
+   "CUSTO": {
+    "SEGUNDOS": 14.1,
+    "CUSTO_USD": 0.08270000000000001,
+    "TOKENS_ENTRADA": 7786,
+    "TOKENS_SAIDA": 194,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"29 Settembre – 3 Ottobre 2025\", \"INICIO\": \"2025-09-29\", \"FIM\": \"2025-10-03\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"nel periodo dal 29 Settembre al 3 Ottobre 2025, la coltura dell’olivo si trova nella fase fenologica BBCH 81\", \"PORQUE\": \"O boletim indica o período de observação com ano escrito, ligado à constatação fenológica e ao monitoramento.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "29 Settembre – 3 Ottobre 2025",
+    "INICIO": "2025-09-29",
+    "FIM": "2025-10-03",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "nel periodo dal 29 Settembre al 3 Ottobre 2025, la coltura dell’olivo si trova nella fase fenologica BBCH 81",
+    "PORQUE": "O boletim indica o período de observação com ano escrito, ligado à constatação fenológica e ao monitoramento."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "VALOR_NAO_ESTA_NO_TRECHO"
+  },
+  {
+   "ID": "L30-12",
+   "CHAVE": "derived:busca-1dae6e1c89f007b8|LINHA-BUSCA-RAW-20260927T152708|6",
+   "TEXTO_SHA256": "d995ef12bbbbb40533c697717351e6e4c9a225b40748f5190ace4aae55585543",
+   "CUSTO": {
+    "SEGUNDOS": 13.7,
+    "CUSTO_USD": 0.083865,
+    "TOKENS_ENTRADA": 7925,
+    "TOKENS_SAIDA": 185,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"1-4 settembre 2026\", \"INICIO\": \"2026-09-01\", \"FIM\": \"2026-09-04\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"Il Bollettino fitosanitario relativo al periodo 1-4 settembre 2026 evidenzia una presenza ancora contenuta della Bactrocera oleae\", \"PORQUE\": \"O trecho liga o periodo de monitoramento com ano escrito ao facto principal do boletim.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "1-4 settembre 2026",
+    "INICIO": "2026-09-01",
+    "FIM": "2026-09-04",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "Il Bollettino fitosanitario relativo al periodo 1-4 settembre 2026 evidenzia una presenza ancora contenuta della Bactrocera oleae",
+    "PORQUE": "O trecho liga o periodo de monitoramento com ano escrito ao facto principal do boletim."
+   },
+   "FACT_TIME": "1-4 settembre 2026",
+   "INICIO": "2026-09-01",
+   "FIM": "2026-09-04",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "Il Bollettino fitosanitario relativo al periodo 1-4 settembre 2026 evidenzia una presenza ancora contenuta della Bactrocera oleae",
+   "POSICAO": [
+    569,
+    698
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-13",
+   "CHAVE": "derived:busca-74dd5877c26835d7|LINHA-BUSCA-RAW-20260927T152708|19",
+   "TEXTO_SHA256": "8b381ca69230d7cda1fdfbd7395ecc9dd8f99bd961ba741068062536ccbe8f07",
+   "CUSTO": {
+    "SEGUNDOS": 14.5,
+    "CUSTO_USD": 0.10347500000000001,
+    "TOKENS_ENTRADA": 9766,
+    "TOKENS_SAIDA": 233,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "```json\n{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"O boletim diz apenas \\\"Comunicato del 17 settembre\\\", sem ano escrito junto; os unicos anos no texto pertencem a deroga e a outros boletins listados.\"}\n```",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "O boletim diz apenas \"Comunicato del 17 settembre\", sem ano escrito junto; os unicos anos no texto pertencem a deroga e a outros boletins listados."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  },
+  {
+   "ID": "L30-14",
+   "CHAVE": "derived:busca-5d43598d863faa9d|LINHA-BUSCA-RAW-20260927T152708|22",
+   "TEXTO_SHA256": "0383e340cea885248f64fb021399a7f511c426427a63d8a17ffa9b51d60f0107",
+   "CUSTO": {
+    "SEGUNDOS": 13.5,
+    "CUSTO_USD": 0.105185,
+    "TOKENS_ENTRADA": 10097,
+    "TOKENS_SAIDA": 169,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"12 MAGGIO 2026\", \"INICIO\": \"2026-05-12\", \"FIM\": \"2026-05-12\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"BOLLETTINO FITOSANITARIO VITE: 12 MAGGIO 2026\", \"PORQUE\": \"O titulo do boletim liga a data de observacao fitossanitaria ao proprio facto relatado, com ano escrito.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "12 MAGGIO 2026",
+    "INICIO": "2026-05-12",
+    "FIM": "2026-05-12",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "BOLLETTINO FITOSANITARIO VITE: 12 MAGGIO 2026",
+    "PORQUE": "O titulo do boletim liga a data de observacao fitossanitaria ao proprio facto relatado, com ano escrito."
+   },
+   "FACT_TIME": "12 MAGGIO 2026",
+   "INICIO": "2026-05-12",
+   "FIM": "2026-05-12",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "BOLLETTINO FITOSANITARIO VITE: 12 MAGGIO 2026",
+   "POSICAO": [
+    0,
+    45
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-15",
+   "CHAVE": "derived:1381|IT-T7-2026-09-28-172901-e12211ff18a87210|4",
+   "TEXTO_SHA256": "aa308dae6f4277b405cf0a79931c08cc4e3b7389119d1955829a01f972678510",
+   "CUSTO": {
+    "SEGUNDOS": 17.5,
+    "CUSTO_USD": 0.0982365,
+    "TOKENS_ENTRADA": 37549,
+    "TOKENS_SAIDA": 167,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"campagna del pomodoro 2025\", \"INICIO\": \"2025\", \"FIM\": \"2025\", \"TIPO\": \"CAMPANHA\", \"TRECHO\": \"Gruppo Casalasco ha concluso la campagna del pomodoro 2025 con quasi 800.000 tonnellate di prodotto lavorato\", \"PORQUE\": \"O facto principal e o encerramento da campanha do tomate de 2025, com o ano escrito junto do facto.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "campagna del pomodoro 2025",
+    "INICIO": "2025",
+    "FIM": "2025",
+    "TIPO": "CAMPANHA",
+    "TRECHO": "Gruppo Casalasco ha concluso la campagna del pomodoro 2025 con quasi 800.000 tonnellate di prodotto lavorato",
+    "PORQUE": "O facto principal e o encerramento da campanha do tomate de 2025, com o ano escrito junto do facto."
+   },
+   "FACT_TIME": "campagna del pomodoro 2025",
+   "INICIO": "2025",
+   "FIM": "2025",
+   "TIPO": "CAMPANHA",
+   "TRECHO_LITERAL": "Gruppo Casalasco ha concluso la campagna del pomodoro 2025 con quasi 800.000 tonnellate di prodotto lavorato",
+   "POSICAO": [
+    753,
+    861
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-16",
+   "CHAVE": "derived:busca-5d359d072c7634f5|LINHA-BUSCA-RAW-20260927T152708|20",
+   "TEXTO_SHA256": "404464290c77de68daa7bb5ee619aa7b4e3d2b6b70a93e05dd47f3933e207e92",
+   "CUSTO": {
+    "SEGUNDOS": 14.7,
+    "CUSTO_USD": 0.08349,
+    "TOKENS_ENTRADA": 7945,
+    "TOKENS_SAIDA": 162,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"3 marzo 2026\", \"INICIO\": \"2026-03-03\", \"FIM\": \"2026-03-03\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"Bollettino di produzione integrata e biologica n. 4 del 3 marzo 2026\", \"PORQUE\": \"A data identifica o proprio boletim tecnico, ou seja o momento de observacao a que o conteudo se refere.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "3 marzo 2026",
+    "INICIO": "2026-03-03",
+    "FIM": "2026-03-03",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "Bollettino di produzione integrata e biologica n. 4 del 3 marzo 2026",
+    "PORQUE": "A data identifica o proprio boletim tecnico, ou seja o momento de observacao a que o conteudo se refere."
+   },
+   "FACT_TIME": "3 marzo 2026",
+   "INICIO": "2026-03-03",
+   "FIM": "2026-03-03",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "Bollettino di produzione integrata e biologica n. 4 del 3 marzo 2026",
+   "POSICAO": [
+    39,
+    107
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-17",
+   "CHAVE": "derived:busca-0610ecaec8bc3f7b|LINHA-BUSCA-RAW-20260927T152708|18",
+   "TEXTO_SHA256": "a53e4f85ddd1ba52e2c578ae67b590cb7b0406065e9e550af324ba94e385d46d",
+   "CUSTO": {
+    "SEGUNDOS": 14.1,
+    "CUSTO_USD": 0.094705,
+    "TOKENS_ENTRADA": 9034,
+    "TOKENS_SAIDA": 175,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"22 maggio 2026\", \"INICIO\": \"2026-05-22\", \"FIM\": \"2026-05-22\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"Bollettino N°20 - MODELLI PREVISIONALI PATOGENI\\nSituazione fitosanitaria al 22 maggio 2026\", \"PORQUE\": \"O boletim declara a situacao fitossanitaria observada nessa data, com ano escrito.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "22 maggio 2026",
+    "INICIO": "2026-05-22",
+    "FIM": "2026-05-22",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "Bollettino N°20 - MODELLI PREVISIONALI PATOGENI\nSituazione fitosanitaria al 22 maggio 2026",
+    "PORQUE": "O boletim declara a situacao fitossanitaria observada nessa data, com ano escrito."
+   },
+   "FACT_TIME": "22 maggio 2026",
+   "INICIO": "2026-05-22",
+   "FIM": "2026-05-22",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "Bollettino N°20 - MODELLI PREVISIONALI PATOGENI\r\nSituazione fitosanitaria al 22 maggio 2026",
+   "POSICAO": [
+    46,
+    137
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-18",
+   "CHAVE": "derived:busca-7451caf82c35fdc9|LINHA-BUSCA-RAW-20260927T152708|0",
+   "TEXTO_SHA256": "a7e7c76dbaa2ef0c1eb2454f2c68193720fe6e70b72180a4f2a249f612821826",
+   "CUSTO": {
+    "SEGUNDOS": 17.4,
+    "CUSTO_USD": 0.29116000000000003,
+    "TOKENS_ENTRADA": 28667,
+    "TOKENS_SAIDA": 180,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"5 agosto 2026\", \"INICIO\": \"2026-08-05\", \"FIM\": \"2026-08-05\", \"TIPO\": \"DIA_DO_FACTO\", \"TRECHO\": \"Nota per la difesa antiperonosporica della vite del 5 agosto 2026\", \"PORQUE\": \"O documento tem como facto principal a nota/boletim mais recente, datada de 5 de agosto de 2026 (confirmada por \\\"Reggio Emilia, 5 agosto 2026\\\").\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "5 agosto 2026",
+    "INICIO": "2026-08-05",
+    "FIM": "2026-08-05",
+    "TIPO": "DIA_DO_FACTO",
+    "TRECHO": "Nota per la difesa antiperonosporica della vite del 5 agosto 2026",
+    "PORQUE": "O documento tem como facto principal a nota/boletim mais recente, datada de 5 de agosto de 2026 (confirmada por \"Reggio Emilia, 5 agosto 2026\")."
+   },
+   "FACT_TIME": "5 agosto 2026",
+   "INICIO": "2026-08-05",
+   "FIM": "2026-08-05",
+   "TIPO": "DIA_DO_FACTO",
+   "TRECHO_LITERAL": "Nota per la difesa antiperonosporica della vite del 5 agosto 2026",
+   "POSICAO": [
+    889,
+    954
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-19",
+   "CHAVE": "derived:busca-7470b9568b1382cf|LINHA-BUSCA-RAW-20260927T152708|1",
+   "TEXTO_SHA256": "e0039b9362a115f0dce23be38b7b2889d0f8fa7964628f6531d55738643afc0f",
+   "CUSTO": {
+    "SEGUNDOS": 13.0,
+    "CUSTO_USD": 0.101915,
+    "TOKENS_ENTRADA": 9735,
+    "TOKENS_SAIDA": 183,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"03/07/2026\", \"INICIO\": \"2026-07-03\", \"FIM\": \"2026-07-03\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"BOLLETTINO FITOSANITARIO della VITE\\nN.13 del 03/07/2026\\nvalido per le province di Perugia e Terni\", \"PORQUE\": \"A data identifica o proprio boletim semanal, cujo conteudo e a observacao fitossanitaria dessa semana.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "03/07/2026",
+    "INICIO": "2026-07-03",
+    "FIM": "2026-07-03",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "BOLLETTINO FITOSANITARIO della VITE\nN.13 del 03/07/2026\nvalido per le province di Perugia e Terni",
+    "PORQUE": "A data identifica o proprio boletim semanal, cujo conteudo e a observacao fitossanitaria dessa semana."
+   },
+   "FACT_TIME": "03/07/2026",
+   "INICIO": "2026-07-03",
+   "FIM": "2026-07-03",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "BOLLETTINO FITOSANITARIO della VITE\r\nN.13 del 03/07/2026\r\nvalido per le province di Perugia e Terni",
+   "POSICAO": [
+    0,
+    99
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-20",
+   "CHAVE": "derived:busca-d7838c774da0c09a|LINHA-BUSCA-RAW-20260927T152708|3",
+   "TEXTO_SHA256": "059140e0e37db42c0e8bbde14e33bff824e9e5bdd930ea9925fdbcec478c4b09",
+   "CUSTO": {
+    "SEGUNDOS": 12.7,
+    "CUSTO_USD": 0.10079500000000001,
+    "TOKENS_ENTRADA": 9648,
+    "TOKENS_SAIDA": 173,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"settimana 36 dal 1/09/2026 al 08/09/2026\", \"INICIO\": \"2026-09-01\", \"FIM\": \"2026-09-08\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"BOLLETTINO settimana 36 dal 1/09/2026 al 08/09/2026\", \"PORQUE\": \"O trecho indica a semana de observacao do boletim agrometeorologico, com o ano escrito.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "settimana 36 dal 1/09/2026 al 08/09/2026",
+    "INICIO": "2026-09-01",
+    "FIM": "2026-09-08",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "BOLLETTINO settimana 36 dal 1/09/2026 al 08/09/2026",
+    "PORQUE": "O trecho indica a semana de observacao do boletim agrometeorologico, com o ano escrito."
+   },
+   "FACT_TIME": "settimana 36 dal 1/09/2026 al 08/09/2026",
+   "INICIO": "2026-09-01",
+   "FIM": "2026-09-08",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "BOLLETTINO settimana 36 dal 1/09/2026 al 08/09/2026",
+   "POSICAO": [
+    2756,
+    2807
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-21",
+   "CHAVE": "derived:7|XX-T3-2026-09-18-171937-6f76511ca75100a5|0",
+   "TEXTO_SHA256": "198ee2fa96470cce49d4f0d4698c956f5d07e8eae0f75d316879f5532c0499fe",
+   "CUSTO": {
+    "SEGUNDOS": 13.1,
+    "CUSTO_USD": 0.35930000000000006,
+    "TOKENS_ENTRADA": 35486,
+    "TOKENS_SAIDA": 178,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"09 - 15 settembre 2026\", \"INICIO\": \"2026-09-09\", \"FIM\": \"2026-09-15\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"Settimanale N. 37 Anno XL\\n\\n09 - 15 settembre 2026\", \"PORQUE\": \"O boletim semanal n. 37 refere-se à semana de 09 a 15 de setembro de 2026, escrita no cabeçalho com o ano.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "09 - 15 settembre 2026",
+    "INICIO": "2026-09-09",
+    "FIM": "2026-09-15",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "Settimanale N. 37 Anno XL\n\n09 - 15 settembre 2026",
+    "PORQUE": "O boletim semanal n. 37 refere-se à semana de 09 a 15 de setembro de 2026, escrita no cabeçalho com o ano."
+   },
+   "FACT_TIME": "09 - 15 settembre 2026",
+   "INICIO": "2026-09-09",
+   "FIM": "2026-09-15",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "Settimanale N. 37 Anno XL\r\n\r\n09 - 15 settembre 2026",
+   "POSICAO": [
+    0,
+    51
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-22",
+   "CHAVE": "derived:11|IT-T3-2026-09-20-110656-6e4ffc27a86c5269|0",
+   "TEXTO_SHA256": "b4ce31bbedb883fb9d6f21d0cb3bdf656fd45a98aa93e6a66dbe710da8fb90fc",
+   "CUSTO": {
+    "SEGUNDOS": 13.3,
+    "CUSTO_USD": 0.359105,
+    "TOKENS_ENTRADA": 35449,
+    "TOKENS_SAIDA": 185,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"16 - 22 settembre 2026\", \"INICIO\": \"2026-09-16\", \"FIM\": \"2026-09-22\", \"TIPO\": \"SEMANA_DE_OBSERVACAO\", \"TRECHO\": \"Settimanale N. 38 Anno XL\\n\\n16 - 22 settembre 2026\", \"PORQUE\": \"O boletim semanal n. 38 refere-se à semana de observação/previsão de 16 a 22 de setembro de 2026, escrita no cabeçalho com o ano.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "16 - 22 settembre 2026",
+    "INICIO": "2026-09-16",
+    "FIM": "2026-09-22",
+    "TIPO": "SEMANA_DE_OBSERVACAO",
+    "TRECHO": "Settimanale N. 38 Anno XL\n\n16 - 22 settembre 2026",
+    "PORQUE": "O boletim semanal n. 38 refere-se à semana de observação/previsão de 16 a 22 de setembro de 2026, escrita no cabeçalho com o ano."
+   },
+   "FACT_TIME": "16 - 22 settembre 2026",
+   "INICIO": "2026-09-16",
+   "FIM": "2026-09-22",
+   "TIPO": "SEMANA_DE_OBSERVACAO",
+   "TRECHO_LITERAL": "Settimanale N. 38 Anno XL\r\n\r\n16 - 22 settembre 2026",
+   "POSICAO": [
+    0,
+    51
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-23",
+   "CHAVE": "derived:762|XX-T10-2026-09-21-224321-0eec1f579e86f4f7|0",
+   "TEXTO_SHA256": "8ec3931d5ee7a61f6ff5b5f3378279e738f96f5f72f071a412d7c4cb1baddd64",
+   "CUSTO": {
+    "SEGUNDOS": 16.3,
+    "CUSTO_USD": 0.10156,
+    "TOKENS_ENTRADA": 9412,
+    "TOKENS_SAIDA": 298,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "```json\n{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"O facto principal (alta de 24% do preco da arachide Runner 40/50) esta datado apenas como \\\"A inizio settembre\\\", sem ano escrito ao lado.\"}\n```",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "O facto principal (alta de 24% do preco da arachide Runner 40/50) esta datado apenas como \"A inizio settembre\", sem ano escrito ao lado."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  },
+  {
+   "ID": "L30-24",
+   "CHAVE": "derived:764|XX-T10-2026-09-21-224321-0eec1f579e86f4f7|1",
+   "TEXTO_SHA256": "7f08daef74dc2cf1b339d5a83fdcfb6b88861536e10289c2a6d29328d89058a5",
+   "CUSTO": {
+    "SEGUNDOS": 12.3,
+    "CUSTO_USD": 0.11492500000000001,
+    "TOKENS_ENTRADA": 11036,
+    "TOKENS_SAIDA": 183,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"settimane 33-41 del 2024, 2025 e 2026\", \"INICIO\": \"2026\", \"FIM\": \"2026\", \"TIPO\": \"COTACAO\", \"TRECHO\": \"mette a confronto l’andamento dei prezzi delle principali tipologie di uva da tavola nelle settimane 33-41 del 2024, 2025 e 2026\", \"PORQUE\": \"O facto principal é a comparação de preços nas semanas 33-41 dos anos indicados, com foco na campanha 2026.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "settimane 33-41 del 2024, 2025 e 2026",
+    "INICIO": "2026",
+    "FIM": "2026",
+    "TIPO": "COTACAO",
+    "TRECHO": "mette a confronto l’andamento dei prezzi delle principali tipologie di uva da tavola nelle settimane 33-41 del 2024, 2025 e 2026",
+    "PORQUE": "O facto principal é a comparação de preços nas semanas 33-41 dos anos indicados, com foco na campanha 2026."
+   },
+   "FACT_TIME": "settimane 33-41 del 2024, 2025 e 2026",
+   "INICIO": "2026",
+   "FIM": "2026",
+   "TIPO": "COTACAO",
+   "TRECHO_LITERAL": "mette a confronto l’andamento dei prezzi delle principali tipologie di uva da tavola nelle settimane 33-41 del 2024, 2025 e 2026",
+   "POSICAO": [
+    1337,
+    1465
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-25",
+   "CHAVE": "derived:836|XX-T10-2026-09-22-193411-0a8a01dbc999da85|2",
+   "TEXTO_SHA256": "ce6dce9f9f1aeac991e26900f6d52e013d0f4be23bfa4c7c9754e1683b8370a6",
+   "CUSTO": {
+    "SEGUNDOS": 12.8,
+    "CUSTO_USD": 0.110085,
+    "TOKENS_ENTRADA": 10307,
+    "TOKENS_SAIDA": 281,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "```json\n{\"FACT_TIME\": \"settimana 39 ... del 2026\", \"INICIO\": \"2026-09-21\", \"FIM\": \"2026-09-27\", \"TIPO\": \"COTACAO\", \"TRECHO\": \"il prezzo medio del 2026 scende ulteriormente nella settimana 39 a circa 2,40 euro/kg\", \"PORQUE\": \"O facto principal sao as cotacoes da uva de mesa na semana 39 de 2026, com o ano escrito junto da semana no trecho.\"}\n```",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "settimana 39 ... del 2026",
+    "INICIO": "2026-09-21",
+    "FIM": "2026-09-27",
+    "TIPO": "COTACAO",
+    "TRECHO": "il prezzo medio del 2026 scende ulteriormente nella settimana 39 a circa 2,40 euro/kg",
+    "PORQUE": "O facto principal sao as cotacoes da uva de mesa na semana 39 de 2026, com o ano escrito junto da semana no trecho."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "VALOR_NAO_ESTA_NO_TRECHO"
+  },
+  {
+   "ID": "L30-26",
+   "CHAVE": "derived:911|XX-T10-2026-09-24-035431-62acfb3dc0158ff7|2",
+   "TEXTO_SHA256": "2f593fcfdedce9644434067590ae571ae1fc7fd189c76b5c549fdd7879bc5d56",
+   "CUSTO": {
+    "SEGUNDOS": 10.6,
+    "CUSTO_USD": 0.11081,
+    "TOKENS_ENTRADA": 10647,
+    "TOKENS_SAIDA": 174,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"oggi 23 settembre 2026\", \"INICIO\": \"2026-09-23\", \"FIM\": \"2026-09-23\", \"TIPO\": \"DIA_DO_FACTO\", \"TRECHO\": \"Osservatorio Piccoli Frutti a Firenze che, oggi 23 settembre 2026, ha visitato 14 punti vendita di 14 insegne\", \"PORQUE\": \"O texto liga a data ao dia em que a observação de preços nas lojas foi feita.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "oggi 23 settembre 2026",
+    "INICIO": "2026-09-23",
+    "FIM": "2026-09-23",
+    "TIPO": "DIA_DO_FACTO",
+    "TRECHO": "Osservatorio Piccoli Frutti a Firenze che, oggi 23 settembre 2026, ha visitato 14 punti vendita di 14 insegne",
+    "PORQUE": "O texto liga a data ao dia em que a observação de preços nas lojas foi feita."
+   },
+   "FACT_TIME": "oggi 23 settembre 2026",
+   "INICIO": "2026-09-23",
+   "FIM": "2026-09-23",
+   "TIPO": "DIA_DO_FACTO",
+   "TRECHO_LITERAL": "Osservatorio Piccoli Frutti a Firenze che, oggi 23 settembre 2026, ha visitato 14 punti vendita di 14 insegne",
+   "POSICAO": [
+    2469,
+    2578
+   ],
+   "MOTIVO": "ANCORADO"
+  },
+  {
+   "ID": "L30-27",
+   "CHAVE": "derived:87|IT-T5-2026-09-20-144624-321fa3994d5fb839|0",
+   "TEXTO_SHA256": "198e8c5e3c41d268b40fe5787f4a5face53d84a1323fe6a236abc0fff278a4ff",
+   "CUSTO": {
+    "SEGUNDOS": 12.6,
+    "CUSTO_USD": 0.095305,
+    "TOKENS_ENTRADA": 9219,
+    "TOKENS_SAIDA": 125,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"E uma lista de fasciculos de uma revista, sem um facto principal unico datado; os anos sao apenas de volumes catalogados.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "E uma lista de fasciculos de uma revista, sem um facto principal unico datado; os anos sao apenas de volumes catalogados."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  },
+  {
+   "ID": "L30-28",
+   "CHAVE": "derived:24|IT-T5-2026-09-20-111552-c60226342543877f|0",
+   "TEXTO_SHA256": "c70db59afd9465f3445f9679fa1504decf1c988c9edd5cc5100d2b3171dc3179",
+   "CUSTO": {
+    "SEGUNDOS": 13.8,
+    "CUSTO_USD": 0.15905,
+    "TOKENS_ENTRADA": 15446,
+    "TOKENS_SAIDA": 184,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "```json\n{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"O documento e um edital de linhas-guia; as datas presentes sao prazos futuros de entrega e normas citadas, nenhuma ligada a um facto observado.\"}\n```",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "O documento e um edital de linhas-guia; as datas presentes sao prazos futuros de entrega e normas citadas, nenhuma ligada a um facto observado."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  },
+  {
+   "ID": "L30-29",
+   "CHAVE": "derived:134|IT-T7-2026-09-20-192932-34df68b28dff931e|0",
+   "TEXTO_SHA256": "10d75c93d7d0f81c6d54cf3955ecfa5d236d54d377f2eb37a4d7b8a2016d7d14",
+   "CUSTO": {
+    "SEGUNDOS": 11.7,
+    "CUSTO_USD": 0.089755,
+    "TOKENS_ENTRADA": 8669,
+    "TOKENS_SAIDA": 123,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"É uma página institucional descritiva, sem data ligada a um facto; as únicas datas são de lei, mandatos e rodapé.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "É uma página institucional descritiva, sem data ligada a um facto; as únicas datas são de lei, mandatos e rodapé."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  },
+  {
+   "ID": "L30-30",
+   "CHAVE": "derived:1248|IT-T5-2026-09-28-165526-e71361f333cc6901|1",
+   "TEXTO_SHA256": "5019277ba2cb27eca6001df011e46d130a2c9a8c54fbdbd82a6f20eac4488a27",
+   "CUSTO": {
+    "SEGUNDOS": 12.2,
+    "CUSTO_USD": 0.0835,
+    "TOKENS_ENTRADA": 7966,
+    "TOKENS_SAIDA": 154,
+    "ERRO": false
+   },
+   "RESPOSTA_BRUTA": "{\"FACT_TIME\": \"NAO SEI\", \"INICIO\": \"NAO SEI\", \"FIM\": \"NAO SEI\", \"TIPO\": \"NAO SEI\", \"TRECHO\": \"\", \"PORQUE\": \"As unicas datas no texto sao a de publicacao/ultimo aggiornamento (10 Settembre 2026) e as da secao 'Leggi anche'; nao ha data escrita ligada ao facto do brevetto.\"}",
+   "TEXTO_TRUNCADO": false,
+   "LLM": {
+    "FACT_TIME": "NAO SEI",
+    "INICIO": "NAO SEI",
+    "FIM": "NAO SEI",
+    "TIPO": "NAO SEI",
+    "TRECHO": "",
+    "PORQUE": "As unicas datas no texto sao a de publicacao/ultimo aggiornamento (10 Settembre 2026) e as da secao 'Leggi anche'; nao ha data escrita ligada ao facto do brevetto."
+   },
+   "FACT_TIME": "NAO SEI",
+   "MOTIVO": "LEITOR_DISSE_NAO_SEI"
+  }
+ ]
+}
