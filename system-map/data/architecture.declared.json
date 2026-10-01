@@ -908,7 +908,7 @@
     "audit",
     "collection-strategy"
    ],
-   "what": "O comando unico da micro-coleta. `plano` pergunta ao collection_gate no instante, confere contrato, receita web e a frase que o orquestrador vai montar — sem rede. `correr` e a unica porta para a rede: exige autorizacao do dono, as quatro variaveis da Sala e egresso IT medido antes e depois de cada corrida, e corre pela porta canonica (orquestrador -> italy_executor). `relatorio` so faz SELECT com default_transaction_read_only e mede sete criterios de passagem.",
+   "what": "O comando unico da micro-coleta. `plano` pergunta ao collection_gate no instante, confere contrato, receita web e a frase que o orquestrador vai montar — sem rede. `correr` e a unica porta para a rede: exige autorizacao do dono, as quatro variaveis da Sala e egresso IT medido antes e depois de cada corrida, e corre pela porta canonica (orquestrador -> italy_executor). `relatorio` so faz SELECT com default_transaction_read_only e mede sete criterios de passagem. provar_backup_da_sala.provar (L2-DISPARADOR, portado da ESTEIRA-SOZINHA 28/09) e a prova do backup como funcao, que devolve SINTONIA_SALA_DSN ao ambiente e entrega a copia viva a quem pede (com_a_copia); provar_backup_da_sala.podar e a retencao declarada dos backups do disparador: por pasta de corrida, fica inteira a em curso, as N mais novas e a mais nova com PROVA_VALE; as outras perdem so o pesado (pg/, dump, export da copia) e guardam o recibo.",
    "why_here": "As duas micro-coletas de 21/09 falharam por egresso BR, frase sem apelido, falta de receita e fonte de marca — e nenhuma tinha um relatorio que o dissesse sozinho. Nao repete regra nenhuma: importa o gate, o juiz de capa e a regua.",
    "departments": [
     "ENGENHARIA",
@@ -4668,11 +4668,75 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida. CHAVE-PROBLEMA (27/09): o objeto do futuro le o ISSUE_ID pelo mesmo contrato PROBLEMA/v1 que a CAP-WIN.",
+   "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida. CHAVE-PROBLEMA (27/09): o objeto do futuro le o ISSUE_ID pelo mesmo contrato PROBLEMA/v1 que a CAP-WIN. D-GER-2 (diretiva do Intelligence owner, 29/09): o export read-only (r7_export_da_copia.sql) le tambem raw_asset.sha256 e storage_path no mesmo left join, e cada PROVA leva RAW_SHA256 / RAW_STORAGE_PATH — os do banco, ou NAO SEI; nunca calculados do texto, da URL ou do disco.",
    "why_here": "Missao INT-R7-CAPS: juntar CAP-WIN e CAP-SCI no motor sem duplicar leis nem contadores (uma corrida, um RUN_ID) e preparar a rodada 7 (RUNBOOK-R7.md). Conflitos resolvidos pelo significado: URL/DOCUMENT_ID nao sao READY (vem do RAW); JANELA_DECLARADA nao esta em CAMPOS_READY (viaja ao lado, so a CAP-WIN a le); boletim nao e estudo e estudo nao e janela. Nao abre a Sala, nao cunha identidade, nao produz OPORTUNIDADE. EXPERIMENTAL / NAO_PARA_CLIENTE.",
    "files": [
     "motor/motor_das_capacidades.py",
+    "motor/g0_da_afirmacao.py",
     "motor/r7_export_da_copia.sql"
+   ]
+  },
+  {
+   "id": "C-L2-DISPARADOR-INTELLIGENCE",
+   "name": "O disparador da Intelligence (D90-5, D140) — so le a Sala",
+   "territory": "Z-ADMISSAO",
+   "kind": "engine",
+   "icon": "⏱",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Uma volta por chamada (--uma-volta), chamada pelo Agendador de Tarefas por um .cmd que le SALA_DSN.txt no arranque (set /p; sem setx; a DSN nunca se imprime). Pergunta a Sala (so SELECT, pelo cliente so-leitura da coleta, de 5 em 5 min) quantos READY pousaram depois da ultima tentativa; corre com 10 novos OU com 1 novo que ja espera 4 h, senao SEM_DELTA / POUCOS_E_RECENTES. Dois trincos (sala_de_espera._Trava): um impede duas corridas, outro impede duas voltas de ler e gravar o estado (curadoria/ESTEIRA-INTELLIGENCE-ESTADO.json) ao mesmo tempo. A corrida e o motor que ja existe: backup da Sala reposto numa copia descartavel (PROVA_VALE), export read-only DA COPIA como o RUNBOOK-R7 (motor/r7_export_da_copia.sql, READ_ONLY=on conferido) mais a hora de pouso de cada linha, CORTE VIGENTE (uma linha por ITEM_ID, a de pousado_em mais recente; ITEM_ID repetido, sem identidade ou sem hora legivel sai do corte e e DECLARADO em CORTE-VIGENTE.json, no estado e no vigia — a Sala real tem derived:6/56/57/60/62/66 em duas linhas e o motor recusa o corte inteiro), motor_das_capacidades.rodar, montar_o_pote (o gerador do dono pote_intelligence_casco.ler_entrada e, so aqui, ENTITY_SOURCE = valor da lei COL-LAW-221 senao UNKNOWN — decisao do Intelligence owner D142; o mapa do motor nunca se achata nem se escolhe uma entrada), e o fiscal validar_pote_v2 sobre o ficheiro candidato na pasta da corrida: so PASSA vai para a entrega (curadoria/esteira/intelligence/PARA-O-CASCO/: POTE.json + MANIFESTO.json + SHA256SUMS.txt, trocada inteira). A ENTREGA E A FRONTEIRA: o disparador nunca escreve sob italia-portale/ — quem le a entrega e publica e o casco (correcao do coordenador, 28/09). Reprovado fica guardado com as violacoes. Nunca chama pousar/rever/retirar e nunca escreve consumido_em (retirar da fila e outra decisao, D140). Recuo de 30 min depois de falha; depois de cada corrida, dentro do trinco, a poda dos backups. A conversao D142 corre ANTES do gerador (que ja confere a COL-LAW-221 ao montar); com o fiscal D-GER-1, o pote do motor real e valido (Sala da R9: 15 objetos, 0 violacoes; RAW_SHA256 do banco 21/21). A entrega e escrita em LF (sha256sum -c). D152: codigo pronto, NAO agendado, NAO instalado.",
+   "why_here": "L2-DISPARADOR-INTELLIGENCE (D140, 28/09/2026): o dono pediu o disparador automatico SOMENTE-LEITURA que a TRAVA permite. Nao e um disparador novo: e o gatilho da ESTEIRA-SOZINHA (f85b4138a) portado seletivamente para cima da producao fd8c94698 — sem a passagem armazem -> Sala (escreve na Sala, e a coleta continua da producao ja leva cada corrida pela porta) e sem o gancho no supervisor (o supervisor nao tem a DSN; o metodo do dono e o .cmd do coleta_continua). Mora em admissao/, ao lado do dono da Sala: decide QUANDO a espera acaba e entrega uma COPIA ao motor; nao analisa nada. No motor/ ele faria o motor abrir a Sala (test_system_map::a_coleta_nao_conversa_com_o_motor_as_centenas).",
+   "files": [
+    "admissao/gatilho_da_inteligencia.py"
+   ]
+  },
+  {
+   "id": "C-ESTEIRA-VIGIA",
+   "name": "O vigia da esteira — ESTEIRA-SAUDE.json",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "👁",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Chamado pelo mesmo .cmd do disparador, depois da volta (ou a mao). Le a ultima vez que cada etapa andou — fonte (batimento do worker), coleta (FINISHED_AT dos livros), agendador (runs.log da tarefa ForwardOnly), Sala (max pousado_em, so SELECT), Intelligence e pote (estado do disparador), portal (mtime do pote no casco) — e escreve curadoria/ESTEIRA-SAUDE.json com ALERTA quando uma passa de N horas (N declarado por etapa em ETAPAS) ou quando nao se sabe quando andou. Portal publico: NAO SEI (medir e rede). DEFEITO_NA_SALA quando o ultimo corte do disparador tirou linhas (ITEM_ID repetido, sem identidade, sem hora). Nao barra nem conserta nada.",
+   "why_here": "Portado da ESTEIRA-SOZINHA sem a etapa passagem (que nao foi portada). Ninguem dizia ao coordenador que etapa estava parada; marca que nao se le e NAO SEI em alerta — o vigia calado e o unico erro que ele nao pode cometer.",
+   "files": [
+    "medidas/vigia_da_esteira.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-L2-DISPARADOR",
+   "name": "As provas do L2-DISPARADOR — Postgres descartavel e mutacao",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "🧬",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "ensaio_disparador.py sobe um PostgreSQL descartavel com a cadeia de migrations, semeia a fixture SINTETICA do R7 pelos donos da Sala (pousar/rever) com o defeito ITEM_ID repetido plantado, e corre a volta agendada de verdade: trinco preso -> OCUPADO sem copia; 10 novos -> dispara (copia PROVA_VALE, export READ_ONLY, corte vigente declarado, motor real, fiscal); sem novo -> SEM_DELTA; 1 novo recente espera e com 4 h dispara; um .cmd real le SALA_DSN.txt com set /p e mede sem imprimir a DSN; um motor DUBLE (declarado, ENTITY_SOURCE da lei) prova que um pote aprovado chega a entrega com sha; italia-portale/ fotografado igual no fim; a impressao da Sala (md5 das linhas, revisoes, consumido_em) e igual antes e depois de cada disparo. mutantes.py planta 47 defeitos (escreve na Sala, marca consumido_em, sem trinco, pote invalido entregue, escrita sob italia-portale/, ENTITY_SOURCE achatado/escolhido/fora da lei, corte torto, DSN impressa, vigia calado, retencao) e exige que tests/test_disparador_intelligence.py reprove cada um; tests/test_harness_mutacao_l2.py confere cada alvo em LF e CRLF. r9_auto_vs_manual.py (D151/D152) corre o caminho oficial do gatilho sobre os bytes exatos da Sala da R9 (sha conferido) e compara com o oraculo PARA-O-CASCO-R9 (so lido): OBJETOS_LIBERADOS_AUTO=0, causa = nao ha produtor de afirmacao por objeto (COL-LAW-202 ABSENT). funil_r9.py (D156) conta portao a portao (corte, G0, triagem, CAP-WIN e o porque, CAP-SCI, objetos, pote, fiscal), segue os itens que o oraculo liberou pela PROVA dele (nenhum ID fixo) e, com --entregar, faz a entrega oficial fora do Git. mutantes.py: 60 defeitos, incluindo o fiscal D-GER-1 (L48-L54), o byte da prova D-GER-2 (L55-L59) e a entrega em CRLF (L60).",
+   "why_here": "A prova vive fora da peca que prova. Sem rede e sem a Sala real: o banco e descartavel e o ensaio diz-o.",
+   "files": [
+    "provas/l2/ensaio_disparador.py",
+    "provas/l2/mutantes.py",
+    "provas/l2/r9_auto_vs_manual.py",
+    "provas/l2/funil_r9.py",
+    "provas/l2/g0_afirmacao_r9.py",
+    "provas/l2/mutantes_g0.py",
+    "provas/g0-afirmacao/mutantes_dt_fato_observado.py"
    ]
   },
   {
@@ -6003,11 +6067,14 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado. LIGACAO-ADAMA (D123, revisao anotada REVISAO_DO_CONTRATO = v2 + LIGACAO_ADAMA/v1): todo objeto leva LIGACAO_ADAMA calculada pela porta (motor/porta_da_referencia.py); o gerador recusa SEM_LIGACAO_ADAMA, LIGACAO_ADAMA_FORA_DA_PORTA (selo/lei de conferir_ligacao) e REFERENCIA_NAO_E_FONTE_INDEPENDENTE, e conferir_pote reprova ligacoes de edicoes diferentes num pote. Payload v1: a porta diz NAO_SEI/REFERENCIA.",
+   "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado. LIGACAO-ADAMA (D123, revisao anotada REVISAO_DO_CONTRATO = v2 + LIGACAO_ADAMA/v1): todo objeto leva LIGACAO_ADAMA calculada pela porta (motor/porta_da_referencia.py); o gerador recusa SEM_LIGACAO_ADAMA, LIGACAO_ADAMA_FORA_DA_PORTA (selo/lei de conferir_ligacao) e REFERENCIA_NAO_E_FONTE_INDEPENDENTE, e conferir_pote reprova ligacoes de edicoes diferentes num pote. Payload v1: a porta diz NAO_SEI/REFERENCIA. D-GER-1 (diretiva do Intelligence owner, 29/09): conferir_pote aceita em ENTITY_SOURCE SO o vocabulario da COL-LAW-221 (leis/afirmacao_da_fonte.ENTITY_SOURCES, importado do dono), UNKNOWN incluido como ignorancia declarada pela lei; «NAO SEI», «?», vazio, null, mapa e texto fora da lei reprovam; o gerador ja nao traduz ENTITY_SOURCE para NAO SEI. LOCATION_SOURCE mantem a regra de antes. Efeito medido: o acervo (ENTITY_SOURCE achatado «POR_CHAVE — ...») e a fixture CORRIDA-SINTETICA-V2-UNICO (texto fora da lei) passam a reprovar — defeitos listados na ENTREGA-L2-GERADOR, nao corrigidos aqui. D-GER-2: cada PROVA leva RAW_SHA256 / RAW_STORAGE_PATH vindos da prova do motor (ou NAO SEI), e o fiscal so aceita sha256 de 64 hex.",
    "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/). POTE-V2-UNICO: o bot emitia um R5 com o id em CABECALHO e o gerador ce775ff5 recusava-o; o R6 aprovado recusava o «nao» da APOL e deixava 3 de 47 fontes no Registro (P7), e o Polso lia sinal solto como mudanca (P8). +38 testes em tests/test_pote_v2_unico.py; numa fixture SINTETICA equivalente a R6, 45 das 46 recusas voltam (provas/pote_v2/medir_recusas_r6.py).",
    "files": [
     "pacote/pote_intelligence_casco.py",
-    "pacote/validar_pote_v2.py"
+    "pacote/validar_pote_v2.py",
+    "pacote/liberacao_por_criterio.py",
+    "pacote/rodada_viva/rodada_viva.sh",
+    "pacote/rodada_viva/rodada_viva.cmd"
    ]
   },
   {

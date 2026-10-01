@@ -1,0 +1,162 @@
+{
+ "ALVO": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\c8-auto-v1",
+ "HEAD": "c67a7fd989f307be5048f2a8315486c6d76099af",
+ "TESTE": "tests.test_g0_da_afirmacao",
+ "BASE_VERDE": true,
+ "MUTANTES": [
+  {
+   "ID": "D1",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "retirar a marca: bloco MARCA_DE_MEDICAO ausente aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M1_retirar_a_marca_morre"
+   ]
+  },
+  {
+   "ID": "D2",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "retirar a marca: verbo/valor sem posicao aceites",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M1_retirar_a_marca_morre"
+   ]
+  },
+  {
+   "ID": "D3",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "ancora do campo como marca: vocabulario da marca desligado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M1b_a_ancora_do_campo_nao_conta_como_marca"
+   ]
+  },
+  {
+   "ID": "D4",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "evento futuro («saranno registrati») aceite como medicao",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M2_evento_futuro_morre"
+   ]
+  },
+  {
+   "ID": "D5",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "ato regulatorio ou congresso no trecho: marca de outra classe aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M2b_ato_regulatorio_ou_congresso_no_trecho_morre"
+   ]
+  },
+  {
+   "ID": "D6",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "tempo = data de publicacao sem base no trecho aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M3_tempo_trocado_pela_data_de_publicacao_morre"
+   ]
+  },
+  {
+   "ID": "D7",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "lugar = lugar da fonte (LOCATION_SOURCE != TEXT) aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M4_lugar_trocado_pelo_lugar_da_fonte_morre"
+   ]
+  },
+  {
+   "ID": "D8",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "lugar sem posicao aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M4_lugar_trocado_pelo_lugar_da_fonte_morre"
+   ]
+  },
+  {
+   "ID": "D9",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "lugar que nao esta no texto aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M4c_lugar_cujo_onde_nao_bate_com_o_texto_morre"
+   ]
+  },
+  {
+   "ID": "D10",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "lugar fora do trecho aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M4d_lugar_escrito_fora_do_trecho_morre"
+   ]
+  },
+  {
+   "ID": "D11",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "marca que nao bate com o texto aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M1c_marca_fora_do_trecho_ou_que_nao_bate_com_o_texto_morre"
+   ]
+  },
+  {
+   "ID": "D12",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "marca fora do trecho aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M1c_marca_fora_do_trecho_ou_que_nao_bate_com_o_texto_morre"
+   ]
+  },
+  {
+   "ID": "D13",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "sem texto para conferir aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sem_texto_nao_ha_como_conferir"
+   ]
+  },
+  {
+   "ID": "D14",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "o §5-D inteiro desligado (OBSERVACAO_MEDIDA sem conferencia nenhuma)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_M1_retirar_a_marca_morre",
+    "test_M1b_a_ancora_do_campo_nao_conta_como_marca",
+    "test_M1c_marca_fora_do_trecho_ou_que_nao_bate_com_o_texto_morre",
+    "test_M2_evento_futuro_morre"
+   ]
+  },
+  {
+   "ID": "D15",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "misturar Europa 2004 com Italia 2012 (concorrencia desligada)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_concorrencia_cai_no_g0_pelo_motivo_de_concorrencia_e_so_por_ele",
+    "test_o_controle_legitimo_passa_e_chega_ao_pote_pelo_fiscal",
+    "test_a_contagem_em_bloco_do_produtor_tambem_vale",
+    "test_contagem_ausente_ou_nao_inteira_recusa"
+   ]
+  },
+  {
+   "ID": "D16",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "o motor nao faz objeto de OBSERVACAO_MEDIDA (o controle bom morre)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_motor_faz_objeto_so_de_observacao_medida_que_passou"
+   ]
+  }
+ ],
+ "MORTOS": 16,
+ "TOTAL": 16,
+ "RESTAURADOS_IGUAIS": true,
+ "ESTADO": "PASS"
+}

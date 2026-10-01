@@ -629,10 +629,13 @@ def vozes(itens, regs, ctx) -> tuple:
 #: ENTITY_SOURCE como um TEXTO (schema: string) e levanta-o de CHAVES para o
 #: objeto. Com a saida do motor tal como sai, validar_pote_v2 REPROVA todo objeto
 #: (o teste do motor que corria o gerador esta em skip: ce775ff5 nao esta no clone).
-#: Nenhum dos dois donos e mudado aqui: o mapa viaja com outro NOME, inteiro, e o
-#: objeto diz em texto onde ele esta. E uma leitura de compatibilidade declarada.
-ENTITY_SOURCE_TEXTO = ("POR_CHAVE — a procedencia de cada chave esta em "
-                       "FORA_DO_CONTRATO.ENTITY_SOURCE_POR_CHAVE (D112b)")
+#: Nenhum dos dois donos e mudado aqui: o mapa viaja com outro NOME, inteiro
+#: (FORA_DO_CONTRATO.ENTITY_SOURCE_POR_CHAVE).
+#: D-GER-1-MIG (decisao do Intelligence owner, 29/09): no objeto, ENTITY_SOURCE e um
+#: valor da COL-LAW-221 — o fiscal do pote so aceita esse vocabulario. O mapa nao e um
+#: valor da lei, e o texto que o apontava tambem nao; por isso o objeto diz UNKNOWN, e o
+#: mapa continua inteiro ao lado. Nunca se achata o mapa nem se escolhe uma entrada.
+ENTITY_SOURCE_TEXTO = "UNKNOWN"
 
 
 def ao_contrato_unico(objetos: dict) -> None:
@@ -651,6 +654,10 @@ def arquivo(objetos: dict) -> list:
     for comp in ("competitors", "market", "voices", "science", "windows", "future"):
         for o in objetos.get(comp) or []:
             if o["ESPECIE"] not in PIC.COMPARTIMENTOS["archive"]["ESPECIES"]:
+                continue
+            if MOTOR._e_conhecimento(o):
+                # F2 (§5-E): o conhecimento sem tempo nao se arquiva — o Archivio e memoria DATADA, e arquiva-lo
+                # obrigava a inventar FACT_TIME (ou a vê-lo recusado la dentro, contado duas vezes)
                 continue
             ch = o["CHAVES"]
             chaves = {k: ch.get(k, NAO_SEI) for k in PIC.COMPARTIMENTOS["archive"]["CHAVES"]}

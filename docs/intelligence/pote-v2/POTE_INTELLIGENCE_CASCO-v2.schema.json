@@ -82,8 +82,8 @@
   "prova": {
    "type": "object",
    "required": ["ITEM_ID", "RAW_OBSERVATION_ID", "SOURCE_ID", "DOCUMENT_ID", "CORRIDA_UPSTREAM", "URL", "URL_BASE",
-                "PUBLISHED_AT", "PUBLISHED_AT_BASE", "COLHIDO_EM", "FACT_TIME", "G0", "ADMITIDA_POR",
-                "INTELLIGENCE_RUN_ID"],
+                "PUBLISHED_AT", "PUBLISHED_AT_BASE", "COLHIDO_EM", "FACT_TIME", "RAW_SHA256", "RAW_STORAGE_PATH",
+                "G0", "ADMITIDA_POR", "INTELLIGENCE_RUN_ID"],
    "properties": {
     "ADMITIDA_POR": {"enum": ["G0_PASSOU", "FUTURO_POR_DESENHO", "USO_SEM_TEMPO", "PONTE_V1"]}
    }

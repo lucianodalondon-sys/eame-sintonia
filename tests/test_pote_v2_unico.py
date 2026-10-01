@@ -155,7 +155,12 @@ class E_EspecieEOrigem_D112(unittest.TestCase):
 
     def test_E2_entity_e_location_source_viajam_com_o_nome_deles(self):
         o = obj(self.pote, "windows", "SINT-W-LUGAR")
-        self.assertEqual(o["ENTITY_SOURCE"], "SINT: registro nacional das culturas")
+        # D-GER-1-MIG (decisao do dono do contrato, 29/09): o valor viaja com o nome dele SEM MUDAR — o objeto
+        # traz EXATAMENTE o ENTITY_SOURCE da entrada, e esse valor e da COL-LAW-221.
+        entrada = next(x for x in corrida()["ITENS_POR_FERRAMENTA"]["windows"] if x["OBJETO_ID"] == "SINT-W-LUGAR")
+        self.assertEqual(o["ENTITY_SOURCE"], entrada["ENTITY_SOURCE"])
+        self.assertEqual(o["ENTITY_SOURCE"], "UNKNOWN")
+        self.assertIn(o["ENTITY_SOURCE"], P.ENTITY_SOURCES)
         self.assertEqual(o["LOCATION_SOURCE"], "TEXTO_DO_BOLETIM")
         self.assertNotIn("LOCATION_SOURCE", o["FORA_DO_CONTRATO"])
         self.assertNotIn("LOCATION_SOURCE", o["CHAVES"])

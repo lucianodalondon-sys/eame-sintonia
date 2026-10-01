@@ -1,0 +1,598 @@
+{
+ "TESTE": "tests.test_disparador_intelligence",
+ "BASE_VERDE": true,
+ "MUTANTES": [
+  {
+   "ID": "L1",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o disparador ESCREVE na Sala (chama um escritor do dono)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_codigo_do_disparador_nao_escreve_na_sala",
+    "test_uma_volta_inteira_nao_chama_nenhum_escritor_da_sala"
+   ]
+  },
+  {
+   "ID": "L2",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o disparador MARCA consumido_em (retira da fila)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_volta_leva_o_corte_ao_motor_e_declara_o_defeito",
+    "test_a_entrega_e_lf_e_o_sha256sums_le_se_com_a_ferramenta_padrao",
+    "test_a_entrega_troca_se_inteira",
+    "test_pote_aprovado_entrega_os_tres_ficheiros_e_os_sha_batem"
+   ]
+  },
+  {
+   "ID": "L3",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o delta vira UPDATE ... consumido_em (escreve na Sala pela consulta)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_codigo_do_disparador_nao_escreve_na_sala",
+    "test_uma_volta_inteira_nao_chama_nenhum_escritor_da_sala"
+   ]
+  },
+  {
+   "ID": "L4",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o export da copia sem a trava do banco (PGOPTIONS sem read only)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_export_so_serve_com_read_only_on_em_qualquer_so",
+    "test_os_pousos_da_copia_leem_se_so_leitura"
+   ]
+  },
+  {
+   "ID": "L5",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "export sem a transacao so-leitura no comando",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_export_so_serve_com_read_only_on_em_qualquer_so"
+   ]
+  },
+  {
+   "ID": "L6",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "export sem READ_ONLY=on serve",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_export_so_serve_com_read_only_on_em_qualquer_so"
+   ]
+  },
+  {
+   "ID": "L7",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "Intelligence sem trinco: duas corridas ao mesmo tempo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_duas_corridas_sobrepostas_a_segunda_fica_ocupada"
+   ]
+  },
+  {
+   "ID": "L8",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "volta agendada sem trinco: duas voltas gravam o estado por cima uma da outra",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_duas_voltas_ao_mesmo_tempo_a_segunda_nao_grava"
+   ]
+  },
+  {
+   "ID": "L9",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a volta OCUPADA grava o estado (apaga a marca da outra)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_duas_voltas_ao_mesmo_tempo_a_segunda_nao_grava"
+   ]
+  },
+  {
+   "ID": "L10",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "pote reprovado vai para a entrega (o fiscal e ignorado)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_reprovado_nao_sobe_e_a_entrega_nao_muda"
+   ]
+  },
+  {
+   "ID": "L11",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "pote reprovado vai para a entrega (antes do fiscal)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_reprovado_nao_sobe_e_a_entrega_nao_muda"
+   ]
+  },
+  {
+   "ID": "L12",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "SHA256SUMS com o sha errado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_aprovado_entrega_os_tres_ficheiros_e_os_sha_batem"
+   ]
+  },
+  {
+   "ID": "L13",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a entrega nao se troca inteira (sobra de outra entrega fica)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_entrega_troca_se_inteira"
+   ]
+  },
+  {
+   "ID": "L42",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o disparador escreve sob italia-portale/ (publica ele mesmo no casco)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_codigo_do_disparador_nao_aponta_para_o_portal",
+    "test_uma_volta_pelo_caminho_padrao_nao_escreve_sob_italia_portale"
+   ],
+   "LIMPOU_SOB_ITALIA_PORTALE": [
+    "italia-portale\\client\\.l2-mutante-pote.json"
+   ]
+  },
+  {
+   "ID": "L43",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o mapa do motor e achatado em texto",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
+   ]
+  },
+  {
+   "ID": "L44",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "escolhe-se uma entrada do mapa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
+   ]
+  },
+  {
+   "ID": "L45",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "texto fora do vocabulario da lei passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_valor_da_lei_fica_e_o_resto_vira_unknown"
+   ]
+  },
+  {
+   "ID": "L46",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o mapa do motor chega ao pote (montado sem a conversao)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
+   ]
+  },
+  {
+   "ID": "L47",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a conversao estraga a saida do motor (sem copia)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
+   ]
+  },
+  {
+   "ID": "L60",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a entrega volta a sair com o fim de linha do sistema (CRLF no Windows quebra o sha256sum -c)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_entrega_e_lf_e_o_sha256sums_le_se_com_a_ferramenta_padrao"
+   ]
+  },
+  {
+   "ID": "L48",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita qualquer texto em ENTITY_SOURCE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova"
+   ]
+  },
+  {
+   "ID": "L49",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita o mapa do motor",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova",
+    "test_o_mapa_do_motor_reprova_no_gerador_e_convertido_passa_no_fiscal"
+   ]
+  },
+  {
+   "ID": "L50",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita «NAO SEI» em ENTITY_SOURCE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova"
+   ]
+  },
+  {
+   "ID": "L51",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita o valor da R9 manual (fora da lei)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova"
+   ]
+  },
+  {
+   "ID": "L52",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita ENTITY_SOURCE vazio",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova"
+   ]
+  },
+  {
+   "ID": "L53",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o gerador traduz UNKNOWN para «NAO SEI» (segundo vocabulario)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
+   ]
+  },
+  {
+   "ID": "L54",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal deixa de conferir ENTITY_SOURCE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova",
+    "test_o_mapa_do_motor_reprova_no_gerador_e_convertido_passa_no_fiscal"
+   ]
+  },
+  {
+   "ID": "L61",
+   "FICHEIRO": "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+   "FINGE": "D-GER-1-MIG: a fixture do dono volta a texto livre em ENTITY_SOURCE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_fixture_do_dono_passa_no_fiscal_tal_como_esta"
+   ]
+  },
+  {
+   "ID": "L55",
+   "FICHEIRO": "motor/r7_export_da_copia.sql",
+   "FINGE": "o export nao le o sha256 do raw_asset",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_export_le_o_byte_do_raw_asset"
+   ]
+  },
+  {
+   "ID": "L56",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "a prova calcula o sha a partir do texto da Sala (nao veio do raw_asset)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei"
+   ]
+  },
+  {
+   "ID": "L57",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "o motor nao le a coluna raw_sha256 do export",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei"
+   ]
+  },
+  {
+   "ID": "L58",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o gerador deixa cair o byte da prova (nao o le da prova do motor)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei"
+   ]
+  },
+  {
+   "ID": "L59",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita qualquer RAW_SHA256",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset"
+   ]
+  },
+  {
+   "ID": "L14",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o corte nao se aplica: o motor recebe o ITEM_ID repetido",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_volta_leva_o_corte_ao_motor_e_declara_o_defeito"
+   ]
+  },
+  {
+   "ID": "L15",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "fica a linha MAIS VELHA",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_ordem_do_export_nao_decide_quem_fica",
+    "test_fica_a_linha_de_pouso_mais_recente_e_as_outras_sao_declaradas"
+   ]
+  },
+  {
+   "ID": "L16",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "hora ilegivel escolhe na mesma",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_hora_ilegivel_num_repetido_tira_o_grupo_inteiro",
+    "test_sem_pousos_nada_se_escolhe"
+   ]
+  },
+  {
+   "ID": "L17",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "ITEM_ID sem identidade entra no corte",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_item_id_sem_identidade_sai_e_e_declarado"
+   ]
+  },
+  {
+   "ID": "L18",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o defeito da Sala fica calado no corte",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_volta_leva_o_corte_ao_motor_e_declara_o_defeito",
+    "test_fica_a_linha_de_pouso_mais_recente_e_as_outras_sao_declaradas",
+    "test_hora_ilegivel_num_repetido_tira_o_grupo_inteiro"
+   ]
+  },
+  {
+   "ID": "L19",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "o vigia cala o defeito da Sala",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_defeito_na_sala_e_alerta_mesmo_com_tudo_a_andar"
+   ]
+  },
+  {
+   "ID": "L20",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a DSN aparece no resultado da volta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_dsn_nunca_aparece_no_resultado_nem_no_estado"
+   ]
+  },
+  {
+   "ID": "L21",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "sem DSN a volta corre na mesma",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sem_dsn_nao_corre_e_nao_diz_a_dsn"
+   ]
+  },
+  {
+   "ID": "L22",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "gatilho corre sem delta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sem_delta_espera",
+    "test_a_dsn_nunca_aparece_no_resultado_nem_no_estado",
+    "test_o_estado_grava_se_e_a_volta_seguinte_le_o",
+    "test_sem_delta_o_motor_nao_corre"
+   ]
+  },
+  {
+   "ID": "L23",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "limiar de 10 vira 1",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_nove_recentes_esperam"
+   ]
+  },
+  {
+   "ID": "L24",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "4 h viram nada",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_nove_recentes_esperam"
+   ]
+  },
+  {
+   "ID": "L25",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "delta nao medido vira zero (ESPERAR em vez de NAO SEI)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_delta_nao_medido_e_nao_sei_e_nao_zero"
+   ]
+  },
+  {
+   "ID": "L26",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a marca nao anda: a mesma Sala corre para sempre",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_valido_sobe_e_a_marca_anda"
+   ]
+  },
+  {
+   "ID": "L27",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "sem recuo depois de falha",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_recuo_depois_de_falha"
+   ]
+  },
+  {
+   "ID": "L28",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "copia sem PROVA_VALE corre o motor na mesma",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_copia_sem_prova_vale_nao_corre_o_motor"
+   ]
+  },
+  {
+   "ID": "L29",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "gatilho ignora PARAR.flag",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_parar_flag_nao_mede_nem_corre"
+   ]
+  },
+  {
+   "ID": "L30",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a Sala e perguntada a cada volta (sem intervalo)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_estado_grava_se_e_a_volta_seguinte_le_o",
+    "test_a_sala_so_e_perguntada_de_5_em_5_minutos"
+   ]
+  },
+  {
+   "ID": "L31",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a Intelligence nao poda",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_poda_da_intelligence_corre_depois_e_poupa_a_corrida_em_curso"
+   ]
+  },
+  {
+   "ID": "L32",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a poda corre ANTES da corrida (leva a em curso)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_poda_da_intelligence_corre_depois_e_poupa_a_corrida_em_curso"
+   ]
+  },
+  {
+   "ID": "L33",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "NAO SEI deixa de ser alerta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_marca_ilegivel_nao_e_silencio",
+    "test_marca_que_rebenta_nao_e_silencio"
+   ]
+  },
+  {
+   "ID": "L34",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "o vigia nunca alerta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_de_hora_a_hora_e_escreve_o_ficheiro",
+    "test_defeito_na_sala_e_alerta_mesmo_com_tudo_a_andar",
+    "test_etapa_alem_de_n_horas_alerta"
+   ]
+  },
+  {
+   "ID": "L35",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "marca que rebenta vira «andou agora»",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_marca_que_rebenta_nao_e_silencio"
+   ]
+  },
+  {
+   "ID": "L36",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "o vigia nao escreve",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_de_hora_a_hora_e_escreve_o_ficheiro"
+   ]
+  },
+  {
+   "ID": "L37",
+   "FICHEIRO": "scripts/micro_coleta/provar_backup_da_sala.py",
+   "FINGE": "retencao apaga o backup em curso",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_ficam_as_n_ultimas_a_ultima_prova_vale_e_a_em_curso"
+   ]
+  },
+  {
+   "ID": "L38",
+   "FICHEIRO": "scripts/micro_coleta/provar_backup_da_sala.py",
+   "FINGE": "retencao apaga a ultima PROVA_VALE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_ficam_as_n_ultimas_a_ultima_prova_vale_e_a_em_curso",
+    "test_o_disco_fica_limitado_volta_apos_volta"
+   ]
+  },
+  {
+   "ID": "L39",
+   "FICHEIRO": "scripts/micro_coleta/provar_backup_da_sala.py",
+   "FINGE": "retencao apaga o recibo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_ficam_as_n_ultimas_a_ultima_prova_vale_e_a_em_curso"
+   ]
+  },
+  {
+   "ID": "L40",
+   "FICHEIRO": "scripts/micro_coleta/provar_backup_da_sala.py",
+   "FINGE": "retencao nao poda nada (o disco cresce)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_ficam_as_n_ultimas_a_ultima_prova_vale_e_a_em_curso",
+    "test_o_disco_fica_limitado_volta_apos_volta"
+   ]
+  },
+  {
+   "ID": "L41",
+   "FICHEIRO": "scripts/micro_coleta/provar_backup_da_sala.py",
+   "FINGE": "a prova do backup nao devolve a DSN ao ambiente",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_prova_do_backup_devolve_a_dsn_ao_ambiente"
+   ]
+  }
+ ],
+ "PORTAL_IGUAL_NO_FIM": true,
+ "MORTOS": 61,
+ "TOTAL": 61,
+ "RESTAURADOS_IGUAIS": true,
+ "ESTADO": "PASS"
+}

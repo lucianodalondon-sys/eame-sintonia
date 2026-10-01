@@ -74,12 +74,14 @@ for _g in ("motor", "leis"):
         sys.path.insert(0, str(RAIZ / _g))
 
 import corrida_da_inteligencia as CI            # noqa: E402
+import g0_da_afirmacao as G0A                    # noqa: E402  (DIRETIVA-G0-POR-AFIRMACAO: a unidade CLAIM)
 import cap_win as WIN                            # noqa: E402
 import capacidade_cientifica as SCI              # noqa: E402
 import porta_da_referencia as PORTA              # noqa: E402  (D116: uma edicao para as duas)
 # A LEI DO LUGAR tem dono (leis/lugar_do_fato.py): quem pode virar lugar do
 # fato e porque nao. D112(a) chama-a — nao a reescreve.
 import lugar_do_fato as LUGAR                    # noqa: E402
+import estudo_chaves as ESTUDO                   # noqa: E402  (F2: o NOME da natureza «estudo», do dono)
 # LOTE6-INTEGRA: a D112 passou a estar ESCRITA no repositorio (METODO-PUGLIA: COL-LAW-221..223 na Biblia
 # da Coleta, INT-LAW-078/079 na da Intelligence). O vocabulario das RELACOES tem dono
 # (leis/afirmacao_da_fonte.RELACOES / CONTRADICTION_STATUS): cada relacao deste motor diz tambem a
@@ -136,6 +138,11 @@ FUTURO = "FATO_PRESENTE_SOBRE_O_FUTURO"
 RENDIMENTO = "RENDIMENTO_DE_FONTE"
 ESPECIES_EMITIDAS = (SINAL, FUTURO, RENDIMENTO)
 G0_FUTURO_POR_DESENHO = "FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA"
+#: F2 (REAUDIT-275) · o estudo cujo G0 bloqueou SO pelo tempo do facto vai ao pote como CONHECIMENTO: SINAL
+#: no compartimento science, RESULTADO honesto do P7 (NO_DEFENSIBLE_ACTION_YET — le-se, cita-se, nao se age),
+#: USO_EXIGE_TEMPO = false, FACT_TIME e STUDY_PERIOD = NAO SEI. Nenhuma especie nova no contrato v2.
+ESPECIE_CONHECIMENTO = "CONHECIMENTO/ESTUDO (uso sem tempo, P7)"
+RESULTADO_DO_CONHECIMENTO = "NO_DEFENSIBLE_ACTION_YET"
 
 #: As chaves de contrato por compartimento — as do gerador ce775ff5, copiadas
 #: SO para o portao da saida conferir que nenhuma chave com valor fica sem
@@ -148,12 +155,17 @@ CHAVES_DO_POTE = {
     "future": ("CROP_ID", "ISSUE_ID", "REGION_ID", "FACT_LOCATION", "FACT_TIME",
                "FACT_TIME_BASIS"),
     "sources": ("SOURCE_ID", "ITENS_LIDOS", "ITENS_QUE_PASSARAM_G0", "OBJETOS_PRODUZIDOS"),
+    # G0-POR-AFIRMACAO: o archive so e alimentado quando ha afirmacoes (SINAL de uma afirmacao com tempo e
+    # lugar, sem capacidade que a leia). As chaves sao as do gerador do dono para o archive.
+    "archive": ("CROP_ID", "ISSUE_ID", "REGION_ID", "FACT_LOCATION", "FACT_TIME"),
 }
 
 #: O export traz a vista `sala_de_espera_atual` (o que a Intelligence le,
 #: migration 033) e tres colunas do `raw_asset` pelo RAW_OBSERVATION_ID.
 COLUNAS_DO_RAW = {"raw_source_url": "URL", "raw_document_key": "DOCUMENT_ID",
-                  "raw_document_key_basis": "DOCUMENT_ID_BASIS"}
+                  "raw_document_key_basis": "DOCUMENT_ID_BASIS",
+                  # D-GER-2: a identidade do byte, do raw_asset (o do banco, ou NAO SEI)
+                  "raw_sha256": "RAW_SHA256", "raw_storage_path": "RAW_STORAGE_PATH"}
 
 
 class LeiViolada(Exception):
@@ -318,8 +330,14 @@ def aplicar_d112_lugar(registo: dict) -> tuple:
 # ══════════════════════════════════════════════════════════════════════════
 def e_estudo(ready: dict) -> tuple:
     """-> (e_estudo, porque). Estudo = o FATO declara DOI, TRIAL_ID ou uma
-    especie cientifica do vocabulario da CAP-SCI. `SOURCE_DECLARED_EVIDENCE_CLASS`
-    NAO decide: e a expectativa de quem publica, nao a especie deste item."""
+    especie cientifica do vocabulario da CAP-SCI — OU a Collection declarou, na admissao, que o item e um
+    ESTUDO_CIENTIFICO (JANELA_DECLARADA.ORIGEM.CAP_SCI.NATUREZA, com o extrator que o disse; dono do nome:
+    leis/estudo_chaves.NATUREZA). `SOURCE_DECLARED_EVIDENCE_CLASS` NAO decide: e a expectativa de quem
+    publica, nao a especie deste item.
+
+    F2 (REAUDIT-275, 30/09): o FATO chega NAO_SE_APLICA em 275/275, e so por ele nenhum estudo era triado —
+    os 100 artigos do T5 iam para a CAP-WIN. A natureza que a porta da Collection ja escreveu e a mesma
+    pergunta, respondida por quem e dono dela; a Intelligence le-a, nao a refaz."""
     fato = ready.get("FATO") if isinstance(ready.get("FATO"), dict) else {}
     achado = []
     for chave in ("DOI", "TRIAL_ID"):
@@ -331,6 +349,13 @@ def e_estudo(ready: dict) -> tuple:
         achado.append(de)
     if achado:
         return True, "o FATO declara identidade de estudo: " + ", ".join(achado)
+    jd = ready.get("JANELA_DECLARADA") if isinstance(ready.get("JANELA_DECLARADA"), dict) else {}
+    origem = jd.get("ORIGEM") if isinstance(jd.get("ORIGEM"), dict) else {}
+    cap = origem.get("CAP_SCI") if isinstance(origem.get("CAP_SCI"), dict) else {}
+    extrator = origem.get("EXTRATOR_DO_ESTUDO")
+    if cap.get("NATUREZA") == ESTUDO.NATUREZA and cap.get("E_INCIDENCIA_DE_CAMPO") == "NAO" and not _ign(extrator):
+        return True, ("a admissao declarou NATUREZA %s (JANELA_DECLARADA.ORIGEM.CAP_SCI, extrator %s)"
+                      % (ESTUDO.NATUREZA, extrator))
     return False, "o FATO nao declara DOI, TRIAL_ID nem especie cientifica"
 
 
@@ -511,6 +536,9 @@ def _prova(ready: dict, linha: dict, raw: dict) -> dict:
         "SOURCE_ID": ready.get("SOURCE_ID"),
         "DOCUMENT_ID": _v(r.get("DOCUMENT_ID")),
         "URL": _v(r.get("URL")),
+        # D-GER-2: o byte da prova, como o raw_asset o guardou. Sem ele, NAO SEI.
+        "RAW_SHA256": _v(r.get("RAW_SHA256")),
+        "RAW_STORAGE_PATH": _v(r.get("RAW_STORAGE_PATH")),
         "PUBLICADO_EM": pub,
         "PUBLISHED_AT": pub,
         "COLHIDO_EM": _v(ready.get("CAPTURED_AT")),
@@ -518,12 +546,30 @@ def _prova(ready: dict, linha: dict, raw: dict) -> dict:
     }
 
 
-def _admite(linha: dict, especie: str) -> bool:
+def _admite(linha: dict, especie: str, sem_tempo: bool = False) -> bool:
     """A regra de prova do pote v2 (herdada da ponte v1): so G0 = PASSOU prova;
-    o facto sobre o futuro prova-se pelo item que G0 bloqueou SO por ser futuro."""
+    o facto sobre o futuro prova-se pelo item que G0 bloqueou SO por ser futuro.
+
+    `sem_tempo` (F2, P7 do contrato v2): um uso que NAO exige tempo (o conhecimento de um estudo, com
+    RESULTADO honesto) prova-se tambem pelo item que G0 bloqueou SO por nao haver tempo do facto nenhum — e so
+    se a corrida lhe deixou a LEITURA_ATEMPORAL_DE_CAPACIDADE. Faltar proveniencia continua a bloquear."""
     if especie == FUTURO:
         return linha.get("G0") == "BLOQUEADO_EM_G0" and linha.get("G0_FALTA") == [G0_FUTURO_POR_DESENHO]
-    return linha.get("G0") == "PASSOU"
+    if linha.get("G0") == "PASSOU":
+        return True
+    if not sem_tempo:
+        return False
+    # SO a ausencia de tempo (G0_FALTA == ["FACT_TIME"], FACT_TIME NAO SEI). Uma data escrita sem ano
+    # (FACT_TIME:SEM_ANO), futura ou sem base e um tempo de facto que nao ancorou — nao e conhecimento atemporal.
+    return (linha.get("G0") == "BLOQUEADO_EM_G0" and list(linha.get("G0_FALTA") or []) == ["FACT_TIME"]
+            and _ign(linha.get("FACT_TIME"))
+            and SCI.USO_EXIGIDO in (linha.get("USOS_DISPONIVEIS") or []))
+
+
+def _e_conhecimento(o: dict) -> bool:
+    """O objeto e CONHECIMENTO sem tempo: a especie do motor o diz E o resultado e o honesto do P7."""
+    ch = o.get("CHAVES") or {}
+    return ch.get("ESPECIE_DO_MOTOR") == ESPECIE_CONHECIMENTO and o.get("RESULTADO") == RESULTADO_DO_CONHECIMENTO
 
 
 def _objeto_da_janela(j: dict, ctx: dict, rels: list) -> tuple:
@@ -600,11 +646,34 @@ def _objeto_da_janela(j: dict, ctx: dict, rels: list) -> tuple:
     return obj, None
 
 
+def _cultura_do_estudo(ready: dict, texto: str):
+    """(valor | NAO_SEI, procedencia, porque) — a CULTURA que a ADMISSAO leu no estudo (estudo-chaves-v1, D112:
+    ENTITY_SOURCE = SPAN), aceite SO se cada SPAN estiver LITERAL no texto na posicao dita. A Intelligence confere;
+    nao le o texto para achar outra (CAP-SCI: «NAO le o TEXTO»). Ambigua sozinha nao da valor (o dono ja a tirou)."""
+    jd = ready.get("JANELA_DECLARADA") if isinstance(ready.get("JANELA_DECLARADA"), dict) else {}
+    b = jd.get("CULTURA") if isinstance(jd.get("CULTURA"), dict) else {}
+    valor, spans = b.get("VALOR"), b.get("SPANS")
+    if b.get("NATUREZA") != ESTUDO.NATUREZA or b.get("ENTITY_SOURCE") != ESTUDO.ENTITY_SOURCE:
+        return NAO_SEI, NAO_SEI, "a CULTURA da admissao nao e a do extrator de estudos com SPAN"
+    if _ign(valor) or valor == NAO_SEI or not isinstance(spans, list) or not spans:
+        return NAO_SEI, NAO_SEI, "a admissao nao leu cultura com trecho neste estudo"
+    for s in spans:
+        if not (isinstance(s, dict) and isinstance(s.get("INICIO"), int) and isinstance(s.get("FIM"), int)
+                and texto[s["INICIO"]:s["FIM"]] == s.get("TRECHO")):
+            return NAO_SEI, NAO_SEI, "um SPAN da CULTURA nao bate com o texto (%r)" % (s,)
+    lidos = sorted({str(s.get("VALOR")) for s in spans})
+    declarados = sorted({str(v) for v in (valor if isinstance(valor, list) else [valor])})
+    if lidos != declarados:
+        return NAO_SEI, NAO_SEI, "os SPANS dizem %s e o VALOR diz %s" % (lidos, declarados)
+    return ",".join(declarados), "JANELA_DECLARADA.CULTURA (%s, SPAN)" % ESTUDO.EXTRATOR, None
+
+
 def _objeto_do_estudo(e: dict, sci: dict, ctx: dict) -> tuple:
     iid = e["ITEM_ID"]
     ready, linha = ctx["READY"][iid], ctx["LINHA"][iid]
-    if not _admite(linha, SINAL):
-        return None, "estudo %s nao passou G0 (%s): o pote v2 so admite prova com G0 = PASSOU" % (
+    conhecimento = linha.get("G0") != "PASSOU"
+    if not _admite(linha, SINAL, sem_tempo=True):
+        return None, "estudo %s nao passou G0 nem e uso sem tempo (%s): o pote v2 nao o admite" % (
             iid, ", ".join(linha.get("G0_FALTA") or []))
     fato = ready.get("FATO") if isinstance(ready.get("FATO"), dict) else {}
 
@@ -631,6 +700,19 @@ def _objeto_do_estudo(e: dict, sci: dict, ctx: dict) -> tuple:
     }
     if local["ESTADO"] != "PROVADO":
         ent["STUDY_LOCATION"]["PORQUE"] = local.get("PORQUE", NAO_SEI)
+    if e["CULTURA"] == NAO_SEI:
+        cult, de_onde, pq = _cultura_do_estudo(ready, str(ready.get("TEXTO") or ""))
+        ent["CROP_ID"] = _entidade(cult, de_onde, item)
+        if pq:
+            ent["CROP_ID"]["PORQUE"] = pq
+    if e["PROBLEMA"] == NAO_SEI:
+        # CHAVE-PROBLEMA: o problema so pelo contrato PROBLEMA/v1 (o mesmo leitor da CAP-WIN). O do estudo vem
+        # NOMEADO_NO_ESTUDO e fora do contrato: fica NAO SEI com o porque, e nunca vira incidencia.
+        jd = ready.get("JANELA_DECLARADA") if isinstance(ready.get("JANELA_DECLARADA"), dict) else {}
+        pv, ppq = AFIRMACAO.problema_da_chave(jd.get("PROBLEMA"), texto=str(ready.get("TEXTO") or ""))
+        ent["ISSUE_ID"] = _entidade(pv if pv else NAO_SEI, "JANELA_DECLARADA.PROBLEMA (PROBLEMA/v1)", item)
+        if not pv:
+            ent["ISSUE_ID"]["PORQUE"] = ppq
     ligacao = next((x for x in sci["LIGACOES"] if x["ITEM_ID"] == iid), None)
     replic = [r for r in sci["REPLICACAO"] if iid in r["ESTUDOS"]]
     da_fonte = {"FATO": {k: v for k, v in fato.items()}, "PUBLISHED_AT": _v(ready.get("PUBLISHED_AT")),
@@ -639,8 +721,16 @@ def _objeto_do_estudo(e: dict, sci: dict, ctx: dict) -> tuple:
               "APLICABILIDADE": e["APLICABILIDADE"], "LEITURA": e["LEITURA"],
               "REPLICACAO": replic, "LIGACAO_TEMATICA": ligacao or NAO_SEI,
               "NAO_E": e["NAO_E"]}
-    fora = {"ESPECIE_DO_MOTOR": "ANALYTIC_JUDGMENT/ESTUDO", "CAPACIDADE": SCI.CAPACIDADE,
+    fora = {"ESPECIE_DO_MOTOR": ESPECIE_CONHECIMENTO if conhecimento else "ANALYTIC_JUDGMENT/ESTUDO",
+            "CAPACIDADE": SCI.CAPACIDADE,
             "ENTITY_SOURCE": ent, "DA_FONTE": da_fonte, "INTERPRETACAO_DO_SISTEMA": interp}
+    if conhecimento:
+        # F2 · o que este objeto NAO e, e porque nao se age com ele — dito, nao escondido
+        interp["USO"] = {"USOS_DISPONIVEIS": list(linha.get("USOS_DISPONIVEIS") or []),
+                         "USOS_BLOQUEADOS": linha.get("USOS_BLOQUEADOS") or {},
+                         "G0_DO_ITEM": linha.get("G0"), "G0_FALTA": linha.get("G0_FALTA"),
+                         "LEITURA": "conhecimento publicado: le-se e cita-se; sem FACT_TIME nao e alerta, "
+                                    "nao abre janela, nao e incidencia de campo e nao sustenta ACT_NOW"}
     chaves = {k: ent[k]["VALOR"] for k in CHAVES_DO_POTE["science"]}
     chaves.update(fora)
     contra = [r for r in replic if r["CONTRADICAO_COM"]]
@@ -657,6 +747,10 @@ def _objeto_do_estudo(e: dict, sci: dict, ctx: dict) -> tuple:
                          if e["APLICABILIDADE"]["FALTA"] else None),
            # D123: a ligacao que a CAP-SCI recebeu da porta — transportada, nunca recalculada
            "LIGACAO_ADAMA": e["LIGACAO_ADAMA"]}
+    if conhecimento:
+        # F2 · P7: o RESULTADO honesto e o que torna o uso SEM tempo; o pote recalcula USO_EXIGE_TEMPO dele
+        obj["RESULTADO"] = RESULTADO_DO_CONHECIMENTO
+        obj["PORQUE"] = "conhecimento (estudo publicado, sem FACT_TIME): " + obj["PORQUE"]
     return obj, None
 
 
@@ -703,10 +797,60 @@ def _objeto_do_futuro(f: dict, ctx: dict) -> tuple:
                 "VEM_DE": {"CULTURA": "JANELA_DECLARADA.CULTURA", "PROBLEMA": "JANELA_DECLARADA.PROBLEMA"}})}, None
 
 
+def _afirmacao_vira_objeto(sg: dict) -> bool:
+    """Diretiva §1.5: afirmacao ALERTA_EVENTO com tempo E lugar -> SINAL. As outras ficam so no livro.
+    §5-D (DT-FATO-OBSERVADO): OBSERVACAO_MEDIDA segue o mesmo caminho — so depois do G0 dela (marca + lugar)."""
+    return (sg.get("CLAIM_KIND") in ("ALERTA_EVENTO", "OBSERVACAO_MEDIDA") and not _ign(sg.get("FACT_TIME"))
+            and not _ign(sg.get("FACT_LOCATION")) and sg.get("LOCATION_SOURCE") in LUGAR.LOCATION_SOURCES
+            and sg.get("LOCATION_SOURCE") != LUGAR.UNRESOLVED)
+
+
+def _objeto_da_afirmacao(sg: dict, ctx: dict) -> dict:
+    """Um SINAL de UMA afirmacao que passou o SEU G0 -> objeto do archive (nenhuma capacidade a le ainda).
+
+    Tempo e lugar sao os DA AFIRMACAO (nunca os do documento, nunca a publicacao). REGION_ID fica NAO SEI: e uma
+    identidade do casco e nao se cunha a partir do nome do lugar. CROP_ID/ISSUE_ID ficam NAO SEI: as entidades da
+    afirmacao viajam ao lado, com a procedencia de cada uma, e nada as promove a chave aqui."""
+    iid, claim = str(sg["ITEM_ID"]), str(sg["CLAIM_ID"])
+    ready, linha = ctx["READY"][iid], ctx["AFIRMACAO"][claim]
+    de = [{"ITEM_ID": iid, "CLAIM_ID": claim}]
+    ent = {"CROP_ID": _entidade(NAO_SEI, "AFIRMACAO.ENTIDADES", de),
+           "ISSUE_ID": _entidade(NAO_SEI, "AFIRMACAO.ENTIDADES", de),
+           "REGION_ID": _entidade(NAO_SEI, "CASCO", de),
+           "FACT_LOCATION": _entidade(sg["FACT_LOCATION"], "AFIRMACAO.FACT_LOCATION", de),
+           "FACT_TIME": _entidade(sg["FACT_TIME"], "AFIRMACAO.FACT_TIME", de)}
+    fora = {"ESPECIE_DO_MOTOR": "SINAL DE AFIRMACAO (G0_DA_AFIRMACAO/v1)",
+            "ENTITY_SOURCE": ent,
+            "LOCATION_SOURCE": sg["LOCATION_SOURCE"],
+            "DA_FONTE": {"EVIDENCE_SPAN": sg.get("EVIDENCE_SPAN"), "FACT_TIME_BASIS": sg.get("FACT_TIME_BASIS"),
+                         "FACT_LOCATION_TRECHO": sg.get("FACT_LOCATION_TRECHO"),
+                         "FACT_LOCATION_ONDE": sg.get("FACT_LOCATION_ONDE"), "ENTIDADES": sg.get("ENTIDADES")},
+            "INTERPRETACAO_DO_SISTEMA": {"CLAIM_KIND": sg.get("CLAIM_KIND"),
+                                         "FACT_TIME_ORIGEM": sg.get("FACT_TIME_ORIGEM"),
+                                         "FACT_TIME_PRECISION": sg.get("FACT_TIME_PRECISION"),
+                                         "FACT_LOCATION_PRECISAO": sg.get("FACT_LOCATION_PRECISAO"),
+                                         "USOS_BLOQUEADOS": sg.get("USOS_BLOQUEADOS"),
+                                         "LEITURA": "uma afirmacao da fonte, com o seu tempo e o seu lugar; "
+                                                    "nenhuma capacidade a le ainda (archive)"}}
+    chaves = {k: ent[k]["VALOR"] for k in CHAVES_DO_POTE["archive"]}
+    chaves.update(fora)
+    prova = dict(_prova(ready, linha, ctx["RAW"]), CLAIM_ID=claim)
+    return {"OBJETO_ID": "R7-SGA-" + hashlib.sha256((ctx["RUN_ID"] + "|" + claim).encode()).hexdigest()[:16],
+            "ESPECIE": SINAL, "ESTADO": ESTADO_TRANSPORTAVEL, "CHAVES": chaves,
+            "PROVA": [prova],
+            "PORQUE": "uma afirmacao do item %s com tempo e lugar proprios, que passou o G0 da afirmacao" % iid,
+            "CONTRADIZ": None, "INCERTEZA": "afirmacao de uma so fonte; contradicao NAO MEDIDA",
+            "LIGACAO_ADAMA": PORTA.ligacao_adama(ctx["REF"], {
+                "CULTURA": NAO_SEI, "PROBLEMA": NAO_SEI,
+                "VEM_DE": {"CULTURA": "AFIRMACAO.ENTIDADES", "PROBLEMA": "AFIRMACAO.ENTIDADES"}})}
+
+
 def _rendimentos(livro: dict, ctx: dict, objetos: dict) -> tuple:
     """RENDIMENTO_DE_FONTE contado da LINEAGE da corrida (nao se reconta nada)."""
     por_fonte, nao_vao = {}, []
     for l in livro["LINEAGE"]:
+        if "CLAIM_ID" in l:           # o rendimento conta ITENS lidos; uma afirmacao nao e um item a mais
+            continue
         por_fonte.setdefault(str(l.get("SOURCE_ID")), []).append(l)
     produzidos = {}
     for objs in objetos.values():
@@ -758,8 +902,14 @@ def _rendimentos(livro: dict, ctx: dict, objetos: dict) -> tuple:
 # ══════════════════════════════════════════════════════════════════════════
 # 6 · A RODADA
 # ══════════════════════════════════════════════════════════════════════════
-def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None = None) -> dict:
-    """UMA corrida, as duas capacidades, a saida para o pote v2 — conferida."""
+def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None = None,
+          afirmacoes: dict | None = None) -> dict:
+    """UMA corrida, as duas capacidades, a saida para o pote v2 — conferida.
+
+    `afirmacoes` (opcional, DIRETIVA-G0-POR-AFIRMACAO): o artefato AFIRMACOES_DA_SALA/v1 do produtor, da MESMA
+    copia da Sala. Com ele, cada afirmacao conferida passa pelo seu proprio G0 (`g0_da_afirmacao`), depois das
+    capacidades (que leem o livro do ITEM, e nao mudam), e as que passam com tempo e lugar viram SINAL no archive.
+    Sem ele, a corrida e byte a byte a de sempre: nada deste caminho corre, e a identidade nao muda."""
     if not isinstance(hoje, date):
         raise LeiViolada("sem HOJE declarado nao ha «agora»")
     _conferir_entrada(entrada)
@@ -768,8 +918,12 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
     ids = [str(p.get("ITEM_ID")) for p in prontos]
     if len(set(ids)) != len(ids):
         raise LeiViolada("ITEM_ID repetido no corte: nao serve de endereco da prova")
-    livro = CI.correr(PERGUNTA, prontos,
-                      universo={"ITENS_NO_CORTE": len(prontos), "CORTE": entrada.get("CORTE", NAO_SEI)})
+    universo = {"ITENS_NO_CORTE": len(prontos), "CORTE": entrada.get("CORTE", NAO_SEI)}
+    idx_af = None
+    if afirmacoes is not None:
+        # a entrada muda -> a identidade da corrida muda (reuso so com a MESMA materia, INT-LAW-054)
+        idx_af, universo["AFIRMACOES"] = G0A.indexar(afirmacoes)
+    livro = CI.correr(PERGUNTA, prontos, universo=universo)
     if livro["RESULT_STATE"] not in ("DONE", "REUSED"):
         raise LeiViolada("a corrida terminou em %s: %s" % (livro["RESULT_STATE"], livro["ERRORS"]))
     run_id = livro["INTELLIGENCE_RUN_ID"]
@@ -795,10 +949,14 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
     ref = referencia if referencia is not None else PORTA.abrir(hoje=hoje)
     win = WIN.julgar(livro, itens_win, hoje, fora=para_win, referencia=ref)
     sci = SCI.julgar(livro, ready_cap, ref, triados_fora=para_sci)
+    if idx_af is not None:
+        # DEPOIS das capacidades: elas leem o livro do ITEM, e esse nao muda (o G0 do item fica intacto)
+        G0A.aplicar(livro, registos, entrada["RAW"], idx_af)
 
     ctx = {"RUN_ID": run_id, "RAW": entrada["RAW"], "D112": d112, "JANELA": janelas, "REF": ref,
            "READY": {str(p["ITEM_ID"]): p for p in prontos},
-           "LINHA": {str(l["ITEM_ID"]): l for l in livro["LINEAGE"]}}
+           "LINHA": {str(l["ITEM_ID"]): l for l in livro["LINEAGE"] if "CLAIM_ID" not in l},
+           "AFIRMACAO": {str(l["CLAIM_ID"]): l for l in livro["LINEAGE"] if "CLAIM_ID" in l}}
     objetos = {"windows": [], "science": [], "future": []}
     nao_vao, todas_rel = [], []
     for j in win["CROP_WINDOWS"]:
@@ -818,6 +976,9 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
         (objetos["future"].append(o) if o else
          nao_vao.append({"OBJETO_ID": str(f["ITEM_ID"]), "COMPARTIMENTO": "future",
                          "MOTIVO": "FUTURO_COM_OUTRA_FALTA", "DETALHE": motivo}))
+    if idx_af is not None:
+        objetos["archive"] = [_objeto_da_afirmacao(sg, ctx) for sg in livro["SINAIS_DAS_AFIRMACOES"]
+                              if _afirmacao_vira_objeto(sg)]
     fontes, sem_rend = _rendimentos(livro, ctx, objetos)
     objetos["sources"] = fontes
     nao_vao += sem_rend
@@ -873,7 +1034,8 @@ def conferir_saida(saida: dict) -> list:
         if k not in saida or (_ign(saida[k]) and saida[k] != NAO_SEI):
             v.append("cabecalho esconde %s" % k)
     linhas = {(str(l.get("CORRIDA_UPSTREAM")), str(l.get("ITEM_ID"))): l
-              for l in saida.get("LINEAGE") or []}
+              for l in saida.get("LINEAGE") or [] if "CLAIM_ID" not in l}
+    afirmacoes = {str(l.get("CLAIM_ID")): l for l in saida.get("LINEAGE") or [] if "CLAIM_ID" in l}
     estudos = {i for i, t in (saida.get("TRIAGEM") or {}).items() if t.get("CAPACIDADE") == SCI.CAPACIDADE}
     texto = json.dumps(saida.get("ITENS_POR_FERRAMENTA"), ensure_ascii=False).upper()
     for p in SCI.LEITURAS_PROIBIDAS:
@@ -915,12 +1077,28 @@ def conferir_saida(saida: dict) -> list:
                         v.append("%s/%s: prova esconde %s" % (comp, oid, k))
                 if p.get("PUBLISHED_AT") != p.get("PUBLICADO_EM"):
                     v.append("%s/%s: PUBLISHED_AT e PUBLICADO_EM divergem" % (comp, oid))
-                l = linhas.get((str(p.get("CORRIDA_UPSTREAM")), str(p.get("ITEM_ID"))))
-                if l is None:
-                    v.append("%s/%s: prova %s fora da LINEAGE" % (comp, oid, p.get("ITEM_ID")))
-                    continue
-                if not _admite(l, o.get("ESPECIE")):
-                    v.append("%s/%s: prova %s nao admitida em G0" % (comp, oid, p.get("ITEM_ID")))
+                if "CLAIM_ID" in p:
+                    # a prova de uma AFIRMACAO admite-se pelo G0 DELA, nunca pelo do item (diretiva §1.4)
+                    l = afirmacoes.get(str(p.get("CLAIM_ID")))
+                    if l is None or any(str(l.get(c)) != str(p.get(c))
+                                        for c in ("ITEM_ID", "CORRIDA_UPSTREAM", "SOURCE_ID", "RAW_OBSERVATION_ID")):
+                        v.append("%s/%s: prova da afirmacao %s fora da LINEAGE" % (comp, oid, p.get("CLAIM_ID")))
+                        continue
+                    if l.get("G0_DA_AFIRMACAO") != "PASSOU":
+                        v.append("%s/%s: afirmacao %s nao admitida no G0 dela" % (comp, oid, p.get("CLAIM_ID")))
+                else:
+                    l = linhas.get((str(p.get("CORRIDA_UPSTREAM")), str(p.get("ITEM_ID"))))
+                    if l is None:
+                        v.append("%s/%s: prova %s fora da LINEAGE" % (comp, oid, p.get("ITEM_ID")))
+                        continue
+                    if not _admite(l, o.get("ESPECIE"), sem_tempo=_e_conhecimento(o)):
+                        v.append("%s/%s: prova %s nao admitida em G0" % (comp, oid, p.get("ITEM_ID")))
+                    elif l.get("G0") != "PASSOU" and o.get("ESPECIE") != FUTURO:
+                        # F2 · uma prova sem tempo so no compartimento science, e nunca com FACT_TIME escrito
+                        if comp != "science":
+                            v.append("%s/%s: conhecimento sem tempo fora de science" % (comp, oid))
+                        if not _ign(p.get("FACT_TIME")) or not _ign(ch.get("STUDY_PERIOD")):
+                            v.append("%s/%s: conhecimento sem tempo com tempo escrito (inventado)" % (comp, oid))
                 if str(p.get("FACT_TIME")) != str(_v(l.get("FACT_TIME"))):
                     v.append("%s/%s: FACT_TIME da prova nao e o da corrida (publicacao nao e facto)"
                              % (comp, oid))

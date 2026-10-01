@@ -1,0 +1,156 @@
+{
+ "FUNIL": {
+  "ITENS_NO_CORTE": 269,
+  "LINEAGE": 269,
+  "G0": {
+   "BLOQUEADO_EM_G0": 248,
+   "PASSOU": 21
+  },
+  "SINAIS_NO_LIVRO": 21,
+  "FACTOS_SOBRE_O_FUTURO": 9,
+  "TRIAGEM": {
+   "CAP-WIN": 269
+  },
+  "CAP_WIN_JANELAS": 0,
+  "CAP_WIN_NOT_POSSIBLE": 269,
+  "CAP_WIN_NOT_POSSIBLE_PORQUE": {
+   "INT-LAW-091: JANELA_DECLARADA.PROBLEMA: PROBLEMA fora do contrato PROBLEMA/v1 (CONTRATO=No": 149,
+   "INT-LAW-091: JANELA_DECLARADA.CULTURA: VALOR = NAO SEI; JANELA_DECLARADA.PROBLEMA: PROBLEM": 87,
+   "INT-LAW-091: JANELA_DECLARADA.CULTURA: VALOR = NAO SEI; JANELA_DECLARADA.PROBLEMA: VALOR =": 20,
+   "INT-LAW-091: JANELA_DECLARADA.PROBLEMA: VALOR = NAO SEI (o texto nao nomeia praga/doenca d": 7,
+   "INT-LAW-091: JANELA_DECLARADA.PROBLEMA: VALOR = NAO SEI (D112: o item nomeia 2 problemas d": 4,
+   "INT-LAW-091: JANELA_DECLARADA.REGIAO_DO_FATO: VALOR = NAO SEI": 2
+  },
+  "CAP_SCI_ESTUDOS": 0,
+  "OBJETOS": {
+   "windows": 0,
+   "science": 0,
+   "future": 9,
+   "sources": 6
+  },
+  "NAO_ENVIADOS_AO_POTE": {
+   "RENDIMENTO_SEM_PROVA": 73
+  }
+ },
+ "POTE": {
+  "OBJETOS": {
+   "future": 9,
+   "sources": 6
+  },
+  "RECUSADOS": {},
+  "ENTITY_SOURCE_CONVERTIDOS": 15,
+  "VIOLACOES": 0,
+  "VIOLACOES_POR_TIPO": {}
+ },
+ "ITENS_DO_ORACULO": {
+  "derived:11": {
+   "LINEAGE": [
+    {
+     "ITEM_ID": "derived:11",
+     "RAW_OBSERVATION_ID": "36",
+     "SOURCE_ID": "IT-T3-008",
+     "CORRIDA_UPSTREAM": "IT-T3-2026-09-20-110656-6e4ffc27a86c5269",
+     "CAMPOS_DO_CONTRATO_PRESENTES": "[\"ADMITIDO_POR\", \"CAPTURED_AT\", \"COMPLETUDE_TEMPO_LUGAR\", \"CORRIDA\", \"ESTADO\", \"ESTAGIO\", \"FACT_LOCATION\", \"FACT_LOCATION_BASIS\", \"FACT_TIME\", \"FACT_TIME_BASIS\"",
+     "CAMPOS_DO_CONTRATO_AUSENTES": "[]",
+     "G0": "PASSOU",
+     "G0_FALTA": "[]",
+     "INTAKE": "ADMITIDO_NA_CORRIDA",
+     "FACT_TIME": "2026-09-07/2026-09-13",
+     "TEMPORAL_STATE": "ANCORADO",
+     "PORQUE_TEMPO": "[]",
+     "PUBLICATION_TIME": "2026-09-16",
+     "PUBLICATION_TIME_NAO_E_FACT_TIME": "true",
+     "PROVENIENCIA": "COMPLETA",
+     "USOS_BLOQUEADOS": "{}",
+     "USOS_DISPONIVEIS": "[\"EVIDENCIA_NAVEGAVEL\", \"CROSSING_SEM_CHAVE_TIME\", \"LEITURA_ATEMPORAL_DE_CAPACIDADE\", \"SINAL_TEMPORAL\", \"CROSSING_COM_CHAVE_TIME\", \"ACT_NOW\", \"CAP-WIN\", \"CAP-FU"
+    }
+   ],
+   "SINAIS": [
+    {
+     "SIGNAL_ID": "SG-70bce87172a4b8c3",
+     "ITEM_ID": "derived:11",
+     "RAW_OBSERVATION_ID": "36",
+     "SOURCE_ID": "IT-T3-008",
+     "FACT_TIME": "2026-09-07/2026-09-13",
+     "FACT_TIME_BASIS": "RELATIVA_A_PUBLICACAO",
+     "FACT_TIME_INTERVALO": "{\"ESTADO\": \"INTERVALO\", \"INICIO\": \"2026-09-07\", \"FIM\": \"2026-09-13\", \"PRECISAO\": \"INTERVALO_DE_DIAS\"}",
+     "FACT_TIME_KIND": "CAMPO",
+     "FACT_TIME_PRECISION": "WEEK+CALCULADA",
+     "FACT_LOCATION_KIND": "CAMPO",
+     "IDADE_NA_CAPTURA": "{\"MIN_DIAS\": 7, \"MAX_DIAS\": 13, \"CONTADA_DE\": \"CAPTURED_AT\", \"ATUALIDADE_PARA_AGIR\": \"NAO_AVALIADA — agir exige janela compativel (INT-LAW-104); a idade so a in",
+     "FACT_LOCATION": "Puglia ; Lecce",
+     "FACT_LOCATION_BASIS": "CAMPO · OCORRENCIA · CITADO · REGION · âncora «registrato» · OFFICIAL_OCCURRENCE · «Importante è sottolineare lo scarto climatico registrato nella settimana sco",
+     "FACT_LOCATION_ESTADO": "COM_BASE",
+     "ESTADO": "SINAL",
+     "REGRA": "G0/v4",
+     "DUPLICATA_DE": "null"
+    }
+   ],
+   "TRIAGEM": {
+    "CAPACIDADE": "CAP-WIN",
+    "PORQUE": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica"
+   },
+   "D112_LUGAR": {
+    "FACT_LOCATION": {
+     "SUSTENTADO": false,
+     "VALOR": "NAO SEI",
+     "VALOR_RECUSADO": "Puglia ; Lecce",
+     "VEIO_DE": "TEXTO",
+     "PORQUE": "D112: sem sustentacao explicita da fonte — origem TEXTO não sustenta lugar do fato"
+    },
+    "JANELA_DECLARADA.REGIAO_DO_FATO": {
+     "SUSTENTADO": false,
+     "VALOR": "NAO SEI",
+     "VALOR_RECUSADO": "Puglia ; Lecce",
+     "VEIO_DE": "ITEM.FACT_LOCATION",
+     "PORQUE": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato"
+    }
+   },
+   "CAP_WIN_NOT_POSSIBLE": [
+    {
+     "ITEM_ID": "derived:11",
+     "ESTADO": "NOT_POSSIBLE",
+     "PORQUE": "INT-LAW-091: JANELA_DECLARADA.PROBLEMA: PROBLEMA fora do contrato PROBLEMA/v1 (CONTRATO=None); JANELA_DECLARADA.REGIAO_DO_FATO: VALOR = NAO SEI",
+     "REQUIREMENT_ID": "REQ-6086a7baeab667a6",
+     "LIGACAO_ADAMA": "{\"CONTRATO\": \"LIGACAO_ADAMA/v1\", \"CALCULADA_POR\": \"motor/porta_da_referencia.py\", \"PERGUNTA\": {\"CULTURA\": [], \"PROBLEMA\": [], \"SUBSTANCIA\": []}, \"VEM_DE\": {\"CUL"
+    }
+   ],
+   "CAP_WIN_JANELAS": [],
+   "OBJETOS": [
+    [
+     "future",
+     "R7-FUT-5c8f373bbd66cec8",
+     "FATO_PRESENTE_SOBRE_O_FUTURO"
+    ],
+    [
+     "sources",
+     "R7-SRC-503889df882a753d",
+     "RENDIMENTO_DE_FONTE"
+    ],
+    [
+     "sources",
+     "R7-SRC-ad2ad3332c215baf",
+     "RENDIMENTO_DE_FONTE"
+    ],
+    [
+     "sources",
+     "R7-SRC-98d3015faa406556",
+     "RENDIMENTO_DE_FONTE"
+    ]
+   ],
+   "NAO_ENVIADOS": []
+  }
+ },
+ "ENTREGA": {
+  "SUBIU": true,
+  "PORQUE": null,
+  "CORRIDA": "IR-5b31893628a09b10b232",
+  "VIOLACOES": null,
+  "ENTREGA": "C:\\Users\\London1\\sintonia-sala-italia\\intelligence-experimental\\PARA-O-CASCO-L2-GERADOR",
+  "ENTITY_SOURCE_CONVERTIDOS": 15,
+  "SHA256SUMS": [
+   "db7e69048d60a087ba79ed511f16a60bd6a976ac1437b8fb1d83a285d3c4e9a8 *POTE.json",
+   "dac818c56750950b1d1936e3226c52e668440195e2925dfa5d28b1abc9fdc25d *MANIFESTO.json"
+  ]
+ }
+}

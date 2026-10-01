@@ -55,6 +55,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -73,6 +74,7 @@ from ponte_intelligence_casco import (                 # noqa: E402
 # D123 (LIGACAO-ADAMA): a ligacao a bula e ao portfolio e calculada SO pela porta; o pote
 # confere o SELO dela e recusa objeto sem ligacao. Nunca a calcula para um objeto da corrida.
 import porta_da_referencia as PORTA                    # noqa: E402  (motor/)
+from afirmacao_da_fonte import ENTITY_SOURCES           # noqa: E402  (leis/: dono do vocabulario COL-LAW-221)
 
 CONTRATO = "POTE_INTELLIGENCE_CASCO/v2"
 #: Revisao anotada do contrato (mudanca minima): o nome continua v2 — o casco le-o assim —,
@@ -172,15 +174,22 @@ DA_V1 = {"future": "archive", "radarfuturo": "future", "etichette": "portfolio"}
 #: atravessar (a v1 nao os pedia), mas nunca viajam em branco: sem valor, NAO SEI.
 #: POTE-V2-UNICO: a publicacao chama-se PUBLISHED_AT no contrato (o nome que a
 #: missao escreveu); PUBLICADO_EM e PUBLICATION_TIME so se LEEM na entrada.
-CAMPOS_DA_PROVA_V2 = ("URL", "PUBLISHED_AT", "COLHIDO_EM", "FACT_TIME")
+#: D-GER-2 / D-GER-1-MIG (29/09): RAW_SHA256 e RAW_STORAGE_PATH entram no contrato da prova (schema: required);
+#: vem SO da propria prova (o motor le-os do raw_asset), nunca da LINEAGE — sem eles, NAO SEI.
+CAMPOS_DA_PROVA_V2 = ("URL", "PUBLISHED_AT", "COLHIDO_EM", "FACT_TIME", "RAW_SHA256", "RAW_STORAGE_PATH")
 #: URL e PUBLISHED_AT levam sempre a BASE: de onde veio o valor, ou — quando o
 #: valor e NAO SEI — porque nao ha valor. NAO SEI sem base e um buraco, nao uma
 #: resposta.
 CAMPOS_COM_BASE = ("URL", "PUBLISHED_AT")
+#: D-GER-2 (diretiva do Intelligence owner, 29/09): a identidade do BYTE da prova, lida do raw_asset no export
+#: read-only (motor/r7_export_da_copia.sql). O do banco, ou NAO SEI — nunca calculado do texto, da URL ou do disco.
+CAMPOS_DO_BYTE = ("RAW_SHA256", "RAW_STORAGE_PATH")
+_SHA256_DO_BANCO = re.compile(r"[0-9a-f]{64}")
 #: Nomes que a ENTRADA pode usar para o mesmo campo (leitura, nunca escrita).
 LER_NA_ENTRADA = {"URL": ("URL", "SOURCE_URL"),
                   "PUBLISHED_AT": ("PUBLISHED_AT", "PUBLICADO_EM", "PUBLICATION_TIME"),
-                  "COLHIDO_EM": ("COLHIDO_EM",), "FACT_TIME": ("FACT_TIME",)}
+                  "COLHIDO_EM": ("COLHIDO_EM",), "FACT_TIME": ("FACT_TIME",),
+                  "RAW_SHA256": ("RAW_SHA256",), "RAW_STORAGE_PATH": ("RAW_STORAGE_PATH",)}
 
 # ── P7 · O QUE EXIGE TEMPO, E O QUE NAO ──────────────────────────────────────
 #: Um resultado honesto nao afirma nada no tempo: diz que nao, ou que ainda nao
@@ -347,7 +356,35 @@ def _da_entrada(p: dict, campo):
     return None, None
 
 
-def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
+def _afirmacoes_da_corrida(corrida: dict) -> dict:
+    """G0-POR-AFIRMACAO: CLAIM_ID -> a entrada DA AFIRMACAO na LINEAGE (as do item vivem noutro indice)."""
+    return {str(e["CLAIM_ID"]): e for e in corrida.get("LINEAGE") or []
+            if isinstance(e, dict) and "CLAIM_ID" in e}
+
+
+def _conferir_prova_da_afirmacao(o: dict, afirmacoes: dict):
+    """`(motivo, detalhe)` se a prova de uma AFIRMACAO nao aguenta; `None` se aguenta.
+
+    Admite-se pelo G0 DA AFIRMACAO (G0_DA_AFIRMACAO = PASSOU), nunca pelo G0 do item. A entrada tem de ser a do
+    mesmo CLAIM_ID, com o mesmo ITEM_ID, SOURCE_ID, RAW_OBSERVATION_ID e CORRIDA_UPSTREAM."""
+    for p in o.get("PROVA") or []:
+        falta = [c for c in CAMPOS_DA_PROVA if e_ignorancia(p.get(c))]
+        if falta:
+            return "PROVA_INCOMPLETA", "falta " + ", ".join(falta)
+        e = afirmacoes.get(str(p.get("CLAIM_ID")))
+        if e is None:
+            return "AFIRMACAO_FORA_DA_CORRIDA", f"CLAIM_ID {p.get('CLAIM_ID')} nao esta na LINEAGE da corrida"
+        cs = ("ITEM_ID", "SOURCE_ID", "RAW_OBSERVATION_ID") + (() if e_ignorancia(p.get("CORRIDA_UPSTREAM"))
+                                                               else ("CORRIDA_UPSTREAM",))
+        if any(str(e.get(c)) != str(p.get(c)) for c in cs):
+            return "PROVA_CONTRADIZ_A_AFIRMACAO", f"a prova de {p.get('CLAIM_ID')} nao e a da entrada dela"
+        if e.get("G0_DA_AFIRMACAO") != "PASSOU":
+            return ("AFIRMACAO_BLOQUEADA_EM_G0",
+                    f"CLAIM_ID {p.get('CLAIM_ID')}: {', '.join(e.get('G0_FALTA') or [])}")
+    return None
+
+
+def _prova_v2(p: dict, linhagem: dict, run_id, especie=None, afirmacoes=None) -> dict:
     """O elemento de prova como viaja: os campos da v1, os da v2, e a corrida.
 
     URL e datas vem da propria prova; se a prova nao os disser, da entrada da
@@ -361,14 +398,20 @@ def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
         chave = candidatas[0] if len(candidatas) == 1 else None
     else:
         chave = (str(up), str(p["ITEM_ID"]))
-    batem = [e for e in (linhagem.get(chave) or [])
-             if all(str(e.get(c)) == str(p[c]) for c in ("SOURCE_ID", "RAW_OBSERVATION_ID"))]
+    da_afirmacao = "CLAIM_ID" in p and afirmacoes is not None
+    if da_afirmacao:
+        # G0-POR-AFIRMACAO: a entrada que confirma a prova e a DA AFIRMACAO, e o G0 e o dela
+        e = afirmacoes.get(str(p["CLAIM_ID"]))
+        batem = [dict(e, G0=e.get("G0_DA_AFIRMACAO"))] if e else []
+    else:
+        batem = [e for e in (linhagem.get(chave) or [])
+                 if all(str(e.get(c)) == str(p[c]) for c in ("SOURCE_ID", "RAW_OBSERVATION_ID"))]
     out = {c: p[c] for c in CAMPOS_DA_PROVA}
     out["CORRIDA_UPSTREAM"] = _valor(up)
     for c in CAMPOS_DA_PROVA_V2:
         v, nome = _da_entrada(p, c)
         base = f"PROVA.{nome}" if nome else None
-        if v is None and len(batem) == 1:
+        if v is None and len(batem) == 1 and c not in CAMPOS_DO_BYTE:     # o byte: so da propria prova
             v, nome = _da_entrada(batem[0], c)
             base = f"LINEAGE.{nome}" if nome else None
         out[c] = _valor(v)
@@ -388,10 +431,13 @@ def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
     else:
         out["ADMITIDA_POR"] = "USO_SEM_TEMPO"
     out["INTELLIGENCE_RUN_ID"] = run_id
+    if da_afirmacao:
+        out["CLAIM_ID"] = p["CLAIM_ID"]
+        out["G0_DE"] = "AFIRMACAO"
     return out
 
 
-def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica) -> dict:
+def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica, afirmacoes=None) -> dict:
     """RENDER + EXPLAIN. Os valores sao os do objeto, ou NAO SEI."""
     contrato = COMPARTIMENTOS[comp]["CHAVES"]
     dadas = _dadas(o)
@@ -415,7 +461,7 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
         # P7 · o uso diz se o tempo e preciso; o resultado honesto viaja dito.
         "RESULTADO": resultado_honesto(o) or NAO_SEI,
         "USO_EXIGE_TEMPO": uso_exige_tempo(especie, o),
-        "PROVA": [_prova_v2(p, linhagem, run_id, especie) for p in o["PROVA"]],
+        "PROVA": [_prova_v2(p, linhagem, run_id, especie, afirmacoes) for p in o["PROVA"]],
         "CORRIDA_SINTETICA": sintetica,
         # D123 · transportada como a porta a selou; o pote nao a recalcula
         "LIGACAO_ADAMA": o.get("LIGACAO_ADAMA"),
@@ -425,7 +471,9 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
     for c in CAMPOS_DE_ORIGEM:
         v = _lido(o, c)
         if v is not None:
-            out[c] = _valor(v)
+            # D-GER-1: ENTITY_SOURCE viaja TAL COMO VEIO — UNKNOWN e a ignorancia canonica da COL-LAW-221
+            # e nao se traduz para «NAO SEI» (seria um segundo vocabulario). Quem julga e conferir_pote.
+            out[c] = v if c == "ENTITY_SOURCE" else _valor(v)
     lugar = dadas.get("FACT_LOCATION")
     if not e_ignorancia(lugar) and "LOCATION_SOURCE" not in out:
         out["LOCATION_SOURCE"] = NAO_SEI
@@ -437,7 +485,7 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
     return out
 
 
-def _conferir_objeto(comp, o, linhagem, vistos):
+def _conferir_objeto(comp, o, linhagem, vistos, afirmacoes=None):
     """`(motivo, detalhe)` se o objeto nao atravessa; `None` se atravessa."""
     if not isinstance(o, dict):
         return "ENTRADA_INVALIDA", ""
@@ -453,7 +501,15 @@ def _conferir_objeto(comp, o, linhagem, vistos):
     if especie not in admitidas:
         return ("ESPECIE_FORA_DO_COMPARTIMENTO",
                 f"{especie} nao cabe em {comp} (admite {', '.join(admitidas)}); o pote nao muda especie")
-    falha = V1.conferir_prova(o, linhagem, admite=_admite_para(especie, o))
+    provas = [p for p in (o.get("PROVA") or []) if isinstance(p, dict)]
+    de_afirmacao = [p for p in provas if "CLAIM_ID" in p]
+    if de_afirmacao and len(de_afirmacao) != len(provas):
+        return ("PROVA_MISTURA_ITEM_E_AFIRMACAO",
+                "um objeto prova-se OU por afirmacoes OU por itens; misturar deixaria um G0 decidir pelo outro")
+    if de_afirmacao:
+        falha = _conferir_prova_da_afirmacao(o, afirmacoes or {})
+    else:
+        falha = V1.conferir_prova(o, linhagem, admite=_admite_para(especie, o))
     if falha:
         return falha
     # P8 · afirmar mudanca de mercado sem SERIE medida e promover um ponto.
@@ -588,6 +644,7 @@ def adaptar(corrida: dict) -> dict:
         raise LeiViolada("corrida sem INTELLIGENCE_RUN_ID: um pote e de UMA corrida")
     estado = topo["RESULT_STATE"] or NAO_SEI
     linhagem = V1._linhagem_da_corrida(corrida)
+    afirmacoes = _afirmacoes_da_corrida(corrida)
     lacunas = V1._lacunas(corrida)
     sintetica = _sintetica(corrida)
     brutos = corrida.get("ITENS_POR_FERRAMENTA") or {}
@@ -618,13 +675,13 @@ def adaptar(corrida: dict) -> dict:
         else:
             vistos = set()
             for o in objs:
-                falha = _conferir_objeto(comp, o, linhagem, vistos)
+                falha = _conferir_objeto(comp, o, linhagem, vistos, afirmacoes)
                 if falha:
                     recusados.append(_recusa(comp, o, *falha))
                     continue
                 vistos.add(_id_do_objeto(o))
                 especie, de = _especie(o)
-                entrada["OBJETOS"].append(_objeto(comp, o, especie, de, linhagem, run_id, sintetica))
+                entrada["OBJETOS"].append(_objeto(comp, o, especie, de, linhagem, run_id, sintetica, afirmacoes))
         _vazio_ou_cheio(entrada, comp, estado)
         saida[comp] = entrada
     _fechar(saida, recusados)
@@ -797,6 +854,14 @@ def conferir_pote(pote: dict) -> list:
                     for k in CAMPOS_COM_BASE:
                         if p.get(k) == NAO_SEI and e_ignorancia(p.get(k + "_BASE")):
                             v.append(f"{comp}/{oid}: prova com {k} NAO SEI sem a base (porque nao ha {k})")
+                    # D-GER-2: o byte da prova e o do raw_asset (sha256 do banco: 64 hex) ou NAO SEI, nunca outra coisa.
+                    for k in CAMPOS_DO_BYTE:
+                        if k not in p or p[k] == NAO_SEI:
+                            continue
+                        if e_ignorancia(p[k]):
+                            v.append(f"{comp}/{oid}: prova esconde {k}")
+                        elif k == "RAW_SHA256" and not _SHA256_DO_BANCO.fullmatch(str(p[k])):
+                            v.append(f"{comp}/{oid}: prova com RAW_SHA256 que nao e o sha256 do raw_asset ({str(p[k])[:20]!r})")
                     adm = p.get("ADMITIDA_POR")
                     if adm not in ADMITIDA:
                         v.append(f"{comp}/{oid}: prova sem ADMITIDA_POR valido ({adm!r})")
@@ -822,8 +887,15 @@ def conferir_pote(pote: dict) -> list:
             ls = o.get("LOCATION_SOURCE")
             if not e_ignorancia(ls) and normal(ls) in LOCATION_SOURCE_PROIBIDA:
                 v.append(f"{comp}/{oid}: LOCATION_SOURCE = {ls} (o lugar da fonte nao e o lugar do facto)")
+            # D-GER-1 (diretiva do Intelligence owner, 29/09): ENTITY_SOURCE so com o vocabulario da COL-LAW-221,
+            # importado do dono (leis/afirmacao_da_fonte.ENTITY_SOURCES). UNKNOWN e a ignorancia declarada pela lei;
+            # «NAO SEI», «?», vazio, null, mapa e qualquer texto fora da lei REPROVAM. LOCATION_SOURCE: regra de antes.
+            if "ENTITY_SOURCE" in o:
+                es = o["ENTITY_SOURCE"]
+                if not (isinstance(es, str) and es in ENTITY_SOURCES):
+                    v.append(f"{comp}/{oid}: ENTITY_SOURCE fora da COL-LAW-221: {str(es)[:60]!r}")
             for c in CAMPOS_DE_ORIGEM:
-                if c in o and e_ignorancia(o[c]) and o[c] != NAO_SEI:
+                if c != "ENTITY_SOURCE" and c in o and e_ignorancia(o[c]) and o[c] != NAO_SEI:
                     v.append(f"{comp}/{oid}: {c} esconde a ignorancia")
             lugar = (o.get("CHAVES") or {}).get("FACT_LOCATION") if isinstance(o.get("CHAVES"), dict) else None
             if e_ignorancia(lugar):
