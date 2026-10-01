@@ -1104,6 +1104,15 @@ class FeederQuatroLinhas(Base):
             self.assertTrue((RAIZ / f[n]["CATALOGO"]).exists(), (n, f[n]["CATALOGO"]))
         consultas = json.loads((RAIZ / "data/derivados/LINHA-BUSCA/CONSULTAS.json").read_text(encoding="utf-8"))
         self.assertEqual(f["BUSCA"]["UNIDADES_GOVERNADAS"], len(consultas))
+        # o motivo de cada linha, MEDIDO a 01/10 nos catalogos desta arvore. Se um catalogo mudar (contrato T6
+        # instalado, fonte SCRAP_FASE na porta social, robots do ORCID relido), este teste muda com ele, de
+        # proposito: o estado de uma linha nao muda em silencio.
+        self.assertEqual({n: f[n]["ESTADO"] for n in QUATRO},
+                         {"BUSCA": "BLOQUEADA_CAPACIDADE", "CIENCIA": "BLOQUEADA_POLITICA",
+                          "SOCIAL": "SEM_CATALOGO", "PESQUISADORES": "BLOQUEADA_ROBOTS"})
+        for n in QUATRO:                                          # nenhuma tem onda: a capacidade esta sempre la
+            self.assertIn("BLOQUEADA_CAPACIDADE", [m["ESTADO"] for m in f[n]["MOTIVOS"]], n)
+        self.assertIn("BLOQUEADA_PERMISSAO_SOCIAL", [m["ESTADO"] for m in f["SOCIAL"]["MOTIVOS"]])
 
     def test_ensaio_a_seco_por_linha_nenhuma_das_quatro_diz_nada_elegivel(self):
         plano = self.tmp / "RODADAS-PLANO.json"
@@ -1117,10 +1126,13 @@ class FeederQuatroLinhas(Base):
         reg = json.loads(r.stdout)
         saida.write_text(r.stdout, encoding="utf-8")
         self.assertEqual(reg["RUN_IDS"], [])
+        alim = C.alimentar_linhas(json.loads(plano.read_text(encoding="utf-8")))
         for n in QUATRO:
             ln = reg["LINHAS"][n]
             self.assertNotEqual(ln["ESTADO"], "NADA_ELEGIVEL", (n, ln))
             self.assertIn(ln["ESTADO"], BLOQUEIOS, (n, ln))
+            self.assertEqual((ln["ESTADO"], ln["PORQUE"]), (alim[n]["ESTADO"], alim[n]["PORQUE"]), n)
+            self.assertEqual((ln["FONTES"], ln["PEDIDOS_PREVISTOS"]), ([], 0), n)
 
 
 # ── 5c. ADENDO-PARADA (01/10): o ciclo 146 PAROU o servico por nada ─────────

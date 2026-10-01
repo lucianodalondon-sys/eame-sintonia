@@ -76,9 +76,18 @@ MUTANTES = [
     ("M33_STILL_ACTIVE_259_IGNORADO", ALVO, "            return codigo.value == 259\n", "            return True\n"),
     ("M34_ACESSO_NEGADO_VIRA_MORTO", ALVO, "            return ctypes.get_last_error() != 87\n", "            return False\n"),
     ("M35_PID_IMPOSSIVEL_TOMADO", ALVO, "    if type(pid) is not int or pid <= 0:\n        return False\n", ""),
-    # ADENDO-PARADA (01/10, ciclo 146): (1) o agendador pergunta ao portao da onda; (2) ciclo vazio nao para.
-    # PARADA-SOBRE-SERVICO: M44-M56 portados de 1b19cac4d (coord/feeder-4-linhas); M38-M43 sao do FEEDER e nao
-    # estao neste ramo. M57 e a unica diferenca do porte: linha sem candidatas nao pergunta ao portao.
+    # FEEDER-4-LINHAS (01/10): lista vazia nao e NADA_ELEGIVEL; linha sem onda nunca vai a onda dos SITES
+    ("M38_LISTA_VAZIA_VIRA_NADA_ELEGIVEL", ALVO, "        if not bl and not cands:\n", "        if False:\n"),
+    ("M39_LINHA_SEM_ONDA_VAI_A_ONDA_DOS_SITES", ALVO,
+     'if not bl and decl is not None and not decl.get("ONDA") and cands:', "if False:"),
+    ("M40_BLOQUEIO_DO_ALIMENTADOR_IGNORADO", ALVO, "bl = (bloqueios or {}).get(nome)", "bl = None"),
+    ("M41_MAIN_NAO_PASSA_OS_BLOQUEIOS", ALVO, 'bloqueios={n: a for n, a in alim.items() if a["ESTADO"]})',
+     "bloqueios=None)"),
+    ("M42_CAPACIDADE_ESQUECIDA", ALVO, '        if not l.get("ONDA"):\n            motivos.append(',
+     "        if False:\n            motivos.append("),
+    ("M43_CONTRATO_T6_DADO_COMO_INSTALADO", ALVO, '[] if estado.upper().startswith("INSTALADO") else [',
+     "[] if True else ["),
+    # ADENDO-PARADA (01/10, ciclo 146): (1) o agendador pergunta ao portao da onda; (2) ciclo vazio nao para
     ("M44_PORTAO_DA_FONTE_IGNORADO", ALVO,
      'admitida = {s for s, v in vered.items() if v.get("COLLECTION_ELIGIBLE") is True}',
      'admitida = {c["SOURCE_ID"] for c in cands}'),
@@ -109,9 +118,6 @@ MUTANTES = [
      '        if n or any(',
      "        except (ValueError, KeyError, TypeError, AttributeError, OSError):\n            n, e = 0, {}\n"
      '        if n or any('),
-    ("M57_LINHA_VAZIA_PERGUNTA_AO_PORTAO", ALVO,
-     'vered = porta(sorted({c["SOURCE_ID"] for c in cands})) if cands else {}',
-     'vered = porta(sorted({c["SOURCE_ID"] for c in cands}))'),
     ("M36_SAIDA_VAZIA_ACEITE", "scripts/micro_coleta/provar_backup_da_sala.py",
      '    if not texto.strip():\n        return "SAIDA_VAZIA"\n', ""),
     ("M37_SAIDA_RAIZ_ACEITE", "scripts/micro_coleta/provar_backup_da_sala.py", "    if p == Path(p.anchor):", "    if False:"),
