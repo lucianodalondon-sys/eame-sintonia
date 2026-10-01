@@ -450,8 +450,14 @@ class Linhas(Base):
     def test_ligacao_medida_no_codigo_desta_arvore(self):
         m = {l["LINHA"]: C.medir_ligacao(l) for l in C.LINHAS}
         self.assertTrue(m["SITES"]["LIGADA"], m["SITES"])
+        # LIGACAO-4-LINHAS (30/09): as quatro linhas Python passaram a ser medidas pelo COMPORTAMENTO (a sonda
+        # escreve a RESERVA no livro temporario e nao reserva com o dominio pausado). A BUSCA e a SOCIAL ja
+        # reservavam por outra porta (scrap_http/teto_da_onda) e o texto dava-as como desligadas; a CIENCIA e a
+        # PESQUISADORES ganharam a reserva que nao tinham. Nenhuma fica ESPERA_LIGACAO.
         for n in ("BUSCA", "CIENCIA", "SOCIAL", "PESQUISADORES"):
-            self.assertFalse(m[n]["LIGADA"], (n, m[n]))
+            self.assertTrue(m[n]["LIGADA"], (n, m[n]))
+            self.assertEqual(m[n].get("MEDIDO", {}).get("RESERVAS_LIVRES"), 1, (n, m[n]))
+            self.assertEqual(m[n].get("MEDIDO", {}).get("RESERVAS_NOVAS_B"), 0, (n, m[n]))
 
     def test_a_ligacao_e_a_chamada_nao_o_nome(self):
         d = self.tmp / "coleta"

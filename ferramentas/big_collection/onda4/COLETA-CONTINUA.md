@@ -59,16 +59,24 @@ reserva existe no transporte dela). Nesta árvore, medido:
 
 | linha | transporte | estado |
 |---|---|---|
-| SITES (sites/boletins, T2/T3/T5/T7/…) | `coleta/italy_pilot_collect.mjs` | **LIGADA** (`reservar24h(host, 1)` em `umaIda()`) |
-| BUSCA (`linha_busca`) | `coleta/linha_busca.py` | ESPERA_LIGACAO — **não existe nesta árvore** |
-| CIENCIA (OpenAlex/Crossref/ORCID, D91) | `coleta/pesquisadores_t6.py` | ESPERA_LIGACAO — teto próprio por rodada, sem `reserva_24h.reservar(` |
-| SOCIAL (YouTube/social, freio social) | `coleta/teto_da_onda.py` | ESPERA_LIGACAO — fala o livro **da onda**, não o de 24 h |
-| PESQUISADORES T6 (páginas) | `coleta/seguir.py` | ESPERA_LIGACAO — **não existe nesta árvore** |
+| SITES (sites/boletins, T2/T3/T5/T7/…) | `coleta/italy_pilot_collect.mjs` | **LIGADA** (medida pelo COMPORTAMENTO: `sonda_ligacao_sites.mjs`) |
+| BUSCA (`linha_busca`) | `coleta/linha_busca.py` | **LIGADA** — reserva por outra porta (`linha_busca` → `scrap_http` → `teto_da_onda` → `cortesia_adaptativa`); o texto dentro de `linha_busca.py` nunca teve a chamada |
+| CIENCIA (OpenAlex/Crossref/ORCID, D91) | `coleta/pesquisadores_t6.py` | **LIGADA** — passou a reservar em `_pedir()` (LIGACAO-4-LINHAS, 30/09); antes só lia o orçamento |
+| SOCIAL (YouTube/social, freio social) | `coleta/teto_da_onda.py` | **LIGADA** — é o próprio freio: reserva no livro de 24 h via `cortesia_adaptativa.reservar_ou_esperar()` |
+| PESQUISADORES T6 (páginas) | `ferramentas/seguir_pesquisadores/seguir.py` | **LIGADA** — o transporte mudou de sítio (`coleta/seguir.py` não existe nesta árvore) e passou a reservar no livro de 24 h (LIGACAO-4-LINHAS, 30/09) |
+
+**LIGACAO-4-LINHAS (30/09).** As quatro linhas acima deixaram de ser medidas por TEXTO dentro do ficheiro do
+transporte — o texto mentia nos dois sentidos (a BUSCA e a SOCIAL reservam por outra porta e ficavam
+`ESPERA_LIGACAO`; e o inverso, «o texto lá, a chamada morta», também passava). Passou a medir-se o
+COMPORTAMENTO, como a D124-REBASE já fazia para a SITES: `ferramentas/big_collection/sonda_ligacao_linha.py`
+corre o transporte contra um livro da cortesia TEMPORÁRIO e um egresso FECHADO e mede o livro — a linha está
+LIGADA quando (A) escreveu a RESERVA antes de o pedido tentar a rede e (B) NÃO reserva quando o domínio está
+PAUSADO. A CIENCIA e a PESQUISADORES ganharam a reserva que nao tinham; nenhuma tem contador próprio.
 
 Isto é a regra do `CONTADOR-24H.md`: «até cada linha estar ligada a este livro, só UMA linha de rede de cada vez».
-Os pontos onde falta a linha de código estão lá. Quando uma linha passar a reservar, o serviço **vê-o sozinho**
-e ela entra no rodízio — mas precisa também de uma função de candidatas e de onda (hoje só a SITES tem). **Não fiz
-isso aqui: é mexer no coletor de cada linha, fora do escopo.**
+Estar LIGADA **não basta** para a linha correr: cada uma precisa também de uma função de candidatas e de onda
+(hoje só a SITES tem — as outras ficam `NADA_ELEGIVEL`, que é a resposta certa: não há material para elas neste
+ciclo). **Não fiz isso aqui: é mexer no coletor de cada linha, fora do escopo.**
 
 ### O robô de fontes
 

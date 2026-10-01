@@ -25,6 +25,7 @@ OS LIMITES (no codigo, nao no papel):
 """
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -138,6 +139,18 @@ class Transporte:
         if self.conta[d] >= TETO:
             self.registo.append({"URL": url, "RESULTADO": "TETO_DO_DOMINIO", "DOMINIO": d, "PORQUE": porque})
             return None, None
+        # D86-b/D90: dentro do servico (livro da cortesia nomeado) o lugar RESERVA-SE no MESMO livro de 24 h
+        # das outras linhas — a PESQUISADORES era a unica que falava com um contador proprio. Sem RESERVADO o
+        # pedido NAO sai. Fora do servico (sem livro) nada muda: segue o contador desta pasta sozinho.
+        import cortesia_adaptativa as _CA                             # noqa: PLC0415
+        if _CA.livro():
+            import reserva_24h as _R24                                # noqa: PLC0415 — o contador multicanal (D90)
+            r = _R24.reservar(d, 1, run_id=os.environ.get("SINTONIA_RUN_ID") or "seguir-%d" % os.getpid(),
+                              linha=os.environ.get("SINTONIA_LINHA") or "PESQUISADORES")
+            if r.get("ESTADO") != "RESERVADO":
+                self.registo.append({"URL": url, "RESULTADO": "TETO_24H", "DOMINIO": d,
+                                     "MOTIVO": r.get("MOTIVO") or r.get("PORQUE"), "PORQUE": porque})
+                return None, None
         if self.contador is not None:
             ok, ate = self.contador.reservar(d, url)
             if not ok:

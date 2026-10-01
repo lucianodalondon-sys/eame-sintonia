@@ -743,6 +743,21 @@ def _estado(saida):
 
 
 def _pedir(url, chave=None):
+    """UM pedido a um dominio cientifico, com o lugar RESERVADO no livro de 24 h ANTES de sair (D90/D124).
+
+    A CIENCIA nao reservava nada: media o orcamento (`teto_por_dominio`, so leitura) e pedia — duas linhas
+    ao mesmo tempo passavam o teto. Agora, com o livro da cortesia nomeado (e o servico nomeia-o: `--teto-24h`
+    e obrigatorio), passa pelo MESMO livro multicanal das outras linhas — nada de segundo contador. Sem
+    RESERVADO o pedido NAO sai e devolve-se o motivo (FALHA != ZERO). Sem livro nomeado o transporte fica como
+    estava (o `reserva_24h` responderia FAIL por falta de contador partilhado)."""
+    import cortesia_adaptativa as CA                                  # noqa: PLC0415
+    if CA.livro():
+        import reserva_24h as R24                                     # noqa: PLC0415 — o contador multicanal (D90)
+        host = urllib.parse.urlsplit(url).hostname or ''
+        r = R24.reservar(host, 1, run_id=os.environ.get('SINTONIA_RUN_ID') or 'ciencia-%d' % os.getpid(),
+                         linha=os.environ.get('SINTONIA_LINHA') or 'CIENCIA')
+        if r.get('ESTADO') != 'RESERVADO':
+            return None, 'SEM_RESERVA_24H: %s %s' % (r.get('ESTADO'), r.get('MOTIVO') or r.get('PORQUE') or '')
     if chave:                                  # so se o dono tiver chave do OpenAlex
         url += '&api_key=' + urllib.parse.quote(chave)
     return CP._get(url)

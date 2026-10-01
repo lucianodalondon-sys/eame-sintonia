@@ -148,11 +148,14 @@ class J_Linhas(unittest.TestCase):
         m = CC.medir_ligacao(self._linha("SITES"))
         self.assertTrue(m["LIGADA"], m["PORQUE"])
 
-    def test_JL2_busca_existe_e_nao_reserva_fica_a_espera_pelo_motivo_certo(self):
+    def test_JL2_busca_existe_e_reserva_no_livro_de_24_h(self):
+        # LIGACAO-4-LINHAS (30/09): a BUSCA reserva no MESMO livro por outra porta (linha_busca -> scrap_http ->
+        # teto_da_onda -> cortesia_adaptativa). O texto dentro de linha_busca.py nunca teve a chamada; a ligacao
+        # mede-se pelo COMPORTAMENTO da sonda (reserva escrita + recusa com o dominio pausado).
         self.assertTrue((RAIZ / "coleta" / "linha_busca.py").exists())
         m = CC.medir_ligacao(self._linha("BUSCA"))
-        self.assertFalse(m["LIGADA"])
-        self.assertTrue(m["PORQUE"].startswith("SEM_RESERVA_24H"), m["PORQUE"])
+        self.assertTrue(m["LIGADA"], m["PORQUE"])
+        self.assertEqual(m.get("MEDIDO", {}).get("RESERVAS_LIVRES"), 1, m)
 
 
 if __name__ == "__main__":

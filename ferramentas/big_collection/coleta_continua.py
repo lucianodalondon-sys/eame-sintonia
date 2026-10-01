@@ -98,14 +98,22 @@ TRINCO_F = "COLETA-CONTINUA.trinco"
 LINHAS = [
     {"LINHA": "SITES", "FAMILIA": "sites e boletins (T2/T3/T5/T7/T8/T9/T10/T12), pela coorte congelada",
      "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs"},
+    # LIGACAO-4-LINHAS (30/09): as quatro linhas Python deixaram de ser medidas por TEXTO. O texto mentia nos
+    # dois sentidos: a BUSCA e a SOCIAL reservam no MESMO livro por outra porta (scrap_http -> teto_da_onda ->
+    # cortesia_adaptativa) e ficavam ESPERA_LIGACAO; e o inverso (o texto la, a chamada morta) tambem passava.
+    # Agora mede-se o COMPORTAMENTO, como a D124 ja fazia para a SITES: o transporte corre contra um livro
+    # temporario e um egresso fechado; LIGADA = escreveu a RESERVA antes do pedido E nao reserva com o dominio
+    # pausado. A CIENCIA e a PESQUISADORES ganharam a reserva que nao tinham (coleta/pesquisadores_t6.py,
+    # ferramentas/seguir_pesquisadores/seguir.py) — no MESMO livro, sem segundo contador.
     {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca)",
-     "TRANSPORTE": "coleta/linha_busca.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/linha_busca.py", "SONDA_PY": "ferramentas/big_collection/sonda_ligacao_linha.py"},
     {"LINHA": "CIENCIA", "FAMILIA": "APIs cientificas OpenAlex/Crossref/ORCID (excecao de robots D91)",
-     "TRANSPORTE": "coleta/pesquisadores_t6.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/pesquisadores_t6.py", "SONDA_PY": "ferramentas/big_collection/sonda_ligacao_linha.py"},
     {"LINHA": "SOCIAL", "FAMILIA": "YouTube/social (so o que o freio social ja libera)",
-     "TRANSPORTE": "coleta/teto_da_onda.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/teto_da_onda.py", "SONDA_PY": "ferramentas/big_collection/sonda_ligacao_linha.py"},
     {"LINHA": "PESQUISADORES", "FAMILIA": "paginas de pesquisadores T6",
-     "TRANSPORTE": "coleta/seguir.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "ferramentas/seguir_pesquisadores/seguir.py",
+     "SONDA_PY": "ferramentas/big_collection/sonda_ligacao_linha.py"},
 ]
 
 
@@ -131,14 +139,35 @@ def sondar_ligacao(linha: dict, raiz: Path = RAIZ, timeout_s: float = 120.0) -> 
     return {"LIGADA": True, "PORQUE": "SONDA: %s" % m.get("PORQUE"), "MEDIDO": m.get("MEDIDO")}
 
 
+def sondar_ligacao_py(linha: dict, raiz: Path = RAIZ, timeout_s: float = 180.0) -> dict:
+    """A SONDA de comportamento de uma linha Python (LIGACAO-4-LINHAS, 30/09): o transporte corre contra um
+    egresso FECHADO e um livro da cortesia TEMPORARIO (dentro da sonda), e mede-se o livro — nao o texto.
+    {"LIGADA": bool, "PORQUE": texto, "MEDIDO": {...}}. Sonda que nao corre = NAO LIGADA."""
+    sonda = raiz / linha["SONDA_PY"]
+    try:
+        r = subprocess.run([sys.executable, str(sonda), "--linha=" + linha["LINHA"]], cwd=raiz,
+                           capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout_s,
+                           env={k: v for k, v in os.environ.items() if not k.startswith("SINTONIA_")})
+        ultima = (r.stdout.strip().splitlines() or [""])[-1]
+        m = json.loads(ultima)
+    except (OSError, ValueError, subprocess.TimeoutExpired) as ex:
+        return {"LIGADA": False, "PORQUE": "SONDA_NAO_CORREU: %s: %s" % (linha["SONDA_PY"], str(ex)[:200])}
+    if not isinstance(m, dict) or m.get("LIGADA") is not True:
+        return {"LIGADA": False, "PORQUE": "SONDA: %s" % (m.get("PORQUE") if isinstance(m, dict) else m),
+                "MEDIDO": m.get("MEDIDO") if isinstance(m, dict) else None}
+    return {"LIGADA": True, "PORQUE": "SONDA: %s" % m.get("PORQUE"), "MEDIDO": m.get("MEDIDO")}
+
+
 def medir_ligacao(linha: dict, raiz: Path = RAIZ) -> dict:
     """{"LIGADA": bool, "PORQUE": texto}: o transporte da linha existe E reserva no livro de 24 h.
-    Com "SONDA": medido pelo comportamento. Sem ela: a chamada tem de estar no codigo (medida de texto)."""
+    Com "SONDA"/"SONDA_PY": medido pelo comportamento. Sem ela: a chamada tem de estar no codigo (medida de texto)."""
     f = raiz / linha["TRANSPORTE"]
     if not f.exists():
         return {"LIGADA": False, "PORQUE": "TRANSPORTE_NAO_EXISTE_NESTA_ARVORE: %s" % linha["TRANSPORTE"]}
     if linha.get("SONDA"):
         return sondar_ligacao(linha, raiz)
+    if linha.get("SONDA_PY"):
+        return sondar_ligacao_py(linha, raiz)
     if linha["CHAMADA"] not in f.read_text(encoding="utf-8", errors="replace"):
         return {"LIGADA": False, "PORQUE": "SEM_RESERVA_24H: %s nao chama %s (CONTADOR-24H.md)"
                 % (linha["TRANSPORTE"], linha["CHAMADA"])}
