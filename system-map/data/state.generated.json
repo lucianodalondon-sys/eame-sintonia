@@ -2887,6 +2887,7 @@
       "provas/COLETA-CONTINUA-MUTACAO.json",
       "provas/CONTADOR-24H-MUTACAO.json",
       "provas/CORTESIA-RED-TEAM-V1.json",
+      "provas/K2-EIXOS-MUTACAO.json",
       "provas/O-CUTOVER-NAO-VAZA-V1.json",
       "provas/ONDA-WEB-MUTACAO.json",
       "provas/PARIDADE-RED-TEAM-V1.json",
@@ -3093,6 +3094,8 @@
       "provas/gate_de_aceitacao_tematica.py",
       "provas/gpu_asr_smoke.py",
       "provas/hardware_local.py",
+      "provas/harness/K2-EIXOS-MUTACAO.spec.json",
+      "provas/harness/harness_mutacao.py",
       "provas/implementacoes_candidatas.py",
       "provas/independencia/MUTANTES.json",
       "provas/independencia/V21-ANTES-E-DEPOIS.json",
@@ -4845,9 +4848,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/c8-auto-v1",
-    "HEAD": "e95a43df16e0cb47522d6b7fa7afbc518b33e80d",
-    "GENERATED_AT": "2026-10-01T07:36:23-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2fd254d2a24955743d82e051630ba5d3269dc0726fce7a928ee01047b3feafbf"
+    "HEAD": "d30e64f51a63960860164e10cfb9044540f4df15",
+    "GENERATED_AT": "2026-10-01T09:50:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cda154991e4c83d07d053c4fa67c8ab58b321a39b412a57a39addd65571a3732"
   },
   "FAMILIES": [
     {
@@ -62880,6 +62883,7 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+        "provas/harness/harness_mutacao.py",
         "provas/l2/ensaio_disparador.py",
         "provas/l2/funil_r9.py",
         "provas/l2/g0_afirmacao_r9.py",
@@ -62887,7 +62891,7 @@
         "provas/l2/mutantes_g0.py",
         "provas/l2/r9_auto_vs_manual.py"
       ],
-      "file_count": 7,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -176384,7 +176388,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2283,
+  "UNCLAIMED_FILES_COUNT": 2285,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -176660,8 +176664,8 @@
     "edges_proven": 1874,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4251,
-    "files_covered": 1968,
+    "files_tracked": 4254,
+    "files_covered": 1969,
     "files_code_unclaimed": 0,
     "roles_proven": 209,
     "roles_declared_only": 11,

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-01T10:41:28+00:00",
-  "HEAD": "e95a43df16e0cb47522d6b7fa7afbc518b33e80d",
+  "GENERATED_AT": "2026-10-01T13:41:54+00:00",
+  "HEAD": "d30e64f51a63960860164e10cfb9044540f4df15",
   "BRANCH": "claude/c8-auto-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "2fd254d2a24955743d82e051630ba5d3269dc0726fce7a928ee01047b3feafbf",
-  "FICHEIROS_NA_IMPRESSAO": 4399,
+  "SOURCE_TREE_FINGERPRINT": "cda154991e4c83d07d053c4fa67c8ab58b321a39b412a57a39addd65571a3732",
+  "FICHEIROS_NA_IMPRESSAO": 4402,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3854,6 +3854,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/harness/harness_mutacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5176e6d8621ca341afac8efaa47ab304eac610fc",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/implementacoes_candidatas.py",
     "PAPEL": "FONTE",
     "VERSAO": "a2f5a7419752751aca3ec1124b46c12aa1f359b5",
@@ -5662,14 +5669,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "2fd254d2a24955743d82e051630ba5d3269dc0726fce7a928ee01047b3feafbf",
+    "VERSAO": "cda154991e4c83d07d053c4fa67c8ab58b321a39b412a57a39addd65571a3732",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "2fd254d2a24955743d82e051630ba5d3269dc0726fce7a928ee01047b3feafbf",
+    "VERSAO": "cda154991e4c83d07d053c4fa67c8ab58b321a39b412a57a39addd65571a3732",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8390,8 +8397,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1193,
-  "INPUTS_DIGEST": "7fc645d3f9766dd60950e626cd06941d89c2bd82fbd3faacd474960062af43f2",
+  "INPUTS_COUNT": 1194,
+  "INPUTS_DIGEST": "add668379d4cd46d9ee1ffccbbde25145b48f6a1a35de9b15ec10cca495d538c",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8424,8 +8431,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "83ef00c7d5b559b06810328b113a0acc125e1da036c49850daaa4c8d7f74e2c8",
-  "SEMANTIC_HASH": "b5533393446989d5992cc797688c3523ccde477482cb26962a59bfa540b1ad6b"
+  "MEASUREMENT_HASH": "6fa6333b493aa715dc47e639aa8c5266bb1647b47ea88468cc2c361417f9f786",
+  "SEMANTIC_HASH": "3dc4f5808b33da5a2b3c23aa7b4d56ed012d3ebd698176e909248be9402fbe6a"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -70820,6 +70827,7 @@
     "provas/c2_juiz_mutacao.py",
     "provas/coleta_continua_mutacao.py",
     "provas/contador_24h_mutacao.py",
+    "provas/harness/harness_mutacao.py",
     "provas/onda_web_mutacao.py",
     "provas/rodadas_mutacao.py",
     "provas/teto_dominio_mutacao.py",
@@ -72404,6 +72412,7 @@
     "provas/c2_juiz_mutacao.py",
     "provas/coleta_continua_mutacao.py",
     "provas/contador_24h_mutacao.py",
+    "provas/harness/harness_mutacao.py",
     "provas/onda_web_mutacao.py",
     "provas/rodadas_mutacao.py",
     "provas/teto_dominio_mutacao.py",
@@ -74241,6 +74250,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+    "provas/harness/harness_mutacao.py",
     "provas/l2/ensaio_disparador.py",
     "provas/l2/funil_r9.py",
     "provas/l2/g0_afirmacao_r9.py",
