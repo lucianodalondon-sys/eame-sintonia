@@ -2889,6 +2889,7 @@
       "provas/C2-JUIZ-MUTACAO.json",
       "provas/COLETA-CONTINUA-BATERIA-base-18461b9.json",
       "provas/COLETA-CONTINUA-BATERIA-ramo-6c80022.json",
+      "provas/COLETA-CONTINUA-MUTACAO-LOTE-M38-M43.json",
       "provas/COLETA-CONTINUA-MUTACAO.json",
       "provas/CONTADOR-24H-MUTACAO.json",
       "provas/CORTESIA-RED-TEAM-V1.json",
@@ -4853,10 +4854,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coord/servico-com-release",
-    "HEAD": "b380663a6e382b6657d1c6433c6cae9eb6d3ee72",
-    "GENERATED_AT": "2026-10-01T01:11:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "563b7a1648f10d881336f35d8dfe3bee6f0740a39afa776c4399b46602373346"
+    "BRANCH": "coord/feeder-4-linhas",
+    "HEAD": "5a23177241ede7a94245696d7bbf2bfb9df8570a",
+    "GENERATED_AT": "2026-10-01T03:58:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3ab21e87c18eec7c653ec0114eab4ba13fd52d7ddc7808d49c4474fcdb4470f1"
   },
   "FAMILIES": [
     {
@@ -42750,7 +42751,7 @@
           "curadoria/bloqueadas_268.py:120",
           "curadoria/retirar_por_decisao.py:40",
           "curadoria/sonda_um_pedido.py:38",
-          "ferramentas/big_collection/coleta_continua.py:372"
+          "ferramentas/big_collection/coleta_continua.py:235"
         ],
         "PORQUE": "estas pecas importam-na — C-BLOQUEADAS-268 · C-BLOQUEADAS-DESTRAVAR · C-CANAIS-41 · C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -56195,7 +56196,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 3
+        "ITALIA": 4
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [
@@ -56208,12 +56209,13 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ESTADOS_DE_BLOQUEIO",
           "LINHAS",
           "MARCA_DE_RECUSA"
         ],
-        "palavras": 36,
+        "palavras": 42,
         "por_lingua": {},
-        "sem_marca_de_lingua": 36,
+        "sem_marca_de_lingua": 42,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -56265,8 +56267,13 @@
         "coleta/pesquisadores_t6.py",
         "coleta/teto_da_onda.py",
         "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/italy_contracts_curator.json",
         "curadoria/supervisor.py",
         "data/collection-ledger/italy/runs.ndjson",
+        "data/derivados/LINHA-BUSCA/CONSULTAS.json",
+        "data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json",
+        "data/derivados/PESQUISADORES-T6/PLANO.json",
+        "docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json",
         "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
         "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
@@ -60895,12 +60902,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1947,
+        "palavras": 1960,
         "por_lingua": {
           "PT": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 1943,
+        "sem_marca_de_lingua": 1956,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -70308,7 +70315,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "ferramentas/big_collection/coleta_continua.py:115"
+          "ferramentas/big_collection/coleta_continua.py:118"
         ],
         "PORQUE": "estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -73832,6 +73839,7 @@
           "BINARIOS",
           "BINDINGS",
           "BLOQUEADAS",
+          "BLOQUEIOS",
           "BUSCA",
           "CADASTRO",
           "CADEIA",
@@ -73959,13 +73967,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 2246,
+        "palavras": 2251,
         "por_lingua": {
           "IT": 12,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 2229,
+        "sem_marca_de_lingua": 2234,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -91145,11 +91153,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 372,
+          "line": 235,
+          "snippet": "rel, coorte = \"curadoria/italy_contracts_curator.json\", \"ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 475,
           "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
@@ -118972,8 +118996,8 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 100,
-          "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},",
+          "line": 102,
+          "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
             "FROM": "C-IT-COLETA",
@@ -126916,12 +126940,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 109,
+          "line": 112,
           "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
+            "FROM": "C-LINHA-BUSCA",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 217,
+          "snippet": "rel = \"data/derivados/LINHA-BUSCA/CONSULTAS.json\"                  # o que `linha_busca.py --plano` gera (D93)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
             "FROM": "C-LINHA-BUSCA",
@@ -127203,7 +127243,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_busca_no_actions.py",
@@ -127225,6 +127265,22 @@
           "file": "tests/test_busca_no_actions.py",
           "line": 198,
           "snippet": "\"--consultas=%s\" % (RAIZ / \"data\" / \"derivados\" / \"LINHA-BUSCA\" / \"CONSULTAS.json\"), \"--n=3\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
+            "FROM": "C-LINHA-BUSCA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_coleta_continua.py",
+          "line": 1098,
+          "snippet": "consultas = json.loads((RAIZ / \"data/derivados/LINHA-BUSCA/CONSULTAS.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
             "FROM": "C-LINHA-BUSCA",
@@ -136946,7 +137002,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 332,
+          "line": 435,
           "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -137061,7 +137117,7 @@
         },
         {
           "file": "provas/coleta_continua_mutacao.py",
-          "line": 79,
+          "line": 90,
           "snippet": "(\"M36_SAIDA_VAZIA_ACEITE\", \"scripts/micro_coleta/provar_backup_da_sala.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
@@ -138615,11 +138671,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_continua.py",
-          "line": 1049,
+          "line": 1114,
+          "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"ferramentas\" / \"big_collection\" / \"coleta_continua.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_coleta_continua.py",
+          "line": 1134,
           "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
@@ -143480,7 +143552,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 111,
+          "line": 114,
           "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-ONDA-WEB",
@@ -164457,7 +164529,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 113,
+          "line": 116,
           "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
@@ -166701,7 +166773,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 115,
+          "line": 118,
           "snippet": "\"TRANSPORTE\": \"ferramentas/seguir_pesquisadores/seguir.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-ONDA-WEB",
@@ -176694,7 +176766,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2291,
+  "UNCLAIMED_FILES_COUNT": 2292,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -176970,7 +177042,7 @@
     "edges_proven": 1881,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4260,
+    "files_tracked": 4261,
     "files_covered": 1969,
     "files_code_unclaimed": 0,
     "roles_proven": 210,

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-01T04:17:36+00:00",
-  "HEAD": "b380663a6e382b6657d1c6433c6cae9eb6d3ee72",
-  "BRANCH": "coord/servico-com-release",
+  "GENERATED_AT": "2026-10-01T07:04:53+00:00",
+  "HEAD": "5a23177241ede7a94245696d7bbf2bfb9df8570a",
+  "BRANCH": "coord/feeder-4-linhas",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "563b7a1648f10d881336f35d8dfe3bee6f0740a39afa776c4399b46602373346",
-  "FICHEIROS_NA_IMPRESSAO": 4408,
+  "SOURCE_TREE_FINGERPRINT": "3ab21e87c18eec7c653ec0114eab4ba13fd52d7ddc7808d49c4474fcdb4470f1",
+  "FICHEIROS_NA_IMPRESSAO": 4409,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -979,7 +979,7 @@
    {
     "PATH": "ferramentas/big_collection/coleta_continua.py",
     "PAPEL": "FONTE",
-    "VERSAO": "c19e4ed65ee5915399e53c9dcf0e3210d5ee4a03",
+    "VERSAO": "8f06e4542ae6f502066515b804fe3fa56d77304b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3653,7 +3653,7 @@
    {
     "PATH": "provas/coleta_continua_mutacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5443de6f08f06eb69e26d0d80060cb86da65dff9",
+    "VERSAO": "25695defa740faa3ee855e17814642629f4486ca",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5676,14 +5676,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "563b7a1648f10d881336f35d8dfe3bee6f0740a39afa776c4399b46602373346",
+    "VERSAO": "3ab21e87c18eec7c653ec0114eab4ba13fd52d7ddc7808d49c4474fcdb4470f1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "563b7a1648f10d881336f35d8dfe3bee6f0740a39afa776c4399b46602373346",
+    "VERSAO": "3ab21e87c18eec7c653ec0114eab4ba13fd52d7ddc7808d49c4474fcdb4470f1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6740,7 +6740,7 @@
    {
     "PATH": "tests/test_coleta_continua.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a38867544bfb2e33f3102a71916bbd05023889ac",
+    "VERSAO": "d3a869725f503c2d77e14753c75655bbb02bb434",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8398,7 +8398,7 @@
    }
   ],
   "INPUTS_COUNT": 1194,
-  "INPUTS_DIGEST": "26b237db438e8c05e3f0d26158276a8015e352e84b68996bc883a793bdd4521d",
+  "INPUTS_DIGEST": "031ded06006b659d2d89fa2d454cde7f77ed4855fb189b3d576a87d20fe79558",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8431,8 +8431,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b0a5381a217eb2c10b11f7be5a133817dab8fff3df4f7346973cad9b488535c7",
-  "SEMANTIC_HASH": "ca001c2620416e3761c849752d565d058257ae189eba2f10f2d330132ea64a38"
+  "MEASUREMENT_HASH": "44902ad46bcca91b5d217dcf39e31501222b62de783d0c4319a79cf14300e74c",
+  "SEMANTIC_HASH": "761e6e0f0c1a7549d1214910831041381a56bd0bac1cedbf67e06e5ca18ab113"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -16726,7 +16726,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 372,
+      "LINHA": 235,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
+      "LINHA": 475,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
@@ -32729,7 +32737,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 100,
+      "LINHA": 102,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
@@ -37321,7 +37329,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 109,
+      "LINHA": 112,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
+      "LINHA": 217,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
@@ -37428,6 +37444,14 @@
      {
       "FICHEIRO": "tests/test_busca_no_actions.py",
       "LINHA": 198,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_coleta_continua.py",
+      "LINHA": 1098,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -43061,7 +43085,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 332,
+      "LINHA": 435,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -43123,7 +43147,7 @@
      },
      {
       "FICHEIRO": "provas/coleta_continua_mutacao.py",
-      "LINHA": 79,
+      "LINHA": 90,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
@@ -44057,7 +44081,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_coleta_continua.py",
-      "LINHA": 1049,
+      "LINHA": 1114,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_coleta_continua.py",
+      "LINHA": 1134,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
@@ -46940,7 +46972,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 111,
+      "LINHA": 114,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PESQUISADORES-T6--READS-->C-ONDA-WEB",
@@ -59161,7 +59193,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 113,
+      "LINHA": 116,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
@@ -59729,7 +59761,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 115,
+      "LINHA": 118,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-ONDA-WEB",

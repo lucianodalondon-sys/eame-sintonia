@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coord/servico-com-release",
-    "HEAD": "b380663a6e382b6657d1c6433c6cae9eb6d3ee72",
-    "GENERATED_AT": "2026-10-01T01:11:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "563b7a1648f10d881336f35d8dfe3bee6f0740a39afa776c4399b46602373346"
+    "BRANCH": "coord/feeder-4-linhas",
+    "HEAD": "5a23177241ede7a94245696d7bbf2bfb9df8570a",
+    "GENERATED_AT": "2026-10-01T03:58:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3ab21e87c18eec7c653ec0114eab4ba13fd52d7ddc7808d49c4474fcdb4470f1"
   },
   "FILES": [
     {
@@ -6884,7 +6884,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "9d0ff4f6dda275c69ce2c4ee8bbfa0ad09cc7bd7",
+      "sha": "475de8e6c1b09dcf983abc1c573df28d4ab9856c",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7283,14 +7283,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "9d68535e98acc4e7a4281d8e94d98ca08772472e",
+      "sha": "979839de1f3be4f9dae26a236b6454f365f4856f",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "ccebfb216b3f717f0f10e104f6dec06032118a7c",
+      "sha": "659bccd3d1b09ec61dbb77b30621022d9cad7285",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -13198,7 +13198,7 @@
     },
     {
       "path": "ferramentas/big_collection/coleta_continua.py",
-      "sha": "c19e4ed65ee5915399e53c9dcf0e3210d5ee4a03",
+      "sha": "8f06e4542ae6f502066515b804fe3fa56d77304b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13324,7 +13324,7 @@
     },
     {
       "path": "ferramentas/big_collection/onda4/COLETA-CONTINUA.md",
-      "sha": "0149b81bf096e9299c17d82ca7d1f686eaa80f13",
+      "sha": "37ce32de6794f4d2591b9f200b171486746cfef3",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -19833,6 +19833,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/COLETA-CONTINUA-MUTACAO-LOTE-M38-M43.json",
+      "sha": "bda76299bb90c5588854abda073d99bae4ee134c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/COLETA-CONTINUA-MUTACAO.json",
       "sha": "3073635455caf1b0452a9741d47f6445ad25d698",
       "ext": ".json",
@@ -21010,7 +21017,7 @@
     },
     {
       "path": "provas/coleta_continua_mutacao.py",
-      "sha": "5443de6f08f06eb69e26d0d80060cb86da65dff9",
+      "sha": "25695defa740faa3ee855e17814642629f4486ca",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28157,7 +28164,7 @@
     },
     {
       "path": "tests/test_coleta_continua.py",
-      "sha": "a38867544bfb2e33f3102a71916bbd05023889ac",
+      "sha": "d3a869725f503c2d77e14753c75655bbb02bb434",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -46029,8 +46036,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 100,
-        "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},"
+        "line": 102,
+        "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\","
       }
     },
     {
@@ -46040,7 +46047,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 109,
+        "line": 112,
         "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
@@ -46051,7 +46058,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 111,
+        "line": 114,
         "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
@@ -46073,8 +46080,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 113,
+        "line": 116,
         "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 235,
+        "snippet": "rel, coorte = \"curadoria/italy_contracts_curator.json\", \"ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json\""
       }
     },
     {
@@ -46084,8 +46102,63 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 372,
+        "line": 475,
         "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "data/derivados/LINHA-BUSCA/CONSULTAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 217,
+        "snippet": "rel = \"data/derivados/LINHA-BUSCA/CONSULTAS.json\"                  # o que `linha_busca.py --plano` gera (D93)"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 256,
+        "snippet": "rel = \"data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json\"     # a identidade MUR que pessoas.py segue (D85)"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "data/derivados/PESQUISADORES-T6/PLANO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 224,
+        "snippet": "rel, contrato = \"data/derivados/PESQUISADORES-T6/PLANO.json\", \"docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json\""
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 224,
+        "snippet": "rel, contrato = \"data/derivados/PESQUISADORES-T6/PLANO.json\", \"docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json\""
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 235,
+        "snippet": "rel, coorte = \"curadoria/italy_contracts_curator.json\", \"ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json\""
       }
     },
     {
@@ -46106,7 +46179,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 109,
+        "line": 112,
         "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
@@ -46128,7 +46201,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 115,
+        "line": 118,
         "snippet": "\"TRANSPORTE\": \"ferramentas/seguir_pesquisadores/seguir.py\","
       }
     },
@@ -46139,7 +46212,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 332,
+        "line": 435,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),"
       }
     },
@@ -71582,7 +71655,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/coleta_continua_mutacao.py",
-        "line": 140,
+        "line": 151,
         "snippet": "nome_f = (\"COLETA-CONTINUA-MUTACAO.json\" if lote is None else"
       }
     },
@@ -71593,7 +71666,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/coleta_continua_mutacao.py",
-        "line": 79,
+        "line": 90,
         "snippet": "(\"M36_SAIDA_VAZIA_ACEITE\", \"scripts/micro_coleta/provar_backup_da_sala.py\","
       }
     },
@@ -98648,12 +98721,34 @@
     },
     {
       "from_file": "tests/test_coleta_continua.py",
+      "to_file": "data/derivados/LINHA-BUSCA/CONSULTAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_coleta_continua.py",
+        "line": 1098,
+        "snippet": "consultas = json.loads((RAIZ / \"data/derivados/LINHA-BUSCA/CONSULTAS.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_coleta_continua.py",
+      "to_file": "ferramentas/big_collection/coleta_continua.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_coleta_continua.py",
+        "line": 1114,
+        "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"ferramentas\" / \"big_collection\" / \"coleta_continua.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_coleta_continua.py",
       "to_file": "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 1049,
+        "line": 1134,
         "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\""
       }
     },
@@ -114211,10 +114306,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4260,
+    "files_tracked": 4261,
     "files_readable": 1790,
-    "files_code_dir": 2231,
-    "file_edges": 7611,
+    "files_code_dir": 2232,
+    "file_edges": 7619,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
