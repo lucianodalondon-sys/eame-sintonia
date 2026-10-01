@@ -142,8 +142,14 @@ class TestUmItemDuasAfirmacoes(_Caso):
             self.assertEqual(o["PROVA"][0]["RAW_SHA256"], self.linha["raw_sha256"])
 
     def test_region_id_fica_nao_sei_e_nao_e_cunhado_do_lugar(self):
+        # T5 (01/10): a regiao ja nao fica sempre NAO SEI — vem da regra do DONO da geografia (v21_normalizar),
+        # nunca de cunhar o nome. Bari e Lecce sao provincias: regiao-continente, sem falar por ela.
         for o in self.archive(self.correr(self.af1, self.af2)):
-            self.assertEqual(o["CHAVES"]["REGION_ID"], "NAO SEI")
+            self.assertEqual(o["CHAVES"]["REGION_ID"], "REGION_PUGLIA")
+            g = o["CHAVES"]["GEOGRAFIA_DO_LUGAR"]
+            self.assertEqual((g["GEOGRAPHIC_SCOPE"], g["REGION_REPRESENTS"]), ("PROVINCIAL", False))
+            self.assertEqual(o["CHAVES"]["ENTITY_SOURCE"]["REGION_ID"]["ENTITY_SOURCE"],
+                             "AFIRMACAO.FACT_LOCATION -> motor/v21_normalizar.geografia")
             self.assertNotEqual(o["CHAVES"]["FACT_LOCATION"], "NAO SEI")
 
     def test_fact_time_do_objeto_e_o_da_afirmacao_nunca_a_publicacao(self):

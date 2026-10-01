@@ -87,6 +87,7 @@ import estudo_chaves as ESTUDO                   # noqa: E402  (F2: o NOME da na
 # (leis/afirmacao_da_fonte.RELACOES / CONTRADICTION_STATUS): cada relacao deste motor diz tambem a
 # palavra da lei, calculada pelas regras da lei — nao a reescreve.
 import afirmacao_da_fonte as AFIRMACAO           # noqa: E402
+import v21_normalizar as V21N                    # noqa: E402  (T5: dono da geografia — REGIOES, PROVINCIA_DE)
 
 NAO_SEI = CI.NAO_SEI
 CONTRATO_DA_ENTRADA = "ENTRADA_DO_MOTOR_DAS_CAPACIDADES/v1"
@@ -797,6 +798,44 @@ def _objeto_do_futuro(f: dict, ctx: dict) -> tuple:
                 "VEM_DE": {"CULTURA": "JANELA_DECLARADA.CULTURA", "PROBLEMA": "JANELA_DECLARADA.PROBLEMA"}})}, None
 
 
+#: T5 (coordenador 01/10): a regiao do objeto de afirmacao vem do FACT_LOCATION dela pela regra do DONO da geografia
+#: (motor/v21_normalizar.geografia: tabela REGIOES + PROVINCIA_DE + «PROVINCIAL != REGIONAL»). Nenhuma tabela nova aqui.
+#: PAIS e UE NAO SAO REGIAO: no vocabulario do dono, ITALIA='GEO_ITALY' e UE='GEO_EU' sao constantes ao lado de
+#: REGIOES (nao estao em REGION_ALIAS) e escopo() os chama NACIONAL/EUROPEU; o leitor do Casco (italy-app-model.js)
+#: diz «GEO_ITALY and GEO_EU are SCOPES, not regions». geografia() devolve-os com GEOGRAPHIC_SCOPE='REGIONAL' e
+#: REGION_REPRESENTS=True — isso e o fallback de region_ids() para o documento, e aqui seria contar um facto
+#: nacional como regional. Por isso saem para ESCOPO_IDS, e REGION_ID fica NAO SEI.
+#: Duas regioes -> NAO SEI com as duas a vista (INT-LAW-084: conflito de normalizacao permanece conflito).
+ESCOPO_NAO_REGIAO = {"GEO_ITALY": "NACIONAL", "GEO_EU": "EUROPEU"}
+GEO_DONO = "motor/v21_normalizar.geografia"
+
+
+def geografia_do_lugar(fact_location) -> dict:
+    """FACT_LOCATION da afirmacao -> a geografia do dono, com a decisao do REGION_ID dita e o porque.
+    So le o lugar do FACTO; SOURCE_LOCATION nunca entra aqui."""
+    if _ign(fact_location):
+        return {"DE": "AFIRMACAO.FACT_LOCATION", "PELA_REGRA": GEO_DONO, "GEOGRAPHY_STATE": "GEOGRAPHY_UNKNOWN",
+                "REGION_IDS": [], "PROVINCE_IDS": [], "ESCOPO_IDS": [], "GEOGRAPHIC_SCOPE": "NAO_SEI",
+                "REGION_REPRESENTS": False, "REGION_ID_DECIDIDO": False, "PORQUE": "sem lugar do facto"}
+    g = V21N.geografia(str(fact_location))
+    escopos = [r for r in g["REGION_IDS"] if r in ESCOPO_NAO_REGIAO]
+    regs = [r for r in g["REGION_IDS"] if r not in ESCOPO_NAO_REGIAO]
+    escopo, representa, estado = g["GEOGRAPHIC_SCOPE"], g["REGION_REPRESENTS"], g["GEOGRAPHY_STATE"]
+    if escopos and not regs and not g["PROVINCE_IDS"]:
+        escopo, representa, estado = ESCOPO_NAO_REGIAO[escopos[0]], False, "ESCOPO_NAO_REGIAO"
+    decidido = len(regs) == 1
+    porque = ("uma regiao pela regra do dono" if decidido and representa else
+              "provincia/recorte: a regiao e o CONTINENTE e o facto nao fala por ela (REGION_REPRESENTS=False)"
+              if decidido else
+              "pais/UE e escopo, nao regiao" if estado == "ESCOPO_NAO_REGIAO" else
+              "mais de uma regiao: conflito fica conflito (INT-LAW-084)" if len(regs) > 1 else
+              "lugar que a tabela do dono nao conhece: nao se adivinha")
+    return {"DE": "AFIRMACAO.FACT_LOCATION", "PELA_REGRA": GEO_DONO, "GEOGRAPHY_STATE": estado,
+            "REGION_IDS": regs, "PROVINCE_IDS": list(g["PROVINCE_IDS"]), "ESCOPO_IDS": escopos,
+            "GEOGRAPHIC_SCOPE": escopo, "REGION_REPRESENTS": representa if decidido else False,
+            "REGION_ID_DECIDIDO": decidido, "PORQUE": porque, "EVIDENCIA": g.get("GEOGRAPHY_EVIDENCE")}
+
+
 def _afirmacao_vira_objeto(sg: dict) -> bool:
     """Diretiva §1.5: afirmacao ALERTA_EVENTO com tempo E lugar -> SINAL. As outras ficam so no livro.
     §5-D (DT-FATO-OBSERVADO): OBSERVACAO_MEDIDA segue o mesmo caminho — so depois do G0 dela (marca + lugar)."""
@@ -808,20 +847,26 @@ def _afirmacao_vira_objeto(sg: dict) -> bool:
 def _objeto_da_afirmacao(sg: dict, ctx: dict) -> dict:
     """Um SINAL de UMA afirmacao que passou o SEU G0 -> objeto do archive (nenhuma capacidade a le ainda).
 
-    Tempo e lugar sao os DA AFIRMACAO (nunca os do documento, nunca a publicacao). REGION_ID fica NAO SEI: e uma
-    identidade do casco e nao se cunha a partir do nome do lugar. CROP_ID/ISSUE_ID ficam NAO SEI: as entidades da
+    Tempo e lugar sao os DA AFIRMACAO (nunca os do documento, nunca a publicacao). REGION_ID (T5, 01/10) = a regiao
+    que a regra do dono da geografia da ao FACT_LOCATION da afirmacao (geografia_do_lugar); pais/UE, lugar
+    desconhecido ou duas regioes = NAO SEI. CROP_ID/ISSUE_ID ficam NAO SEI: as entidades da
     afirmacao viajam ao lado, com a procedencia de cada uma, e nada as promove a chave aqui."""
     iid, claim = str(sg["ITEM_ID"]), str(sg["CLAIM_ID"])
     ready, linha = ctx["READY"][iid], ctx["AFIRMACAO"][claim]
     de = [{"ITEM_ID": iid, "CLAIM_ID": claim}]
+    geo = geografia_do_lugar(sg["FACT_LOCATION"])
+    reg = geo["REGION_IDS"][0] if geo["REGION_ID_DECIDIDO"] else NAO_SEI
     ent = {"CROP_ID": _entidade(NAO_SEI, "AFIRMACAO.ENTIDADES", de),
            "ISSUE_ID": _entidade(NAO_SEI, "AFIRMACAO.ENTIDADES", de),
-           "REGION_ID": _entidade(NAO_SEI, "CASCO", de),
+           "REGION_ID": _entidade(reg, "AFIRMACAO.FACT_LOCATION -> " + GEO_DONO, de,
+                                  {"DE": geo["DE"], "REGION_REPRESENTS": geo["REGION_REPRESENTS"],
+                                   "GEOGRAPHIC_SCOPE": geo["GEOGRAPHIC_SCOPE"]}),
            "FACT_LOCATION": _entidade(sg["FACT_LOCATION"], "AFIRMACAO.FACT_LOCATION", de),
            "FACT_TIME": _entidade(sg["FACT_TIME"], "AFIRMACAO.FACT_TIME", de)}
     fora = {"ESPECIE_DO_MOTOR": "SINAL DE AFIRMACAO (G0_DA_AFIRMACAO/v1)",
             "ENTITY_SOURCE": ent,
             "LOCATION_SOURCE": sg["LOCATION_SOURCE"],
+            "GEOGRAFIA_DO_LUGAR": geo,
             "DA_FONTE": {"EVIDENCE_SPAN": sg.get("EVIDENCE_SPAN"), "FACT_TIME_BASIS": sg.get("FACT_TIME_BASIS"),
                          "FACT_LOCATION_TRECHO": sg.get("FACT_LOCATION_TRECHO"),
                          "FACT_LOCATION_ONDE": sg.get("FACT_LOCATION_ONDE"), "ENTIDADES": sg.get("ENTIDADES")},

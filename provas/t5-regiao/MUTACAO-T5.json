@@ -1,0 +1,105 @@
+{
+ "NOME": "T5 REGION_ID = geografia(FACT_LOCATION) — motor/motor_das_capacidades.geografia_do_lugar/_objeto_da_afirmacao",
+ "REF": "597fceb2173b60325564c8ae539d82af8a0af025",
+ "ARVORE_LIMPA_ANTES": true,
+ "TESTE": [
+  "tests/test_regiao_do_lugar.py",
+  "tests/test_g0_da_afirmacao.py"
+ ],
+ "QUANDO": "2026-10-01T20:41:54Z",
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "ESTADO": "OK",
+  "CAUDA": "60 passed in 6.05s"
+ },
+ "MUTANTES": [
+  {
+   "MUTANTE": "T5_M1_PAIS_VIRA_REGIAO",
+   "FINGE": "GEO_ITALY/GEO_EU tratados como regiao (o achado do coordenador)",
+   "CODIGO": {
+    "FICHEIRO": "motor/motor_das_capacidades.py",
+    "ALVO": "ESCOPO_NAO_REGIAO = {\"GEO_ITALY\": \"NACIONAL\", \"GEO_EU\": \"EUROPEU\"}",
+    "SUBSTITUTO": "ESCOPO_NAO_REGIAO = {}"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 1 passed in 1.01s"
+  },
+  {
+   "MUTANTE": "T5_M2_PROVINCIA_FALA_PELA_REGIAO",
+   "FINGE": "provincia passa a representar a regiao (PROVINCIAL vira REGIONAL)",
+   "CODIGO": {
+    "FICHEIRO": "motor/motor_das_capacidades.py",
+    "ALVO": "\"GEOGRAPHIC_SCOPE\": escopo, \"REGION_REPRESENTS\": representa if decidido else False,",
+    "SUBSTITUTO": "\"GEOGRAPHIC_SCOPE\": escopo, \"REGION_REPRESENTS\": True,"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 4 passed in 1.63s"
+  },
+  {
+   "MUTANTE": "T5_M3_DUAS_REGIOES_ESCOLHE_A_PRIMEIRA",
+   "FINGE": "conflito de normalizacao escolhe a primeira (INT-LAW-084)",
+   "CODIGO": {
+    "FICHEIRO": "motor/motor_das_capacidades.py",
+    "ALVO": "    decidido = len(regs) == 1\n",
+    "SUBSTITUTO": "    decidido = len(regs) >= 1\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed in 1.16s"
+  },
+  {
+   "MUTANTE": "T5_M4_SOURCE_LOCATION_ENTRA",
+   "FINGE": "o lugar da FONTE substitui o lugar do facto",
+   "CODIGO": {
+    "FICHEIRO": "motor/motor_das_capacidades.py",
+    "ALVO": "    geo = geografia_do_lugar(sg[\"FACT_LOCATION\"])\n",
+    "SUBSTITUTO": "    geo = geografia_do_lugar(ready.get(\"SOURCE_LOCATION\") or sg[\"FACT_LOCATION\"])\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed in 0.91s"
+  },
+  {
+   "MUTANTE": "T5_M5_REGIAO_SEMPRE_NAO_SEI",
+   "FINGE": "a ligacao nao e feita (o estado antes da T5)",
+   "CODIGO": {
+    "FICHEIRO": "motor/motor_das_capacidades.py",
+    "ALVO": "    reg = geo[\"REGION_IDS\"][0] if geo[\"REGION_ID_DECIDIDO\"] else NAO_SEI\n",
+    "SUBSTITUTO": "    reg = NAO_SEI\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 3 passed in 1.39s"
+  },
+  {
+   "MUTANTE": "T5_M6_PROCEDENCIA_APAGADA",
+   "FINGE": "REGION_ID com valor sem dizer de que regra veio",
+   "CODIGO": {
+    "FICHEIRO": "motor/motor_das_capacidades.py",
+    "ALVO": "\"REGION_ID\": _entidade(reg, \"AFIRMACAO.FACT_LOCATION -> \" + GEO_DONO, de,",
+    "SUBSTITUTO": "\"REGION_ID\": _entidade(reg, \"CASCO\", de,"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 6 passed in 2.48s"
+  },
+  {
+   "MUTANTE": "T5_M7_GEOGRAFIA_NAO_VIAJA",
+   "FINGE": "o pote perde escopo/representa (o Casco contaria provincial como regional)",
+   "CODIGO": {
+    "FICHEIRO": "motor/motor_das_capacidades.py",
+    "ALVO": "            \"GEOGRAFIA_DO_LUGAR\": geo,\n",
+    "SUBSTITUTO": ""
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed in 0.97s"
+  }
+ ],
+ "MORTOS": 7,
+ "TOTAL": 7,
+ "RESTAURADOS_IGUAIS": true,
+ "ESTADO": "PASS"
+}
