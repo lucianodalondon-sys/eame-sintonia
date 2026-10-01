@@ -1,0 +1,107 @@
+{
+ "NOME": "F2 ERROS A+B (acervo) — guardas de pacote/acervo_na_intelligence.py",
+ "REF": "823b28825972a272b69660350400cd70c518e29d",
+ "ARVORE_LIMPA_ANTES": true,
+ "TESTE": [
+  "tests/test_acervo_na_intelligence.py",
+  "-k",
+  "FA or FB",
+  "--tb=line"
+ ],
+ "QUANDO": "2026-10-01T12:39:55Z",
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "ESTADO": "OK",
+  "CAUDA": "13 passed, 28 deselected in 50.47s"
+ },
+ "MUTANTES": [
+  {
+   "MUTANTE": "F2_M1_NOT_ESTABLISHED_VOLTA_A_SER_DOI",
+   "FINGE": "ERRO A: o DOI do handoff passa cru (NOT_ESTABLISHED vira DOI)",
+   "CODIGO": {
+    "FICHEIRO": "pacote/acervo_na_intelligence.py",
+    "ALVO": "        f[\"doi\"] = _v(r.get(\"DOI\"))\n",
+    "SUBSTITUTO": "        f[\"doi\"] = r.get(\"DOI\")\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 2 passed, 28 deselected in 57.85s"
+  },
+  {
+   "MUTANTE": "F2_M2_ESTUDO_SEM_NATUREZA_DECLARADA",
+   "FINGE": "ERRO A, consequencia: a ENTRADA nao declara a natureza; os 85 sem DOI deixam de ser estudo",
+   "CODIGO": {
+    "FICHEIRO": "pacote/acervo_na_intelligence.py",
+    "ALVO": "        \"JANELA_DECLARADA\": _natureza_declarada(x),\n",
+    "SUBSTITUTO": "        \"JANELA_DECLARADA\": NAO_SEI,\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 2 passed, 28 deselected in 53.85s"
+  },
+  {
+   "MUTANTE": "F2_M3_DUPLICADOS_NAO_SAEM",
+   "FINGE": "ERRO B: a copia pior do mesmo estudo entra na corrida",
+   "CODIGO": {
+    "FICHEIRO": "pacote/acervo_na_intelligence.py",
+    "ALVO": "        if x[\"ACERVO_ID\"] in dup:\n",
+    "SUBSTITUTO": "        if False:\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 1 passed, 28 deselected in 51.60s"
+  },
+  {
+   "MUTANTE": "F2_M4_FICA_A_PIOR_COPIA",
+   "FINGE": "ERRO B: entre as copias fica a com MENOS campos com valor",
+   "CODIGO": {
+    "FICHEIRO": "pacote/acervo_na_intelligence.py",
+    "ALVO": "key=lambda i: (-_cheios(regs[i]),",
+    "SUBSTITUTO": "key=lambda i: (_cheios(regs[i]),"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 6 passed, 28 deselected in 46.43s"
+  },
+  {
+   "MUTANTE": "F2_M5_SEM_DOI_DUPLICA_DENTRO_DA_MESMA_LISTA",
+   "FINGE": "ERRO B: sem DOI, titulo+data numa so lista tambem conta como duplicado",
+   "CODIGO": {
+    "FICHEIRO": "pacote/acervo_na_intelligence.py",
+    "ALVO": "        if k.startswith(\"SEM_DOI:\") and len({i.split(\"::\")[1] for i in ids}) < 2:\n",
+    "SUBSTITUTO": "        if False:\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 9 passed, 28 deselected in 52.85s"
+  },
+  {
+   "MUTANTE": "F2_M6_LISTA_DE_DUPLICADOS_SEM_A_CHAVE_SEM_DOI",
+   "FINGE": "AUDITORIA 08h: a lista versionada perde os 2 sem DOI (conta 86+2 deixa de bater)",
+   "CODIGO": {
+    "FICHEIRO": "pacote/acervo_na_intelligence.py",
+    "ALVO": "    dups = sorted((livro.get(\"ACERVO\") or {}).get(\"DUPLICADOS\") or [], key=lambda d: d[\"ITEM_ID\"])\n",
+    "SUBSTITUTO": "    dups = sorted([d for d in (livro.get(\"ACERVO\") or {}).get(\"DUPLICADOS\") or [] if d[\"CHAVE\"].startswith(\"DOI:\")], key=lambda d: d[\"ITEM_ID\"])\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 7 passed, 28 deselected in 55.66s"
+  },
+  {
+   "MUTANTE": "F2_M7_RASTRO_SEM_RAW_DO_MANTIDO",
+   "FINGE": "AUDITORIA 08h: o rasto aponta o RAW do descartado no lugar do mantido",
+   "CODIGO": {
+    "FICHEIRO": "pacote/acervo_na_intelligence.py",
+    "ALVO": "\"MANTIDO\": {\"ID\": fica, \"RAW_ID\": raw_id({\"ACERVO_ID\": fica}, sha),",
+    "SUBSTITUTO": "\"MANTIDO\": {\"ID\": fica, \"RAW_ID\": raw_id(x, sha),"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 7 passed, 28 deselected in 50.47s"
+  }
+ ],
+ "MORTOS": 7,
+ "TOTAL": 7,
+ "RESTAURADOS_IGUAIS": true,
+ "ESTADO": "PASS"
+}
