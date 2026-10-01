@@ -322,6 +322,17 @@ class D_F2Science(unittest.TestCase):
             self.assertGreaterEqual(A._cheios(regs[x["FICA"]]), A._cheios(regs[x["ITEM_ID"]]), x["ITEM_ID"])
             self.assertNotEqual(x["FICA"], x["ITEM_ID"])
 
+    def test_FB2b_a_lista_versionada_e_a_que_a_corrida_regera(self):
+        """AUDITORIA 08h: a conta 86+2 confere-se pela LISTA commitada, nao so pelo numero do commit."""
+        commitada = json.loads(A.DUPLICADOS_SAIDA.read_text(encoding="utf-8"))
+        regerada = A.lista_de_duplicados(self.livro)
+        self.assertEqual(commitada["DUPLICADOS"], regerada["DUPLICADOS"])
+        self.assertEqual((commitada["N"], commitada["POR_CHAVE"]), (88, {"DOI": 86, "SEM_DOI_TITULO_E_DATA": 2}))
+        fica = {d["FICA"] for d in commitada["DUPLICADOS"]}
+        linhas = {l["ITEM_ID"] for l in self.livro["LINEAGE"]}
+        self.assertTrue(fica <= linhas)                       # quem fica entrou na corrida
+        self.assertFalse({d["ITEM_ID"] for d in commitada["DUPLICADOS"]} & linhas)
+
     def test_FB3_regra_do_duplicado(self):
         L = lambda c, i: {"ACERVO_ID": "italy-handoff-v21.js::%s::%s" % (c, i)}
         lista = [L("scienceCorpus", "a"), L("scienceRecords", "b"), L("scienceCorpus", "c"),

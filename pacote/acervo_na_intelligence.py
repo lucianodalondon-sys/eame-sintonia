@@ -96,6 +96,9 @@ ORIGEM = RAIZ / "italia-portale" / "client" / "italy-handoff-v21.js"
 SAIDA = RAIZ / "docs" / "intelligence" / "acervo" / "corrida-acervo"
 POTE_SAIDA = SAIDA / "POTE-ACERVO.json"
 RESUMO_SAIDA = SAIDA / "RESUMO-ACERVO.json"
+#: AUDITORIA 08h (01/10): os 88 duplicados (86 por DOI + 2 sem DOI) so existiam em memoria (livro.ACERVO). A lista
+#: vai versionada ao lado do pote, gerada pela MESMA corrida, para a conta poder ser conferida pela lista.
+DUPLICADOS_SAIDA = SAIDA / "DUPLICADOS-ACERVO.json"
 
 #: O LIMITE SUPERIOR DA CAPTURA, medido no git e nao escrito a mao: o primeiro
 #: commit desta arvore onde a origem ja tem o sha256 que a ENTRADA declara. Todo
@@ -998,6 +1001,17 @@ def _escrever(p: Path, dado) -> None:
     p.write_text(json.dumps(dado, ensure_ascii=False, indent=1, sort_keys=False) + "\n", encoding="utf-8")
 
 
+def lista_de_duplicados(livro: dict) -> dict:
+    """A lista versionada dos duplicados da ciencia (o que ficou FORA por ser copia pior do mesmo estudo)."""
+    dups = sorted((livro.get("ACERVO") or {}).get("DUPLICADOS") or [], key=lambda d: d["ITEM_ID"])
+    por_chave = {"DOI": sum(1 for d in dups if d["CHAVE"].startswith("DOI:")),
+                 "SEM_DOI_TITULO_E_DATA": sum(1 for d in dups if d["CHAVE"].startswith("SEM_DOI:"))}
+    return {"CONTRATO": "DUPLICADOS_DO_ACERVO/v1", "INTELLIGENCE_RUN_ID": livro.get("INTELLIGENCE_RUN_ID"),
+            "REGRA": "pacote/acervo_na_intelligence.duplicados_da_ciencia (DOI real minusculo; sem DOI, titulo "
+                     "normalizado + PUBLISHED_AT nas DUAS listas; fica a copia com mais campos com valor)",
+            "N": len(dups), "POR_CHAVE": por_chave, "DUPLICADOS": dups}
+
+
 def _sem_relogio(livro: dict) -> dict:
     """O livro sem o relogio da corrida (START/END): o resto e deterministico."""
     c = livro.get("CORRIDA") or {}
@@ -1022,12 +1036,15 @@ def main(argv=None) -> int:
     if a.conferir:
         antigo = json.loads(POTE_SAIDA.read_text(encoding="utf-8"))
         iguais = {k: antigo.get(k) == pote.get(k) for k in pote if k not in ("SOURCE_HEAD",)}
+        iguais["DUPLICADOS"] = (json.loads(DUPLICADOS_SAIDA.read_text(encoding="utf-8")) == lista_de_duplicados(livro)
+                                if DUPLICADOS_SAIDA.exists() else False)
         print("POTE commitado == regerado:", all(iguais.values()))
         return 0 if all(iguais.values()) else 1
     if a.livro:
         _escrever(Path(a.livro), livro)
     _escrever(POTE_SAIDA, pote)
     _escrever(RESUMO_SAIDA, res)
+    _escrever(DUPLICADOS_SAIDA, lista_de_duplicados(livro))
     n = {c: len(e["OBJETOS"]) for c, e in pote["COMPARTIMENTOS"].items()}
     print(f"{MARCA} · corrida {pote['INTELLIGENCE_RUN_ID']} · objetos {n} · recusados "
           f"{len(pote['RECUSADOS'])} · validar_pote_v2 PASSA")
