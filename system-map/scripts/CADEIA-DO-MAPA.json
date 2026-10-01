@@ -1264,11 +1264,15 @@
           "PADRAO": [
             "superficie/*",
             "coleta/*",
-            "guarda/*"
+            "guarda/*",
+            "motor/*",
+            "orquestrador/*",
+            "medidas/*",
+            "regras/*"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_cards_sensores.py · superficie",
           "MEDIDO_VARRE": 1,
-          "PORQUE": "procura o sensor no codigo com um grep sobre as gavetas nomeadas"
+          "PORQUE": "procura o sensor no codigo com um grep sobre as gavetas nomeadas. ⚠ A DECLARACAO TINHA TRES GAVETAS E O CODIGO GREPPA SETE: `superficie coleta guarda motor orquestrador medidas regras`, na chamada do grep em censo_cards_sensores.py. A falta so aparece numa arvore onde o grep acerte numa das quatro que faltavam — nesta acerta, em `motor/`. UMA VARREDURA DECLARADA A MENOS DO QUE A REAL DEIXA UMA LEITURA ORFA ASSIM QUE A ARVORE MUDA."
         },
         {
           "KIND": "TRACKED_SOURCE_FILE",

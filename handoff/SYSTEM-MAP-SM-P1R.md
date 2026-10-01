@@ -13,6 +13,9 @@ E é o **único** bloqueio. Tudo o resto fechou.
 |---|---|
 | `SYSTEM_MAP_INITIAL_HEAD` | `44532540` |
 | `SYSTEM_MAP_FINAL_HEAD` | *(ver `git rev-parse origin/claude/system-map-freshness-v1`)* |
+| `PREVIEW_DEPLOYMENT_ID` | `dpl_EH2DDmUfAEEwWyggkhaVT3BTMSQf` e seguintes |
+| `PREVIEW_URL` | `sintonia-eame-preview-git-claude-system-726648-london-creative.vercel.app/system-map/` |
+| `PREVIEW_TARGET` | `null` (preview) · `state: READY` |
 | `COLLECTION_HEAD_INITIAL` | `c268f3ba` (o já integrado) |
 | `COLLECTION_HEAD_FINAL_SEEN` | `1c99a48b` |
 | `MERGE_BASE` inicial | `c268f3ba` |
@@ -153,3 +156,22 @@ Abrir
   read-only, e só então.
 
 É uma leitura de trinta segundos, e é a única coisa que falta.
+
+---
+
+## NOTA SOBRE OS NÚMEROS DESTE FICHEIRO
+
+As medições acima foram feitas no commit **anterior** a este — o mesmo motivo
+pelo qual `PROVENANCE.HEAD` nomeia o commit anterior, e a mesma razão pela qual a
+pertença se prova pela impressão e não por um SHA. O commit que descreve um
+estado não pode estar dentro do estado que descreve.
+
+O que fica reproduzível, e não depende de acreditar nestes números:
+
+```bash
+python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo
+python3 system-map/tests/test_impressao_da_arvore.py
+node system-map/tests/test_freshness.mjs
+# e, com playwright instalado FORA do repositório:
+node system-map/tests/verificar_a_tela.mjs <raiz-servida> <commit>
+```

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coord/integra-c8-servico",
-    "HEAD": "fa47ebdaed2ac54ae62e070a615531f4111a4c48",
-    "GENERATED_AT": "2026-09-30T22:42:58-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc573fb3ed83913dca378f9eb0bcc5acd17f48e0e3e90890cac8ffa0f712c2a2"
+    "BRANCH": "coord/servico-com-release",
+    "HEAD": "eac885db32882c450e839b8da5fbdbab59f4dcd2",
+    "GENERATED_AT": "2026-09-30T23:27:45-03:00",
+    "SOURCE_TREE_FINGERPRINT": "323db3c45425c7a74815d54cb33931af9560d0c58e413fa23b7a3fb626ead15b"
   },
   "FILES": [
     {
@@ -107,6 +107,13 @@
       "code_dir": true
     },
     {
+      "path": ".github/workflows/portao-do-release.yml",
+      "sha": "a2615cd62c0c8adbb9f718f570b87302260b97da",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": ".github/workflows/regressao-de-navegador.yml",
       "sha": "bf5bf5ba1eed78c792809a288c3211505386eeb2",
       "ext": ".yml",
@@ -192,7 +199,7 @@
     },
     {
       "path": ".vercelignore",
-      "sha": "404137096242c402d37f86b6cf4eaaf11c6d768d",
+      "sha": "fbb510366df35a97d0d09c4cdaebe35df408fadd",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -2670,7 +2677,7 @@
     },
     {
       "path": "coleta/pesquisadores_t6.py",
-      "sha": "a1d9ab7d352443e95fc248b2472c5640d27eb69a",
+      "sha": "f4daae0cec655e44f70c9abef7463a829bfc42c0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6877,7 +6884,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "cec7fb5b6e635a6697b0e7f5c91cc6172e1adf03",
+      "sha": "e24949f70bf9cc9bf08761f245bb71325b93d134",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7276,14 +7283,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "c6a333df02ed4309ecc87b09ec09cb54b55fb126",
+      "sha": "c025196a95d77e2b2096157683ca2c1d5e536cfe",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "31a4df04e302c0b1aac13364a4b8f96bea782dcc",
+      "sha": "d4eabb2a7633510528879d5961e0a9365843253e",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -13191,7 +13198,7 @@
     },
     {
       "path": "ferramentas/big_collection/coleta_continua.py",
-      "sha": "e2dac7e194e57dfb6a1802c83d0d137e5abe215f",
+      "sha": "c19e4ed65ee5915399e53c9dcf0e3210d5ee4a03",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13317,7 +13324,7 @@
     },
     {
       "path": "ferramentas/big_collection/onda4/COLETA-CONTINUA.md",
-      "sha": "7783609423a9ffefbdde2fdfebd0dee34811e296",
+      "sha": "0149b81bf096e9299c17d82ca7d1f686eaa80f13",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -13374,6 +13381,13 @@
     {
       "path": "ferramentas/big_collection/rodadas.py",
       "sha": "c3ca7a8777f881e3f3f457e51f44e865042625e5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "sha": "9c303a184b1673a8618894aebfcdf957e3b3a772",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15893,7 +15907,7 @@
     },
     {
       "path": "ferramentas/seguir_pesquisadores/seguir.py",
-      "sha": "490875d8d3c076d7a1568c025b00b2b25c27ca67",
+      "sha": "645b6b7b70bff1e3da5aaa24548161f7e8493aa0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16417,6 +16431,13 @@
       "code_dir": false
     },
     {
+      "path": "handoff/KNOW-HOW-DELTA-ENDERECO-OFICIAL.md",
+      "sha": "72c8b8643cf3c50a746c20be81cb0336811e1a37",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "handoff/KNOW-HOW-DELTA-INTELLIGENCE-SPINE.md",
       "sha": "840a0d2aee200ecfe3abb6e0a2e140583e0eb169",
       "ext": ".md",
@@ -16481,7 +16502,21 @@
     },
     {
       "path": "handoff/SYSTEM-MAP-SM-P1R.md",
-      "sha": "050df64921cd6bf8d571024ec68933fd85caa5d9",
+      "sha": "febde1a22e4aa0e3b05f3dc06e104ee1f6ae3fe4",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "handoff/SYSTEM-MAP-SM-P2.md",
+      "sha": "30a2fa5fc316599ab3c3229a037e30b15a686418",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "handoff/SYSTEM-MAP-SM-P3.md",
+      "sha": "707dff6210fffbeac1502de6668317fb0f5000d6",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -19743,7 +19778,7 @@
     },
     {
       "path": "portoes/site_v21_ingest.py",
-      "sha": "1e64382050462c6a5307f36c40aced83ac3527c2",
+      "sha": "fc532be8e26d220ba99514ee27f5103f9f3ea3ab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26547,7 +26582,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c4959360fca99904e10f982104dee266a5ed8c0e",
+      "sha": "772592543ee819943455cd5daf6c444516222a76",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26624,7 +26659,7 @@
     },
     {
       "path": "system-map/scripts/CADEIA-DO-MAPA.json",
-      "sha": "b17f38875c328140ddc9cf2e120c90bfd676aef9",
+      "sha": "d30fe09ef4bc2b6a79860301dfcf19d73fc4e66d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28122,7 +28157,7 @@
     },
     {
       "path": "tests/test_coleta_continua.py",
-      "sha": "f7e4b0f0c90ca0b31df58000ca637ddd5fab2c41",
+      "sha": "a38867544bfb2e33f3102a71916bbd05023889ac",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28759,7 +28794,7 @@
     },
     {
       "path": "tests/test_lote8_juncoes.py",
-      "sha": "3d375536f1c30efeba27c8fe7e5ea31a77ea42d5",
+      "sha": "0b5dcae7d21079ac5f7a9431371ff0f4d8cda220",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30519,6 +30554,17 @@
         "file": ".github/workflows/linha-busca-google.yml",
         "line": 67,
         "snippet": "run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/portao-do-release.yml",
+      "to_file": "system-map/scripts/correr_a_cadeia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/portao-do-release.yml",
+        "line": 98,
+        "snippet": "python3 system-map/scripts/correr_a_cadeia.py REGERAR"
       }
     },
     {
@@ -34655,6 +34701,17 @@
         "file": "coleta/pesquisadores_t6.py",
         "line": 318,
         "snippet": "import cortesia_adaptativa as CA                                   # noqa: PLC0415 — o dono unico (D124)"
+      }
+    },
+    {
+      "from_file": "coleta/pesquisadores_t6.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/pesquisadores_t6.py",
+        "line": 755,
+        "snippet": "import reserva_24h as R24                                     # noqa: PLC0415 — o contador multicanal (D90)"
       }
     },
     {
@@ -45983,8 +46040,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 102,
-        "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 109,
+        "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
     {
@@ -45994,8 +46051,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 104,
-        "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 111,
+        "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
     {
@@ -46016,8 +46073,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 106,
-        "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 113,
+        "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
     {
@@ -46027,7 +46084,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 343,
+        "line": 372,
         "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)"
       }
     },
@@ -46040,6 +46097,17 @@
         "file": "ferramentas/big_collection/coleta_continua.py",
         "line": 80,
         "snippet": "import rodadas as R                                                # noqa: E402 — plano, janela, portao, onda, prova"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 109,
+        "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
     {
@@ -46060,8 +46128,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 108,
-        "snippet": "\"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 115,
+        "snippet": "\"TRANSPORTE\": \"ferramentas/seguir_pesquisadores/seguir.py\","
       }
     },
     {
@@ -46071,7 +46139,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 303,
+        "line": 332,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),"
       }
     },
@@ -46425,6 +46493,50 @@
         "file": "ferramentas/big_collection/rodadas.py",
         "line": 333,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\","
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "to_file": "coleta/cortesia_adaptativa.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+        "line": 131,
+        "snippet": "import cortesia_adaptativa as CA                              # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "to_file": "coleta/linha_busca.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+        "line": 55,
+        "snippet": "import linha_busca as LB                                          # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+        "line": 60,
+        "snippet": "import pesquisadores_t6 as T6                                     # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "to_file": "coleta/teto_da_onda.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+        "line": 65,
+        "snippet": "import teto_da_onda as TO                                         # noqa: PLC0415"
       }
     },
     {
@@ -48667,8 +48779,30 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/seguir_pesquisadores/seguir.py",
-        "line": 285,
+        "line": 298,
         "snippet": "import fonte_nova as FN"
+      }
+    },
+    {
+      "from_file": "ferramentas/seguir_pesquisadores/seguir.py",
+      "to_file": "coleta/cortesia_adaptativa.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/seguir_pesquisadores/seguir.py",
+        "line": 145,
+        "snippet": "import cortesia_adaptativa as _CA                             # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/seguir_pesquisadores/seguir.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/seguir_pesquisadores/seguir.py",
+        "line": 147,
+        "snippet": "import reserva_24h as _R24                                # noqa: PLC0415 — o contador multicanal (D90)"
       }
     },
     {
@@ -48678,7 +48812,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/seguir_pesquisadores/seguir.py",
-        "line": 331,
+        "line": 344,
         "snippet": "import contador as CT"
       }
     },
@@ -48689,7 +48823,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/seguir_pesquisadores/seguir.py",
-        "line": 348,
+        "line": 361,
         "snippet": "grupo = json.loads((fx / \"PESSOAS.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -48700,7 +48834,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/seguir_pesquisadores/seguir.py",
-        "line": 339,
+        "line": 352,
         "snippet": "respostas = json.loads((fx / \"RESPOSTAS.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -48711,7 +48845,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/seguir_pesquisadores/seguir.py",
-        "line": 260,
+        "line": 273,
         "snippet": "r = subprocess.run([sys.executable, str(vivo / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\"],"
       }
     },
@@ -64991,7 +65125,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 353,
+        "line": 363,
         "snippet": "'agrometConditions': ('AGROMET-CONDITIONS.json', ("
       }
     },
@@ -65002,7 +65136,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 146,
+        "line": 156,
         "snippet": "'cropEconomics': ('CROP-ECONOMIC-WEIGHT.json', ("
       }
     },
@@ -65013,7 +65147,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 136,
+        "line": 146,
         "snippet": "'fieldBulletins': ('CURRENT-FIELD-SIGNALS.json', ("
       }
     },
@@ -65024,7 +65158,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 242,
+        "line": 252,
         "snippet": "'futureEvents': ('FUTURE-EVENTS.json', ("
       }
     },
@@ -65035,7 +65169,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 152,
+        "line": 162,
         "snippet": "'marketObservations': ('MARKET-OBSERVATIONS.json', ("
       }
     },
@@ -65046,7 +65180,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 219,
+        "line": 229,
         "snippet": "'publicVoices': ('PUBLIC-VOICES.json', ("
       }
     },
@@ -65057,7 +65191,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 258,
+        "line": 268,
         "snippet": "'regulatoryFuture': ('REGULATORY-FUTURE.json', ("
       }
     },
@@ -65068,7 +65202,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 365,
+        "line": 375,
         "snippet": "'relationships': ('RELATIONSHIPS.json', ("
       }
     },
@@ -65079,7 +65213,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 234,
+        "line": 244,
         "snippet": "'sources': ('SOURCES.json', ("
       }
     },
@@ -65090,7 +65224,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 714,
+        "line": 724,
         "snippet": "'CANONICAL-PACKAGE-CONTRACT.json')"
       }
     },
@@ -65101,7 +65235,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 472,
+        "line": 482,
         "snippet": "src = io.open(os.path.join(ROOT, 'italia-portale', 'audit', 'lang.mjs'),"
       }
     },
@@ -65123,7 +65257,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/site_v21_ingest.py",
-        "line": 114,
+        "line": 124,
         "snippet": "'productActiveIngredients': ('PRODUCT-ACTIVE-INGREDIENTS.json', ("
       }
     },
@@ -98519,7 +98653,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 1043,
+        "line": 1049,
         "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\""
       }
     },
@@ -103920,7 +104054,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_lote8_juncoes.py",
-        "line": 152,
+        "line": 155,
         "snippet": "self.assertTrue((RAIZ / \"coleta\" / \"linha_busca.py\").exists())"
       }
     },
@@ -114077,10 +114211,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4255,
-    "files_readable": 1788,
-    "files_code_dir": 2229,
-    "file_edges": 7602,
+    "files_tracked": 4260,
+    "files_readable": 1790,
+    "files_code_dir": 2231,
+    "file_edges": 7611,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

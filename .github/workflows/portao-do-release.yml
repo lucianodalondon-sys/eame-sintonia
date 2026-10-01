@@ -1,0 +1,136 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# O PORTÃO DO RELEASE — o que entra em `release/canonical` vai ao ar sozinho
+#
+# `release/canonical` é a branch de produção do projecto Vercel. Um push nela
+# não pede licença a ninguém: torna-se o que o endereço fixo serve.
+#
+#     LATEST DEPLOYMENT != APPROVED DEPLOYMENT — a não ser que alguém prove.
+#
+# Este workflow é esse alguém, e corre ANTES do merge, que é o único momento em
+# que reprovar ainda serve para alguma coisa. Depois do push já está no ar.
+#
+# POR QUE O AUDIT DO PORTAL ESTÁ AQUI E NÃO SÓ O DO MAPA
+# ------------------------------------------------------
+# O projecto serve o PORTAL INTEIRO, e não só `/system-map/`. Foi medido nesta
+# missão: o deployment do mapa sozinho devolvia 200 em `/portale` e ao mesmo
+# tempo deixava de servir `italy-label-intelligence.js`.
+#
+#     A ROTA RESPONDER NÃO É A PÁGINA ESTAR INTEIRA.
+#
+# Os 73 portões do portal nunca tinham corrido em CI. Enquanto a publicação era
+# um clique, um humano olhava. Automatizar sem eles seria trocar um humano
+# atento por nada.
+#
+# TRÊS JOBS, TRÊS PERGUNTAS — pela mesma razão que `system-map.yml` tem dois:
+# um veredito sobre três perguntas não responde a nenhuma, e o primeiro
+# vermelho apagaria as provas que vinham a seguir.
+# ═══════════════════════════════════════════════════════════════════════════
+name: portao-do-release
+
+on:
+  pull_request:
+    branches: [release/canonical]
+  push:
+    branches: [release/canonical]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portao-do-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  proveniencia:
+    name: RELEASE · PROVENIENCIA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: o artefacto servido prova de onde vem
+        run: node italia-portale/audit/build-gate.mjs
+
+  mapa:
+    name: RELEASE · SYSTEM MAP CHECK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      # REGENERAR ANTES DE VALIDAR, e pela cadeia lida de `CADEIA-DO-MAPA.json`
+      # — nunca por uma lista escrita aqui.
+      #
+      #     DOIS SITIOS COM A LISTA DOS PASSOS SAO DUAS CADEIAS.
+      #
+      # A ordem importa e não é burocracia. O mapa grava o HEAD da árvore como
+      # facto de uma peça, e o HEAD muda no próprio commit que grava o mapa —
+      # por isso a cópia commitada nasce sempre um commit atrás de si mesma.
+      # Validar sem regenerar reprovaria TODO merge, para sempre, por uma
+      # condição que nenhuma disciplina consegue satisfazer.
+      #
+      #     UM PORTAO QUE REPROVA SEMPRE NAO E RIGOR. E RUIDO, E DESLIGA-SE.
+      #
+      # É a mesma ordem de `system-map.yml`, de propósito: este portão faz a
+      # mesma pergunta que o SYSTEM MAP CHECK, e duas respostas diferentes para
+      # a mesma pergunta seriam duas leis.
+      # A CADEIA LE-SE DO MANIFESTO, E QUEM A LE E O CORREDOR.
+      #
+      # Este passo tinha aqui o seu proprio leitor: um heredoc que fazia
+      # `'\n'.join(c['REGERAR'] + c['VALIDAR'])`. Isso valia enquanto cada passo
+      # era uma string. O `G4` deu forma a cada passo — `{STEP_ID, EXECUTABLE,
+      # INPUTS, OUTPUTS}` — e um `join` sobre objectos nao falha a dizer «a forma
+      # mudou»: falha a dizer `TypeError`, e o portao do release morre antes de
+      # medir seja o que for.
+      #
+      #     UM SEGUNDO LEITOR DO MANIFESTO E UMA SEGUNDA CADEIA A PRAZO.
+      #
+      # Ha um leitor por runtime, e nao um por sitio que precisa da lista:
+      # `correr_a_cadeia.py` do lado Python, `publicar_no_deploy.mjs` do lado
+      # Node. Este portao passa a chamar o primeiro, pela mesma ordem de sempre:
+      # REGERAR antes de VALIDAR, pela razao escrita no cabecalho deste ficheiro.
+      - name: o mapa corresponde a esta arvore
+        run: |
+          python3 system-map/scripts/correr_a_cadeia.py REGERAR
+          python3 system-map/scripts/correr_a_cadeia.py VALIDAR
+
+  portal:
+    name: RELEASE · PORTAL REGRESSION CHECK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      # Os portões abrem um browser de verdade. Sem binário, `chromium.launch()`
+      # não falha alto: falha com «cannot find package», e um portão que falha
+      # por falta de ferramenta parece um portão que reprovou o produto. São
+      # coisas diferentes, e confundi-las ensina a gente a ignorar o vermelho.
+      - name: o browser que os portoes usam
+        run: |
+          npm install --no-save playwright-core@1.63.0
+          npx --yes playwright@1.63.0 install --with-deps chromium
+      # CONSTRUIR ANTES DE AUDITAR, porque e a arvore CONSTRUIDA que vai ao ar.
+      #
+      # O portao B2 — «todo recurso que o HTML referencia existe em disco» —
+      # reprovou aqui e tinha razao: `index.html` do mapa aponta para
+      # `deployment.generated.json`, e esse ficheiro nasce na build e NAO se
+      # commita (um ficheiro commitado nunca pode conhecer o SHA do commit que
+      # o contem). Num checkout limpo ele nao existe.
+      #
+      #     AUDITAR O REPOSITORIO NAO E AUDITAR O QUE VAI SER SERVIDO.
+      #
+      # Correr a build primeiro nao afrouxa o B2: continua a exigir que TUDO o
+      # que o HTML aponta exista, e agora exige-o sobre a arvore real, a mesma
+      # que a Vercel monta. Isolar o ficheiro numa excepcao teria calado o
+      # portao para todos os outros recursos ao mesmo tempo.
+      - name: construir, como a Vercel constroi
+        run: npm run build
+      - name: os 73 portoes do portal
+        run: node italia-portale/audit/run.mjs

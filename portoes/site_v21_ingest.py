@@ -93,6 +93,16 @@ FAMILIAS = {
         'CATALOG_EVIDENCE', 'CATALOG_STATUS', 'AUTHORIZATION_HOLDER', 'HOLDER_IS_ADAMA',
         'MATCHED_REGULATORY_ID', 'NOT_A_PLANT_PROTECTION_PRODUCT', 'IS_SYSTEM_NOT_PRODUCT',
         'COMMERCIAL_CONTRACT',
+        # O ESTADO VIAJA COMO CODIGO; A FRASE NASCE NO ECRA.
+        # `CROP_TARGET_PAIR_STATE` diz se este produto CHEGA A TER par cultura x
+        # alvo. Cinco dos 51 nao tem — dois biostimulantes, dois coadiuvantes e
+        # um diradante — e para esses o cartao vazio e a resposta certa, nao uma
+        # divida. O «porque» fica em italiano e ingles no i18n, e nao viaja em
+        # portugues: prosa de investigacao nao entra na tela do cliente.
+        # O descritor viaja porque e CITACAO — a frase da propria ADAMA, em
+        # italiano, copiada da ficha. Nao e nossa e por isso nao se traduz.
+        'CROP_TARGET_PAIR_STATE', 'PRODUCT_DESCRIPTOR_ON_SITE',
+        'FORMULATION_ON_PAGE', 'PACKAGE_SIZES_ON_PAGE', 'PRODUCT_DOCUMENT_URLS',
     ), ('COMMERCIAL_CONTRACT_WHY',)),
 
     # As 2.030 duplas de uso de rotulo. E a colecao mais pesada do pacote e a
