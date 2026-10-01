@@ -1,0 +1,220 @@
+Could not find platform independent libraries <prefix>
+EFFEEEEEEEEEEEEEEEEE
+======================================================================
+ERROR: test_a_linha_leva_a_porta_para_o_registo_do_ciclo (tests.test_porta_social_t9.LinhaSocialT9.test_a_linha_leva_a_porta_para_o_registo_do_ciclo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 232, in test_a_linha_leva_a_porta_para_o_registo_do_ciclo
+    self.assertEqual(a["SOCIAL"]["PORTA_SOCIAL"]["ACEITES"], ["IT-T5-970"], a["SOCIAL"])
+                     ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'PORTA_SOCIAL'
+
+======================================================================
+ERROR: test_a_porta_diz_o_motivo_de_cada_recusa (tests.test_porta_social_t9.PortaSocialT9.test_a_porta_diz_o_motivo_de_cada_recusa)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 96, in test_a_porta_diz_o_motivo_de_cada_recusa
+    t = P.triagem_social(c, estado_de=estados(IT_T5_902=READY))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_a_porta_nao_le_o_livro_quando_nao_ha_feed (tests.test_porta_social_t9.PortaSocialT9.test_a_porta_nao_le_o_livro_quando_nao_ha_feed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 186, in test_a_porta_nao_le_o_livro_quando_nao_ha_feed
+    self.assertEqual(P.fontes_sociais(cat(linkedin("IT-T5-940")), estado_de=rebenta), ["IT-T5-940"])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: fontes_sociais() got an unexpected keyword argument 'estado_de'
+
+======================================================================
+ERROR: test_canal_youtube_pelo_scrap_fica_fora_do_ambito (tests.test_porta_social_t9.PortaSocialT9.test_canal_youtube_pelo_scrap_fica_fora_do_ambito)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 127, in test_canal_youtube_pelo_scrap_fica_fora_do_ambito
+    r = self.motivo(canal_youtube("IT-T5-913"))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_feed_com_canal_invalido_nao_passa_a_rota (tests.test_porta_social_t9.PortaSocialT9.test_feed_com_canal_invalido_nao_passa_a_rota)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 148, in test_feed_com_canal_invalido_nao_passa_a_rota
+    self.assertEqual(self.motivo(feed("IT-T5-918", canal="nao-e-canal"), IT_T5_918=READY)["MOTIVO"],
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_feed_fora_de_ready_fica_fora (tests.test_porta_social_t9.PortaSocialT9.test_feed_fora_de_ready_fica_fora)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 140, in test_feed_fora_de_ready_fica_fora
+    r = self.motivo(feed("IT-T5-916"), IT_T5_916="RETRY_AFTER")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_feed_ready_com_rastro_entra_na_porta (tests.test_porta_social_t9.PortaSocialT9.test_feed_ready_com_rastro_entra_na_porta)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 92, in test_feed_ready_com_rastro_entra_na_porta
+    self.assertEqual(P.fontes_sociais(c, estado_de=estados(IT_T5_901=READY)), ["IT-T5-901"])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: fontes_sociais() got an unexpected keyword argument 'estado_de'
+
+======================================================================
+ERROR: test_feed_sem_autorizacao_fica_fora (tests.test_porta_social_t9.PortaSocialT9.test_feed_sem_autorizacao_fica_fora)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 132, in test_feed_sem_autorizacao_fica_fora
+    self.assertEqual(self.motivo(feed("IT-T5-914", autorizacao=None), IT_T5_914=READY)["MOTIVO"],
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_feed_sem_estado_no_livro_fica_fora (tests.test_porta_social_t9.PortaSocialT9.test_feed_sem_estado_no_livro_fica_fora)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 145, in test_feed_sem_estado_no_livro_fica_fora
+    self.assertEqual(self.motivo(feed("IT-T5-917"))["MOTIVO"], "ESTADO_NAO_READY")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_feed_sem_politica_da_rota_fica_fora (tests.test_porta_social_t9.PortaSocialT9.test_feed_sem_politica_da_rota_fica_fora)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 136, in test_feed_sem_politica_da_rota_fica_fora
+    self.assertEqual(self.motivo(feed("IT-T5-915", politica=None), IT_T5_915=READY)["MOTIVO"],
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_linkedin_com_decisao_de_outra_plataforma_fica_fora (tests.test_porta_social_t9.PortaSocialT9.test_linkedin_com_decisao_de_outra_plataforma_fica_fora)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 122, in test_linkedin_com_decisao_de_outra_plataforma_fica_fora
+    r = self.motivo(linkedin("IT-T5-912", autorizacao=RSY.AUTORIZACAO))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_linkedin_de_organizacao_com_d23_entra (tests.test_porta_social_t9.PortaSocialT9.test_linkedin_de_organizacao_com_d23_entra)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 116, in test_linkedin_de_organizacao_com_d23_entra
+    self.assertEqual(P.fontes_sociais(cat(linkedin("IT-T5-910")), estado_de=estados()), ["IT-T5-910"])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: fontes_sociais() got an unexpected keyword argument 'estado_de'
+
+======================================================================
+ERROR: test_linkedin_sem_autorizacao_fica_fora (tests.test_porta_social_t9.PortaSocialT9.test_linkedin_sem_autorizacao_fica_fora)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 119, in test_linkedin_sem_autorizacao_fica_fora
+    self.assertEqual(self.motivo(linkedin("IT-T5-911", autorizacao=None))["MOTIVO"], "SEM_RASTRO_DE_AUTORIZACAO")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_listagem_do_instagram_fica_fora (tests.test_porta_social_t9.PortaSocialT9.test_listagem_do_instagram_fica_fora)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 152, in test_listagem_do_instagram_fica_fora
+    self.assertEqual(self.motivo(fase("IT-T5-919", "janela", "D22 (DECISOES-DONO): reels"))["MOTIVO"],
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_nenhum_social_some_em_silencio (tests.test_porta_social_t9.PortaSocialT9.test_nenhum_social_some_em_silencio)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 174, in test_nenhum_social_some_em_silencio
+    t = P.triagem_social(c, estado_de=estados(IT_T5_930=READY, IT_T5_931=READY))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_plataforma_fora_do_ambito_fica_fora (tests.test_porta_social_t9.PortaSocialT9.test_plataforma_fora_do_ambito_fica_fora)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 161, in test_plataforma_fora_do_ambito_fica_fora
+    self.assertEqual(self.motivo(fase("IT-T5-921", "canario-bluesky", "D99 qualquer"))["MOTIVO"],
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_reel_sem_conferidor_no_curator_diz_que_a_rota_nao_se_confere (tests.test_porta_social_t9.PortaSocialT9.test_reel_sem_conferidor_no_curator_diz_que_a_rota_nao_se_confere)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 157, in test_reel_sem_conferidor_no_curator_diz_que_a_rota_nao_se_confere
+    self.assertEqual(self.motivo(fase("IT-T5-920", "captura-reel", "D22 (DECISOES-DONO): reels"))["MOTIVO"],
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+ERROR: test_strategy_desconhecida_tem_nome (tests.test_porta_social_t9.PortaSocialT9.test_strategy_desconhecida_tem_nome)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 166, in test_strategy_desconhecida_tem_nome
+    r = self.motivo(c)
+        ^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 106, in motivo
+    t = P.triagem_social(cat(contrato), estado_de=estados(**est))
+        ^^^^^^^^^^^^^^^^
+AttributeError: module 'plano_onda_social' has no attribute 'triagem_social'
+
+======================================================================
+FAIL: test_feed_ready_com_rastro_e_unidade_governada_da_linha (tests.test_porta_social_t9.LinhaSocialT9.test_feed_ready_com_rastro_e_unidade_governada_da_linha)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 212, in test_feed_ready_com_rastro_e_unidade_governada_da_linha
+    self.assertEqual(f["UNIDADES_GOVERNADAS"], 1, f)
+AssertionError: 0 != 1 : {'CATALOGO': 'curadoria/italy_contracts_curator.json', 'UNIDADE': 'fonte social (contrato SCRAP_FASE)', 'UNIDADES_GOVERNADAS': 0, 'MOTIVOS': [('SEM_CATALOGO', '0 fontes na porta social (plano_onda_social.fontes_sociais: contratos SCRAP_FASE) em curadoria/italy_contracts_curator.json; o maestro_social recusa o resto (FONTE_FORA_DO_PLANO_SOCIAL). Estrategias fora da porta social neste catalogo: YOUTUBE_CHANNEL_FEED'), ('BLOQUEADA_PERMISSAO_SOCIAL', 'correr fontes sociais exige --autorizado-pelo-dono (ferramentas/maestro_social/maestro_social.py); a coorte declara READY_SOCIAL_TOTAL=0 (ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json)')], 'COMO_CORRE': 'pelo maestro_social (--correr --autorizado-pelo-dono --fontes=)'}
+
+======================================================================
+FAIL: test_porta_vazia_diz_os_motivos_e_nao_so_a_palavra (tests.test_porta_social_t9.LinhaSocialT9.test_porta_vazia_diz_os_motivos_e_nao_so_a_palavra)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\t9-social-catalogo\tests\test_porta_social_t9.py", line 221, in test_porta_vazia_diz_os_motivos_e_nao_so_a_palavra
+    self.assertEqual(f["UNIDADES_GOVERNADAS"], 0)
+AssertionError: 1 != 0
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.359s
+
+FAILED (failures=2, errors=18)
