@@ -1061,8 +1061,9 @@ class LimpezaDoPgDaProvaDeBackup(unittest.TestCase):
 class OndaQueRecusa:
     """O papel da onda do ciclo 146: recebe as fontes, o portao dela recusa todas, nenhum pedido sai."""
 
-    def __init__(self, sala, livro_da_onda=None, run_id=None, escreve_estado=True):
+    def __init__(self, sala, livro_da_onda=None, run_id=None, escreve_estado=True, correu=False):
         self.sala, self.livro_da_onda, self.run_id, self.escreve_estado = sala, livro_da_onda, run_id, escreve_estado
+        self.correu = correu
         self.chamadas = []
 
     def __call__(self, sha, fontes, pasta, historico, retomar):
@@ -1074,7 +1075,7 @@ class OndaQueRecusa:
             foto = self.sala.foto()
             (pasta / "ONDA-WEB-ESTADO.json").write_text(json.dumps({
                 "SO_AS_FONTES": list(fontes), "SALA_INICIO": foto, "PAROU": None, "SALA_FIM": foto,
-                "FONTES": [{"N": i, "SOURCE_ID": s, "CORREU": False, "STATUS": None, "RUN_ID": self.run_id,
+                "FONTES": [{"N": i, "SOURCE_ID": s, "CORREU": self.correu, "STATUS": None, "RUN_ID": self.run_id,
                             "PORQUE_NAO_CORREU": ["GATE:ESTADO_NAO_READY"], "LIVRO_DA_ONDA": {}}
                            for i, s in enumerate(fontes, 1)]}), encoding="utf-8")
         return 0
@@ -1191,6 +1192,11 @@ class AdendoParada(Base):
 
     def test_onda_sem_estado_gravado_para(self):
         onda = OndaQueRecusa(self.sala, escreve_estado=False)
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=onda))
+        self.assertEqual(r["PARA"], "PROVA_TETO_NAO_SEI", r)
+
+    def test_fonte_que_correu_sem_run_id_para(self):
+        onda = OndaQueRecusa(self.sala, correu=True)
         r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=onda))
         self.assertEqual(r["PARA"], "PROVA_TETO_NAO_SEI", r)
 

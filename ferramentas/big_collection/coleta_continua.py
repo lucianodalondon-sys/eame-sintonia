@@ -47,7 +47,14 @@ o robo nao e tocado.
 PARA SOZINHO (e fica PARADO ate `--rearmar`): RAM livre < 5 GB (a regra da LOCK-PESADO) ou NAO SEI a RAM ·
 portao IT falha (antes ou depois) · backup da Sala sem PROVA_VALE · PROVA-TETO FAIL ou NAO_SEI · livro de
 24 h ilegivel · onda com codigo != 0 ou disjuntor · reconciliacao da Sala que nao bate (ou NAO SEI) · o robo
-nao parou / nao voltou. `<base>/PARAR-COLETA.flag` desliga-o sem erro (e o interruptor do coordenador).
+nao parou / nao voltou · o portao da Collection nao responde. `<base>/PARAR-COLETA.flag` desliga-o sem erro (e o
+interruptor do coordenador).
+
+ADENDO-PARADA (01/10, medido no ciclo 146): o agendador so oferece a onda a fonte que o portao da Collection
+admite AGORA (`collection_gate.avaliar`, o mesmo que a onda usa); a recusada ESPERA com PORQUE=FONTE_NAO_READY e o
+estado lido. E um ciclo SEM corrida e SEM pedido (estado da onda gravado, nenhuma fonte CORREU, livro da onda a 0)
+nao tem nada a provar: PROVA_TETO_CICLO=NADA_A_PROVAR e o servico segue. Com uma corrida, um pedido ou uma duvida
+que seja, a prova corre como antes e para.
 
 O LIVRO DE CICLOS (`<base>/CICLOS.ndjson`), uma linha por ciclo: quando, por linha as fontes, os pedidos,
 os documentos novos, a Sala antes/depois, as que esperam e o proximo dominio a abrir.
@@ -406,9 +413,20 @@ def comparar_sala(n: dict, sala_antes: dict | None, sala_depois: dict | None) ->
             "DELTA_SALA": delta, "NAO_BATE": nao_bate, "SEM_FOTO": falta, "DOCS_NOVOS": n.get("raw_asset")}
 
 
+def portao_da_fonte_real(ids: list) -> dict:
+    """{SOURCE_ID: veredito} do PORTAO DA COLLECTION — o MESMO que a onda dos SITES usa (`onda_web.py --correr`
+    -> `micro_coleta.correr` -> `plano` -> `collection_gate.avaliar`, que recusa com GATE:<MOTIVO>). Le o livro
+    canonico AGORA, uma vez por chamada. A regra nao se repete aqui: so se pergunta."""
+    sys.path.insert(0, str(RAIZ / "curadoria"))
+    import collection_gate as GATE                                     # noqa: PLC0415
+    ctx = GATE._contexto()
+    return {s: GATE.avaliar(s, **ctx) for s in ids}
+
+
 def pecas_reais() -> dict:
     return {"portao": R.portao_real, "onda": R.onda_real, "relatorio": R.relatorio_real, "ledger": R.ledger_real(),
-            "ram": ram_livre_gb_real, "backup": backup_real, "robo": RoboReal(), "reconciliar": reconciliar_real}
+            "ram": ram_livre_gb_real, "backup": backup_real, "robo": RoboReal(), "reconciliar": reconciliar_real,
+            "fonte": portao_da_fonte_real}
 
 
 # ── 5. o estado e o livro de ciclos ──────────────────────────────────────────
@@ -491,8 +509,20 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
     escolha = {}
     for nome in ordem_das_linhas(list(candidatas_por_linha), reg["CICLO"]):
         lig = ligacao(next((l for l in LINHAS if l["LINHA"] == nome), {"LINHA": nome, "TRANSPORTE": "?", "CHAMADA": "?"}))
-        feitas = ((estado.get("LINHAS") or {}).get(nome) or {}).get("FEITAS_NA_PASSAGEM") or []
         cands = candidatas_por_linha[nome]
+        # ADENDO-PARADA (ciclo 146): a onda recusa a fonte que o portao da Collection nao admite (GATE:<MOTIVO>),
+        # e a fonte so la ia para sair 0 corridas. O agendador pergunta ao MESMO portao, agora, e nao a oferece:
+        # ela ESPERA com nome proprio. Sem portao injectado, o real (nunca um que admite tudo). Linha sem
+        # candidatas (hoje as quatro Python, que `main` deixa a []) nao pergunta: nao ha nada a oferecer.
+        porta = pecas.get("fonte") or portao_da_fonte_real
+        try:
+            vered = porta(sorted({c["SOURCE_ID"] for c in cands})) if cands else {}
+        except Exception as ex:                                        # noqa: BLE001 — sem veredito nao se oferece
+            return fim("PORTAO_DA_FONTE_NAO_SEI", ERRO=str(ex)[:300])
+        admitida = {s for s, v in vered.items() if v.get("COLLECTION_ELIGIBLE") is True}
+        recusadas = [c for c in cands if c["SOURCE_ID"] not in admitida]
+        cands = [c for c in cands if c["SOURCE_ID"] in admitida]
+        feitas = ((estado.get("LINHAS") or {}).get(nome) or {}).get("FEITAS_NA_PASSAGEM") or []
         if cands and all(c["SOURCE_ID"] in set(feitas) for c in cands) and not a_seco:
             feitas = []                                             # a coorte da linha acabou: nova passagem
             ln = estado.setdefault("LINHAS", {}).setdefault(nome, {})
@@ -505,6 +535,11 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
                      orcamento=orcamento, max_fontes=max_fontes, janela_h=janela_h)
         escolha[nome] = e["CORREM"]
         reg["ESPERAM"] += [dict(x, LINHA=nome) for x in e["ESPERAM"]]
+        reg["ESPERAM"] += [dict(c, LINHA=nome, PORQUE="FONTE_NAO_READY",
+                                ESTADO_LIDO=(vered.get(c["SOURCE_ID"]) or {}).get("STATE", "NAO SEI"),
+                                MOTIVO_DO_PORTAO=(vered.get(c["SOURCE_ID"]) or {}).get("MOTIVO"),
+                                PORQUE_DO_PORTAO=(vered.get(c["SOURCE_ID"]) or {}).get("PORQUE"), ABRE_EM=None)
+                           for c in recusadas if c["SOURCE_ID"] not in set(feitas)]
         reg["LINHAS"][nome] = {"ESTADO": "A_CORRER" if e["CORREM"] else "NADA_ELEGIVEL",
                                "FONTES": [c["SOURCE_ID"] for c in e["CORREM"]],
                                "PEDIDOS_PREVISTOS": sum(c["PREVISTOS"] for c in e["CORREM"])}
@@ -560,6 +595,35 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
     return fim(para)
 
 
+def nada_a_provar(run_ids: list, pastas) -> dict | None:
+    """ADENDO-PARADA (ciclo 146). A prova-teto diz NAO_SEI sobre uma lista vazia de corridas, de proposito: contar
+    zero deixaria uma onda cega passar. Mas uma onda que recusou todas as fontes nao e cega, e vazia — e parar o
+    servico por isso deixava-o PARADO ate alguem rearmar. So e NADA_A_PROVAR se TUDO o diz: nenhum RUN_ID nas
+    ondas, o estado de cada onda gravado e nenhuma fonte CORREU, e o livro de cada onda (o contador do transporte,
+    SINTONIA_TETO_ONDA) ausente ou com 0 pedidos. Qualquer duvida (estado em falta, livro ilegivel, um pedido que
+    seja) = None, e a prova corre como sempre — e para."""
+    pastas = list(pastas)
+    if run_ids or not pastas:
+        return None
+    for pasta in pastas:
+        f = pasta / "ONDA-WEB-ESTADO.json"
+        if not f.exists():
+            return None
+        livro = pasta / "TETO-ONDA.json"
+        try:
+            e = json.loads(f.read_text(encoding="utf-8"))
+            ped = json.loads(livro.read_text(encoding="utf-8"))["PEDIDOS_POR_DOMINIO"] if livro.exists() else {}
+            n = sum(int(v) for v in ped.values())
+        except (ValueError, KeyError, TypeError, AttributeError, OSError):
+            return None
+        if n or any(x.get("CORREU") for x in e.get("FONTES") or []):
+            return None
+    return {"ESTADO": "NADA_A_PROVAR", "CORRIDAS_DA_ONDA": 0, "PEDIDOS_NOS_LIVROS_DAS_ONDAS": 0, "PEDIDOS_NA_ONDA": 0,
+            "DOMINIOS_ACIMA_DO_TETO": {}, "CORRIDAS_SEM_LINHA_NO_LIVRO": [], "CORRIDAS_SEM_PEDIDOS_POR_HOST": [],
+            "PORQUE": "nenhuma corrida e nenhum pedido em %d onda(s): estado gravado, nenhuma fonte CORREU, livro da "
+                      "onda ausente ou a 0" % len(pastas)}
+
+
 def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_u) -> str | None:
     """As ondas das linhas, a prova-teto (do ciclo e das 24 h), o relatorio e a reconciliacao."""
     if livro_24h is not None:
@@ -605,16 +669,25 @@ def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_
     except (ValueError, OSError) as ex:
         reg["PROVA_TETO_CICLO"] = {"ESTADO": "NAO_SEI", "PORQUE": "livro da cortesia ilegivel: %s" % str(ex)[:200]}
         return "PROVA_TETO_NAO_SEI"
-    p = PT.verificar(sorted(set(reg["RUN_IDS"])), livro, teto_manual(), eventos)
-    reg["PROVA_TETO_CICLO"] = {k: p[k] for k in ("ESTADO", "PEDIDOS_NA_ONDA", "DOMINIOS_ACIMA_DO_TETO",
-                                                "CORRIDAS_SEM_LINHA_NO_LIVRO", "CORRIDAS_SEM_PEDIDOS_POR_HOST")}
-    if p["ESTADO"] != "PASS":
-        return "PROVA_TETO_%s" % p["ESTADO"]
-    # e a de 24 h: as corridas deste servico nas ultimas 24 h + as deste ciclo (janela movel, D79/D90)
-    p24 = PT.verificar(sorted(set(run_ids_das_ultimas_24h(base, agora_u) + reg["RUN_IDS"])), livro, teto_manual(), eventos)
-    reg["PROVA_TETO_24H"] = {k: p24[k] for k in ("ESTADO", "DOMINIOS_ACIMA_DO_TETO")}
-    if p24["ESTADO"] != "PASS":
-        return "PROVA_TETO_24H_%s" % p24["ESTADO"]
+    nada = nada_a_provar(reg["RUN_IDS"], pastas.values())
+    if nada:
+        reg["PROVA_TETO_CICLO"] = nada
+    else:
+        p = PT.verificar(sorted(set(reg["RUN_IDS"])), livro, teto_manual(), eventos)
+        reg["PROVA_TETO_CICLO"] = {k: p[k] for k in ("ESTADO", "PEDIDOS_NA_ONDA", "DOMINIOS_ACIMA_DO_TETO",
+                                                    "CORRIDAS_SEM_LINHA_NO_LIVRO", "CORRIDAS_SEM_PEDIDOS_POR_HOST")}
+        if p["ESTADO"] != "PASS":
+            return "PROVA_TETO_%s" % p["ESTADO"]
+    # e a de 24 h: as corridas deste servico nas ultimas 24 h + as deste ciclo (janela movel, D79/D90). Um ciclo
+    # vazio NAO a dispensa: so ha nada a provar nas 24 h se tambem nao houve corrida nenhuma nelas.
+    ids_24h = sorted(set(run_ids_das_ultimas_24h(base, agora_u) + reg["RUN_IDS"]))
+    if nada and not ids_24h:
+        reg["PROVA_TETO_24H"] = {"ESTADO": "NADA_A_PROVAR", "DOMINIOS_ACIMA_DO_TETO": {}}
+    else:
+        p24 = PT.verificar(ids_24h, livro, teto_manual(), eventos)
+        reg["PROVA_TETO_24H"] = {k: p24[k] for k in ("ESTADO", "DOMINIOS_ACIMA_DO_TETO")}
+        if p24["ESTADO"] != "PASS":
+            return "PROVA_TETO_24H_%s" % p24["ESTADO"]
     for n, pasta in pastas.items():
         if (pasta / "ONDA-WEB-ESTADO.json").exists():
             reg["LINHAS"][n]["CODIGO_DO_RELATORIO"] = pecas["relatorio"](pasta / "ONDA-WEB-ESTADO.json", pasta / "relatorio")
