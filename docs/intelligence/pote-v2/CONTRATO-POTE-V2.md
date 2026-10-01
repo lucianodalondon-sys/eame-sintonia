@@ -120,6 +120,26 @@ o cabeçalho ganha `REVISAO_DO_CONTRATO`, e **todo objeto** ganha `LIGACAO_ADAMA
 
 Relatório: [`LIGACAO-ADAMA.md`](../../../LIGACAO-ADAMA.md).
 
+## 5c · EIXOS/v1 — elegibilidade por objeto × ambiente por pote (K2, 2026-10-01)
+
+**Origem.** O LAB reprovou o pote canónico `e97ce8b082a1…` (veredito K2 FAIL). Os 3 objetos saíam com `LIBERACAO = LIBERADO_PARA_CLIENTE` e, no mesmo objeto, `NAO_PARA_CLIENTE = true`, `MARCA = "EXPERIMENTAL · NAO_PARA_CLIENTE"` e `ESTADO = EXPERIMENTAL_CANDIDATE`. A raiz também dizia `NAO_PARA_CLIENTE`. Uma palavra estava a dizer duas coisas diferentes.
+
+**Decisão do dono do contrato: são dois eixos, e nenhum fala pelo outro.**
+
+| eixo | onde | campos | quem decide |
+|---|---|---|---|
+| 1 · ELEGIBILIDADE | cada OBJETO | `LIBERACAO` ∈ {`LIBERADO_PARA_CLIENTE`, `NAO_PARA_CLIENTE`}; `MARCA`, `NAO_PARA_CLIENTE` e `ESTADO` do objeto **dizem o mesmo** | só a Intelligence, pelo C8-AUTO (C1–C7) |
+| 2 · AMBIENTE | RAIZ, compartimentos e MANIFESTO | `EIXOS = EIXOS/v1`, `AMBIENTE = PREVIEW_NAO_PRODUCAO`, `PRODUCAO = false`, `MARCA = "EXPERIMENTAL · PREVIEW_NAO_PRODUCAO"` | constante neste contrato |
+
+- Objeto liberado: `NAO_PARA_CLIENTE = false`, `MARCA = "LIBERADO_PARA_CLIENTE · C8-AUTO"`, `ESTADO = LIBERADO_PARA_CLIENTE`.
+- Objeto bloqueado: `NAO_PARA_CLIENTE = true`, `MARCA = "EXPERIMENTAL · NAO_PARA_CLIENTE"`, `ESTADO = EXPERIMENTAL_CANDIDATE`.
+- A raiz e os compartimentos **não** levam `NAO_PARA_CLIENTE`: o cliente é eixo do objeto. A raiz só diz onde o pote pode aparecer.
+- `aplicar_eixos` **não decide nada**. Copia a `LIBERACAO` que o C8 deu, e um objeto sem `LIBERACAO` faz parar.
+- Um pote **sem** `EIXOS` é o v2 de sempre (marca `EXPERIMENTAL · NAO_PARA_CLIENTE` em tudo). Por isso **não pode** trazer objeto `LIBERADO_PARA_CLIENTE`, e o pote e97ce8b0 reprova no fiscal novo, nos 3 objetos.
+- **Produção continua bloqueada (D141).** `PRODUCAO = true` não existe neste contrato e reprova na forma e na lei. Promover é a regra de promoção da L3, com aprovação do dono. Este eixo não a cria nem a afrouxa, e o C0 da L3 não muda.
+
+Fiscal: `conferir_pote` (`_marcas_dos_eixos`, `_marca_do_compartimento`, `_marca_do_objeto`). Testes: `tests/test_pote_dois_eixos.py`.
+
 ## 6 · O casco
 
 Um só carregador (`sintonia-pote-casco.js`), que só pede `sintonia-pote.js` com `?pote=local`. Com o pote,
