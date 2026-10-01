@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-10-01T14:17:02+00:00",
-    "HEAD": "57837be95820a21d368e4b1435bc7467be16a9d8",
+    "GENERATED_AT": "2026-10-01T16:51:18+00:00",
+    "HEAD": "5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "5f438b3b2323ef3abbcec45f3aa7c9db9fb059fb8faa663e21c83d42334465d4",
-    "FICHEIROS_NA_IMPRESSAO": 4405,
+    "SOURCE_TREE_FINGERPRINT": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db",
+    "FICHEIROS_NA_IMPRESSAO": 4409,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -517,7 +517,7 @@
       {
         "PATH": "coleta/pesquisadores_t6.py",
         "PAPEL": "FONTE",
-        "VERSAO": "f4daae0cec655e44f70c9abef7463a829bfc42c0",
+        "VERSAO": "418a10f96afd196a72fb10c3ac53a26506a7bd11",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -755,7 +755,7 @@
       {
         "PATH": "ferramentas/big_collection/coleta_continua.py",
         "PAPEL": "FONTE",
-        "VERSAO": "d201db67fb810a73a8a7abf8bab00352639c8ace",
+        "VERSAO": "3c0b41e2b010262d94a0d685e60f3cdb4ccac033",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -804,7 +804,7 @@
       {
         "PATH": "ferramentas/big_collection/sonda_ligacao_linha.py",
         "PAPEL": "FONTE",
-        "VERSAO": "9c303a184b1673a8618894aebfcdf957e3b3a772",
+        "VERSAO": "26dd68cd17208c9fe33994c463c79d42805a7993",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1790,7 +1790,7 @@
       }
     ],
     "INPUTS_COUNT": 254,
-    "INPUTS_DIGEST": "c4e125a90d7653202499ade997832382f2f64e36357c4c59556065a596c133a2",
+    "INPUTS_DIGEST": "048eb21cd0a41d0637befdc313dc371963e28697829fd8a66b7def3e8ebd1423",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2291,7 +2291,7 @@
     {
       "ficheiro": "ferramentas/big_collection/coleta_continua.py",
       "gaveta": "ferramentas",
-      "linhas": 933,
+      "linhas": 1051,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2376,6 +2376,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "ferramentas/big_collection/bc5_big_collection.py",
+        "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/big_collection/rodadas.py",
         "ferramentas/integra_onda2/final/ensaio_integra.sh",
         "ferramentas/maestro_social/maestro_social.py",
@@ -2425,7 +2426,7 @@
     {
       "ficheiro": "ferramentas/big_collection/sonda_ligacao_linha.py",
       "gaveta": "ferramentas",
-      "linhas": 170,
+      "linhas": 199,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2436,6 +2437,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/pesquisadores_t6.py",
         "ferramentas/big_collection/coleta_continua.py"
       ],
       "no_ci": false
@@ -3391,6 +3393,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "ferramentas/big_collection/coleta_continua.py",
         "guarda/social_guarda.py"
       ],
       "no_ci": false
@@ -5123,7 +5126,7 @@
     {
       "ficheiro": "coleta/pesquisadores_t6.py",
       "gaveta": "coleta",
-      "linhas": 1231,
+      "linhas": 1264,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
