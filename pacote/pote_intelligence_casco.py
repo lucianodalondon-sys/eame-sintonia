@@ -86,6 +86,25 @@ NOME_DO_GLOBAL = "SINTONIA_POTE"
 #: .local.js da Sala. Qualquer outro destino dentro de italia-portale/ e recusado.
 DESTINO_NO_CASCO = ("italia-portale", "client", "sintonia-pote.js")
 
+# ── OS DOIS EIXOS (K2 do LAB, veredito FAIL do pote e97ce8b0, 01/10/2026) ─────────────────────────────────────
+#: O pote dizia DUAS coisas com UMA palavra: cada objeto saia LIBERACAO = LIBERADO_PARA_CLIENTE e, no mesmo objeto,
+#: NAO_PARA_CLIENTE = true / MARCA «EXPERIMENTAL · NAO_PARA_CLIENTE» / ESTADO EXPERIMENTAL_CANDIDATE. Contradicao
+#: medida pelo LAB (K2). Decisao do dono do contrato: sao DOIS eixos, e nenhum fala pelo outro.
+#:   EIXO 1 · ELEGIBILIDADE — por OBJETO, so a Intelligence a da (C8-AUTO): LIBERACAO ∈ {LIBERADO_PARA_CLIENTE,
+#:            NAO_PARA_CLIENTE}; MARCA, NAO_PARA_CLIENTE e ESTADO do objeto DIZEM O MESMO que LIBERACAO.
+#:   EIXO 2 · AMBIENTE — por POTE/corrida: AMBIENTE = PREVIEW_NAO_PRODUCAO, PRODUCAO = false, na RAIZ, nos
+#:            compartimentos e no MANIFESTO. Diz ONDE o pote pode aparecer; nao diz nada sobre cada objeto.
+#: Um objeto liberado num pote de preview e coerente («elegivel, mas este ambiente nao e producao»). O que fica
+#: PROIBIDO e um objeto dizer as duas coisas. Producao continua bloqueada (D141): nada aqui promove o pote, e
+#: PRODUCAO = true nao existe neste contrato (so a regra de promocao da L3, com aprovacao do dono, a criaria).
+CONTRATO_DOS_EIXOS = "EIXOS/v1 (K2 · 2026-10-01)"
+AMBIENTE_PREVIEW = "PREVIEW_NAO_PRODUCAO"
+MARCA_DO_AMBIENTE = "EXPERIMENTAL · PREVIEW_NAO_PRODUCAO"
+LIBERADO = "LIBERADO_PARA_CLIENTE"
+NAO_LIBERADO = "NAO_PARA_CLIENTE"
+ESTADO_LIBERADO = "LIBERADO_PARA_CLIENTE"
+MARCA_LIBERADO = "LIBERADO_PARA_CLIENTE · C8-AUTO"
+
 # ── AS ESPECIES ──────────────────────────────────────────────────────────────
 SINAL = "SINAL"
 FUTURO = "FATO_PRESENTE_SOBRE_O_FUTURO"
@@ -788,6 +807,77 @@ def _conferido(pote):
     return pote
 
 
+def _marcas_dos_eixos(pote: dict) -> tuple:
+    """-> (eixos?, violacoes da RAIZ). Um pote com EIXOS = CONTRATO_DOS_EIXOS diz o AMBIENTE na raiz e nada sobre
+    o cliente; um pote sem EIXOS e o v2 de sempre (marca EXPERIMENTAL · NAO_PARA_CLIENTE em tudo)."""
+    if pote.get("EIXOS") != CONTRATO_DOS_EIXOS:
+        if pote.get("MARCA") != MARCA or pote.get("NAO_PARA_CLIENTE") is not True:
+            return False, ["pote sem a marca EXPERIMENTAL · NAO_PARA_CLIENTE"]
+        return False, []
+    v = []
+    if pote.get("AMBIENTE") != AMBIENTE_PREVIEW or pote.get("PRODUCAO") is not False:
+        v.append("EIXO 2: pote sem AMBIENTE = %s e PRODUCAO = false" % AMBIENTE_PREVIEW)
+    if pote.get("MARCA") != MARCA_DO_AMBIENTE:
+        v.append("EIXO 2: a marca da raiz e a do ambiente (%s)" % MARCA_DO_AMBIENTE)
+    if "NAO_PARA_CLIENTE" in pote:
+        v.append("K2: a raiz diz NAO_PARA_CLIENTE — o cliente e eixo do OBJETO, a raiz so diz o ambiente")
+    return True, v
+
+
+def _marca_do_compartimento(e: dict, comp: str, eixos: bool) -> list:
+    if not eixos:
+        return [] if e.get("MARCA") == MARCA and e.get("NAO_PARA_CLIENTE") is True else [f"{comp}: compartimento sem a marca"]
+    v = []
+    if e.get("MARCA") != MARCA_DO_AMBIENTE or e.get("AMBIENTE") != AMBIENTE_PREVIEW:
+        v.append(f"{comp}: EIXO 2: compartimento sem a marca do ambiente")
+    if "NAO_PARA_CLIENTE" in e:
+        v.append(f"{comp}: K2: o compartimento diz NAO_PARA_CLIENTE (o cliente e eixo do objeto)")
+    return v
+
+
+def _marca_do_objeto(o: dict, comp: str, oid: str, eixos: bool) -> list:
+    """EIXO 1: o objeto diz UMA coisa sobre o cliente. LIBERACAO, MARCA, NAO_PARA_CLIENTE e ESTADO concordam."""
+    lib = o.get("LIBERACAO")
+    if not eixos:
+        v = []
+        if o.get("MARCA") != MARCA or o.get("NAO_PARA_CLIENTE") is not True:
+            v.append(f"{comp}/{oid}: objeto sem a marca")
+        if o.get("ESTADO") != ESTADO_TRANSPORTAVEL:
+            v.append(f"{comp}/{oid}: estado {o.get('ESTADO')} nao e {ESTADO_TRANSPORTAVEL}")
+        if lib == LIBERADO:
+            v.append(f"{comp}/{oid}: K2: LIBERADO_PARA_CLIENTE e NAO_PARA_CLIENTE ao mesmo tempo (pote sem os eixos)")
+        return v
+    if lib == LIBERADO:
+        ok = (o.get("NAO_PARA_CLIENTE") is False and o.get("MARCA") == MARCA_LIBERADO
+              and o.get("ESTADO") == ESTADO_LIBERADO)
+    elif lib == NAO_LIBERADO:
+        ok = (o.get("NAO_PARA_CLIENTE") is True and o.get("MARCA") == MARCA and o.get("ESTADO") == ESTADO_TRANSPORTAVEL)
+    else:
+        return [f"{comp}/{oid}: EIXO 1: LIBERACAO {lib!r} nao e {LIBERADO} nem {NAO_LIBERADO}"]
+    return [] if ok else [f"{comp}/{oid}: K2: LIBERACAO {lib} e MARCA/NAO_PARA_CLIENTE/ESTADO "
+                          f"({o.get('MARCA')!r}, {o.get('NAO_PARA_CLIENTE')!r}, {o.get('ESTADO')!r}) dizem outra coisa"]
+
+
+def aplicar_eixos(pote: dict) -> dict:
+    """Carimba os DOIS eixos num pote cujos objetos ja levam LIBERACAO (pacote/liberacao_por_criterio.liberar).
+    Nao decide nada: o eixo 1 COPIA a LIBERACAO que o C8-AUTO deu; o eixo 2 e constante (preview, nao producao)."""
+    p = json.loads(json.dumps(pote, ensure_ascii=False))
+    p.pop("NAO_PARA_CLIENTE", None)
+    p.update(EIXOS=CONTRATO_DOS_EIXOS, MARCA=MARCA_DO_AMBIENTE, AMBIENTE=AMBIENTE_PREVIEW, PRODUCAO=False)
+    for e in p["COMPARTIMENTOS"].values():
+        e.pop("NAO_PARA_CLIENTE", None)
+        e.update(MARCA=MARCA_DO_AMBIENTE, AMBIENTE=AMBIENTE_PREVIEW)
+        for o in e["OBJETOS"]:
+            lib = o.get("LIBERACAO")
+            if lib == LIBERADO:
+                o.update(MARCA=MARCA_LIBERADO, NAO_PARA_CLIENTE=False, ESTADO=ESTADO_LIBERADO)
+            elif lib == NAO_LIBERADO:
+                o.update(MARCA=MARCA, NAO_PARA_CLIENTE=True, ESTADO=ESTADO_TRANSPORTAVEL)
+            else:
+                raise ValueError("objeto %s sem LIBERACAO: os eixos so se aplicam depois do C8" % o.get("OBJETO_ID"))
+    return p
+
+
 def conferir_pote(pote: dict) -> list:
     """O portao de saida. Lista de violacoes; vazia = passa.
 
@@ -799,8 +889,8 @@ def conferir_pote(pote: dict) -> list:
         return ["pote nao e objeto"]
     if pote.get("SCHEMA") != CONTRATO:
         v.append(f"SCHEMA nao e {CONTRATO}")
-    if pote.get("MARCA") != MARCA or pote.get("NAO_PARA_CLIENTE") is not True:
-        v.append("pote sem a marca EXPERIMENTAL · NAO_PARA_CLIENTE")
+    eixos, vr = _marcas_dos_eixos(pote)
+    v += vr
     for k in ("INTELLIGENCE_RUN_ID", "SOURCE_HEAD", "CORTE"):
         if k not in pote or (e_ignorancia(pote.get(k)) and pote.get(k) != NAO_SEI):
             v.append(f"cabecalho sem {k} (ou NAO SEI escondido)")
@@ -818,8 +908,7 @@ def conferir_pote(pote: dict) -> list:
     impressoes = set()
     for comp, e in comps.items():
         meta = COMPARTIMENTOS[comp]
-        if e.get("MARCA") != MARCA or e.get("NAO_PARA_CLIENTE") is not True:
-            v.append(f"{comp}: compartimento sem a marca")
+        v += _marca_do_compartimento(e, comp, eixos)
         objs = e.get("OBJETOS") or []
         if not objs:
             if e.get("ESTADO") != "VAZIO" or e_ignorancia(e.get("PORQUE_VAZIO")) \
@@ -831,10 +920,7 @@ def conferir_pote(pote: dict) -> list:
             continue
         for o in objs:
             oid = o.get("OBJETO_ID", "?")
-            if o.get("MARCA") != MARCA or o.get("NAO_PARA_CLIENTE") is not True:
-                v.append(f"{comp}/{oid}: objeto sem a marca")
-            if o.get("ESTADO") != ESTADO_TRANSPORTAVEL:
-                v.append(f"{comp}/{oid}: estado {o.get('ESTADO')} nao e {ESTADO_TRANSPORTAVEL}")
+            v += _marca_do_objeto(o, comp, oid, eixos)
             if o.get("ESPECIE") not in meta["ESPECIES"]:
                 v.append(f"{comp}/{oid}: especie {o.get('ESPECIE')} nao cabe em {comp}")
             prova = o.get("PROVA")

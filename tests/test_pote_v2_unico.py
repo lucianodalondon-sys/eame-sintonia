@@ -294,7 +294,11 @@ class S_SchemaEValidador(unittest.TestCase):
     def test_S1_schema_e_codigo_dizem_o_mesmo(self):
         d = self.schema["$defs"]
         self.assertEqual(self.schema["properties"]["SCHEMA"]["const"], P.CONTRATO)
-        self.assertEqual(self.schema["properties"]["MARCA"]["const"], P.MARCA)
+        self.assertEqual(self.schema["properties"]["MARCA"]["enum"], [P.MARCA, P.MARCA_DO_AMBIENTE])
+        self.assertEqual(self.schema["properties"]["EIXOS"]["const"], P.CONTRATO_DOS_EIXOS)
+        self.assertEqual(self.schema["properties"]["AMBIENTE"]["const"], P.AMBIENTE_PREVIEW)
+        self.assertEqual(d["objeto"]["properties"]["LIBERACAO"]["enum"], [P.LIBERADO, P.NAO_LIBERADO])
+        self.assertEqual(d["objeto"]["properties"]["ESTADO"]["enum"], [P.ESTADO_TRANSPORTAVEL, P.ESTADO_LIBERADO])
         self.assertEqual(self.schema["properties"]["COMPARTIMENTOS"]["required"], list(P.COMPARTIMENTOS))
         self.assertEqual(d["objeto"]["properties"]["ESPECIE"]["enum"], list(P.ESPECIES))
         self.assertEqual(d["objeto"]["properties"]["RESULTADO"]["enum"], list(P.RESULTADOS_HONESTOS) + [NAO_SEI])
