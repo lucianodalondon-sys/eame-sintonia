@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-01T14:11:17+00:00",
-  "HEAD": "35dd73fd3e0f0d39a2cccc77e4b8ec9d4348d82e",
+  "GENERATED_AT": "2026-10-01T14:19:51+00:00",
+  "HEAD": "57837be95820a21d368e4b1435bc7467be16a9d8",
   "BRANCH": "coord/parada-sobre-servico",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "af172bb7f4aef1165280ba416cc5805448752519a6fa4379a8a1acc6b1bb48dd",
+  "SOURCE_TREE_FINGERPRINT": "5f438b3b2323ef3abbcec45f3aa7c9db9fb059fb8faa663e21c83d42334465d4",
   "FICHEIROS_NA_IMPRESSAO": 4405,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -1015,6 +1015,13 @@
     "PATH": "ferramentas/big_collection/rodadas.py",
     "PAPEL": "FONTE",
     "VERSAO": "c3ca7a8777f881e3f3f457e51f44e865042625e5",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/big_collection/sonda_ligacao_linha.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9c303a184b1673a8618894aebfcdf957e3b3a772",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5662,14 +5669,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "af172bb7f4aef1165280ba416cc5805448752519a6fa4379a8a1acc6b1bb48dd",
+    "VERSAO": "5f438b3b2323ef3abbcec45f3aa7c9db9fb059fb8faa663e21c83d42334465d4",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "af172bb7f4aef1165280ba416cc5805448752519a6fa4379a8a1acc6b1bb48dd",
+    "VERSAO": "5f438b3b2323ef3abbcec45f3aa7c9db9fb059fb8faa663e21c83d42334465d4",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8383,8 +8390,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1192,
-  "INPUTS_DIGEST": "42624ec901ca50f0bff5dd043eb83f022207f8e771dd218297a69cfe03962e45",
+  "INPUTS_COUNT": 1193,
+  "INPUTS_DIGEST": "7b0ddd573cae60e4cfacde9f0d7528ac3e4ccfe9304c176eb547b03ac27542ab",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8417,8 +8424,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bd29a4557c3e5b93e82ba6e3fbd48ab9fd963c9f35aaece9c08f1723229df890",
-  "SEMANTIC_HASH": "cd13008a412efa8d78a667aa9a93543b98b1734f0e51894ed7a324185a796268"
+  "MEASUREMENT_HASH": "e10d9b08b1e70f62f0d2c365a0918e5f1ec51dd7854ca9bdb1b349f7215923f9",
+  "SEMANTIC_HASH": "61d80c5052b33cbff4522260d86b88e1dcae2607c9d0fc939a0d28e6a4fc163d"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -22261,6 +22268,14 @@
      {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
       "LINHA": 78,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "LINHA": 131,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-ONDA-WEB",
@@ -37174,6 +37189,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-LINHA-BUSCA--IMPORTS-->C-ONDA-WEB",
+    "FROM": "C-LINHA-BUSCA",
+    "TO": "C-ONDA-WEB",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "LINHA": 55,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--IMPORTS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-LINHA-BUSCA--IMPORTS-->C-PROVA-LINHA-BUSCA",
     "FROM": "C-LINHA-BUSCA",
     "TO": "C-PROVA-LINHA-BUSCA",
@@ -46780,6 +46817,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-LUGAR-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-ONDA-WEB",
+    "FROM": "C-PESQUISADORES-T6",
+    "TO": "C-ONDA-WEB",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "LINHA": 60,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-ONDA-WEB",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -58350,6 +58409,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-ONDA-WEB",
+    "FROM": "C-SCRAP-SOCIAL",
+    "TO": "C-ONDA-WEB",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "LINHA": 65,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-CANARIO-D23-LINKEDIN",
     "FROM": "C-SCRAP-SOCIAL",
     "TO": "C-PROVA-CANARIO-D23-LINKEDIN",
@@ -65098,12 +65179,12 @@
     ]
    }
   ],
-  "COUNT": 1851
+  "COUNT": 1854
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 241,
   "CARTOES_AUDITADOS": 241,
-  "ARESTAS_RELACIONADAS": 1851,
+  "ARESTAS_RELACIONADAS": 1854,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -65616,7 +65697,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 343,
+   "CODE": 346,
    "CONTROL": 90,
    "DATA": 30,
    "PROOF": 655,
@@ -70998,7 +71079,7 @@
     "pathlib"
    ],
    "ENTRAM": 11,
-   "SAEM": 7,
+   "SAEM": 8,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -71007,6 +71088,7 @@
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
+    "CODE",
     "PROOF",
     "READ"
    ],
@@ -71877,6 +71959,7 @@
     "ferramentas/big_collection/ensaio_rodada.py",
     "ferramentas/big_collection/onda_web.py",
     "ferramentas/big_collection/rodadas.py",
+    "ferramentas/big_collection/sonda_ligacao_linha.py",
     "ferramentas/big_collection/sonda_ligacao_sites.mjs",
     "ferramentas/maestro_social/maestro_social.py"
    ],
@@ -71918,7 +72001,7 @@
     "sala_de_espera",
     "urllib"
    ],
-   "ENTRAM": 19,
+   "ENTRAM": 22,
    "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -72409,7 +72492,7 @@
     "collections"
    ],
    "ENTRAM": 8,
-   "SAEM": 10,
+   "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -76887,7 +76970,7 @@
     "urllib"
    ],
    "ENTRAM": 32,
-   "SAEM": 38,
+   "SAEM": 39,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",

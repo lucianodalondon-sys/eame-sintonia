@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  35dd73fd3e0f0d39a2cccc77e4b8ec9d4348d82e
+HEAD_DA_MEDICAO  57837be95820a21d368e4b1435bc7467be16a9d8
 BRANCH           coord/parada-sobre-servico
-GERADO_EM        2026-10-01T10:57:12-03:00
+GERADO_EM        2026-10-01T11:15:01-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -488,13 +488,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/linha_busca.py`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `superficie/rede.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `data/derivados/LINHA-BUSCA/CONSULTAS.json` |
-| **arestas no mapa** | entram 11 · saem 7 |
-| **arestas provadas** | entram 11 · saem 7 |
+| **arestas no mapa** | entram 11 · saem 8 |
+| **arestas provadas** | entram 11 · saem 8 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 |
+| **prova das ligações** | CODE 19 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -538,13 +538,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 8 · saem 10 |
-| **arestas provadas** | entram 8 · saem 10 |
+| **arestas no mapa** | entram 8 · saem 11 |
+| **arestas provadas** | entram 8 · saem 11 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 |
+| **prova das ligações** | CODE 19 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -638,13 +638,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/espera_por_dominio.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 32 · saem 38 |
-| **arestas provadas** | entram 29 · saem 38 |
+| **arestas no mapa** | entram 32 · saem 39 |
+| **arestas provadas** | entram 29 · saem 39 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 64 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 65 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1364,10 +1364,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/big_collection/coleta_continua.py`, `ferramentas/big_collection/ensaio_coleta_continua.py`, `ferramentas/big_collection/ensaio_rodada.py`, `ferramentas/big_collection/onda_web.py`, `ferramentas/big_collection/rodadas.py` _(e mais 2)_ |
+| **peça real** | `ferramentas/big_collection/coleta_continua.py`, `ferramentas/big_collection/ensaio_coleta_continua.py`, `ferramentas/big_collection/ensaio_rodada.py`, `ferramentas/big_collection/onda_web.py`, `ferramentas/big_collection/rodadas.py` _(e mais 3)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2, C-PACOTE-ONDA3 |
 | **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:43; ferramentas/onda3_pacote/ensaio_onda3.sh:114; ferramentas/onda3_pacote/ensaio_onda3_v2.sh:158 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -1375,13 +1375,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/italy_pilot_collect.mjs`, `coleta/linha_busca.py`, `coleta/pesquisadores_t6.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json` |
-| **arestas no mapa** | entram 19 · saem 12 |
-| **arestas provadas** | entram 19 · saem 12 |
+| **arestas no mapa** | entram 22 · saem 12 |
+| **arestas provadas** | entram 22 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 31 |
+| **prova das ligações** | CODE 34 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 

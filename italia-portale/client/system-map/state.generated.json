@@ -4851,9 +4851,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "coord/parada-sobre-servico",
-    "HEAD": "35dd73fd3e0f0d39a2cccc77e4b8ec9d4348d82e",
-    "GENERATED_AT": "2026-10-01T10:57:12-03:00",
-    "SOURCE_TREE_FINGERPRINT": "af172bb7f4aef1165280ba416cc5805448752519a6fa4379a8a1acc6b1bb48dd"
+    "HEAD": "57837be95820a21d368e4b1435bc7467be16a9d8",
+    "GENERATED_AT": "2026-10-01T11:15:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "5f438b3b2323ef3abbcec45f3aa7c9db9fb059fb8faa663e21c83d42334465d4"
   },
   "FAMILIES": [
     {
@@ -56048,7 +56048,7 @@
       "name": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos. rodadas.py corre a onda em rodadas fixas (D124: o teto de cada dominio e o orcamento vigente da politica adaptativa, onda_web.teto_do_dominio; a janela 24 h D79 so se liga com --janela-24h; fontes de dominio sem orcamento AGORA ficam ADIADAS, TETO_ADAPTATIVO); coleta_continua.py (D86) e o servico que agenda por FONTE sobre o mesmo plano: a cada ciclo corre as fontes cujos dominios estao livres (D124-REBASE: o livro da cortesia adaptativa — o antigo TETO-24H.json {RESERVAS:[]} le-se e migra-se sozinho — com o orcamento vigente de cada dominio somando o gasto de 24 h e as linhas do ciclo, pausa de 24 h e Retry-After fecham o dominio; a janela D79 so com --janela-24h; a linha SITES so corre se a SONDA sonda_ligacao_sites.mjs provar contra um servidor local que o transporte reserva antes de cada pedido e obedece ao livro), pelo mesmo onda_web, portao IT antes/depois, PROVA-TETO do ciclo e das 24 h e reconciliacao da Sala; para o robo so quando grava e religa-o; PARA sozinho (RAM < 5 GB, portao, backup sem PROVA_VALE, prova-teto FAIL/NAO_SEI) ate --rearmar.",
+      "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos. rodadas.py corre a onda em rodadas fixas (D124: o teto de cada dominio e o orcamento vigente da politica adaptativa, onda_web.teto_do_dominio; a janela 24 h D79 so se liga com --janela-24h; fontes de dominio sem orcamento AGORA ficam ADIADAS, TETO_ADAPTATIVO); coleta_continua.py (D86) e o servico que agenda por FONTE sobre o mesmo plano: a cada ciclo corre as fontes cujos dominios estao livres (D124-REBASE: o livro da cortesia adaptativa — o antigo TETO-24H.json {RESERVAS:[]} le-se e migra-se sozinho — com o orcamento vigente de cada dominio somando o gasto de 24 h e as linhas do ciclo, pausa de 24 h e Retry-After fecham o dominio; a janela D79 so com --janela-24h; a linha SITES so corre se a SONDA sonda_ligacao_sites.mjs provar contra um servidor local que o transporte reserva antes de cada pedido e obedece ao livro; as quatro linhas Python (BUSCA, CIENCIA, SOCIAL, PESQUISADORES) provam o mesmo pela sonda_ligacao_linha.py (LIGACAO-4-LINHAS): o transporte real contra um livro TEMPORARIO e egresso FECHADO, LIGADA so se reserva num dominio livre e nao reserva num dominio pausado — medido pelo comportamento, nao pelo texto do codigo), pelo mesmo onda_web, portao IT antes/depois, PROVA-TETO do ciclo e das 24 h e reconciliacao da Sala; para o robo so quando grava e religa-o; PARA sozinho (RAM < 5 GB, portao, backup sem PROVA_VALE, prova-teto FAIL/NAO_SEI) ate --rearmar.",
       "why_here": "ONDA2-PLANO mediu cia.it com 16 pedidos numa onda (5 fontes, teto por corrida) e o disparador da BC5 a ler a coorte de C:\bc fora do Git. D38: 5 por dominio na onda inteira.",
       "departments": [
         "ENGENHARIA"
@@ -56068,12 +56068,13 @@
         "ferramentas/big_collection/ensaio_rodada.py",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py",
+        "ferramentas/big_collection/sonda_ligacao_linha.py",
         "ferramentas/big_collection/sonda_ligacao_sites.mjs",
         "ferramentas/maestro_social/maestro_social.py"
       ],
-      "file_count": 7,
+      "file_count": 8,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
@@ -56127,11 +56128,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "LINHAS"
+          "LINHAS",
+          "MARCA_DE_RECUSA"
         ],
-        "palavras": 31,
+        "palavras": 36,
         "por_lingua": {},
-        "sem_marca_de_lingua": 31,
+        "sem_marca_de_lingua": 36,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -100560,7 +100562,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 3 linhas de codigo.",
+      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
@@ -100598,6 +100600,22 @@
           "file": "ferramentas/big_collection/rodadas.py",
           "line": 78,
           "snippet": "import cortesia_adaptativa as CA                                   # noqa: E402 — o dono unico do teto (D124)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-ONDA-WEB",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+          "line": 131,
+          "snippet": "import cortesia_adaptativa as CA                              # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-ONDA-WEB",
             "FROM": "C-CORTESIA-ADAPTATIVA",
@@ -126741,6 +126759,41 @@
     {
       "from": "C-LINHA-BUSCA",
       "to": "C-ONDA-WEB",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+          "line": 55,
+          "snippet": "import linha_busca as LB                                          # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LINHA-BUSCA--IMPORTS-->C-ONDA-WEB",
+            "FROM": "C-LINHA-BUSCA",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LINHA-BUSCA",
+      "to": "C-ONDA-WEB",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -143246,6 +143299,41 @@
             "EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-LUGAR-COLETA",
             "FROM": "C-PESQUISADORES-T6",
             "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PESQUISADORES-T6",
+      "to": "C-ONDA-WEB",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+          "line": 60,
+          "snippet": "import pesquisadores_t6 as T6                                     # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-ONDA-WEB",
+            "FROM": "C-PESQUISADORES-T6",
+            "TO": "C-ONDA-WEB",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -164208,6 +164296,41 @@
     {
       "from": "C-SCRAP-SOCIAL",
       "to": "C-ONDA-WEB",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+          "line": 65,
+          "snippet": "import teto_da_onda as TO                                         # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-ONDA-WEB",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-ONDA-WEB",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -176453,10 +176576,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "ferramentas/big_collection/sonda_ligacao_linha.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 2290,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 2289,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -176728,13 +176849,13 @@
     "components_pending": 274,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1946,
-    "edges_proven": 1877,
+    "edges": 1949,
+    "edges_proven": 1880,
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4257,
-    "files_covered": 1967,
-    "files_code_unclaimed": 1,
+    "files_covered": 1968,
+    "files_code_unclaimed": 0,
     "roles_proven": 209,
     "roles_declared_only": 11,
     "roles_unknown": 95,
