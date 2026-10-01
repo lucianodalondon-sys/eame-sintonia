@@ -446,6 +446,29 @@ def _lugar(leitura: dict, texto: str, inicio: int, fim: int, secao: dict) -> dic
                   "metades de linhas diferentes, nao o nome de um lugar"
                   % re.sub(r"\s+", " ", onde["TRECHO"])[:80])
         onde = None
+    # ── (e) UM TOPONIMO ITALIANO ESCREVE-SE COM MAIUSCULA. «marche» E MARCAS ──
+    # Medido pelo LAB em derived:1523: «la scelta di marche premium» e «mix di prodotti e
+    # marche» deram FACT_LOCATION = Marche, a regiao. O gazetteer casa sem olhar a caixa,
+    # porque procura sobre o texto em minusculas — e «marche», «como», «prato», «cuneo»,
+    # «massa», «lodi», «potenza» e «latina» sao todas palavras comuns do italiano.
+    #
+    #     UM LUGAR QUE O TEXTO ESCREVE EM MINUSCULA NAO E UM LUGAR:
+    #     E UMA PALAVRA COMUM QUE POR AZAR TEM O NOME DE UM.
+    #
+    # A regra e GERAL e nao precisa de lista de nomes ambiguos: em italiano corrente o
+    # toponimo leva maiuscula inicial, sempre. Falha pelo lado seguro — um documento escrito
+    # todo em minusculas perde o lugar, e perder e melhor do que inventar.
+    # ⚠️ LIMITE: so se aplica quando a forma ESCRITA foi encontrada (`onde`). Quando o leitor
+    # normaliza («barese» -> Bari) nao ha forma escrita para olhar, e esses casos continuam
+    # como estavam — esta declarado em PORQUE_SEM_OFFSET.
+    if onde and valor != UNRESOLVED:
+        letras = [c for c in onde["TRECHO"] if c.isalpha()]
+        if letras and letras[0].islower():
+            valor = UNRESOLVED
+            porque = ("o texto escreve «%s» em minuscula: em italiano um toponimo leva "
+                      "maiuscula, logo isto e uma palavra comum com o nome de um lugar "
+                      "(«marche» = marcas), nao o lugar" % onde["TRECHO"][:40])
+            onde = None
     # ── BLK-1 · dois lugares no trecho: de qual deles e o facto? ──────────────
     # A mesma razao do tempo: o produtor nao tem analisador de sintaxe e nao sabe qual lugar
     # prende qual facto. Havendo mais de um, nao escolhe. Foi exactamente aqui que a «Italia»
@@ -463,11 +486,22 @@ def _lugar(leitura: dict, texto: str, inicio: int, fim: int, secao: dict) -> dic
     # a ele, se for o caso: isto so pode SUBIR a contagem, nunca descer, logo nao afrouxa a
     # guarda dos concorrentes. A forma escrita dele fica em EXPRESSOES_DE_LUGAR como o leitor
     # a leu, para que a diferenca «Ferrara» x «ferrarese» seja visivel em vez de escondida.
-    if valor != UNRESOLVED and not any(x["PLACE"] == valor for x in escritos):
-        escritos = escritos + [{"INICIO": None, "FIM": None, "PLACE": valor,
-                                "TRECHO": bruto if bruto else valor,
+    #
+    # ⚠️ (a) · UM VALOR COMPOSTO NAO E UM LUGAR A MAIS. Medido pelo LAB em derived:1529: o
+    # leitor devolve «Puglia ; Bari» para «Rutigliano, in Puglia, provincia di Bari», e a
+    # versao anterior nao achava essa string entre os lugares escritos — logo somava-a como um
+    # TERCEIRO lugar e a contagem ia a 3 onde o texto escreve 2. Uma contagem inflada recusa um
+    # lugar que o texto diz, e recusar o que esta escrito e tao errado como inventar.
+    partes = [p.strip() for p in re.split(r"\s*[;,]\s*", str(valor)) if p.strip()] \
+        if valor != UNRESOLVED else []
+    ja_contados = {x["PLACE"] for x in escritos}
+    faltam = [p for p in partes if p not in ja_contados]
+    if valor != UNRESOLVED and faltam:
+        escritos = escritos + [{"INICIO": None, "FIM": None, "PLACE": p,
+                                "TRECHO": p,
                                 "DE_ONDE": "emitido pelo leitor do lugar; a forma escrita nao "
-                                           "e o nome do gazetteer (ex.: «ferrarese» -> Ferrara)"}]
+                                           "e o nome do gazetteer (ex.: «ferrarese» -> Ferrara)"}
+                               for p in faltam]
     motivo = None
     if valor != UNRESOLVED and len(escritos) > 1:
         motivo = LUGARES_CONCORRENTES
@@ -883,6 +917,10 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                                    "ANO": tempo.get("ANO") or (NAO_SEI if str(tempo["PRECISAO"]).endswith("SEM_ANO") else None),
                                    "PORQUE": tempo["PORQUE"],
                                    "COMPOSICAO": tempo.get("COMPOSICAO"),
+                                   # (d) os periodos que competem e que a casa NAO resolve: eles
+                                   # contam para a concorrencia e nunca produzem valor, e por
+                                   # isso viajam a vista em vez de so dentro do PORQUE
+                                   "PERIODOS_SEM_VALOR": tempo.get("PERIODOS_SEM_VALOR") or [],
                                    "LEITOR": tempo["LEITOR"],
                                    "PUBLICACAO_PROVADA": tempo["PUBLICACAO_PROVADA"]},
                 "VALIDITY": _periodo_por_papel(tempo, TA.VALIDADE),

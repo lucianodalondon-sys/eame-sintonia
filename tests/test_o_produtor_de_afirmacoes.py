@@ -2101,5 +2101,226 @@ class OMenuQueEngoliaAFraseSeguinte(unittest.TestCase):
         self.assertEqual(_produzir(duas), [])
 
 
+class OToponimoItalianoLevaMaiuscula(unittest.TestCase):
+    """(e) · «marche» são marcas; «Marche» é a região. Medido pelo LAB em `derived:1523`.
+
+    O gazetteer casa sobre o texto em minúsculas, logo perdia a caixa — e `marche`, `como`,
+    `prato`, `cuneo`, `massa`, `lodi`, `potenza` e `latina` são **todas palavras comuns do
+    italiano**.
+
+        UM LUGAR QUE O TEXTO ESCREVE EM MINÚSCULA NÃO É UM LUGAR:
+        É UMA PALAVRA COMUM QUE POR AZAR TEM O NOME DE UM.
+
+    ⚠️ A regra é **geral e não precisa de lista de nomes ambíguos**: em italiano corrente o
+    topónimo leva maiúscula inicial, sempre. Uma lista de nomes seria a exceção que a D158
+    proíbe — e ficaria para trás no dia em que a próxima palavra ambígua aparecesse."""
+
+    def test_marche_em_minuscula_NAO_e_lugar(self):
+        for frase in ('A sostenere il fatturato e la scelta di marche premium e prodotti.',
+                      'Il mix di prodotti e marche cambia ogni anno nel carrello.'):
+            for af in _produzir(frase):
+                self.assertEqual(af['FACT_LOCATION']['VALOR'], NAO_SEI, frase[:44])
+
+    def test_Marche_com_maiuscula_CONTINUA_a_ser_a_regiao(self):
+        """O conserto não pode ser feito desligando o gazetteer."""
+        af = _produzir('Nelle Marche la produzione di uva da tavola cresce ogni anno di piu.')[0]
+        self.assertEqual(af['FACT_LOCATION']['VALOR'], 'Marche')
+
+    def test_a_regra_vale_para_QUALQUER_nome_nao_so_para_marche(self):
+        """Controle FORA do item do LAB: a regra é da caixa, não de «marche».
+
+        `como`, `prato`, `massa` e `lodi` são palavras comuns **e** nomes de província. Se a
+        regra fosse uma exceção para «marche», estas passariam."""
+        # ⚠️ Medido: «Como» e «Massa» NAO estao no gazetteer desta casa (`FL.mencoes` devolve
+        # vazio para os dois, mesmo com maiuscula). Nao sao efeito da minha regra, e por isso
+        # nao entram no lado positivo — usa-se quem o gazetteer TEM.
+        for comum, lugar in (('prato', 'Prato'), ('lodi', 'Lodi'), ('cuneo', 'Cuneo')):
+            minuscula = 'Il terreno agricolo e tutto %s in questa zona di produzione.' % comum
+            for af in _produzir(minuscula):
+                self.assertEqual(af['FACT_LOCATION']['VALOR'], NAO_SEI,
+                                 '%s em minuscula virou lugar' % comum)
+            maiuscula = 'A %s la produzione di uva da tavola cresce ogni anno di piu.' % lugar
+            achou = [a['FACT_LOCATION']['VALOR'] for a in _produzir(maiuscula)]
+            self.assertIn(lugar, achou, '%s com maiuscula tem de continuar lugar' % lugar)
+
+    def test_LIMITE_MEDIDO_dois_nomes_nao_estao_no_gazetteer(self):
+        """⚠️ Medido, e declarado para não ser confundido com o meu conserto: «Como» e «Massa»
+        **não estão** no gazetteer desta casa — `FL.mencoes` devolve vazio para os dois mesmo
+        escritos com maiúscula. Perder esses lugares é anterior à regra da caixa."""
+        import fato_local as FL
+        for nome in ('Como', 'Massa'):
+            self.assertEqual(FL.mencoes('A %s la produzione cresce.' % nome), [], nome)
+
+    def test_o_porque_diz_que_foi_a_minuscula(self):
+        af = _produzir('A sostenere il fatturato e la scelta di marche premium e prodotti.')[0]
+        self.assertIn('minuscula', af['FACT_LOCATION']['PORQUE'])
+
+    def test_LIMITE_a_forma_normalizada_nao_tem_caixa_para_olhar(self):
+        """⚠️ LIMITE DECLARADO: quando o leitor normaliza («barese» → Bari) não há forma escrita
+        para medir a caixa, e esses casos continuam como estavam. Está dito em
+        `PORQUE_SEM_OFFSET`, e não o escondo atrás do conserto."""
+        af = _que_diz(_produzir('Nel barese la produzione di uva da tavola cresce ogni anno.'),
+                      'Nel barese')
+        self.assertIsNotNone(af)
+        lg = af['FACT_LOCATION']
+        if lg['VALOR'] != NAO_SEI:
+            self.assertIsNone(lg['ONDE'])
+            self.assertIsNotNone(lg['PORQUE_SEM_OFFSET'])
+
+
+class OValorCompostoNaoEUmLugarAMais(unittest.TestCase):
+    """(a) · medido pelo LAB em `derived:1529`: «Rutigliano, in Puglia, provincia di Bari».
+
+    O leitor devolve o valor **composto** «Puglia ; Bari». A versão anterior não achava essa
+    string entre os lugares escritos e somava-a como um **terceiro** lugar: a contagem ia a 3
+    onde o texto escreve 2.
+
+        UMA CONTAGEM INFLADA RECUSA UM LUGAR QUE O TEXTO DIZ,
+        E RECUSAR O QUE ESTÁ ESCRITO É TÃO ERRADO COMO INVENTAR.
+    """
+
+    FRASE = ('Rutigliano, in Puglia, provincia di Bari, conta ben 700 aziende agricole '
+             'specializzate nella produzione.')
+
+    def test_a_contagem_e_dois_e_nao_tres(self):
+        af = _produzir(self.FRASE)[0]
+        self.assertEqual(af['FACT_LOCATION']['LUGARES_NO_TRECHO'], 2)
+        self.assertEqual(sorted(af['FACT_LOCATION']['EXPRESSOES_DE_LUGAR']), ['Bari', 'Puglia'])
+
+    def test_o_valor_composto_nao_aparece_como_expressao(self):
+        af = _produzir(self.FRASE)[0]
+        for e in af['FACT_LOCATION']['EXPRESSOES_DE_LUGAR']:
+            self.assertNotIn(';', str(e), 'um valor composto entrou como se fosse um lugar')
+
+    def test_um_lugar_unico_continua_a_contar_UM(self):
+        af = _produzir('In Puglia la produzione di uva da tavola cresce ogni anno di piu.')[0]
+        self.assertEqual(af['FACT_LOCATION']['LUGARES_NO_TRECHO'], 1)
+        self.assertEqual(af['FACT_LOCATION']['VALOR'], 'Puglia')
+
+    def test_ABERTO_a_hierarquia_continua_a_contar_como_concorrencia(self):
+        """⚠️ O QUE EU **NÃO** CONSERTEI, E PORQUÊ — está medido aqui em vez de escondido.
+
+        «in Puglia, provincia di Bari» é **um lugar dito em hierarquia**: Bari está dentro da
+        Puglia. Pela §5-C eles contam como 2 concorrentes e o lugar sai `NAO SEI` — o que faz
+        perder um lugar que o texto diz.
+
+        Para distinguir hierarquia de concorrência eu precisaria de saber que **Bari ∈ Puglia**,
+        e essa informação **não existe nesta casa**: `FL.PROVINCIAS` é uma tupla de 85 nomes sem
+        mapa de contenção (medido). Sem ela, uma regra «o mais preciso ganha» também colapsaria
+        «Europa … Italia … Emilia Romagna» — que é exactamente o bloqueador BLK-1, onde os
+        lugares pertencem a **factos diferentes**.
+
+            ADIVINHAR A HIERARQUIA AQUI REABRE O BLOQUEADOR QUE ESTA GUARDA EXISTE PARA FECHAR.
+
+        Fica como decisão do dono, com o custo nomeado. Este teste fixa o comportamento de hoje
+        para que a mudança, quando vier, seja **deliberada**."""
+        af = _produzir(self.FRASE)[0]
+        self.assertEqual(af['FACT_LOCATION']['VALOR'], NAO_SEI)
+        self.assertEqual(af['FACT_LOCATION']['MOTIVO'], AD.LUGARES_CONCORRENTES)
+        import fato_local as FL
+        self.assertIsInstance(FL.PROVINCIAS, tuple)
+        self.assertFalse(hasattr(FL, 'REGIAO_DA_PROVINCIA'),
+                         'se nasceu o mapa de contencao, a decisao da hierarquia pode ser tomada')
+
+
+class OPeriodoQueACasaNaoResolveAindaCompete(unittest.TestCase):
+    """(d) · medido pelo LAB em `derived:1529`:
+
+        «L'anno scorso … a vendere a 1,30/1,40 euro : valori che non si sono ripresentati
+         in QUESTA CAMPAGNA, dove si è scesi intorno all'euro»
+
+    O produtor deu `FACT_TIME = 2025` à frase inteira. Mas o preço de ~1 € é **desta** campanha.
+    Dois tempos na mesma frase, e o valor que saiu é do outro.
+
+        UM TEMPO QUE A CASA NÃO SABE RESOLVER AINDA É UM TEMPO QUE COMPETE.
+        NÃO CONTÁ-LO É ESCOLHER O OUTRO SEM O DIZER.
+
+    ⚠️ A assimetria é a mesma das áreas supranacionais, e é ela que torna isto seguro: a lista
+    **só sabe contar**. Nunca resolve um valor, nunca preenche um `FACT_TIME`. Resolver «questa
+    campagna» em datas exige calendário agrícola e é decisão do dono do leitor vivo."""
+
+    MISTURADA = ("L'anno scorso alcuni produttori sono riusciti a vendere a 1,30 euro: valori "
+                 "che non si sono ripresentati in questa campagna, dove si e scesi all'euro.")
+
+    def test_os_dois_tempos_dao_NAO_SEI(self):
+        af = _produzir(self.MISTURADA)[0]
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+        self.assertEqual(af['FACT_TIME']['MOTIVO'], TA.TEMPOS_CONCORRENTES)
+        self.assertNotEqual(af['FACT_TIME']['VALOR'], '2025-01-01/2025-12-31')
+
+    def test_o_periodo_sem_valor_viaja_declarado(self):
+        af = _produzir(self.MISTURADA)[0]
+        self.assertIn('questa campagna',
+                      [str(x).lower() for x in af['FACT_TIME_ROLE']['PERIODOS_SEM_VALOR']])
+        self.assertGreaterEqual(af['TEMPOS_NO_TRECHO'], 1)
+
+    def test_a_lista_SO_conta_e_NUNCA_produz_valor(self):
+        """A garantia que torna a lista segura: nenhum destes termos pode virar um `FACT_TIME`."""
+        for termo in ('questa campagna', 'questa stagione', "quest'anno",
+                      'la campagna in corso'):
+            frase = 'La raccolta di uva da tavola in %s e stata buona in Puglia.' % termo
+            for af in _produzir(frase):
+                self.assertIn(af['FACT_TIME']['VALOR'], (NAO_SEI, TA.NAO_EXISTE), termo)
+                self.assertNotIn('202', str(af['FACT_TIME']['VALOR']),
+                                 'a lista produziu um ano, e ela so pode CONTAR')
+
+    def test_uma_relativa_SOZINHA_continua_a_resolver(self):
+        """O conserto não pode engolir o caminho que funciona: sem competidor, a relativa
+        resolve-se como sempre (D63, a partir da publicação provada)."""
+        af = _produzir('La grandinata osservata l anno scorso ha colpito i frutteti di Cuneo.',
+                       published_at='2026-09-30')[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.RELATIVO_D63)
+        self.assertEqual(af['FACT_TIME']['VALOR'], '2025-01-01/2025-12-31')
+        self.assertEqual(af['FACT_TIME_ROLE']['PERIODOS_SEM_VALOR'], [])
+
+    def test_controle_FORA_do_item_do_LAB(self):
+        """A regra é geral: outra fonte, outra cultura, outro lugar, mesma mistura de tempos."""
+        af = _produzir('Le olive raccolte lo scorso anno rendevano meglio che in questa '
+                       'stagione nei frutteti di Verona.')[0]
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+        self.assertEqual(af['FACT_TIME']['MOTIVO'], TA.TEMPOS_CONCORRENTES)
+
+
+class OGazetteerSemComuniEUmaFaltaDeDADOS(unittest.TestCase):
+    """(b) · `MUNICIPALITIES = 0`, e **não é código que falta: é o ficheiro**.
+
+    O leitor dos comuni **já existe** (`fato_local.comuni()`, que lê o CSV do ISTAT com
+    `latin-1` e `;`, e devolve nome, sigla, província e região — ou seja, já traz a
+    desambiguação). O que falta é o ficheiro:
+
+        leis/dados/Elenco-comuni-italiani.csv   ->   NÃO EXISTE no disco
+
+    Procurei no disco inteiro: os únicos CSV do ISTAT presentes são de **colheitas**
+    (`istat_101_1015_coltivazioni_*`), não a lista de comuni.
+
+        ESCREVER À MÃO OS COMUNI QUE UM ITEM PRECISA SERIA A EXCEÇÃO QUE A D158 PROÍBE,
+        E UMA LISTA PARCIAL MENTE MAIS DO QUE UMA LISTA VAZIA.
+
+    Este teste é um **arame de tropeço**: ele reprova no dia em que o ficheiro aparecer, e aí o
+    conserto é só medir a desambiguação e tirar isto."""
+
+    def test_o_leitor_de_comuni_EXISTE_e_esta_ligado(self):
+        import fato_local as FL
+        self.assertTrue(callable(FL.comuni))
+        self.assertTrue(str(FL.COMUNI_ISTAT).endswith('.csv'))
+
+    def test_ARAME_o_ficheiro_do_ISTAT_ainda_NAO_esta_no_disco(self):
+        import fato_local as FL
+        self.assertFalse(os.path.isfile(FL.COMUNI_ISTAT),
+                         'o CSV do ISTAT apareceu: ligue os comuni, meca a desambiguacao e '
+                         'retire este teste')
+
+    def test_a_cobertura_DIZ_que_nao_tem_comuni(self):
+        """O limite viaja com o lugar em vez de ser uma surpresa para quem consome."""
+        c = AD.cobertura_do_gazetteer()
+        self.assertEqual(c['MUNICIPALITIES'], 0)
+        self.assertIn('ISTAT', c['MUNICIPALITIES_SOURCE'])
+
+    def test_nenhum_comune_e_inventado_entretanto(self):
+        """Enquanto o ficheiro não vier, um comune no texto fica `NAO SEI` — não meio-lugar."""
+        for af in _produzir('A Rutigliano la produzione di uva da tavola cresce ogni anno.'):
+            self.assertEqual(af['FACT_LOCATION']['VALOR'], NAO_SEI)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

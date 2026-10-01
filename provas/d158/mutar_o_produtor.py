@@ -196,6 +196,26 @@ MUTANTES = [
      'r"deroga|stabilito\\s+dal|"', 'r"deroga|zzzstabilito\\s+dal|"'),
     ("RT3_A_MARCA_DE_ATO_SEM_SOSTITUITO", "leis/tempo_da_afirmacao.py",
      r'(?:e|è)\s+stat[oa]\s+sostituit)', r'zzzsostituit)'),
+    # ── LACUNAS (PROVA-LIVE-IR, LAB 30/09) · (a) composto, (d) periodo sem valor, (e) caixa ──
+    ("LAC_E_A_MINUSCULA_VOLTA_A_SER_LUGAR", "leis/afirmacao_do_documento.py",
+     '        if letras and letras[0].islower():', '        if False:'),
+    ("LAC_E_A_REGRA_DA_CAIXA_RECUSA_TAMBEM_A_MAIUSCULA", "leis/afirmacao_do_documento.py",
+     '        if letras and letras[0].islower():', '        if letras:'),
+    ("LAC_A_O_VALOR_COMPOSTO_VOLTA_A_CONTAR_COMO_UM_LUGAR", "leis/afirmacao_do_documento.py",
+     '    partes = [p.strip() for p in re.split(r"\\s*[;,]\\s*", str(valor)) if p.strip()] \\\n'
+     '        if valor != UNRESOLVED else []',
+     '    partes = [str(valor)] if valor != UNRESOLVED else []'),
+    ("LAC_D_O_PERIODO_SEM_VALOR_DEIXA_DE_COMPETIR", "leis/tempo_da_afirmacao.py",
+     '        if papel in PAPEL_QUE_E_FACTO and sem_valor:', '        if False:'),
+    ("LAC_D_O_PERIODO_SEM_VALOR_NAO_CONTA_NA_CONTAGEM", "leis/tempo_da_afirmacao.py",
+     '            "TEMPOS_NO_TRECHO": len(escritos) + len(sem_valor),',
+     '            "TEMPOS_NO_TRECHO": len(escritos),'),
+    ("LAC_D_O_PERIODO_SEM_VALOR_PASSA_A_PRODUZIR_VALOR", "leis/tempo_da_afirmacao.py",
+     '    return len(expressoes_de_tempo(span)) + len(tempos_que_competem_sem_valor(span))',
+     '    return len(expressoes_de_tempo(span))'),
+    ("LAC_D_O_TEXTO_COM_PERIODO_SEM_VALOR_DIZ_QUE_NAO_HA_TEMPO", "leis/tempo_da_afirmacao.py",
+     '    if _RE_PERIODO_QUE_COMPETE.search(baixo):\n        return True',
+     '    if False:\n        return True'),
     # ── F1 (REAUDIT-275) · as duas formas impressas na prosa, e o menu que as escondia ──
     ("F1_A_SEMANA_ISO_DEIXA_DE_SER_LIDA", "leis/tempo_da_afirmacao.py",
      '    for m in _RE_SEMANA_ISO.finditer(span):', '    for m in []:'),
@@ -353,9 +373,12 @@ MUTANTES = [
      '    return bool(re.search(r"\\d", s))'),
     ("PROD3_FALTA_O_ANO_DIZ_SIM_A_QUALQUER_TEXTO", "leis/tempo_da_afirmacao.py",
      '    if escreve_o_ano(s):\n        return False', '    if False:\n        return False'),
+    # ⚠️ Reapontado: o conserto (a) trocou a condicao «o valor nao esta entre os escritos» por
+    # «que PARTES do valor faltam», porque um valor composto («Puglia ; Bari») era somado como um
+    # lugar a mais. O pre-teste apanhou o alvo morto. A garantia e a MESMA — o lugar emitido tem
+    # de contar — e o mutante segue-a.
     ("PROD3_A_CONTAGEM_IGNORA_O_LUGAR_EMITIDO", "leis/afirmacao_do_documento.py",
-     '    if valor != UNRESOLVED and not any(x["PLACE"] == valor for x in escritos):',
-     '    if False:'),
+     '    if valor != UNRESOLVED and faltam:', '    if False:'),
     ("PROD3_A_CONTAGEM_IGNORA_O_TEMPO_EMITIDO", "leis/tempo_da_afirmacao.py",
      "        if origem == LITERAL and not escritos:", "        if False:"),
     # E os dois limites, um mutante cada:

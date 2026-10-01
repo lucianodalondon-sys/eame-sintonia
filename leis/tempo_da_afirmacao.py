@@ -639,9 +639,54 @@ def expressoes_de_tempo(span: str) -> list:
     return fora
 
 
+# ── (d) O TEMPO QUE CONCORRE E QUE A CASA NAO RESOLVE ────────────────────────
+# Medido pelo LAB em derived:1529:
+#
+#   «L'anno scorso ... alcuni produttori sono riusciti a vendere a 1,30/1,40 euro : valori
+#    che non si sono ripresentati in questa campagna, dove si e scesi intorno all'euro»
+#
+# O produtor deu FACT_TIME = 2025 a frase INTEIRA. Mas o preco de ~1 euro e DESTA campanha
+# (2026): a frase tem DOIS tempos, e o valor que saiu e do outro. O §5-C manda NAO SEI.
+#
+# Porque o contador nao via: ele conta FORMAS DE DATA ESCRITAS, e aqui nao ha data nenhuma —
+# ha «l'anno scorso» (que o vivo resolve) e «questa campagna» (que ninguem resolve).
+#
+#     UM TEMPO QUE A CASA NAO SABE RESOLVER AINDA E UM TEMPO QUE COMPETE.
+#     NAO CONTA-LO E ESCOLHER O OUTRO SEM O DIZER.
+#
+# ⚠️ A ASSIMETRIA E A MESMA DAS AREAS SUPRANACIONAIS, e e ela que torna isto seguro: esta
+# lista SO SABE CONTAR. Ela nunca resolve um valor, nunca preenche um FACT_TIME, nunca entra
+# na PRECISAO. Um termo a mais aqui custa uma afirmacao mais pobre; um termo a menos custaria
+# um facto com a data do facto errado — que e o defeito que o LAB mediu.
+# E NAO e vocabulario de resolucao: quem resolve «questa campagna» em datas e decisao do dono
+# do leitor vivo, com calendario agricola. Aqui so se admite que ele existe.
+_PERIODOS_QUE_COMPETEM = (
+    r"quest['’]?\s*anno", r"questa\s+campagna", r"questa\s+stagione", r"questa\s+annata",
+    r"la\s+campagna\s+in\s+corso", r"la\s+stagione\s+in\s+corso", r"l['’]annata\s+in\s+corso",
+    r"campagna\s+appena\s+conclusa", r"stagione\s+appena\s+conclusa",
+)
+_RE_PERIODO_QUE_COMPETE = re.compile(
+    r"(?<![a-zà-ÿ])(?:%s)(?![a-zà-ÿ])" % "|".join(_PERIODOS_QUE_COMPETEM), re.I)
+
+
+def tempos_que_competem_sem_valor(span: str) -> list:
+    """As expressoes de tempo que COMPETEM e que a casa nao resolve. So contam (§5-C)."""
+    baixo = FL._baixo(str(span or ""))
+    vistos, fora = set(), []
+    for m in _RE_PERIODO_QUE_COMPETE.finditer(baixo):
+        chave = re.sub(r"\s+", " ", m.group(0)).strip()
+        if chave in vistos:
+            continue
+        vistos.add(chave)
+        fora.append({"INICIO": m.start(), "FIM": m.end(), "TRECHO": m.group(0),
+                     "DE_ONDE": "expressao de periodo que a casa nao resolve; conta como "
+                                "concorrente e NUNCA produz valor"})
+    return fora
+
+
 def tempos_no_trecho(span: str) -> int:
     """QUANTOS tempos distintos o trecho escreve. Viaja em cada afirmacao (contrato §5-C)."""
-    return len(expressoes_de_tempo(span))
+    return len(expressoes_de_tempo(span)) + len(tempos_que_competem_sem_valor(span))
 
 
 def _escreve_este_dia(escritos: list, valor) -> str | None:
@@ -697,6 +742,11 @@ def _ha_tempo_escrito(texto: str) -> bool:
     if re.search(r"\b(?:19|20)\d{2}\b", baixo) or re.search(r"\b\d{1,2}[-/.]\d{1,2}[-/.]\d{2,4}\b", baixo):
         return True
     if re.search(r"(?<![a-z])(?:%s)(?![a-z])" % "|".join(FL.MESES), baixo):
+        return True
+    # (d) «questa campagna» E tempo escrito: a casa nao o resolve, mas ele esta ali. Sem isto a
+    # saida era NAO_EXISTE («o texto nao escreve tempo nenhum»), que e falso — e a diferenca
+    # importa para quem consome: NAO SEI diz «ha tempo e nao sei qual», NAO_EXISTE diz «nao ha».
+    if _RE_PERIODO_QUE_COMPETE.search(baixo):
         return True
     return bool(FT._RE_RELATIVOS.search(baixo))
 
@@ -823,10 +873,13 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
     # nao pode ser vencido por quem le menos.
     impressos_no_trecho = periodos_impressos_no_trecho(texto, ini, fim)
     escritos = expressoes_de_tempo(span)
+    #: (d) os periodos que competem e que a casa nao resolve — contam, nunca valem
+    sem_valor = tempos_que_competem_sem_valor(span)
     base = {"LEITOR": LEITOR_VIVO, "PUBLICACAO_PROVADA": pub.isoformat() if pub else None,
             "CAPTURA": captura.isoformat() if captura else None,
-            "TEMPOS_NO_TRECHO": len(escritos),
-            "EXPRESSOES_DE_TEMPO": [x["TRECHO"] for x in escritos],
+            "TEMPOS_NO_TRECHO": len(escritos) + len(sem_valor),
+            "EXPRESSOES_DE_TEMPO": [x["TRECHO"] for x in escritos + sem_valor],
+            "PERIODOS_SEM_VALOR": [x["TRECHO"] for x in sem_valor],
             "LEI": "D63 · D147 · D149 · D153 · §5-C (tempos concorrentes); "
                    "so ACONTECIMENTO e tempo do facto"}
 
@@ -942,6 +995,24 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
         # So morde o ACONTECIMENTO, que e o unico papel que vira FACT_TIME: uma janela de
         # VALIDADE («dal … fino al …») tem duas pontas de proposito, e o intervalo ja conta
         # como UMA em `expressoes_de_tempo`.
+        # ── (d) · UM PERIODO QUE A CASA NAO RESOLVE AINDA COMPETE ─────────────
+        # Medido pelo LAB: «L'anno scorso … a vendere a 1,30/1,40 euro : valori che non si sono
+        # ripresentati in QUESTA CAMPAGNA, dove si e scesi intorno all'euro». O vivo resolveu
+        # «l'anno scorso» -> 2025 e a frase levou FACT_TIME 2025 — mas o preco de ~1 euro e
+        # DESTA campanha. Dois tempos na mesma frase, e o valor que saiu e do outro.
+        # Isto e uma guarda SEPARADA da contagem > 1 de proposito: ali os dois tempos sao
+        # ambos resolviveis; aqui um deles nao tem valor nenhum, e por isso nunca apareceria
+        # na outra conta. Sao dois defeitos diferentes e levam dois mutantes.
+        if papel in PAPEL_QUE_E_FACTO and sem_valor:
+            return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=basis,
+                        PRECISAO="NOT_KNOWN", MOTIVO=TEMPOS_CONCORRENTES,
+                        PORQUE="§5-C: o trecho escreve tambem %s, que e outro periodo e que a "
+                               "casa nao resolve; o vivo leu «%s» de outra parte da frase, e "
+                               "nao se prova qual dos dois e o do facto"
+                               % (", ".join("«%s»" % x["TRECHO"] for x in sem_valor),
+                                  c["fact_time"]),
+                        CONCORRENTES=[x["TRECHO"] for x in escritos + sem_valor],
+                        LIDO_PELO_VIVO=c["fact_time"])
         if papel in PAPEL_QUE_E_FACTO and len(escritos) > 1:
             return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=basis,
                         PRECISAO="NOT_KNOWN", MOTIVO=TEMPOS_CONCORRENTES,
