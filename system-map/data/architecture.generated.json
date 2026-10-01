@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "coord/feeder-4-linhas",
-    "HEAD": "5a23177241ede7a94245696d7bbf2bfb9df8570a",
-    "GENERATED_AT": "2026-10-01T03:58:47-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3ab21e87c18eec7c653ec0114eab4ba13fd52d7ddc7808d49c4474fcdb4470f1"
+    "HEAD": "77257609e9f78f9cd43fc8f0edfc51f91e382e08",
+    "GENERATED_AT": "2026-10-01T04:47:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9dcb05cc6556c8d69474e6ec9e32c95db8ebe596bd2ff6f51fa1d376b83b31a0"
   },
   "FILES": [
     {
@@ -2677,7 +2677,7 @@
     },
     {
       "path": "coleta/pesquisadores_t6.py",
-      "sha": "f4daae0cec655e44f70c9abef7463a829bfc42c0",
+      "sha": "418a10f96afd196a72fb10c3ac53a26506a7bd11",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6884,7 +6884,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "475de8e6c1b09dcf983abc1c573df28d4ab9856c",
+      "sha": "f2ccbe9b93091b63a6077457420040885eccafdb",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7283,14 +7283,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "979839de1f3be4f9dae26a236b6454f365f4856f",
+      "sha": "a808630e1445a3d62b45c079c7a13c8a4c451c24",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "659bccd3d1b09ec61dbb77b30621022d9cad7285",
+      "sha": "aa6ced3a8f8bd3c294ce444a1c4a1292b52372ce",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -13387,7 +13387,7 @@
     },
     {
       "path": "ferramentas/big_collection/sonda_ligacao_linha.py",
-      "sha": "9c303a184b1673a8618894aebfcdf957e3b3a772",
+      "sha": "26dd68cd17208c9fe33994c463c79d42805a7993",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19814,6 +19814,13 @@
     {
       "path": "provas/C2-JUIZ-MUTACAO.json",
       "sha": "4ce32a0c591c9877f348bc72d3169700bc594917",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/CIENCIA-RESERVA-MUTACAO.json",
+      "sha": "eb204ac2c150282ff5f2c69bbe89cf72f9916f41",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28149,6 +28156,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_ciencia_reserva.py",
+      "sha": "8b11d5217fd5d2f840a181f1f0760fca81a1186b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_cliente_postgres.py",
       "sha": "85e7786df575725994136fdae609ededf5e075e0",
       "ext": ".py",
@@ -28164,7 +28178,7 @@
     },
     {
       "path": "tests/test_coleta_continua.py",
-      "sha": "d3a869725f503c2d77e14753c75655bbb02bb434",
+      "sha": "a367b04d692e643f68c520e93ba48a65b082f75a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -34717,7 +34731,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/pesquisadores_t6.py",
-        "line": 755,
+        "line": 761,
         "snippet": "import reserva_24h as R24                                     # noqa: PLC0415 — o contador multicanal (D90)"
       }
     },
@@ -46575,7 +46589,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
-        "line": 131,
+        "line": 165,
         "snippet": "import cortesia_adaptativa as CA                              # noqa: PLC0415"
       }
     },
@@ -46586,7 +46600,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
-        "line": 55,
+        "line": 60,
         "snippet": "import linha_busca as LB                                          # noqa: PLC0415"
       }
     },
@@ -46597,7 +46611,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/sonda_ligacao_linha.py",
-        "line": 60,
+        "line": 83,
         "snippet": "import pesquisadores_t6 as T6                                     # noqa: PLC0415"
       }
     },
@@ -98533,6 +98547,39 @@
       }
     },
     {
+      "from_file": "tests/test_ciencia_reserva.py",
+      "to_file": "coleta/cortesia_adaptativa.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ciencia_reserva.py",
+        "line": 32,
+        "snippet": "import cortesia_adaptativa as CA  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_ciencia_reserva.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ciencia_reserva.py",
+        "line": 33,
+        "snippet": "import pesquisadores_t6 as T6  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_ciencia_reserva.py",
+      "to_file": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ciencia_reserva.py",
+        "line": 150,
+        "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"ferramentas\" / \"big_collection\" / \"sonda_ligacao_linha.py\"),"
+      }
+    },
+    {
       "from_file": "tests/test_cliente_postgres.py",
       "to_file": ".github/workflows/sintonia-scrap.yml",
       "type": "READS",
@@ -98726,7 +98773,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 1098,
+        "line": 1102,
         "snippet": "consultas = json.loads((RAIZ / \"data/derivados/LINHA-BUSCA/CONSULTAS.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -98737,7 +98784,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 1114,
+        "line": 1118,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"ferramentas\" / \"big_collection\" / \"coleta_continua.py\"),"
       }
     },
@@ -98748,7 +98795,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 1134,
+        "line": 1138,
         "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\""
       }
     },
@@ -114306,10 +114353,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4261,
-    "files_readable": 1790,
-    "files_code_dir": 2232,
-    "file_edges": 7619,
+    "files_tracked": 4263,
+    "files_readable": 1791,
+    "files_code_dir": 2234,
+    "file_edges": 7622,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
