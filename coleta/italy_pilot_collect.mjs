@@ -79,6 +79,12 @@ import { pastaDoDocumento } from "./nome_da_pasta.mjs";
 const ADAPTERS = Object.freeze({});
 
 const run = promisify(execFile);
+// T10-TLS-RETRY (01/10): o TRANSPORTE FALSO dos testes troca SO quem executa o curl. No Windows o execFile
+// nao corre um curl de imitacao (`provas/teto_adaptativo/transporte_rebase_local.mjs`, R5), e uma falha de
+// TLS (curl 35) nao se fabrica contra 127.0.0.1 sem certificado. Licenca, reserva, livro, pausa e
+// retentativa continuam a correr o codigo de producao. Sem troca, e o `run` de sempre.
+let executarCurl = run;
+export function trocarCurlParaTeste(fn) { const antes = executarCurl; executarCurl = fn || run; return antes; }
 // A cara do pedido tem UM dono (SCRAP-EVOLUCAO-V1, 26/09): regras/ROTA-NAVEGADOR.json, lida tambem pelos
 // leitores Python (coleta/rota_navegador.py -> canario, prova de territorio). Antes, o canario pedia com
 // Chrome/125 sem Safari e o coletor com Chrome/140: uma fonte podia abrir a um e fechar ao outro.
@@ -558,7 +564,7 @@ async function umaIda(url, host, tipo, crawlDelay, condicional = null) {
     try {
       let stdout;
       try {
-        ({ stdout } = await run("curl", ["-sS", "--max-time", "90", "-A", UA,
+        ({ stdout } = await executarCurl("curl", ["-sS", "--max-time", "90", "-A", UA,
           "-H", `Accept-Language: ${ROTA_NAVEGADOR.ACCEPT_LANGUAGE}`, ...extra, "-o", "-",
           "-w", "\\n__S__%{http_code}\\t%{content_type}\\t%{redirect_url}", url],
           { maxBuffer: 128e6, encoding: "buffer" }));
@@ -893,6 +899,14 @@ export async function baixarParaSonda(url, { runId = `SONDA-${process.pid}` } = 
   RUN_ATUAL = runId;
   return await baixar(url, 1);
 }
+// T10-TLS-RETRY: o `baixar()` com as tentativas da coleta (2, como em `executarRodada`), para o transporte
+// falso. `reiniciar: false` mantem a cortesia da chamada anterior (o recuo local de um dominio com sinal).
+export async function baixarParaTeste(url, { runId = `TESTE-${process.pid}`, tentativas = 2, reiniciar = true } = {}) {
+  if (reiniciar) reiniciarCortesia();
+  RUN_ATUAL = runId;
+  return await baixar(url, tentativas);
+}
+export const cortesiaParaTeste = () => ({ PEDIDOS_POR_HOST: Object.fromEntries(CORTESIA.porHost), PEDIDOS: { ...CORTESIA.pedidos } });
 
 // O corpo do feed guarda-se com um nome que o diz: `<materia>.body-from-feed.html`. Continua a acabar em
 // `.html` (e HTML), mas quem ler o armazem sem o livro ve que nao e a pagina.
