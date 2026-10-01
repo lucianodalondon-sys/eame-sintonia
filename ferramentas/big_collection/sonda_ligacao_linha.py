@@ -21,6 +21,11 @@ O que se mede (ZERO rede externa: proxy para uma porta morta):
   B  um pedido por um dominio que o livro diz PAUSADO (2 sinais em 24 h): ZERO reservas novas.
 
 LIGADA = A e B. Sai uma linha JSON (a ultima): {"LINHA": ..., "LIGADA": bool, "PORQUE": ..., "MEDIDO": {...}}.
+
+ADENDO-RESERVA (01/10): uma linha com VARIAS portas de rede mede-se porta a porta (PORTAS). A CIENCIA tem tres
+(`pesquisadores_t6.PORTAS_DE_REDE`: OpenAlex, Crossref, ORCID); a sonda so exercitava a do OpenAlex e dava LIGADA
+com o Crossref e o ORCID a sair sem reserva. Agora cada porta corre A e B contra o SEU livro temporario, e a
+linha so esta LIGADA se TODAS estiverem: MEDIDO = {"PORTAS": {porta: {...}}}.
 """
 from __future__ import annotations
 
@@ -56,11 +61,6 @@ def _motor_busca(url):
     return LB.transporte_real(RAIZ / "coleta")(url)
 
 
-def _motor_ciencia(url):
-    import pesquisadores_t6 as T6                                     # noqa: PLC0415
-    return T6._pedir(url)
-
-
 def _motor_social(url):
     import teto_da_onda as TO                                         # noqa: PLC0415
     host = url.split("//", 1)[-1].split("/", 1)[0]
@@ -75,8 +75,18 @@ def _motor_pesquisadores(url):
     return t.registo[-1] if t.registo else None
 
 
-MOTORES = {"BUSCA": _motor_busca, "CIENCIA": _motor_ciencia, "SOCIAL": _motor_social,
-           "PESQUISADORES": _motor_pesquisadores}
+MOTORES = {"BUSCA": _motor_busca, "SOCIAL": _motor_social, "PESQUISADORES": _motor_pesquisadores}
+
+
+def _portas_ciencia() -> dict:
+    """Cada porta de rede da CIENCIA como motor (url -> um pedido por essa porta ao host do url)."""
+    import pesquisadores_t6 as T6                                     # noqa: PLC0415
+    return {nome: (lambda url, p=p: p(url.split("//", 1)[-1].split("/", 1)[0]))
+            for nome, p in T6.PORTAS_DE_REDE.items()}
+
+
+#: linhas com mais de uma porta de rede: mede-se cada uma (ADENDO-RESERVA)
+PORTAS = {"CIENCIA": _portas_ciencia}
 
 
 def _reservas(livro: Path) -> list:
@@ -113,7 +123,7 @@ def main(argv=None) -> int:
             k, v = a[2:].split("=", 1)
             arg[k] = v
     linha = (arg.get("linha") or "").upper()
-    if linha not in MOTORES:
+    if linha not in MOTORES and linha not in PORTAS:
         print(json.dumps({"LINHA": linha, "LIGADA": False,
                           "PORQUE": "linha sem motor nesta sonda: %s" % (linha or "(vazia)")}, ensure_ascii=False))
         return 0
@@ -122,6 +132,30 @@ def main(argv=None) -> int:
         if p not in sys.path:
             sys.path.insert(0, p)
 
+    if linha in PORTAS:
+        portas = PORTAS[linha]()
+        medidas = {nome: _medir(motor) for nome, motor in portas.items()}
+        falhas = ["%s: %s" % (n, porque) for n, (porque, _) in medidas.items() if porque]
+        porque = "; ".join(falhas) if falhas else None
+        if not portas:
+            porque = "a linha declara PORTAS mas nenhuma porta de rede"
+        print(json.dumps({"LINHA": linha, "LIGADA": porque is None,
+                          "PORQUE": porque or "as %d portas (%s) reservam no livro de 24 h (A) e recusam com o "
+                                              "dominio pausado (B)" % (len(portas), ", ".join(portas)),
+                          "MEDIDO": {"PORTAS": {n: m for n, (_, m) in medidas.items()}}}, ensure_ascii=False))
+        return 0
+
+    porque, medido = _medir(MOTORES[linha])
+    print(json.dumps({"LINHA": linha, "LIGADA": porque is None,
+                      "PORQUE": porque or "A: o pedido reservou no livro de 24 h (%s); B: com o dominio "
+                                          "pausado o livro recusou e 0 reservas novas (%s)"
+                                          % (medido["PEDIDO_A"], medido["PEDIDO_B"]),
+                      "MEDIDO": medido}, ensure_ascii=False))
+    return 0
+
+
+def _medir(motor) -> tuple:
+    """(porque | None, medido): A e B de UM motor, contra um livro da cortesia temporario so dele."""
     with tempfile.TemporaryDirectory(prefix="sonda-ligacao-") as d:
         tmp = Path(d)
         _preparar(tmp)
@@ -135,7 +169,6 @@ def main(argv=None) -> int:
                                              "STATUS": 429, "HOST": PAUSADO}) + "\n" for i in (1, 2)),
                          encoding="utf-8")
 
-        motor = MOTORES[linha]
         n0 = len(_reservas(livro))
         res_a, det_a = _tentar(motor, "http://%s/pagina" % LIVRE)
         n1 = len(_reservas(livro))
@@ -158,11 +191,7 @@ def main(argv=None) -> int:
             porque = "B: o livro dizia PAUSADO e %d reserva(s) novas foram escritas" % (nB1 - nB0)
         elif not recusou_b:
             porque = "B: o livro dizia PAUSADO e o pedido nao foi recusado pelo livro (%s: %s)" % (res_b, det_b)
-        print(json.dumps({"LINHA": linha, "LIGADA": porque is None,
-                          "PORQUE": porque or "A: o pedido reservou no livro de 24 h (%s); B: com o dominio "
-                                              "pausado o livro recusou e 0 reservas novas (%s)" % (res_a, res_b),
-                          "MEDIDO": medido}, ensure_ascii=False))
-    return 0
+        return porque, medido
 
 
 if __name__ == "__main__":

@@ -341,12 +341,12 @@ def plano_de_rodadas(n_dois=0, n_pessoas=0):
             'INCREMENTAL': ['api.crossref.org', 'pub.orcid.org']}
 
 
-def url_crossref(dois):
+def url_crossref(dois, raiz=None):
     """Um pedido ao Crossref para varios DOI (filtros doi: repetidos sao OU)."""
     q = urllib.parse.urlencode({
         'filter': ','.join('doi:%s' % d for d in dois), 'rows': len(dois),
         'select': 'DOI,title,issued,type,author,container-title', 'mailto': CP.MAILTO})
-    return CROSSREF + '?' + q
+    return (raiz or CROSSREF) + '?' + q
 
 
 # ═════════════════════════════════════════════ 2 · LER AS RESPOSTAS
@@ -749,18 +749,51 @@ def _pedir(url, chave=None):
     ao mesmo tempo passavam o teto. Agora, com o livro da cortesia nomeado (e o servico nomeia-o: `--teto-24h`
     e obrigatorio), passa pelo MESMO livro multicanal das outras linhas — nada de segundo contador. Sem
     RESERVADO o pedido NAO sai e devolve-se o motivo (FALHA != ZERO). Sem livro nomeado o transporte fica como
-    estava (o `reserva_24h` responderia FAIL por falta de contador partilhado)."""
+    estava (o `reserva_24h` responderia FAIL por falta de contador partilhado).
+
+    ADENDO-RESERVA (01/10): e a UNICA porta de rede da linha — o Crossref e o ORCID iam por `CP._get` direto,
+    sem reserva (as portas estao em PORTAS_DE_REDE, e a sonda corre todas). E a reserva FECHA-SE com a resposta
+    (`registrar_resposta`): a politica e um pedido de cada vez por dominio, e uma reserva sem resposta prendia o
+    dominio ate LEASE_S (150 s) — com 3 s entre pedidos, a rodada so fazia 1 pedido por dominio."""
     import cortesia_adaptativa as CA                                  # noqa: PLC0415
+    reservado = None
     if CA.livro():
         import reserva_24h as R24                                     # noqa: PLC0415 — o contador multicanal (D90)
         host = urllib.parse.urlsplit(url).hostname or ''
-        r = R24.reservar(host, 1, run_id=os.environ.get('SINTONIA_RUN_ID') or 'ciencia-%d' % os.getpid(),
-                         linha=os.environ.get('SINTONIA_LINHA') or 'CIENCIA')
+        quem = {'run_id': os.environ.get('SINTONIA_RUN_ID') or 'ciencia-%d' % os.getpid(),
+                'linha': os.environ.get('SINTONIA_LINHA') or 'CIENCIA'}
+        r = R24.reservar(host, 1, **quem)
         if r.get('ESTADO') != 'RESERVADO':
             return None, 'SEM_RESERVA_24H: %s %s' % (r.get('ESTADO'), r.get('MOTIVO') or r.get('PORQUE') or '')
-    if chave:                                  # so se o dono tiver chave do OpenAlex
-        url += '&api_key=' + urllib.parse.quote(chave)
-    return CP._get(url)
+        reservado = (host, url, quem)
+    pedido = url + ('&api_key=' + urllib.parse.quote(chave) if chave else '')   # so se o dono tiver chave do OpenAlex
+    d, err = CP._get(pedido)
+    if reservado:
+        host, sem_chave, quem = reservado                             # a chave nunca entra no livro
+        status = 200 if d is not None else (int(err.split()[1]) if (err or '').startswith('HTTP ') else 0)
+        CA.registrar_resposta(host, status, url=sem_chave,
+                              marcas=('TIMEOUT',) if err in ('TimeoutError', 'timeout') else (), **quem)
+    return d, err
+
+
+def pedir_crossref(dois, raiz=None):
+    """UM pedido ao Crossref para um lote de DOI, pela porta que reserva."""
+    return _pedir(url_crossref(dois, raiz))
+
+
+def pedir_orcid_works(orcid, modelo=None):
+    """O /works de UMA pessoa no ORCID, pela porta que reserva."""
+    return _pedir((modelo or ORCID_WORKS) % orcid)
+
+
+#: As portas de rede da linha CIENCIA, cada uma como «faz UM pedido por esta porta ao host dado». A sonda
+#: (`ferramentas/big_collection/sonda_ligacao_linha.py --linha=CIENCIA`) corre TODAS; uma porta de rede nova
+#: entra aqui, senao a sonda nao a ve (e tests/test_ciencia_reserva.py confere cada pedido das rodadas).
+PORTAS_DE_REDE = {
+    'OPENALEX': lambda host: _pedir('http://%s/works?filter=sonda' % host),
+    'CROSSREF': lambda host: pedir_crossref(['10.0000/sonda'], raiz='http://%s/works' % host),
+    'ORCID': lambda host: pedir_orcid_works('0000-0000-0000-0000', modelo='http://%s/v3.0/%%s/works' % host),
+}
 
 
 def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
@@ -805,7 +838,7 @@ def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
                     if u['DOI'] != NAO_SEI and u['DOI'] not in est['CROSSREF_DOIS_FEITOS'])
     for i in range(0, min(len(faltam), teto['api.crossref.org'] * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
         lote = faltam[i:i + DOIS_POR_PEDIDO_CROSSREF]
-        d, err = CP._get(url_crossref(lote))
+        d, err = pedir_crossref(lote)
         ok = isinstance(d, dict) and isinstance((d.get('message') or {}).get('items'), list)
         anotar('api.crossref.org', 'crossref-r%d-%d.json' % (n, i // DOIS_POR_PEDIDO_CROSSREF + 1), d, ok,
                '' if ok else (err or 'sem message.items'), {'DOIS_PEDIDOS': len(lote)})
@@ -816,7 +849,7 @@ def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
 
     # C · ORCID (alfabetico: nao e ranking)
     for p in [g for g in gente if g['ORCID'] != NAO_SEI and g['ORCID'] not in est['ORCID_FEITOS']][:teto['pub.orcid.org']]:
-        d, err = CP._get(ORCID_WORKS % p['ORCID'])
+        d, err = pedir_orcid_works(p['ORCID'])
         ok = isinstance(d, dict) and 'group' in d
         anotar('pub.orcid.org', 'orcid-%s-works.json' % p['ORCID'], d, ok, '' if ok else (err or 'sem group'),
                {'ORCID': p['ORCID']})
@@ -970,7 +1003,7 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
         orcids = sorted({c['ORCID'] for r in est['PESSOAS'].values() for c in r['CANDIDATOS']
                          if c['ORCID'] != NAO_SEI} - set(est['ORCID_FEITOS']))
         for o in orcids[:teto['pub.orcid.org']]:
-            d, err = CP._get(ORCID_WORKS % o)
+            d, err = pedir_orcid_works(o)
             ok = isinstance(d, dict) and 'group' in d
             anotar('pub.orcid.org', 'orcid-%s-works.json' % o, d, ok, '' if ok else (err or 'sem group'))
             if not ok:
@@ -981,7 +1014,7 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
         faltam = sorted(u['DOI'] for u in us if u['DOI'] != NAO_SEI and u['DOI'] not in est['CROSSREF_DOIS_FEITOS'])
         for k in range(0, min(len(faltam), teto['api.crossref.org'] * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
             lote = faltam[k:k + DOIS_POR_PEDIDO_CROSSREF]
-            d, err = CP._get(url_crossref(lote))
+            d, err = pedir_crossref(lote)
             ok = isinstance(d, dict) and isinstance((d.get('message') or {}).get('items'), list)
             anotar('api.crossref.org', 'crossref-c2-r%d-%d.json' % (n, k // DOIS_POR_PEDIDO_CROSSREF + 1), d, ok,
                    '' if ok else (err or 'sem message.items'))
