@@ -6,10 +6,10 @@
     "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
   ],
   "PROVENANCE": {
-    "HEAD": "f0648f404d2749818ff9bd6ebc5ff20538308b17",
-    "BRANCH": "lucianodalondon-sys/servico-trinco-v1",
-    "GENERATED_AT": "2026-09-30T22:44:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1a40495a4070b3e9ef26ad95c9dbc9c911e34d6cac9262e96d24affead82ee1a"
+    "HEAD": "fa47ebdaed2ac54ae62e070a615531f4111a4c48",
+    "BRANCH": "coord/integra-c8-servico",
+    "GENERATED_AT": "2026-10-01T01:44:50+00:00",
+    "SOURCE_TREE_FINGERPRINT": "fc573fb3ed83913dca378f9eb0bcc5acd17f48e0e3e90890cac8ffa0f712c2a2"
   },
   "CARIMBOS_NAO_COMPARAVEIS": [
     "HEAD",
@@ -20,11 +20,11 @@
     "PROVENANCE"
   ],
   "RESUMO": {
-    "ARESTAS_TOTAL": 1914,
-    "LINHAS_PARTILHADAS": 182,
+    "ARESTAS_TOTAL": 1943,
+    "LINHAS_PARTILHADAS": 184,
     "LINHAS_PARTILHADAS_ENTRE_TIPOS": 81,
-    "ARESTAS_REVISTAS": 223,
-    "SUPPORTED": 181,
+    "ARESTAS_REVISTAS": 225,
+    "SUPPORTED": 183,
     "AMBIGUOUS": 27,
     "UNSUPPORTED": 15,
     "SEM_PORQUE": [],
@@ -32,7 +32,7 @@
       "AMBIGUOUS·READS": 27,
       "SUPPORTED·ALIMENTA": 2,
       "SUPPORTED·IMPORTS": 35,
-      "SUPPORTED·READS": 121,
+      "SUPPORTED·READS": 123,
       "SUPPORTED·RUNS": 23,
       "UNSUPPORTED·ABRE_O_CANAL": 3,
       "UNSUPPORTED·ENTREGA_A_LISTA": 4,
@@ -3033,6 +3033,16 @@
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
         {
+          "file": "tests/test_g0_da_afirmacao.py",
+          "line": 559,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_g0_da_afirmacao.py",
+          "line": 559,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": "tests/test_ligacao_adama.py",
           "line": 65,
           "SUPPORTS": "YES"
@@ -4764,6 +4774,39 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
+      "FROM": "C-L2-DISPARADOR-INTELLIGENCE",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_disparador_intelligence.py",
+          "line": 365,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_g0_da_afirmacao.py",
+          "line": 560,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
+        "FROM": "C-L2-DISPARADOR-INTELLIGENCE",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-COLETA",
       "FROM": "C-LINHA-BUSCA",
       "TO": "C-PROVA-COLETA",
@@ -5934,6 +5977,34 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-TESTES",
+      "FROM": "C-PONTE-INT-CASCO",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_g0_da_afirmacao.py",
+          "line": 560,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-TESTES",
+        "FROM": "C-PONTE-INT-CASCO",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-ROTAS-REAIS",
       "FROM": "C-PORTA-FONTE",
       "TO": "C-PROVA-ROTAS-REAIS",
@@ -6332,6 +6403,16 @@
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
         {
+          "file": "tests/test_g0_da_afirmacao.py",
+          "line": 559,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_g0_da_afirmacao.py",
+          "line": 579,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": "tests/test_ligacao_adama.py",
           "line": 67,
           "SUPPORTS": "YES"
@@ -6343,12 +6424,12 @@
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 333,
+          "line": 338,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 333,
+          "line": 338,
           "SUPPORTS": "YES"
         }
       ],

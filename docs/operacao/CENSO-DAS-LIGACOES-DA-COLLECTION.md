@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  9ef5a9dce18e1071e6b027907d421bc11dcd6abb
-BRANCH           claude/c8-auto-v1
-GERADO_EM        2026-09-30T15:25:27-03:00
+HEAD_DA_MEDICAO  fa47ebdaed2ac54ae62e070a615531f4111a4c48
+BRANCH           coord/integra-c8-servico
+GERADO_EM        2026-09-30T22:42:58-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -157,7 +157,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/cortesia_adaptativa.py:62; coleta/espera_por_dominio.py:44; ferramentas/big_collection/coleta_continua.py:79 |
+| **prova de quem ativa** | coleta/cortesia_adaptativa.py:62; coleta/espera_por_dominio.py:44; ferramentas/big_collection/coleta_continua.py:81 |
 | **porquê** | estas pecas importam-na — C-CORTESIA-ADAPTATIVA · C-ONDA-WEB · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -1469,7 +1469,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | ferramentas/big_collection/coleta_continua.py:106 |
+| **prova de quem ativa** | ferramentas/big_collection/coleta_continua.py:108 |
 | **porquê** | estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `ferramentas/seguir_pesquisadores/fixtures/PESSOAS.json`, `ferramentas/seguir_pesquisadores/fixtures/RESPOSTAS-LISTAS.json`, `ferramentas/seguir_pesquisadores/fixtures/RESPOSTAS-ORCID.json` |

@@ -2860,6 +2860,8 @@
       "pacote/ponte_intelligence_casco.py",
       "pacote/pote_cruzamentos_max.py",
       "pacote/pote_intelligence_casco.py",
+      "pacote/rodada_viva/rodada_viva.cmd",
+      "pacote/rodada_viva/rodada_viva.sh",
       "pacote/v21_handoff_json.py",
       "pacote/validar_pote_v2.py"
     ],
@@ -2892,6 +2894,11 @@
       "provas/RECOLLECTION-RED-TEAM-V1.json",
       "provas/RED-TEAM-DUAS-PORTAS-V1.json",
       "provas/RODADAS-MUTACAO.json",
+      "provas/SERVICO-TRINCO-MUTACAO-1a-RODADA-8517282be-36de37.json",
+      "provas/SERVICO-TRINCO-MUTACAO-1a-RODADA-8517282be.txt",
+      "provas/SERVICO-TRINCO-MUTACAO-2a-RODADA-bea084371.txt",
+      "provas/SERVICO-TRINCO-TESTES-ANTES.txt",
+      "provas/SERVICO-TRINCO-TESTES-DEPOIS.txt",
       "provas/TETO-DOMINIO-MUTACAO.json",
       "provas/TTL-MUTABLE-DATAS-T1.json",
       "provas/TTL-MUTABLE-SIMULACAO-T1.json",
@@ -4094,6 +4101,7 @@
       "tests/test_comunicacao_concorrenza.py",
       "tests/test_comunicacao_universo_falha_fechado.py",
       "tests/test_concorrencia_meta.py",
+      "tests/test_conhecimento_sem_tempo.py",
       "tests/test_conserto_regua.py",
       "tests/test_consumo_da_referencia_adama.py",
       "tests/test_contador_24h.py",
@@ -4840,10 +4848,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/c8-auto-v1",
-    "HEAD": "9ef5a9dce18e1071e6b027907d421bc11dcd6abb",
-    "GENERATED_AT": "2026-09-30T15:25:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4aa9f75b2144fa64efed77c30f71d8b4a30ab35423de3733ff27c2bad5d5e952"
+    "BRANCH": "coord/integra-c8-servico",
+    "HEAD": "fa47ebdaed2ac54ae62e070a615531f4111a4c48",
+    "GENERATED_AT": "2026-09-30T22:42:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fc573fb3ed83913dca378f9eb0bcc5acd17f48e0e3e90890cac8ffa0f712c2a2"
   },
   "FAMILIES": [
     {
@@ -42737,7 +42745,7 @@
           "curadoria/bloqueadas_268.py:120",
           "curadoria/retirar_por_decisao.py:40",
           "curadoria/sonda_um_pedido.py:38",
-          "ferramentas/big_collection/coleta_continua.py:339"
+          "ferramentas/big_collection/coleta_continua.py:343"
         ],
         "PORQUE": "estas pecas importam-na — C-BLOQUEADAS-268 · C-BLOQUEADAS-DESTRAVAR · C-CANAIS-41 · C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -44048,7 +44056,7 @@
         "PROVA": [
           "coleta/cortesia_adaptativa.py:62",
           "coleta/espera_por_dominio.py:44",
-          "ferramentas/big_collection/coleta_continua.py:79",
+          "ferramentas/big_collection/coleta_continua.py:81",
           "provas/_mutantes_prova_teto_social.py:20"
         ],
         "PORQUE": "estas pecas importam-na — C-CORTESIA-ADAPTATIVA · C-ONDA-WEB · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -52607,7 +52615,7 @@
           "pacote/liberacao_por_criterio.py:286",
           "provas/l2/ensaio_disparador.py:57",
           "provas/l2/mutantes.py:27",
-          "tests/test_disparador_intelligence.py:34"
+          "tests/test_conhecimento_sem_tempo.py:32"
         ],
         "PORQUE": "estas pecas importam-na — C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -58548,11 +58556,13 @@
       "files": [
         "pacote/liberacao_por_criterio.py",
         "pacote/pote_intelligence_casco.py",
+        "pacote/rodada_viva/rodada_viva.cmd",
+        "pacote/rodada_viva/rodada_viva.sh",
         "pacote/validar_pote_v2.py"
       ],
-      "file_count": 3,
+      "file_count": 5,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -60796,12 +60806,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1932,
+        "palavras": 1947,
         "por_lingua": {
           "PT": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 1928,
+        "sem_marca_de_lingua": 1943,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -61105,6 +61115,7 @@
         "scripts/lugar_fato/gold_puglia.py",
         "scripts/micro_coleta/ensaio_offline.py",
         "scripts/micro_coleta/micro_coleta.py",
+        "scripts/micro_coleta/provar_backup_da_sala.py",
         "supabase/desfazer/033_desfazer.sql",
         "supabase/desfazer/034_desfazer.sql",
         "supabase/desfazer/036_desfazer.sql",
@@ -70206,7 +70217,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "ferramentas/big_collection/coleta_continua.py:106"
+          "ferramentas/big_collection/coleta_continua.py:108"
         ],
         "PORQUE": "estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -73202,6 +73213,7 @@
         "tests/test_comunicacao_concorrenza.py",
         "tests/test_comunicacao_universo_falha_fechado.py",
         "tests/test_concorrencia_meta.py",
+        "tests/test_conhecimento_sem_tempo.py",
         "tests/test_conserto_regua.py",
         "tests/test_consumo_da_referencia_adama.py",
         "tests/test_contador_24h.py",
@@ -73429,7 +73441,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 347,
+      "file_count": 348,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -81024,7 +81036,7 @@
       "evidence": [
         {
           "file": "motor/motor_das_capacidades.py",
-          "line": 88,
+          "line": 89,
           "snippet": "import afirmacao_da_fonte as AFIRMACAO           # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
@@ -91044,7 +91056,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 339,
+          "line": 343,
           "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
@@ -97334,7 +97346,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 79,
+          "line": 81,
           "snippet": "import reserva_24h as R24                                          # noqa: E402 — o contador multicanal (D90)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-ONDA-WEB",
@@ -100473,7 +100485,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 80,
+          "line": 82,
           "snippet": "import cortesia_adaptativa as CA                                   # noqa: E402 — o dono unico do teto (D124)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-ONDA-WEB",
@@ -116105,12 +116117,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_chave_problema.py",
           "line": 303,
           "snippet": "import motor_das_capacidades as M",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_conhecimento_sem_tempo.py",
+          "line": 31,
+          "snippet": "import motor_das_capacidades as M                # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-TESTES",
             "FROM": "C-INT-MOTOR-CAPACIDADES",
@@ -118695,7 +118723,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 98,
+          "line": 100,
           "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
@@ -125348,7 +125376,7 @@
         },
         {
           "file": "tests/test_coleta_continua.py",
-          "line": 233,
+          "line": 235,
           "snippet": "self.ledger = self.tmp / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
@@ -125691,8 +125719,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O disparador da Intelligence (D90-5, D140) — so le a Sala tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O disparador da Intelligence (D90-5, D140) — so le a Sala tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_conhecimento_sem_tempo.py",
+          "line": 32,
+          "snippet": "import gatilho_da_inteligencia as GI             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--IMPORTS-->C-TESTES",
+            "FROM": "C-L2-DISPARADOR-INTELLIGENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_disparador_intelligence.py",
           "line": 34,
@@ -126592,7 +126636,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 100,
+          "line": 102,
           "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
@@ -127334,12 +127378,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 1 linha de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "motor/motor_das_capacidades.py",
           "line": 83,
           "snippet": "import lugar_do_fato as LUGAR                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-INT-MOTOR-CAPACIDADES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "motor/motor_das_capacidades.py",
+          "line": 84,
+          "snippet": "import estudo_chaves as ESTUDO                   # noqa: E402  (F2: o NOME da natureza «estudo», do dono)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
             "FROM": "C-LUGAR-COLETA",
@@ -135113,7 +135173,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 181 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 182 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -136602,7 +136662,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 301,
+          "line": 303,
           "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -136649,7 +136709,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Provas da coleta canonica. Provado por 8 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/c6_repetido/mutacao_c6.py",
@@ -136703,6 +136763,22 @@
           "file": "provas/chave_problema/ensaio_033_descartavel.py",
           "line": 35,
           "snippet": "_spec = importlib.util.spec_from_file_location(\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/coleta_continua_mutacao.py",
+          "line": 79,
+          "snippet": "(\"M36_SAIDA_VAZIA_ACEITE\", \"scripts/micro_coleta/provar_backup_da_sala.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
             "FROM": "C-MICRO-COLETA-INSTRUMENTO",
@@ -138259,7 +138335,7 @@
       "evidence": [
         {
           "file": "tests/test_coleta_continua.py",
-          "line": 667,
+          "line": 1043,
           "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
@@ -143085,7 +143161,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 102,
+          "line": 104,
           "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-ONDA-WEB",
@@ -164027,7 +164103,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 104,
+          "line": 106,
           "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
@@ -166271,7 +166347,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 106,
+          "line": 108,
           "snippet": "\"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-ONDA-WEB",
@@ -176264,7 +176340,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2283,
+  "UNCLAIMED_FILES_COUNT": 2288,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -176540,8 +176616,8 @@
     "edges_proven": 1874,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4247,
-    "files_covered": 1964,
+    "files_tracked": 4255,
+    "files_covered": 1967,
     "files_code_unclaimed": 0,
     "roles_proven": 209,
     "roles_declared_only": 11,
