@@ -8,9 +8,13 @@
    todas as vistas e reprova um 404) nem nenhum deploy publico pede um ficheiro que nao existe, e a vista
    diz que o export nao foi carregado. */
 window.ITALY_SALA_LEITURA = window.ITALY_SALA_LEITURA || null;
+/* As vozes #painel e #sala so entram na barra quando ?sala=local foi pedido: no endereco publico
+   os dados nao existem e a voz levaria a uma tela vazia (coordenador 01/10, N1). */
+window.ITALY_SALA_LOCAL_PEDIDA = false;
 (function () {
   try {
     if (/[?&]sala=local(?:&|$)/.test(window.location.search)) {
+      window.ITALY_SALA_LOCAL_PEDIDA = true;
       document.write('<script src="italy-sala-leitura.local.js"><\/script>');
       // CASCO-PAINEL: o painel de operacao, gerado da mesma maneira (audit/casco/painel-operacao.mjs)
       document.write('<script src="italy-painel.local.js"><\/script>');

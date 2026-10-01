@@ -5933,7 +5933,7 @@ class Component extends DCLogic {
       ['painel', s.lang === 'en' ? 'Operations panel · read-only' : 'Pannello operativo · sola lettura', ''],
       ['sala', s.lang === 'en' ? 'Waiting room · read-only' : "Sala d'attesa · sola lettura",
         (window.ITALY_SALA_LEITURA && window.ITALY_SALA_LEITURA.total) || '']
-    ];
+    ].filter((e) => window.ITALY_SALA_LOCAL_PEDIDA === true || (e[0] !== 'painel' && e[0] !== 'sala'));
     const navIntegrations = [['field', T.navField, allMessages.length]];
     const activeOf = Component.CAPABILITY_OF;
     /* §4 · The green/amber accents, the dot and the active tint are presentation only and stay. */
