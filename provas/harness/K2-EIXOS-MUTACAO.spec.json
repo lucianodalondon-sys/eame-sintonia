@@ -1,0 +1,78 @@
+{
+ "NOME": "K2 EIXOS/v1 — guardas do fiscal (pacote/pote_intelligence_casco.py)",
+ "TESTE": [
+  "tests/test_pote_dois_eixos.py"
+ ],
+ "MUTANTES": [
+  {
+   "MUTANTE": "K2_M01_SEM_EIXOS_LIBERADO_ACEITE",
+   "FINGE": "sem eixos: liberado aceite",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "        if lib == LIBERADO:\n            v.append(f\"{comp}/{oid}: K2: LIBERADO_PARA_CLIENTE e NAO_PARA_CLIENTE",
+   "SUBSTITUTO": "        if False:\n            v.append(f\"{comp}/{oid}: K2: LIBERADO_PARA_CLIENTE e NAO_PARA_CLIENTE"
+  },
+  {
+   "MUTANTE": "K2_M02_LIBERADO_COM_NAO_PARA_CLIENTE_TRUE",
+   "FINGE": "liberado com NAO_PARA_CLIENTE true aceite",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "ok = (o.get(\"NAO_PARA_CLIENTE\") is False and o.get(\"MARCA\") == MARCA_LIBERADO",
+   "SUBSTITUTO": "ok = (o.get(\"MARCA\") == MARCA_LIBERADO"
+  },
+  {
+   "MUTANTE": "K2_M03_LIBERADO_COM_MARCA_EXPERIMENTAL",
+   "FINGE": "liberado com marca experimental aceite",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "is False and o.get(\"MARCA\") == MARCA_LIBERADO\n              and o.get(\"ESTADO\") == ESTADO_LIBERADO)",
+   "SUBSTITUTO": "is False\n              and o.get(\"ESTADO\") == ESTADO_LIBERADO)"
+  },
+  {
+   "MUTANTE": "K2_M04_LIBERADO_COM_ESTADO_CANDIDATE",
+   "FINGE": "liberado com estado candidate aceite",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "\n              and o.get(\"ESTADO\") == ESTADO_LIBERADO)",
+   "SUBSTITUTO": ")"
+  },
+  {
+   "MUTANTE": "K2_M05_BLOQUEADO_QUE_SE_DIZ_CLIENTE",
+   "FINGE": "bloqueado que se diz cliente aceite",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "ok = (o.get(\"NAO_PARA_CLIENTE\") is True and o.get(\"MARCA\") == MARCA and",
+   "SUBSTITUTO": "ok = (o.get(\"MARCA\") == MARCA and"
+  },
+  {
+   "MUTANTE": "K2_M06_RAIZ_NAO_PARA_CLIENTE",
+   "FINGE": "raiz NAO_PARA_CLIENTE aceite",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "    if \"NAO_PARA_CLIENTE\" in pote:\n",
+   "SUBSTITUTO": "    if False:\n"
+  },
+  {
+   "MUTANTE": "K2_M07_RAIZ_PRODUCAO",
+   "FINGE": "raiz producao aceite",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "or pote.get(\"PRODUCAO\") is not False:",
+   "SUBSTITUTO": ":"
+  },
+  {
+   "MUTANTE": "K2_M08_COMPARTIMENTO_NAO_PARA_CLIENTE",
+   "FINGE": "compartimento NAO_PARA_CLIENTE aceite",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "    if \"NAO_PARA_CLIENTE\" in e:\n",
+   "SUBSTITUTO": "    if False:\n"
+  },
+  {
+   "MUTANTE": "K2_M09_EIXOS_LIBERAM_O_QUE_O_C8_BLOQUEOU",
+   "FINGE": "aplicar_eixos libera o que o C8 bloqueou",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "                o.update(MARCA=MARCA, NAO_PARA_CLIENTE=True, ESTADO=ESTADO_TRANSPORTAVEL)\n            else:",
+   "SUBSTITUTO": "                o.update(LIBERACAO=LIBERADO, MARCA=MARCA_LIBERADO, NAO_PARA_CLIENTE=False, ESTADO=ESTADO_LIBERADO)\n            else:"
+  },
+  {
+   "MUTANTE": "K2_M10_EIXOS_DEIXAM_A_RAIZ_DIZER_NAO_PARA_CLIENTE",
+   "FINGE": "aplicar_eixos deixa a raiz dizer NAO_PARA_CLIENTE",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "ALVO": "    p.pop(\"NAO_PARA_CLIENTE\", None)\n    p.update(",
+   "SUBSTITUTO": "    p.update("
+  }
+ ]
+}
