@@ -1940,6 +1940,7 @@
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/big_collection/rodadas.py",
+      "ferramentas/big_collection/sonda_ligacao_linha.py",
       "ferramentas/big_collection/sonda_ligacao_sites.mjs",
       "ferramentas/c9/C9-INSTALAR-PLANO.md",
       "ferramentas/c9/TESTES-PRODUCAO.txt",
@@ -2884,6 +2885,7 @@
       "provas/C2-JUIZ-MUTACAO.json",
       "provas/COLETA-CONTINUA-BATERIA-base-18461b9.json",
       "provas/COLETA-CONTINUA-BATERIA-ramo-6c80022.json",
+      "provas/COLETA-CONTINUA-MUTACAO-LOTE-M44-M57.json",
       "provas/COLETA-CONTINUA-MUTACAO.json",
       "provas/CONTADOR-24H-MUTACAO.json",
       "provas/CORTESIA-RED-TEAM-V1.json",
@@ -4848,10 +4850,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coord/integra-c8-servico",
-    "HEAD": "fa47ebdaed2ac54ae62e070a615531f4111a4c48",
-    "GENERATED_AT": "2026-09-30T22:42:58-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc573fb3ed83913dca378f9eb0bcc5acd17f48e0e3e90890cac8ffa0f712c2a2"
+    "BRANCH": "coord/parada-sobre-servico",
+    "HEAD": "35dd73fd3e0f0d39a2cccc77e4b8ec9d4348d82e",
+    "GENERATED_AT": "2026-10-01T10:57:12-03:00",
+    "SOURCE_TREE_FINGERPRINT": "af172bb7f4aef1165280ba416cc5805448752519a6fa4379a8a1acc6b1bb48dd"
   },
   "FAMILIES": [
     {
@@ -42745,7 +42747,7 @@
           "curadoria/bloqueadas_268.py:120",
           "curadoria/retirar_por_decisao.py:40",
           "curadoria/sonda_um_pedido.py:38",
-          "ferramentas/big_collection/coleta_continua.py:343"
+          "ferramentas/big_collection/coleta_continua.py:379"
         ],
         "PORQUE": "estas pecas importam-na — C-BLOQUEADAS-268 · C-BLOQUEADAS-DESTRAVAR · C-CANAIS-41 · C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -44013,9 +44015,11 @@
       "outbound": [
         "C-CORTESIA-ADAPTATIVA",
         "C-ONDA-WEB",
+        "C-PESQUISADORES-T6",
         "C-PROVA-COLETA",
         "C-PROVA-TETO-DOMINIO",
         "C-SCRAP-SOCIAL",
+        "C-SEGUIR-PESQUISADORES",
         "C-TESTES"
       ],
       "paises": {},
@@ -44056,10 +44060,10 @@
         "PROVA": [
           "coleta/cortesia_adaptativa.py:62",
           "coleta/espera_por_dominio.py:44",
-          "ferramentas/big_collection/coleta_continua.py:81",
-          "provas/_mutantes_prova_teto_social.py:20"
+          "coleta/pesquisadores_t6.py:755",
+          "ferramentas/big_collection/coleta_continua.py:88"
         ],
-        "PORQUE": "estas pecas importam-na — C-CORTESIA-ADAPTATIVA · C-ONDA-WEB · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CORTESIA-ADAPTATIVA · C-ONDA-WEB · C-PESQUISADORES-T6 · C-SCRAP-SOCIAL · C-SEGUIR-PESQUISADORES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 8365,
       "y": 682
@@ -45016,6 +45020,7 @@
         "C-PROVA-CONTADOR-24H",
         "C-PROVA-TETO-DOMINIO",
         "C-SCRAP-SOCIAL",
+        "C-SEGUIR-PESQUISADORES",
         "C-TESTES"
       ],
       "paises": {},
@@ -56124,9 +56129,9 @@
         "listas": [
           "LINHAS"
         ],
-        "palavras": 36,
+        "palavras": 31,
         "por_lingua": {},
-        "sem_marca_de_lingua": 36,
+        "sem_marca_de_lingua": 31,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -56186,6 +56191,7 @@
         "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py",
+        "ferramentas/big_collection/sonda_ligacao_linha.py",
         "ferramentas/big_collection/sonda_ligacao_sites.mjs",
         "ferramentas/seguir_pesquisadores/seguir.py",
         "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
@@ -57400,6 +57406,7 @@
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
+        "C-CONTADOR-24H",
         "C-CONTRATO-DE-RETORNO",
         "C-CORPUS",
         "C-CORTESIA-ADAPTATIVA",
@@ -60806,12 +60813,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1947,
+        "palavras": 1968,
         "por_lingua": {
           "PT": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 1943,
+        "sem_marca_de_lingua": 1964,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -70149,6 +70156,8 @@
       "produces": [],
       "inbound": [
         "C-ASK-SINTONIA",
+        "C-CONTADOR-24H",
+        "C-CORTESIA-ADAPTATIVA",
         "C-PORTA-FONTE",
         "C-TESTES"
       ],
@@ -70217,7 +70226,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "ferramentas/big_collection/coleta_continua.py:108"
+          "ferramentas/big_collection/coleta_continua.py:122"
         ],
         "PORQUE": "estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -84842,7 +84851,7 @@
       "evidence": [
         {
           "file": "ferramentas/seguir_pesquisadores/seguir.py",
-          "line": 260,
+          "line": 273,
           "snippet": "r = subprocess.run([sys.executable, str(vivo / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-SEGUIR-PESQUISADORES",
@@ -91056,7 +91065,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 343,
+          "line": 379,
           "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
@@ -97346,12 +97355,47 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 81,
+          "line": 88,
           "snippet": "import reserva_24h as R24                                          # noqa: E402 — o contador multicanal (D90)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-ONDA-WEB",
             "FROM": "C-CONTADOR-24H",
             "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-PESQUISADORES-T6",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir tem o seu codigo importado por PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/pesquisadores_t6.py",
+          "line": 755,
+          "snippet": "import reserva_24h as R24                                     # noqa: PLC0415 — o contador multicanal (D90)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-PESQUISADORES-T6",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-PESQUISADORES-T6",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -97524,6 +97568,41 @@
             "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-SCRAP-SOCIAL",
             "FROM": "C-CONTADOR-24H",
             "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-SEGUIR-PESQUISADORES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir tem o seu codigo importado por SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/seguir_pesquisadores/seguir.py",
+          "line": 147,
+          "snippet": "import reserva_24h as _R24                                # noqa: PLC0415 — o contador multicanal (D90)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-SEGUIR-PESQUISADORES",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-SEGUIR-PESQUISADORES",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -100485,7 +100564,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 82,
+          "line": 89,
           "snippet": "import cortesia_adaptativa as CA                                   # noqa: E402 — o dono unico do teto (D124)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-ONDA-WEB",
@@ -100765,6 +100844,41 @@
     },
     {
       "from": "C-CORTESIA-ADAPTATIVA",
+      "to": "C-SEGUIR-PESQUISADORES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer tem o seu codigo importado por SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/seguir_pesquisadores/seguir.py",
+          "line": 145,
+          "snippet": "import cortesia_adaptativa as _CA                             # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-SEGUIR-PESQUISADORES",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-SEGUIR-PESQUISADORES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CORTESIA-ADAPTATIVA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -100791,7 +100905,7 @@
         },
         {
           "file": "tests/test_teto_adaptativo_rebase.py",
-          "line": 303,
+          "line": 314,
           "snippet": "p = subprocess.run([sys.executable, \"coleta/cortesia_adaptativa.py\", \"--migrar\", str(self.livro)], cwd=RAIZ,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-TESTES",
@@ -100807,7 +100921,7 @@
         },
         {
           "file": "tests/test_teto_adaptativo_rebase.py",
-          "line": 315,
+          "line": 326,
           "snippet": "js = (\"import * as C from './coleta/cortesia_adaptativa.mjs';const ev=C.lerEventos(%s);const o={};\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-TESTES",
@@ -118723,7 +118837,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 100,
+          "line": 107,
           "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
@@ -125376,7 +125490,7 @@
         },
         {
           "file": "tests/test_coleta_continua.py",
-          "line": 235,
+          "line": 241,
           "snippet": "self.ledger = self.tmp / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
@@ -125488,7 +125602,7 @@
         },
         {
           "file": "tests/test_teto_adaptativo_rebase.py",
-          "line": 184,
+          "line": 194,
           "snippet": "ledger = self.tmp / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
@@ -126636,8 +126750,8 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 102,
-          "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "line": 116,
+          "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
             "FROM": "C-LINHA-BUSCA",
@@ -126971,7 +127085,7 @@
         },
         {
           "file": "tests/test_lote8_juncoes.py",
-          "line": 152,
+          "line": 155,
           "snippet": "self.assertTrue((RAIZ / \"coleta\" / \"linha_busca.py\").exists())",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -136662,7 +136776,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 303,
+          "line": 339,
           "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -136777,7 +136891,7 @@
         },
         {
           "file": "provas/coleta_continua_mutacao.py",
-          "line": 79,
+          "line": 115,
           "snippet": "(\"M36_SAIDA_VAZIA_ACEITE\", \"scripts/micro_coleta/provar_backup_da_sala.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
@@ -136958,7 +137072,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_bc4_armazem_e_pais.py",
@@ -137028,6 +137142,22 @@
           "file": "tests/test_c9_idioma.py",
           "line": 26,
           "snippet": "RAW_1437 = DADOS / \"raw-1437-arpae-portale-prelievi.txt\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_coleta_continua.py",
+          "line": 1165,
+          "snippet": "mc = (RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
             "FROM": "C-MICRO-COLETA-INSTRUMENTO",
@@ -137123,22 +137253,6 @@
         {
           "file": "tests/test_quatro_chaves_na_sala.py",
           "line": 57,
-          "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
-            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_sala_dedup_por_document_key.py",
-          "line": 38,
           "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
@@ -138335,7 +138449,7 @@
       "evidence": [
         {
           "file": "tests/test_coleta_continua.py",
-          "line": 1043,
+          "line": 1257,
           "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
@@ -138399,7 +138513,7 @@
         },
         {
           "file": "tests/test_teto_adaptativo_rebase.py",
-          "line": 131,
+          "line": 137,
           "snippet": "src = (RAIZ / \"ferramentas/big_collection/coleta_continua.py\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
@@ -143161,8 +143275,8 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 104,
-          "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "line": 118,
+          "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-ONDA-WEB",
             "FROM": "C-PESQUISADORES-T6",
@@ -144563,7 +144677,7 @@
         },
         {
           "file": "ferramentas/seguir_pesquisadores/seguir.py",
-          "line": 285,
+          "line": 298,
           "snippet": "import fonte_nova as FN",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-SEGUIR-PESQUISADORES",
@@ -164103,8 +164217,8 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 106,
-          "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "line": 120,
+          "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
             "FROM": "C-SCRAP-SOCIAL",
@@ -166347,8 +166461,8 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 108,
-          "snippet": "\"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "line": 122,
+          "snippet": "\"TRANSPORTE\": \"ferramentas/seguir_pesquisadores/seguir.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-ONDA-WEB",
             "FROM": "C-SEGUIR-PESQUISADORES",
@@ -170821,7 +170935,7 @@
       "evidence": [
         {
           "file": "tests/test_teto_adaptativo_rebase.py",
-          "line": 233,
+          "line": 244,
           "snippet": "f.write_text(s.replace(de, '      r = { ESTADO: \"RESERVADO\" }; // reservar24h(host, 1)'), encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-IT-COLETA",
@@ -176339,8 +176453,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2288,
+  "UNCLAIMED_CODE_FILES": [
+    "ferramentas/big_collection/sonda_ligacao_linha.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 2290,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -176612,13 +176728,13 @@
     "components_pending": 274,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1943,
-    "edges_proven": 1874,
+    "edges": 1946,
+    "edges_proven": 1877,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4255,
+    "files_tracked": 4257,
     "files_covered": 1967,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 209,
     "roles_declared_only": 11,
     "roles_unknown": 95,

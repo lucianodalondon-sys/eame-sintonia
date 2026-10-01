@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-10-01T01:46:36+00:00",
-    "HEAD": "fa47ebdaed2ac54ae62e070a615531f4111a4c48",
+    "GENERATED_AT": "2026-10-01T14:07:17+00:00",
+    "HEAD": "35dd73fd3e0f0d39a2cccc77e4b8ec9d4348d82e",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "fc573fb3ed83913dca378f9eb0bcc5acd17f48e0e3e90890cac8ffa0f712c2a2",
-    "FICHEIROS_NA_IMPRESSAO": 4403,
+    "SOURCE_TREE_FINGERPRINT": "af172bb7f4aef1165280ba416cc5805448752519a6fa4379a8a1acc6b1bb48dd",
+    "FICHEIROS_NA_IMPRESSAO": 4405,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -517,7 +517,7 @@
       {
         "PATH": "coleta/pesquisadores_t6.py",
         "PAPEL": "FONTE",
-        "VERSAO": "a1d9ab7d352443e95fc248b2472c5640d27eb69a",
+        "VERSAO": "f4daae0cec655e44f70c9abef7463a829bfc42c0",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -755,7 +755,7 @@
       {
         "PATH": "ferramentas/big_collection/coleta_continua.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e2dac7e194e57dfb6a1802c83d0d137e5abe215f",
+        "VERSAO": "d201db67fb810a73a8a7abf8bab00352639c8ace",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -798,6 +798,13 @@
         "PATH": "ferramentas/big_collection/rodadas.py",
         "PAPEL": "FONTE",
         "VERSAO": "c3ca7a8777f881e3f3f457e51f44e865042625e5",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/sonda_ligacao_linha.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "9c303a184b1673a8618894aebfcdf957e3b3a772",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1273,7 +1280,7 @@
       {
         "PATH": "ferramentas/seguir_pesquisadores/seguir.py",
         "PAPEL": "FONTE",
-        "VERSAO": "490875d8d3c076d7a1568c025b00b2b25c27ca67",
+        "VERSAO": "645b6b7b70bff1e3da5aaa24548161f7e8493aa0",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1782,8 +1789,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 253,
-    "INPUTS_DIGEST": "4fb36cedf6011d94415c9109292f9a7c2af0e233847ab6955ff76c82a9e22c2a",
+    "INPUTS_COUNT": 254,
+    "INPUTS_DIGEST": "c4e125a90d7653202499ade997832382f2f64e36357c4c59556065a596c133a2",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2284,7 +2291,7 @@
     {
       "ficheiro": "ferramentas/big_collection/coleta_continua.py",
       "gaveta": "ferramentas",
-      "linhas": 831,
+      "linhas": 933,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2412,6 +2419,24 @@
         "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/big_collection/ensaio_coleta_continua.py",
         "ferramentas/big_collection/ensaio_rodada.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/sonda_ligacao_linha.py",
+      "gaveta": "ferramentas",
+      "linhas": 170,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/big_collection/coleta_continua.py"
       ],
       "no_ci": false
     },
@@ -3658,7 +3683,7 @@
     {
       "ficheiro": "ferramentas/seguir_pesquisadores/seguir.py",
       "gaveta": "ferramentas",
-      "linhas": 368,
+      "linhas": 381,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -3675,6 +3700,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "ferramentas/big_collection/coleta_continua.py",
+        "ferramentas/big_collection/sonda_ligacao_linha.py",
         "ferramentas/seguir_pesquisadores/listas_oficiais.py",
         "ferramentas/seguir_pesquisadores/orcid_lote.py"
       ],
@@ -4344,7 +4371,9 @@
         "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py",
-        "ferramentas/maestro_social/maestro_social.py"
+        "ferramentas/big_collection/sonda_ligacao_linha.py",
+        "ferramentas/maestro_social/maestro_social.py",
+        "ferramentas/seguir_pesquisadores/seguir.py"
       ],
       "no_ci": false
     },
@@ -4980,7 +5009,8 @@
       "chamado_por": [
         "coleta/linha_busca_raw.py",
         "coleta/social_por_url_achado.py",
-        "ferramentas/big_collection/coleta_continua.py"
+        "ferramentas/big_collection/coleta_continua.py",
+        "ferramentas/big_collection/sonda_ligacao_linha.py"
       ],
       "no_ci": true
     },
@@ -5093,7 +5123,7 @@
     {
       "ficheiro": "coleta/pesquisadores_t6.py",
       "gaveta": "coleta",
-      "linhas": 1216,
+      "linhas": 1231,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -5111,6 +5141,7 @@
         "coleta/lista_mestra_mur.py",
         "coleta/pesquisadores_t6_executor.py",
         "ferramentas/big_collection/coleta_continua.py",
+        "ferramentas/big_collection/sonda_ligacao_linha.py",
         "ferramentas/t6_para_sala/antes_depois_extratores.py",
         "ferramentas/t6_para_sala/medir_modelos_resistencia.py",
         "pedido/receitas.py"
@@ -5183,7 +5214,9 @@
       "chamado_por": [
         "coleta/cortesia_adaptativa.py",
         "coleta/dominio_registavel.py",
-        "ferramentas/big_collection/coleta_continua.py"
+        "coleta/pesquisadores_t6.py",
+        "ferramentas/big_collection/coleta_continua.py",
+        "ferramentas/seguir_pesquisadores/seguir.py"
       ],
       "no_ci": false
     },
@@ -5700,6 +5733,7 @@
         "coleta/scrap_colheita.py",
         "coleta/scrap_http.py",
         "ferramentas/big_collection/coleta_continua.py",
+        "ferramentas/big_collection/sonda_ligacao_linha.py",
         "ferramentas/maestro_social/maestro_social.py",
         "ferramentas/youtube_transcrever.py",
         "ferramentas/yt_dlp_com_freio.py"
@@ -6922,12 +6956,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 253,
-    "pontos_de_entrada": 182,
+    "ficheiros_de_codigo": 254,
+    "pontos_de_entrada": 183,
     "executores_que_saem_para_fora": 32,
     "sem_chamador_e_fora_do_ci": 115,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 151,
+    "escrevem_ficheiro": 152,
     "deitam_fora_alguma_coisa": 56,
     "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 5,
@@ -6961,6 +6995,7 @@
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/big_collection/rodadas.py",
+      "ferramentas/big_collection/sonda_ligacao_linha.py",
       "ferramentas/big_collection/sonda_ligacao_sites.mjs",
       "ferramentas/canais41/ensaio_a_seco.py",
       "ferramentas/canais41/montar_corridas.py",
