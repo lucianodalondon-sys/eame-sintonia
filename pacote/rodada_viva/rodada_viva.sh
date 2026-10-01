@@ -16,7 +16,7 @@
 set -u
 SI=C:/Users/London1/sintonia-sala-italia
 IE=$SI/intelligence-experimental
-MOTOR=C:/g/int-viva-2882e899a            # claude/c8-auto-v1 @ 2882e899a (publicado; F2 science sobre bca9422b6)
+MOTOR=C:/g/int-viva-c5db5eedd            # claude/int-rota-natureza-v1 @ c5db5eedd (publicado; CAP-SCI P1/1B, 204->106; ordem do coordenador 01/10)
 PRODUTOR=C:/Users/London1/orca/workspaces/eame-sintonia/io-produtor-197641c   # 197641c2b (familia do C8 provado)
 ENTREGA=$IE/PARA-O-CASCO-AUTO
 ESTADO=$IE/RODADA-VIVA-ESTADO.txt
