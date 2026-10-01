@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b380663a6e382b6657d1c6433c6cae9eb6d3ee72
-BRANCH           coord/servico-com-release
-GERADO_EM        2026-10-01T01:11:56-03:00
+HEAD_DA_MEDICAO  b56c1463c600fa1e7666c4d80e9ce02c23dc2667
+BRANCH           claude/casco-enxerto-l3-v1
+GERADO_EM        2026-10-01T11:04:47-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -709,7 +709,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | pacote/liberacao_por_criterio.py:286; provas/l2/ensaio_disparador.py:57; provas/l2/mutantes.py:27 |
+| **prova de quem ativa** | pacote/liberacao_por_criterio.py:289; provas/l2/ensaio_disparador.py:57; provas/l2/mutantes.py:27 |
 | **porquê** | estas pecas importam-na — C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `motor/r7_export_da_copia.sql` |
@@ -1704,13 +1704,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 30 |
-| **arestas provadas** | entram 1 · saem 30 |
+| **arestas no mapa** | entram 1 · saem 31 |
+| **arestas provadas** | entram 1 · saem 31 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 31 |
+| **prova das ligações** | CODE 32 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
