@@ -226,6 +226,12 @@ def _ligada(linha):
     return {"LIGADA": True, "PORQUE": "teste"}
 
 
+def _admite_tudo(ids):
+    """O portao da Collection falso: admite todas. As fontes destes testes (IT-T9-001, ...) nao estao no livro
+    canonico; o que o portao recusa mede-se na classe AdendoParada, com o falso que recusa e com o real."""
+    return {s: {"COLLECTION_ELIGIBLE": True, "STATE": "READY_FOR_COLLECTION", "MOTIVO": "ELIGIBLE"} for s in ids}
+
+
 class Base(unittest.TestCase):
     def setUp(self):
         CONTAGEM.clear()
@@ -253,7 +259,8 @@ class Base(unittest.TestCase):
 
     def pecas(self, **kw):
         p = {"portao": Portao(), "onda": self.onda, "relatorio": lambda e, s: 0, "ledger": self.ledger,
-             "ram": lambda: self.ram, "backup": self._backup, "robo": self.robo, "reconciliar": self.sala.reconciliar}
+             "ram": lambda: self.ram, "backup": self._backup, "robo": self.robo, "reconciliar": self.sala.reconciliar,
+             "fonte": _admite_tudo}
         p.update(kw)
         return p
 
@@ -660,7 +667,7 @@ class LivroDeCiclos(Base):
         self.assertEqual(c["PROXIMO_A_ABRIR"]["DOMINIO"], "edagricole.test")
 
     def test_a_seco_nao_escreve_nem_pede(self):
-        r = self.ciclo(self.sites(["IT-T5-080"]), pecas={"ram": lambda: 9.0}, a_seco=True)
+        r = self.ciclo(self.sites(["IT-T5-080"]), pecas={"ram": lambda: 9.0, "fonte": _admite_tudo}, a_seco=True)
         self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], ["IT-T5-080"])
         self.assertFalse((self.base / C.CICLOS_F).exists())
         self.assertEqual(CONTAGEM, {})
@@ -1130,6 +1137,185 @@ class FeederQuatroLinhas(Base):
             self.assertIn(ln["ESTADO"], BLOQUEIOS, (n, ln))
             self.assertEqual((ln["ESTADO"], ln["PORQUE"]), (alim[n]["ESTADO"], alim[n]["PORQUE"]), n)
             self.assertEqual((ln["FONTES"], ln["PEDIDOS_PREVISTOS"]), ([], 0), n)
+
+
+# ── 5c. ADENDO-PARADA (01/10): o ciclo 146 PAROU o servico por nada ─────────
+# Medido no vivo (eac885db3, ciclo 146, CICLO-0146/SITES/ONDA-WEB-ESTADO.json): o agendador deu IT-T8-051 a onda
+# dos SITES; o portao da onda recusou com GATE:ESTADO_NAO_READY; 0 corridas, 0 pedidos; a prova-teto deu NAO_SEI
+# sobre RUN_IDS=[] e o servico PAROU (PARA=PROVA_TETO_NAO_SEI) ate alguem rearmar.
+#   (1) o agendador pergunta ao MESMO portao que a onda usa (collection_gate.avaliar) e nao oferece a recusada:
+#       ela ESPERA com PORQUE=FONTE_NAO_READY e o estado lido;
+#   (2) ciclo sem corrida E sem pedido: a prova-teto diz NADA_A_PROVAR e o servico NAO para. Com corridas (ou com
+#       um pedido qualquer no livro da onda, ou sem o estado da onda) a prova continua a parar.
+class OndaQueRecusa:
+    """O papel da onda do ciclo 146: recebe as fontes, o portao dela recusa todas, nenhum pedido sai."""
+
+    def __init__(self, sala, livro_da_onda=None, run_id=None, escreve_estado=True):
+        self.sala, self.livro_da_onda, self.run_id, self.escreve_estado = sala, livro_da_onda, run_id, escreve_estado
+        self.chamadas = []
+
+    def __call__(self, sha, fontes, pasta, historico, retomar):
+        self.chamadas.append(list(fontes))
+        pasta.mkdir(parents=True, exist_ok=True)
+        if self.livro_da_onda is not None:
+            (pasta / "TETO-ONDA.json").write_text(self.livro_da_onda, encoding="utf-8")
+        if self.escreve_estado:
+            foto = self.sala.foto()
+            (pasta / "ONDA-WEB-ESTADO.json").write_text(json.dumps({
+                "SO_AS_FONTES": list(fontes), "SALA_INICIO": foto, "PAROU": None, "SALA_FIM": foto,
+                "FONTES": [{"N": i, "SOURCE_ID": s, "CORREU": False, "STATUS": None, "RUN_ID": self.run_id,
+                            "PORQUE_NAO_CORREU": ["GATE:ESTADO_NAO_READY"], "LIVRO_DA_ONDA": {}}
+                           for i, s in enumerate(fontes, 1)]}), encoding="utf-8")
+        return 0
+
+
+def _recusa(*recusadas, estado="CONTRACTED_CANARY_FAILED"):
+    """O portao falso: recusa estas com ESTADO_NAO_READY (como o real recusou IT-T8-051), admite as outras."""
+    def portao(ids):
+        out = _admite_tudo(ids)
+        for s in ids:
+            if s in recusadas:
+                out[s] = {"COLLECTION_ELIGIBLE": False, "STATE": estado, "MOTIVO": "ESTADO_NAO_READY",
+                          "PORQUE": "o estado no livro e %s" % estado}
+        return out
+    return portao
+
+
+class AdendoParada(Base):
+    # (1) o agendador nao oferece a onda a fonte que o portao dela recusa
+    def test_fonte_nao_ready_nao_vai_a_onda_e_espera_com_nome_proprio(self):
+        r = self.ciclo(self.sites(["IT-T5-080", "IT-T9-002"]), pecas=self.pecas(fonte=_recusa("IT-T9-002")))
+        self.assertIsNone(r["PARA"], r)
+        self.assertEqual([c["FONTES"] for c in self.onda.chamadas], [["IT-T5-080"]])
+        self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], ["IT-T5-080"])
+        e = [x for x in r["ESPERAM"] if x["SOURCE_ID"] == "IT-T9-002"]
+        self.assertEqual(len(e), 1, r["ESPERAM"])
+        self.assertEqual(e[0]["PORQUE"], "FONTE_NAO_READY")
+        self.assertEqual(e[0]["ESTADO_LIDO"], "CONTRACTED_CANARY_FAILED")
+        self.assertEqual(e[0]["MOTIVO_DO_PORTAO"], "ESTADO_NAO_READY")
+        self.assertEqual(e[0]["LINHA"], "SITES")
+        self.assertNotIn("dois.test", _por_dominio(CONTAGEM))
+
+    def test_so_fontes_nao_ready_o_ciclo_nao_toca_na_onda_nem_no_robo(self):
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(fonte=_recusa("IT-T9-002")))
+        self.assertIsNone(r["PARA"], r)
+        self.assertEqual(self.onda.chamadas, [])
+        self.assertEqual(self.robo.eventos, [])
+        self.assertEqual(r["LINHAS"]["SITES"]["ESTADO"], "NADA_ELEGIVEL")      # ha fontes e nenhuma cabe agora
+        self.assertEqual([(x["SOURCE_ID"], x["PORQUE"]) for x in r["ESPERAM"]], [("IT-T9-002", "FONTE_NAO_READY")])
+        self.assertIsNone(C.ler_estado(self.base)["PAROU"])
+
+    def test_portao_que_nao_responde_para_o_servico(self):
+        def rebenta(ids):
+            raise ValueError("livro canonico ilegivel")
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(fonte=rebenta))
+        self.assertEqual(r["PARA"], "PORTAO_DA_FONTE_NAO_SEI")
+        self.assertEqual(self.onda.chamadas, [])
+
+    def test_sem_portao_injectado_o_ciclo_usa_o_portao_real(self):
+        # fail-closed: quem chama o ciclo sem dizer o portao leva o REAL, nunca um que admite tudo
+        p = self.pecas()
+        del p["fonte"]
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=p)
+        self.assertEqual(self.onda.chamadas, [])
+        e = [x for x in r["ESPERAM"] if x["SOURCE_ID"] == "IT-T9-002"]
+        self.assertEqual([(x["PORQUE"], x["ESTADO_LIDO"]) for x in e], [("FONTE_NAO_READY", "AUSENTE_DO_LIVRO")])
+
+    def test_o_agendador_pergunta_ao_mesmo_portao_que_a_onda(self):
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+        import collection_gate as GATE  # noqa: PLC0415
+        ctx = GATE._contexto()
+        ids = sorted({t["SOURCE_ID"] for t in ctx["livro"]["TRANSICOES"]}) + ["IT-T0-AUSENTE"]
+        v = C.portao_da_fonte_real(ids)
+        esperado = {s: GATE.avaliar(s, **ctx) for s in ids}
+        self.assertEqual({s: (x["COLLECTION_ELIGIBLE"], x["STATE"], x["MOTIVO"]) for s, x in v.items()},
+                         {s: (x["COLLECTION_ELIGIBLE"], x["STATE"], x["MOTIVO"]) for s, x in esperado.items()})
+        # a comparacao nao passa por vazio: ha admitidas E recusadas por estado neste livro
+        self.assertTrue(any(x["COLLECTION_ELIGIBLE"] for x in v.values()))
+        self.assertTrue(any(x["MOTIVO"] == GATE.ESTADO_NAO_READY for x in v.values()))
+        # e e este o portao da onda: onda_web.py --correr -> micro_coleta.correr -> plano -> GATE.avaliar
+        mc = (RAIZ / "scripts" / "micro_coleta" / "micro_coleta.py").read_text(encoding="utf-8")
+        self.assertIn("import collection_gate as GATE", mc)
+        self.assertIn("g = GATE.avaliar(s, **ctx)", mc)
+        self.assertIn("falta.append(f\"GATE:{g['MOTIVO']}\")", mc)
+
+    def test_a_passagem_acaba_com_as_admitidas(self):
+        # a recusada nunca corre: se a passagem esperasse por ela, a linha ficava NADA_ELEGIVEL para sempre
+        cands = self.sites(["IT-T5-080", "IT-T9-002"])
+        pecas = self.pecas(fonte=_recusa("IT-T9-002"))
+        self.ciclo(cands, pecas=pecas)
+        r = self.ciclo(cands, pecas=pecas, agora_utc=datetime.now(timezone.utc) + timedelta(hours=25))
+        self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], ["IT-T5-080"], r)
+        self.assertEqual(C.ler_estado(self.base)["LINHAS"]["SITES"]["PASSAGEM"], 2)
+
+    # (2) ciclo sem corrida e sem pedido: nada a provar, o servico segue
+    def test_ciclo_146_sem_corrida_e_sem_pedido_nao_para(self):
+        onda = OndaQueRecusa(self.sala)
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=onda))
+        self.assertEqual(onda.chamadas, [["IT-T9-002"]])
+        self.assertEqual(r["RUN_IDS"], [])
+        self.assertEqual(r["PROVA_TETO_CICLO"]["ESTADO"], "NADA_A_PROVAR", r["PROVA_TETO_CICLO"])
+        self.assertEqual(r["PROVA_TETO_CICLO"]["CORRIDAS_DA_ONDA"], 0)
+        self.assertEqual(r["PROVA_TETO_CICLO"]["PEDIDOS_NOS_LIVROS_DAS_ONDAS"], 0)
+        self.assertEqual(r["PROVA_TETO_24H"]["ESTADO"], "NADA_A_PROVAR")
+        self.assertIsNone(r["PARA"], r)
+        self.assertIsNone(C.ler_estado(self.base)["PAROU"])
+        self.assertEqual(self.robo.eventos, ["PARAR", "TIRAR_FLAG", "LANCAR"])
+        self.assertEqual(r["RECONCILIACAO"]["ESTADO"], "PASS")
+        self.assertEqual(r["LINHAS"]["SITES"]["CORRERAM"], [])
+        # e o ciclo seguinte corre: nao ficou PARADO
+        r2 = self.ciclo(self.sites(["IT-T5-080"]))
+        self.assertNotIn("JA_PARADO", str(r2["PARA"]))
+        self.assertEqual(r2["LINHAS"]["SITES"]["CORRERAM"], ["IT-T5-080"])
+
+    def test_sem_corrida_mas_com_pedido_no_livro_da_onda_para(self):
+        onda = OndaQueRecusa(self.sala, livro_da_onda=json.dumps({"PEDIDOS_POR_DOMINIO": {"dois.test": 2}}))
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=onda))
+        self.assertEqual(r["PARA"], "PROVA_TETO_NAO_SEI", r)
+
+    def test_sem_corrida_e_livro_da_onda_ilegivel_para(self):
+        onda = OndaQueRecusa(self.sala, livro_da_onda="{nao e json")
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=onda))
+        self.assertEqual(r["PARA"], "PROVA_TETO_NAO_SEI", r)
+
+    def test_onda_sem_estado_gravado_para(self):
+        onda = OndaQueRecusa(self.sala, escreve_estado=False)
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=onda))
+        self.assertEqual(r["PARA"], "PROVA_TETO_NAO_SEI", r)
+
+    def test_corrida_que_nao_correu_mas_tem_run_id_sem_linha_no_livro_para(self):
+        rid = "IT-T9-%s-%s" % (datetime.now(timezone.utc).strftime("%Y-%m-%d-%H%M%S"), "cd" * 8)
+        onda = OndaQueRecusa(self.sala, run_id=rid)
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=onda))
+        self.assertEqual(r["RUN_IDS"], [rid])
+        self.assertEqual(r["PARA"], "PROVA_TETO_NAO_SEI", r)
+        self.assertEqual(r["PROVA_TETO_CICLO"]["CORRIDAS_SEM_LINHA_NO_LIVRO"], [rid])
+
+    def test_ciclo_vazio_nao_apaga_a_prova_das_24h(self):
+        self.ciclo(self.sites(["IT-T5-080"]))                       # uma corrida de verdade ha minutos
+        self.ledger.write_text("", encoding="utf-8")                # o livro de corridas perdeu-a
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=OndaQueRecusa(self.sala)))
+        self.assertEqual(r["PROVA_TETO_CICLO"]["ESTADO"], "NADA_A_PROVAR")
+        self.assertEqual(r["PARA"], "PROVA_TETO_24H_NAO_SEI", r)
+
+    def test_livro_da_cortesia_ilegivel_continua_a_parar(self):
+        livro24 = self.livro24
+
+        def estraga(*a):
+            c = self.onda(*a)
+            livro24.write_text("{estragado", encoding="utf-8")
+            return c
+        r = self.ciclo(self.sites(["IT-T5-080"]), pecas=self.pecas(onda=estraga))
+        self.assertEqual(r["PARA"], "PROVA_TETO_NAO_SEI", r)
+
+        def estraga_sem_corrida(*a):
+            c = OndaQueRecusa(self.sala)(*a)
+            livro24.write_text("{estragado", encoding="utf-8")
+            return c
+        self.livro24.unlink()
+        C.rearmar(self.base, "teste")
+        r = self.ciclo(self.sites(["IT-T9-002"]), pecas=self.pecas(onda=estraga_sem_corrida))
+        self.assertEqual(r["PARA"], "PROVA_TETO_NAO_SEI", r)
 
 
 # ── 6. o plano real da 4.a onda (ensaio a seco, 0 rede) ──────────────────────
