@@ -12,6 +12,11 @@ Sem rede (so 127.0.0.1). Cada classe e uma das quebras medidas:
      Agora: leitura compativel + migracao no 1.o escrito (Python e Node), `--migrar`, malformado = UNKNOWN.
   4/5. o transporte Node: sinais pelo `-D` (curl 7.83), Crawl-delay > 5 s, robots PROIBE, sem livro = SEM_LIVRO,
      e o robots de 24 h do FEED-LIGADO sem ReferenceError — `provas/teto_adaptativo/transporte_rebase_local.mjs`.
+
+ADENDO-PARADA (01/10) — AJUSTE DECLARADO: o ciclo passou a perguntar ao portao da Collection (`collection_gate`)
+antes de oferecer uma fonte, e sem portao injectado usa o REAL. As fontes destes testes nao estao no livro canonico:
+os ciclos em processo levam o portao falso que admite tudo (`pecas["fonte"]`), e o ciclo pelo CLI (que nao se
+injecta) usa duas fontes que o portao real admite AGORA nesta arvore. Nenhuma assercao mudou.
 """
 import json
 import os
@@ -93,7 +98,8 @@ class AColetaContinuaNaoPara(Base):
         import coleta_continua as C
         self.visitar("z.it", 2)
         c = {"SITES": [{"SOURCE_ID": "A", "DOMINIO": "z.it", "PREVISTOS": 2, "DOMINIOS": ["z.it"]}]}
-        kw = dict(pecas={"ram": lambda: 9.0}, livro_24h=self.tmp / "L.ndjson", a_seco=True,
+        from tests import test_coleta_continua as T
+        kw = dict(pecas={"ram": lambda: 9.0, "fonte": T._admite_tudo}, livro_24h=self.tmp / "L.ndjson", a_seco=True,
                   ligacao=lambda l: {"LIGADA": True, "PORQUE": "t"})
         r = C.ciclo(self.tmp / "ondas" / "CC", "s", c, **kw)
         self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], ["A"])
@@ -136,9 +142,13 @@ class AColetaContinuaNaoPara(Base):
         """--ensaio-a-seco: 0 rede, 0 Sala, com o livro vivo no formato antigo — le-o e nao o muda. A janela D79
         so fecha com --janela-24h (edagricole visitado ha 2 h)."""
         agora = datetime.now(timezone.utc)
+        # o CLI pergunta ao portao REAL (nao se injecta): duas fontes que ele admite agora nesta arvore
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+        import collection_gate as GATE  # noqa: PLC0415
+        a, b = [l["SOURCE_ID"] for l in GATE.inventario() if l["COLLECTION_ELIGIBLE"]][:2]
         plano = {"COORTE_SHA256": "c0" * 32, "RODADAS": [{"RODADA": 1, "FONTES": [
-            {"SOURCE_ID": "IT-T8-021", "DOMINIO": "edagricole.test", "PREVISTOS": 5, "DOMINIOS": ["edagricole.test"]},
-            {"SOURCE_ID": "IT-T5-080", "DOMINIO": "crea.test", "PREVISTOS": 5, "DOMINIOS": ["crea.test"]}]}]}
+            {"SOURCE_ID": a, "DOMINIO": "edagricole.test", "PREVISTOS": 5, "DOMINIOS": ["edagricole.test"]},
+            {"SOURCE_ID": b, "DOMINIO": "crea.test", "PREVISTOS": 5, "DOMINIOS": ["crea.test"]}]}]}
         (self.tmp / "plano.json").write_text(json.dumps(plano), encoding="utf-8")
         self.visitar("edagricole.test", 2)
         livro = self.tmp / "TETO-24H.json"
@@ -155,14 +165,14 @@ class AColetaContinuaNaoPara(Base):
             return json.loads(p.stdout)
         r = cli()
         self.assertIsNone(r["PARA"], r)
-        self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], ["IT-T8-021"])
+        self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], [a])
         esp = {e["SOURCE_ID"]: e["DOMINIOS_FECHADOS"] for e in r["ESPERAM"]}
-        self.assertEqual(esp["IT-T5-080"]["crea.test"]["PORQUE"], "TETO_24H")
-        self.assertEqual(esp["IT-T5-080"]["crea.test"]["GASTO_24H"], 38)
+        self.assertEqual(esp[b]["crea.test"]["PORQUE"], "TETO_24H")
+        self.assertEqual(esp[b]["crea.test"]["GASTO_24H"], 38)
         r = cli("--janela-24h")
         self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], [])
         esp = {e["SOURCE_ID"]: e["DOMINIOS_FECHADOS"] for e in r["ESPERAM"]}
-        self.assertEqual(esp["IT-T8-021"]["edagricole.test"]["PORQUE"], "JANELA_24H")
+        self.assertEqual(esp[a]["edagricole.test"]["PORQUE"], "JANELA_24H")
         self.assertEqual(livro.read_bytes(), antes, "o ensaio a seco nao escreve no livro")
 
 
@@ -185,7 +195,8 @@ class UmCicloEmLoopback(Base):
         sala, robo = T.Sala(), T.Robo(self.tmp / "PARAR.flag")
         onda = T.OndaFalsa(ledger, sala)
         pecas = {"portao": T.Portao(), "onda": onda, "relatorio": lambda e, s: 0, "ledger": ledger, "ram": lambda: 12.0,
-                 "backup": lambda p: {"PROVA_VALE": True}, "robo": robo, "reconciliar": sala.reconciliar}
+                 "backup": lambda p: {"PROVA_VALE": True}, "robo": robo, "reconciliar": sala.reconciliar,
+                 "fonte": T._admite_tudo}
         cands = {"SITES": C.candidatas_do_plano(T._plano([["IT-T9-002"]]))}
         r = C.ciclo(base, T.SHA, cands, pecas=pecas, livro_24h=livro, ligacao=lambda l: {"LIGADA": True, "PORQUE": "t"})
         self.assertIsNone(r["PARA"], r)

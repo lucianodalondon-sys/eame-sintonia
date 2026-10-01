@@ -114,9 +114,23 @@ Se o robô estava parado, fica parado. Sem fontes elegíveis, o robô **não é 
 | `ONDA_PAROU_<LINHA>` | a onda saiu com código ≠ 0 ou disjuntor |
 | `RECONCILIACAO_FAIL` / `_NAO_SEI` | o delta da Sala ≠ as linhas destas corridas (`collection_run`, `raw_asset`, `sala_de_espera`, só SELECT) |
 | `ERRO_NO_CICLO` | qualquer excepção (o robô é religado na mesma) |
+| `PORTAO_DA_FONTE_NAO_SEI` | o portão da Collection (`collection_gate.avaliar`) não respondeu: sem veredito não se oferece fonte nenhuma |
 
 O estado fica em `<base>/COLETA-CONTINUA-ESTADO.json` → `PAROU`. Os ciclos seguintes recusam (`JA_PARADO`) até
 alguém ler e rearmar, dizendo o que viu.
+
+**ADENDO-PARADA (01/10).** Medido no ciclo 146 (vivo `eac885db3`): o agendador deu `IT-T8-051` à onda dos SITES; o
+portão da onda recusou (`GATE:ESTADO_NAO_READY`); 0 corridas, 0 pedidos; a prova-teto deu `NAO_SEI` sobre
+`RUN_IDS=[]` e o serviço PAROU por nada. Duas mudanças:
+
+1. O agendador pergunta ao **mesmo** portão que a onda usa (`onda_web.py --correr` → `micro_coleta.plano` →
+   `collection_gate.avaliar`), no instante do ciclo. Fonte que ele não admite não vai à onda: fica em `ESPERAM` com
+   `PORQUE=FONTE_NAO_READY`, `ESTADO_LIDO`, `MOTIVO_DO_PORTAO` e `PORQUE_DO_PORTAO`. A passagem da linha acaba com
+   as admitidas (senão uma recusada prendia a linha em `NADA_ELEGIVEL` para sempre).
+2. Ciclo **sem corrida e sem pedido** — estado de cada onda gravado, nenhuma fonte `CORREU`, nenhum `RUN_ID`, livro
+   da onda ausente ou a 0 — dá `PROVA_TETO_CICLO=NADA_A_PROVAR` e **não** para. A prova de 24 h corre na mesma se
+   houve corridas nas últimas 24 h. Uma corrida, um pedido, um livro ilegível ou um estado em falta = a prova corre
+   como antes e para.
 
 ### O livro de ciclos — `<base>/CICLOS.ndjson`
 
