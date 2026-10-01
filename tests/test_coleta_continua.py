@@ -461,10 +461,14 @@ class Linhas(Base):
         # escreve a RESERVA no livro temporario e nao reserva com o dominio pausado). A BUSCA e a SOCIAL ja
         # reservavam por outra porta (scrap_http/teto_da_onda) e o texto dava-as como desligadas; a CIENCIA e a
         # PESQUISADORES ganharam a reserva que nao tinham. Nenhuma fica ESPERA_LIGACAO.
+        # ADENDO-RESERVA (01/10): a CIENCIA tem tres portas de rede e mede-se porta a porta (MEDIDO.PORTAS);
+        # cada porta tem de passar a mesma conta que uma linha de porta unica.
+        self.assertEqual(set(m["CIENCIA"]["MEDIDO"]["PORTAS"]), {"OPENALEX", "CROSSREF", "ORCID"}, m["CIENCIA"])
         for n in ("BUSCA", "CIENCIA", "SOCIAL", "PESQUISADORES"):
             self.assertTrue(m[n]["LIGADA"], (n, m[n]))
-            self.assertEqual(m[n].get("MEDIDO", {}).get("RESERVAS_LIVRES"), 1, (n, m[n]))
-            self.assertEqual(m[n].get("MEDIDO", {}).get("RESERVAS_NOVAS_B"), 0, (n, m[n]))
+            for porta, med in ((m[n].get("MEDIDO") or {}).get("PORTAS") or {"-": m[n].get("MEDIDO") or {}}).items():
+                self.assertEqual(med.get("RESERVAS_LIVRES"), 1, (n, porta, m[n]))
+                self.assertEqual(med.get("RESERVAS_NOVAS_B"), 0, (n, porta, m[n]))
 
     def test_a_ligacao_e_a_chamada_nao_o_nome(self):
         d = self.tmp / "coleta"
