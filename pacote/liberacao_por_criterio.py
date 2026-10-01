@@ -35,6 +35,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import sys
 from datetime import date, datetime, timezone
@@ -177,19 +178,159 @@ def conferir_objeto(o: dict, comp: str, linhas: dict, armazem: Path | None, vist
     return c
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# ROTEAR PRIMEIRO, JULGAR DEPOIS (dono, Diretoria 01/10: «nao aplicar regua de fato de campo a tudo»).
+# A auditoria cega do LAB (ROTULOS-CEGOS-V1 e518cfce, 313 materiais) mediu 107 uteis perdidos porque C1..C3 (afirmacao
+# propria, data do FATO, lugar do FATO) eram exigidos a estudos publicados — que por natureza nao tem «onde aconteceu
+# hoje». C1..C7 NAO afrouxam: continuam a regua de FATO/sinal/alerta. O que muda e a PORTA: o objeto que o motor ja
+# declarou CONHECIMENTO/ESTUDO (§5-E do contrato de afirmacoes, F2 2882e899a: science, NO_DEFENSIBLE_ACTION_YET,
+# USO_EXIGE_TEMPO=false) e julgado pela regua da SUA natureza. Nenhuma camada nova: mesma funcao, mesmo C8, mesmo pote.
+# Conhecimento liberado nunca e alerta: leva RESULTADO=NO_DEFENSIBLE_ACTION_YET e nao abre janela/ACT_NOW (fiscal).
+# ---------------------------------------------------------------------------------------------------------------
+REGUA_FATO = "REGUA_FATO/C1-C7 (contrato v2.2)"
+REGUA_CONHECIMENTO = "REGUA_CONHECIMENTO/v1 (estudo publicado; sem data/lugar do FATO por natureza)"
+CONFERENCIAS_CONHECIMENTO = ("K1_PROVA_DO_DOCUMENTO", "K2_OBRA_CIENTIFICA_DECLARADA_PELA_FONTE",
+                             "K3_SEM_USO_QUE_EXIGE_TEMPO", "C4_LIGACAO_ADAMA", "K5_SEM_OBRA_DUPLICADA",
+                             "C6_ESPECIE_DO_COMPARTIMENTO", "K7_SO_SAIDA_DA_INTELLIGENCE")
+#: tipo de obra DECLARADO pelo registo da fonte (campo `type` do registo bibliografico relido no armazem), nunca
+#: inferido do texto. Fora da lista (editorial, erratum, letter, paratext, ...) nao e estudo -> fica bloqueado.
+TIPOS_DE_OBRA_CIENTIFICA = ("article", "review", "preprint", "conference-paper", "conference-abstract", "dataset",
+                            "data-paper", "dissertation", "book-chapter", "report")
+_DOI = re.compile(r"^10\.\d{4,9}/\S+$")
+_OBRA_OPENALEX = re.compile(r"^https?://openalex\.org/W\d+$")
+
+
+def natureza_do_objeto(o: dict, comp: str) -> str:
+    """-> CONHECIMENTO | FATO. So o que o MOTOR ja declarou conhecimento sem tempo vai a regua de conhecimento;
+    tudo o resto (incluindo o que nao se sabe) fica na regua de FATO — a mais exigente."""
+    fora = o.get("FORA_DO_CONTRATO") or {}
+    uso = ((fora.get("INTERPRETACAO_DO_SISTEMA") or {}).get("USO") or {})
+    if (comp == "science" and str(fora.get("ESPECIE_DO_MOTOR", "")).startswith("CONHECIMENTO/ESTUDO")
+            and o.get("USO_EXIGE_TEMPO") is False and o.get("RESULTADO") == "NO_DEFENSIBLE_ACTION_YET"
+            and uso.get("G0_FALTA") == ["FACT_TIME"]):
+        return "CONHECIMENTO"
+    return "FATO"
+
+
+def _registo_da_obra(lugar: Path) -> dict | None:
+    try:
+        d = json.loads(lugar.read_bytes().decode("utf-8"))
+    except (ValueError, UnicodeDecodeError, OSError):
+        return None
+    return d if isinstance(d, dict) else None
+
+
+def conferir_conhecimento(o: dict, comp: str, linhas: dict, armazem: Path | None, vistos: set, cache: dict) -> dict:
+    """Regua de CONHECIMENTO: prova do DOCUMENTO (nao de uma afirmacao de campo), identidade de obra declarada pela
+    fonte, e nenhum uso que exija tempo. Puro sobre (objeto, texto da Sala, armazem)."""
+    c = {"REGUA": REGUA_CONHECIMENTO}
+    prova = o.get("PROVA") or []
+    p0 = prova[0] if prova else {}
+    linha = linhas.get(str(p0.get("ITEM_ID")))
+    texto = (linha or {}).get("texto") or ""
+    registo, titulo_em = None, -1
+
+    # K1 — o documento existe, e o mesmo byte da Sala, e o titulo da obra esta literal no texto
+    f = []
+    if len(prova) != 1:
+        f.append("objeto com %d provas (conhecimento e UMA obra)" % len(prova))
+    if linha is None:
+        f.append("item da prova fora do corte da Sala")
+    else:
+        doc = p0.get("DOCUMENT_ID")
+        if not _sabido(doc) or doc != linha.get("raw_document_key"):
+            f.append("DOCUMENT_ID vazio ou diferente do raw_document_key da Sala")
+        if p0.get("RAW_SHA256") != linha.get("raw_sha256") or p0.get("RAW_STORAGE_PATH") != linha.get("raw_storage_path"):
+            f.append("RAW_SHA256/RAW_STORAGE_PATH da prova != Sala")
+        lugar = armazem / str(linha.get("raw_storage_path")) if armazem and linha.get("raw_storage_path") else None
+        if lugar is None or not lugar.is_file():
+            f.append("RAW ausente no armazem")
+        else:
+            k = str(lugar)
+            if k not in cache:
+                cache[k] = _sha_bytes(lugar.read_bytes())
+            if cache[k] != linha.get("raw_sha256"):
+                f.append("sha do byte relido != raw_asset.sha256")
+            else:
+                registo = _registo_da_obra(lugar)
+        titulo = (registo or {}).get("title") or (registo or {}).get("display_name")
+        if not isinstance(titulo, str) or not titulo.strip():
+            f.append("registo da obra sem titulo legivel no RAW")
+        else:
+            titulo_em = texto.find(titulo)
+            if titulo_em < 0:
+                f.append("titulo da obra nao esta literal no texto da Sala")
+    c["K1_PROVA_DO_DOCUMENTO"] = PASSOU if not f else "FALHOU: " + "; ".join(f)
+
+    # K2 — e uma OBRA CIENTIFICA porque a fonte o declara (identidade de obra + tipo no registo), nao porque o texto
+    #      «parece» ciencia. Pagina institucional, noticia, editorial, obituario-sem-tipo: nao passam.
+    doc = str(p0.get("DOCUMENT_ID"))
+    tipo = (registo or {}).get("type")
+    if not (_DOI.match(doc) or _OBRA_OPENALEX.match(doc)):
+        c["K2_OBRA_CIENTIFICA_DECLARADA_PELA_FONTE"] = "FALHOU: DOCUMENT_ID nao e identidade de obra (DOI/OpenAlex)"
+    elif tipo not in TIPOS_DE_OBRA_CIENTIFICA:
+        c["K2_OBRA_CIENTIFICA_DECLARADA_PELA_FONTE"] = "FALHOU: tipo da obra no registo da fonte = %r" % (tipo,)
+    else:
+        c["K2_OBRA_CIENTIFICA_DECLARADA_PELA_FONTE"] = PASSOU
+
+    # K3 — nada aqui pode virar alerta: sem FACT_TIME inventado, uso sem tempo, resultado honesto
+    ft = [p.get("FACT_TIME") for p in prova]
+    if o.get("USO_EXIGE_TEMPO") is not False or o.get("RESULTADO") != "NO_DEFENSIBLE_ACTION_YET":
+        c["K3_SEM_USO_QUE_EXIGE_TEMPO"] = "FALHOU: objeto exige tempo ou promete acao"
+    elif any(_sabido(x) for x in ft):
+        c["K3_SEM_USO_QUE_EXIGE_TEMPO"] = "FALHOU: conhecimento com FACT_TIME preenchido (vai a regua de FATO)"
+    elif any(p.get("ADMITIDA_POR") != "USO_SEM_TEMPO" for p in prova):
+        c["K3_SEM_USO_QUE_EXIGE_TEMPO"] = "FALHOU: prova nao admitida por USO_SEM_TEMPO"
+    else:
+        c["K3_SEM_USO_QUE_EXIGE_TEMPO"] = PASSOU
+
+    lig = o.get("LIGACAO_ADAMA")
+    fl = PORTA.conferir_ligacao(lig) if isinstance(lig, dict) else ["sem LIGACAO_ADAMA"]
+    c["C4_LIGACAO_ADAMA"] = PASSOU if not fl else "FALHOU: " + "; ".join(map(str, fl))[:300]
+
+    k = ("OBRA", doc)
+    c["K5_SEM_OBRA_DUPLICADA"] = PASSOU if k not in vistos else "FALHOU: a mesma obra ja foi liberada (INT-LAW-072)"
+    c["C6_ESPECIE_DO_COMPARTIMENTO"] = (PASSOU if o.get("ESPECIE") in P.COMPARTIMENTOS.get(comp, {}).get("ESPECIES", ())
+                                        else "FALHOU: especie fora do compartimento")
+    c["K7_SO_SAIDA_DA_INTELLIGENCE"] = (PASSOU if o.get("ESPECIE_DITA_POR") == "INTELLIGENCE" and prova
+                                        and all(_sabido(p.get("ITEM_ID")) for p in prova)
+                                        else "FALHOU: nao e objeto da Intelligence com item da Sala")
+    ok = all(c[x] == PASSOU for x in CONFERENCIAS_CONHECIMENTO)
+    c["C8_DECISAO_DO_DONO"] = (PASSOU + " · " + REGRA + " · " + REGUA_CONHECIMENTO + " · " + DECISAO) if ok else \
+        "FALHOU: %s (%s) so libera com todas PASSOU (falhou: %s)" % (
+            REGRA, REGUA_CONHECIMENTO, ", ".join(x for x in CONFERENCIAS_CONHECIMENTO if c[x] != PASSOU))
+    if ok:
+        vistos.add(k)
+        c["_TITULO_EM"] = titulo_em
+        c["_TITULO"] = (registo or {}).get("title") or (registo or {}).get("display_name")
+    return c
+
+
+def conferir_por_natureza(o: dict, comp: str, linhas: dict, armazem: Path | None, vistos: set, cache: dict) -> dict:
+    if natureza_do_objeto(o, comp) == "CONHECIMENTO":
+        return conferir_conhecimento(o, comp, linhas, armazem, vistos, cache)
+    return dict(conferir_objeto(o, comp, linhas, armazem, vistos, cache), REGUA=REGUA_FATO)
+
+
 def liberar(pote: dict, linhas: dict, armazem: Path | None, run_id: str) -> tuple[dict, dict]:
     """Carimba LIBERACAO por objeto no pote (copia). -> (pote carimbado, {OBJETO_ID: conferencia})."""
     pote = json.loads(json.dumps(pote, ensure_ascii=False))
     vistos, cache, conf = set(), {}, {}
     for comp, e in pote["COMPARTIMENTOS"].items():
         for o in e["OBJETOS"]:
-            c = conferir_objeto(o, comp, linhas, armazem, vistos, cache)
+            c = conferir_por_natureza(o, comp, linhas, armazem, vistos, cache)
             ok = c["C8_DECISAO_DO_DONO"].startswith(PASSOU)
+            titulo, titulo_em = c.pop("_TITULO", None), c.pop("_TITULO_EM", None)
             o["LIBERACAO"] = "LIBERADO_PARA_CLIENTE" if ok else "NAO_PARA_CLIENTE"
             o["CONFERENCIA_DE_LIBERACAO"] = c
             o["LIBERADO_POR"] = REGRA if ok else NS
             o["LIBERADO_NA_CORRIDA"] = run_id
-            if ok:
+            if ok and c["REGUA"] == REGUA_CONHECIMENTO:
+                # conhecimento: a prova cita a OBRA (titulo literal, com posicao) — nunca data/lugar de fato
+                for p in o["PROVA"]:
+                    p.update({"TRECHO_DA_AFIRMACAO": titulo, "SECAO": {"AFIRMACAO_EM": titulo_em}})
+                o["NATUREZA_DO_OBJETO"] = "CONHECIMENTO"
+            elif ok:
                 fonte = o["FORA_DO_CONTRATO"]["DA_FONTE"]
                 for p in o["PROVA"]:
                     p.update({"TRECHO_DA_AFIRMACAO": fonte["EVIDENCE_SPAN"]["TRECHO"],
