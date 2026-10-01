@@ -1,0 +1,1113 @@
+{
+ "DATASET": "T9-PORTA-SOCIAL-MEDICAO",
+ "ENTRADAS": {
+  "CONTRATOS": {
+   "CAMINHO": "C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\italy_contracts_curator.json",
+   "SHA256": "55f9ecc180aee93ad0da10af2fbcf70cce98e6b7a9ebb89e001f11ce21118604"
+  },
+  "LIVRO": {
+   "CAMINHO": "C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\LIFECYCLE-LEDGER-V1.json",
+   "SHA256": "33900dcc4fe6689c7bc6fd12e591b5bc0b19f0b0722d527a8a82b3253842e56d",
+   "TRANSICOES": 5638
+  }
+ },
+ "CONTRATOS": 902,
+ "STRATEGY": {
+  "SCRAP_FASE": 59,
+  "HTML_LINK_DISCOVERY": 834,
+  "YOUTUBE_CHANNEL_FEED": 9
+ },
+ "ESTADO_POR_STRATEGY_FASE": {
+  "SCRAP_FASE/canal-youtube/CANARY_PENDING": 50,
+  "YOUTUBE_CHANNEL_FEED/None/RETRY_AFTER": 9,
+  "SCRAP_FASE/video-linkedin/CANARY_PENDING": 9
+ },
+ "ACEITES": [
+  "IT-T11-014",
+  "IT-T2-165",
+  "IT-T5-190",
+  "IT-T5-191",
+  "IT-T7-253",
+  "IT-T7-254",
+  "IT-T7-255",
+  "IT-T9-025",
+  "IT-T9-026"
+ ],
+ "RECUSADAS_POR_MOTIVO": {
+  "FORA_DO_AMBITO_AUTORIZADO": 50,
+  "SEM_RASTRO_DE_AUTORIZACAO": 9
+ },
+ "POR_PLATAFORMA": {
+  "YOUTUBE": {
+   "ACEITES": [],
+   "RECUSADAS": {
+    "FORA_DO_AMBITO_AUTORIZADO": [
+     "IT-T10-017",
+     "IT-T10-019",
+     "IT-T11-006",
+     "IT-T11-007",
+     "IT-T12-007",
+     "IT-T12-008",
+     "IT-T12-010",
+     "IT-T12-011",
+     "IT-T12-012",
+     "IT-T12-014",
+     "IT-T12-015",
+     "IT-T12-016",
+     "IT-T12-152",
+     "IT-T12-153",
+     "IT-T2-025",
+     "IT-T2-026",
+     "IT-T2-027",
+     "IT-T2-028",
+     "IT-T2-166",
+     "IT-T2-167",
+     "IT-T5-037",
+     "IT-T5-038",
+     "IT-T5-040",
+     "IT-T5-192",
+     "IT-T5-193",
+     "IT-T7-015",
+     "IT-T7-020",
+     "IT-T7-022",
+     "IT-T7-023",
+     "IT-T7-024",
+     "IT-T7-025",
+     "IT-T7-026",
+     "IT-T7-027",
+     "IT-T7-028",
+     "IT-T7-030",
+     "IT-T7-032",
+     "IT-T7-034",
+     "IT-T7-035",
+     "IT-T7-036",
+     "IT-T7-037",
+     "IT-T7-039",
+     "IT-T7-256",
+     "IT-T7-257",
+     "IT-T8-004",
+     "IT-T8-005",
+     "IT-T8-006",
+     "IT-T9-014",
+     "IT-T9-016",
+     "IT-T9-017",
+     "IT-T9-027"
+    ],
+    "SEM_RASTRO_DE_AUTORIZACAO": [
+     "IT-T5-042",
+     "IT-T5-043",
+     "IT-T5-044",
+     "IT-T5-045",
+     "IT-T5-047",
+     "IT-T5-048",
+     "IT-T5-050",
+     "IT-T7-016",
+     "IT-T7-018"
+    ]
+   }
+  },
+  "LINKEDIN": {
+   "ACEITES": [
+    "IT-T11-014",
+    "IT-T2-165",
+    "IT-T5-190",
+    "IT-T5-191",
+    "IT-T7-253",
+    "IT-T7-254",
+    "IT-T7-255",
+    "IT-T9-025",
+    "IT-T9-026"
+   ],
+   "RECUSADAS": {}
+  }
+ },
+ "RASTRO_DO_DONO_POR_PLATAFORMA": {
+  "YOUTUBE": {
+   "COM_RASTRO": 50,
+   "SEM_RASTRO": 9
+  },
+  "LINKEDIN": {
+   "COM_RASTRO": 9,
+   "SEM_RASTRO": 0
+  }
+ },
+ "NAO_SOCIAIS": 834,
+ "RECUSADAS": [
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T10-019",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T11-006",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T11-007",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-007",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-008",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-010",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-011",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-012",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-014",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-015",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-016",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-152",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-153",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-025",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-026",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-027",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-028",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-166",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-167",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-037",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-038",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-040",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-042",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-043",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-044",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-045",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-047",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-048",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-050",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-192",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-193",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-015",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-016",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-018",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-020",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-022",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-023",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-024",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-025",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-026",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-027",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-028",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-030",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-032",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-034",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-035",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-036",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-037",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-039",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-256",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-257",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-004",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-005",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-006",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-014",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-016",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-017",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-027",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "SCRAP_FASE",
+   "FASE": "canal-youtube",
+   "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+   "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "FORA_DO_AMBITO_AUTORIZADO",
+     "PORQUE": "SCRAP_FASE/canal-youtube: YOUTUBE — so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)"
+    }
+   ]
+  }
+ ],
+ "LISTA_DO_CURATOR": {
+  "CAMINHO": "C:\\Users\\London1\\auditoria-madrugada\\CURATOR-FONTES-CANARIO-MULTICANAL.json",
+  "SHA256": "141f51e0e56ce5e2c1be5eb09675246ae3e5ed5379d45a24b57f8bed5acc659f",
+  "NO_CATALOGO": {
+   "YOUTUBE": 7,
+   "LINKEDIN": 6,
+   "LINKEDIN_PESSOAS_OPCIONAIS": 0,
+   "INSTAGRAM": 0
+  },
+  "FORA_DO_CATALOGO": {
+   "LINKEDIN_PESSOAS_OPCIONAIS": [
+    {
+     "SOURCE_ID": "CAND-1177",
+     "URL": "https://www.linkedin.com/in/claudio-zaccone-univr",
+     "ESTADO_NO_LIVRO": "POLICY_BLOCK",
+     "REELS_JA_NO_REPOSITORIO": null,
+     "DECISAO_QUE_AUTORIZA": "D24 (dono, 23/09): videos de PESSOAS do agro autorizados (publico, sem login), c"
+    },
+    {
+     "SOURCE_ID": "CAND-1187",
+     "URL": "https://www.linkedin.com/in/francesca-sparvoli-4a6aaa34",
+     "ESTADO_NO_LIVRO": "POLICY_BLOCK",
+     "REELS_JA_NO_REPOSITORIO": null,
+     "DECISAO_QUE_AUTORIZA": "D24 (dono, 23/09): videos de PESSOAS do agro autorizados (publico, sem login), c"
+    }
+   ],
+   "INSTAGRAM": [
+    {
+     "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTAS-V1#SYNGENTA|IT|INSTAGRAM",
+     "URL": "https://www.instagram.com/syngentaitalia/",
+     "ESTADO_NO_LIVRO": "NAO_ESTA_NO_LIVRO (conta de dataset; sem SOURCE_ID)",
+     "REELS_JA_NO_REPOSITORIO": [
+      "https://www.instagram.com/reel/C-FanW_CYMz/"
+     ],
+     "DECISAO_QUE_AUTORIZA": "D22 (dono, 23/09): Reels do Instagram por URL DIRETA autorizados; conta Business"
+    },
+    {
+     "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTAS-V1#BAYER|IT|INSTAGRAM",
+     "URL": "https://www.instagram.com/bayer_italia",
+     "ESTADO_NO_LIVRO": "NAO_ESTA_NO_LIVRO (conta de dataset; sem SOURCE_ID)",
+     "REELS_JA_NO_REPOSITORIO": [
+      "https://www.instagram.com/reel/DcNkh7LCW4u/",
+      "https://www.instagram.com/reel/DZ9ygDrCwzu/",
+      "https://www.instagram.com/reel/DZUXUMnifDX/"
+     ],
+     "DECISAO_QUE_AUTORIZA": "D22 (dono, 23/09): Reels do Instagram por URL DIRETA autorizados; conta Business"
+    },
+    {
+     "SOURCE_ID": "CAND-0078",
+     "URL": "https://www.instagram.com/granapadano",
+     "ESTADO_NO_LIVRO": "POLICY_BLOCK",
+     "REELS_JA_NO_REPOSITORIO": [],
+     "DECISAO_QUE_AUTORIZA": "D22 (dono, 23/09): Reels do Instagram por URL DIRETA autorizados; conta Business"
+    },
+    {
+     "SOURCE_ID": "CAND-0076",
+     "URL": "https://www.instagram.com/confagricoltura_lombardia",
+     "ESTADO_NO_LIVRO": "POLICY_BLOCK",
+     "REELS_JA_NO_REPOSITORIO": [],
+     "DECISAO_QUE_AUTORIZA": "D22 (dono, 23/09): Reels do Instagram por URL DIRETA autorizados; conta Business"
+    },
+    {
+     "SOURCE_ID": "CAND-0072",
+     "URL": "https://www.instagram.com/ersa_fvg_informa",
+     "ESTADO_NO_LIVRO": "POLICY_BLOCK",
+     "REELS_JA_NO_REPOSITORIO": [],
+     "DECISAO_QUE_AUTORIZA": "D22 (dono, 23/09): Reels do Instagram por URL DIRETA autorizados; conta Business"
+    },
+    {
+     "SOURCE_ID": "CAND-0068",
+     "URL": "https://www.instagram.com/ri.nova.soc.coop",
+     "ESTADO_NO_LIVRO": "POLICY_BLOCK",
+     "REELS_JA_NO_REPOSITORIO": [],
+     "DECISAO_QUE_AUTORIZA": "D22 (dono, 23/09): Reels do Instagram por URL DIRETA autorizados; conta Business"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,1031 @@
+{
+ "DATASET": "T9-PORTA-SOCIAL-MEDICAO",
+ "ENTRADAS": {
+  "CONTRATOS": {
+   "CAMINHO": "curadoria\\italy_contracts_curator.json",
+   "SHA256": "1e49c103b77b07f93fc4bc2b31832c0a08c24fe308bdc8cb3207c61e4c74797b"
+  },
+  "LIVRO": {
+   "CAMINHO": "curadoria\\LIFECYCLE-LEDGER-V1.json",
+   "SHA256": "958304db41c5a63b517a4b563bb08a4c5f62a2c33c3a417f7fe0e412acfea022",
+   "TRANSICOES": 2687
+  }
+ },
+ "CONTRATOS": 574,
+ "STRATEGY": {
+  "YOUTUBE_CHANNEL_FEED": 50,
+  "HTML_LINK_DISCOVERY": 524
+ },
+ "ESTADO_POR_STRATEGY_FASE": {
+  "YOUTUBE_CHANNEL_FEED/None/READY_FOR_COLLECTION": 41,
+  "YOUTUBE_CHANNEL_FEED/None/RETRY_AFTER": 9
+ },
+ "ACEITES": [],
+ "RECUSADAS_POR_MOTIVO": {
+  "SEM_RASTRO_DE_AUTORIZACAO": 50
+ },
+ "POR_PLATAFORMA": {
+  "YOUTUBE": {
+   "ACEITES": [],
+   "RECUSADAS": {
+    "SEM_RASTRO_DE_AUTORIZACAO": [
+     "IT-T10-017",
+     "IT-T10-019",
+     "IT-T11-006",
+     "IT-T11-007",
+     "IT-T12-007",
+     "IT-T12-008",
+     "IT-T12-010",
+     "IT-T12-011",
+     "IT-T12-012",
+     "IT-T12-014",
+     "IT-T12-015",
+     "IT-T12-016",
+     "IT-T2-025",
+     "IT-T2-026",
+     "IT-T2-027",
+     "IT-T2-028",
+     "IT-T5-037",
+     "IT-T5-038",
+     "IT-T5-040",
+     "IT-T5-042",
+     "IT-T5-043",
+     "IT-T5-044",
+     "IT-T5-045",
+     "IT-T5-047",
+     "IT-T5-048",
+     "IT-T5-050",
+     "IT-T7-015",
+     "IT-T7-016",
+     "IT-T7-018",
+     "IT-T7-020",
+     "IT-T7-022",
+     "IT-T7-023",
+     "IT-T7-024",
+     "IT-T7-025",
+     "IT-T7-026",
+     "IT-T7-027",
+     "IT-T7-028",
+     "IT-T7-030",
+     "IT-T7-032",
+     "IT-T7-034",
+     "IT-T7-035",
+     "IT-T7-036",
+     "IT-T7-037",
+     "IT-T7-039",
+     "IT-T8-004",
+     "IT-T8-005",
+     "IT-T8-006",
+     "IT-T9-014",
+     "IT-T9-016",
+     "IT-T9-017"
+    ]
+   }
+  }
+ },
+ "RASTRO_DO_DONO_POR_PLATAFORMA": {
+  "YOUTUBE": {
+   "COM_RASTRO": 0,
+   "SEM_RASTRO": 50
+  }
+ },
+ "NAO_SOCIAIS": 524,
+ "RECUSADAS": [
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T10-019",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T11-006",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T11-007",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-007",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-008",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-010",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-011",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-012",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-014",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-015",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-016",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-025",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-026",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-027",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-028",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-037",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-038",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-040",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-042",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-043",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-044",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-045",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-047",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-048",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-050",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-015",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-016",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-018",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    },
+    {
+     "MOTIVO": "ESTADO_NAO_READY",
+     "PORQUE": "estado no livro do ciclo de vida: RETRY_AFTER"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-020",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-022",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-023",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-024",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-025",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-026",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-027",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-028",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-030",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-032",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-034",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-035",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-036",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-037",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-039",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-004",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-005",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-006",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-014",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-016",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-017",
+   "PLATAFORMA": "YOUTUBE",
+   "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+   "FASE": null,
+   "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+   "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4",
+   "MOTIVOS": [
+    {
+     "MOTIVO": "SEM_RASTRO_DE_AUTORIZACAO",
+     "PORQUE": "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO vazio); YOUTUBE pede D17.4"
+    },
+    {
+     "MOTIVO": "ROTA_NAO_PERMITIDA",
+     "PORQUE": "ROUTE_POLICY_STATUS=ROBOTS_DISALLOWED (www.youtube.com/robots.txt · \"Disallow: /feeds/videos.xml\" lido ao vivo em 2026-09-20 · ja reprovado antes pelo portao canonico (coleta/scrap_http.py:31))"
+    }
+   ]
+  }
+ ]
+}

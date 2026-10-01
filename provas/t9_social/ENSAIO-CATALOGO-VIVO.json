@@ -1,0 +1,208 @@
+{
+ "DATASET": "T9-ENSAIO-A-SECO-POR-LINHA",
+ "RC": 0,
+ "ARGS": [
+  "--ensaio-a-seco",
+  "--base=C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\base",
+  "--plano=C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\RODADAS-PLANO.json",
+  "--estado-rodadas=C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\RODADAS-ESTADO.json",
+  "--teto-24h=C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\TETO-24H.json",
+  "--historico=C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\historico-0-ONDA-WEB-ESTADO.json,C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\historico-1-ONDA-WEB-ESTADO.json"
+ ],
+ "COPIAS": {
+  "teto-24h-vivo": {
+   "ORIGEM": "C:\\Users\\London1\\sintonia-sala-italia\\TETO-24H.json",
+   "COPIA": "C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\TETO-24H.json",
+   "SHA256": "a0a9049e8f9464cd88c1d37e598d7ee467bfc9940a791c074cbcdd581d37a653"
+  },
+  "plano": {
+   "ORIGEM": "C:\\Users\\London1\\sintonia-sala-italia\\ondas\\ONDA4-RODADAS\\RODADAS-PLANO.json",
+   "COPIA": "C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\RODADAS-PLANO.json",
+   "SHA256": "965d27acda27d2d9b4f94327f1f17e429446c367bb6cd02b9b51a0b8a14d045c"
+  },
+  "estado-rodadas": {
+   "ORIGEM": "C:\\Users\\London1\\sintonia-sala-italia\\ondas\\ONDA4-RODADAS\\RODADAS-ESTADO.json",
+   "COPIA": "C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\RODADAS-ESTADO.json",
+   "SHA256": "80d286e142b9c850ec4768eecc85176068ffb1384150c39cc3e380c677eb5636"
+  },
+  "historico-0": {
+   "ORIGEM": "C:/Users/London1/sintonia-sala-italia/ondas/ONDA2-WEB-20260925-0812/ONDA-WEB-ESTADO.json",
+   "COPIA": "C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\historico-0-ONDA-WEB-ESTADO.json",
+   "SHA256": "e95654bb7a9d69d02f5f5557b651088117fc6c3da0e363c2b53a8efca937db71"
+  },
+  "historico-1": {
+   "ORIGEM": "C:/Users/London1/sintonia-sala-italia/ondas/ONDA3-WEB-20260925-1934/ONDA-WEB-ESTADO.json",
+   "COPIA": "C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\ensaio-vivo\\entradas\\historico-1-ONDA-WEB-ESTADO.json",
+   "SHA256": "3b64a3e203944fdc46b448929167ef0fca3e8e682d8341e2a49fad122708746e"
+  }
+ },
+ "TROCA_DECLARADA": {
+  "LINHA": "SOCIAL",
+  "CATALOGO_DE": "C:\\Users\\London1\\AppData\\Local\\Temp\\t9-copia-TR1P\\catalogo-vivo",
+  "SHA256": {
+   "curadoria/italy_contracts_curator.json": "55f9ecc180aee93ad0da10af2fbcf70cce98e6b7a9ebb89e001f11ce21118604",
+   "curadoria/LIFECYCLE-LEDGER-V1.json": "33900dcc4fe6689c7bc6fd12e591b5bc0b19f0b0722d527a8a82b3253842e56d",
+   "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json": "4997ae4d6d7a362638bb020443a5819e63bb96ce512931768abf6877d01b267f"
+  }
+ },
+ "LIVRO_VIVO": {
+  "CAMINHO": "C:\\Users\\London1\\sintonia-sala-italia\\TETO-24H.json",
+  "SHA256_ANTES": "a0a9049e8f9464cd88c1d37e598d7ee467bfc9940a791c074cbcdd581d37a653",
+  "SHA256_DEPOIS": "a0a9049e8f9464cd88c1d37e598d7ee467bfc9940a791c074cbcdd581d37a653"
+ },
+ "LIVRO_COPIA_SHA256_DEPOIS": "a0a9049e8f9464cd88c1d37e598d7ee467bfc9940a791c074cbcdd581d37a653",
+ "A_SECO": true,
+ "PARA": null,
+ "AGORA_UTC": "2026-10-01T22:21:41+00:00",
+ "LINHAS": {
+  "BUSCA": {
+   "ESTADO": "BLOQUEADA_CAPACIDADE",
+   "FONTES": [],
+   "PEDIDOS_PREVISTOS": 0,
+   "PORQUE": "a coleta continua so tem a onda dos SITES (onda_web.py --correr), que so aceita a coorte congelada: uma fonte desta linha la dentro e FONTE_FORA_DA_COORTE, a onda sai != 0 e o servico PARA; o transporte da linha corre por CONSULTA (linha_busca.py --buscar/--colher --autorizado, o coordenador)",
+   "UNIDADES_GOVERNADAS": 473,
+   "MOTIVOS": [
+    "BLOQUEADA_CAPACIDADE"
+   ]
+  },
+  "CIENCIA": {
+   "ESTADO": "BLOQUEADA_POLITICA",
+   "FONTES": [],
+   "PEDIDOS_PREVISTOS": 0,
+   "PORQUE": "o contrato da fonte T6 nao esta instalado (docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json: ESTADO='PROPOSTA — nao instalado; nenhuma linha escrita nos contratos do vivo')",
+   "UNIDADES_GOVERNADAS": 12,
+   "MOTIVOS": [
+    "BLOQUEADA_POLITICA",
+    "BLOQUEADA_CAPACIDADE"
+   ]
+  },
+  "SOCIAL": {
+   "ESTADO": "BLOQUEADA_PERMISSAO_SOCIAL",
+   "FONTES": [],
+   "PEDIDOS_PREVISTOS": 0,
+   "PORQUE": "correr fontes sociais exige --autorizado-pelo-dono (ferramentas/maestro_social/maestro_social.py); a coorte declara READY_SOCIAL_TOTAL=0 (ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json)",
+   "UNIDADES_GOVERNADAS": 9,
+   "PORTA_SOCIAL": {
+    "ACEITES": [
+     "IT-T11-014",
+     "IT-T2-165",
+     "IT-T5-190",
+     "IT-T5-191",
+     "IT-T7-253",
+     "IT-T7-254",
+     "IT-T7-255",
+     "IT-T9-025",
+     "IT-T9-026"
+    ],
+    "RECUSADAS": {
+     "FORA_DO_AMBITO_AUTORIZADO": [
+      "IT-T10-017",
+      "IT-T10-019",
+      "IT-T11-006",
+      "IT-T11-007",
+      "IT-T12-007",
+      "IT-T12-008",
+      "IT-T12-010",
+      "IT-T12-011",
+      "IT-T12-012",
+      "IT-T12-014",
+      "IT-T12-015",
+      "IT-T12-016",
+      "IT-T12-152",
+      "IT-T12-153",
+      "IT-T2-025",
+      "IT-T2-026",
+      "IT-T2-027",
+      "IT-T2-028",
+      "IT-T2-166",
+      "IT-T2-167",
+      "IT-T5-037",
+      "IT-T5-038",
+      "IT-T5-040",
+      "IT-T5-192",
+      "IT-T5-193",
+      "IT-T7-015",
+      "IT-T7-020",
+      "IT-T7-022",
+      "IT-T7-023",
+      "IT-T7-024",
+      "IT-T7-025",
+      "IT-T7-026",
+      "IT-T7-027",
+      "IT-T7-028",
+      "IT-T7-030",
+      "IT-T7-032",
+      "IT-T7-034",
+      "IT-T7-035",
+      "IT-T7-036",
+      "IT-T7-037",
+      "IT-T7-039",
+      "IT-T7-256",
+      "IT-T7-257",
+      "IT-T8-004",
+      "IT-T8-005",
+      "IT-T8-006",
+      "IT-T9-014",
+      "IT-T9-016",
+      "IT-T9-017",
+      "IT-T9-027"
+     ],
+     "SEM_RASTRO_DE_AUTORIZACAO": [
+      "IT-T5-042",
+      "IT-T5-043",
+      "IT-T5-044",
+      "IT-T5-045",
+      "IT-T5-047",
+      "IT-T5-048",
+      "IT-T5-050",
+      "IT-T7-016",
+      "IT-T7-018"
+     ]
+    },
+    "POR_PLATAFORMA": {
+     "LINKEDIN": {
+      "ACEITES": 9,
+      "RECUSADAS": 0
+     },
+     "YOUTUBE": {
+      "ACEITES": 0,
+      "RECUSADAS": 59
+     }
+    }
+   },
+   "MOTIVOS": [
+    "BLOQUEADA_PERMISSAO_SOCIAL",
+    "BLOQUEADA_CAPACIDADE"
+   ]
+  },
+  "PESQUISADORES": {
+   "ESTADO": "BLOQUEADA_ROBOTS",
+   "FONTES": [],
+   "PEDIDOS_PREVISTOS": 0,
+   "PORQUE": "robots.txt de pub.orcid.org = 'User-agent: * / Disallow: /' (lido a 26/09 22:58Z; ferramentas/seguir_pesquisadores/SEGUIR-PESQUISADORES.md; o canario do orcid_lote.py PARA por ROBOTS). Declarado, nao re-medido aqui (0 rede)",
+   "UNIDADES_GOVERNADAS": 127,
+   "MOTIVOS": [
+    "BLOQUEADA_ROBOTS",
+    "BLOQUEADA_CAPACIDADE"
+   ]
+  },
+  "SITES": {
+   "ESTADO": "A_CORRER",
+   "FONTES": [
+    "IT-T7-123",
+    "IT-T7-112",
+    "IT-T7-118",
+    "IT-T8-028",
+    "IT-T8-029",
+    "IT-T8-030",
+    "IT-T8-034",
+    "IT-T8-039",
+    "IT-T8-040"
+   ],
+   "PEDIDOS_PREVISTOS": 43,
+   "PORQUE": null,
+   "UNIDADES_GOVERNADAS": null,
+   "MOTIVOS": []
+  }
+ }
+}
