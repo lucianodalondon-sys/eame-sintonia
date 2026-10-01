@@ -333,6 +333,24 @@ class D_F2Science(unittest.TestCase):
         self.assertTrue(fica <= linhas)                       # quem fica entrou na corrida
         self.assertFalse({d["ITEM_ID"] for d in commitada["DUPLICADOS"]} & linhas)
 
+    def test_FB2c_cada_descarte_leva_o_rasto(self):
+        """AUDITORIA 08h (red team): ID descartado, ID mantido, DOI, motivo e RAW de origem em CADA descarte."""
+        e, regs = A.ler_entrada()
+        sha = e["ORIGEM"]["SHA256"]
+        for d in json.loads(A.DUPLICADOS_SAIDA.read_text(encoding="utf-8"))["DUPLICADOS"]:
+            r = d["RASTRO"]
+            self.assertEqual((r["DESCARTADO"]["ID"], r["MANTIDO"]["ID"], d["MOTIVO"]),
+                             (d["ITEM_ID"], d["FICA"], "DUPLICADO_DO_MESMO_ESTUDO"))
+            self.assertEqual(r["ORIGEM"]["SHA256"], sha)
+            for lado in ("DESCARTADO", "MANTIDO"):
+                i = r[lado]["ID"]
+                col, rid = i.split("::")[1], i.split("::", 2)[2]
+                self.assertEqual(r[lado]["RAW_ID"], f"italy-handoff-v21.js@{sha[:12]}#{col}/{rid}")
+                self.assertEqual(r[lado]["DOI_COMO_ESCRITO"], regs[i].get("DOI", A.NAO_SEI))   # o DOI do registo, tal como esta
+            if d["CHAVE"].startswith("DOI:"):
+                self.assertEqual(d["CHAVE"][4:], str(r["DESCARTADO"]["DOI_COMO_ESCRITO"]).strip().lower().rstrip("."))
+            self.assertEqual(r["DERIVED"], A.NAO_SEI)                 # o acervo nao passou pela Sala: NAO SEI, nao inventado
+
     def test_FB3_regra_do_duplicado(self):
         L = lambda c, i: {"ACERVO_ID": "italy-handoff-v21.js::%s::%s" % (c, i)}
         lista = [L("scienceCorpus", "a"), L("scienceRecords", "b"), L("scienceCorpus", "c"),

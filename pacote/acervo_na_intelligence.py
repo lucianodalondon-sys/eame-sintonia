@@ -777,9 +777,28 @@ def correr(entrada=ENTRADA, origem=ORIGEM, hoje: date = HOJE, source_head=NAO_SE
     for x in e["LISTA"]:
         if x["ACERVO_ID"] in dup:
             fica, k, cf, cs = dup[x["ACERVO_ID"]]
+            rs, rf = regs[x["ACERVO_ID"]], regs[fica]
             duplicados.append({"ITEM_ID": x["ACERVO_ID"], "TIPO": x["TIPO"], "FICA": fica, "CHAVE": k,
                                "MOTIVO": "DUPLICADO_DO_MESMO_ESTUDO",
-                               "DETALHE": DUPLICADO_PORQUE % (k, fica, cf, cs)})
+                               "DETALHE": DUPLICADO_PORQUE % (k, fica, cf, cs),
+                               # AUDITORIA 08h (red team): o rasto de CADA descarte, nao so a lista de IDs
+                               "RASTRO": {
+                                   "DESCARTADO": {"ID": x["ACERVO_ID"], "RAW_ID": raw_id(x, sha),
+                                                  "DOI_COMO_ESCRITO": rs.get("DOI", NAO_SEI),
+                                                  "SOURCE_ID": rs.get("SOURCE_ID", NAO_SEI),
+                                                  "SOURCE_URL": rs.get("SOURCE_URL", NAO_SEI),
+                                                  "CAMPOS_COM_VALOR": cs},
+                                   "MANTIDO": {"ID": fica, "RAW_ID": raw_id({"ACERVO_ID": fica}, sha),
+                                               "DOI_COMO_ESCRITO": rf.get("DOI", NAO_SEI),
+                                               "SOURCE_ID": rf.get("SOURCE_ID", NAO_SEI),
+                                               "SOURCE_URL": rf.get("SOURCE_URL", NAO_SEI),
+                                               "CAMPOS_COM_VALOR": cf},
+                                   "ORIGEM": {"FICHEIRO": e["ORIGEM"]["FICHEIRO"], "SHA256": sha,
+                                              "BUILD_ID": e["ORIGEM"].get("BUILD_ID", NAO_SEI)},
+                                   "DERIVED": NAO_SEI,
+                                   "PORQUE_SEM_DERIVED": "o acervo e a classe c do inventario (ENTRADA_INTELLIGENCE_ACERVO/v1): "
+                                                         "nao passou pela Sala, nao ha derived:N; a proveniencia e o RAW_ID "
+                                                         "(registo no ficheiro de origem com o sha256 acima)"}})
             continue
         it, rw, cm = ready(x, regs[x["ACERVO_ID"]], sha)
         sujo = nomeia_palavra_da_collection(it)
