@@ -3960,6 +3960,7 @@
       "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-VAZIA.json",
+      "tests/fixtures/pote/POTE-SINTETICO-K2-EIXOS.json",
       "tests/fixtures/pote/POTE-SINTETICO-PUBLICA-SOZINHO.json",
       "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
       "tests/fixtures/pote/POTE-SINTETICO-VAZIO.json",
@@ -4828,9 +4829,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "2a8e4db7b4e841a8330ffc80a7b300859367fc5b",
-    "GENERATED_AT": "2026-09-30T12:00:04-03:00",
-    "SOURCE_TREE_FINGERPRINT": "891f2c78cd083bc2db303fe0ac9b1bc31f243471bce6cdd7f573249a3d667ee5"
+    "HEAD": "84df3497c140904ddda40b6794dc5165d88ab929",
+    "GENERATED_AT": "2026-10-01T08:13:51-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6c823314e695c85ab62a0c75592e257f08c2b8dc23b3d9e5b79e320eab2e35c8"
   },
   "FAMILIES": [
     {
@@ -39699,7 +39700,7 @@
         "PLANO": null,
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:32",
-          "portoes/publicar_portal_sozinho.py:546"
+          "portoes/publicar_portal_sozinho.py:550"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -57788,7 +57789,7 @@
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:582",
           "italia-portale/client/portale.html:275",
-          "tests/test_publicar_portal_sozinho.py:335"
+          "tests/test_publicar_portal_sozinho.py:340"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -58231,7 +58232,7 @@
         "PROVA": [
           "italia-portale/audit/checks.mjs:13",
           "italia-portale/audit/checks.mjs:13",
-          "portoes/publicar_portal_sozinho.py:583"
+          "portoes/publicar_portal_sozinho.py:587"
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -64105,6 +64106,7 @@
         "provas/pote_v2/medir_recusas_r6.py",
         "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
+        "tests/fixtures/pote/POTE-SINTETICO-K2-EIXOS.json",
         "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
         "tests/fixtures/pote/POTE-SINTETICO.json",
         "tests/test_ponte_intelligence_casco.py",
@@ -85036,7 +85038,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 546,
+          "line": 550,
           "snippet": "if \"audit/run.mjs\" in texto and rc not in (None,):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
@@ -85052,7 +85054,7 @@
         },
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 584,
+          "line": 588,
           "snippet": "conferir_comando(\"C2_DEPLOY_SURFACE\", [\"node\", \"italia-portale/audit/deploy-surface.mjs\"], copia, contrato, 600)]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
@@ -104660,7 +104662,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 252,
+          "line": 256,
           "snippet": "from guarda.preservar_coleta import ArmazemLocal, VARIAVEL_DA_RAIZ  # noqa: E402 — so em producao",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PUBLICA-SOZINHO",
@@ -143601,7 +143603,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 335,
+          "line": 340,
           "snippet": "self.assertEqual(r.get(\"/casa.html\"), para)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-CASCO--READS-->C-TESTES",
@@ -145091,7 +145093,7 @@
         },
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 720,
+          "line": 724,
           "snippet": "req = urllib.request.Request(base_url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
@@ -145301,7 +145303,7 @@
         },
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 279,
+          "line": 284,
           "snippet": "stub = (RAIZ / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
@@ -145317,7 +145319,7 @@
         },
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 764,
+          "line": 769,
           "snippet": "const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
@@ -145583,7 +145585,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 583,
+          "line": 587,
           "snippet": "L = [conferir_comando(\"C1_BUILD_GATE\", [\"node\", \"italia-portale/audit/build-gate.mjs\"], copia, contrato, 600),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAO-BUILD--READS-->C-PUBLICA-SOZINHO",
@@ -145993,7 +145995,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_acervo_na_intelligence.py",
@@ -146122,6 +146124,22 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_publicar_portal_sozinho.py",
+          "line": 40,
+          "snippet": "import pote_intelligence_casco as PIC  # noqa: E402 — o dono do contrato (K2: os eixos so ele os carimba)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -146176,7 +146194,7 @@
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 338,
+          "line": 342,
           "snippet": "for termo in (\"POTE_INTELLIGENCE_CASCO/v2\", \"pacote/pote_intelligence_casco.py\", \"pacote/validar_pote_v2.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -146192,7 +146210,7 @@
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 338,
+          "line": 342,
           "snippet": "for termo in (\"POTE_INTELLIGENCE_CASCO/v2\", \"pacote/pote_intelligence_casco.py\", \"pacote/validar_pote_v2.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -151994,7 +152012,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 924,
+          "line": 928,
           "snippet": "(Path(copia) / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
@@ -169394,7 +169412,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 548,
+          "line": 553,
           "snippet": "(Path(d) / \"italia-portale\" / \"audit\" / \"run.mjs\").write_text(",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-AUDIT-GERAL",
@@ -170410,7 +170428,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 343,
+          "line": 348,
           "snippet": "(d / \"casa.html\").write_text(\"CASA-LEGADA\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-CASCO",
@@ -170480,7 +170498,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 577,
+          "line": 582,
           "snippet": "(d / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(STUB, encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-MODELO",
@@ -171204,7 +171222,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 789,
+          "line": 793,
           "snippet": "if (Path(copia) / \"vercel.json\").exists():",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PUBLICA-SOZINHO",
@@ -175534,7 +175552,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2276,
+  "UNCLAIMED_FILES_COUNT": 2277,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -175819,7 +175837,7 @@
     "edges_proven": 1866,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4234,
+    "files_tracked": 4235,
     "files_covered": 1958,
     "files_code_unclaimed": 0,
     "roles_proven": 208,
