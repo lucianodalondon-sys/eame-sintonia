@@ -75,8 +75,24 @@ PAUSADO. A CIENCIA e a PESQUISADORES ganharam a reserva que nao tinham; nenhuma 
 
 Isto é a regra do `CONTADOR-24H.md`: «até cada linha estar ligada a este livro, só UMA linha de rede de cada vez».
 Estar LIGADA **não basta** para a linha correr: cada uma precisa também de uma função de candidatas e de onda
-(hoje só a SITES tem — as outras ficam `NADA_ELEGIVEL`, que é a resposta certa: não há material para elas neste
-ciclo). **Não fiz isso aqui: é mexer no coletor de cada linha, fora do escopo.**
+(hoje só a SITES tem). **Não fiz isso aqui: é mexer no coletor de cada linha, fora do escopo.**
+
+**FEEDER-4-LINHAS (01/10).** O parágrafo acima dizia que as outras linhas ficavam `NADA_ELEGIVEL` e que essa era
+a resposta certa. Não era: nos ciclos 127 a 135 as quatro saíam `NADA_ELEGIVEL` com `FONTES=[]` porque o `main`
+lhes dava uma lista vazia — rota em falta a passar por zero real. Agora `alimentar_linhas(plano)` lê, para cada
+linha, o catálogo GOVERNADO que já existe nesta árvore e o estado tem nome próprio:
+
+| linha | catálogo lido | unidade | estado (01/10) | porquê |
+|---|---|---|---|---|
+| BUSCA | `data/derivados/LINHA-BUSCA/CONSULTAS.json` | consulta (473) | `BLOQUEADA_CAPACIDADE` | corre por consulta, com `--autorizado`; não há onda dela no ciclo |
+| CIENCIA | `data/derivados/PESQUISADORES-T6/PLANO.json` | par cultura × problema (12) | `BLOQUEADA_POLITICA` | contrato T6 `PROPOSTA — nao instalado` |
+| SOCIAL | `curadoria/italy_contracts_curator.json` (regra `plano_onda_social.fontes_sociais`) | contrato `SCRAP_FASE` (0) | `SEM_CATALOGO` | e ainda `BLOQUEADA_PERMISSAO_SOCIAL`: `maestro_social` exige `--autorizado-pelo-dono` |
+| PESQUISADORES | `data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json` | pessoa com UM ORCID (127) | `BLOQUEADA_ROBOTS` | robots de `pub.orcid.org` = `Disallow: /` (26/09, declarado, não re-medido) |
+
+Nenhuma das quatro tem onda no ciclo — a única é `onda_web.py --correr`, que recusa o que não é da coorte
+(`FONTE_FORA_DA_COORTE`) e faria o serviço PARAR —, por isso todas levam `BLOQUEADA_CAPACIDADE` nos `MOTIVOS` e
+nenhuma recebe candidatas. Lista vazia sem motivo declarado = `SEM_CATALOGO`. `NADA_ELEGIVEL` fica só para «há
+fontes e nenhuma cabe agora» (cadência/teto).
 
 ### O robô de fontes
 
