@@ -1050,7 +1050,80 @@ class LimpezaDoPgDaProvaDeBackup(unittest.TestCase):
         C.soltar(dono)
 
 
-# ── 5b. ADENDO-PARADA (01/10): o ciclo 146 PAROU o servico por nada ─────────
+# ── 5b. FEEDER-4-LINHAS (01/10): lista vazia nao e NADA_ELEGIVEL ─────────────
+# Medido nos ciclos 127 a 135 do servico: `main` dava `[]` a BUSCA, CIENCIA, SOCIAL e PESQUISADORES e as quatro
+# saiam NADA_ELEGIVEL com FONTES=[] — uma rota em falta (MISSING_ROUTE) a passar por zero real.
+# NADA_ELEGIVEL so quando HA fontes e nenhuma cabe (cadencia/teto). Linha sem fontes ou que nao pode correr
+# tem NOME PROPRIO.
+BLOQUEIOS = {"SEM_CATALOGO", "BLOQUEADA_POLITICA", "BLOQUEADA_ROBOTS", "BLOQUEADA_PERMISSAO_SOCIAL",
+             "BLOQUEADA_CAPACIDADE"}
+QUATRO = ("BUSCA", "CIENCIA", "SOCIAL", "PESQUISADORES")
+
+
+class FeederQuatroLinhas(Base):
+    def test_linha_com_lista_vazia_nao_e_nada_elegivel(self):
+        c = self.sites(["IT-T9-002"])
+        c["Z"] = []
+        r = self.ciclo(c)
+        self.assertNotEqual(r["LINHAS"]["Z"]["ESTADO"], "NADA_ELEGIVEL", r["LINHAS"]["Z"])
+        self.assertEqual(r["LINHAS"]["Z"]["ESTADO"], "SEM_CATALOGO", r["LINHAS"]["Z"])
+        self.assertEqual(r["LINHAS"]["Z"]["FONTES"], [])
+
+    def test_nada_elegivel_so_quando_ha_fontes_e_nenhuma_cabe(self):
+        self.visitar("um.test", 2)
+        r = self.ciclo(self.sites(["IT-T9-001"]))
+        self.assertEqual(r["LINHAS"]["SITES"]["ESTADO"], "NADA_ELEGIVEL")
+        self.assertEqual([e["SOURCE_ID"] for e in r["ESPERAM"]], ["IT-T9-001"])
+
+    def test_linha_sem_onda_propria_nao_vai_a_onda_dos_sites(self):
+        # a onda do ciclo (`onda_web.py --correr`) so corre a coorte SITES: uma fonte da BUSCA la dentro e
+        # FONTE_FORA_DA_COORTE, a onda sai com codigo != 0 e o servico PARA
+        r = self.ciclo({"BUSCA": C.candidatas_do_plano(_plano([["IT-T9-002"]]), "BUSCA")})
+        self.assertEqual(r["LINHAS"]["BUSCA"]["ESTADO"], "BLOQUEADA_CAPACIDADE", r["LINHAS"]["BUSCA"])
+        self.assertEqual(self.onda.chamadas, [])
+        self.assertIsNone(r["PARA"], r)
+
+    def test_bloqueio_do_alimentador_tem_nome_proprio(self):
+        c = self.sites(["IT-T9-002"])
+        c["SOCIAL"] = []
+        r = self.ciclo(c, bloqueios={"SOCIAL": {"ESTADO": "BLOQUEADA_PERMISSAO_SOCIAL", "PORQUE": "teste"}})
+        self.assertEqual(r["LINHAS"]["SOCIAL"]["ESTADO"], "BLOQUEADA_PERMISSAO_SOCIAL")
+        self.assertEqual(r["LINHAS"]["SOCIAL"]["PORQUE"], "teste")
+
+    def test_o_alimentador_le_o_catalogo_governado_de_cada_linha(self):
+        self.assertEqual(set(C.ESTADOS_DE_BLOQUEIO), BLOQUEIOS)
+        plano = _plano([["IT-T9-001", "IT-T9-002"]])
+        f = C.alimentar_linhas(plano)
+        self.assertEqual(set(f), {l["LINHA"] for l in C.LINHAS})
+        self.assertEqual(f["SITES"]["CANDIDATAS"], C.candidatas_do_plano(plano))
+        self.assertIsNone(f["SITES"]["ESTADO"])
+        for n in QUATRO:
+            self.assertIn(f[n]["ESTADO"], BLOQUEIOS, (n, f[n]))
+            self.assertTrue(f[n]["PORQUE"], (n, f[n]))
+            self.assertEqual(f[n]["CANDIDATAS"], [], (n, f[n]))      # nenhuma das quatro tem onda no ciclo
+            self.assertTrue((RAIZ / f[n]["CATALOGO"]).exists(), (n, f[n]["CATALOGO"]))
+        consultas = json.loads((RAIZ / "data/derivados/LINHA-BUSCA/CONSULTAS.json").read_text(encoding="utf-8"))
+        self.assertEqual(f["BUSCA"]["UNIDADES_GOVERNADAS"], len(consultas))
+
+    def test_ensaio_a_seco_por_linha_nenhuma_das_quatro_diz_nada_elegivel(self):
+        plano = self.tmp / "RODADAS-PLANO.json"
+        plano.write_text(json.dumps(_plano([["IT-T9-001"]])), encoding="utf-8")
+        saida = self.tmp / "ensaio.json"
+        r = subprocess.run([sys.executable, str(RAIZ / "ferramentas" / "big_collection" / "coleta_continua.py"),
+                            "--ensaio-a-seco", "--base=%s" % self.base, "--plano=%s" % plano,
+                            "--teto-24h=%s" % self.livro24, "--livros-do-dia=%s" % (self.tmp / "ondas")],
+                           cwd=RAIZ, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=900)
+        self.assertEqual(r.returncode, 0, r.stderr[-2000:])
+        reg = json.loads(r.stdout)
+        saida.write_text(r.stdout, encoding="utf-8")
+        self.assertEqual(reg["RUN_IDS"], [])
+        for n in QUATRO:
+            ln = reg["LINHAS"][n]
+            self.assertNotEqual(ln["ESTADO"], "NADA_ELEGIVEL", (n, ln))
+            self.assertIn(ln["ESTADO"], BLOQUEIOS, (n, ln))
+
+
+# ── 5c. ADENDO-PARADA (01/10): o ciclo 146 PAROU o servico por nada ─────────
 # Medido no vivo (eac885db3, ciclo 146, CICLO-0146/SITES/ONDA-WEB-ESTADO.json): o agendador deu IT-T8-051 a onda
 # dos SITES; o portao da onda recusou com GATE:ESTADO_NAO_READY; 0 corridas, 0 pedidos; a prova-teto deu NAO_SEI
 # sobre RUN_IDS=[] e o servico PAROU (PARA=PROVA_TETO_NAO_SEI) ate alguem rearmar.
