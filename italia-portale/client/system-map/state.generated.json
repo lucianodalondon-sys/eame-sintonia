@@ -4883,9 +4883,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "casco-sobre-cand-v1",
-    "HEAD": "788570ea6771856a0202a49dcd5eab0c819f5dfc",
-    "GENERATED_AT": "2026-10-01T12:59:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "87a66536f1dc6ba5c387abca3cfb940be17856cf41d6e8ea7ede7e1e1fb98d6d"
+    "HEAD": "8d9b750f8f58448b37ffa6ba6a80f564eeef7fec",
+    "GENERATED_AT": "2026-10-01T13:11:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "dfb98bea444515f4217a134b87dc9b1c78dff3576fe8a982972f89c6dd6b6417"
   },
   "FAMILIES": [
     {
@@ -64676,6 +64676,11 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/l3/DESTINO-DOS-2-FATOS.md",
+        "provas/l3/MUTACAO-L3.json",
+        "provas/l3/MUTACAO-PROMOCAO-NAO-CLIENTE.json",
+        "provas/l3/PARA-O-LAB.md",
+        "provas/l3/escapa_o_ataque.mjs",
         "provas/portal_publica_sozinho/BATERIA-ANTES-b273660.json",
         "provas/portal_publica_sozinho/BATERIA-DEPOIS-6d460caa.json",
         "provas/portal_publica_sozinho/ENSAIO-d63121db.json",
@@ -64683,11 +64688,13 @@
         "provas/portal_publica_sozinho/ensaio.py",
         "provas/portal_publica_sozinho/mutantes.py"
       ],
-      "file_count": 6,
+      "file_count": 11,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "provas/l3/escapa-o-ataque-9wfbzk6ej/ESCAPA-O-ATAQUE.json"
+      ],
       "inbound": [
         "C-MAPA-TESTES",
         "C-PORTAL-MODELO",
@@ -64720,6 +64727,12 @@
         {
           "onde": "GIT",
           "file": "italia-portale/client/sintonia-pote-publicado.js",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/l3/escapa-o-ataque-9wfbzk6ej/ESCAPA-O-ATAQUE.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -177981,10 +177994,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/l3/escapa_o_ataque.mjs"
-  ],
-  "UNCLAIMED_FILES_COUNT": 2303,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 2297,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -178270,8 +178281,8 @@
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4289,
-    "files_covered": 1986,
-    "files_code_unclaimed": 1,
+    "files_covered": 1992,
+    "files_code_unclaimed": 0,
     "roles_proven": 211,
     "roles_declared_only": 11,
     "roles_unknown": 96,
