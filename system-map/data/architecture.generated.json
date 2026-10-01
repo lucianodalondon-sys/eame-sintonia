@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "coord/feeder-4-linhas",
-    "HEAD": "77257609e9f78f9cd43fc8f0edfc51f91e382e08",
-    "GENERATED_AT": "2026-10-01T04:47:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9dcb05cc6556c8d69474e6ec9e32c95db8ebe596bd2ff6f51fa1d376b83b31a0"
+    "HEAD": "1b19cac4db199c7d96b10a39a07100d968e3859a",
+    "GENERATED_AT": "2026-10-01T10:02:38-03:00",
+    "SOURCE_TREE_FINGERPRINT": "623807a0c42e020bcac686df68a73c75697c68e17c61de5ba62ea7132bf8a5e3"
   },
   "FILES": [
     {
@@ -6884,7 +6884,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "f2ccbe9b93091b63a6077457420040885eccafdb",
+      "sha": "e4fbafe35e0f79a9c840f97c8dd703e61bc56756",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7283,14 +7283,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "a808630e1445a3d62b45c079c7a13c8a4c451c24",
+      "sha": "7eddbd4b57029be534ccd3236f9bf94b8dc5873c",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "aa6ced3a8f8bd3c294ce444a1c4a1292b52372ce",
+      "sha": "b8b899c37037138f008fd4c67e01df59b573e84b",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -13198,7 +13198,7 @@
     },
     {
       "path": "ferramentas/big_collection/coleta_continua.py",
-      "sha": "8f06e4542ae6f502066515b804fe3fa56d77304b",
+      "sha": "3c0b41e2b010262d94a0d685e60f3cdb4ccac033",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13324,7 +13324,7 @@
     },
     {
       "path": "ferramentas/big_collection/onda4/COLETA-CONTINUA.md",
-      "sha": "37ce32de6794f4d2591b9f200b171486746cfef3",
+      "sha": "5466ea726feb1970e1c2784c729cc6d6c5c13f95",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -19847,6 +19847,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/COLETA-CONTINUA-MUTACAO-LOTE-M44-M56.json",
+      "sha": "c674e57b5b50f34be10c5287875c0675a3cb83ef",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/COLETA-CONTINUA-MUTACAO.json",
       "sha": "3073635455caf1b0452a9741d47f6445ad25d698",
       "ext": ".json",
@@ -21024,7 +21031,7 @@
     },
     {
       "path": "provas/coleta_continua_mutacao.py",
-      "sha": "25695defa740faa3ee855e17814642629f4486ca",
+      "sha": "63fac26dadf44caa8007116ad3744f5519c6b77b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28178,7 +28185,7 @@
     },
     {
       "path": "tests/test_coleta_continua.py",
-      "sha": "a367b04d692e643f68c520e93ba48a65b082f75a",
+      "sha": "70bc5fde677b8e9b01063f6147db6a0d2e6de02a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29676,7 +29683,7 @@
     },
     {
       "path": "tests/test_teto_adaptativo_rebase.py",
-      "sha": "1c09735963a34a9efdbe058b68bbdb11d2f28718",
+      "sha": "4fc2debd85983e7052c63726307c68c6138f4072",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -46039,7 +46046,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 82,
+        "line": 89,
         "snippet": "import cortesia_adaptativa as CA                                   # noqa: E402 — o dono unico do teto (D124)"
       }
     },
@@ -46050,7 +46057,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 102,
+        "line": 109,
         "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\","
       }
     },
@@ -46061,7 +46068,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 112,
+        "line": 119,
         "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
@@ -46072,7 +46079,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 114,
+        "line": 121,
         "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
@@ -46083,7 +46090,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 81,
+        "line": 88,
         "snippet": "import reserva_24h as R24                                          # noqa: E402 — o contador multicanal (D90)"
       }
     },
@@ -46094,7 +46101,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 116,
+        "line": 123,
         "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
@@ -46105,7 +46112,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 235,
+        "line": 242,
         "snippet": "rel, coorte = \"curadoria/italy_contracts_curator.json\", \"ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json\""
       }
     },
@@ -46116,7 +46123,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 475,
+        "line": 482,
         "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)"
       }
     },
@@ -46127,7 +46134,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 217,
+        "line": 224,
         "snippet": "rel = \"data/derivados/LINHA-BUSCA/CONSULTAS.json\"                  # o que `linha_busca.py --plano` gera (D93)"
       }
     },
@@ -46138,7 +46145,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 256,
+        "line": 263,
         "snippet": "rel = \"data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json\"     # a identidade MUR que pessoas.py segue (D85)"
       }
     },
@@ -46149,7 +46156,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 224,
+        "line": 231,
         "snippet": "rel, contrato = \"data/derivados/PESQUISADORES-T6/PLANO.json\", \"docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json\""
       }
     },
@@ -46160,7 +46167,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 224,
+        "line": 231,
         "snippet": "rel, contrato = \"data/derivados/PESQUISADORES-T6/PLANO.json\", \"docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json\""
       }
     },
@@ -46171,7 +46178,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 235,
+        "line": 242,
         "snippet": "rel, coorte = \"curadoria/italy_contracts_curator.json\", \"ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json\""
       }
     },
@@ -46182,7 +46189,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 80,
+        "line": 87,
         "snippet": "import rodadas as R                                                # noqa: E402 — plano, janela, portao, onda, prova"
       }
     },
@@ -46193,7 +46200,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 112,
+        "line": 119,
         "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"ferramentas/big_collection/sonda_ligacao_linha.py\"},"
       }
     },
@@ -46204,7 +46211,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 85,
+        "line": 92,
         "snippet": "SONDA_SITES = AQUI / \"sonda_ligacao_sites.mjs\""
       }
     },
@@ -46215,7 +46222,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 118,
+        "line": 125,
         "snippet": "\"TRANSPORTE\": \"ferramentas/seguir_pesquisadores/seguir.py\","
       }
     },
@@ -46226,7 +46233,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 435,
+        "line": 442,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),"
       }
     },
@@ -71669,7 +71676,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/coleta_continua_mutacao.py",
-        "line": 151,
+        "line": 182,
         "snippet": "nome_f = (\"COLETA-CONTINUA-MUTACAO.json\" if lote is None else"
       }
     },
@@ -71680,7 +71687,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/coleta_continua_mutacao.py",
-        "line": 90,
+        "line": 121,
         "snippet": "(\"M36_SAIDA_VAZIA_ACEITE\", \"scripts/micro_coleta/provar_backup_da_sala.py\","
       }
     },
@@ -98762,7 +98769,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 235,
+        "line": 241,
         "snippet": "self.ledger = self.tmp / \"runs.ndjson\""
       }
     },
@@ -98773,7 +98780,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 1102,
+        "line": 1109,
         "snippet": "consultas = json.loads((RAIZ / \"data/derivados/LINHA-BUSCA/CONSULTAS.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -98784,7 +98791,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 1118,
+        "line": 1125,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"ferramentas\" / \"big_collection\" / \"coleta_continua.py\"),"
       }
     },
@@ -98795,8 +98802,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 1138,
+        "line": 1330,
         "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_coleta_continua.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_coleta_continua.py",
+        "line": 1238,
+        "snippet": "mc = (RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -112435,7 +112453,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_teto_adaptativo_rebase.py",
-        "line": 315,
+        "line": 326,
         "snippet": "js = (\"import * as C from './coleta/cortesia_adaptativa.mjs';const ev=C.lerEventos(%s);const o={};\""
       }
     },
@@ -112446,7 +112464,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_teto_adaptativo_rebase.py",
-        "line": 303,
+        "line": 314,
         "snippet": "p = subprocess.run([sys.executable, \"coleta/cortesia_adaptativa.py\", \"--migrar\", str(self.livro)], cwd=RAIZ,"
       }
     },
@@ -112457,7 +112475,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_teto_adaptativo_rebase.py",
-        "line": 229,
+        "line": 240,
         "snippet": "f = d / \"coleta\" / \"italy_pilot_collect.mjs\""
       }
     },
@@ -112468,7 +112486,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_teto_adaptativo_rebase.py",
-        "line": 233,
+        "line": 244,
         "snippet": "f.write_text(s.replace(de, '      r = { ESTADO: \"RESERVADO\" }; // reservar24h(host, 1)'), encoding=\"utf-8\")"
       }
     },
@@ -112479,7 +112497,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_teto_adaptativo_rebase.py",
-        "line": 184,
+        "line": 194,
         "snippet": "ledger = self.tmp / \"runs.ndjson\""
       }
     },
@@ -112490,7 +112508,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_teto_adaptativo_rebase.py",
-        "line": 131,
+        "line": 137,
         "snippet": "src = (RAIZ / \"ferramentas/big_collection/coleta_continua.py\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -112501,7 +112519,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_teto_adaptativo_rebase.py",
-        "line": 342,
+        "line": 353,
         "snippet": "r = subprocess.run([\"node\", \"provas/teto_adaptativo/transporte_rebase_local.mjs\"], cwd=RAIZ, env=env,"
       }
     },
@@ -114353,10 +114371,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4263,
+    "files_tracked": 4264,
     "files_readable": 1791,
-    "files_code_dir": 2234,
-    "file_edges": 7622,
+    "files_code_dir": 2235,
+    "file_edges": 7623,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
