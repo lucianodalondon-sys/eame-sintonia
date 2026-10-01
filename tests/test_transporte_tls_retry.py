@@ -87,8 +87,11 @@ class TestTransporteTlsRetry(unittest.TestCase):
 
     # ── a cota: uma falha nao consome reserva extra ──
     def test_A_a_retentativa_nao_conta_no_teto_da_corrida(self):
-        self.assertEqual(self.R["A"]["CORTESIA"]["PEDIDOS_POR_HOST"], {"suinicoltura.caso-a.test": 2},
-                         self.R["A"]["CORTESIA"])
+        c = self.R["A"]["CORTESIA"]
+        self.assertEqual(c["PEDIDOS_POR_HOST"], {"suinicoltura.caso-a.test": 2}, c)
+        # a ida a rede nao se esconde: conta-se a parte
+        self.assertEqual(c.get("RETENTATIVAS_NA_MESMA_RESERVA"), {"suinicoltura.caso-a.test": 1}, c)
+        self.assertEqual(c["PEDIDOS"]["FONTE"], 2, c)
 
     def test_B_falha_e_sucesso_cabem_numa_so_reserva(self):
         b = self.R["B"]

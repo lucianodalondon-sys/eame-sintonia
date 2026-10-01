@@ -180,7 +180,32 @@ function guardarRaw(sourceId, documentId, versionId, nome, buf) {
 }
 
 // ---------- baixar ----------
-const TRANSITORIOS = [28, 35, 52, 56, 7];  // timeout, reset, resposta vazia, recv failure, connect
+const TRANSITORIOS = [28, 35, 52, 56, 7];  // timeout, TLS (schannel), resposta vazia, recv failure, connect
+const CURL_MAX_TIME_S = 90;
+
+// ── A FALHA QUE PASSA (T10-TLS-RETRY, 01/10/2026) ──────────────────────────
+// MEDIDO (Scrap + LAB, 30/09-01/10): o cluster edagricole caia no aperto de mao TLS
+// (`curl: (35) schannel: SEC_E_ILLEGAL_MESSAGE`) e a mesma pagina, pedida a mao, dava 200.
+// A 2.a tentativa saia so com a pausa de cortesia (5 s SITE), e CADA tentativa pegava uma
+// reserva nova no livro de 24 h: 2 reservas por pagina falhada, numa cota que os subsites
+// (suinicoltura., vigneviniequalita., terraevita.) dividem em edagricole.it.
+//
+//   RECUO   so antes de REPETIR uma falha TRANSITORIA: 3 s, depois 5 s, nunca mais de 5 s,
+//           SOMADO a pausa de cortesia (que vale para todo pedido e nao e recuo nenhum).
+//   RESERVA (coordenador, 01/10 ~19:40) a nova tentativa cabe DENTRO da reserva da primeira:
+//           a falha transitoria que vai ser repetida NAO fecha a reserva (nao regista RESPOSTA),
+//           e a tentativa seguinte sai SEM reserva nova e sem contar no teto. A reserva fecha
+//           uma vez, com o que a ultima tentativa deu. O livro continua com RESERVA e RESPOSTA,
+//           nada mais. Se a tentativa seguinte nao acabar dentro do LEASE_S da reserva (a
+//           politica: curl --max-time 90 + folga), ela NAO sai — e a reserva fecha com STATUS 0.
+//           Na pratica o curl 28 (timeout de 90 s) deixa de ser repetido: nao cabe.
+//   O QUE NAO MUDA: o desafio (PAGINA_DE_DESAFIO), 403, 429 e 503 sao RESPOSTAS, nao falhas
+//           de transporte: nunca se repetem e continuam sinal. Erro nao transitorio: 1 tentativa.
+export const RECUO_TRANSITORIO = Object.freeze({ BASE_S: 3, MAXIMO_S: 5 });
+export const recuoTransitorioS = (tentativa) =>
+  (tentativa <= 1 ? 0 : Math.min(RECUO_TRANSITORIO.MAXIMO_S, RECUO_TRANSITORIO.BASE_S * 2 ** (tentativa - 2)));
+const cabeNaReserva = (reservaEm, esperaS) =>
+  Date.now() / 1000 + esperaS + CURL_MAX_TIME_S <= reservaEm + Number(CA.politica().LEASE_S);
 
 // ── O CONTADOR DE PORTAS BATIDAS ───────────────────────────────────────────
 // ⚠️ CONTA-SE AQUI, NO UNICO SITIO QUE FALA COM A REDE, e nao la em cima por
@@ -238,8 +263,10 @@ const REDE = { total: 0 };
 //           `regras/POLITICA-CORTESIA-ADAPTATIVA.json`): o inicial da classe, que
 //           dobra sem sinal de resistencia e recua no sinal. SINTONIA_TETO_POR_HOST,
 //           se declarada, e um teto MANUAL por corrida (so para baixo do que o
-//           operador quer). Conta TODAS as idas: robots, indice, materias, saltos
-//           e retentativas.
+//           operador quer). Conta TODAS as idas: robots, indice, materias e saltos.
+//           A retentativa de uma falha transitoria vai DENTRO da reserva da primeira
+//           (T10-TLS-RETRY, 01/10) e nao conta outra vez; conta-se a parte, em
+//           `RETENTATIVAS_NA_MESMA_RESERVA`.
 //
 // O que a cortesia recusa NAO e uma observacao da fonte: nao se escreve no
 // livro (como `DEFERRED_AFTER_TIMEOUT`), vai contado no resumo e em
@@ -275,13 +302,13 @@ function cortesiaDoAmbiente() {
 // Estado de UMA corrida. `executarRodada()` recomeca-o, como faz a `REDE.total`.
 const CORTESIA = { cfg: CORTESIA_PADRAO, robots: new Map(), porHost: new Map(), porDominio: new Map(),
                    ultimo: new Map(), pedidos: { ROBOTS: 0, FONTE: 0, ROBOTS_DO_LIVRO_24H: 0, CONDICIONAL_ENVIADO: 0, NAO_MODIFICADO_304: 0 }, recusas: [],
-                   recuo: new Map(), sinais: [] };
+                   recuo: new Map(), sinais: [], retentativas: new Map() };
 function reiniciarCortesia() {
   CORTESIA.cfg = cortesiaDoAmbiente();
   CORTESIA.robots = new Map(); CORTESIA.porHost = new Map(); CORTESIA.porDominio = new Map();
   CORTESIA.ultimo = new Map();
   CORTESIA.pedidos = { ROBOTS: 0, FONTE: 0, ROBOTS_DO_LIVRO_24H: 0, CONDICIONAL_ENVIADO: 0, NAO_MODIFICADO_304: 0 }; CORTESIA.recusas = [];
-  CORTESIA.recuo = new Map(); CORTESIA.sinais = [];
+  CORTESIA.recuo = new Map(); CORTESIA.sinais = []; CORTESIA.retentativas = new Map();
 }
 const dormir = ms => new Promise(r => setTimeout(r, ms));
 
@@ -500,32 +527,42 @@ function registarResposta(host, url, r, marcas = []) {
 // If-Modified-Since) — e o pedido passa a trazer de volta ETag e Last-Modified da resposta. O pedido
 // condicional e UM PEDIDO: sai por aqui, reserva no livro de 24 h e conta no teto como outro qualquer,
 // responda 200 ou 304.
-async function umaIda(url, host, tipo, crawlDelay, condicional = null) {
-  const minimo = Math.max(CORTESIA.cfg.PAUSA_S ?? CA.classeDe(dominio24h(host))[1].PAUSA_S, crawlDelay || 0) * 1000;
+// T10-TLS-RETRY: `reservaEm` (o EM da reserva de uma tentativa anterior) = esta ida e a retentativa DENTRO
+// dessa reserva; `recuoS` soma-se a pausa; `proximoRecuoS` (numero) = ha outra tentativa depois desta, e a
+// falha transitoria que couber na reserva sai SEM fechar a reserva (`respostaAdiada`).
+async function umaIda(url, host, tipo, crawlDelay, condicional = null, { reservaEm = null, recuoS = 0, proximoRecuoS = null } = {}) {
+  const pausaS = Math.max(CORTESIA.cfg.PAUSA_S ?? CA.classeDe(dominio24h(host))[1].PAUSA_S, crawlDelay || 0);
+  const minimo = (pausaS + recuoS) * 1000;
   host = siteDe(host);
   const ultimo = CORTESIA.ultimo.get(host);
   if (ultimo !== undefined) {
     const falta = ultimo + minimo - Date.now();
     if (falta > 0) await dormir(falta);
   }
-  // D90/D124: com livro, o pedido so sai com a RESERVA escrita (antes de contar o que for). Uma espera
-  // CURTA (um de cada vez, pausa minima, limite global) espera-se; orcamento esgotado, Retry-After e
-  // pausa de 24 h nunca se esperam aqui: o pedido nao sai.
-  if (livro24h()) {
-    let r;
-    for (let i = 0; ; i++) {
-      r = reservar24h(host, 1, { crawlDelayS: crawlDelay || null });
-      if (r.ESTADO !== "ADIADO_ATE" || !CA.ESPERA_CURTA.includes(r.MOTIVO) || i >= 60 || r.ATE * 1000 - Date.now() > 180e3) break;
-      await dormir(Math.max(10, r.ATE * 1000 - Date.now()));
+  if (reservaEm === null) {
+    // D90/D124: com livro, o pedido so sai com a RESERVA escrita (antes de contar o que for). Uma espera
+    // CURTA (um de cada vez, pausa minima, limite global) espera-se; orcamento esgotado, Retry-After e
+    // pausa de 24 h nunca se esperam aqui: o pedido nao sai.
+    reservaEm = Date.now() / 1000;
+    if (livro24h()) {
+      let r;
+      for (let i = 0; ; i++) {
+        r = reservar24h(host, 1, { crawlDelayS: crawlDelay || null });
+        if (r.ESTADO !== "ADIADO_ATE" || !CA.ESPERA_CURTA.includes(r.MOTIVO) || i >= 60 || r.ATE * 1000 - Date.now() > 180e3) break;
+        await dormir(Math.max(10, r.ATE * 1000 - Date.now()));
+      }
+      if (r.ESTADO !== "RESERVADO")
+        throw Object.assign(new Error(`TETO_24H ${r.ESTADO}: ${r.DOMINIO} ${r.MOTIVO || ""} ${r.PORQUE || (r.ATE ? "ate " + new Date(r.ATE * 1000).toISOString() : "")}`),
+                            { code: "TETO_24H", reserva: r });
+      reservaEm = r.EM;
     }
-    if (r.ESTADO !== "RESERVADO")
-      throw Object.assign(new Error(`TETO_24H ${r.ESTADO}: ${r.DOMINIO} ${r.MOTIVO || ""} ${r.PORQUE || (r.ATE ? "ate " + new Date(r.ATE * 1000).toISOString() : "")}`),
-                          { code: "TETO_24H", reserva: r });
+    CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
+    const dominio = orcamentoDe(host);
+    CORTESIA.porDominio.set(dominio, (CORTESIA.porDominio.get(dominio) || 0) + 1);
+    gastarNaOnda(dominio);               // o pedido que sai gasta o lugar, responda ou nao
+  } else {
+    CORTESIA.retentativas.set(host, (CORTESIA.retentativas.get(host) || 0) + 1);   // T10: na MESMA reserva
   }
-  CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
-  const dominio = orcamentoDe(host);
-  CORTESIA.porDominio.set(dominio, (CORTESIA.porDominio.get(dominio) || 0) + 1);
-  gastarNaOnda(dominio);                 // o pedido que sai gasta o lugar, responda ou nao
   CORTESIA.pedidos[tipo]++;
   try {
     // ⚠️ `%{content_type}` ENTRA PORQUE O TRANSPORTE JA O SABIA E NINGUEM O ESCREVIA.
@@ -564,15 +601,18 @@ async function umaIda(url, host, tipo, crawlDelay, condicional = null) {
     try {
       let stdout;
       try {
-        ({ stdout } = await executarCurl("curl", ["-sS", "--max-time", "90", "-A", UA,
+        ({ stdout } = await executarCurl("curl", ["-sS", "--max-time", String(CURL_MAX_TIME_S), "-A", UA,
           "-H", `Accept-Language: ${ROTA_NAVEGADOR.ACCEPT_LANGUAGE}`, ...extra, "-o", "-",
           "-w", "\\n__S__%{http_code}\\t%{content_type}\\t%{redirect_url}", url],
           { maxBuffer: 128e6, encoding: "buffer" }));
       } catch (e) {
         // D124: a falha de transporte tambem vai ao livro (fecha o «um de cada vez»); o timeout (curl 28)
         // e uma MARCA, e 3 seguidos no dominio sao o sinal TIMEOUTS_EM_SERIE.
+        // T10: a falha TRANSITORIA que vai ser repetida e cabe na reserva NAO a fecha — fecha-a a ultima.
+        if (proximoRecuoS !== null && TRANSITORIOS.includes(e.code) && cabeNaReserva(reservaEm, pausaS + proximoRecuoS))
+          throw Object.assign(e, { reservaEm, respostaAdiada: true });
         registarResposta(host, url, null, e.code === 28 ? ["TIMEOUT"] : []);
-        throw e;
+        throw Object.assign(e, { reservaEm, respostaAdiada: false });
       }
       const s = stdout.toString("latin1");
       const k = s.lastIndexOf("\n__S__");
@@ -645,14 +685,16 @@ async function robotsDaOrigem(origem) {
   let alvo = `${origem}/robots.txt`;
   for (let salto = 0; salto <= CORTESIA.cfg.MAX_SALTOS; salto++) {
     const host = new URL(alvo).hostname;
-    let r = null;
+    let r = null, reservaEm = null;
     for (let i = 1; i <= 2 && !r; i++) {
-      if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${tetoDe(host)} pedidos a ${host} esgotado antes de ler o robots.txt` };
-      try { r = await umaIda(alvo, host, "ROBOTS", 0); }
+      // T10: a retentativa vai na reserva da 1.a e nao gasta teto; so a 1.a pergunta pelo teto.
+      if (reservaEm === null && tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${tetoDe(host)} pedidos a ${host} esgotado antes de ler o robots.txt` };
+      try { r = await umaIda(alvo, host, "ROBOTS", 0, null, { reservaEm, recuoS: recuoTransitorioS(i), proximoRecuoS: i < 2 ? recuoTransitorioS(i + 1) : null }); }
       catch (e) {
         if (e.code === "TETO_24H") return { recusado: "TETO_24H", porque: e.message };
         const cod = e.code ?? 0;
-        if (!TRANSITORIOS.includes(cod) || i === 2)
+        reservaEm = e.reservaEm ?? null;
+        if (!TRANSITORIOS.includes(cod) || i === 2 || !e.respostaAdiada)
           return { estado: "INDISPONIVEL", porque: `o transporte caiu antes da resposta (curl ${cod}) — nao e uma recusa do host` };
       }
     }
@@ -841,15 +883,17 @@ async function baixar(url, tentativas = 2, { condicional = false } = {}) {
                recusado: lic.recusado, foiARede, retry_permitido: false };
     }
     if (!foiARede) { REDE.total++; foiARede = true; }
-    let r = null;
+    let r = null, reservaEm = null;
     for (let i = 1; i <= tentativas && !r; i++) {
-      if (i > 1 && tetoAtingido(lic.host))
-        return { erro: `CORTESIA ${motivoDoTeto()}: retentativa recusada, teto de ${tetoDe(lic.host)} esgotado`, status: 0, tentativas: i - 1, recusado: motivoDoTeto(), foiARede, retry_permitido: false };
+      // T10: a retentativa so existe DENTRO da reserva da 1.a tentativa (nao gasta teto, nao pergunta por
+      // ele). Perguntar aqui, com livro, recusava-a quando a 1.a tinha gasto o ultimo lugar — e deixava a
+      // reserva aberta, sem RESPOSTA, ate ao LEASE_S.
       try {
         // So o endereco PEDIDO leva validador (um salto e outro endereco, com outra copia).
         const copia = condicional && atual === url ? lerCacheHttp(url) : null;
         r = await umaIda(atual, lic.host, "FONTE", lic.crawlDelay,
-                         condicional ? { cabecalhos: cabecalhosCondicionais(copia) } : null);
+                         condicional ? { cabecalhos: cabecalhosCondicionais(copia) } : null,
+                         { reservaEm, recuoS: recuoTransitorioS(i), proximoRecuoS: i < tentativas ? recuoTransitorioS(i + 1) : null });
         r.tentativas = i;
         if (copia) CORTESIA.pedidos.CONDICIONAL_ENVIADO++;
         if (condicional && atual === url) {
@@ -874,11 +918,13 @@ async function baixar(url, tentativas = 2, { condicional = false } = {}) {
           return { erro: `CORTESIA TETO_24H: ${e.message}`, status: 0, tentativas: i, recusado: "TETO_24H", foiARede, retry_permitido: false };
         const cod = e.code ?? 0;
         const transitorio = TRANSITORIOS.includes(cod);
+        reservaEm = e.reservaEm ?? null;
         // retry SO para falha de transporte. Nunca para schema, MIME, login ou WAF.
         // `codigo` sai para fora porque o laco das materias precisa de distinguir
         // o site PENDURADO (28 = timeout) de uma falha rapida: ver
         // DETAIL_DEFERRED_AFTER_TIMEOUT em executarRodada().
-        if (!transitorio || i === tentativas) return { erro: (e.stderr?.toString() || e.message || "").slice(0, 200), status: 0, tentativas: i, retry_permitido: transitorio, codigo: cod, foiARede };
+        // T10: sem `respostaAdiada` a reserva ja fechou (a retentativa nao cabia nela) — nao se repete.
+        if (!transitorio || i === tentativas || !e.respostaAdiada) return { erro: (e.stderr?.toString() || e.message || "").slice(0, 200), status: 0, tentativas: i, retry_permitido: transitorio, codigo: cod, foiARede };
       }
     }
     // O SALTO PEDE LICENCA OUTRA VEZ: volta ao topo do laco, a `licenca()`.
@@ -906,7 +952,8 @@ export async function baixarParaTeste(url, { runId = `TESTE-${process.pid}`, ten
   RUN_ATUAL = runId;
   return await baixar(url, tentativas);
 }
-export const cortesiaParaTeste = () => ({ PEDIDOS_POR_HOST: Object.fromEntries(CORTESIA.porHost), PEDIDOS: { ...CORTESIA.pedidos } });
+export const cortesiaParaTeste = () => ({ PEDIDOS_POR_HOST: Object.fromEntries(CORTESIA.porHost), PEDIDOS: { ...CORTESIA.pedidos },
+                                         RETENTATIVAS_NA_MESMA_RESERVA: Object.fromEntries(CORTESIA.retentativas) });
 
 // O corpo do feed guarda-se com um nome que o diz: `<materia>.body-from-feed.html`. Continua a acabar em
 // `.html` (e HTML), mas quem ler o armazem sem o livro ve que nao e a pagina.
@@ -1727,7 +1774,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     ...(ABORTADA ? { ABORTED: { SOURCE_ID: fonteEmCurso, ERRO: String(ABORTADA?.message ?? ABORTADA).slice(0, 500) } } : {}),
     // O que a cortesia fez nesta corrida, auditavel: a configuracao em vigor, o
     // estado do robots de cada origem, os pedidos HTTP REAIS por host (robots,
-    // indice, materias, saltos e retentativas) e cada recusa com o porque.
+    // indice, materias e saltos; as retentativas a parte) e cada recusa com o porque.
     CORTESIA: forcarBuf ? "NAO_SE_APLICA" : {
       PAUSA_MINIMA_S: CORTESIA.cfg.PAUSA_S, TETO_POR_HOST: CORTESIA.cfg.TETO_POR_HOST,
       // D124: o teto de cada dominio tocado, como estava em vigor no fim da corrida, e os sinais medidos.
@@ -1740,8 +1787,11 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         // e de onde veio o robots desta corrida (pedido agora, ou o livro de 24 h).
         ...(r.estado === "LIDO" ? { SITEMAPS: r.sitemaps || [] } : {}),
         ORIGEM: r.doLivro24h ? `LIVRO_24H (${r.doLivro24h})` : "PEDIDO_NESTA_CORRIDA" }])),
-      // Chave = o SITE (host sem `www.`), a mesma do teto e da pausa.
+      // Chave = o SITE (host sem `www.`), a mesma do teto e da pausa. Sao as RESERVAS (o que conta no teto);
+      // T10-TLS-RETRY: as retentativas de falha transitoria sairam dentro delas e contam-se ao lado —
+      // pedidos a rede por host = PEDIDOS_POR_HOST + RETENTATIVAS_NA_MESMA_RESERVA.
       PEDIDOS_POR_HOST: Object.fromEntries(CORTESIA.porHost),
+      RETENTATIVAS_NA_MESMA_RESERVA: Object.fromEntries(CORTESIA.retentativas),
       // D38: o teto conta-se por dominio registavel; com livro da onda, pela onda inteira.
       TETO_CONTA_POR: livroDaOnda() ? "DOMINIO_REGISTAVEL_NA_ONDA" : "DOMINIO_REGISTAVEL_NA_CORRIDA",
       PEDIDOS_POR_DOMINIO: Object.fromEntries(CORTESIA.porDominio),
