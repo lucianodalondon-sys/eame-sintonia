@@ -6540,6 +6540,29 @@
    "files": [
     "medidas/materia_prima_por_dia.py"
    ]
+  },
+  {
+   "id": "C-READER-SOMBRA",
+   "name": "Leitor semantico do FACT_TIME — SOMBRA (PASSO 3), fora da rota",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "🧬",
+   "views": [
+    "audit"
+   ],
+   "what": "leis/leitor_semantico.py pergunta a um modelo (claude -p, sem ferramentas) QUANDO aconteceu o facto de UM texto da Sala e so aceita a resposta se um juiz deterministico (J1-J7) a provar no proprio texto: papel ACONTECIMENTO/PERIODO_OBSERVADO, trecho literal, data literal dentro do trecho, ANO escrito, VALOR = intervalo que a data escrita diz, acontecimento alem da data, nao depois da captura; senao NAO SEI. provas/reader-sombra corre as rodadas sobre a copia congelada (943a20f8), avalia contra o lote fixado (3827c7d7) e regista a mutacao do juiz. SOMBRA: nao escreve na Sala, nao entra no motor nem no pote, nao substitui nada.",
+   "why_here": "O dono pediu medir se um leitor por modelo recupera FACT_TIME onde as reguas perdem a data (58 itens 'data existe'), com prova por trecho e sem afrouxar o G0. Enquanto nao passar o criterio (GANHO>=20, 0 regressoes, 0 datas falsas, rodada 1 = rodada 2), fica so como medicao; a saida do modelo e INTERPRETACAO, nunca fonte.",
+   "departments": [
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "leis/leitor_semantico.py",
+    "tests/test_leitor_semantico.py",
+    "provas/reader-sombra/correr_rodada.py",
+    "provas/reader-sombra/avaliar_lote.py",
+    "provas/reader-sombra/rejulgar.py",
+    "provas/reader-sombra/harness_mutacao.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

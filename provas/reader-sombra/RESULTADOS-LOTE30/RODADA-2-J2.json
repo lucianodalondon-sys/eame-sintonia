@@ -1,0 +1,1307 @@
+{
+ "CONTRATO": "RODADA_DO_LEITOR_SEMANTICO/v1",
+ "MARCA": "SOMBRA · NAO_PARA_CLIENTE",
+ "COPIA": "C:\\Users\\London1\\sintonia-sala-italia\\intelligence-experimental\\SALA-VIVA-20261001T013905Z\\copia\\SALA_ATUAL.json",
+ "COPIA_SHA256": "943a20f810e9cbef3cedf302e8828edb6846454b936ca5747ab0e54321ff2e71",
+ "LOTE": "C:/Users/London1/auditoria-madrugada/LOTE-30-SEMANTIC-READER-SOMBRA.json",
+ "LOTE_SHA256": "3827c7d701ac880d2dfa8de0dda321fcfe85de862e2d05f5018ba4750a9ccd62",
+ "MODELO": "claude-opus-5-5",
+ "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+ "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+ "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+ "PARALELO": 3,
+ "INICIO": "2026-10-01T14:32:19Z",
+ "SEGUNDOS_PAREDE": 170.0,
+ "LEITURAS": [
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:841",
+   "TEXTO_SHA256": "e59a67e7db7c25a8bdb9300889577c1def5e258045db1cb90bea02d967132610",
+   "FACT_TIME": {
+    "VALOR": "2026-09-22",
+    "DATA_LITERAL": "settimana 39/2026, effettuata oggi 22 settembre",
+    "TRECHO": "Nella rilevazione della settimana 39/2026, effettuata oggi 22 settembre, il panel Uva e-commerce Italia di myfruit.it ha registrato prezzi e caratteristiche commerciali di 131 referenze di uva da tavola in 19 insegne dell’e-commerce .",
+    "POSICAO": {
+     "INICIO": 1268,
+     "FIM": 1502
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 1292,
+     "FIM": 1339
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O facto principal é a medição de preços de uva no e-commerce. A frase diz que foi feita na semana 39/2026, no dia 22 de setembro, e o ano 2026 está escrito nessa mesma frase. O 22 de setembro de 2026 cai dentro da semana 39 de 2026. Não usei o cabeçalho '22 settembre 2026' porque é a data de publicação.",
+    "VALOR_DO_MODELO": "2026-09-22",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2026-09-22",
+     "FIM": "2026-09-22"
+    },
+    "JUIZ_ANTERIOR": "RECUSADO: J5 valor 2026-09-22 nao diz o que a data escrita diz (settimana 39/2026, effettuata oggi 22 settembre -> ('2026-01-01', '2026-12-31'))"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 18.97,
+    "SEGUNDOS_API": 10.7,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 980,
+    "TOKENS_CACHE_LIDOS": 7374,
+    "TOKENS_CACHE_CRIADOS": 5449,
+    "USD_LISTA": 0.0646748,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-01",
+   "N": 60
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:991",
+   "TEXTO_SHA256": "8cab5f4f034665d0d33725e1501bccb582edd0795d02fd62bd2cc23f717048c3",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "A única data com ano no texto é '25 settembre 2026', que aparece no cabeçalho do artigo, junto à categoria 'Ingrosso' e ao título. Trata-se da data de publicação. O facto principal são os preços grossistas de fruta e legumes 'della settimana', e o texto não escreve nenhuma data com ano para esse período. Os preços são comparados apenas com 'la scorsa settimana' ou 'la settimana precedente', também sem data. Não se pode deduzir o ano a partir da data de publicação.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 12.54,
+    "SEGUNDOS_API": 5.01,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 400,
+    "TOKENS_CACHE_LIDOS": 7374,
+    "TOKENS_CACHE_CRIADOS": 5084,
+    "USD_LISTA": 0.0501548,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-02",
+   "N": 80
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:768",
+   "TEXTO_SHA256": "22c905dcdf40d2202186a1e5c49171abe860c18519575bfbeeed1dd9423f8c74",
+   "FACT_TIME": {
+    "VALOR": "2026-09-14/2026-09-20",
+    "DATA_LITERAL": "settimana 38/2026",
+    "TRECHO": "Il Report Planner Uva di myfruit.it , aggiornato alla settimana 38/2026, conferma un quadro già emerso nelle rilevazioni precedenti: le quotazioni dell’uva da tavola restano generalmente più contenute rispetto alle stesse settimane del 2024 e del 2025 , ma con differenze significative tra le varietà .",
+    "POSICAO": {
+     "INICIO": 1276,
+     "FIM": 1578
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 1330,
+     "FIM": 1347
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O facto principal são as cotações da uva de mesa observadas pelo Report Planner Uva na semana 38/2026. O texto escreve explicitamente a semana e o ano. Converti para ISO assumindo semana ISO (segunda 14 a domingo 20 de setembro de 2026). \"15 settembre 2026\" é a data de publicação e não conta. 2024 e 2025 são só anos de comparação.",
+    "VALOR_DO_MODELO": "2026-09-14/2026-09-20",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2026-09-14",
+     "FIM": "2026-09-20"
+    },
+    "JUIZ_ANTERIOR": "RECUSADO: J5 valor 2026-09-14/2026-09-20 nao diz o que a data escrita diz (settimana 38/2026 -> ('2026-01-01', '2026-12-31'))"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 19.21,
+    "SEGUNDOS_API": 11.11,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 1092,
+    "TOKENS_CACHE_LIDOS": 9678,
+    "TOKENS_CACHE_CRIADOS": 5807,
+    "USD_LISTA": 0.0702396,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-03",
+   "N": 50
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:834",
+   "TEXTO_SHA256": "897fb9e4d95e46c18ee3b38944c65eab62a13ff820d848b8b12e304aed4ebb8d",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "A única data com ano é \"22 settembre 2026\". Aparece no cabeçalho do artigo, junto da categoria \"Ingrosso\" e do título, por isso é a data de publicação. Não está ligada no texto aos preços observados nos mercados de Vittoria e Verona. O corpo do artigo não tem nenhuma data com ano ligada às cotações nem às ondas de calor. \"Settimana 39\" aparece só num artigo relacionado e não tem ano.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 16.93,
+    "SEGUNDOS_API": 5.99,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 374,
+    "TOKENS_CACHE_LIDOS": 7374,
+    "TOKENS_CACHE_CRIADOS": 6413,
+    "USD_LISTA": 0.0602668,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-04",
+   "N": 56
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-d0536d4ce7c99deb",
+   "TEXTO_SHA256": "2ef5550ae9df457f50d359385ecd03783f57ac51fc121f795fcc8845b190559e",
+   "FACT_TIME": {
+    "VALOR": "2026-01",
+    "DATA_LITERAL": "gennaio 2026",
+    "TRECHO": "Secondo quanto riportato da EPPO, lo scorso mese (gennaio 2026) il Servizio Fitosanitario Regionale Siciliano ha ricevuto una segnalazione dal Laboratorio di Entomologia dell’Università di Catania in merito a sospetti rilevamenti di S. aurantii in aree agrumicole delle province di Catania e Siracusa in Sicilia su alberi di arancio ( Citrus x aurantium var. sinensis ).",
+    "POSICAO": {
+     "INICIO": 1659,
+     "FIM": 2029
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 1709,
+     "FIM": 1721
+    },
+    "PAPEL_DA_DATA": "ACONTECIMENTO",
+    "PORQUE_DO_MODELO": "O facto principal é a primeira segnalação de Scirtothrips aurantii na Sicília, recebida pelo Serviço Fitossanitário em janeiro de 2026 (mês e ano escritos no trecho). A data de publicação (27 Febbraio 2026), as datas espanholas e portuguesas (2020, 2022, 2024) e as datas das barras laterais foram excluídas.",
+    "VALOR_DO_MODELO": "2026-01",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2026-01-01",
+     "FIM": "2026-01-31"
+    },
+    "JUIZ_ANTERIOR": "RECUSADO: J5 valor 2026-01 nao diz o que a data escrita diz (gennaio 2026 -> ('2026-01-01', '2026-01-31'))"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 19.33,
+    "SEGUNDOS_API": 6.98,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 686,
+    "TOKENS_CACHE_LIDOS": 9678,
+    "TOKENS_CACHE_CRIADOS": 5217,
+    "USD_LISTA": 0.0573996,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-05",
+   "N": 241
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:1054",
+   "TEXTO_SHA256": "b17fdf79140b421c232351530318d91488ef529127e98549f1028238505e6048",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "Não encontrei uma data segura para o facto principal, que é a apresentação dos resultados de crescimento do Consorzio na Assemblea di Bilancio 2025. O texto não diz em que dia a assembleia se realizou. A única data completa, \"04 June 2026\", é a data de publicação do comunicado e aparece repetida na lista de artigos relacionados. Por isso não serve, segundo a regra 2. \"Bilancio 2025\" é o nome do exercício contabilístico, não a data do acontecimento. O \"triennio 2024–2026\" é um período de três anos que inclui 2026, um ano ainda a decorrer. Também não se pode escrever com exatidão no formato ISO pedido. Na dúvida, a regra 6 manda responder NAO SEI.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 22.68,
+    "SEGUNDOS_API": 10.68,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 986,
+    "TOKENS_CACHE_LIDOS": 7374,
+    "TOKENS_CACHE_CRIADOS": 3400,
+    "USD_LISTA": 0.048402799999999996,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-06",
+   "N": 86
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-5c06c7feaf3846fd",
+   "TEXTO_SHA256": "b4a80e04c222f404286705f54b094d0b8971e6ca4d875f73def43899d68bc4c4",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "OUTRO",
+    "PORQUE_DO_MODELO": "O facto principal é a situação fitossanitária da vinha: chuva no período (27.04 – 3.05) e monitorização de \"giovedì 30 aprile\" sem peronospora. Nenhuma destas datas tem o ano escrito. O único ano visível é o do cabeçalho 04.05.2026, que é a data de publicação, e não posso usá-lo para deduzir o ano. \"21 aprile 2026\" é a data de uma decisão federal (norma). O aumento da Popillia \"Nel corso del 2025\" vem de uma secção secundária e cita outro boletim, por isso não é o facto principal. A resposta é NAO SEI.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 18.09,
+    "SEGUNDOS_API": 7.08,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 556,
+    "TOKENS_CACHE_LIDOS": 14384,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.0140048,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-07",
+   "N": 220
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-8d9b4eee2b9959aa",
+   "TEXTO_SHA256": "21baf707298d0a8bd73ce0e6885a352743a566a121bdbc19164b5096f717d30e",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "VALIDADE",
+    "PORQUE_DO_MODELO": "A data \"dal 22/09/2026 al 29/09/2026\" é o período de validade do boletim (semana 39), não a data de um facto observado. O foco de Xylella em Taurianova não tem data própria com ano escrito. \"08/09/2026\", \"01/09/2026\" e \"02.09.2026\" são datas de decretos e do plano de ação, ou seja, de normas. Por isso a resposta é NAO SEI.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 18.31,
+    "SEGUNDOS_API": 5.83,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 455,
+    "TOKENS_CACHE_LIDOS": 15801,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.0122682,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-08",
+   "N": 239
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:6",
+   "TEXTO_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "O facto principal são as observações fitossanitárias da rede de monitorização (capturas e estados fenológicos), e nenhuma destas tem data escrita no texto. A única data perto delas é \"N° 27 del 16/09/2026\", que é o número e a data de publicação do boletim, e por isso não conta. As outras datas também não servem: os decretos e o DRD são normas, os prazos e as derrogações são validades, e \"23 settembre 2026\" é a data do próximo boletim, ou seja, um evento futuro.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 22.6,
+    "SEGUNDOS_API": 6.61,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 452,
+    "TOKENS_CACHE_LIDOS": 32797,
+    "TOKENS_CACHE_CRIADOS": 13381,
+    "USD_LISTA": 0.1226554,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-09",
+   "N": 3
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:1",
+   "TEXTO_SHA256": "3aecd222f072a217b9c3ad395a79b8e7ca97d9fae68997923d805e8a7b941e90",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "VALIDADE",
+    "PORQUE_DO_MODELO": "O documento é um boletim fitossanitário semanal (A.P.OL.) sobre a mosca da azeitona. Traz a data «14/09/2026 - 20/09/2026» como período de referência ou validade do boletim, mas essa data aparece sozinha numa linha de cabeçalho, sem o facto. A frase do facto («I monitoraggi territoriali anche in questa settimana evidenziano una situazione complessivamente sotto controllo...») não tem data escrita. Diz só «questa settimana». Não há uma frase que tenha ao mesmo tempo a data com ano e o facto observado. O ano 2026 do Disciplinare di Difesa Integrata refere-se a uma norma, não ao facto. Por haver dúvida, a resposta é NAO SEI.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 23.19,
+    "SEGUNDOS_API": 9.87,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 780,
+    "TOKENS_CACHE_LIDOS": 7374,
+    "TOKENS_CACHE_CRIADOS": 12391,
+    "USD_LISTA": 0.11621079999999999,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-10",
+   "N": 0
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-97a09bf885e5324c",
+   "TEXTO_SHA256": "a8fefaebd9e39e824ac567c9e1fb4537ad359feddf9d7aa308c849fbb7e8d6c4",
+   "FACT_TIME": {
+    "VALOR": "2025-09-29/2025-10-03",
+    "DATA_LITERAL": "dal 29 Settembre al 3 Ottobre 2025",
+    "TRECHO": "ASSOPROL Produttori Olivicoli dell’Umbria comunica che, nel periodo dal 29 Settembre al 3 Ottobre 2025, la coltura dell’olivo si trova nella fase fenologica BBCH 81 , che corrisponde all’ inizio dell’invaiatura , ovvero all’inizio della colorazione dei frutti .",
+    "POSICAO": {
+     "INICIO": 571,
+     "FIM": 832
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 639,
+     "FIM": 673
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O boletim relata o monitoramento fitossanitário (fase fenológica e mosca da oliveira) observado neste período, cujo ano de 4 dígitos está escrito na mesma frase. A data de publicação (Ott 3, 2025) e a referência \"Agosto 2025\" no link de download foram ignoradas.",
+    "VALOR_DO_MODELO": "2025-09-29/2025-10-03",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2025-09-29",
+     "FIM": "2025-10-03"
+    },
+    "JUIZ_ANTERIOR": "RECUSADO: J5 valor 2025-09-29/2025-10-03 nao diz o que a data escrita diz (dal 29 Settembre al 3 Ottobre 2025 -> ('2025-10-03', '2025-10-03'))"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 17.88,
+    "SEGUNDOS_API": 5.51,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 440,
+    "TOKENS_CACHE_LIDOS": 9678,
+    "TOKENS_CACHE_CRIADOS": 2735,
+    "USD_LISTA": 0.0326236,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-11",
+   "N": 211
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-1dae6e1c89f007b8",
+   "TEXTO_SHA256": "d995ef12bbbbb40533c697717351e6e4c9a225b40748f5190ace4aae55585543",
+   "FACT_TIME": {
+    "VALOR": "2026-09-01/2026-09-04",
+    "DATA_LITERAL": "1-4 settembre 2026",
+    "TRECHO": "Il Bollettino fitosanitario relativo al periodo 1-4 settembre 2026 evidenzia una presenza ancora contenuta della Bactrocera oleae .",
+    "POSICAO": {
+     "INICIO": 569,
+     "FIM": 700
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 617,
+     "FIM": 635
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O facto principal e o monitoramento da mosca das olivas (catturas limitadas, em leve aumento). O texto escreve explicitamente o periodo observado com ano de 4 digitos: 1-4 settembre 2026. A data \"Set 5, 2026\" e a data de publicacao e foi ignorada.",
+    "VALOR_DO_MODELO": "2026-09-01/2026-09-04",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2026-09-01",
+     "FIM": "2026-09-04"
+    },
+    "JUIZ_ANTERIOR": "ACEITE"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 15.63,
+    "SEGUNDOS_API": 4.88,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 359,
+    "TOKENS_CACHE_LIDOS": 13284,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.0098448,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-12",
+   "N": 210
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-74dd5877c26835d7",
+   "TEXTO_SHA256": "8b381ca69230d7cda1fdfbd7395ecc9dd8f99bd961ba741068062536ccbe8f07",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "OUTRO",
+    "PORQUE_DO_MODELO": "O facto principal é a situação fitossanitária do melo descrita no \"Comunicato del 17 settembre\", e essa data não tem ano escrito. As chuvas de \"20-21 Agosto\" também não têm ano. A única data com ano ligada ao boletim é \"2 settembre 2026\", mas refere-se à concessão de uma derrogação administrativa (citação de norma), não às observações no campo. As outras datas com ano estão na barra lateral, por isso não contam.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 17.09,
+    "SEGUNDOS_API": 6.18,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 502,
+    "TOKENS_CACHE_LIDOS": 9678,
+    "TOKENS_CACHE_CRIADOS": 5445,
+    "USD_LISTA": 0.0555436,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-13",
+   "N": 223
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-5d43598d863faa9d",
+   "TEXTO_SHA256": "0383e340cea885248f64fb021399a7f511c426427a63d8a17ffa9b51d60f0107",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "A única data com ano de 4 dígitos ligada ao documento é '12 MAGGIO 2026'. Aparece no título e no cabeçalho, por isso é a data de publicação do boletim, não a data de um facto. Os factos observados não têm ano escrito: a chuva medida 'ieri sera' e as 'piogge del 5 e 6 maggio' (data sem ano). O ano não pode ser deduzido da data de publicação. As datas de julho de 2026 pertencem à barra lateral, e '14-15-16 maggio' é uma previsão futura e também não tem ano.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 15.96,
+    "SEGUNDOS_API": 6.56,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 563,
+    "TOKENS_CACHE_LIDOS": 7374,
+    "TOKENS_CACHE_CRIADOS": 5032,
+    "USD_LISTA": 0.0529988,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-14",
+   "N": 226
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:1381",
+   "TEXTO_SHA256": "aa308dae6f4277b405cf0a79931c08cc4e3b7389119d1955829a01f972678510",
+   "FACT_TIME": {
+    "VALOR": "2025",
+    "DATA_LITERAL": "2025",
+    "TRECHO": "Gruppo Casalasco ha concluso la campagna del pomodoro 2025 con quasi 800.000 tonnellate di prodotto lavorato , confermando la sua leadership in Italia e il suo ruolo da protagonista a livello internazionale.",
+    "POSICAO": {
+     "INICIO": 753,
+     "FIM": 960
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 807,
+     "FIM": 811
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O facto principal é o resultado da campanha do tomate de 2025 (quase 800.000 t processadas). O ano 2025 aparece escrito na mesma frase que este resultado e indica o período observado. A data \"22 October 2025\" é a data de publicação e foi descartada. As datas de 2026 e de 2016 vêm de artigos relacionados e também foram descartadas.",
+    "VALOR_DO_MODELO": "2025",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2025-01-01",
+     "FIM": "2025-12-31"
+    },
+    "JUIZ_ANTERIOR": "ACEITE"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 15.75,
+    "SEGUNDOS_API": 6.7,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 625,
+    "TOKENS_CACHE_LIDOS": 10274,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.0145628,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-15",
+   "N": 288
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-5d359d072c7634f5",
+   "TEXTO_SHA256": "404464290c77de68daa7bb5ee619aa7b4e3d2b6b70a93e05dd47f3933e207e92",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "A unica data com ano escrito e '3 marzo 2026', que identifica a emissao do Bollettino n. 4 (data de publicacao). O conteudo do boletim (pdf) nao esta no texto, por isso nao ha nenhum facto observado ligado a uma data. As noticias da barra lateral ('9 giugno', '1 giugno') nao tem ano e sao outros artigos.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 12.64,
+    "SEGUNDOS_API": 4.93,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 359,
+    "TOKENS_CACHE_LIDOS": 7374,
+    "TOKENS_CACHE_CRIADOS": 2888,
+    "USD_LISTA": 0.0317668,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-16",
+   "N": 224
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-0610ecaec8bc3f7b",
+   "TEXTO_SHA256": "a53e4f85ddd1ba52e2c578ae67b590cb7b0406065e9e550af324ba94e385d46d",
+   "FACT_TIME": {
+    "VALOR": "2026-05-22",
+    "DATA_LITERAL": "22 maggio 2026",
+    "TRECHO": "Situazione fitosanitaria al 22 maggio 2026",
+    "POSICAO": {
+     "INICIO": 95,
+     "FIM": 137
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 123,
+     "FIM": 137
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O facto principal é a situação fitossanitária observada na Emilia-Romagna: riscos de infeção, monitorizações e sintomas. A linha diz explicitamente que essa situação foi verificada em 22 maggio 2026, com o ano de 4 dígitos escrito. As outras datas não servem. As datas de monitorização ('14-mag' e semelhantes) e o 'Infezione del 19 maggio' não têm ano escrito. As chuvas de 26-27 maggio são uma previsão futura.",
+    "VALOR_DO_MODELO": "2026-05-22",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2026-05-22",
+     "FIM": "2026-05-22"
+    },
+    "JUIZ_ANTERIOR": "ACEITE"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 18.34,
+    "SEGUNDOS_API": 6.31,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 528,
+    "TOKENS_CACHE_LIDOS": 14393,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.0134466,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-17",
+   "N": 222
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-7451caf82c35fdc9",
+   "TEXTO_SHA256": "a7e7c76dbaa2ef0c1eb2454f2c68193720fe6e70b72180a4f2a249f612821826",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "The page collects several vine-defence bulletins from April to August 2026. The only dates that include a four-digit year are the bulletin titles and sign-off lines, such as \"Nota ... del 5 agosto 2026\" and \"Reggio Emilia, 5 agosto 2026\". Those are publication dates. The sentences that report what was observed, such as the absence of infections, rainfall or growth stage, give dates with no year, for example \"mercoledì 15 luglio\". There is also no single clear main fact. So there is no date with a year tied directly to the reported fact.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 21.67,
+    "SEGUNDOS_API": 8.06,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 636,
+    "TOKENS_CACHE_LIDOS": 32797,
+    "TOKENS_CACHE_CRIADOS": 18197,
+    "USD_LISTA": 0.1648634,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-18",
+   "N": 204
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-7470b9568b1382cf",
+   "TEXTO_SHA256": "e0039b9362a115f0dce23be38b7b2889d0f8fa7964628f6531d55738643afc0f",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "O facto principal é a situação fitossanitária da vinha na Úmbria: a fase BBCH 77, a fase final da primeira geração carpófaga da Tignoletta e a cobertura contra a peronospora. A única data junto destes factos é «N.13 del 03/07/2026», que é a data de emissão do boletim. É uma data de publicação, por isso não vale. O período observado aparece apenas como «negli ultimi 7 giorni», sem ano escrito. As outras datas também não servem: o regulamento UE de 28 luglio 2025, a circular de 17/02/2026 e o prazo de 30 giugno 2029 são normas ou prazos, e o disciplinare 2025/2026 é um documento de referência.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 16.43,
+    "SEGUNDOS_API": 6.89,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 547,
+    "TOKENS_CACHE_LIDOS": 15094,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.013966799999999998,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-19",
+   "N": 205
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:busca-d7838c774da0c09a",
+   "TEXTO_SHA256": "059140e0e37db42c0e8bbde14e33bff824e9e5bdd930ea9925fdbcec478c4b09",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "dal 1/09/2026 al 08/09/2026",
+    "TRECHO": "BOLLETTINO settimana 36 dal 1/09/2026 al 08/09/2026",
+    "POSICAO": {
+     "INICIO": 2756,
+     "FIM": 2807
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 2780,
+     "FIM": 2807
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O boletim relata observacoes fenologicas e fitossanitarias (olivo, vite, agrumi, kiwi) referentes a semana 36, periodo explicitamente escrito com ano de 4 digitos.",
+    "VALOR_DO_MODELO": "2026-09-01/2026-09-08",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data",
+    "JUIZ_ANTERIOR": "RECUSADO: J5 valor 2026-09-01/2026-09-08 nao diz o que a data escrita diz (dal 1/09/2026 al 08/09/2026 -> ('2026-01-01', '2026-12-31'))"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 10.71,
+    "SEGUNDOS_API": 4.39,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 308,
+    "TOKENS_CACHE_LIDOS": 14996,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.0091672,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-20",
+   "N": 207
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:7",
+   "TEXTO_SHA256": "198ee2fa96470cce49d4f0d4698c956f5d07e8eae0f75d316879f5532c0499fe",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "Dal 31-08-2026 al 06-09-2026",
+    "TRECHO": "Dal 31-08-2026 al 06-09-2026",
+    "POSICAO": {
+     "INICIO": 9537,
+     "FIM": 9565
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 9537,
+     "FIM": 9565
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O facto principal tem data: é o período observado de 31-08-2026 a 06-09-2026. Este documento é um boletim agrometeorológico e fitossanitário semanal. Os únicos factos já medidos são a situação meteorológica anterior e os dados recolhidos pelas estações, e têm esta data. A linha citada é o cabeçalho dos mapas de temperatura, vento, insolação e precipitação. As tabelas das estações dizem o mesmo: 'DATI RILEVATI DAL 31-08-2026 ... AL 06-09-2026'. Ficam de fora as datas de 09 a 15 de setembro de 2026, porque são previsões (futuro/validade do boletim). Fica de fora 'n. 37 del 09 settembre 2026', que é a data de publicação. Ficam de fora a deliberação de 25 de novembro de 2024 (norma) e março de 1985 (história do serviço). As observações fitossanitárias e o texto '31 agosto e il 6 settembre' não têm ano escrito. Limitação: a linha citada é só um cabeçalho com a data. O facto medido está nos rótulos dos mapas logo a seguir, por isso esta linha não junta a data e o facto na mesma frase.",
+    "VALOR_DO_MODELO": "2026-08-31/2026-09-06",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data",
+    "JUIZ_ANTERIOR": "RECUSADO: J5 valor 2026-08-31/2026-09-06 nao diz o que a data escrita diz (Dal 31-08-2026 al 06-09-2026 -> ('2026-01-01', '2026-12-31'))"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 20.4,
+    "SEGUNDOS_API": 13.96,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 1280,
+    "TOKENS_CACHE_LIDOS": 9678,
+    "TOKENS_CACHE_CRIADOS": 31166,
+    "USD_LISTA": 0.2768716,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-21",
+   "N": 2
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:11",
+   "TEXTO_SHA256": "b4ce31bbedb883fb9d6f21d0cb3bdf656fd45a98aa93e6a66dbe710da8fb90fc",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "Dal 07-09-2026 al 13-09-2026",
+    "TRECHO": "Dal 07-09-2026 al 13-09-2026",
+    "POSICAO": {
+     "INICIO": 8620,
+     "FIM": 8648
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 8620,
+     "FIM": 8648
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "Este documento é um boletim agrometeorológico semanal da Puglia. A única data com ano escrito que corresponde a algo efetivamente observado é o período da \"situazione precedente\": dados medidos pela rede regional de estações (temperaturas até 39°C, chuvas de 46,8 mm em Nociglia). Esse período é indicado como \"Dal 07-09-2026 al 13-09-2026\" no cabeçalho dos gráficos de dados medidos. Datas excluídas: 16 settembre 2026 é a data de publicação (n. 38 del 16 settembre 2026); de 16 a 22 de setembro de 2026 é previsão, portanto futuro; 25 novembre 2024 é a data de uma deliberação regional; março de 1985 é história institucional. As frases com dias concretos de chuva e calor (\"mercoledì 9 settembre\", \"venerdì 11 settembre\") não têm o ano escrito, por isso não servem.",
+    "VALOR_DO_MODELO": "2026-09-07/2026-09-13",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data",
+    "JUIZ_ANTERIOR": "RECUSADO: J5 valor 2026-09-07/2026-09-13 nao diz o que a data escrita diz (Dal 07-09-2026 al 13-09-2026 -> ('2026-01-01', '2026-12-31'))"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 18.87,
+    "SEGUNDOS_API": 12.37,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 1120,
+    "TOKENS_CACHE_LIDOS": 37769,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.029961799999999997,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-22",
+   "N": 4
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:762",
+   "TEXTO_SHA256": "8ec3931d5ee7a61f6ff5b5f3378279e738f96f5f72f071a412d7c4cb1baddd64",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "OUTRO",
+    "PORQUE_DO_MODELO": "O facto principal é o rialzo del 24% del prezzo dell'arachide Runner 40/50, datado só 'A inizio settembre', sem ano escrito. '18 settembre 2026' é a data de publicação. 'marzo 2025' é termo de comparação, não é o facto. 'raccolta 2026' e 'campagna 2014/15' referem-se a previsões e comparações de produção, não à data do aumento do preço. Pela regra 1 não se deduz o ano a partir da data de publicação.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 12.3,
+    "SEGUNDOS_API": 6.05,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 493,
+    "TOKENS_CACHE_LIDOS": 14756,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.0128192,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-23",
+   "N": 46
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:764",
+   "TEXTO_SHA256": "7f08daef74dc2cf1b339d5a83fdcfb6b88861536e10289c2a6d29328d89058a5",
+   "FACT_TIME": {
+    "VALOR": "2026",
+    "DATA_LITERAL": "2026",
+    "TRECHO": "Uva da tavola online, prezzi 2026 sotto i livelli del 2025",
+    "POSICAO": {
+     "INICIO": 0,
+     "FIM": 58
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 29,
+     "FIM": 33
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O facto principal sao os precos online da uva de mesa observados na campanha de 2026 (semanas 33-41), comparados com 2024 e 2025. O ano 2026 esta escrito no texto e refere-se ao periodo observado dos precos. As semanas aparecem sem datas de calendario, por isso so se pode indicar o ano. A data de publicacao (08 settembre 2026) foi ignorada. Ha uma incoerencia: a semana 41 de 2026 cai depois da data de publicacao, o que impede uma precisao maior do que o ano.",
+    "VALOR_DO_MODELO": "2026",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2026-01-01",
+     "FIM": "2026-12-31"
+    },
+    "JUIZ_ANTERIOR": "ACEITE"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 17.17,
+    "SEGUNDOS_API": 10.23,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 978,
+    "TOKENS_CACHE_LIDOS": 16380,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.022844,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-24",
+   "N": 47
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:836",
+   "TEXTO_SHA256": "ce6dce9f9f1aeac991e26900f6d52e013d0f4be23bfa4c7c9754e1683b8370a6",
+   "FACT_TIME": {
+    "VALOR": "2026",
+    "DATA_LITERAL": "2026",
+    "TRECHO": "Dopo il calo della settimana 38, il prezzo medio del 2026 scende ulteriormente nella settimana 39 a circa 2,40 euro/kg.",
+    "POSICAO": {
+     "INICIO": 1652,
+     "FIM": 1771
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 1705,
+     "FIM": 1709
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "O facto principal sao os precos da uva de mesa no e-commerce, observados na semana 39 da campanha 2026. O unico ano escrito ao lado deste facto e \"2026\". A semana 39 aparece separada do ano, por isso nao a converti em dias e o VALOR fica so com o ano. \"22 settembre 2026\" e a data de publicacao do artigo e foi excluida. 2024 e 2025 sao apenas anos de comparacao.",
+    "VALOR_DO_MODELO": "2026",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2026-01-01",
+     "FIM": "2026-12-31"
+    },
+    "JUIZ_ANTERIOR": "ACEITE"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 16.14,
+    "SEGUNDOS_API": 10.4,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 1049,
+    "TOKENS_CACHE_LIDOS": 9678,
+    "TOKENS_CACHE_CRIADOS": 5973,
+    "USD_LISTA": 0.0707076,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-25",
+   "N": 58
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:911",
+   "TEXTO_SHA256": "2f593fcfdedce9644434067590ae571ae1fc7fd189c76b5c549fdd7879bc5d56",
+   "FACT_TIME": {
+    "VALOR": "2026-09-23",
+    "DATA_LITERAL": "23 settembre 2026",
+    "TRECHO": "Questa l'estrema sintesi dell'Osservatorio Piccoli Frutti a Firenze che, oggi 23 settembre 2026, ha visitato 14 punti vendita di 14 insegne appartenenti a 9 gruppi della grande distribuzione .",
+    "POSICAO": {
+     "INICIO": 2439,
+     "FIM": 2631
+    },
+    "POSICAO_DA_DATA": {
+     "INICIO": 2517,
+     "FIM": 2534
+    },
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "PORQUE_DO_MODELO": "A data indica o dia em que o Osservatorio visitou os 14 pontos de venda em Firenze e registou os preços dos piccoli frutti. É, portanto, o dia da medição do facto relatado e não apenas a data de publicação.",
+    "VALOR_DO_MODELO": "2026-09-23",
+    "JUIZ": "ACEITE",
+    "INTERVALO": {
+     "INICIO": "2026-09-23",
+     "FIM": "2026-09-23"
+    },
+    "JUIZ_ANTERIOR": "ACEITE"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 10.52,
+    "SEGUNDOS_API": 4.62,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 359,
+    "TOKENS_CACHE_LIDOS": 15995,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.010387,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-26",
+   "N": 63
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:87",
+   "TEXTO_SHA256": "198e8c5e3c41d268b40fe5787f4a5face53d84a1323fe6a236abc0fff278a4ff",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "OUTRO",
+    "PORQUE_DO_MODELO": "Documento e apenas um elenco/catalogo de fascicolos dos Atti dei Georgofili (2006-2026), sem facto principal relatado. Os anos presentes sao titulos de volumes de publicacao, data de proposta de regulamento UE (22 giugno 2022) e copyright, nenhum ligado a um acontecimento ou periodo observado.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 10.67,
+    "SEGUNDOS_API": 4.68,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 317,
+    "TOKENS_CACHE_LIDOS": 14575,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.009263,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-27",
+   "N": 28
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:24",
+   "TEXTO_SHA256": "c70db59afd9465f3445f9679fa1504decf1c988c9edd5cc5100d2b3171dc3179",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PRAZO_OU_FUTURO",
+    "PORQUE_DO_MODELO": "O documento sao linhas-guia (bando) da Universita della Tuscia para financiar a internacionalizacao dos cursos; nao relata um facto agricola acontecido nem um periodo observado. As datas com ano sao prazos de candidatura ('entro il 15 Febbraio 2024', 'entro l'8 Marzo 2024'), anos academicos de aplicacao futura (a.a. 2024.25, 2023.24), datas de deliberacoes e normas (30/11/2023, DD 2711 del 22.11.2021, legge 7 agosto 1990) ou referencias a programacao (2021-2023). Nenhuma delas data o facto principal.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 12.43,
+    "SEGUNDOS_API": 6.76,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 561,
+    "TOKENS_CACHE_LIDOS": 9678,
+    "TOKENS_CACHE_CRIADOS": 11124,
+    "USD_LISTA": 0.1021556,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-28",
+   "N": 9
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:134",
+   "TEXTO_SHA256": "10d75c93d7d0f81c6d54cf3955ecfa5d236d54d377f2eb37a4d7b8a2016d7d14",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "OUTRO",
+    "PORQUE_DO_MODELO": "Pagina institucional do CONAF que descreve funcoes do Consiglio Nazionale; nao relata um facto datado. As unicas datas sao do mandato (menu), de uma lei (7 agosto 1990, n.241) e do rodape (© 2026).",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 9.68,
+    "SEGUNDOS_API": 4.46,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 259,
+    "TOKENS_CACHE_LIDOS": 9678,
+    "TOKENS_CACHE_CRIADOS": 4351,
+    "USD_LISTA": 0.0419316,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-29",
+   "N": 40
+  },
+  {
+   "CONTRATO": "LEITURA_SEMANTICA/v1",
+   "ITEM_ID": "derived:1248",
+   "TEXTO_SHA256": "5019277ba2cb27eca6001df011e46d130a2c9a8c54fbdbd82a6f20eac4488a27",
+   "FACT_TIME": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "POSICAO": null,
+    "POSICAO_DA_DATA": null,
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "PORQUE_DO_MODELO": "O facto principal é que a ENEA, com a Universidade de Bolonha, registou uma patente para usar a torularodina. O texto não indica quando a patente foi registada ou concedida. A única data com ano junto à notícia, '10 Settembre 2026', é a data de publicação e de atualização da página. As outras datas pertencem a artigos do bloco 'Leggi anche'.",
+    "VALOR_DO_MODELO": "NAO SEI",
+    "JUIZ": "NAO_SEI_DO_MODELO",
+    "JUIZ_ANTERIOR": "NAO_SEI_DO_MODELO"
+   },
+   "MECANISMO": {
+    "MODELO": "claude-opus-5-5",
+    "PROMPT_VERSAO": "READER-FT/v1 (2026-10-01)",
+    "PROMPT_SHA256": "1e06da5c17127ffa97f82f287aa713e4f849bfcbbeaf5b5ecf7b219d5663f325",
+    "SCHEMA_SHA256": "a050ad93ee644d01de76511649541166aa6d14cd7897c55ab9ee052dbd94ad42",
+    "CLI": "claude -p (assinatura da casa), sem ferramentas",
+    "SAIDA_DO_MODELO_E": "INTERPRETACAO_DO_SISTEMA — prova so pelo TRECHO aceite pelo juiz"
+   },
+   "CUSTO": {
+    "SEGUNDOS": 11.26,
+    "SEGUNDOS_API": 5.34,
+    "TOKENS_ENTRADA": 2,
+    "TOKENS_SAIDA": 356,
+    "TOKENS_CACHE_LIDOS": 13312,
+    "TOKENS_CACHE_CRIADOS": 0,
+    "USD_LISTA": 0.0097904,
+    "MODELO_REAL": [
+     "claude-opus-5-5"
+    ]
+   },
+   "LOTE_ID": "L30-30",
+   "N": 276
+  }
+ ],
+ "JUIZ_VERSAO": "J1-J7/v2 (J5 le a literal com leitor proprio; v1 recusava dd-mm-aaaa, intervalos entre meses e semana/ano)",
+ "REJULGADO_DE": "C:/Users/London1/sintonia-sala-italia/intelligence-experimental/READER-SOMBRA-LOTE30/RODADA-2.json"
+}

@@ -1,0 +1,702 @@
+{
+ "LOTE_SHA256": "3827c7d701ac880d2dfa8de0dda321fcfe85de862e2d05f5018ba4750a9ccd62",
+ "CONTAGEM": {
+  "GANHO": 5,
+  "REGRESSAO": 0,
+  "DATAS_FALSAS": 0,
+  "DIVERGENCIA_ENTRE_RODADAS": 4,
+  "TRECHO_FORA_DO_TEXTO": 0
+ },
+ "CRITERIO": {
+  "GANHO>=20": false,
+  "REGRESSAO=0": true,
+  "DATAS_FALSAS=0": true,
+  "RODADA_1=RODADA_2": false,
+  "TRECHO_NO_TEXTO": true
+ },
+ "VEREDITO": "FALHA",
+ "CUSTO": {
+  "LEITURAS": 60,
+  "SEGUNDOS_POR_ITEM": 14.89,
+  "SEGUNDOS_API_POR_ITEM": 7.21,
+  "TOKENS_SAIDA_POR_ITEM": 584.2,
+  "TOKENS_ENTRADA_TOTAL_POR_ITEM": 18922.0,
+  "USD_LISTA_POR_ITEM": 0.0673,
+  "NOTA": "USD_LISTA e o preco de lista que a CLI reporta; corre pela assinatura da casa"
+ },
+ "POR_CLASSE": {
+  "ALVO_PERDA_FACT_TIME": {
+   "SEM_GANHO": 15,
+   "GANHO": 5
+  },
+  "CONTROLE_JA_CORRETO": {
+   "NAO_SEI_NAO_PIORA": 3,
+   "CONFIRMA": 3
+  },
+  "ARMADILHA_DATA_FALSA": {
+   "NAO_SEI_CORRETO": 4
+  }
+ },
+ "LINHAS": [
+  {
+   "ID": "L30-01",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:841",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "22 settembre",
+    "TRECHO": "Nella rilevazione della settimana 39/2026, effettuata oggi 22 settembre, il panel Uva e-commerce Italia di myfruit.it ha registrato prezzi e caratteristiche commerciali di 131 referenze di uva da tavola in 19 insegne dell’e-commerce .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "RECUSADO: J4 data sem ano escrito"
+   },
+   "R2": {
+    "VALOR": "2026-09-22",
+    "DATA_LITERAL": "settimana 39/2026, effettuata oggi 22 settembre",
+    "TRECHO": "Nella rilevazione della settimana 39/2026, effettuata oggi 22 settembre, il panel Uva e-commerce Italia di myfruit.it ha registrato prezzi e caratteristiche commerciali di 131 referenze di uva da tavola in 19 insegne dell’e-commerce .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": false,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-02",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:991",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-03",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:768",
+   "RESULTADO": "GANHO",
+   "R1": {
+    "VALOR": "2026-09-14/2026-09-20",
+    "DATA_LITERAL": "settimana 38/2026",
+    "TRECHO": "Il Report Planner Uva di myfruit.it , aggiornato alla settimana 38/2026, conferma un quadro già emerso nelle rilevazioni precedenti: le quotazioni dell’uva da tavola restano generalmente più contenute rispetto alle stesse settimane del 2024 e del 2025 , ma con differenze significative tra le varietà .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "2026-09-14/2026-09-20",
+    "DATA_LITERAL": "settimana 38/2026",
+    "TRECHO": "Il Report Planner Uva di myfruit.it , aggiornato alla settimana 38/2026, conferma un quadro già emerso nelle rilevazioni precedenti: le quotazioni dell’uva da tavola restano generalmente più contenute rispetto alle stesse settimane del 2024 e del 2025 , ma con differenze significative tra le varietà .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-04",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:834",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-05",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-d0536d4ce7c99deb",
+   "RESULTADO": "GANHO",
+   "R1": {
+    "VALOR": "2026-01",
+    "DATA_LITERAL": "gennaio 2026",
+    "TRECHO": "Secondo quanto riportato da EPPO, lo scorso mese (gennaio 2026) il Servizio Fitosanitario Regionale Siciliano ha ricevuto una segnalazione dal Laboratorio di Entomologia dell’Università di Catania in merito a sospetti rilevamenti di S. aurantii in aree agrumicole delle province di Catania e Siracusa in Sicilia su alberi di arancio ( Citrus x aurantium var. sinensis ).",
+    "PAPEL_DA_DATA": "ACONTECIMENTO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "2026-01",
+    "DATA_LITERAL": "gennaio 2026",
+    "TRECHO": "Secondo quanto riportato da EPPO, lo scorso mese (gennaio 2026) il Servizio Fitosanitario Regionale Siciliano ha ricevuto una segnalazione dal Laboratorio di Entomologia dell’Università di Catania in merito a sospetti rilevamenti di S. aurantii in aree agrumicole delle province di Catania e Siracusa in Sicilia su alberi di arancio ( Citrus x aurantium var. sinensis ).",
+    "PAPEL_DA_DATA": "ACONTECIMENTO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-06",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:1054",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "2024/2026",
+    "DATA_LITERAL": "triennio 2024–2026",
+    "TRECHO": "Il Consorzio Casalasco del Pomodoro conferma il proprio percorso di sviluppo e consolidamento evidenziando risultati di crescita significativi nel triennio 2024–2026 sotto il profilo associativo, produttivo e patrimoniale",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": false,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-07",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-5c06c7feaf3846fd",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "30 aprile"
+  },
+  {
+   "ID": "L30-08",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-8d9b4eee2b9959aa",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "VALIDADE",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "VALIDADE",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-09",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:6",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-10",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:1",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "VALIDADE",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "VALIDADE",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-11",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-97a09bf885e5324c",
+   "RESULTADO": "GANHO",
+   "R1": {
+    "VALOR": "2025-09-29/2025-10-03",
+    "DATA_LITERAL": "dal 29 Settembre al 3 Ottobre 2025",
+    "TRECHO": "ASSOPROL Produttori Olivicoli dell’Umbria comunica che, nel periodo dal 29 Settembre al 3 Ottobre 2025, la coltura dell’olivo si trova nella fase fenologica BBCH 81 , che corrisponde all’ inizio dell’invaiatura , ovvero all’inizio della colorazione dei frutti .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "2025-09-29/2025-10-03",
+    "DATA_LITERAL": "dal 29 Settembre al 3 Ottobre 2025",
+    "TRECHO": "ASSOPROL Produttori Olivicoli dell’Umbria comunica che, nel periodo dal 29 Settembre al 3 Ottobre 2025, la coltura dell’olivo si trova nella fase fenologica BBCH 81 , che corrisponde all’ inizio dell’invaiatura , ovvero all’inizio della colorazione dei frutti .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-12",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-1dae6e1c89f007b8",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "2026-09-01/2026-09-04",
+    "DATA_LITERAL": "dal 1° al 4 settembre 2026",
+    "TRECHO": "PERUGIA – Assoprol Umbria ha pubblicato il nuovo Bollettino fitosanitario Olivo 2026 , relativo al monitoraggio della mosca delle olive ( Bactrocera oleae ) effettuato dal 1° al 4 settembre 2026 sul territorio regionale.",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "2026-09-01/2026-09-04",
+    "DATA_LITERAL": "1-4 settembre 2026",
+    "TRECHO": "Il Bollettino fitosanitario relativo al periodo 1-4 settembre 2026 evidenzia una presenza ancora contenuta della Bactrocera oleae .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": false,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-13",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-74dd5877c26835d7",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-14",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-5d43598d863faa9d",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "6 maggio"
+  },
+  {
+   "ID": "L30-15",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:1381",
+   "RESULTADO": "GANHO",
+   "R1": {
+    "VALOR": "2025",
+    "DATA_LITERAL": "2025",
+    "TRECHO": "Gruppo Casalasco ha concluso la campagna del pomodoro 2025 con quasi 800.000 tonnellate di prodotto lavorato , confermando la sua leadership in Italia e il suo ruolo da protagonista a livello internazionale.",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "2025",
+    "DATA_LITERAL": "2025",
+    "TRECHO": "Gruppo Casalasco ha concluso la campagna del pomodoro 2025 con quasi 800.000 tonnellate di prodotto lavorato , confermando la sua leadership in Italia e il suo ruolo da protagonista a livello internazionale.",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-16",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-5d359d072c7634f5",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-17",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-0610ecaec8bc3f7b",
+   "RESULTADO": "GANHO",
+   "R1": {
+    "VALOR": "2026-05-22",
+    "DATA_LITERAL": "22 maggio 2026",
+    "TRECHO": "Situazione fitosanitaria al 22 maggio 2026",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "2026-05-22",
+    "DATA_LITERAL": "22 maggio 2026",
+    "TRECHO": "Situazione fitosanitaria al 22 maggio 2026",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-18",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-7451caf82c35fdc9",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "21 giugno"
+  },
+  {
+   "ID": "L30-19",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-7470b9568b1382cf",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-20",
+   "CLASSE": "ALVO_PERDA_FACT_TIME",
+   "ITEM_ID": "derived:busca-d7838c774da0c09a",
+   "RESULTADO": "SEM_GANHO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "dal 1/09/2026 al 08/09/2026",
+    "TRECHO": "BOLLETTINO settimana 36 dal 1/09/2026 al 08/09/2026",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "dal 1/09/2026 al 08/09/2026",
+    "TRECHO": "BOLLETTINO settimana 36 dal 1/09/2026 al 08/09/2026",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-21",
+   "CLASSE": "CONTROLE_JA_CORRETO",
+   "ITEM_ID": "derived:7",
+   "RESULTADO": "NAO_SEI_NAO_PIORA",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "Dal 31-08-2026 al 06-09-2026",
+    "TRECHO": "Dal 31-08-2026 al 06-09-2026",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "Dal 31-08-2026 al 06-09-2026",
+    "TRECHO": "Dal 31-08-2026 al 06-09-2026",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "09 - 15 settembre 2026"
+  },
+  {
+   "ID": "L30-22",
+   "CLASSE": "CONTROLE_JA_CORRETO",
+   "ITEM_ID": "derived:11",
+   "RESULTADO": "NAO_SEI_NAO_PIORA",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "Dal 07-09-2026 al 13-09-2026",
+    "TRECHO": "Dal 07-09-2026 al 13-09-2026",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "Dal 07-09-2026 al 13-09-2026",
+    "TRECHO": "Dal 07-09-2026 al 13-09-2026",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "RECUSADO: J6 trecho sem acontecimento alem da data"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "2026-09-07/2026-09-13"
+  },
+  {
+   "ID": "L30-23",
+   "CLASSE": "CONTROLE_JA_CORRETO",
+   "ITEM_ID": "derived:762",
+   "RESULTADO": "NAO_SEI_NAO_PIORA",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "raccolta 2026"
+  },
+  {
+   "ID": "L30-24",
+   "CLASSE": "CONTROLE_JA_CORRETO",
+   "ITEM_ID": "derived:764",
+   "RESULTADO": "CONFIRMA",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "2026",
+    "DATA_LITERAL": "2026",
+    "TRECHO": "Uva da tavola online, prezzi 2026 sotto i livelli del 2025",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": false,
+   "FACT_TIME_ATUAL": "stagione 2026"
+  },
+  {
+   "ID": "L30-25",
+   "CLASSE": "CONTROLE_JA_CORRETO",
+   "ITEM_ID": "derived:836",
+   "RESULTADO": "CONFIRMA",
+   "R1": {
+    "VALOR": "2026",
+    "DATA_LITERAL": "2026",
+    "TRECHO": "Dopo il calo della settimana 38, il prezzo medio del 2026 scende ulteriormente nella settimana 39 a circa 2,40 euro/kg.",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "2026",
+    "DATA_LITERAL": "2026",
+    "TRECHO": "Dopo il calo della settimana 38, il prezzo medio del 2026 scende ulteriormente nella settimana 39 a circa 2,40 euro/kg.",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "2026"
+  },
+  {
+   "ID": "L30-26",
+   "CLASSE": "CONTROLE_JA_CORRETO",
+   "ITEM_ID": "derived:911",
+   "RESULTADO": "CONFIRMA",
+   "R1": {
+    "VALOR": "2026-09-23",
+    "DATA_LITERAL": "23 settembre 2026",
+    "TRECHO": "Questa l'estrema sintesi dell'Osservatorio Piccoli Frutti a Firenze che, oggi 23 settembre 2026, ha visitato 14 punti vendita di 14 insegne appartenenti a 9 gruppi della grande distribuzione .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R2": {
+    "VALOR": "2026-09-23",
+    "DATA_LITERAL": "23 settembre 2026",
+    "TRECHO": "Questa l'estrema sintesi dell'Osservatorio Piccoli Frutti a Firenze che, oggi 23 settembre 2026, ha visitato 14 punti vendita di 14 insegne appartenenti a 9 gruppi della grande distribuzione .",
+    "PAPEL_DA_DATA": "PERIODO_OBSERVADO",
+    "JUIZ": "ACEITE"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "2026-09-23"
+  },
+  {
+   "ID": "L30-27",
+   "CLASSE": "ARMADILHA_DATA_FALSA",
+   "ITEM_ID": "derived:87",
+   "RESULTADO": "NAO_SEI_CORRETO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-28",
+   "CLASSE": "ARMADILHA_DATA_FALSA",
+   "ITEM_ID": "derived:24",
+   "RESULTADO": "NAO_SEI_CORRETO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PRAZO_OU_FUTURO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-29",
+   "CLASSE": "ARMADILHA_DATA_FALSA",
+   "ITEM_ID": "derived:134",
+   "RESULTADO": "NAO_SEI_CORRETO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "OUTRO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  },
+  {
+   "ID": "L30-30",
+   "CLASSE": "ARMADILHA_DATA_FALSA",
+   "ITEM_ID": "derived:1248",
+   "RESULTADO": "NAO_SEI_CORRETO",
+   "R1": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R2": {
+    "VALOR": "NAO SEI",
+    "DATA_LITERAL": "",
+    "TRECHO": "",
+    "PAPEL_DA_DATA": "PUBLICACAO",
+    "JUIZ": "NAO_SEI_DO_MODELO"
+   },
+   "R1_IGUAL_R2": true,
+   "FACT_TIME_ATUAL": "NAO SEI"
+  }
+ ]
+}

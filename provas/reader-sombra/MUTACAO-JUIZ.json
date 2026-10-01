@@ -1,0 +1,104 @@
+{
+ "NOME": "READER SOMBRA — juiz deterministico (leis/leitor_semantico.julgar)",
+ "REF": "343432b4139e15d28776d0292927d603de3447d8",
+ "ARVORE_LIMPA_ANTES": true,
+ "TESTE": [
+  "tests/test_leitor_semantico.py"
+ ],
+ "QUANDO": "2026-10-01T14:41:16Z",
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "ESTADO": "OK",
+  "CAUDA": "11 passed in 0.26s"
+ },
+ "MUTANTES": [
+  {
+   "MUTANTE": "RS_M1_PUBLICACAO_ACEITE",
+   "FINGE": "J1: data de publicacao vira FACT_TIME",
+   "CODIGO": {
+    "FICHEIRO": "leis/leitor_semantico.py",
+    "ALVO": "    if papel not in PAPEIS_ACEITES:\n",
+    "SUBSTITUTO": "    if False:\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed in 0.77s"
+  },
+  {
+   "MUTANTE": "RS_M2_TRECHO_NAO_CONFERIDO",
+   "FINGE": "J2: trecho inventado pelo modelo passa",
+   "CODIGO": {
+    "FICHEIRO": "leis/leitor_semantico.py",
+    "ALVO": "    pos = achar_literal(texto, tr)\n",
+    "SUBSTITUTO": "    pos = achar_literal(texto, tr) or (0, len(texto))\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 2 passed in 0.35s"
+  },
+  {
+   "MUTANTE": "RS_M3_SEM_ANO_PASSA",
+   "FINGE": "J4: data sem ano ganha o ano do modelo",
+   "CODIGO": {
+    "FICHEIRO": "leis/leitor_semantico.py",
+    "ALVO": "    if not re.search(r\"(?<!\\d)(19|20)\\d{2}(?!\\d)\", lit):\n",
+    "SUBSTITUTO": "    if False:\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 4 passed in 0.39s"
+  },
+  {
+   "MUTANTE": "RS_M4_VALOR_NAO_CONFERIDO",
+   "FINGE": "J5: o VALOR do modelo nao e conferido contra a data escrita",
+   "CODIGO": {
+    "FICHEIRO": "leis/leitor_semantico.py",
+    "ALVO": "    if a is None or a not in cabem:\n",
+    "SUBSTITUTO": "    if a is None:\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 5 passed in 0.63s"
+  },
+  {
+   "MUTANTE": "RS_M5_LINHA_SO_DE_DATA",
+   "FINGE": "J6: linha so com data vale como acontecimento",
+   "CODIGO": {
+    "FICHEIRO": "leis/leitor_semantico.py",
+    "ALVO": "    if len(re.findall(r\"[^\\W\\d_]\", resto)) < 25:\n",
+    "SUBSTITUTO": "    if False:\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 6 passed in 0.31s"
+  },
+  {
+   "MUTANTE": "RS_M6_FUTURO_PASSA",
+   "FINGE": "J7: facto depois da captura passa",
+   "CODIGO": {
+    "FICHEIRO": "leis/leitor_semantico.py",
+    "ALVO": "    if cap and a[0] > cap.group(1):\n",
+    "SUBSTITUTO": "    if False:\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 7 passed in 0.36s"
+  },
+  {
+   "MUTANTE": "RS_M7_MENOS_PRECISO_PASSA",
+   "FINGE": "J5: o pedaco dentro de outro pedaco escrito (mes de um intervalo de dias) passa",
+   "CODIGO": {
+    "FICHEIRO": "leis/leitor_semantico.py",
+    "ALVO": "    ach = [x for x in ach if not any(dentro(x[2], y[2]) for y in ach)]\n",
+    "SUBSTITUTO": "    pass\n"
+   },
+   "MORTO": true,
+   "RC": 1,
+   "CAUDA": "1 failed, 5 passed in 0.36s"
+  }
+ ],
+ "MORTOS": 7,
+ "TOTAL": 7,
+ "RESTAURADOS_IGUAIS": true,
+ "ESTADO": "PASS"
+}

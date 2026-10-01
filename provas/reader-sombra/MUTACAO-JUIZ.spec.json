@@ -1,0 +1,21 @@
+{
+ "NOME": "READER SOMBRA — juiz deterministico (leis/leitor_semantico.julgar)",
+ "TESTE": ["tests/test_leitor_semantico.py"],
+ "TIMEOUT_S": 120,
+ "MUTANTES": [
+  {"MUTANTE": "RS_M1_PUBLICACAO_ACEITE", "FINGE": "J1: data de publicacao vira FACT_TIME", "FICHEIRO": "leis/leitor_semantico.py",
+   "ALVO": "    if papel not in PAPEIS_ACEITES:\n", "SUBSTITUTO": "    if False:\n"},
+  {"MUTANTE": "RS_M2_TRECHO_NAO_CONFERIDO", "FINGE": "J2: trecho inventado pelo modelo passa", "FICHEIRO": "leis/leitor_semantico.py",
+   "ALVO": "    pos = achar_literal(texto, tr)\n", "SUBSTITUTO": "    pos = achar_literal(texto, tr) or (0, len(texto))\n"},
+  {"MUTANTE": "RS_M3_SEM_ANO_PASSA", "FINGE": "J4: data sem ano ganha o ano do modelo", "FICHEIRO": "leis/leitor_semantico.py",
+   "ALVO": "    if not re.search(r\"(?<!\\d)(19|20)\\d{2}(?!\\d)\", lit):\n", "SUBSTITUTO": "    if False:\n"},
+  {"MUTANTE": "RS_M4_VALOR_NAO_CONFERIDO", "FINGE": "J5: o VALOR do modelo nao e conferido contra a data escrita", "FICHEIRO": "leis/leitor_semantico.py",
+   "ALVO": "    if a is None or a not in cabem:\n", "SUBSTITUTO": "    if a is None:\n"},
+  {"MUTANTE": "RS_M5_LINHA_SO_DE_DATA", "FINGE": "J6: linha so com data vale como acontecimento", "FICHEIRO": "leis/leitor_semantico.py",
+   "ALVO": "    if len(re.findall(r\"[^\\W\\d_]\", resto)) < 25:\n", "SUBSTITUTO": "    if False:\n"},
+  {"MUTANTE": "RS_M6_FUTURO_PASSA", "FINGE": "J7: facto depois da captura passa", "FICHEIRO": "leis/leitor_semantico.py",
+   "ALVO": "    if cap and a[0] > cap.group(1):\n", "SUBSTITUTO": "    if False:\n"},
+  {"MUTANTE": "RS_M7_MENOS_PRECISO_PASSA", "FINGE": "J5: o pedaco dentro de outro pedaco escrito (mes de um intervalo de dias) passa", "FICHEIRO": "leis/leitor_semantico.py",
+   "ALVO": "    ach = [x for x in ach if not any(dentro(x[2], y[2]) for y in ach)]\n", "SUBSTITUTO": "    pass\n"}
+ ]
+}
