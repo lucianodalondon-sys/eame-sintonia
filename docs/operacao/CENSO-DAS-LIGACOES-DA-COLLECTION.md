@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  9ef5a9dce18e1071e6b027907d421bc11dcd6abb
+HEAD_DA_MEDICAO  e95a43df16e0cb47522d6b7fa7afbc518b33e80d
 BRANCH           claude/c8-auto-v1
-GERADO_EM        2026-09-30T15:25:27-03:00
+GERADO_EM        2026-10-01T07:36:23-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -709,7 +709,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | pacote/liberacao_por_criterio.py:286; provas/l2/ensaio_disparador.py:57; provas/l2/mutantes.py:27 |
+| **prova de quem ativa** | pacote/liberacao_por_criterio.py:289; provas/l2/ensaio_disparador.py:57; provas/l2/mutantes.py:27 |
 | **porquê** | estas pecas importam-na — C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `motor/r7_export_da_copia.sql` |
