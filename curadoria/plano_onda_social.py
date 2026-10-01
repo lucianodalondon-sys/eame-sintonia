@@ -2,8 +2,9 @@
 
     py curadoria/plano_onda_social.py [--json SAIDA]
 
-Não corre nada, não bate à rede, não escreve em livro. Para cada fonte social do
-livro (contrato `SCRAP_FASE`) responde, pela ordem da casa (D28: o disparo é sempre
+Não corre nada, não bate à rede, não escreve em livro. Para cada fonte social que a
+PORTA aceita (`triagem_social`: rastro do dono + rota + âmbito do T9; as recusadas saem
+com o motivo pelo nome em RECUSADAS_NA_PORTA) responde, pela ordem da casa (D28: o disparo é sempre
 o orquestrador → executor; nada paralelo):
 
   1. o PORTÃO deixa-a entrar na coorte? (`collection_gate.avaliar`)
@@ -56,9 +57,156 @@ BURACOS = {
 }
 
 
-def fontes_sociais(contratos: dict) -> list[str]:
-    return sorted(s for s, c in contratos.items()
-                  if (c.get("ACQUISITION") or {}).get("STRATEGY") == "SCRAP_FASE")
+# ── T9 SOCIAL-CATALOGO-AUTORIZADO (01/10): A PORTA LE O RASTRO, NAO A PALAVRA ──────────────────────
+# Antes: `fontes_sociais` aceitava `STRATEGY == "SCRAP_FASE"` e devolvia [] sem dizer porque. Um feed de
+# canal READY com rastro ficava fora; um SCRAP_FASE sem autorizacao entrava. Agora cada contrato social
+# sai ACEITE ou RECUSADO com o motivo pelo nome. As regras sao as que ja existiam:
+#   · a STRATEGY: o vocabulario do motor (`validar_contratos.STRATEGIES`);
+#   · a rota: `rota_do_scrap_social.conferir` (SCRAP_FASE: o Scrap declara E a matriz diz ALLOWED) e
+#     `validar_contratos.route_resolved` (o feed); a listagem do Instagram: `instagram_listar_permitido`;
+#   · o rastro do dono: `ACQUISITION.AUTORIZACAO`, a decisao que o Curator escreve no contrato;
+#   · o rastro da plataforma: `ROUTE_POLICY_STATUS` do contrato, quando existe;
+#   · o estado: o livro do ciclo de vida (`lifecycle.estado_de`).
+# O AMBITO e o da missao T9, com a resposta do dono a 01/10 — nao abre nada que as decisoes nao abram:
+AMBITO = {
+    "YOUTUBE": "so YOUTUBE_CHANNEL_FEED de canal em READY_FOR_COLLECTION (missao T9 a letra; dono, 01/10)",
+    "LINKEDIN": "video-linkedin de pagina de ORGANIZACAO (D23; D24 pessoas). A fase traz MP4 e legenda: o dono "
+                "aceitou a 01/10 (D23 autoriza video)",
+    "INSTAGRAM": "so o Reel publico por URL directa (D22/D157); listagem e perfil NAO",
+}
+#: a decisao que o rastro do dono tem de citar, por plataforma (o primeiro termo de ACQUISITION.AUTORIZACAO)
+DECISOES_DO_AMBITO = {"YOUTUBE": ("D17.4",), "LINKEDIN": ("D23", "D24"), "INSTAGRAM": ("D22",)}
+#: as fases do Scrap que cabem no ambito (o canal-youtube nao: o YouTube do T9 e so o feed)
+FASES_DO_AMBITO = {"video-linkedin", "captura-reel", "audio-reel", "transcricao-reel"}
+FEED = "YOUTUBE_CHANNEL_FEED"
+NAO_SOCIAIS = ("HTML_LINK_DISCOVERY", "STATIC_ENDPOINT")
+#: os motivos de recusa, por precedencia: o primeiro que se aplica e o MOTIVO; os outros ficam em MOTIVOS
+MOTIVOS_DA_PORTA = ("STRATEGY_DESCONHECIDA", "LISTAGEM_NAO_AUTORIZADA", "FORA_DO_AMBITO_AUTORIZADO",
+                    "SEM_RASTRO_DE_AUTORIZACAO", "SEM_RASTRO_DE_POLITICA", "ROTA_NAO_PERMITIDA",
+                    "ROTA_NAO_CONFERIDA", "ESTADO_NAO_READY")
+
+
+def _decisao_citada(aq: dict) -> str | None:
+    t = str(aq.get("AUTORIZACAO") or "").strip()
+    return t.split()[0] if t else None
+
+
+def _rastro_do_dono(plat: str | None, aq: dict) -> list[tuple[str, str]]:
+    d, pede = _decisao_citada(aq), DECISOES_DO_AMBITO.get(plat or "", ())
+    if not d:
+        return [("SEM_RASTRO_DE_AUTORIZACAO", "o contrato nao cita decisao do dono (ACQUISITION.AUTORIZACAO "
+                                              "vazio); %s pede %s" % (plat, "/".join(pede) or "NAO SEI"))]
+    if d not in pede:
+        return [("SEM_RASTRO_DE_AUTORIZACAO", "o contrato cita %s; %s pede %s" % (d, plat, "/".join(pede)))]
+    return []
+
+
+def _politica_do_contrato(c: dict) -> list[tuple[str, str]]:
+    pol = c.get("ROUTE_POLICY_STATUS")
+    if pol and pol != "ALLOWED":
+        return [("ROTA_NAO_PERMITIDA", "ROUTE_POLICY_STATUS=%s (%s)" % (
+            pol, c.get("ROUTE_POLICY_EVIDENCE") or "sem evidencia escrita"))]
+    return []
+
+
+def _motivos_scrap_fase(c: dict, declarado) -> tuple[str | None, list]:
+    import rota_do_scrap_social as RSS                                  # noqa: PLC0415
+    aq = c.get("ACQUISITION") or {}
+    fase = aq.get("FASE")
+    dec = declarado(fase)
+    plat = dec.get("PLATAFORMA") or aq.get("PLATFORM")
+    m = []
+    if dec.get("CAPACIDADE") and dec.get("CAPACIDADE") == declarado(RSS.IG_FASE_LISTAR).get("CAPACIDADE"):
+        ok, porque = RSS.instagram_listar_permitido()
+        if not ok:
+            m.append(("LISTAGEM_NAO_AUTORIZADA", "fase %s lista a conta (%s); D157: so o Reel por URL directa"
+                      % (fase, porque)))
+    if plat not in AMBITO:
+        m.append(("FORA_DO_AMBITO_AUTORIZADO", "plataforma %s fora do ambito do T9 (%s)"
+                  % (plat, ", ".join(sorted(AMBITO)))))
+    elif fase not in FASES_DO_AMBITO and not m:
+        m.append(("FORA_DO_AMBITO_AUTORIZADO", "SCRAP_FASE/%s: %s — %s" % (fase, plat, AMBITO[plat])))
+    m += _rastro_do_dono(plat, aq) + _politica_do_contrato(c)
+    ok, porque = RSS.conferir(aq)
+    if not ok:
+        m.append(("ROTA_NAO_CONFERIDA", porque))
+    return plat, m
+
+
+def _motivos_feed(c: dict, estado_de) -> list:
+    import validar_contratos as VC                                      # noqa: PLC0415
+    aq = c.get("ACQUISITION") or {}
+    m = _rastro_do_dono("YOUTUBE", aq)
+    if not c.get("ROUTE_POLICY_STATUS"):
+        m.append(("SEM_RASTRO_DE_POLITICA", "o contrato nao traz ROUTE_POLICY_STATUS"))
+    m += _politica_do_contrato(c)
+    ok, porque = VC.route_resolved(c)
+    if not ok:
+        m.append(("ROTA_NAO_CONFERIDA", porque))
+    e = estado_de(c["SOURCE_ID"])
+    if e != "READY_FOR_COLLECTION":
+        m.append(("ESTADO_NAO_READY", "estado no livro do ciclo de vida: %s" % (e or "NAO SEI (fonte ausente)")))
+    return m
+
+
+def triagem_social(contratos: dict, *, estado_de=None) -> dict:
+    """A porta social. {"ACEITES": [SOURCE_ID], "RECUSADAS": [{SOURCE_ID, PLATAFORMA, STRATEGY, FASE, MOTIVO,
+    PORQUE, MOTIVOS}], "RECUSADAS_POR_MOTIVO", "POR_PLATAFORMA", "NAO_SOCIAIS": n}. Sem rede, sem escrita.
+    `estado_de(source_id) -> estado`: o livro do ciclo de vida (por omissao o desta arvore); so e lido para feeds."""
+    import validar_contratos as VC                                      # noqa: PLC0415
+    import rota_do_scrap_social as RSS                                  # noqa: PLC0415
+    if estado_de is None:
+        import lifecycle as LC                                          # noqa: PLC0415
+        livro = {}
+
+        def estado_de(s):
+            if not livro:
+                livro.update(LC._ler_bruto())
+            return LC.estado_de(s, livro)
+    cache: dict = {}
+
+    def declarado(fase):
+        if fase not in cache:
+            cache[fase] = RSS._declarado(fase) if fase else {"FASE_EXISTE": False}
+        return cache[fase]
+    aceites, recusadas, nao_sociais = [], [], 0
+    for s, c in sorted(contratos.items()):
+        aq = c.get("ACQUISITION") or {}
+        st, plat = aq.get("STRATEGY"), None
+        if st in NAO_SOCIAIS:
+            nao_sociais += 1
+            continue
+        if st not in VC.STRATEGIES:
+            m = [("STRATEGY_DESCONHECIDA", "ACQUISITION.STRATEGY=%r fora do motor (%s)"
+                  % (st, ", ".join(sorted(VC.STRATEGIES))))]
+        elif st == FEED:
+            plat, m = "YOUTUBE", _motivos_feed(c, estado_de)
+        else:
+            plat, m = _motivos_scrap_fase(c, declarado)
+        if not m:
+            aceites.append(s)
+            continue
+        m = sorted(m, key=lambda x: MOTIVOS_DA_PORTA.index(x[0]))
+        recusadas.append({"SOURCE_ID": s, "PLATAFORMA": plat, "STRATEGY": st, "FASE": aq.get("FASE"),
+                          "MOTIVO": m[0][0], "PORQUE": m[0][1],
+                          "MOTIVOS": [{"MOTIVO": a, "PORQUE": b} for a, b in m]})
+    plats: dict = {}
+    for s in aceites:
+        c = contratos[s]
+        aq = c["ACQUISITION"]
+        p = "YOUTUBE" if aq.get("STRATEGY") == FEED else (declarado(aq.get("FASE")).get("PLATAFORMA")
+                                                          or aq.get("PLATFORM"))
+        plats.setdefault(p, {"ACEITES": 0, "RECUSADAS": 0})["ACEITES"] += 1
+    for r in recusadas:
+        plats.setdefault(r["PLATAFORMA"] or "NAO_SEI", {"ACEITES": 0, "RECUSADAS": 0})["RECUSADAS"] += 1
+    return {"ACEITES": aceites, "RECUSADAS": recusadas,
+            "RECUSADAS_POR_MOTIVO": dict(Counter(r["MOTIVO"] for r in recusadas)),
+            "POR_PLATAFORMA": plats, "NAO_SOCIAIS": nao_sociais, "AMBITO": AMBITO}
+
+
+def fontes_sociais(contratos: dict, *, estado_de=None) -> list[str]:
+    """Os SOURCE_ID que a porta social aceita. Quem quiser o PORQUE das recusas le `triagem_social`."""
+    return triagem_social(contratos, estado_de=estado_de)["ACEITES"]
 
 
 # ── C2 (FREIO-SOCIAL, 26/09): O TETO DO PEDIDO NA ONDA NAO E O DO CONTRATO ──────
@@ -130,8 +278,9 @@ def plano() -> dict:
     import orquestrador as ORQ
     contratos = {c["SOURCE_ID"]: c for c in json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
     ctx = GATE._contexto()
+    tri = triagem_social(contratos)
     linhas = []
-    for s in fontes_sociais(contratos):
+    for s in tri["ACEITES"]:
         c = contratos[s]
         aq = c["ACQUISITION"]
         g = GATE.avaliar(s, **ctx)
@@ -171,6 +320,8 @@ def plano() -> dict:
             "NA_ONDA_POR_FASE": dict(Counter(l["FASE"] for l in na_onda)),
             "FORA_POR_MOTIVO": dict(Counter(f.split(":")[0] + ":" + f.split(":")[1]
                                             for l in linhas for f in l["FALTA"])),
+            "PORTA_SOCIAL": {k: tri[k] for k in ("RECUSADAS_POR_MOTIVO", "POR_PLATAFORMA", "NAO_SOCIAIS")},
+            "RECUSADAS_NA_PORTA": tri["RECUSADAS"],
             "BURACOS": {k: {"O_QUE": v[0], "DONO": v[1]} for k, v in BURACOS.items()},
             "TETO_LINKEDIN_NA_ONDA": TETO_LINKEDIN_NA_ONDA,
             "RODADAS": rodadas(linhas),
@@ -182,7 +333,8 @@ def main() -> int:
     ap.add_argument("--json")
     a = ap.parse_args()
     r = plano()
-    print(json.dumps({k: v for k, v in r.items() if k not in ("LINHAS", "BURACOS")}, ensure_ascii=False, indent=1))
+    print(json.dumps({k: v for k, v in r.items() if k not in ("LINHAS", "BURACOS", "RECUSADAS_NA_PORTA")},
+                     ensure_ascii=False, indent=1))
     for l in r["LINHAS"]:
         if l["NA_ONDA"]:
             print("  NA ONDA  %-11s %-4s %-15s -> %s (%s)" % (l["SOURCE_ID"], l["TERRITORY"], l["FASE"],

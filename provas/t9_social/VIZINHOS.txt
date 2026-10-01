@@ -1,0 +1,40 @@
+...........................01 LI-A SUCCESS 3s livro {'127.0.0.1': 4}
+01 LI-B SUCCESS 1s livro {'127.0.0.1': 5}
+ONDA 01 PROVA_TETO=PASS
+.01 LI-A SUCCESS 3s livro {'127.0.0.1': 4}
+ONDA 01 PROVA_TETO=PASS
+02 LI-B SUCCESS 3s livro {'127.0.0.1': 4}
+ONDA 02 PROVA_TETO=PASS
+.PAROU EGRESSO_NAO_IT antes da fonte: US
+.01 LI-A SUCCESS 3s livro {'127.0.0.1': 4}
+PAROU EGRESSO_SAIU_DE_IT depois da fonte: NL
+.01 LI-A SUCCESS 3s livro {'127.0.0.1': 4}
+ONDA 01 PROVA_TETO=NAO_SEI
+PAROU PROVA_TETO_NAO_SEI na onda 1
+.01 LI-A SUCCESS 3s livro {'127.0.0.1': 4}
+PAROU EGRESSO_NAO_IT antes da fonte: US
+01 LI-B SUCCESS 1s livro {'127.0.0.1': 5}
+ONDA 01 PROVA_TETO=PASS
+02 LI-C SUCCESS 3s livro {'127.0.0.1': 4}
+ONDA 02 PROVA_TETO=PASS
+.01 YT-A SUCCESS 3s livro {'127.0.0.1': 4}
+ONDA 01 PROVA_TETO=PASS
+.01 YT-A SEM_VIDEO_E_SEM_CHAVE
+ONDA 01 PROVA_TETO=PASS
+.01 LI-A SUCCESS 3s livro {'127.0.0.1': 4}
+01 LI-B SUCCESS 1s livro {'127.0.0.1': 5}
+ONDA 01 PROVA_TETO=PASS
+....................................................{"RECUSADO": "SAIDA_VAZIA", "SAIDA": ""}
+{"RECUSADO": "SAIDA_VAZIA", "SAIDA": "   "}
+{"RECUSADO": "SAIDA_E_A_RAIZ_DE_UM_DISCO", "SAIDA": "C:/"}
+{"RECUSADO": "SAIDA_E_A_RAIZ_DE_UM_DISCO", "SAIDA": "C:\\"}
+{"RECUSADO": "SAIDA_E_A_RAIZ_DE_UM_DISCO", "SAIDA": "/"}
+.{"PG_DUMP_CODIGO": 0, "BYTES": 0, "INDICE_TEM_SALA_DE_ESPERA": true, "SALA_REAL_MUDOU_DURANTE_O_DUMP": false, "IGUAL_A_SALA_REAL": true, "PROVA_VALE": true}
+escrito: C:\Users\London1\AppData\Local\Temp\prova-backup-pg-7g0js7y4\CICLO-0101\backup\PROVA-BACKUP-SALA.json
+.{"PG_DUMP_CODIGO": 0, "BYTES": 0, "INDICE_TEM_SALA_DE_ESPERA": true, "SALA_REAL_MUDOU_DURANTE_O_DUMP": false, "IGUAL_A_SALA_REAL": true, "PROVA_VALE": true}
+escrito: C:\Users\London1\AppData\Local\Temp\prova-backup-pg-cflj57v7\COLETA-CONTINUA\CICLO-0101\backup\PROVA-BACKUP-SALA.json
+..................
+----------------------------------------------------------------------
+Ran 138 tests in 72.976s
+
+OK

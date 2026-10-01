@@ -239,19 +239,36 @@ def _catalogo_ciencia(raiz: Path) -> dict:
 
 
 def _catalogo_social(raiz: Path) -> dict:
+    # T9 SOCIAL-CATALOGO-AUTORIZADO (01/10): a porta (`plano_onda_social.triagem_social`) aceita so o contrato com
+    # rastro, dentro do ambito, e diz o MOTIVO de cada recusa. O estado vem do livro do ciclo de vida DESTA raiz.
     rel, coorte = "curadoria/italy_contracts_curator.json", "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json"
     sys.path.insert(0, str(raiz / "curadoria"))
     import plano_onda_social as POS                                    # noqa: PLC0415 — a regra da porta social
+    import lifecycle as LC                                             # noqa: PLC0415
     contratos = {c["SOURCE_ID"]: c for c in _json(raiz, rel)["FONTES"]}
-    sociais = POS.fontes_sociais(contratos)
-    fora = sorted({(c.get("ACQUISITION") or {}).get("STRATEGY") for c in contratos.values()} - {"SCRAP_FASE"},
-                  key=str)
+    livro: dict = {}
+
+    def estado_de(s):
+        if not livro:
+            f = raiz / "curadoria" / "LIFECYCLE-LEDGER-V1.json"
+            livro.update(json.loads(f.read_text(encoding="utf-8")) if f.exists() else {"TRANSICOES": []})
+        return LC.estado_de(s, livro)
+    tri = POS.triagem_social(contratos, estado_de=estado_de)
+    sociais = tri["ACEITES"]
+    por_motivo: dict = {}
+    for r in tri["RECUSADAS"]:
+        por_motivo.setdefault(r["MOTIVO"], []).append(r["SOURCE_ID"])
     ready = ((_json(raiz, coorte).get("PLANO") or {}).get("PAINEL_DO_GATE") or {}).get("READY_SOCIAL_TOTAL")
     m = [] if sociais else [
-        ("SEM_CATALOGO", "0 fontes na porta social (plano_onda_social.fontes_sociais: contratos SCRAP_FASE) em %s; "
-                         "o maestro_social recusa o resto (FONTE_FORA_DO_PLANO_SOCIAL). Estrategias fora da porta "
-                         "social neste catalogo: %s" % (rel, ", ".join(map(str, fora))))]
-    return {"CATALOGO": rel, "UNIDADE": "fonte social (contrato SCRAP_FASE)", "UNIDADES_GOVERNADAS": len(sociais),
+        ("SEM_CATALOGO", "0 fontes aceites na porta social (plano_onda_social.triagem_social) em %s: %d recusadas "
+                         "com motivo (%s); %d contratos nao sociais" % (
+                             rel, len(tri["RECUSADAS"]),
+                             ", ".join("%s=%d" % (k, len(v)) for k, v in sorted(por_motivo.items())) or "nenhuma",
+                             tri["NAO_SOCIAIS"]))]
+    return {"CATALOGO": rel, "UNIDADE": "fonte social aceite na porta (rastro + ambito do T9)",
+            "UNIDADES_GOVERNADAS": len(sociais),
+            "PORTA_SOCIAL": {"ACEITES": sociais, "RECUSADAS": dict(sorted(por_motivo.items())),
+                             "POR_PLATAFORMA": tri["POR_PLATAFORMA"]},
             "MOTIVOS": m + [
                 ("BLOQUEADA_PERMISSAO_SOCIAL", "correr fontes sociais exige --autorizado-pelo-dono "
                                                "(ferramentas/maestro_social/maestro_social.py); a coorte declara "
@@ -301,6 +318,8 @@ def alimentar_linhas(plano: dict, raiz: Path = RAIZ) -> dict:
                      "PORQUE": motivos[0]["PORQUE"] if motivos else None,
                      "CATALOGO": f.get("CATALOGO"), "UNIDADE": f.get("UNIDADE"),
                      "UNIDADES_GOVERNADAS": f.get("UNIDADES_GOVERNADAS", 0), "MOTIVOS": motivos}
+        if "PORTA_SOCIAL" in f:                                        # T9: o porque de cada recusa vai ao ciclo
+            out[nome]["PORTA_SOCIAL"] = f["PORTA_SOCIAL"]
     return out
 
 
