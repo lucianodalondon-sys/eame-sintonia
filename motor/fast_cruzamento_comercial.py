@@ -365,7 +365,12 @@ def main(argv):
             "OBJETOS_COM_VERIFICAR": [o["ID"] for o in objetos if o["CONFERENCIA"]["PALAVRAS_VERIFICAR"]],
             "OPORTUNIDADES_COM_NAO_SEI": [o["ID"] for o in objetos if o["CONFERENCIA"]["OPORTUNIDADE_COM_NAO_SEI"]],
             "CRUZAMENTOS_DE_UM_SO_DOCUMENTO": [o["ID"] for o in objetos
-                                               if o["CONFERENCIA"]["CRUZAMENTO_DE_UM_SO_DOCUMENTO"]]}),
+                                               if o["CONFERENCIA"]["CRUZAMENTO_DE_UM_SO_DOCUMENTO"]],
+            # CRUZAMENTOS_DE_UM_SO_DOCUMENTO so conta quem DIZ cruzar 2+ sinais e tem 1 documento.
+            # Esta lista conta TODO objeto apoiado num so documento (SINAL/LEAD/GAP podem; e medida, nao filtro).
+            "OBJETOS_DE_UM_SO_DOCUMENTO": [o["ID"] for o in objetos if o["ORIGEM"]["N_DOCUMENTOS"] == 1],
+            "OPORTUNIDADES_DE_UM_SO_DOCUMENTO": [o["ID"] for o in objetos if o.get("CLASSE") == "OPORTUNIDADE"
+                                                 and o["ORIGEM"]["N_DOCUMENTOS"] == 1]}),
         ("OBJETOS", objetos),
     ])
     (saida_dir / "CRUZAMENTO-COMERCIAL.json").write_text(json.dumps(rodada, ensure_ascii=False, indent=1),

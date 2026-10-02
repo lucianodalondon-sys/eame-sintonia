@@ -130,7 +130,13 @@ def main():
                     os.path.join(pasta, "CRUZAMENTO-COMERCIAL.json"))
     C = json.load(open(os.path.join(pasta, "CRUZAMENTO-COMERCIAL.json"), encoding="utf-8"))
     assert C.get("CODIGO_HEAD") == head and C.get("CODIGO_LIMPO_EM_MOTOR") is True, "cruzamento sem CODIGO_HEAD provado"
-    codigo = OrderedDict([("CODIGO_HEAD", head), ("REPO", REPO),
+    # todas as versoes que tocaram esta rodada (retomada = mais de uma), lidas do RODADAS.log
+    versoes = []
+    for l in open(LOG, encoding="utf-8"):
+        m = re.search(r" (INICIO|RETOMA) %s CODIGO_HEAD=([0-9a-f]{40})" % re.escape(run_id), l)
+        if m and m.group(2) not in [v["CODIGO_HEAD"] for v in versoes]:
+            versoes.append({"CODIGO_HEAD": m.group(2), "EVENTO": m.group(1), "EM": l[:19]})
+    codigo = OrderedDict([("CODIGO_HEAD", head), ("VERSOES_DA_RODADA", versoes), ("REPO", REPO),
                           ("ARQUIVOS", {os.path.relpath(p, REPO).replace("\\", "/"): sha(p) for p in
                                         [os.path.join(CODIGO, s) for s in PASSOS] + [COMERCIAL, __file__]}),
                           ("SELECAO", {"MAX": maximo, "MAX_POR_FONTE": POR_FONTE, "FONTES": fontes})])
