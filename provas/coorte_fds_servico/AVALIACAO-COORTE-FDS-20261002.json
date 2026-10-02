@@ -1,0 +1,151 @@
+{
+ "DATASET": "AVALIACAO-COORTE-FDS-NO-SERVICO",
+ "MEDIDO_EM": "2026-10-02T19:05:56Z",
+ "ARVORE": "82d3f4913",
+ "PERGUNTA": "coorte nova = COORTE-BIG-COLLECTION-V1 + READY da COORTE-FDS-20261002.json que ainda nao estao nela, pelo MESMO caminho que congelou a coorte (micro_coleta.py plano -> coorte_unica.py; provas CONTRATO_EXECUTAVEL, ROTA_VALIDADA, CANARIO_7D)",
+ "ENTRADAS": {
+  "COORTE_FDS": {
+   "CAMINHO": "C:/Users/London1/orca/workspaces/eame-sintonia/COORTE-FDS-20261002.json",
+   "SHA256": "d276363528df0cdbd0e67eb1b1c5acea4255f525959b059ab167e591eabc6c1c"
+  },
+  "COORTE_ATUAL": {
+   "CAMINHO": "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+   "COORTE_SHA256": "eb7b6ab75056cff37b892cb7e9e59a553f6b9048ff8a5db961c532e643f0b9e4",
+   "FONTES": 64
+  },
+  "LIVROS_VIVOS_COPIADOS_DO_SERVICO": [
+   "a9c5036c839d3cabdbd80979e11e05a2096d5577b7d766d6a0c0938c25e1a5a0 curadoria/LIFECYCLE-LEDGER-V1.json",
+   "8de7fdbf891a82ba1265fa0ea1501152abe595e03694644e1e700e2701b79d4f curadoria/LIFECYCLE-EVIDENCE-V1.json",
+   "55f9ecc180aee93ad0da10af2fbcf70cce98e6b7a9ebb89e001f11ce21118604 curadoria/italy_contracts_curator.json",
+   "40a255d46b2d867ea6aa600e3d510eadfe37fa1e094276ea4b009bea8089ab23 regras/italy_contracts_onboarded.json",
+   "5d476c8336156965e7e6076a6e3eb782e34f4921fa6af5d4b3fa6cacb7a64d20 *curadoria/ROTAS-ELEGIVEIS-V1.json",
+   ""
+  ],
+  "NOTA_LIVROS": "os 4 livros (e ROTAS-ELEGIVEIS para o onboardar) foram copiados da copia de trabalho do servico para esta worktree so durante as medidas e devolvidos com git checkout; nao vao no commit"
+ },
+ "PAINEL_DO_GATE_VIVO": {
+  "READY_TOTAL": 104,
+  "READY_CURRENT_TOTAL": 92,
+  "READY_LEGACY_TOTAL": 12,
+  "READY_SOCIAL_TOTAL": 0,
+  "HUMAN_REVIEW_REQUIRED": 7,
+  "COLLECTION_ELIGIBLE": 78
+ },
+ "FDS_READY": 16,
+ "FDS_READY_JA_NA_COORTE": [
+  "IT-T5-111",
+  "IT-T2-145",
+  "IT-T12-024",
+  "IT-T12-129",
+  "IT-T10-018",
+  "IT-T9-011",
+  "IT-T9-009",
+  "IT-T7-043",
+  "IT-T5-056"
+ ],
+ "FDS_READY_FORA_DA_COORTE": 7,
+ "AVALIADAS": [
+  {
+   "SOURCE_ID": "IT-T3-053",
+   "FAMILIA_FDS": "FITOSSANITARIO",
+   "URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+   "ESTADO_NO_LIVRO_VIVO": "READY_FOR_COLLECTION",
+   "ENTRA": false,
+   "ONDE": "PORTAO (collection_gate.avaliar)",
+   "MOTIVO": "HUMAN_REVIEW_REQUIRED",
+   "PORQUE": "ITEM_PARECE_SECCAO: https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale — confirmar a olho que e um item e nao uma seccao"
+  },
+  {
+   "SOURCE_ID": "IT-T3-067",
+   "FAMILIA_FDS": "FITOSSANITARIO",
+   "URL": "https://www.fitosanitario.mo.it/",
+   "ESTADO_NO_LIVRO_VIVO": "READY_FOR_COLLECTION",
+   "ENTRA": false,
+   "ONDE": "micro_coleta plano + coorte_unica (prova CONTRATO_EXECUTAVEL)",
+   "MOTIVO": "SEM_CONTRATO_DE_COLETA",
+   "PORQUE": "o portao admite, mas o coletor nao tem contrato (sem linha em regras/italy_contracts_onboarded.json). onboardar_rotas_provadas (so mostra): FICA   IT-T3-067  canario nao provou a rota: SEM_CANARIO —"
+  },
+  {
+   "SOURCE_ID": "IT-T2-157",
+   "FAMILIA_FDS": "CLIMA",
+   "URL": "https://meteo.regione.marche.it/Notiziari",
+   "ESTADO_NO_LIVRO_VIVO": "READY_FOR_COLLECTION",
+   "ENTRA": false,
+   "ONDE": "micro_coleta plano + coorte_unica (prova CONTRATO_EXECUTAVEL)",
+   "MOTIVO": "SEM_CONTRATO_DE_COLETA",
+   "PORQUE": "o portao admite, mas o coletor nao tem contrato (sem linha em regras/italy_contracts_onboarded.json). onboardar_rotas_provadas (so mostra): FICA   IT-T2-157  canario nao provou a rota: SEM_CANARIO —"
+  },
+  {
+   "SOURCE_ID": "IT-T7-053",
+   "FAMILIA_FDS": "AGRONOMICO_REGIONAL",
+   "URL": "https://veneto.coldiretti.it/",
+   "ESTADO_NO_LIVRO_VIVO": "READY_FOR_COLLECTION",
+   "ENTRA": false,
+   "ONDE": "micro_coleta plano + coorte_unica (prova CONTRATO_EXECUTAVEL)",
+   "MOTIVO": "SEM_CONTRATO_DE_COLETA",
+   "PORQUE": "o portao admite, mas o coletor nao tem contrato (sem linha em regras/italy_contracts_onboarded.json). onboardar_rotas_provadas (so mostra): FICA   IT-T7-053  canario nao provou a rota: UNKNOWN — robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como"
+  },
+  {
+   "SOURCE_ID": "IT-T8-068",
+   "FAMILIA_FDS": "AGRONOMICO_REGIONAL",
+   "URL": "https://www.terraevita.edagricole.it/",
+   "ESTADO_NO_LIVRO_VIVO": "READY_FOR_COLLECTION",
+   "ENTRA": false,
+   "ONDE": "PORTAO (collection_gate.avaliar)",
+   "MOTIVO": "RETIRADA_POR_DECISAO",
+   "PORQUE": "retirada do universo por decisao (D9: D49 · DUPLICADA_POR_SOBREPOSICAO_DE_ROTA: fica IT-T8-021 (revista inteira com o padrao generico: sobrepoe IT-T8-021 e as seccoes da Terra e Vita)); reversivel pelo catalogo, nunca por omissao"
+  },
+  {
+   "SOURCE_ID": "IT-T7-058",
+   "FAMILIA_FDS": "MERCADO",
+   "URL": "https://www.unaprol.it/",
+   "ESTADO_NO_LIVRO_VIVO": "READY_FOR_COLLECTION",
+   "ENTRA": false,
+   "ONDE": "micro_coleta plano + coorte_unica (prova CONTRATO_EXECUTAVEL)",
+   "MOTIVO": "SEM_CONTRATO_DE_COLETA",
+   "PORQUE": "o portao admite, mas o coletor nao tem contrato (sem linha em regras/italy_contracts_onboarded.json). onboardar_rotas_provadas (so mostra): FICA   IT-T7-058  canario nao provou a rota: UNKNOWN — robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como"
+  },
+  {
+   "SOURCE_ID": "IT-T5-064",
+   "FAMILIA_FDS": "CIENCIA_PESQUISADORES",
+   "URL": "https://www.dafnae.unipd.it/",
+   "ESTADO_NO_LIVRO_VIVO": "READY_FOR_COLLECTION",
+   "ENTRA": false,
+   "ONDE": "PORTAO (collection_gate.avaliar)",
+   "MOTIVO": "HUMAN_REVIEW_REQUIRED",
+   "PORQUE": "ITEM_PARECE_SECCAO: https://www.dafnae.unipd.it/ricerca/assegni-di-ricerca — confirmar a olho que e um item e nao uma seccao"
+  }
+ ],
+ "ENTRAM": [],
+ "COORTE_NOVA": "IGUAL A ATUAL — nenhuma fonte passou; nao se gera ficheiro novo nem sha256 novo (um ficheiro com as mesmas 64 fontes so obrigaria a refazer o RODADAS-PLANO e a repor as suspensoes D130/D133 a mao, sem ganho)",
+ "RECALCULO_INTEIRO_NAO_USADO": {
+  "COORTE_UNICA_HOJE": 54,
+  "ANTIGAS_QUE_SAIRIAM": [
+   "IT-T12-130",
+   "IT-T3-023",
+   "IT-T7-125",
+   "IT-T7-139",
+   "IT-T7-141",
+   "IT-T7-172",
+   "IT-T8-022",
+   "IT-T8-024",
+   "IT-T8-041",
+   "IT-T8-042",
+   "IT-T8-051"
+  ],
+  "PORQUE_NAO": "a missao proibe tirar fontes da coorte atual; o recalculo inteiro so serve de leitura"
+ },
+ "ENSAIOS_A_SECO": {
+  "A": "provas/coorte_fds_servico/ENSAIO-A.json — plano vivo copiado (RODADAS-PLANO sha256 965d27acda27d2d9b4f94327f1f17e429446c367bb6cd02b9b51a0b8a14d045c), coorte atual",
+  "B": "provas/coorte_fds_servico/ENSAIO-B.json — HIPOTETICO: plano copiado + as 7 numa rodada a mais; mostra o que o agendador faria se entrassem (NAO e coorte)"
+ },
+ "COPIAS_FORA_DO_GIT": {
+  "RODADAS-PLANO.json": "965d27acda27d2d9b4f94327f1f17e429446c367bb6cd02b9b51a0b8a14d045c",
+  "RODADAS-ESTADO.json": "80d286e142b9c850ec4768eecc85176068ffb1384150c39cc3e380c677eb5636",
+  "TETO-24H-copia.json": "53707176834893973a8382bdf9d2e98769fd3736eb37f112fdd63b8a594d01a2",
+  "RODADAS-PLANO-HIPOTETICO-B.json": "d33a40101c9c7150032d73c99a5068f236974dfb248fffdf9e594afe2aa8aa30",
+  "COORTE-RECALCULADA-VIVO.json": "4d6131b793cf7e7a7e344273ae424287e23065bc3a24b8f32ab450bac7423d1c",
+  "ONBOARDAR-SO-MOSTRA.txt": "5cbcb07d9d3ab5ae65e3de8d447d0664f526f602aaddbbfa17aa9f9d2241616d",
+  "PLANO-MICRO-COMMIT.json": "560477e782b0cd8b39cd51e7f93f0dcaee33a5e85b7917e1500d41ab5b8c9af9"
+ }
+}

@@ -1,0 +1,584 @@
+{
+ "CICLO": 1,
+ "INICIO": "2026-10-02T16:09:05-03:00",
+ "AGORA_UTC": "2026-10-02T19:09:05+00:00",
+ "A_SECO": true,
+ "PARA": null,
+ "LINHAS": {
+  "BUSCA": {
+   "ESTADO": "BLOQUEADA_CAPACIDADE",
+   "PORQUE": "a coleta continua so tem a onda dos SITES (onda_web.py --correr), que so aceita a coorte congelada: uma fonte desta linha la dentro e FONTE_FORA_DA_COORTE, a onda sai != 0 e o servico PARA; o transporte da linha corre por CONSULTA (linha_busca.py --buscar/--colher --autorizado, o coordenador)",
+   "CATALOGO": "data/derivados/LINHA-BUSCA/CONSULTAS.json",
+   "UNIDADE": "consulta (assunto-primeiro, D93)",
+   "UNIDADES_GOVERNADAS": 473,
+   "MOTIVOS": [
+    {
+     "ESTADO": "BLOQUEADA_CAPACIDADE",
+     "PORQUE": "a coleta continua so tem a onda dos SITES (onda_web.py --correr), que so aceita a coorte congelada: uma fonte desta linha la dentro e FONTE_FORA_DA_COORTE, a onda sai != 0 e o servico PARA; o transporte da linha corre por CONSULTA (linha_busca.py --buscar/--colher --autorizado, o coordenador)"
+    }
+   ],
+   "FONTES": [],
+   "PEDIDOS_PREVISTOS": 0,
+   "CANDIDATAS_RECEBIDAS": 0
+  },
+  "CIENCIA": {
+   "ESTADO": "BLOQUEADA_POLITICA",
+   "PORQUE": "o contrato da fonte T6 nao esta instalado (docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json: ESTADO='PROPOSTA — nao instalado; nenhuma linha escrita nos contratos do vivo')",
+   "CATALOGO": "data/derivados/PESQUISADORES-T6/PLANO.json",
+   "UNIDADE": "par cultura x problema (consulta OpenAlex; pesquisadores_t6.py)",
+   "UNIDADES_GOVERNADAS": 12,
+   "MOTIVOS": [
+    {
+     "ESTADO": "BLOQUEADA_POLITICA",
+     "PORQUE": "o contrato da fonte T6 nao esta instalado (docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json: ESTADO='PROPOSTA — nao instalado; nenhuma linha escrita nos contratos do vivo')"
+    },
+    {
+     "ESTADO": "BLOQUEADA_CAPACIDADE",
+     "PORQUE": "a coleta continua so tem a onda dos SITES (onda_web.py --correr), que so aceita a coorte congelada: uma fonte desta linha la dentro e FONTE_FORA_DA_COORTE, a onda sai != 0 e o servico PARA; o transporte da linha corre por RODADA sobre o seu ESTADO.json (pesquisadores_t6.py --rede --rodada=N)"
+    }
+   ],
+   "FONTES": [],
+   "PEDIDOS_PREVISTOS": 0,
+   "CANDIDATAS_RECEBIDAS": 0
+  },
+  "SOCIAL": {
+   "ESTADO": "NADA_ELEGIVEL",
+   "FONTES": [],
+   "PEDIDOS_PREVISTOS": 0
+  },
+  "PESQUISADORES": {
+   "ESTADO": "BLOQUEADA_ROBOTS",
+   "PORQUE": "robots.txt de pub.orcid.org = 'User-agent: * / Disallow: /' (lido a 26/09 22:58Z; ferramentas/seguir_pesquisadores/SEGUIR-PESQUISADORES.md; o canario do orcid_lote.py PARA por ROBOTS). Declarado, nao re-medido aqui (0 rede)",
+   "CATALOGO": "data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json",
+   "UNIDADE": "pessoa MUR AGRI-05 com UM ORCID (seguir.py/orcid_lote.py)",
+   "UNIDADES_GOVERNADAS": 127,
+   "MOTIVOS": [
+    {
+     "ESTADO": "BLOQUEADA_ROBOTS",
+     "PORQUE": "robots.txt de pub.orcid.org = 'User-agent: * / Disallow: /' (lido a 26/09 22:58Z; ferramentas/seguir_pesquisadores/SEGUIR-PESQUISADORES.md; o canario do orcid_lote.py PARA por ROBOTS). Declarado, nao re-medido aqui (0 rede)"
+    },
+    {
+     "ESTADO": "BLOQUEADA_CAPACIDADE",
+     "PORQUE": "a coleta continua so tem a onda dos SITES (onda_web.py --correr), que so aceita a coorte congelada: uma fonte desta linha la dentro e FONTE_FORA_DA_COORTE, a onda sai != 0 e o servico PARA; o transporte da linha corre por LOTE de pessoas (orcid_lote.py --autorizado; seguir.py --rodada SUBSTITUIDO, D90 3.4)"
+    }
+   ],
+   "FONTES": [],
+   "PEDIDOS_PREVISTOS": 0,
+   "CANDIDATAS_RECEBIDAS": 0
+  },
+  "SITES": {
+   "ESTADO": "A_CORRER",
+   "FONTES": [
+    "IT-T12-131",
+    "IT-T2-006",
+    "IT-T2-146",
+    "IT-T7-123",
+    "IT-T7-112",
+    "IT-T7-118",
+    "IT-T8-028",
+    "IT-T8-029",
+    "IT-T8-030",
+    "IT-T8-034",
+    "IT-T8-039",
+    "IT-T8-040",
+    "IT-T5-025",
+    "IT-T5-160",
+    "IT-T3-067",
+    "IT-T2-157",
+    "IT-T7-053",
+    "IT-T7-058"
+   ],
+   "PEDIDOS_PREVISTOS": 88
+  }
+ },
+ "ESPERAM": [
+  {
+   "SOURCE_ID": "IT-T11-014",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-165",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-190",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-191",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-253",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-254",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-255",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T9-025",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T9-026",
+   "DOMINIO": "licdn.com",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "licdn.com",
+    "linkedin.com"
+   ],
+   "PREVISTO_POR_DOMINIO": {
+    "linkedin.com": 2,
+    "licdn.com": 2
+   },
+   "FASE": "video-linkedin",
+   "RODADA_DO_PLANO": null,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SOCIAL",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CANARY_PENDING",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-080",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 11,
+   "CLASSE_PRIORIDADE": 5,
+   "LINHA": "SITES",
+   "PORQUE": "DOMINIO_FECHADO",
+   "DOMINIOS_FECHADOS": {
+    "crea.gov.it": {
+     "PORQUE": "TETO_24H",
+     "GASTO_24H": 77,
+     "ORCAMENTO_24H": 80,
+     "ABRE_EM": "2026-10-02T21:33:58+00:00"
+    }
+   },
+   "ABRE_EM": "2026-10-02T21:33:58+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-111",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 12,
+   "CLASSE_PRIORIDADE": 5,
+   "LINHA": "SITES",
+   "PORQUE": "DOMINIO_FECHADO",
+   "DOMINIOS_FECHADOS": {
+    "crea.gov.it": {
+     "PORQUE": "TETO_24H",
+     "GASTO_24H": 77,
+     "ORCAMENTO_24H": 80,
+     "ABRE_EM": "2026-10-02T21:33:58+00:00"
+    }
+   },
+   "ABRE_EM": "2026-10-02T21:33:58+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-113",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 13,
+   "CLASSE_PRIORIDADE": 5,
+   "LINHA": "SITES",
+   "PORQUE": "DOMINIO_FECHADO",
+   "DOMINIOS_FECHADOS": {
+    "crea.gov.it": {
+     "PORQUE": "TETO_24H",
+     "GASTO_24H": 77,
+     "ORCAMENTO_24H": 80,
+     "ABRE_EM": "2026-10-02T21:33:58+00:00"
+    }
+   },
+   "ABRE_EM": "2026-10-02T21:33:58+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-167",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 14,
+   "CLASSE_PRIORIDADE": 5,
+   "LINHA": "SITES",
+   "PORQUE": "DOMINIO_FECHADO",
+   "DOMINIOS_FECHADOS": {
+    "crea.gov.it": {
+     "PORQUE": "TETO_24H",
+     "GASTO_24H": 77,
+     "ORCAMENTO_24H": 80,
+     "ABRE_EM": "2026-10-02T21:33:58+00:00"
+    }
+   },
+   "ABRE_EM": "2026-10-02T21:33:58+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-056",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 15,
+   "CLASSE_PRIORIDADE": 5,
+   "LINHA": "SITES",
+   "PORQUE": "DOMINIO_FECHADO",
+   "DOMINIOS_FECHADOS": {
+    "crea.gov.it": {
+     "PORQUE": "TETO_24H",
+     "GASTO_24H": 77,
+     "ORCAMENTO_24H": 80,
+     "ABRE_EM": "2026-10-02T21:33:58+00:00"
+    }
+   },
+   "ABRE_EM": "2026-10-02T21:33:58+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-172",
+   "DOMINIO": "georgofili.info",
+   "PREVISTOS": 2,
+   "DOMINIOS": [
+    "georgofili.info",
+    "georgofili.it"
+   ],
+   "RODADA_DO_PLANO": 2,
+   "CLASSE_PRIORIDADE": 2,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CONTRACTED_CANARY_FAILED",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CONTRACTED_CANARY_FAILED; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-022",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 4,
+   "CLASSE_PRIORIDADE": 2,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CONTRACT_READY_ROUTE_BLOCKED",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CONTRACT_READY_ROUTE_BLOCKED; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-024",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 5,
+   "CLASSE_PRIORIDADE": 2,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CONTRACT_READY_ROUTE_BLOCKED",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CONTRACT_READY_ROUTE_BLOCKED; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-041",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 12,
+   "CLASSE_PRIORIDADE": 2,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CONTRACT_READY_ROUTE_BLOCKED",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CONTRACT_READY_ROUTE_BLOCKED; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-042",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 13,
+   "CLASSE_PRIORIDADE": 2,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CONTRACT_READY_ROUTE_BLOCKED",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CONTRACT_READY_ROUTE_BLOCKED; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-051",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 14,
+   "CLASSE_PRIORIDADE": 2,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CONTRACTED_CANARY_FAILED",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CONTRACTED_CANARY_FAILED; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T12-130",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 15,
+   "CLASSE_PRIORIDADE": 2,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "CONTRACTED_CANARY_FAILED",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "PORQUE_DO_PORTAO": "o estado no livro e CONTRACTED_CANARY_FAILED; so entra quem esta em READY_FOR_COLLECTION",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-053",
+   "DOMINIO": "regione.umbria.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "regione.umbria.it"
+   ],
+   "RODADA_DO_PLANO": 16,
+   "CLASSE_PRIORIDADE": 9,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "READY_FOR_COLLECTION",
+   "MOTIVO_DO_PORTAO": "HUMAN_REVIEW_REQUIRED",
+   "PORQUE_DO_PORTAO": "ITEM_PARECE_SECCAO: https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale — confirmar a olho que e um item e nao uma seccao",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-068",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 16,
+   "CLASSE_PRIORIDADE": 9,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "READY_FOR_COLLECTION",
+   "MOTIVO_DO_PORTAO": "RETIRADA_POR_DECISAO",
+   "PORQUE_DO_PORTAO": "retirada do universo por decisao (D9: D49 · DUPLICADA_POR_SOBREPOSICAO_DE_ROTA: fica IT-T8-021 (revista inteira com o padrao generico: sobrepoe IT-T8-021 e as seccoes da Terra e Vita)); reversivel pelo catalogo, nunca por omissao",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-064",
+   "DOMINIO": "unipd.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "unipd.it"
+   ],
+   "RODADA_DO_PLANO": 16,
+   "CLASSE_PRIORIDADE": 9,
+   "LINHA": "SITES",
+   "PORQUE": "FONTE_NAO_READY",
+   "ESTADO_LIDO": "READY_FOR_COLLECTION",
+   "MOTIVO_DO_PORTAO": "HUMAN_REVIEW_REQUIRED",
+   "PORQUE_DO_PORTAO": "ITEM_PARECE_SECCAO: https://www.dafnae.unipd.it/ricerca/assegni-di-ricerca — confirmar a olho que e um item e nao uma seccao",
+   "ABRE_EM": null
+  }
+ ],
+ "RUN_IDS": [],
+ "RAM_LIVRE_GB": 5.0,
+ "JANELA_24H": null,
+ "TETO_VEM_DE": "orcamento vigente (D124)",
+ "ORCAMENTO_DO_CICLO": {
+  "edagricole.it": 35,
+  "arpacampania.it": 5,
+  "arpa.veneto.it": 5,
+  "cia.it": 13,
+  "santannapisa.it": 5,
+  "cnr.it": 5,
+  "mo.it": 5,
+  "regione.marche.it": 5,
+  "coldiretti.it": 5,
+  "unaprol.it": 5
+ },
+ "PROXIMO_A_ABRIR": {
+  "DOMINIO": "crea.gov.it",
+  "ABRE_EM": "2026-10-02T21:33:58+00:00",
+  "FONTES_A_ESPERA": 5
+ },
+ "FIM": "2026-10-02T16:09:22-03:00",
+ "FIM_UTC": "2026-10-02T19:09:22+00:00",
+ "NADA_A_CORRER": false
+}
