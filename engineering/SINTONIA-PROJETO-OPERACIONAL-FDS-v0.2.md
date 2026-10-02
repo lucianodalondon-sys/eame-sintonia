@@ -1106,6 +1106,196 @@ Importante: enquanto houver versões concorrentes de Crop Windows ou fenologia s
 
 Recebe mudanças de autorização, produtos, culturas, alvos, restrições, doses e frescor da referência.
 
+A ferramenta precisa funcionar como **painel de vigilância regulatória**, e não apenas como consulta de label.
+
+Cada produto/uso deve ter um **semáforo visual** na primeira camada:
+
+```text
+🟢 OK
+🟡 ATENÇÃO
+🔴 AÇÃO / RISCO IMEDIATO
+```
+
+#### Semântica do semáforo
+
+**🟢 VERDE — OK**
+
+Usar quando:
+
+- a referência foi verificada recentemente;
+- não existe mudança relevante detectada;
+- autorização/uso continua válido;
+- não existe vencimento próximo conhecido;
+- não há conflito de versão.
+
+Mostrar de forma curta:
+
+```text
+OK
+Verificata il: DD MMM YYYY
+Nessuna modifica rilevante
+```
+
+**🟡 AMARELO — ATENÇÃO**
+
+Usar quando houver algo que merece revisão, mas não exige ação imediata, por exemplo:
+
+- houve mudança recente de label;
+- dose, cultura, alvo ou restrição mudou;
+- referência está ficando antiga;
+- existe nova versão ainda não totalmente reconciliada;
+- validade entra numa janela de atenção;
+- há informação incompleta ou conflito que ainda precisa ser resolvido.
+
+Mostrar de forma curta:
+
+```text
+ATTENZIONE
+Aggiornata il: DD MMM YYYY
+
+Cosa è cambiato
+uma frase curta
+```
+
+**🔴 VERMELHO — AÇÃO / RISCO IMEDIATO**
+
+Usar somente quando houver evidência explícita de situação crítica, por exemplo:
+
+- autorização expirou;
+- uso foi removido/suspenso;
+- produto/uso entra em vencimento próximo dentro da janela definida para alerta;
+- mudança regulatória torna a informação anterior insegura para decisão;
+- existe conflito de referência que impede afirmar que o uso está autorizado.
+
+Mostrar de forma curta:
+
+```text
+AZIONE RICHIESTA
+Scadenza: DD MMM YYYY
+ou
+Uso sospeso / autorizzazione non confermata
+
+Cosa fare
+uma ação curta
+```
+
+Não transformar automaticamente "documento antigo" em vermelho. Frescor insuficiente sem prova de perda de validade é amarelo ou não verificado, não vermelho.
+
+#### Data de atualização obrigatória
+
+Cada item de Label Intelligence deve mostrar, de forma visível:
+
+```text
+ULTIMA VERIFICA
+DD MMM YYYY
+```
+
+Quando existir uma data oficial de validade ou vencimento, mostrar também:
+
+```text
+VALIDA FINO A
+DD MMM YYYY
+```
+
+Se a fonte não declarar validade, não inventar uma.
+
+#### O que mudou
+
+Label Intelligence precisa responder em linguagem simples:
+
+```text
+O QUE MUDOU?
+```
+
+Exemplos:
+
+```text
+Dose alterada
+Nova cultura autorizada
+Alvo removido
+Restrição adicionada
+Intervalo de segurança alterado
+Nova versão do rótulo
+Autorização suspensa
+Nenhuma mudança relevante
+```
+
+A comparação deve ser feita entre versões/referências comprovadas. Se não houver versão anterior comparável:
+
+```text
+MUDANÇA = NAO_SEI
+```
+
+#### Primeira camada
+
+O card não deve virar documento regulatório.
+
+Mostrar apenas:
+
+```text
+[SEMÁFORO]
+
+PRODUTO
+cultura · alvo
+
+STATUS
+
+O QUE MUDOU
+1 linha
+
+ULTIMA VERIFICA
+DD MMM YYYY
+
+VALIDA FINO A
+DD MMM YYYY, quando existir
+
+ESPLORA →
+```
+
+#### Detalhe
+
+Ao clicar, mostrar:
+
+- autorização atual;
+- culturas;
+- alvos;
+- doses;
+- restrições;
+- intervalo de segurança/carência quando disponível;
+- versão atual;
+- versão anterior comparada;
+- mudança detectada;
+- datas relevantes;
+- fonte oficial;
+- evidência;
+- limitações/frescor.
+
+#### Regra de confiança
+
+O semáforo não é opinião estética. Ele precisa ser derivado de evidência comprovável:
+
+```text
+FONTE OFICIAL
++
+VERSÃO
++
+DATA DA VERIFICAÇÃO
++
+VALIDADE, QUANDO DECLARADA
++
+DIFERENÇA ENTRE VERSÕES
++
+ESTADO DE AUTORIZAÇÃO
+```
+
+Se faltar evidência para decidir o estado:
+
+```text
+STATUS = NON VERIFICATO
+```
+
+e o Casco não deve pintá-lo artificialmente de verde.
+
 ### Market Pulse
 
 Recebe preços, produção, área, oferta, demanda, custos, movimentos e impactos.
