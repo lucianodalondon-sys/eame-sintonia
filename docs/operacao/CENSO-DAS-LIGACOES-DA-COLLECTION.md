@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579
-BRANCH           coord/parada-sobre-servico
-GERADO_EM        2026-10-01T13:46:22-03:00
+HEAD_DA_MEDICAO  f64d6b80edf57d9c2dfa4cf5c9191a0f04b5f444
+BRANCH           coord/t10-tls-retry
+GERADO_EM        2026-10-01T21:30:25-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

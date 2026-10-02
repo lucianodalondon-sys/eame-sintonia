@@ -3379,6 +3379,9 @@
       "provas/social-qualificar/medir_yt_dlp_offline.py",
       "provas/social_persistencia_no_postgres.py",
       "provas/superficie_do_scrap_v1.py",
+      "provas/t10_tls_retry/MUTACAO-T10.json",
+      "provas/t10_tls_retry/mutar_t10.py",
+      "provas/t10_tls_retry/transporte_tls_falso.mjs",
       "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T2-051.json",
       "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T3-053.json",
       "provas/t2_boletins/RELATORIO-T2-BOLETINS.md",
@@ -4315,6 +4318,7 @@
       "tests/test_teto_dominio.py",
       "tests/test_thread_parcial.py",
       "tests/test_todo_ready_atravessa_o_intake.py",
+      "tests/test_transporte_tls_retry.py",
       "tests/test_trava_da_inteligencia.py",
       "tests/test_ui_revisao_t3_ptbr.py",
       "tests/test_universo_explicito.py",
@@ -4854,10 +4858,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coord/parada-sobre-servico",
-    "HEAD": "5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579",
-    "GENERATED_AT": "2026-10-01T13:46:22-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db"
+    "BRANCH": "coord/t10-tls-retry",
+    "HEAD": "f64d6b80edf57d9c2dfa4cf5c9191a0f04b5f444",
+    "GENERATED_AT": "2026-10-01T21:30:25-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c"
   },
   "FAMILIES": [
     {
@@ -6597,8 +6601,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 908",
-        "desses, mostrados aqui: 40 (ficam de fora 868)"
+        "enderecos que o codigo realmente chama: 909",
+        "desses, mostrados aqui: 40 (ficam de fora 869)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -73443,6 +73447,7 @@
         "tests/test_teto_dominio.py",
         "tests/test_thread_parcial.py",
         "tests/test_todo_ready_atravessa_o_intake.py",
+        "tests/test_transporte_tls_retry.py",
         "tests/test_trava_da_inteligencia.py",
         "tests/test_ui_revisao_t3_ptbr.py",
         "tests/test_universo_explicito.py",
@@ -73464,7 +73469,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 349,
+      "file_count": 350,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -74428,6 +74433,7 @@
         "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
         "provas/social-qualificar/medir_yt_dlp_offline.py",
         "provas/superficie_do_scrap_v1.py",
+        "provas/t10_tls_retry/transporte_tls_falso.mjs",
         "provas/teto_adaptativo/transporte_rebase_local.mjs",
         "provas/teto_dominio_local.mjs",
         "provas/ui_revisao_t3_ptbr.py",
@@ -83912,7 +83918,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 1189,
+          "line": 1251,
           "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-COLETA",
@@ -121214,7 +121220,7 @@
         },
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 85,
+          "line": 91,
           "snippet": "const ROTA_NAVEGADOR = JSON.parse(readFileSync(new URL(\"../regras/ROTA-NAVEGADOR.json\", import.meta.url), \"utf8\"));",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-COLETA",
@@ -176721,8 +176727,11 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2292,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/t10_tls_retry/mutar_t10.py",
+    "provas/t10_tls_retry/transporte_tls_falso.mjs"
+  ],
+  "UNCLAIMED_FILES_COUNT": 2295,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -176998,9 +177007,9 @@
     "edges_proven": 1881,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4261,
-    "files_covered": 1969,
-    "files_code_unclaimed": 0,
+    "files_tracked": 4265,
+    "files_covered": 1970,
+    "files_code_unclaimed": 2,
     "roles_proven": 209,
     "roles_declared_only": 11,
     "roles_unknown": 95,

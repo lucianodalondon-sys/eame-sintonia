@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-01T16:54:25+00:00",
-  "HEAD": "5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579",
-  "BRANCH": "coord/parada-sobre-servico",
+  "GENERATED_AT": "2026-10-02T00:55:06+00:00",
+  "HEAD": "f64d6b80edf57d9c2dfa4cf5c9191a0f04b5f444",
+  "BRANCH": "coord/t10-tls-retry",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db",
-  "FICHEIROS_NA_IMPRESSAO": 4409,
+  "SOURCE_TREE_FINGERPRINT": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c",
+  "FICHEIROS_NA_IMPRESSAO": 4413,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -601,7 +601,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "a2724de8a240136ced33387a75a23a989341a3eb",
+    "VERSAO": "374cd20682f4f62c4ed5f9e99907e025d870b507",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5669,14 +5669,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db",
+    "VERSAO": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db",
+    "VERSAO": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8257,6 +8257,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_transporte_tls_retry.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "99e0dedd45da97e7cfe9e8dea300623d122b0c1f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_trava_da_inteligencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "dfa2663131e60c56364c384aaa97e3acee2ae827",
@@ -8397,8 +8404,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1194,
-  "INPUTS_DIGEST": "a9c87d2b74e53b950fb0483ad3b15480e759be16c5ddfc8795388de4c40f5d2a",
+  "INPUTS_COUNT": 1195,
+  "INPUTS_DIGEST": "02ef3bb567731280edcac80bb9ef026be9f074647588591a0994628074ea6203",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8431,8 +8438,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "038f35498100f61fa926d6b97a6f7e5fa70b7552cd4f22d823c9f7f4a5f6bd95",
-  "SEMANTIC_HASH": "b8a97b9c482b49aa9c41de75b956e2090256a5c55e3e00f7ec3b677f141f4928"
+  "MEASUREMENT_HASH": "66131161e63741edae6d91a20b971f408a8a478bba19c443a96f9d31c5131663",
+  "SEMANTIC_HASH": "f66eeb8f7a571fdc3207f7169f8aea97eb117099979f3084db7d046d7835e8a2"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13132,7 +13139,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
-      "LINHA": 1189,
+      "LINHA": 1251,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-COLETA",
@@ -34087,7 +34094,7 @@
      },
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
-      "LINHA": 85,
+      "LINHA": 91,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-COLETA",
@@ -68374,6 +68381,8 @@
     "provas/contador_24h_local.mjs",
     "provas/contador_24h_mutacao.py",
     "provas/prova_teto_dominio.py",
+    "provas/t10_tls_retry/mutar_t10.py",
+    "provas/t10_tls_retry/transporte_tls_falso.mjs",
     "provas/teto_adaptativo/mutacao_rebase.py",
     "tests/test_ciencia_reserva.py",
     "tests/test_coleta_continua.py",
@@ -70331,6 +70340,8 @@
     "provas/scrap_evolucao/mutantes_feed_ligado.py",
     "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
     "provas/so_a_colheita_atravessa.py",
+    "provas/t10_tls_retry/mutar_t10.py",
+    "provas/t10_tls_retry/transporte_tls_falso.mjs",
     "provas/tempo_e_lugar_replay.py",
     "provas/teto_adaptativo/mutacao_rebase.py",
     "provas/teto_adaptativo/transporte_rebase_local.mjs",
@@ -78010,6 +78021,7 @@
     "tests/test_teto_dominio.py",
     "tests/test_thread_parcial.py",
     "tests/test_todo_ready_atravessa_o_intake.py",
+    "tests/test_transporte_tls_retry.py",
     "tests/test_trava_da_inteligencia.py",
     "tests/test_ui_revisao_t3_ptbr.py",
     "tests/test_universo_explicito.py",
@@ -78076,6 +78088,7 @@
     "provas/red_team_duas_portas.py",
     "provas/rodadas_mutacao.py",
     "provas/social_persistencia_no_postgres.py",
+    "provas/t10_tls_retry/transporte_tls_falso.mjs",
     "system-map/scripts/censo_do_armazem_it.py",
     "system-map/scripts/censo_do_congelamento.py",
     "system-map/scripts/generate_system_map.py",

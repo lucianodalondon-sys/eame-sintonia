@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coord/parada-sobre-servico",
-    "HEAD": "5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579",
-    "GENERATED_AT": "2026-10-01T13:46:22-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db"
+    "BRANCH": "coord/t10-tls-retry",
+    "HEAD": "f64d6b80edf57d9c2dfa4cf5c9191a0f04b5f444",
+    "GENERATED_AT": "2026-10-01T21:30:25-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c"
   },
   "FILES": [
     {
@@ -2600,7 +2600,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "a2724de8a240136ced33387a75a23a989341a3eb",
+      "sha": "374cd20682f4f62c4ed5f9e99907e025d870b507",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -6877,7 +6877,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "1e7004a26967e2a0687a04d67bdf0adce36a76e9",
+      "sha": "53da70744c79489171c253ef0ac0038064d92aa7",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7276,14 +7276,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "8d31066be78e250ea8536e66d18a0ac5c5f82114",
+      "sha": "de4ebde16290400449cd9c3fc9f89349f2a48207",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "f8d3315283c5dd867c79600cba007e5e18030a2d",
+      "sha": "1721633b5f687cd2e1de470260cd61034eaa13e5",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -23263,6 +23263,27 @@
       "code_dir": true
     },
     {
+      "path": "provas/t10_tls_retry/MUTACAO-T10.json",
+      "sha": "e00f32011e762182789990529b12d24a374761b0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t10_tls_retry/mutar_t10.py",
+      "sha": "7dd03589a0c11ee03d1c6e673a5b305cb63679b7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+      "sha": "b0ae894281584ac53f914b02ad98f9e78f44daa7",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T2-051.json",
       "sha": "72083dbf2667a9cee42280f00ca95aed3e3a8a56",
       "ext": ".json",
@@ -29689,6 +29710,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_transporte_tls_retry.py",
+      "sha": "99e0dedd45da97e7cfe9e8dea300623d122b0c1f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_trava_da_inteligencia.py",
       "sha": "dfa2663131e60c56364c384aaa97e3acee2ae827",
       "ext": ".py",
@@ -34189,7 +34217,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 951,
+        "line": 1013,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -34200,7 +34228,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 85,
+        "line": 91,
         "snippet": "const ROTA_NAVEGADOR = JSON.parse(readFileSync(new URL(\"../regras/ROTA-NAVEGADOR.json\", import.meta.url), \"utf8\"));"
       }
     },
@@ -34299,7 +34327,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 1189,
+        "line": 1251,
         "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;"
       }
     },
@@ -81945,6 +81973,83 @@
       }
     },
     {
+      "from_file": "provas/t10_tls_retry/mutar_t10.py",
+      "to_file": "coleta/cortesia_adaptativa.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t10_tls_retry/mutar_t10.py",
+        "line": 21,
+        "snippet": "CORTESIA = \"coleta/cortesia_adaptativa.mjs\""
+      }
+    },
+    {
+      "from_file": "provas/t10_tls_retry/mutar_t10.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t10_tls_retry/mutar_t10.py",
+        "line": 20,
+        "snippet": "COLETOR = \"coleta/italy_pilot_collect.mjs\""
+      }
+    },
+    {
+      "from_file": "provas/t10_tls_retry/mutar_t10.py",
+      "to_file": "provas/t10_tls_retry/MUTACAO-T10.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t10_tls_retry/mutar_t10.py",
+        "line": 22,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"provas\", \"t10_tls_retry\", \"MUTACAO-T10.json\")"
+      }
+    },
+    {
+      "from_file": "provas/t10_tls_retry/mutar_t10.py",
+      "to_file": "provas/t10_tls_retry/MUTACAO-T10.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t10_tls_retry/mutar_t10.py",
+        "line": 142,
+        "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\", newline=\"\\n\") as f:"
+      }
+    },
+    {
+      "from_file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+      "to_file": "coleta/cortesia_adaptativa.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+        "line": 50,
+        "snippet": "const CA = await import(\"../../coleta/cortesia_adaptativa.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+        "line": 49,
+        "snippet": "const M = await import(\"../../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+      "to_file": "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+        "line": 34,
+        "snippet": "const POLITICA_F = new URL(\"../../regras/POLITICA-CORTESIA-ADAPTATIVA.json\", import.meta.url);"
+      }
+    },
+    {
       "from_file": "provas/t2_boletins/canario_arpae.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -112580,6 +112685,17 @@
       }
     },
     {
+      "from_file": "tests/test_transporte_tls_retry.py",
+      "to_file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_transporte_tls_retry.py",
+        "line": 34,
+        "snippet": "p = subprocess.run([\"node\", \"provas/t10_tls_retry/transporte_tls_falso.mjs\"], cwd=RAIZ, env=env,"
+      }
+    },
+    {
       "from_file": "tests/test_trava_da_inteligencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -114143,6 +114259,13 @@
         "constante": "SAIDA"
       }
     ],
+    "provas/t10_tls_retry/mutar_t10.py": [
+      {
+        "pasta": "provas/t10_tls_retry",
+        "line": 142,
+        "constante": "SAIDA"
+      }
+    ],
     "provas/trava_da_inteligencia_morde.py": [
       {
         "pasta": "motor",
@@ -114339,11 +114462,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4261,
-    "files_readable": 1790,
-    "files_code_dir": 2235,
-    "file_edges": 7622,
-    "escritas_em_pasta": 96,
+    "files_tracked": 4265,
+    "files_readable": 1793,
+    "files_code_dir": 2239,
+    "file_edges": 7630,
+    "escritas_em_pasta": 97,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
