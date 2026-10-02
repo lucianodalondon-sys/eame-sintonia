@@ -64,6 +64,15 @@ ACTION_BRIEF. Ponha mais de uma só quando o objeto tiver significado diferente 
 TITULO_IT e TEXTOS_VISIVEIS_IT: o que o utilizador italiano leigo lê no cartão — italiano simples, sem códigos,
 ids, siglas técnicas, SHA, nomes de ficheiro ou jargão de programador. Não acrescente nada que não esteja nos campos.
 Regras do texto visível (o leitor leigo acredita no que lê):
+REGRA GERAL: o TEXTO VISÍVEL NUNCA PODE SER MAIS FORTE DO QUE OS CAMPOS E OS TRECHOS QUE O SUSTENTAM — sobretudo no
+título, na causalidade, no impacto económico, na ausência de produto, na quantidade, na data e no lugar. Antes de
+escrever cada frase, releia o TRECHO do facto citado e use a força dele, nunca mais. Exemplos do que isso proíbe:
+«forte carenza a scaffale» ≠ «introvabili»/«assenti» (escreva «scarsi sugli scaffali»); redução de produção/resa ≠
+impacto no «conto economico»/rendimento do produtor (só se um facto falar de preço, renda ou custo); previsão ≠ facto
+consumado; «potrebbe» ≠ «causa». DATA: a data de um facto vem do QUANDO dele; se o artigo reproduz outra fonte
+datada (ex.: comunicado do JRC de 24/08 citado num artigo de 30/08), diga «secondo il comunicato del JRC del 24 agosto,
+ripreso da un articolo del 30 agosto» — a data de publicação do artigo nunca vira data do facto nem da fonte citada;
+QUANDO=NAO_SEI → não ponha data no facto, no máximo «articolo del <data de publicação>».
 - Campo NAO_SEI não vira afirmação: se PRODUTO_ADAMA/AUTORIZACAO_LABEL é NAO_SEI, escreva «non trovato nelle
   etichette lette» — nunca «non abbiamo», «non esiste», «nessun prodotto».
 - Facto com natureza=PUBLICIDADE_PATROCINADO é alegação do anunciante: «secondo un contenuto sponsorizzato di X»,

@@ -19,6 +19,10 @@ Regras duras:
 - TRECHO tem de ser copia exata, caractere por caractere, do texto (mesmo idioma, sem traduzir, sem "..." no meio).
 - QUANDO = quando o FATO acontece/aconteceu; nao use a data de publicacao a nao ser que o texto diga que o fato e daquele dia. Se so houver data de publicacao, VALOR "NAO_SEI".
 - ONDE = onde o FATO acontece; nao use a sede da fonte.
+- Se o texto atribui o fato a OUTRA fonte datada (comunicado, relatorio, boletim citado: "il comunicato del 24 agosto del JRC"),
+  O_QUE diz quem o disse ("<fonte citada> estimou/comunicou ...") e QUANDO = a data atribuida a essa fonte citada, com o TRECHO dela;
+  a data do artigo que a reproduz fica so em DATA_PUBLICACAO.
+- Nao fortaleca o texto: "forte carenza" nao e "introvabile/assente"; reducao de producao/resa nao e perda de renda; previsao nao e facto consumado.
 - Nao deduza nada que nao esteja escrito. Na duvida: NAO_SEI.
 - O_QUE: uma frase curta em portugues; o TRECHO e no idioma original.
 - Frase de METODO ou DEFINICAO (o que o estudo avalia, como mede, o que "si intende per") NAO e resultado:

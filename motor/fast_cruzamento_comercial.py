@@ -48,7 +48,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 from motor import porta_da_referencia as PORTA  # noqa: E402
 
-VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v2.1-contextos-lab"
+VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v2.2-texto-nao-mais-forte"
 MODELO = os.environ.get("FAST_MODELO", "claude-opus-5")
 JANELAS_DIR = RAIZ / "build" / "ITALY-REALITY-HANDOFF-V2" / "PREVIOUS-HANDOFF" / "01-DESIGN-READY" / "CROP-WINDOWS"
 FENOLOGIA = JANELAS_DIR / "current-phenology.json"
