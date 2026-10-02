@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-02T07:01:32+00:00",
-  "HEAD": "b766e492952bdbdfc62c7a97e0e61fa5e53fe9a1",
+  "GENERATED_AT": "2026-10-02T07:10:35+00:00",
+  "HEAD": "68870df1cb5ac527cf468778eebbb472d6b12b9b",
   "BRANCH": "claude/casco-cruzamento-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "884d04f4f7e75a5cd187404b17f0f21fbfcbb3feea38c223dd496c66edf674c4",
+  "SOURCE_TREE_FINGERPRINT": "0e853f316d8cecb1408fa3d1b6de92d13c57a80e1794c3c51f76fc2136f9c8a7",
   "FICHEIROS_NA_IMPRESSAO": 4441,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2184,6 +2184,20 @@
     "PATH": "italia-portale/client/italy-v21.js",
     "PAPEL": "FONTE",
     "VERSAO": "2a28b62c73f893d93c632e89efadaec26b7fdaf2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "italia-portale/client/sintonia-cruzamento-casco.js",
+    "PAPEL": "FONTE",
+    "VERSAO": "c675b7a1bd339586b62f5fc2fc74aa0a049ce3de",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "italia-portale/client/sintonia-cruzamento-publicado.js",
+    "PAPEL": "FONTE",
+    "VERSAO": "3252691dbc556702b1125f93b2a4e66503c40d1a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5711,14 +5725,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "884d04f4f7e75a5cd187404b17f0f21fbfcbb3feea38c223dd496c66edf674c4",
+    "VERSAO": "0e853f316d8cecb1408fa3d1b6de92d13c57a80e1794c3c51f76fc2136f9c8a7",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "884d04f4f7e75a5cd187404b17f0f21fbfcbb3feea38c223dd496c66edf674c4",
+    "VERSAO": "0e853f316d8cecb1408fa3d1b6de92d13c57a80e1794c3c51f76fc2136f9c8a7",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8460,8 +8474,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1203,
-  "INPUTS_DIGEST": "3d43c20941dd0f578283fe7304a88a07942e2afd036e279e0466ce38adac756f",
+  "INPUTS_COUNT": 1205,
+  "INPUTS_DIGEST": "143e19bcb0220610987ce407739e21a3e31308992640d7fc1fda683b9e454347",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8494,8 +8508,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b820939686da5659c07b3a6577aaf0978bcb541091f7ea363bec3ffc64ec18af",
-  "SEMANTIC_HASH": "a759227e925c2ea671749932d19db728dc8354e8667af7bda37c30bd9c7c82b1"
+  "MEASUREMENT_HASH": "7eb1739a131969f74daf48382ef0fe6a2eef14f908b096e5ef5a82bdf114e8d7",
+  "SEMANTIC_HASH": "9e66d90bb4bc9e2962ae3dfbca3c5ae468b5e19b1c9eed65e0dae16dabb458cf"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13766,6 +13780,28 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
       "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AUDIT-CASCO--WRITES-->C-PORTAL-MODELO",
+    "FROM": "C-AUDIT-CASCO",
+    "TO": "C-PORTAL-MODELO",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AUDIT-CASCO--WRITES-->C-PORTAL-MODELO",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -48136,6 +48172,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+    "FROM": "C-PORTAL-MODELO",
+    "TO": "C-AUDIT-CASCO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-GERAL",
     "FROM": "C-PORTAL-MODELO",
     "TO": "C-AUDIT-GERAL",
@@ -48488,6 +48546,22 @@
      {
       "FICHEIRO": "italia-portale/client/portale.html",
       "LINHA": 83,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "italia-portale/client/portale.html",
+      "LINHA": 84,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "italia-portale/client/portale.html",
+      "LINHA": 85,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
@@ -62297,6 +62371,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-AUDIT-CASCO",
+    "FROM": "C-TESTES",
+    "TO": "C-AUDIT-CASCO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+      "LINHA": 86,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-AUDIT-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-AUDIT-GERAL",
     "FROM": "C-TESTES",
     "TO": "C-AUDIT-GERAL",
@@ -65811,12 +65907,12 @@
     ]
    }
   ],
-  "COUNT": 1874
+  "COUNT": 1877
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 242,
   "CARTOES_AUDITADOS": 242,
-  "ARESTAS_RELACIONADAS": 1874,
+  "ARESTAS_RELACIONADAS": 1877,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -66334,10 +66430,10 @@
    "CODE": 349,
    "CONTROL": 90,
    "DATA": 30,
-   "PROOF": 664,
-   "READ": 422,
+   "PROOF": 665,
+   "READ": 423,
    "RULE": 297,
-   "WRITE": 22
+   "WRITE": 23
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -73264,6 +73360,8 @@
     "italia-portale/client/italy-i18n.js",
     "italia-portale/client/italy-sala-leitura.js",
     "italia-portale/client/italy-v21.js",
+    "italia-portale/client/sintonia-cruzamento-casco.js",
+    "italia-portale/client/sintonia-cruzamento-publicado.js",
     "italia-portale/client/sintonia-pote-casco.js",
     "italia-portale/client/sintonia-pote-publicado.js",
     "italia-portale/client/support.js"
@@ -73380,8 +73478,8 @@
     "withered",
     "working"
    ],
-   "ENTRAM": 7,
-   "SAEM": 15,
+   "ENTRAM": 8,
+   "SAEM": 16,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ",
@@ -78822,7 +78920,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 281,
-   "SAEM": 52,
+   "SAEM": 53,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

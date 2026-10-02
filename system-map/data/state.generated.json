@@ -4887,9 +4887,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/casco-cruzamento-v1",
-    "HEAD": "7e8af17c09d6b3cfdf9cdec543789acfc4e1d8d0",
-    "GENERATED_AT": "2026-10-02T04:01:54-03:00",
-    "SOURCE_TREE_FINGERPRINT": "884d04f4f7e75a5cd187404b17f0f21fbfcbb3feea38c223dd496c66edf674c4"
+    "HEAD": "68870df1cb5ac527cf468778eebbb472d6b12b9b",
+    "GENERATED_AT": "2026-10-02T04:05:49-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0e853f316d8cecb1408fa3d1b6de92d13c57a80e1794c3c51f76fc2136f9c8a7"
   },
   "FAMILIES": [
     {
@@ -39486,9 +39486,11 @@
         "italia-portale/audit/casco/fonti-collegate.mjs",
         "italia-portale/audit/casco/fonti-divario.mjs",
         "italia-portale/audit/casco/fuga-tsr.mjs",
+        "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
         "italia-portale/audit/casco/mappa-azioni.mjs",
         "italia-portale/audit/casco/painel-operacao.mjs",
         "italia-portale/audit/casco/parita-visiva.mjs",
+        "italia-portale/audit/casco/publicar_cruzamento_preview.py",
         "italia-portale/audit/casco/quarantatre.mjs",
         "italia-portale/audit/casco/release-gate.mjs",
         "italia-portale/audit/casco/ricchezza.mjs",
@@ -39496,7 +39498,7 @@
         "italia-portale/audit/casco/sinale.mjs",
         "italia-portale/audit/casco/sperimentali.mjs"
       ],
-      "file_count": 20,
+      "file_count": 22,
       "status": "PENDING",
       "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
       "changed_since_declared": [
@@ -39505,25 +39507,38 @@
       "produces": [],
       "inbound": [
         "C-AUDIT-HARNESS",
-        "C-TELA-FIELD"
+        "C-PORTAL-MODELO",
+        "C-TELA-FIELD",
+        "C-TESTES"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-PORTAL-MODELO"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "italia-portale/client/sintonia-cruzamento-publicado.js",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "italia-portale/audit/casco/publicar_cruzamento_preview.py abre ligacao de rede: vai buscar dado fora da arvore",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -39532,9 +39547,13 @@
         "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
         "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+        "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
         "italia-portale/audit/lib/drive.mjs",
         "italia-portale/audit/lib/harness.mjs",
-        "italia-portale/client/portale.html"
+        "italia-portale/client/portale.html",
+        "italia-portale/client/sintonia-cruzamento-publicado.js",
+        "package.json",
+        "vercel.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -58354,11 +58373,13 @@
         "italia-portale/client/italy-i18n.js",
         "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-v21.js",
+        "italia-portale/client/sintonia-cruzamento-casco.js",
+        "italia-portale/client/sintonia-cruzamento-publicado.js",
         "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
       ],
-      "file_count": 8,
+      "file_count": 10,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -58369,6 +58390,7 @@
       "produces": [],
       "inbound": [
         "C-ADAMA-REFERENCE",
+        "C-AUDIT-CASCO",
         "C-LASTMILE",
         "C-PORTAL-DADOS",
         "C-PROVA-PUBLICA-SOZINHO",
@@ -58377,6 +58399,7 @@
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-AUDIT-CASCO",
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
@@ -58472,9 +58495,9 @@
           "italia-portale/audit/adama-relevance-gate.mjs:40",
           "italia-portale/audit/build-v21.mjs:38",
           "italia-portale/audit/casa-gate.mjs:428",
-          "italia-portale/audit/lib/harness.mjs:72"
+          "italia-portale/audit/casco/gerar_cruzamento_publicado.py:24"
         ],
-        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAL-CASCO · C-PORTAL-DADOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-AUDIT-CASCO · C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAL-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 19150,
       "y": 1648
@@ -74090,6 +74113,7 @@
         "C-ADMISSAO",
         "C-APIFY-POOL",
         "C-ASK-SINTONIA",
+        "C-AUDIT-CASCO",
         "C-AUDIT-GERAL",
         "C-AUTORIZACAO-DE-GASTO",
         "C-CANARIO-ROTAS-ELEGIVEIS",
@@ -85577,6 +85601,41 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AUDIT-CASCO",
+      "to": "C-PORTAL-MODELO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria do casco escreve em Modelo de aplicacao do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+          "line": 36,
+          "snippet": "open(destino_js, 'w', encoding='utf-8', newline='\\n').write(corpo)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-CASCO--WRITES-->C-PORTAL-MODELO",
+            "FROM": "C-AUDIT-CASCO",
+            "TO": "C-PORTAL-MODELO",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -146769,6 +146828,41 @@
     },
     {
       "from": "C-PORTAL-MODELO",
+      "to": "C-AUDIT-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Auditoria do casco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+          "line": 24,
+          "snippet": "destino_js = os.path.join(destino, 'sintonia-cruzamento-publicado.js')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-MODELO",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
       "payload": "artefacto",
@@ -147284,7 +147378,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 7 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -147386,6 +147480,38 @@
           "file": "italia-portale/client/portale.html",
           "line": 83,
           "snippet": "<script src=\"sintonia-pote-casco.js\"></script>",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TELA-FIELD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 84,
+          "snippet": "<script src=\"sintonia-cruzamento-publicado.js\"></script>",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TELA-FIELD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 85,
+          "snippet": "<script src=\"sintonia-cruzamento-casco.js\"></script>",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
             "FROM": "C-PORTAL-MODELO",
@@ -171757,6 +171883,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-AUDIT-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Auditoria do casco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+          "line": 86,
+          "snippet": "arq = subprocess.run(['git', '-C', a.repo, 'archive', '--format=tar', commit, 'italia-portale/client', 'vercel.json'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-AUDIT-CASCO",
+            "FROM": "C-TESTES",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
       "payload": "artefacto",
@@ -178008,13 +178169,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
-    "italia-portale/audit/casco/publicar_cruzamento_preview.py",
-    "italia-portale/client/sintonia-cruzamento-casco.js",
-    "italia-portale/client/sintonia-cruzamento-publicado.js"
-  ],
-  "UNCLAIMED_FILES_COUNT": 2301,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 2297,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -178295,13 +178451,13 @@
     "components_pending": 277,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1971,
-    "edges_proven": 1902,
+    "edges": 1974,
+    "edges_proven": 1905,
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4293,
-    "files_covered": 1992,
-    "files_code_unclaimed": 4,
+    "files_covered": 1996,
+    "files_code_unclaimed": 0,
     "roles_proven": 211,
     "roles_declared_only": 11,
     "roles_unknown": 96,
