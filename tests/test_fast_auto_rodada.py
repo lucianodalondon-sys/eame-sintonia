@@ -95,5 +95,27 @@ class Passo3NaoDecideOportunidade(unittest.TestCase):
         self.assertNotIn('"OPORTUNIDADES":[{', p)
 
 
+def _ler_sinais():
+    p = open(os.path.join(RAIZ, "motor", "fast_auto", "passo3_cruzar.py"), encoding="utf-8").read()
+    ns = {"json": json, "re": __import__("re")}
+    exec(p[p.index("def ler_sinais"):p.index("# defeito medido (FAST-20261002T030919)")], ns)
+    return ns["ler_sinais"]
+
+
+class Passo3LeSaidaMalFechada(unittest.TestCase):
+    def test_lista_completa_sem_chave_final(self):
+        # forma medida nas 2 tentativas reais: termina em "}]" sem o "}" do objeto
+        r = _ler_sinais()('{"SINAIS":[{"SIGNAL_ID":"S-01","FACT_IDS":["F1"]},{"SIGNAL_ID":"S-02","FACT_IDS":[]}]')
+        self.assertEqual([s["SIGNAL_ID"] for s in r["SINAIS"]], ["S-01", "S-02"])
+        self.assertTrue(r["LEITURA"].startswith("SO_A_LISTA_SINAIS"))
+
+    def test_objeto_inteiro_continua_igual(self):
+        self.assertEqual(_ler_sinais()('ok {"SINAIS":[{"SIGNAL_ID":"S-01"}]} fim'), {"SINAIS": [{"SIGNAL_ID": "S-01"}]})
+
+    def test_lista_cortada_no_meio_continua_erro(self):
+        with self.assertRaises(ValueError):
+            _ler_sinais()('{"SINAIS":[{"SIGNAL_ID":"S-01","FACT_IDS":["F1"')
+
+
 if __name__ == "__main__":
     unittest.main()

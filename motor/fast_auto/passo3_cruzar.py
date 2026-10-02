@@ -32,6 +32,18 @@ FATOS:
 %s"""
 
 entrada = json.dumps([compacto(f) for f in aceitos.values()], ensure_ascii=False)
+def ler_sinais(txt):
+    """Objeto inteiro, ou so a lista "SINAIS" lida por raw_decode.
+    Medido em FAST-20261002T030919 (2 de 2 tentativas): o Opus fecha a lista e omite o '}' final.
+    Le-se a lista que o modelo escreveu; nenhum caractere e acrescentado ao texto do modelo."""
+    try:
+        return json.loads(re.search(r"\{.*\}", txt, re.S).group(0))
+    except Exception:
+        i = txt.index('"SINAIS"')
+        lista, _ = json.JSONDecoder().raw_decode(txt[txt.index("[", i):])
+        return {"SINAIS": lista, "LEITURA": "SO_A_LISTA_SINAIS (objeto externo mal fechado pelo modelo)"}
+
+
 # defeito medido (FAST-20261002T030919): o modelo devolveu JSON invalido e a rodada inteira caiu.
 # Uma nova tentativa com o MESMO prompt; a saida bruta de cada tentativa fica gravada. Nao conserta JSON a mao.
 for tentativa in (1, 2):
@@ -40,7 +52,7 @@ for tentativa in (1, 2):
     open(AQUI + "/passo3_saida_bruta_%d.txt" % tentativa, "w", encoding="utf-8").write(r.stdout)
     try:
         env = json.loads(r.stdout)
-        res = json.loads(re.search(r"\{.*\}", env["result"], re.S).group(0))
+        res = ler_sinais(env["result"])
         break
     except Exception as e:
         print("TENTATIVA", tentativa, "JSON_INVALIDO", repr(e)[:200], flush=True)
@@ -85,7 +97,8 @@ for o in res.get("OPORTUNIDADES", []):
 base = dict(VERSAO="SINTONIA_FAST_V1", RUN_ID=RUN, RUN_FATOS=F["RUN_ID"], MODELO_PEDIDO=MODELO,
             MODELOS_USADOS=list((env.get("modelUsage") or {}).keys()), CUSTO_USD=env.get("total_cost_usd"),
             GERADO_EM=datetime.datetime.now().astimezone().isoformat(), MARCA="EXPERIMENTAL / NAO_PARA_CLIENTE",
-            ENTRADA="FACTS_FAST.json (%d fatos aceitos)" % len(aceitos))
+            ENTRADA="FACTS_FAST.json (%d fatos aceitos)" % len(aceitos),
+            LEITURA_DA_SAIDA=res.get("LEITURA", "OBJETO_INTEIRO"), TENTATIVA=tentativa)
 json.dump(dict(ARTEFATO="SIGNALS_FAST", **base, SINAIS=sinais), open(AQUI + "/SIGNALS_FAST.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 json.dump(dict(ARTEFATO="OPPORTUNITIES_FAST", **base, OPORTUNIDADES=[], DECISAO_DE_OPORTUNIDADE="SUBSTITUIDA: ver CRUZAMENTO-COMERCIAL.json (motor/fast_cruzamento_comercial.py)", DESCARTADAS_SEM_CONTEXTO=opps), open(AQUI + "/OPPORTUNITIES_FAST.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("SINAIS", len(sinais), "ok", len(sinal_ok), "| OPORTUNIDADES", len(opps), "ok", sum(o["VALIDACAO"].startswith("OK") for o in opps), "| custo", env.get("total_cost_usd"))
