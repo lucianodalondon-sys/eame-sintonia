@@ -4883,9 +4883,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "coord/sysmap-10-regressoes",
-    "HEAD": "a1cf01128a948f2357a1b221e4e0e09bf0c84c30",
-    "GENERATED_AT": "2026-10-01T14:11:30-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a4d5d8b03db08d39df70ad2191a33096e1f77013a51c2c68dea4d30e2417073c"
+    "HEAD": "48d241654ed338d98ec80ed907063f662e6743f8",
+    "GENERATED_AT": "2026-10-01T16:47:38-03:00",
+    "SOURCE_TREE_FINGERPRINT": "aa888a3ec905edf093dc00dd9763ce6424c7a45fedd1ee63ccf9ae7b1f23e822"
   },
   "FAMILIES": [
     {
@@ -55059,9 +55059,9 @@
           "_DO_UNIVERSO",
           "_ESPINHA"
         ],
-        "palavras": 231,
+        "palavras": 232,
         "por_lingua": {},
-        "sem_marca_de_lingua": 231,
+        "sem_marca_de_lingua": 232,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -93068,7 +93068,7 @@
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 896,
+          "line": 900,
           "snippet": "CI_YML = (RAIZ / \".github\" / \"workflows\" / \"system-map.yml\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--READS-->C-MAPA-TESTES",
@@ -127542,7 +127542,7 @@
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 923,
+          "line": 927,
           "snippet": "CORREDOR = \"system-map/scripts/correr_a_cadeia.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LEITOR-DA-CADEIA--READS-->C-MAPA-TESTES",
@@ -129713,7 +129713,7 @@
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 984,
+          "line": 988,
           "snippet": "FRESH = RAIZ / \"system-map\" / \"app\" / \"freshness.js\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
@@ -130038,7 +130038,7 @@
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 831,
+          "line": 835,
           "snippet": "CADEIA_F = RAIZ / \"system-map\" / \"scripts\" / \"CADEIA-DO-MAPA.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
@@ -130054,7 +130054,7 @@
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 836,
+          "line": 840,
           "snippet": "PUB = RAIZ / \"system-map\" / \"scripts\" / \"publicar_no_deploy.mjs\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
@@ -149457,7 +149457,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 809,
+          "line": 813,
           "snippet": "any(c[\"file\"] == \"data/samples/RUN-MANIFEST.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-MAPA-TESTES",
@@ -149473,7 +149473,7 @@
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 818,
+          "line": 822,
           "snippet": "_esc_man == [\"regras/proveniencia.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-MAPA-TESTES",

@@ -762,8 +762,12 @@ prova("a_governanca_fica_fora_da_esteira",
       _blocos[-1] == "F-GOVERNANCA",
       f"a esteira acaba em {_blocos[-1]}; governanca no meio le-se como mais um passo")
 # A espinha da coleta, da esquerda para a direita, e o que Luciano le primeiro.
+# Z-REFERENCIA entrou logo depois de Z-FONTES (decisao de 01/10, DECISAO-SYSMAP-
+# 5-BLOQUEIOS.md, red team aceite): e capital parado como o atlas — consulta-se
+# antes de coletar — e nao e etapa nem rota de coleta. Em Production (27b9e674f)
+# a referencia da ADAMA ja estava nesta vista, dentro de Z-FONTES.
 _ESPINHA = ["Z-BIBLIA", "Z-ENTRADA", "Z-PEDIDO", "Z-ORQUESTRADOR", "Z-CANDIDATAS",
-            "Z-FONTES", "Z-EXECUCAO", "Z-VEICULOS", "Z-FERRAMENTAS", "Z-ACOES",
+            "Z-FONTES", "Z-REFERENCIA", "Z-EXECUCAO", "Z-VEICULOS", "Z-FERRAMENTAS", "Z-ACOES",
             "Z-GUARDA", "Z-REGRAS", "Z-ADMISSAO", "Z-ESPERA"]
 _no_acervo = [z["id"] for z in S["TERRITORIES"] if "acervo" in z.get("views", [])]
 prova("a_esteira_le_se_da_esquerda_para_a_direita", _no_acervo == _ESPINHA,

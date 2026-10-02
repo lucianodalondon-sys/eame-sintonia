@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a1cf01128a948f2357a1b221e4e0e09bf0c84c30
+HEAD_DA_MEDICAO  48d241654ed338d98ec80ed907063f662e6743f8
 BRANCH           coord/sysmap-10-regressoes
-GERADO_EM        2026-10-01T14:11:30-03:00
+GERADO_EM        2026-10-01T16:47:38-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

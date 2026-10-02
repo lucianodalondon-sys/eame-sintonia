@@ -436,6 +436,7 @@ pasta da sua peça:
 | 1 | O PEDIDO E O PLANO | `pedido/` + `.github/workflows/` |
 | 2 | DE ONDE VEM UMA FONTE | `candidatas/` |
 | 3 | AS FONTES | `fontes/` |
+|  | A REFERÊNCIA DA ADAMA *(consulta-se, não colhe)* | `referencia/` |
 | 4 | AS FERRAMENTAS | `ferramentas/` |
 | 5 | OS VEICULOS | *(sem pasta — cartões medidos)* |
 | 6 | AS REGUAS QUE CARIMBAM | `regras/` |
