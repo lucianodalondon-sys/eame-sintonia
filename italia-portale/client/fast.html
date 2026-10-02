@@ -66,16 +66,19 @@ F.DOCUMENTOS.forEach(function(d){DOC[d.DOCUMENT_ID]=d});
 var OPS=F.OPPORTUNITIES.OPORTUNIDADES;
 function brt(iso){if(!iso)return'NÃO SEI';var d=new Date(iso);if(isNaN(d))return esc(iso);return d.toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',dateStyle:'short',timeStyle:'short'})+' (Brasília)'}
 document.getElementById('meta').innerHTML='Produzido pela Intelligence em '+brt(F.OPPORTUNITIES.GERADO_EM)+' · '+F.DOCUMENTOS.length+' documentos · '+F.FACTS.FATOS.length+' fatos · motor '+esc(F.OPPORTUNITIES.MODELO_PEDIDO)+(F.LINKS_QUEBRADOS.length?' · <span style="color:var(--bad)">'+F.LINKS_QUEBRADOS.length+' ligações quebradas</span>':'');
+function lk(s){return esc(s).replace(/\[(F-RAW-\d+-\d+)\]/g,function(m,id){return FAT[id]?'[<a href="#f/'+id+'">'+id+'</a>]':'[<span class="nao" title="fato não existe no pacote">'+id+' ?</span>]'})}
+function ltxt(v){return isNao(v)?'<span class="nao">NÃO SEI</span>':lk(v)}
+function janela(o){if(!('JANELA_ESTADO' in o)&&!('JANELA_ATE' in o))return'';var e=o.JANELA_ESTADO||'NAO_SEI',c=e==='ABERTA'?'ok':e==='VENCIDA'?'bad':'warn',r=e==='NAO_SEI'?'JANELA: NÃO SEI':'JANELA '+e;var j=o.JANELA_ATE,t=(j&&typeof j==='object')?'<table style="margin-top:8px">'+campo('Janela até',j)+'</table>':'';return'<div style="margin:10px 0"><span class="tag '+c+'">'+r+'</span>'+(e==='VENCIDA'?' <span style="color:var(--bad);font-weight:600">O prazo desta oportunidade já passou.</span>':'')+t+'</div>'}
 function lista(a){if(!a||!a.length)return'<span class="nao">NÃO SEI</span>';if(!Array.isArray(a))return esc(a);return'<ul>'+a.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul>'}
 function fontes(o){return (o.DOCUMENTOS||[]).map(function(id){var d=DOC[id];return'<a href="#d/'+id+'">'+esc(d?d.SOURCE_ID:id)+'</a>'}).join(' · ')||'<span class="nao">NÃO SEI</span>'}
 function confTag(c){return c?'<span class="tag '+(c==='ALTA'?'ok':c==='MEDIA'?'warn':'mut')+'">CONFIANÇA DA IA: '+esc(c)+'</span>':''}
 function evid(o){return (o.EVIDENCIAS||[]).map(function(e){return'<div class="ev"><a href="#f/'+e.FACT_ID+'">'+esc(e.FACT_ID)+'</a> · <a href="#d/'+e.DOCUMENT_ID+'">'+esc(e.SOURCE_ID)+'</a><div>'+esc(e.O_QUE)+'</div><q>'+esc(e.TRECHO)+'</q></div>'}).join('')||'<span class="nao">NÃO SEI</span>'}
 function corpo(o,tipo){
-  var h='<div class="grid"><div><p class="k">Onde</p>'+val(o.ONDE)+'</div><div><p class="k">Quando</p>'+val(o.QUANDO)+'</div><div><p class="k">Fontes</p>'+fontes(o)+'</div></div>'
-  +'<p class="k">O que aconteceu</p><p>'+val(o.O_QUE_ACONTECEU)+'</p>'
-  +'<div class="ia"><p class="k">Por que importa · leitura da IA</p><p>'+val(o.POR_QUE_IMPORTA)+'</p></div>';
-  if(o.POR_QUE_CRUZAMENTO)h+='<div class="ia"><p class="k">Por que estes fatos se cruzam · leitura da IA</p><p>'+esc(o.POR_QUE_CRUZAMENTO)+'</p></div>';
-  if(o.ACAO_SUGERIDA)h+='<div class="ia"><p class="k">Sugestão da IA · decisão é humana</p><p>'+esc(o.ACAO_SUGERIDA)+'</p></div>';
+  var h=janela(o)+'<div class="grid"><div><p class="k">Onde</p>'+val(o.ONDE)+'</div><div><p class="k">Quando</p>'+val(o.QUANDO)+'</div><div><p class="k">Fontes</p>'+fontes(o)+'</div></div>'
+  +'<p class="k">O que aconteceu</p><p>'+ltxt(o.O_QUE_ACONTECEU)+'</p>'
+  +'<div class="ia"><p class="k">Por que importa · leitura da IA</p><p>'+ltxt(o.POR_QUE_IMPORTA)+'</p></div>';
+  if(o.POR_QUE_CRUZAMENTO)h+='<div class="ia"><p class="k">Por que estes fatos se cruzam · leitura da IA</p><p>'+lk(o.POR_QUE_CRUZAMENTO)+'</p></div>';
+  if(o.ACAO_SUGERIDA)h+='<div class="ia"><p class="k">Sugestão da IA · decisão é humana</p><p>'+lk(o.ACAO_SUGERIDA)+'</p></div>';
   h+='<p class="k">O que não sabemos</p>'+lista(o.O_QUE_NAO_SABEMOS);
   return h}
 function cardO(o){return'<div class="card"><span class="tag ok">OPORTUNIDADE · '+esc(o.OPPORTUNITY_ID)+'</span> '+confTag(o.CONFIANCA)+' <span class="tag mut">'+esc(o.VALIDACAO||'')+'</span><h2><a href="#o/'+o.OPPORTUNITY_ID+'" style="color:#fff">'+esc(o.TITULO)+'</a></h2>'+corpo(o)+'<p style="margin-top:12px"><a href="#o/'+o.OPPORTUNITY_ID+'">Ver as '+(o.EVIDENCIAS||[]).length+' evidências e os sinais →</a></p></div>'}
@@ -83,6 +86,7 @@ function cardS(s){return'<div class="card"><span class="tag mut">SINAL · '+esc(
 function campo(nome,c){
   if(!c)return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span></td></tr>';
   var v=c.VERIFICACAO||'';
+  if(v==='VALOR_DO_CONTEXTO')return'<tr><th>'+nome+'</th><td>'+esc(c.VALOR)+' <span class="tag warn">TIRADO DO CONTEXTO DO DOCUMENTO</span><div style="color:var(--dim);font-size:12px;margin-top:4px">O trecho citado não traz este valor; ele vem de outra parte do mesmo documento.</div>'+(c.TRECHO?'<span class="trecho">'+esc(c.TRECHO)+'</span><a href="#d/'+c.DOCUMENT_ID+'?t='+encodeURIComponent(c.TRECHO)+'">ver no documento →</a>':'')+'</td></tr>';
   if(/^REJEITADO/.test(v))return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span> <span class="tag bad">RECUSADO PELO VERIFICADOR</span><div style="color:var(--dim);font-size:12px;margin-top:4px">A IA citou um trecho que não existe no documento; o valor proposto não é exibido.</div></td></tr>';
   if(v==='NAO_SEI'||isNao(c.VALOR))return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span></td></tr>';
   return'<tr><th>'+nome+'</th><td>'+esc(c.VALOR)+' '+(v==='TRECHO_ENCONTRADO_NO_RAW'?'<span class="tag ok">TRECHO EXISTE NO DOCUMENTO</span>':'<span class="tag warn">'+esc(v||'SEM VERIFICAÇÃO')+'</span>')+'<span class="trecho">'+esc(c.TRECHO)+'</span><a href="#d/'+c.DOCUMENT_ID+'?t='+encodeURIComponent(c.TRECHO||'')+'">ver no documento →</a></td></tr>'}
