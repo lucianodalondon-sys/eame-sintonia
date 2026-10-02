@@ -84,7 +84,7 @@ function corpo(o){
   if(o.ACAO_SUGERIDA)h+='<div class="ia"><p class="k">Sugestão da IA · decisão é humana</p><p>'+lk(o.ACAO_SUGERIDA)+'</p></div>';
   h+='<p class="k">O que não sabemos</p>'+lista(o.O_QUE_NAO_SABEMOS);
   return h}
-function cardO(o,det){return'<div class="card"><span class="tag ok">OPORTUNIDADE · '+esc(o.OPPORTUNITY_ID)+'</span> '+confTag(o.CONFIANCA)+' <span class="tag mut">'+esc(o.VALIDACAO||'')+'</span> '+rodTag()+'<h2><a href="'+u('o',o.OPPORTUNITY_ID)+'" style="color:#fff">'+esc(o.TITULO)+'</a></h2>'+corpo(o)+(det?'':'<p style="margin-top:12px"><a href="'+u('o',o.OPPORTUNITY_ID)+'">Ver as '+(o.EVIDENCIAS||[]).length+' evidências e os sinais →</a></p>')+'</div>'}
+function cardO(o,det){return'<div class="card"><span class="tag warn">CANDIDATA · NÃO FECHADA (sem portfólio/bula/janela) · '+esc(o.OPPORTUNITY_ID)+'</span> '+confTag(o.CONFIANCA)+' <span class="tag mut">'+esc(o.VALIDACAO||'')+'</span> '+rodTag()+'<h2><a href="'+u('o',o.OPPORTUNITY_ID)+'" style="color:#fff">'+esc(o.TITULO)+'</a></h2>'+corpo(o)+(det?'':'<p style="margin-top:12px"><a href="'+u('o',o.OPPORTUNITY_ID)+'">Ver as '+(o.EVIDENCIAS||[]).length+' evidências e os sinais →</a></p>')+'</div>'}
 function cardS(s,det){return'<div class="card"><span class="tag mut">SINAL · '+esc(s.SIGNAL_ID)+'</span> '+confTag(s.CONFIANCA)+' '+rodTag()+'<h2><a href="'+u('s',s.SIGNAL_ID)+'" style="color:#fff">'+esc(s.TITULO)+'</a></h2>'+corpo(s)+(det?'':'<p style="margin-top:12px"><a href="'+u('s',s.SIGNAL_ID)+'">Ver as '+(s.EVIDENCIAS||[]).length+' evidências →</a></p>')+'</div>'}
 function campo(nome,c){
   if(!c)return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span></td></tr>';
@@ -124,7 +124,7 @@ function render(){
   document.getElementById('t-o').className=(p[0]==='oportunidades'||p[0]==='o')?'on':'';
   document.getElementById('t-s').className=(p[0]==='sinais'||p[0]==='s')?'on':'';
   if(p[0]==='oportunidades'){var n=0;ORD.forEach(function(k){n+=R[k].OPS.length});out='<p class="k">'+n+' oportunidades em '+ORD.length+' rodadas · a mais nova primeiro</p>';
-    ORD.forEach(function(k){K=k;X=R[k];out+=cab(k,X.OPS.length,'oportunidades')+(X.OPS.length?X.OPS.map(function(o){return cardO(o)}).join(''):'<div class="empty" style="padding:16px">Nenhuma oportunidade nesta rodada.</div>')})}
+    ORD.forEach(function(k){K=k;X=R[k];out+=cab(k,X.OPS.length,'candidatas (não fechadas)')+(X.OPS.length?X.OPS.map(function(o){return cardO(o)}).join(''):'<div class="empty" style="padding:16px">Nenhuma oportunidade nesta rodada.</div>')})}
   else if(p[0]==='sinais'){var m=0;ORD.forEach(function(k){m+=R[k].F.SIGNALS.SINAIS.length});out='<p class="k">'+m+' sinais em '+ORD.length+' rodadas · a mais nova primeiro · sinal não é oportunidade: merece acompanhamento</p>';
     ORD.forEach(function(k){K=k;X=R[k];var S=X.F.SIGNALS.SINAIS;out+=cab(k,S.length,'sinais')+(S.length?S.map(function(s){return cardS(s)}).join(''):'<div class="empty" style="padding:16px">Nenhum sinal nesta rodada.</div>')})}
   else if(R[p[1]]){K=p[1];X=R[K];var id=p.slice(2).join('/');
