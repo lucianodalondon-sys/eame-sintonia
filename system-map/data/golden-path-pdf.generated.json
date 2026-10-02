@@ -1,7 +1,7 @@
 {
  "O_QUE_ISTO_E": "A conta desta corrida, do PDF guardado ate a porta. Cada numero e medido; nenhum e esperado.",
  "COMO_REFAZER": "py coleta/golden_path_pdf.py",
- "RUN_ID": "DERIV-PDF-20260914T164000Z",
+ "RUN_ID": "DERIV-PDF-20261002T191843Z",
  "STATUS": "SUCCESS",
  "RUN_STATE": "COMPLETE",
  "COMPLETION_BASIS": {
@@ -16,7 +16,7 @@
   "FALTOU": [],
   "PORQUE": "todas as condições de fecho foram medidas e cumpridas",
   "IDEMPOTENCIA": {
-   "NOVOS": 0,
+   "NOVOS": 7,
    "REAPROVEITADOS": 43,
    "NOTA": "NOVOS=0 com REAPROVEITADOS>0 é a corrida a não refazer trabalho. Não é saída zero, e não é perda."
   }
@@ -27,49 +27,47 @@
   "CAPACIDADE": "pdftotext"
  },
  "STATE_BEFORE": {
-  "OCORRENCIAS": 49,
-  "CONTEUDOS_UNICOS": 43,
+  "OCORRENCIAS": 56,
+  "CONTEUDOS_UNICOS": 50,
   "DERIVADOS_PRESENTES": 43
  },
  "STATE_AFTER": {
-  "OCORRENCIAS": 49,
-  "CONTEUDOS_UNICOS": 43,
-  "DERIVADOS_PRESENTES": 43
+  "OCORRENCIAS": 56,
+  "CONTEUDOS_UNICOS": 50,
+  "DERIVADOS_PRESENTES": 50
  },
- "GIT_COMMIT": "a3a4c1e72b18d39dedc5cbce3e788036c4a8b00f",
- "GIT_BRANCH": "claude/collection-to-waiting-room-v1",
+ "GIT_COMMIT": "82d3f4913f86b6b1cacc5e362aff25e29d500d73",
+ "GIT_BRANCH": "scrap/pdf-fds-20261002",
  "GIT_TREE_CLEAN": "NAO",
- "BIBLE_VERSION": "V1.4",
+ "BIBLE_VERSION": "V1.5",
  "EXECUTOR_ID": "texto-de-pdf",
  "EXECUTOR_VERSION": "1",
  "PIPELINE_VERSION": "1",
- "STARTED_AT": "2026-09-14T16:40:00Z",
- "FINISHED_AT": "2026-09-14T16:40:00Z",
+ "STARTED_AT": "2026-10-02T19:18:43Z",
+ "FINISHED_AT": "2026-10-02T19:18:45Z",
  "COUNTS": {
-  "RAW_INPUT": 49,
-  "RAW_TEXT_LAYER_PRESENT": 0,
+  "RAW_INPUT": 56,
+  "RAW_TEXT_LAYER_PRESENT": 7,
   "RAW_NEEDS_OCR": 0,
   "RAW_EXTRACTION_ERROR": 0,
   "RAW_UNKNOWN": 0,
-  "DERIVED_EMITTED": 0,
-  "DERIVED_LANDED": 0,
+  "DERIVED_EMITTED": 7,
+  "DERIVED_LANDED": 7,
   "JA_EXISTIAM": 43,
-  "ADMISSION_SEEN": 43,
-  "ADMISSION_NAO": 22,
-  "ADMISSION_SIM": 12,
-  "ADMISSION_NAO_SEI": 9,
+  "ADMISSION_SEEN": 7,
+  "ADMISSION_SIM": 7,
   "LOST": 0
  },
  "RAW_IMUTAVEL": {
-  "PDF_CONFERIDOS": 49,
+  "PDF_CONFERIDOS": 56,
   "ALTERADOS": [],
   "DESAPARECIDOS": [],
   "VEREDITO": "IMUTAVEL"
  },
  "TEXTOS_A_MAO": {
   "TOTAL": 6,
-  "PARENT_PROVEN": 1,
-  "PARENT_UNKNOWN": 5,
+  "PARENT_PROVEN": 3,
+  "PARENT_UNKNOWN": 3,
   "FICHAS": [
    {
     "ARTIFACT_ID": "RAW-38ed1b029748bde3",
@@ -81,9 +79,9 @@
     "SOURCE_ID": "NAO SEI",
     "SOURCE_URL": "NAO SEI",
     "PUBLISHER": "NAO SEI",
-    "PARENT_ARTIFACT_ID": "NAO SEI",
-    "PARENT_SHA256": "NAO SEI",
-    "DERIVATION_TYPE": "NAO SEI",
+    "PARENT_ARTIFACT_ID": "RAW-9488589cfc657b95",
+    "PARENT_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+    "DERIVATION_TYPE": "MANUAL_LEGACY",
     "COUNTRY_SCOPE": "IT",
     "SOURCE_LOCATION": "NAO SEI",
     "FACT_LOCATION": "NAO SEI",
@@ -101,11 +99,10 @@
     "ERROR": "",
     "COST": "NAO_SE_APLICA",
     "NOTES": {
-     "PARENT_BASIS": "PARENT_UNKNOWN",
-     "COMO": "estar ao lado com o mesmo nome e indicio, nao prova. Ninguem guardou de onde este texto veio",
-     "PDF_VIZINHO": "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.pdf"
+     "PARENT_BASIS": "PARENT_PROVEN",
+     "COMO": "o texto do ficheiro a mao existe dentro do PDF"
     },
-    "PARENT_STATUS": "PARENT_UNKNOWN"
+    "PARENT_STATUS": "PARENT_PROVEN"
    },
    {
     "ARTIFACT_ID": "RAW-2887e9d856cf26b7",
@@ -153,9 +150,9 @@
     "SOURCE_ID": "NAO SEI",
     "SOURCE_URL": "NAO SEI",
     "PUBLISHER": "NAO SEI",
-    "PARENT_ARTIFACT_ID": "NAO SEI",
-    "PARENT_SHA256": "NAO SEI",
-    "DERIVATION_TYPE": "NAO SEI",
+    "PARENT_ARTIFACT_ID": "RAW-fe3c922bfdfd7999",
+    "PARENT_SHA256": "fe3c922bfdfd7999242617962b8add2471dd26d8c908bc403e5f34c21dc635ee",
+    "DERIVATION_TYPE": "MANUAL_LEGACY",
     "COUNTRY_SCOPE": "IT",
     "SOURCE_LOCATION": "NAO SEI",
     "FACT_LOCATION": "NAO SEI",
@@ -173,11 +170,10 @@
     "ERROR": "",
     "COST": "NAO_SE_APLICA",
     "NOTES": {
-     "PARENT_BASIS": "PARENT_UNKNOWN",
-     "COMO": "estar ao lado com o mesmo nome e indicio, nao prova. Ninguem guardou de onde este texto veio",
-     "PDF_VIZINHO": "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.pdf"
+     "PARENT_BASIS": "PARENT_PROVEN",
+     "COMO": "o texto do ficheiro a mao existe dentro do PDF"
     },
-    "PARENT_STATUS": "PARENT_UNKNOWN"
+    "PARENT_STATUS": "PARENT_PROVEN"
    },
    {
     "ARTIFACT_ID": "RAW-2a161b702b2053cf",
@@ -289,144 +285,149 @@
   ]
  },
  "TEXTO_INTEGRAL": {
-  "INPUT_CHARACTERS": 843906,
-  "JUDGED_CHARACTERS": 843906,
+  "INPUT_CHARACTERS": 101566,
+  "JUDGED_CHARACTERS": 101566,
   "DROPPED_CHARACTERS": 0,
   "A_LEI": "a porta julga o documento INTEIRO. DROPPED_CHARACTERS diferente de zero quer dizer que alguem julgou outro documento."
  },
  "PORQUES_DA_PORTA": {
-  "NAO": [
-   {
-    "item": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
-    "regra": "pertence ao universo",
-    "motivo": "nao fala de «T5», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
-    "prova": {
-     "achado_noutro": {
-      "T3": [
-       "fitosanitario",
-       "ovideposizione"
-      ]
-     },
-     "estagio": "DOCUMENTO",
-     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
-    }
-   },
-   {
-    "item": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
-    "regra": "pertence ao universo",
-    "motivo": "nao fala de «T5», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
-    "prova": {
-     "achado_noutro": {
-      "T3": [
-       "fitosanitario",
-       "ovideposizione"
-      ]
-     },
-     "estagio": "DOCUMENTO",
-     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
-    }
-   },
-   {
-    "item": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
-    "regra": "pertence ao universo",
-    "motivo": "nao fala de «T5», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
-    "prova": {
-     "achado_noutro": {
-      "T3": [
-       "fitosanitario",
-       "ovideposizione"
-      ]
-     },
-     "estagio": "DOCUMENTO",
-     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
-    }
-   }
-  ],
   "SIM": [
    {
-    "item": "DERIVED-TEXT_EXTRACTION-ea2276b0500902b9",
+    "item": "DERIVED-TEXT_EXTRACTION-30a5c37e86a32fec",
     "regra": "pertence ao universo",
-    "motivo": "fala de articolo, pubblicazione — que e do que «T5» trata",
+    "motivo": "fala de ricerca, pubblicazione, sperimentazione — que e do que «T5» trata",
     "prova": {
      "palavras": [
-      "articolo",
-      "pubblicazione"
-     ],
-     "sinais": 2,
-     "estagio": "DOCUMENTO",
-     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
-    }
-   },
-   {
-    "item": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
-    "regra": "pertence ao universo",
-    "motivo": "fala de revista, ricerca — que e do que «T5» trata",
-    "prova": {
-     "palavras": [
-      "revista",
-      "ricerca"
-     ],
-     "sinais": 2,
-     "estagio": "DOCUMENTO",
-     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
-    }
-   },
-   {
-    "item": "DERIVED-TEXT_EXTRACTION-7b3a26a7335a078b",
-    "regra": "pertence ao universo",
-    "motivo": "fala de articolo, pubblicazione, tesi — que e do que «T5» trata",
-    "prova": {
-     "palavras": [
-      "articolo",
+      "ricerca",
       "pubblicazione",
-      "tesi"
+      "sperimentazione"
      ],
      "sinais": 3,
      "estagio": "DOCUMENTO",
-     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
-    }
-   }
-  ],
-  "NAO_SEI": [
-   {
-    "item": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
-    "regra": "pertence ao universo",
-    "motivo": "so uma palavra de «T5» aparece (doi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
-    "prova": {
-     "palavras": [
-      "doi"
-     ],
-     "sinais": 1,
-     "sinais_minimos": 2,
-     "estagio": "DOCUMENTO",
+     "portoes": {
+      "legivel": {
+       "caracteres": 6080,
+       "resultado": "SIM"
+      },
+      "origem": {
+       "origem": "RAW-10792df218470d6e",
+       "origem_especie": "SOURCE_ID",
+       "origem_campo": "source_id",
+       "resultado": "SIM"
+      },
+      "linhagem": {
+       "pai": "RAW-10792df218470d6e",
+       "resultado": "SIM"
+      },
+      "identidade": {
+       "resultado": "SIM"
+      },
+      "materia": {
+       "retrato": null,
+       "resultado": "SIM"
+      },
+      "pertence ao universo": {
+       "palavras": [
+        "ricerca",
+        "pubblicazione",
+        "sperimentazione"
+       ],
+       "sinais": 3,
+       "resultado": "SIM"
+      }
+     },
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
    },
    {
-    "item": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+    "item": "DERIVED-TEXT_EXTRACTION-6d3b8ed08b08352b",
     "regra": "pertence ao universo",
-    "motivo": "so uma palavra de «T5» aparece (tesi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+    "motivo": "fala de ricerca, sperimentazione — que e do que «T5» trata",
     "prova": {
      "palavras": [
-      "tesi"
+      "ricerca",
+      "sperimentazione"
      ],
-     "sinais": 1,
-     "sinais_minimos": 2,
+     "sinais": 2,
      "estagio": "DOCUMENTO",
+     "portoes": {
+      "legivel": {
+       "caracteres": 9849,
+       "resultado": "SIM"
+      },
+      "origem": {
+       "origem": "RAW-74778e8b689924a6",
+       "origem_especie": "SOURCE_ID",
+       "origem_campo": "source_id",
+       "resultado": "SIM"
+      },
+      "linhagem": {
+       "pai": "RAW-74778e8b689924a6",
+       "resultado": "SIM"
+      },
+      "identidade": {
+       "resultado": "SIM"
+      },
+      "materia": {
+       "retrato": null,
+       "resultado": "SIM"
+      },
+      "pertence ao universo": {
+       "palavras": [
+        "ricerca",
+        "sperimentazione"
+       ],
+       "sinais": 2,
+       "resultado": "SIM"
+      }
+     },
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
    },
    {
-    "item": "DERIVED-TEXT_EXTRACTION-a752940f32c23381",
+    "item": "DERIVED-TEXT_EXTRACTION-c24a97f914e785e2",
     "regra": "pertence ao universo",
-    "motivo": "so uma palavra de «T5» aparece (tesi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+    "motivo": "fala de ricerca, pubblicazione, sperimentazione — que e do que «T5» trata",
     "prova": {
      "palavras": [
-      "tesi"
+      "ricerca",
+      "pubblicazione",
+      "sperimentazione"
      ],
-     "sinais": 1,
-     "sinais_minimos": 2,
+     "sinais": 3,
      "estagio": "DOCUMENTO",
+     "portoes": {
+      "legivel": {
+       "caracteres": 6312,
+       "resultado": "SIM"
+      },
+      "origem": {
+       "origem": "RAW-9f0aa1ed9e2ecd8a",
+       "origem_especie": "SOURCE_ID",
+       "origem_campo": "source_id",
+       "resultado": "SIM"
+      },
+      "linhagem": {
+       "pai": "RAW-9f0aa1ed9e2ecd8a",
+       "resultado": "SIM"
+      },
+      "identidade": {
+       "resultado": "SIM"
+      },
+      "materia": {
+       "retrato": null,
+       "resultado": "SIM"
+      },
+      "pertence ao universo": {
+       "palavras": [
+        "ricerca",
+        "pubblicazione",
+        "sperimentazione"
+       ],
+       "sinais": 3,
+       "resultado": "SIM"
+      }
+     },
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
    }
