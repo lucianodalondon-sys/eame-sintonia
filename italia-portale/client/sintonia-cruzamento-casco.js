@@ -27,8 +27,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       grupo: { LEAD: 'LEAD · PISTA COMMERCIALE', SINAL: 'SEGNALI DA SEGUIRE' },
       estado: { LEAD: 'pista commerciale, non ancora opportunità', SINAL: 'da seguire, nessun legame prodotto-uso',
         GAP: 'prodotto ADAMA non trovato', OPORTUNIDADE: 'opportunità confermata' },
-      zeroTit: '0 opportunità confermate',
-      zeroTxt: 'Nessuna opportunità commerciale ha chiuso prodotto + uso autorizzato + finestra in questa lettura.',
+      zeroTit: 'Nessuna opportunità confermata in questa lettura.',
+      zeroTxt: 'Il Sintonia sta monitorando segnali e lead che non hanno ancora chiuso tutti gli elementi necessari per un’azione commerciale.',
       sper: 'SPERIMENTALE',
       sperTip: 'Lettura sperimentale della Intelligence, non ancora validata per il cliente.',
       naoSei: 'non noto',
@@ -42,6 +42,9 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       fonti: 'Fonti indipendenti', bula: 'Etichette', ia: 'lettura dell’IA', evid: 'Evidenze · fonte, documento, estratto',
       unDoc: 'UN SOLO DOCUMENTO', verif: 'DA VERIFICARE', anello: 'Cosa manca per diventare vendita',
       succede: 'Cosa succede', conta: 'Perché conta', azione: 'Cosa si può fare',
+      seguirlo: 'Perché seguirlo:', aggiornato: 'aggiornato', tempistica: 'Tempistica', prodLabel: 'Prodotto / etichetta',
+      cambiaCl: 'Cosa potrebbe far cambiare la classificazione', fontiEv: 'Fonti ed evidenze',
+      semIt: 'Testo in italiano non ancora fornito dalla Intelligence per questa voce.', grezzoL: 'Nota di lavoro originale (portoghese)', nonNoto: 'Non noto in questa lettura.',
       pubL: 'FONTE PUBBLICITARIA', pubTip: 'Parte di questa lettura viene da un contenuto sponsorizzato: non è una notizia indipendente.',
       alemIt: 'TESTO DA VERIFICARE',
       campiL: 'Come è stata costruita questa lettura (campi di lavoro della Intelligence)',
@@ -58,8 +61,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       grupo: { LEAD: 'LEAD · COMMERCIAL LEAD', SINAL: 'SIGNALS TO FOLLOW' },
       estado: { LEAD: 'commercial lead, not yet an opportunity', SINAL: 'to follow, no product-use link',
         GAP: 'no ADAMA product found', OPORTUNIDADE: 'confirmed opportunity' },
-      zeroTit: '0 confirmed opportunities',
-      zeroTxt: 'No commercial opportunity closed product + authorised use + window in this reading.',
+      zeroTit: 'No confirmed opportunity in this reading.',
+      zeroTxt: 'Sintonia is monitoring signals and leads that have not yet closed every element needed for a commercial action.',
       sper: 'EXPERIMENTAL',
       sperTip: 'Experimental Intelligence reading, not yet validated for the client.',
       naoSei: 'not known',
@@ -73,6 +76,9 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       fonti: 'Independent sources', bula: 'Labels', ia: 'AI reading', evid: 'Evidence · source, document, excerpt',
       unDoc: 'SINGLE DOCUMENT', verif: 'TO VERIFY', anello: 'What is missing to become a sale',
       succede: 'What is happening', conta: 'Why it matters', azione: 'What can be done',
+      seguirlo: 'Why follow it:', aggiornato: 'updated', tempistica: 'Timing', prodLabel: 'Product / label',
+      cambiaCl: 'What could change the classification', fontiEv: 'Sources and evidence',
+      semIt: 'Text not yet provided by the Intelligence for this item.', grezzoL: 'Original working note (Portuguese)', nonNoto: 'Not known in this reading.',
       pubL: 'ADVERTISING SOURCE', pubTip: 'Part of this reading comes from sponsored content: it is not independent news.',
       alemIt: 'TEXT TO VERIFY',
       campiL: 'How this reading was built (Intelligence working fields)',
@@ -156,17 +162,24 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       evidN: ev + ' ' + t.evidN, esplora: t.esplora, sper: t.sper, sperTip: t.sperTip
     };
   }
-  /* Ficha do Radar Futuro: as mesmas chaves do rfFicha original + as linhas novas (hasCruz). */
-  function fichaFuturo(o, lang) {
+  /* Ficha do Radar Futuro = o componente ORIGINAL (chaves do rfFicha). O dado novo entra nos slots que ja existem:
+     chip = classe, estado, aviso = fonte publicitaria, titulo, linha cinza = coltura · luogo, «perche seguirlo»,
+     rodape = data da leitura · ESPLORA. Nada de «cosa manca», tempistica, label, evidencia ou raciocinio aqui:
+     tudo isso mora no detalhe. */
+  function fichaFuturo(o, lang, quando) {
     var t = T(lang), b = base(o, t), lead = o.CLASSE === 'LEAD';
+    var perche = vis(o, 'PERCHE_CONTA');
     return Object.assign(b, {
-      acao: t.cls[o.CLASSE], estado: t.estado[o.CLASSE], hasAviso: false, aviso: '',
-      classe: b.titulo, hasPode: false, pode: '', hasSensor: false, sensor: '', sensorColor: '#8F8886',
-      lacunas: b.evidN,
+      acao: t.cls[o.CLASSE], estado: t.estado[o.CLASSE],
+      hasAviso: b.pub, aviso: b.pub ? t.pubL : '',
+      classe: b.titulo, hasPode: true, pode: b.crop + ' · ' + b.region,
+      hasPerche: !!perche, kWhy: t.seguirlo, perche: perche ? curto(perche, t, 120) : '',
+      hasSensor: false, sensor: '', sensorColor: '#8F8886',
+      idRodape: quando ? t.aggiornato + ' ' + quando : '', lacunas: t.esplora + ' →',
       acaoBg: lead ? 'rgba(245,179,23,0.14)' : 'rgba(0,160,223,0.14)',
       acaoInk: lead ? '#F5B317' : '#5CC3EE',
       acaoEdge: lead ? 'rgba(245,179,23,0.45)' : 'rgba(0,160,223,0.42)',
-      hasCruz: true, kWhy: t.kWhy, kMiss: t.kMiss, kWin: t.kWin, cropRegion: b.crop + ' · ' + b.region
+      hasCruz: false
     });
   }
   /* Ficha de lacuna no Portafoglio. */
@@ -189,6 +202,27 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       port: { has: !semProd, name: b.produto, hasMore: false, more: '', hasAi: false, ai: '', isNone: semProd, none: t.naoSei },
       age: { has: false, label: '' } });
   }
+  /* Secoes do detalhe, na ordem pedida pelo dono. Texto = o italiano que a Intelligence escreveu em
+     TEXTOS_VISIVEIS_IT. Sem ele, a secao diz que falta e guarda a nota de trabalho original recolhida —
+     o casco nao traduz nem reescreve. TEMPISTICA / PRODOTTO_LABEL / COSA_CAMBIA: chaves pedidas a
+     Intelligence (CONTRATO NECESSARIO); ausentes = nota recolhida. */
+  function sezioni(o, t) {
+    var bula = (o.AVISO_DE_FRESCOR_DA_BULA || {}).TEXTO;
+    var prod = [val(o, 'PRODUTO_ADAMA'), val(o, 'AUTORIZACAO_LABEL'), bula].filter(function (x) { return !eNaoSei(x); }).join(' — ');
+    return [
+      ['succede', t.succede, vis(o, 'COSA_SUCCEDE'), val(o, 'O_QUE_ACONTECEU'), '#EDEAE9'],
+      ['conta', t.conta, vis(o, 'PERCHE_CONTA'), val(o, 'POR_QUE_AGORA'), '#EDEAE9'],
+      ['manca', t.anello, vis(o, 'COSA_MANCA'), o.ELO_QUE_FALTA, '#F5B317'],
+      ['tempistica', t.tempistica, vis(o, 'TEMPISTICA'), val(o, 'JANELA'), '#EDEAE9'],
+      ['prodotto', t.prodLabel, vis(o, 'PRODOTTO_LABEL'), prod, '#EDEAE9'],
+      ['cambia', t.cambiaCl, vis(o, 'COSA_CAMBIA'), o.O_QUE_MUDARIA_A_CLASSE, '#EDEAE9'],
+      ['azione', t.azione, vis(o, 'AZIONE'), null, '#EDEAE9']
+    ].filter(function (x) { return x[0] !== 'azione' || x[2]; }).map(function (x) {
+      var nulla = !x[2] && eNaoSei(x[3]);
+      return { k: x[0], l: x[1].toUpperCase(), temIt: !!x[2] || nulla, semIt: !x[2] && !nulla, cor: nulla ? '#8F8886' : x[4],
+        v: x[2] ? String(x[2]) : (nulla ? t.nonNoto : t.semIt), grezzo: x[2] ? '' : txt(x[3]), grezzoL: t.grezzoL };
+    });
+  }
   /* O DETALHE: aqui mora a prova (FACT_ID, USE_ID, fonte, trecho, leitura da IA, dados tecnicos). */
   function detalhe(env, id, lang) {
     if (!valido(env)) return null;
@@ -209,8 +243,7 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       unDoc: conf.CRUZAMENTO_DE_UM_SO_DOCUMENTO === true, unDocL: t.unDoc,
       verif: verificar.indexOf(o.ID) >= 0 || (conf.PALAVRAS_VERIFICAR || []).length > 0, verifL: t.verif,
       anelloL: t.anello, anello: txt(vis(o, 'COSA_MANCA') || o.ELO_QUE_FALTA),
-      leigo: [[t.succede, vis(o, 'COSA_SUCCEDE')], [t.conta, vis(o, 'PERCHE_CONTA')], [t.azione, vis(o, 'AZIONE')]]
-        .filter(function (b) { return b[1]; }).map(function (b) { return { l: b[0], v: String(b[1]) }; }),
+      sezioni: sezioni(o, t),
       campos: CAMPOS.filter(function (k) { return cam[k]; }).map(function (k) {
         var f = cam[k] || {};
         return { l: t.campi[k], v: eNaoSei(f.valor) ? String(f.valor || '').replace(/^\s*NAO[_ ]SEI\s*—?\s*/i, t.naoSei.toUpperCase() + ' — ') : String(f.valor),
@@ -220,7 +253,7 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       blocos: [[t.trovato, o.O_QUE_O_SINTONIA_ENCONTROU], [t.cambia, o.O_QUE_MUDARIA_A_CLASSE], [t.limiti, o.CONTRA_OU_LIMITE],
         [t.fonti, (o.ORIGEM || {}).FONTES_INDEPENDENTES], [t.bula, (o.AVISO_DE_FRESCOR_DA_BULA || {}).TEXTO]]
         .filter(function (b) { return b[1]; }).map(function (b) { return { l: b[0], v: txt(b[1]) }; }),
-      evidL: t.evid + ' (' + (o.EVIDENCIAS || []).length + ')',
+      evidL: t.fontiEv + ' (' + (o.EVIDENCIAS || []).length + ')',
       evid: (o.EVIDENCIAS || []).map(function (e) {
         return { trecho: '«' + txt(e.trecho) + '»', url: txt(e.URL), fonte: host(e.URL) || t.naoSei };
       }),
