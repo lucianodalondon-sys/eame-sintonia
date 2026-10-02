@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  f56dec02847af78ad4fc95b1b0212ee84861f4cd
+HEAD_DA_MEDICAO  32cb93184fed80d532de89c8248a4798ed0c4d4e
 BRANCH           claude/casco-cruzamento-v1
-GERADO_EM        2026-10-02T06:02:44-03:00
+GERADO_EM        2026-10-02T08:35:52-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
