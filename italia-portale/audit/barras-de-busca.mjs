@@ -32,8 +32,26 @@ const ok = (t, cond, medido) => { linhas.push({ t, cond: !!cond, medido }); };
    outros portoes usam. */
 const server = await serve(8921);
 const { browser, page: pg } = await open({ port: 8921, width: 1500, height: 1000 });
-await pg.waitForSelector('[data-meeting-case]', { timeout: 45000 });
+await pg.waitForSelector('[data-meeting-case], [data-view="cruzamento"]', { timeout: 45000 });
 
+/* ── 0 · RADAR ALIMENTADO PELO CRUZAMENTO COMERCIAL ─────────────────────────
+   Quando o envelope do cruzamento esta publicado, o Radar mostra SO o que a Intelligence classificou como
+   OPORTUNIDADE (ordem do dono, 02/10). Se a rodada tem 0, nao ha ficha para a barra filtrar: a barra do Radar
+   nao e medida (nao existe o que digitar contra) e no lugar mede-se a verdade do zero — o numero da tela = o do
+   envelope, nenhuma ficha antiga desenhada, e o aviso do porque visivel. O Portafoglio continua medido inteiro. */
+const cruzRadar = await pg.evaluate(() => {
+  const env = window.SINTONIA_CRUZAMENTO_PUBLICADO;
+  if (!env || !env.CRUZAMENTO || !document.querySelector('[data-view="cruzamento"]')) return null;
+  const esperado = (env.CRUZAMENTO.OBJETOS || []).filter((o) => o.CLASSE === 'OPORTUNIDADE').length;
+  const el = document.querySelector('[data-view="cruzamento"]');
+  return { esperado, tela: Number(el.getAttribute('data-cruz-n')), fichas: document.querySelectorAll('[data-cruz-objeto]').length,
+    antigas: document.querySelectorAll('[data-meeting-case]').length, vazio: document.querySelectorAll('[data-cruz-vazio]').length };
+});
+if (cruzRadar && cruzRadar.esperado === 0) {
+  ok('RADAR · cruzamento: o numero da tela = OPORTUNIDADE do envelope', cruzRadar.tela === 0 && cruzRadar.fichas === 0, cruzRadar.tela + '/' + cruzRadar.fichas + ' = 0');
+  ok('RADAR · cruzamento: nenhuma ficha antiga desenhada', cruzRadar.antigas === 0, cruzRadar.antigas);
+  ok('RADAR · cruzamento: o zero diz-se com o porque', cruzRadar.vazio === 1, cruzRadar.vazio + ' aviso');
+} else {
 /* ── 1 · O RADAR ─────────────────────────────────────────────────────────── */
 const antesRadar = await pg.locator('[data-meeting-case]').count();
 const barraRadar = pg.locator('[data-radar-search]');
@@ -105,6 +123,8 @@ await pg.locator('[data-radar-clear]').click();
 await pg.waitForTimeout(450);
 ok('RADAR · CANCELLA TUTTO devolve tudo', await pg.locator('[data-meeting-case]').count() === antesRadar,
   await pg.locator('[data-meeting-case]').count() + ' = ' + antesRadar);
+
+}
 
 /* ── 2 · O PORTAFOGLIO ───────────────────────────────────────────────────── */
 await pg.evaluate(() => { location.hash = '#portfolio'; });
