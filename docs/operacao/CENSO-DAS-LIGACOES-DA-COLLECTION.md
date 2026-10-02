@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579
-BRANCH           coord/parada-sobre-servico
-GERADO_EM        2026-10-01T13:46:22-03:00
+HEAD_DA_MEDICAO  ec871742fa253bd7c0cb9259e20d5b63cc98a16b
+BRANCH           coord/t9-social-catalogo
+GERADO_EM        2026-10-01T19:57:29-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1175,13 +1175,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json`, `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json` |
-| **arestas no mapa** | entram 8 · saem 10 |
-| **arestas provadas** | entram 8 · saem 10 |
+| **arestas no mapa** | entram 9 · saem 10 |
+| **arestas provadas** | entram 9 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 5 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 |
+| **prova das ligações** | CODE 19 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1375,13 +1375,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/italy_pilot_collect.mjs`, `coleta/linha_busca.py`, `coleta/pesquisadores_t6.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json` |
-| **arestas no mapa** | entram 22 · saem 12 |
-| **arestas provadas** | entram 22 · saem 12 |
+| **arestas no mapa** | entram 24 · saem 12 |
+| **arestas provadas** | entram 24 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 34 |
+| **prova das ligações** | CODE 36 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2056,13 +2056,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json`, `regras/incrementalidade.mjs` |
 | **o que sai · dado** | C-IT-CONTRATOS |
 | **o que sai · ficheiros** | `regras/italy_contracts_onboarded.json` |
-| **arestas no mapa** | entram 8 · saem 13 |
-| **arestas provadas** | entram 7 · saem 13 |
+| **arestas no mapa** | entram 9 · saem 13 |
+| **arestas provadas** | entram 8 · saem 13 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 20 · NÃO SEI 1 |
+| **prova das ligações** | CODE 21 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2256,13 +2256,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/retrato_html.mjs` |
 | **o que sai · dado** | C-CENSO-UNIFICACAO |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json` |
-| **arestas no mapa** | entram 12 · saem 16 |
-| **arestas provadas** | entram 12 · saem 16 |
+| **arestas no mapa** | entram 12 · saem 17 |
+| **arestas provadas** | entram 12 · saem 17 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 28 |
+| **prova das ligações** | CODE 29 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 

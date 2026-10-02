@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-10-01T16:51:01+00:00",
-    "HEAD": "5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579",
+    "GENERATED_AT": "2026-10-01T23:03:21+00:00",
+    "HEAD": "ec871742fa253bd7c0cb9259e20d5b63cc98a16b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db",
-    "FICHEIROS_NA_IMPRESSAO": 4409,
+    "SOURCE_TREE_FINGERPRINT": "4b740096d2546c2eb9d7d167591946f5017cfd5c6c04aa5e7f808c1248043e55",
+    "FICHEIROS_NA_IMPRESSAO": 4421,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38406,6 +38406,51 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/feeds",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 950
+        },
+        {
+          "file": "curadoria/canario.py",
+          "line": 62
+        },
+        {
+          "file": "curadoria/capturador.py",
+          "line": 585
+        },
+        {
+          "file": "curadoria/escrever_contratos.py",
+          "line": 121
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 63
+        },
+        {
+          "file": "curadoria/validar_contratos.py",
+          "line": 219
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 38
+        },
+        {
+          "file": "tests/test_legacy_recheck.py",
+          "line": 35
+        },
+        {
+          "file": "tests/test_porta_social_t9.py",
+          "line": 44
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 43
+        }
+      ]
+    },
+    {
       "endpoint": "https://%s/robots.txt",
       "usado_por": [
         {
@@ -38578,47 +38623,6 @@
         {
           "file": "tests/test_social_por_url_achado.py",
           "line": 55
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/feeds",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_youtube.py",
-          "line": 950
-        },
-        {
-          "file": "curadoria/canario.py",
-          "line": 62
-        },
-        {
-          "file": "curadoria/capturador.py",
-          "line": 585
-        },
-        {
-          "file": "curadoria/escrever_contratos.py",
-          "line": 121
-        },
-        {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 63
-        },
-        {
-          "file": "curadoria/validar_contratos.py",
-          "line": 219
-        },
-        {
-          "file": "tests/test_importar_do_coletor.py",
-          "line": 38
-        },
-        {
-          "file": "tests/test_legacy_recheck.py",
-          "line": 35
-        },
-        {
-          "file": "tests/test_youtube_pelo_scrap.py",
-          "line": 43
         }
       ]
     },
