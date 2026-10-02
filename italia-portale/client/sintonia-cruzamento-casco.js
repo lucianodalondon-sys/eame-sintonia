@@ -42,6 +42,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       fonti: 'Fonti indipendenti', bula: 'Etichette', ia: 'lettura dell’IA', evid: 'Evidenze · fonte, documento, estratto',
       unDoc: 'UN SOLO DOCUMENTO', verif: 'DA VERIFICARE', anello: 'Cosa manca per diventare vendita',
       succede: 'Cosa succede', conta: 'Perché conta', azione: 'Cosa si può fare',
+      pubL: 'FONTE PUBBLICITARIA', pubTip: 'Parte di questa lettura viene da un contenuto sponsorizzato: non è una notizia indipendente.',
+      alemIt: 'TESTO DA VERIFICARE',
       campiL: 'Come è stata costruita questa lettura (campi di lavoro della Intelligence)',
       tec: 'Dettagli tecnici', rimessa: 'lettura', generato: 'generata il', modello: 'modello', era: 'prima era',
       ritorno: { meeting: '← RADAR DELLE OPPORTUNITÀ', radarfuturo: '← RADAR FUTURO', portfolio: '← PORTAFOGLIO' },
@@ -71,6 +73,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       fonti: 'Independent sources', bula: 'Labels', ia: 'AI reading', evid: 'Evidence · source, document, excerpt',
       unDoc: 'SINGLE DOCUMENT', verif: 'TO VERIFY', anello: 'What is missing to become a sale',
       succede: 'What is happening', conta: 'Why it matters', azione: 'What can be done',
+      pubL: 'ADVERTISING SOURCE', pubTip: 'Part of this reading comes from sponsored content: it is not independent news.',
+      alemIt: 'TEXT TO VERIFY',
       campiL: 'How this reading was built (Intelligence working fields)',
       tec: 'Technical details', rimessa: 'reading', generato: 'generated', modello: 'model', era: 'previously',
       ritorno: { meeting: '← OPPORTUNITY RADAR', radarfuturo: '← FUTURE RADAR', portfolio: '← PORTFOLIO' },
@@ -99,6 +103,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
      Ausentes = o texto antigo. O casco nao traduz nem reescreve. */
   function vis(o, k) { var v = (o.TEXTOS_VISIVEIS_IT || {})[k]; return eNaoSei(v) ? null : v; }
   function tit(o) { return txt(eNaoSei(o.TITULO_IT) ? o.TITULO : o.TITULO_IT); }
+  /* Marca escrita pela Intelligence: fatos que vem de conteudo patrocinado. O casco so mostra. */
+  function pub(o) { return Array.isArray(o.FONTE_PUBLICITARIA) && o.FONTE_PUBLICITARIA.length > 0; }
   function host(u) { var m = /^https?:\/\/(?:www\.)?([^\/?#]+)/i.exec(String(u || '')); return m ? m[1] : ''; }
 
   function conferir(env) {
@@ -141,7 +147,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     var ev = (o.EVIDENCIAS || []).length;
     return {
       id: txt(o.ID), cruzId: o.ID, cruzClasse: o.CLASSE, classe: o.CLASSE, rotulo: t.cls[o.CLASSE], cor: COR[o.CLASSE],
-      titulo: tit(o), crop: curto(val(o, 'CULTURA'), t, 40), region: curto(val(o, 'LOCAL'), t, 44),
+      titulo: tit(o), crop: curto(vis(o, 'COLTURA') || val(o, 'CULTURA'), t, 60), region: curto(vis(o, 'LUOGO') || val(o, 'LOCAL'), t, 70),
+      pub: pub(o), pubL: t.pubL, pubTip: t.pubTip,
       problema: curto(val(o, 'PROBLEMA'), t, 90), janela: curto(val(o, 'JANELA'), t, 90),
       produto: curto(val(o, 'PRODUTO_ADAMA'), t, 90), acao: curto(val(o, 'ACAO_COMERCIAL'), t, 110),
       porque: curto(vis(o, 'PERCHE_CONTA') || val(o, 'O_QUE_ACONTECEU'), t, 130),
@@ -194,7 +201,9 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     return {
       id: txt(o.ID), classe: o.CLASSE, rotulo: t.cls[o.CLASSE], cor: COR[o.CLASSE], titulo: tit(o),
       superficie: sup, ritorno: t.ritorno[sup], sper: t.sper, sperTip: t.sperTip,
-      cropRegion: curto(val(o, 'CULTURA'), t, 60) + ' · ' + curto(val(o, 'LOCAL'), t, 60),
+      cropRegion: curto(vis(o, 'COLTURA') || val(o, 'CULTURA'), t, 80) + ' · ' + curto(vis(o, 'LUOGO') || val(o, 'LOCAL'), t, 90),
+      pub: pub(o), pubL: t.pubL, pubTip: t.pubTip,
+      alemIt: (o.TEXTO_IT_AFIRMA_ALEM_DO_CAMPO || []).length > 0, alemItL: t.alemIt,
       temEra: !!o.CLASSE_ANTES && o.CLASSE_ANTES !== o.CLASSE,
       era: t.era + ' ' + (t.cls[o.CLASSE_ANTES] || txt(o.CLASSE_ANTES)) + (o.CANDIDATA_ANTERIOR ? ' (' + o.CANDIDATA_ANTERIOR + ')' : ''),
       unDoc: conf.CRUZAMENTO_DE_UM_SO_DOCUMENTO === true, unDocL: t.unDoc,
