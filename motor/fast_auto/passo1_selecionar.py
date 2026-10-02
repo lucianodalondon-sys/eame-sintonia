@@ -3,12 +3,11 @@
 import hashlib, html, json, os, re, subprocess, sys
 from html.parser import HTMLParser
 
-AQUI = os.path.dirname(os.path.abspath(__file__))
+AQUI = os.path.abspath(sys.argv[1])  # pasta da rodada (o codigo fica no Git, os dados fora)
 BASE = r"C:/Users/London1/sintonia-sala-italia"
 ARM = BASE + "/armazem/"
 PSQL = r"C:/Users/London1/orca/pgtmp/pgsql/bin/psql.exe"
-IDS = [2785, 2781, 2777, 2728, 2732, 2666, 2621, 2616, 2613, 2564,
-       2540, 2384, 2277, 2243, 2242, 2241, 2240, 2231, 2232, 2230]
+IDS = json.load(open(AQUI + "/IDS.json", encoding="utf-8"))  # escrito pelo rodada_fast.py
 
 env = dict(os.environ, PGPASSFILE=BASE + "/pgpass.conf", PGCLIENTENCODING="UTF8")
 dsn = open(BASE + "/SALA_DSN.txt").read().strip()
@@ -20,7 +19,7 @@ out = subprocess.run([PSQL, "-w", "-X", "-A", "-t", "-c", sql, dsn], env=env, ca
 linhas = [l for l in out.splitlines() if l.strip()]
 assert "on" in [l.strip() for l in linhas], ("transacao nao estava read only", linhas[:3])
 rows = [json.loads(l) for l in linhas if l.startswith("{")]
-assert len(rows) == 20, len(rows)
+assert len(rows) == len(IDS), (len(rows), len(IDS))
 
 
 class T(HTMLParser):

@@ -2,7 +2,7 @@
 # Regra: o LLM interpreta, nao inventa. O programa so confere se o TRECHO existe no texto do RAW. Nao existe -> REJEITADO.
 import shutil, concurrent.futures as cf, datetime, hashlib, json, os, re, subprocess, sys
 
-AQUI = os.path.dirname(os.path.abspath(__file__))
+AQUI = os.path.abspath(sys.argv[1])  # pasta da rodada
 MODELO = os.environ.get("FAST_MODELO", "claude-opus-5")
 MAX_CHARS = 18000
 CAMPOS = ["O_QUE", "ONDE", "QUANDO", "CULTURA", "PRAGA_DOENCA", "PRODUTO_OU_EMPRESA", "NUMERO"]

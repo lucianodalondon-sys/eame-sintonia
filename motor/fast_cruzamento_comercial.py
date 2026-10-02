@@ -124,7 +124,20 @@ def contexto_fenologia():
 
 
 # ---------------------------------------------------------------- remessa
+ENTRADA_REMESSA = ("FATOS.validado.json", "SIGNALS.validado.json", "OPPORTUNITIES.validado.json")
+ENTRADA_FAST_AUTO = ("FACTS_FAST.json", "SIGNALS_FAST.json", "OPPORTUNITIES_FAST.json")
+# FACTS_FAST (rodada automatica) -> mesmos nomes de campo da remessa; so o NOME muda, o valor e o mesmo
+_CAMPOS_FAST = (("fato", "O_QUE"), ("onde", "ONDE"), ("quando", "QUANDO"), ("cultura", "CULTURA"),
+                ("problema", "PRAGA_DOENCA"), ("empresas_produtos", "PRODUTO_OU_EMPRESA"), ("numeros", "NUMERO"))
+
+
+def entradas(pasta: Path):
+    return ENTRADA_FAST_AUTO if (pasta / "FACTS_FAST.json").exists() else ENTRADA_REMESSA
+
+
 def ler_remessa(pasta: Path):
+    if entradas(pasta) == ENTRADA_FAST_AUTO:
+        return ler_fast_auto(pasta)
     F = json.loads((pasta / "FATOS.validado.json").read_text(encoding="utf-8"))
     S = json.loads((pasta / "SIGNALS.validado.json").read_text(encoding="utf-8"))
     O = json.loads((pasta / "OPPORTUNITIES.validado.json").read_text(encoding="utf-8"))
@@ -133,6 +146,29 @@ def ler_remessa(pasta: Path):
         for f in d.get("fatos") or []:
             fatos[f["FACT_ID"]] = dict(f, DOCUMENT_ID=d["DOCUMENT_ID"], SOURCE_ID=d["SOURCE_ID"], URL=d["URL"])
     return fatos, S["itens"], O["itens"]
+
+
+def ler_fast_auto(pasta: Path):
+    """Rodada automatica (passo2/passo3): so fatos ACEITOS; so campos cujo trecho foi achado no RAW."""
+    F = json.loads((pasta / "FACTS_FAST.json").read_text(encoding="utf-8"))
+    S = json.loads((pasta / "SIGNALS_FAST.json").read_text(encoding="utf-8"))
+    fatos = OrderedDict()
+    for f in F["FATOS"]:
+        if f.get("ESTADO") == "REJEITADO":
+            continue
+        g = {"FACT_ID": f["FACT_ID"], "DOCUMENT_ID": f["DOCUMENT_ID"], "SOURCE_ID": f["SOURCE_ID"], "URL": f["URL"],
+             "evidencias": {}}
+        for novo, velho in _CAMPOS_FAST:
+            c = f.get(velho) or {}
+            ok = c.get("VERIFICACAO") == "TRECHO_ENCONTRADO_NO_RAW"
+            g[novo] = c.get("VALOR") if ok else "NAO_SEI"
+            if ok:
+                g["evidencias"][novo] = c.get("TRECHO")
+        fatos[g["FACT_ID"]] = g
+    sinais = [{"SIGNAL_ID": s["SIGNAL_ID"], "titulo": s.get("TITULO"), "descricao": s.get("O_QUE_ACONTECEU"),
+               "FACT_IDs": s.get("FACT_IDS") or []}
+              for s in S["SINAIS"] if s.get("VALIDACAO") == "OK_FATOS_EXISTEM"]
+    return fatos, sinais, []  # a rodada automatica nao decide oportunidade antes deste passo
 
 
 def _v(f, k):
@@ -307,8 +343,7 @@ def main(argv):
         ("CODIGO_LIMPO_EM_MOTOR", not sujo),
         ("GERADO_EM", datetime.now(timezone.utc).isoformat(timespec="seconds")),
         ("REMESSA", str(pasta)),
-        ("ENTRADAS_SHA256", {n: _sha(pasta / n) for n in ("FATOS.validado.json", "SIGNALS.validado.json",
-                                                          "OPPORTUNITIES.validado.json")}),
+        ("ENTRADAS_SHA256", {n: _sha(pasta / n) for n in entradas(pasta)}),
         ("PROMPT_SHA256", hashlib.sha256(prompt.encode("utf-8")).hexdigest()),
         ("REFERENCIA", ref["CARIMBO"]),
         ("FENOLOGIA", {"BUILT_AT": fen["BUILT_AT"], "AVISO": fen["AVISO"], "SHA256": fen["SHA256"]}),

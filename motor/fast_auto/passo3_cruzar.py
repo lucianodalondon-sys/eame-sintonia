@@ -1,8 +1,8 @@
 # SINTONIA_FAST_V1 - passo 3: FACTS_FAST -> LLM cruzamento -> SIGNALS_FAST + OPPORTUNITIES_FAST
 # O programa confere: todo FACT_ID citado existe e foi ACEITO; oportunidade precisa cruzar fatos de >=2 documentos.
-import datetime, json, os, re, shutil, subprocess
+import datetime, json, os, re, shutil, subprocess, sys
 
-AQUI = os.path.dirname(os.path.abspath(__file__))
+AQUI = os.path.abspath(sys.argv[1])  # pasta da rodada
 MODELO = os.environ.get("FAST_MODELO", "claude-opus-5")
 F = json.load(open(AQUI + "/FACTS_FAST.json", encoding="utf-8"))
 CAMPOS = ["O_QUE", "ONDE", "QUANDO", "CULTURA", "PRAGA_DOENCA", "PRODUTO_OU_EMPRESA", "NUMERO"]
@@ -20,20 +20,13 @@ def compacto(f):
 PROMPT = """Voce e o analista do SINTONIA para a ADAMA Italia (defensivos agricolas: fungicidas, inseticidas, herbicidas).
 Recebe FATOS ja verificados (cada um com FACT_ID). Campo ausente = NAO SEI. Use SO estes fatos; nao traga conhecimento externo como fato.
 
-Produza:
-1) SINAIS: algo que mudou ou esta acontecendo e merece atencao. Cada sinal cita os FACT_IDS que o sustentam (1 ou mais).
-2) OPORTUNIDADES: so quando o CRUZAMENTO de fatos de DOCUMENTOS DIFERENTES sugere uma acao comercial/tecnica para a ADAMA
-   (ex.: praga ativa + cultura + regiao + janela). Cada oportunidade cita FACT_IDS de pelo menos 2 documentos diferentes
-   (o documento e o trecho do FACT_ID entre 'F-' e o ultimo '-'), e os SIGNAL_IDS de onde nasce.
-   Se o cruzamento nao fecha (local diferente, cultura diferente, tempo desconhecido), NAO crie a oportunidade.
-   Zero oportunidades e resposta valida.
-Para cada sinal e oportunidade escreva em portugues simples:
+Produza SO SINAIS: algo que mudou ou esta acontecendo e merece atencao. Cada sinal cita os FACT_IDS que o sustentam (1 ou mais).
+NAO produza oportunidades: a decisao comercial (SINAL/LEAD/GAP/OPORTUNIDADE) e feita no passo seguinte, com catalogo, bulas e janelas.
+Para cada sinal escreva em portugues simples:
   O_QUE_ACONTECEU, POR_QUE_IMPORTA, ONDE (ou "NAO SEI"), QUANDO (ou "NAO SEI"), O_QUE_NAO_SABEMOS (lista),
   CONFIANCA (BAIXA/MEDIA/ALTA - julgamento, nao probabilidade).
-Oportunidade tem ainda: ACAO_SUGERIDA, POR_QUE_CRUZAMENTO (como os fatos se ligam: mesma cultura? mesma regiao? mesma janela?).
 Responda SO JSON:
-{"SINAIS":[{"SIGNAL_ID":"S-01","TITULO":"...","FACT_IDS":[...],"O_QUE_ACONTECEU":"...","POR_QUE_IMPORTA":"...","ONDE":"...","QUANDO":"...","O_QUE_NAO_SABEMOS":[...],"CONFIANCA":"..."}],
- "OPORTUNIDADES":[{"OPPORTUNITY_ID":"O-01","TITULO":"...","FACT_IDS":[...],"SIGNAL_IDS":[...],"O_QUE_ACONTECEU":"...","POR_QUE_IMPORTA":"...","ACAO_SUGERIDA":"...","POR_QUE_CRUZAMENTO":"...","ONDE":"...","QUANDO":"...","O_QUE_NAO_SABEMOS":[...],"CONFIANCA":"..."}]}
+{"SINAIS":[{"SIGNAL_ID":"S-01","TITULO":"...","FACT_IDS":[...],"O_QUE_ACONTECEU":"...","POR_QUE_IMPORTA":"...","ONDE":"...","QUANDO":"...","O_QUE_NAO_SABEMOS":[...],"CONFIANCA":"..."}]}
 
 FATOS:
 %s"""
@@ -84,6 +77,6 @@ base = dict(VERSAO="SINTONIA_FAST_V1", RUN_ID=RUN, RUN_FATOS=F["RUN_ID"], MODELO
             GERADO_EM=datetime.datetime.now().astimezone().isoformat(), MARCA="EXPERIMENTAL / NAO_PARA_CLIENTE",
             ENTRADA="FACTS_FAST.json (%d fatos aceitos)" % len(aceitos))
 json.dump(dict(ARTEFATO="SIGNALS_FAST", **base, SINAIS=sinais), open(AQUI + "/SIGNALS_FAST.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-json.dump(dict(ARTEFATO="OPPORTUNITIES_FAST", **base, OPORTUNIDADES=opps), open(AQUI + "/OPPORTUNITIES_FAST.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+json.dump(dict(ARTEFATO="OPPORTUNITIES_FAST", **base, OPORTUNIDADES=[], DECISAO_DE_OPORTUNIDADE="SUBSTITUIDA: ver CRUZAMENTO-COMERCIAL.json (motor/fast_cruzamento_comercial.py)", DESCARTADAS_SEM_CONTEXTO=opps), open(AQUI + "/OPPORTUNITIES_FAST.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("SINAIS", len(sinais), "ok", len(sinal_ok), "| OPORTUNIDADES", len(opps), "ok", sum(o["VALIDACAO"].startswith("OK") for o in opps), "| custo", env.get("total_cost_usd"))
 for o in opps: print(o["OPPORTUNITY_ID"], o["VALIDACAO"], o.get("TITULO"))
