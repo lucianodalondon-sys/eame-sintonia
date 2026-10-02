@@ -404,6 +404,8 @@ class Guardas(Social):
         _, r = self.ciclo_social()
         self.assertTrue(str(r["PARA"]).startswith("ONDA_PAROU_SOCIAL"), r["PARA"])
         self.assertEqual(TC.CONTAGEM, {})
+        # o PORQUE do maestro chega ao registo da linha (um PARA sem causa obriga a rearmar as cegas)
+        self.assertIn("EGRESSO_NAO_IT", r["LINHAS"]["SOCIAL"]["DISJUNTOR"]["PORQUE"])
 
     def test_maestro_que_nao_escreve_estado_para(self):
         def mudo(fontes, saida):
