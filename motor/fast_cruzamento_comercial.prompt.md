@@ -63,6 +63,15 @@ PORTAFOGLIO (gaps e portfólio), CROP_WINDOWS, LABEL_INTELLIGENCE, MARKET_PULSE,
 ACTION_BRIEF. Ponha mais de uma só quando o objeto tiver significado diferente em cada uma.
 TITULO_IT e TEXTOS_VISIVEIS_IT: o que o utilizador italiano leigo lê no cartão — italiano simples, sem códigos,
 ids, siglas técnicas, SHA, nomes de ficheiro ou jargão de programador. Não acrescente nada que não esteja nos campos.
+Regras do texto visível (o leitor leigo acredita no que lê):
+- Campo NAO_SEI não vira afirmação: se PRODUTO_ADAMA/AUTORIZACAO_LABEL é NAO_SEI, escreva «non trovato nelle
+  etichette lette» — nunca «non abbiamo», «non esiste», «nessun prodotto».
+- Facto com natureza=PUBLICIDADE_PATROCINADO é alegação do anunciante: «secondo un contenuto sponsorizzato di X»,
+  nunca notícia. Diga a data de publicação quando existir.
+- Não junte factos de datas diferentes como simultâneos («nelle stesse settimane») sem as datas o provarem;
+  diga a data de cada um. Não troque a grandeza (produção ≠ rendimento do produtor; «carenza» ≠ «scaffali vuoti»).
+- Frase de método/definição de um estudo não é resultado.
+- COLTURA e LUOGO: em italiano para leigo, curtos; «non noto» quando não se sabe.
 
 SAÍDA — APENAS este JSON, sem texto fora dele:
 {
@@ -86,7 +95,8 @@ SAÍDA — APENAS este JSON, sem texto fora dele:
    "DESTINO_FERRAMENTA": ["FUTURE_RADAR"],
    "TITULO_IT": "titolo breve in italiano",
    "TEXTOS_VISIVEIS_IT": {"COSA_SUCCEDE": "...", "PERCHE_CONTA": "...", "COSA_MANCA": "...",
-                          "AZIONE": "... ou null se non c'è azione"},
+                          "AZIONE": "... ou null se non c'è azione", "COLTURA": "mais | non noto",
+                          "LUOGO": "Piemonte | Italia (senza regione) | non noto"},
    "O_QUE_FALTAVA": "o que impedia fechar antes",
    "O_QUE_O_SINTONIA_ENCONTROU": "o que D/E responderam (inclua os negativos)",
    "ELO_QUE_FALTA": "o primeiro elo que não fecha, ou null se OPORTUNIDADE",

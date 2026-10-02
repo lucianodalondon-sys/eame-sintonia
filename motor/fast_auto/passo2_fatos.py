@@ -21,9 +21,18 @@ Regras duras:
 - ONDE = onde o FATO acontece; nao use a sede da fonte.
 - Nao deduza nada que nao esteja escrito. Na duvida: NAO_SEI.
 - O_QUE: uma frase curta em portugues; o TRECHO e no idioma original.
+- Frase de METODO ou DEFINICAO (o que o estudo avalia, como mede, o que "si intende per") NAO e resultado:
+  nunca a use como TRECHO de um resultado nem junte o metodo ao resultado na mesma frase.
+- Fato dito por um ANUNCIANTE sobre si mesmo (conteudo patrocinado, publiredazionale) e alegacao do anunciante:
+  escreva O_QUE como "<empresa> afirma/promove ...", nunca como acontecimento verificado.
+Diga tambem, UMA vez para o documento inteiro:
+- "NATUREZA_DO_DOCUMENTO": {"VALOR": um de EDITORIAL, PUBLICIDADE_PATROCINADO, INSTITUCIONAL, COMUNICADO_DE_EMPRESA,
+  CIENTIFICO, OUTRO, "TRECHO": "copia literal que prova (ex.: a marca 'contenuto sponsorizzato' DO PROPRIO artigo)"}.
+  Marca de patrocinio de OUTRO artigo listado na pagina (menu, "leggi anche", barra lateral) NAO conta.
+- "DATA_PUBLICACAO": {"VALOR": "AAAA-MM-DD ou NAO_SEI", "TRECHO": "copia literal"} (so do proprio artigo).
 Adicione tambem "TIPO" (um de: PRAGA_DOENCA, CLIMA, MERCADO_PRECO, REGULACAO_POLITICA, PRODUTO_EMPRESA, PESQUISA, EVENTO, OUTRO).
 Se nao houver fato relevante, devolva lista vazia.
-Responda SO com JSON valido: {"FATOS": [ {"TIPO": "...", "O_QUE": {...}, "ONDE": {...}, ...} ]}
+Responda SO com JSON valido: {"NATUREZA_DO_DOCUMENTO": {...}, "DATA_PUBLICACAO": {...}, "FATOS": [ {"TIPO": "...", "O_QUE": {...}, "ONDE": {...}, ...} ]}
 
 DOCUMENT_ID: %(did)s
 URL: %(url)s
@@ -35,6 +44,27 @@ TEXTO:
 
 def norm(s):
     return re.sub(r"\s+", " ", s).strip().lower()
+
+
+NATUREZAS = ("EDITORIAL", "PUBLICIDADE_PATROCINADO", "INSTITUCIONAL", "COMUNICADO_DE_EMPRESA", "CIENTIFICO", "OUTRO")
+
+
+def conferir_documento(res, tn):
+    """LAB 02/10 (C01): natureza e data de publicacao do DOCUMENTO, com o mesmo teste de trecho dos fatos.
+    Sem trecho achado no texto entregue = NAO_SEI (nunca a palavra do modelo sozinha)."""
+    out = {}
+    for k in ("NATUREZA_DO_DOCUMENTO", "DATA_PUBLICACAO"):
+        v = res.get(k) if isinstance(res, dict) else None
+        v = v if isinstance(v, dict) else {}
+        val, tr = str(v.get("VALOR", "NAO_SEI")).strip() or "NAO_SEI", str(v.get("TRECHO", "")).strip()
+        if k == "NATUREZA_DO_DOCUMENTO" and val not in NATUREZAS:
+            val = "NAO_SEI"
+        ok = val != "NAO_SEI" and bool(tr) and len(norm(tr)) >= 8 and norm(tr) in tn
+        out[k] = {"VALOR": val if ok else "NAO_SEI", "TRECHO": tr if ok else None,
+                  "VERIFICACAO": "TRECHO_ENCONTRADO_NO_RAW" if ok else ("NAO_SEI" if val == "NAO_SEI"
+                                                                        else "REJEITADO_TRECHO_NAO_EXISTE_NO_RAW"),
+                  "VALOR_DO_MODELO": None if ok else (val if val != "NAO_SEI" else None)}
+    return out
 
 
 def chamar(prompt):
@@ -81,6 +111,7 @@ with cf.ThreadPoolExecutor(5) as ex:
         if lista is None:
             rel.append(dict(DOCUMENT_ID=d["DOCUMENT_ID"], ESTADO="ERRO_LLM", DETALHE=str(res)[:300])); continue
         n_ok = n_rej = 0
+        doc_meta = conferir_documento(res, tn)
         for i, f in enumerate(lista, 1):
             fid = "F-%s-%02d" % (d["DOCUMENT_ID"], i)
             campos, rejeitados = {}, []
@@ -103,10 +134,13 @@ with cf.ThreadPoolExecutor(5) as ex:
             n_ok += estado != "REJEITADO"; n_rej += estado == "REJEITADO"
             fatos.append(dict(FACT_ID=fid, DOCUMENT_ID=d["DOCUMENT_ID"], RAW_ASSET_ID=d["RAW_ASSET_ID"], SOURCE_ID=d["SOURCE_ID"],
                               URL=d["URL"], RAW_SHA256=d["RAW_SHA256_ARQUIVO"], CAPTURED_AT=d["CAPTURED_AT"],
-                              TIPO=f.get("TIPO", "OUTRO"), ESTADO=estado, CAMPOS_REJEITADOS=rejeitados, **campos))
+                              TIPO=f.get("TIPO", "OUTRO"), ESTADO=estado, CAMPOS_REJEITADOS=rejeitados,
+                              NATUREZA_DO_DOCUMENTO=doc_meta["NATUREZA_DO_DOCUMENTO"],
+                              DATA_PUBLICACAO=doc_meta["DATA_PUBLICACAO"], **campos))
         rel.append(dict(DOCUMENT_ID=d["DOCUMENT_ID"], ESTADO="PROCESSADO", FATOS=len(lista), ACEITOS=n_ok, REJEITADOS=n_rej,
                         MARCA_TEXTUAL=d.get("LIMPEZA"), FORA_POR_REPETICAO_CHARS=d.get("CASCA_POR_REPETICAO_CHARS"),
-                        MODELOS=modelos, **entrega))
+                        MODELOS=modelos, NATUREZA_DO_DOCUMENTO=doc_meta["NATUREZA_DO_DOCUMENTO"],
+                        DATA_PUBLICACAO=doc_meta["DATA_PUBLICACAO"], **entrega))
         print(d["DOCUMENT_ID"], d["SOURCE_ID"], "fatos", len(lista), "aceitos", n_ok, "rejeitados", n_rej,
               "entregue=%d sha=%s" % (entrega["TEXTO_ENTREGUE_CHARS"], entrega["TEXTO_ENTREGUE_SHA256"][:16]), flush=True)
 

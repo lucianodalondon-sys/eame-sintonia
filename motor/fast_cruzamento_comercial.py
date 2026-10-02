@@ -48,7 +48,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 from motor import porta_da_referencia as PORTA  # noqa: E402
 
-VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v2-contextos"
+VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v2.1-contextos-lab"
 MODELO = os.environ.get("FAST_MODELO", "claude-opus-5")
 JANELAS_DIR = RAIZ / "build" / "ITALY-REALITY-HANDOFF-V2" / "PREVIOUS-HANDOFF" / "01-DESIGN-READY" / "CROP-WINDOWS"
 FENOLOGIA = JANELAS_DIR / "current-phenology.json"
@@ -258,7 +258,10 @@ def ler_fast_auto(pasta: Path):
         if f.get("ESTADO") == "REJEITADO":
             continue
         g = {"FACT_ID": f["FACT_ID"], "DOCUMENT_ID": f["DOCUMENT_ID"], "SOURCE_ID": f["SOURCE_ID"], "URL": f["URL"],
-             "evidencias": {}}
+             "evidencias": {},
+             # LAB 02/10: natureza e data de publicacao do documento (passo2 confere o trecho; ausente = NAO_SEI)
+             "natureza": ((f.get("NATUREZA_DO_DOCUMENTO") or {}).get("VALOR") or "NAO_SEI"),
+             "publicado": ((f.get("DATA_PUBLICACAO") or {}).get("VALOR") or "NAO_SEI")}
         for novo, velho in _CAMPOS_FAST:
             c = f.get(velho) or {}
             ok = c.get("VERIFICACAO") == "TRECHO_ENCONTRADO_NO_RAW"
@@ -280,8 +283,9 @@ def _v(f, k):
 
 
 def linha_fato(f):
-    return "%s [%s] %s | onde=%s | quando=%s | cultura=%s | problema=%s | emp=%s | num=%s" % (
-        f["FACT_ID"], f["SOURCE_ID"], _corta(_v(f, "fato"), 300), _v(f, "onde"), _v(f, "quando"),
+    return "%s [%s] %s | natureza=%s | publicado=%s | onde=%s | quando=%s | cultura=%s | problema=%s | emp=%s | num=%s" % (
+        f["FACT_ID"], f["SOURCE_ID"], _corta(_v(f, "fato"), 300), f.get("natureza", "NAO_SEI"),
+        f.get("publicado", "NAO_SEI"), _v(f, "onde"), _v(f, "quando"),
         _v(f, "cultura"), _v(f, "problema"), _corta(_v(f, "empresas_produtos"), 120), _corta(_v(f, "numeros"), 120))
 
 
@@ -424,6 +428,27 @@ def regua_do_agora(o, fatos, hoje) -> None:
         c["valor"] = "NAO_SEI — sem prova do agora: " + motivo
 
 
+#: negacao categorica em italiano (o leitor leigo le «nao temos», o objeto diz NAO_SEI) — LAB 02/10 erro 3
+_NEGA_IT = re.compile(r"\b(non abbiamo|non esiste|non c'è|nessun\w*|non ha|non hanno|assent\w*|manca(?:no)? del tutto)\b",
+                      re.I)
+_CAMPOS_NEGAVEIS = ("PRODUTO_ADAMA", "AUTORIZACAO_LABEL")
+
+
+def texto_it_afirma_nao_sei(o) -> None:
+    """Mede (nao reescreve: o texto e do modelo) negacao categorica no TITULO_IT/TEXTOS_VISIVEIS_IT quando o campo
+    de origem e NAO_SEI. O Casco nao deve mostrar como certo; o objeto leva a marca e o LAB ve a lista."""
+    campos = o.get("CAMPOS") or {}
+    if not any(_sem_valor(campos.get(k)) for k in _CAMPOS_NEGAVEIS):
+        return
+    vis = o.get("TEXTOS_VISIVEIS_IT") if isinstance(o.get("TEXTOS_VISIVEIS_IT"), dict) else {}
+    achados = []
+    for nome, t in [("TITULO_IT", o.get("TITULO_IT"))] + [("TEXTOS_VISIVEIS_IT." + k, v) for k, v in vis.items()]:
+        for m in _NEGA_IT.finditer(str(t or "")):
+            achados.append({"ONDE": nome, "EXPRESSAO": m.group(0)})
+    if achados:
+        o["TEXTO_IT_AFIRMA_ALEM_DO_CAMPO"] = achados
+
+
 def regua_do_destino(o) -> None:
     """DESTINO_FERRAMENTA: lista fechada; OPPORTUNITY_RADAR so para OPORTUNIDADE (FDS sec.15); a ferramenta da classe
     entra sempre. O que o modelo pediu fica em DESTINO_DO_MODELO (nada se apaga)."""
@@ -486,7 +511,11 @@ def conferir(saida, fatos, sinais, ref, fen, hoje=None, ctx=None, hist=None):
                                      "NAO_SEI — %d dominios distintos e o MAXIMO; independencia nao provada" % len(doms)),
             "REGRA": "2 documentos != 2 fontes; mesmo dominio = mesma origem editorial (calculado por script)"}
         o["EVIDENCIAS"] = [{"FACT_ID": f["FACT_ID"], "DOCUMENT_ID": f["DOCUMENT_ID"], "SOURCE_ID": f["SOURCE_ID"],
-                            "URL": f["URL"], "trecho": (f.get("evidencias") or {}).get("fato")} for f in validos]
+                            "URL": f["URL"], "trecho": (f.get("evidencias") or {}).get("fato"),
+                            "NATUREZA_DO_DOCUMENTO": f.get("natureza", "NAO_SEI"),
+                            "DATA_PUBLICACAO": f.get("publicado", "NAO_SEI")} for f in validos]
+        # LAB 02/10 (C01): alegacao de anunciante nao e noticia — marca por script, a partir do passo2
+        o["FONTE_PUBLICITARIA"] = [f["FACT_ID"] for f in validos if f.get("natureza") == "PUBLICIDADE_PATROCINADO"]
         if uids:
             o["AVISO_DE_FRESCOR_DA_BULA"] = {
                 "ESTADO_FRESCOR": ref["FRESCOR"], "EDICAO": ref["CARIMBO"].get("EDICAO_REGISTRO"),
@@ -502,6 +531,7 @@ def conferir(saida, fatos, sinais, ref, fen, hoje=None, ctx=None, hist=None):
                                         ({"HISTORICO"} if any(i in hist_ids for i in cids) else set()) |
                                         ({"REFERENCIA_ADAMA"} if uids else set()) | ({"FENOLOGIA"} if pids else set()))
         o["CONTEXTO_IDs"] = cids
+        texto_it_afirma_nao_sei(o)
         # medidas do Done (nao filtram)
         texto = json.dumps(o, ensure_ascii=False)
         o["CONFERENCIA"] = {
@@ -572,6 +602,8 @@ def main(argv):
             # CRUZAMENTOS_DE_UM_SO_DOCUMENTO so conta quem DIZ cruzar 2+ sinais e tem 1 documento.
             # Esta lista conta TODO objeto apoiado num so documento (SINAL/LEAD/GAP podem; e medida, nao filtro).
             "OBJETOS_DE_UM_SO_DOCUMENTO": [o["ID"] for o in objetos if o["ORIGEM"]["N_DOCUMENTOS"] == 1],
+            "OBJETOS_COM_FONTE_PUBLICITARIA": [o["ID"] for o in objetos if o.get("FONTE_PUBLICITARIA")],
+            "TEXTO_IT_AFIRMA_ALEM_DO_CAMPO": [o["ID"] for o in objetos if o.get("TEXTO_IT_AFIRMA_ALEM_DO_CAMPO")],
             "OPORTUNIDADES_DE_UM_SO_DOCUMENTO": [o["ID"] for o in objetos if o.get("CLASSE") == "OPORTUNIDADE"
                                                  and o["ORIGEM"]["N_DOCUMENTOS"] == 1]}),
         ("OBJETOS", objetos),
