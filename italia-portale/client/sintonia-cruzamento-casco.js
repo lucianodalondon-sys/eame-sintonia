@@ -41,13 +41,15 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       trovato: 'Cosa ha trovato il Sintonia', cambia: 'Cosa cambierebbe la classe', limiti: 'Contro / limiti',
       fonti: 'Fonti indipendenti', bula: 'Etichette', ia: 'lettura dell’IA', evid: 'Evidenze · fonte, documento, estratto',
       unDoc: 'UN SOLO DOCUMENTO', verif: 'DA VERIFICARE', anello: 'Cosa manca per diventare vendita',
+      succede: 'Cosa succede', conta: 'Perché conta', azione: 'Cosa si può fare',
+      campiL: 'Come è stata costruita questa lettura (campi di lavoro della Intelligence)',
       tec: 'Dettagli tecnici', rimessa: 'lettura', generato: 'generata il', modello: 'modello', era: 'prima era',
       ritorno: { meeting: '← RADAR DELLE OPPORTUNITÀ', radarfuturo: '← RADAR FUTURO', portfolio: '← PORTAFOGLIO' },
       gapTit: 'Lacune di portafoglio',
       gapSub: 'Necessità rilevate per cui non è stato trovato un prodotto ADAMA autorizzato in questa lettura. Il catalogo continua sotto.',
       rfLine: 'lead e segnali della lettura commerciale corrente',
       rfLegend: 'LEAD: pista commerciale con la coltura coperta, ma senza il legame completo prodotto + uso autorizzato + finestra. SEGNALE: fatto da seguire, senza legame con un uso ADAMA. Nessuno dei due è un’opportunità.',
-      rifiuto: 'NON SO · lettura commerciale rifiutata:'
+      rifiuto: 'NON SO · la lettura commerciale non ha superato il controllo e non viene mostrata.'
     },
     en: {
       cls: { OPORTUNIDADE: 'OPPORTUNITY', LEAD: 'LEAD', SINAL: 'SIGNAL', GAP: 'PORTFOLIO GAP' },
@@ -68,6 +70,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       trovato: 'What Sintonia found', cambia: 'What would change the class', limiti: 'Against / limits',
       fonti: 'Independent sources', bula: 'Labels', ia: 'AI reading', evid: 'Evidence · source, document, excerpt',
       unDoc: 'SINGLE DOCUMENT', verif: 'TO VERIFY', anello: 'What is missing to become a sale',
+      succede: 'What is happening', conta: 'Why it matters', azione: 'What can be done',
+      campiL: 'How this reading was built (Intelligence working fields)',
       tec: 'Technical details', rimessa: 'reading', generato: 'generated', modello: 'model', era: 'previously',
       ritorno: { meeting: '← OPPORTUNITY RADAR', radarfuturo: '← FUTURE RADAR', portfolio: '← PORTFOLIO' },
       gapTit: 'Portfolio gaps',
@@ -91,6 +95,11 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     return s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : s;
   }
   function val(o, k) { return ((o.CAMPOS || {})[k] || {}).valor; }
+  /* Primeira camada: textos que a Intelligence escreveu para o leigo (TITULO_IT, TEXTOS_VISIVEIS_IT).
+     Ausentes = o texto antigo. O casco nao traduz nem reescreve. */
+  function vis(o, k) { var v = (o.TEXTOS_VISIVEIS_IT || {})[k]; return eNaoSei(v) ? null : v; }
+  function tit(o) { return txt(eNaoSei(o.TITULO_IT) ? o.TITULO : o.TITULO_IT); }
+  function host(u) { var m = /^https?:\/\/(?:www\.)?([^\/?#]+)/i.exec(String(u || '')); return m ? m[1] : ''; }
 
   function conferir(env) {
     var f = [];
@@ -132,10 +141,11 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     var ev = (o.EVIDENCIAS || []).length;
     return {
       id: txt(o.ID), cruzId: o.ID, cruzClasse: o.CLASSE, classe: o.CLASSE, rotulo: t.cls[o.CLASSE], cor: COR[o.CLASSE],
-      titulo: txt(o.TITULO), crop: curto(val(o, 'CULTURA'), t, 40), region: curto(val(o, 'LOCAL'), t, 44),
+      titulo: tit(o), crop: curto(val(o, 'CULTURA'), t, 40), region: curto(val(o, 'LOCAL'), t, 44),
       problema: curto(val(o, 'PROBLEMA'), t, 90), janela: curto(val(o, 'JANELA'), t, 90),
       produto: curto(val(o, 'PRODUTO_ADAMA'), t, 90), acao: curto(val(o, 'ACAO_COMERCIAL'), t, 110),
-      porque: curto(val(o, 'O_QUE_ACONTECEU'), t, 130), falta: curto(o.ELO_QUE_FALTA, t, 130),
+      porque: curto(vis(o, 'PERCHE_CONTA') || val(o, 'O_QUE_ACONTECEU'), t, 130),
+      falta: curto(vis(o, 'COSA_MANCA') || o.ELO_QUE_FALTA, t, 130),
       evidN: ev + ' ' + t.evidN, esplora: t.esplora, sper: t.sper, sperTip: t.sperTip
     };
   }
@@ -156,8 +166,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
   function fichaGap(o, lang) {
     var t = T(lang), b = base(o, t);
     return Object.assign(b, { kCrop: t.kCrop, kNeed: t.kNeed, kReg: t.kReg, kProd: t.kProd, kNo: t.kNo,
-      kMotivo: t.kMotivo, kConf: t.kConf, motivo: curto(o.ELO_QUE_FALTA, t, 120),
-      confermare: curto(val(o, 'ACAO_COMERCIAL'), t, 120) });
+      kMotivo: t.kMotivo, kConf: t.kConf, motivo: curto(vis(o, 'COSA_MANCA') || o.ELO_QUE_FALTA, t, 120),
+      confermare: curto(vis(o, 'AZIONE') || val(o, 'ACAO_COMERCIAL'), t, 120) });
   }
   /* Ficha de OPORTUNIDADE no formato da ficha original do Radar (fascia, icone, titulo, coltura · regione,
      cassa nera do prodotto, ESPLORA). Hoje a Intelligence escreve 0; este caminho existe para o dia em que nao. */
@@ -182,30 +192,36 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     var verificar = ((c.CONFERENCIA_GLOBAL || {}).OBJETOS_COM_VERIFICAR) || [];
     var sup = o.CLASSE === 'OPORTUNIDADE' ? 'meeting' : (o.CLASSE === 'GAP' ? 'portfolio' : 'radarfuturo');
     return {
-      id: txt(o.ID), classe: o.CLASSE, rotulo: t.cls[o.CLASSE], cor: COR[o.CLASSE], titulo: txt(o.TITULO),
+      id: txt(o.ID), classe: o.CLASSE, rotulo: t.cls[o.CLASSE], cor: COR[o.CLASSE], titulo: tit(o),
       superficie: sup, ritorno: t.ritorno[sup], sper: t.sper, sperTip: t.sperTip,
       cropRegion: curto(val(o, 'CULTURA'), t, 60) + ' · ' + curto(val(o, 'LOCAL'), t, 60),
       temEra: !!o.CLASSE_ANTES && o.CLASSE_ANTES !== o.CLASSE,
       era: t.era + ' ' + (t.cls[o.CLASSE_ANTES] || txt(o.CLASSE_ANTES)) + (o.CANDIDATA_ANTERIOR ? ' (' + o.CANDIDATA_ANTERIOR + ')' : ''),
       unDoc: conf.CRUZAMENTO_DE_UM_SO_DOCUMENTO === true, unDocL: t.unDoc,
       verif: verificar.indexOf(o.ID) >= 0 || (conf.PALAVRAS_VERIFICAR || []).length > 0, verifL: t.verif,
-      anelloL: t.anello, anello: txt(o.ELO_QUE_FALTA),
+      anelloL: t.anello, anello: txt(vis(o, 'COSA_MANCA') || o.ELO_QUE_FALTA),
+      leigo: [[t.succede, vis(o, 'COSA_SUCCEDE')], [t.conta, vis(o, 'PERCHE_CONTA')], [t.azione, vis(o, 'AZIONE')]]
+        .filter(function (b) { return b[1]; }).map(function (b) { return { l: b[0], v: String(b[1]) }; }),
       campos: CAMPOS.filter(function (k) { return cam[k]; }).map(function (k) {
         var f = cam[k] || {};
         return { l: t.campi[k], v: eNaoSei(f.valor) ? String(f.valor || '').replace(/^\s*NAO[_ ]SEI\s*—?\s*/i, t.naoSei.toUpperCase() + ' — ') : String(f.valor),
           naoSei: eNaoSei(f.valor), temIa: !!f.INTERPRETACAO_DA_IA, ia: t.ia + ': ' + txt(f.INTERPRETACAO_DA_IA),
-          fatos: (f.FACT_IDs || []).concat(f.USE_IDs || [], f.FENOLOGIA_IDs || []).join(' · ') };
+          fatos: '' };
       }),
       blocos: [[t.trovato, o.O_QUE_O_SINTONIA_ENCONTROU], [t.cambia, o.O_QUE_MUDARIA_A_CLASSE], [t.limiti, o.CONTRA_OU_LIMITE],
         [t.fonti, (o.ORIGEM || {}).FONTES_INDEPENDENTES], [t.bula, (o.AVISO_DE_FRESCOR_DA_BULA || {}).TEXTO]]
         .filter(function (b) { return b[1]; }).map(function (b) { return { l: b[0], v: txt(b[1]) }; }),
       evidL: t.evid + ' (' + (o.EVIDENCIAS || []).length + ')',
       evid: (o.EVIDENCIAS || []).map(function (e) {
-        return { trecho: '«' + txt(e.trecho) + '»', url: txt(e.URL), fonte: txt(e.SOURCE_ID) + ' · ' + txt(e.FACT_ID) };
+        return { trecho: '«' + txt(e.trecho) + '»', url: txt(e.URL), fonte: host(e.URL) || t.naoSei };
       }),
-      tecL: t.tec,
+      camposL: t.campiL, tecL: t.tec,
       tec: t.rimessa + ' ' + txt(env.REMESSA) + ' · ' + t.generato + ' ' + txt(c.GERADO_EM) + ' · ' + t.modello + ' ' + txt(c.MODELO) +
-        ' · ' + txt(c.VERSAO) + ' · ' + txt(c.ESTADO) + ' · sha ' + String(env.CRUZAMENTO_SHA256 || '').slice(0, 12)
+        ' · ' + txt(c.VERSAO) + ' · ' + txt(c.ESTADO) + ' · sha ' + String(env.CRUZAMENTO_SHA256 || '').slice(0, 12) +
+        ' · ' + txt(o.ID) + ' · ' + CAMPOS.filter(function (k) { return cam[k]; }).map(function (k) { var f = cam[k];
+          return k + ': ' + ((f.FACT_IDs || []).concat(f.USE_IDs || [], f.FENOLOGIA_IDs || []).join(' ') || '-'); }).join(' | ') +
+        ' · ' + (o.EVIDENCIAS || []).map(function (e) { return txt(e.SOURCE_ID) + '/' + txt(e.FACT_ID); }).join(' ') +
+        (o.DESTINO_FERRAMENTA ? ' · ' + [].concat(o.DESTINO_FERRAMENTA).join(',') : '')
     };
   }
   return { conferir: conferir, valido: valido, superficie: superficie, objetos: objetos, contagem: contagem,
