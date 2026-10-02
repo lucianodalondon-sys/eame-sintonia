@@ -1,0 +1,270 @@
+{
+ "IT-T9-026:video-linkedin": {
+  "SOURCE_ID": "IT-T9-026",
+  "TERRITORY": "T9",
+  "FASE": "video-linkedin",
+  "FILTROS": {
+   "pagina": "https://www.linkedin.com/company/certisbelchim-italia/",
+   "teto": 2
+  },
+  "COMANDO": [
+   "orquestrador/orquestrador.py",
+   "colete concorrentes",
+   "--filtro",
+   "fase=video-linkedin",
+   "--filtro",
+   "fonte=IT-T9-026",
+   "--filtro",
+   "pagina=https://www.linkedin.com/company/certisbelchim-italia/",
+   "--filtro",
+   "teto=2",
+   "--filtro",
+   "pais=IT",
+   "--filtro",
+   "universo=T9"
+  ],
+  "RC": 0,
+  "RUN_ID": "IT-T9-2026-10-02-190227-f7815ad411f55b0a",
+  "SEGUNDOS": 66.7,
+  "EGRESSO_DEPOIS_IT": true,
+  "SAIDA_FIM": "· fonte=IT-T9-026 · pagina=https://www.linkedin.com/company/certisbelchim-italia/ · pais=IT · teto=2 · universo=T9\n\n  fontes deste assunto em ficha : 24\n  destas, com caminho escrito   : 15\n  destas, NAO SEI como se chega : 9\n      (EU-T9-002, IT-T9-001, IT-T9-002, IT-T9-003, IT-T9-004, IT-T9-005 ...)\n\n  quem vai correr:\n      scrap-colheita  ->  coleta/scrap_colheita.py\n          traz: a janela publica da conta — o perfil e os objetos que ela publicou — pelo executor canonico do SCRAP, com RAW preservado antes de qualquer normalizacao; e, na fase `canario-bluesky`, a cronologia publica de uma conta Bluesky pela AppView aberta, sem credencial; e, com `fase=identidade-linkedin`, o ENDERECO LinkedIn que a propria organizacao publica no site dela, como CATALOGO e nunca como colheita\n          rota: Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico) · gratuito\n      comunicacao-publica  ->  coleta/comunicacao_coleta.py\n          traz: o que o concorrente publicou em canal aberto, com a data e o endereco de onde veio — e, com `fase=transcrever`, a FALA do video, num campo separado da legenda\n          rota: YouTube, Instagram, LinkedIn, Facebook · pago quando passa pela rota Apify; `transcrever` custa zero dolares e paga-se em tempo de maquina\n      concorrencia-meta  ->  coleta/concorrencia_meta.py\n          traz: os cartoes de anuncio pago que cada pagina de concorrente (e da ADAMA) mostrou a quem estava na Italia, com o snapshot datado, o RAW da pagina e a comparacao com a rodada anterior\n          rota: Meta Ads Library (Chrome com janela, sem login) · gratuito (tempo de maquina e VPN italiana)\n      italia-recorrente  ->  coleta/italy_executor.py\n          traz: a pagina da fonte web nomeada no pedido (noticia, boletim, documento), como HTML ou PDF, com a versao do documento e o sitio onde o byte ficou\n          rota: HTTP direto · gratuito\n\n  contratos que a corrida tem de cumprir:\n      procedencia        carimba de onde veio, no momento em que entra\n      tempo do fato      separa quando o fato aconteceu de quando nos o capturamos\n      lugar do fato      separa o lugar de onde veio o documento do lugar onde o fato aconteceu\n      recibo da corrida  quem correu, quando, com que entrada, quanto trouxe e quanto custou\n\n  saida esperada: itens de «COMPETITORS» com procedencia, tempo do fato e lugar do fato carimbados, prontos para a porta de admissao\n\n  · manifesto: 6 campo(s) do contrato ficaram NOT_PRESERVED: DATASET_ID, EVIDENCE_PATH, OUTPUT_WRITTEN_AT, RAW_EVIDENCE_PATH, RAW_EVIDENCE_STATE, SOURCE_VERSION\nCORRIDA SUCCESS · IT-T9-2026-10-02-190227-f7815ad411f55b0a\n  persistencia: DESCARTAVEL (127.0.0.1:51293/descartavel)\n  executor coleta/scrap_colheita.py @ c214b0413\n  de 2026-10-02T19:02:27Z a 2026-10-02T19:03:03Z\n  ERRO (nao e rejeicao): Could not find platform independent libraries <prefix>\n  colheita encontrada: 2 item(ns)\n  pela porta de admissao: NAO_SEI 1\n",
+  "ERRO_FIM": "Could not find platform independent libraries <prefix>\n",
+  "MEDIDA": {
+   "RAW": [
+    [
+     "1",
+     "video/mp4",
+     "20961426",
+     "t"
+    ],
+    [
+     "2",
+     "video/mp4",
+     "5556052",
+     "t"
+    ]
+   ],
+   "DERIVED": [
+    [
+     "TRANSCRIPTION",
+     "2145"
+    ]
+   ],
+   "SALA": []
+  }
+ },
+ "IT-T7-253:video-linkedin": {
+  "SOURCE_ID": "IT-T7-253",
+  "TERRITORY": "T7",
+  "FASE": "video-linkedin",
+  "FILTROS": {
+   "pagina": "https://www.linkedin.com/company/cia-agricoltori-italiani/",
+   "teto": 2
+  },
+  "COMANDO": [
+   "orquestrador/orquestrador.py",
+   "colete cooperativas",
+   "--filtro",
+   "fase=video-linkedin",
+   "--filtro",
+   "fonte=IT-T7-253",
+   "--filtro",
+   "pagina=https://www.linkedin.com/company/cia-agricoltori-italiani/",
+   "--filtro",
+   "teto=2",
+   "--filtro",
+   "pais=IT",
+   "--filtro",
+   "universo=T7"
+  ],
+  "RC": 0,
+  "RUN_ID": "IT-T7-2026-10-02-190353-47bb96c244bafc2c",
+  "SEGUNDOS": 9.7,
+  "EGRESSO_DEPOIS_IT": true,
+  "SAIDA_FIM": "PLANO PARA: TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fase=video-linkedin · fonte=IT-T7-253 · pagina=https://www.linkedin.com/company/cia-agricoltori-italiani/ · pais=IT · teto=2 · universo=T7\n\n  fontes deste assunto em ficha : 44\n  destas, com caminho escrito   : 32\n  destas, NAO SEI como se chega : 12\n      (IT-T7-001, IT-T7-002, IT-T7-003, IT-T7-004, IT-T7-005, IT-T7-006 ...)\n\n  quem vai correr:\n      scrap-colheita  ->  coleta/scrap_colheita.py\n          traz: a janela publica da conta — o perfil e os objetos que ela publicou — pelo executor canonico do SCRAP, com RAW preservado antes de qualquer normalizacao; e, na fase `canario-bluesky`, a cronologia publica de uma conta Bluesky pela AppView aberta, sem credencial; e, com `fase=identidade-linkedin`, o ENDERECO LinkedIn que a propria organizacao publica no site dela, como CATALOGO e nunca como colheita\n          rota: Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico) · gratuito\n      italia-recorrente  ->  coleta/italy_executor.py\n          traz: a nota tecnica ou de evento publicada pelo consorcio ou pela associacao, como HTML, com a versao do documento e o sitio onde o byte ficou\n          rota: HTTP direto · gratuito\n\n  contratos que a corrida tem de cumprir:\n      procedencia        carimba de onde veio, no momento em que entra\n      tempo do fato      separa quando o fato aconteceu de quando nos o capturamos\n      lugar do fato      separa o lugar de onde veio o documento do lugar onde o fato aconteceu\n      recibo da corrida  quem correu, quando, com que entrada, quanto trouxe e quanto custou\n\n  saida esperada: itens de «TECHNICAL NETWORK» com procedencia, tempo do fato e lugar do fato carimbados, prontos para a porta de admissao\n\n  · manifesto: 6 campo(s) do contrato ficaram NOT_PRESERVED: DATASET_ID, EVIDENCE_PATH, OUTPUT_WRITTEN_AT, RAW_EVIDENCE_PATH, RAW_EVIDENCE_STATE, SOURCE_VERSION\nCORRIDA SUCCESS · IT-T7-2026-10-02-190353-47bb96c244bafc2c\n  persistencia: DESCARTAVEL (127.0.0.1:51293/descartavel)\n  executor coleta/scrap_colheita.py @ c214b0413\n  de 2026-10-02T19:03:53Z a 2026-10-02T19:04:01Z\n  ERRO (nao e rejeicao): Could not find platform independent libraries <prefix>\n  colheita encontrada: 0 item(ns)\n",
+  "ERRO_FIM": "Could not find platform independent libraries <prefix>\n",
+  "MEDIDA": {
+   "RAW": [],
+   "DERIVED": [],
+   "SALA": []
+  }
+ },
+ "IT-T5-191:video-linkedin": {
+  "SOURCE_ID": "IT-T5-191",
+  "TERRITORY": "T5",
+  "FASE": "video-linkedin",
+  "FILTROS": {
+   "pagina": "https://www.linkedin.com/company/dipartimento-di-scienze-agrarie-ambientali/",
+   "teto": 2
+  },
+  "COMANDO": [
+   "orquestrador/orquestrador.py",
+   "colete ciencia",
+   "--filtro",
+   "fase=video-linkedin",
+   "--filtro",
+   "fonte=IT-T5-191",
+   "--filtro",
+   "pagina=https://www.linkedin.com/company/dipartimento-di-scienze-agrarie-ambientali/",
+   "--filtro",
+   "teto=2",
+   "--filtro",
+   "pais=IT",
+   "--filtro",
+   "universo=T5"
+  ],
+  "RC": 0,
+  "RUN_ID": "IT-T5-2026-10-02-190423-10edda34e31f6814",
+  "SEGUNDOS": 118.2,
+  "EGRESSO_DEPOIS_IT": true,
+  "SAIDA_FIM": "PLANO PARA: SCIENCE (T5) · PONTUAL · pedido manual · fase=video-linkedin · fonte=IT-T5-191 · pagina=https://www.linkedin.com/company/dipartimento-di-scienze-agrarie-ambientali/ · pais=IT · teto=2 · universo=T5\n\n  fontes deste assunto em ficha : 57\n  destas, com caminho escrito   : 52\n  destas, NAO SEI como se chega : 5\n      (IT-T5-001, IT-T5-002, IT-T5-003, IT-T5-004, IT-T5-005)\n\n  quem vai correr:\n      scrap-colheita  ->  coleta/scrap_colheita.py\n          traz: a janela publica da conta — o perfil e os objetos que ela publicou — pelo executor canonico do SCRAP, com RAW preservado antes de qualquer normalizacao; e, na fase `canario-bluesky`, a cronologia publica de uma conta Bluesky pela AppView aberta, sem credencial; e, com `fase=identidade-linkedin`, o ENDERECO LinkedIn que a propria organizacao publica no site dela, como CATALOGO e nunca como colheita\n          rota: Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico) · gratuito\n      italia-recorrente  ->  coleta/italy_executor.py\n          traz: a noticia ou nota do departamento universitario agrario, como HTML, com a versao do documento e o sitio onde o byte ficou\n          rota: HTTP direto · gratuito\n\n  contratos que a corrida tem de cumprir:\n      procedencia        carimba de onde veio, no momento em que entra\n      tempo do fato      separa quando o fato aconteceu de quando nos o capturamos\n      lugar do fato      separa o lugar de onde veio o documento do lugar onde o fato aconteceu\n      recibo da corrida  quem correu, quando, com que entrada, quanto trouxe e quanto custou\n\n  saida esperada: itens de «SCIENCE» com procedencia, tempo do fato e lugar do fato carimbados, prontos para a porta de admissao\n\n  · manifesto: 6 campo(s) do contrato ficaram NOT_PRESERVED: DATASET_ID, EVIDENCE_PATH, OUTPUT_WRITTEN_AT, RAW_EVIDENCE_PATH, RAW_EVIDENCE_STATE, SOURCE_VERSION\nCORRIDA SUCCESS · IT-T5-2026-10-02-190423-10edda34e31f6814\n  persistencia: DESCARTAVEL (127.0.0.1:51293/descartavel)\n  executor coleta/scrap_colheita.py @ c214b0413\n  de 2026-10-02T19:04:23Z a 2026-10-02T19:04:44Z\n  ERRO (nao e rejeicao): Could not find platform independent libraries <prefix>\n  colheita encontrada: 1 item(ns)\n  pela porta de admissao: NAO_SEI 1\n",
+  "ERRO_FIM": "Could not find platform independent libraries <prefix>\n",
+  "MEDIDA": {
+   "RAW": [
+    [
+     "3",
+     "video/mp4",
+     "3952115",
+     "t"
+    ]
+   ],
+   "DERIVED": [
+    [
+     "TRANSCRIPTION",
+     "1094"
+    ]
+   ],
+   "SALA": []
+  }
+ },
+ "IT-T5-190:video-linkedin": {
+  "SOURCE_ID": "IT-T5-190",
+  "TERRITORY": "T5",
+  "FASE": "video-linkedin",
+  "FILTROS": {
+   "pagina": "https://www.linkedin.com/company/ispra_2/",
+   "teto": 2
+  },
+  "COMANDO": [
+   "orquestrador/orquestrador.py",
+   "colete ciencia",
+   "--filtro",
+   "fase=video-linkedin",
+   "--filtro",
+   "fonte=IT-T5-190",
+   "--filtro",
+   "pagina=https://www.linkedin.com/company/ispra_2/",
+   "--filtro",
+   "teto=2",
+   "--filtro",
+   "pais=IT",
+   "--filtro",
+   "universo=T5"
+  ],
+  "RC": 0,
+  "RUN_ID": "IT-T5-2026-10-02-190641-4cbbc22776824198",
+  "SEGUNDOS": 8.2,
+  "EGRESSO_DEPOIS_IT": true,
+  "SAIDA_FIM": "PLANO PARA: SCIENCE (T5) · PONTUAL · pedido manual · fase=video-linkedin · fonte=IT-T5-190 · pagina=https://www.linkedin.com/company/ispra_2/ · pais=IT · teto=2 · universo=T5\n\n  fontes deste assunto em ficha : 57\n  destas, com caminho escrito   : 52\n  destas, NAO SEI como se chega : 5\n      (IT-T5-001, IT-T5-002, IT-T5-003, IT-T5-004, IT-T5-005)\n\n  quem vai correr:\n      scrap-colheita  ->  coleta/scrap_colheita.py\n          traz: a janela publica da conta — o perfil e os objetos que ela publicou — pelo executor canonico do SCRAP, com RAW preservado antes de qualquer normalizacao; e, na fase `canario-bluesky`, a cronologia publica de uma conta Bluesky pela AppView aberta, sem credencial; e, com `fase=identidade-linkedin`, o ENDERECO LinkedIn que a propria organizacao publica no site dela, como CATALOGO e nunca como colheita\n          rota: Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico) · gratuito\n      italia-recorrente  ->  coleta/italy_executor.py\n          traz: a noticia ou nota do departamento universitario agrario, como HTML, com a versao do documento e o sitio onde o byte ficou\n          rota: HTTP direto · gratuito\n\n  contratos que a corrida tem de cumprir:\n      procedencia        carimba de onde veio, no momento em que entra\n      tempo do fato      separa quando o fato aconteceu de quando nos o capturamos\n      lugar do fato      separa o lugar de onde veio o documento do lugar onde o fato aconteceu\n      recibo da corrida  quem correu, quando, com que entrada, quanto trouxe e quanto custou\n\n  saida esperada: itens de «SCIENCE» com procedencia, tempo do fato e lugar do fato carimbados, prontos para a porta de admissao\n\n  · manifesto: 6 campo(s) do contrato ficaram NOT_PRESERVED: DATASET_ID, EVIDENCE_PATH, OUTPUT_WRITTEN_AT, RAW_EVIDENCE_PATH, RAW_EVIDENCE_STATE, SOURCE_VERSION\nCORRIDA SUCCESS · IT-T5-2026-10-02-190641-4cbbc22776824198\n  persistencia: DESCARTAVEL (127.0.0.1:51293/descartavel)\n  executor coleta/scrap_colheita.py @ c214b0413\n  de 2026-10-02T19:06:41Z a 2026-10-02T19:06:49Z\n  ERRO (nao e rejeicao): Could not find platform independent libraries <prefix>\n  colheita encontrada: 0 item(ns)\n",
+  "ERRO_FIM": "Could not find platform independent libraries <prefix>\n",
+  "MEDIDA": {
+   "RAW": [],
+   "DERIVED": [],
+   "SALA": []
+  }
+ },
+ "IT-T7-254:video-linkedin": {
+  "SOURCE_ID": "IT-T7-254",
+  "TERRITORY": "T7",
+  "FASE": "video-linkedin",
+  "FILTROS": {
+   "pagina": "https://www.linkedin.com/company/consorzio-tutela-grana-padano/",
+   "teto": 2
+  },
+  "COMANDO": [
+   "orquestrador/orquestrador.py",
+   "colete cooperativas",
+   "--filtro",
+   "fase=video-linkedin",
+   "--filtro",
+   "fonte=IT-T7-254",
+   "--filtro",
+   "pagina=https://www.linkedin.com/company/consorzio-tutela-grana-padano/",
+   "--filtro",
+   "teto=2",
+   "--filtro",
+   "pais=IT",
+   "--filtro",
+   "universo=T7"
+  ],
+  "RC": 0,
+  "RUN_ID": "IT-T7-2026-10-02-190710-b892a95fa80bfa8c",
+  "SEGUNDOS": 8.3,
+  "EGRESSO_DEPOIS_IT": true,
+  "SAIDA_FIM": "PLANO PARA: TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fase=video-linkedin · fonte=IT-T7-254 · pagina=https://www.linkedin.com/company/consorzio-tutela-grana-padano/ · pais=IT · teto=2 · universo=T7\n\n  fontes deste assunto em ficha : 44\n  destas, com caminho escrito   : 32\n  destas, NAO SEI como se chega : 12\n      (IT-T7-001, IT-T7-002, IT-T7-003, IT-T7-004, IT-T7-005, IT-T7-006 ...)\n\n  quem vai correr:\n      scrap-colheita  ->  coleta/scrap_colheita.py\n          traz: a janela publica da conta — o perfil e os objetos que ela publicou — pelo executor canonico do SCRAP, com RAW preservado antes de qualquer normalizacao; e, na fase `canario-bluesky`, a cronologia publica de uma conta Bluesky pela AppView aberta, sem credencial; e, com `fase=identidade-linkedin`, o ENDERECO LinkedIn que a propria organizacao publica no site dela, como CATALOGO e nunca como colheita\n          rota: Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico) · gratuito\n      italia-recorrente  ->  coleta/italy_executor.py\n          traz: a nota tecnica ou de evento publicada pelo consorcio ou pela associacao, como HTML, com a versao do documento e o sitio onde o byte ficou\n          rota: HTTP direto · gratuito\n\n  contratos que a corrida tem de cumprir:\n      procedencia        carimba de onde veio, no momento em que entra\n      tempo do fato      separa quando o fato aconteceu de quando nos o capturamos\n      lugar do fato      separa o lugar de onde veio o documento do lugar onde o fato aconteceu\n      recibo da corrida  quem correu, quando, com que entrada, quanto trouxe e quanto custou\n\n  saida esperada: itens de «TECHNICAL NETWORK» com procedencia, tempo do fato e lugar do fato carimbados, prontos para a porta de admissao\n\n  · manifesto: 6 campo(s) do contrato ficaram NOT_PRESERVED: DATASET_ID, EVIDENCE_PATH, OUTPUT_WRITTEN_AT, RAW_EVIDENCE_PATH, RAW_EVIDENCE_STATE, SOURCE_VERSION\nCORRIDA SUCCESS · IT-T7-2026-10-02-190710-b892a95fa80bfa8c\n  persistencia: DESCARTAVEL (127.0.0.1:51293/descartavel)\n  executor coleta/scrap_colheita.py @ c214b0413\n  de 2026-10-02T19:07:10Z a 2026-10-02T19:07:17Z\n  ERRO (nao e rejeicao): Could not find platform independent libraries <prefix>\n  colheita encontrada: 0 item(ns)\n",
+  "ERRO_FIM": "Could not find platform independent libraries <prefix>\n",
+  "MEDIDA": {
+   "RAW": [],
+   "DERIVED": [],
+   "SALA": []
+  }
+ },
+ "IT-T9-025:video-linkedin": {
+  "SOURCE_ID": "IT-T9-025",
+  "TERRITORY": "T9",
+  "FASE": "video-linkedin",
+  "FILTROS": {
+   "pagina": "https://www.linkedin.com/company/gruppocaviro/",
+   "teto": 2
+  },
+  "COMANDO": [
+   "orquestrador/orquestrador.py",
+   "colete concorrentes",
+   "--filtro",
+   "fase=video-linkedin",
+   "--filtro",
+   "fonte=IT-T9-025",
+   "--filtro",
+   "pagina=https://www.linkedin.com/company/gruppocaviro/",
+   "--filtro",
+   "teto=2",
+   "--filtro",
+   "pais=IT",
+   "--filtro",
+   "universo=T9"
+  ],
+  "RC": 0,
+  "RUN_ID": "IT-T9-2026-10-02-190738-3b6740fbf7a41ed8",
+  "SEGUNDOS": 204.9,
+  "EGRESSO_DEPOIS_IT": true,
+  "SAIDA_FIM": "inkedin · fonte=IT-T9-025 · pagina=https://www.linkedin.com/company/gruppocaviro/ · pais=IT · teto=2 · universo=T9\n\n  fontes deste assunto em ficha : 24\n  destas, com caminho escrito   : 15\n  destas, NAO SEI como se chega : 9\n      (EU-T9-002, IT-T9-001, IT-T9-002, IT-T9-003, IT-T9-004, IT-T9-005 ...)\n\n  quem vai correr:\n      scrap-colheita  ->  coleta/scrap_colheita.py\n          traz: a janela publica da conta — o perfil e os objetos que ela publicou — pelo executor canonico do SCRAP, com RAW preservado antes de qualquer normalizacao; e, na fase `canario-bluesky`, a cronologia publica de uma conta Bluesky pela AppView aberta, sem credencial; e, com `fase=identidade-linkedin`, o ENDERECO LinkedIn que a propria organizacao publica no site dela, como CATALOGO e nunca como colheita\n          rota: Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico) · gratuito\n      comunicacao-publica  ->  coleta/comunicacao_coleta.py\n          traz: o que o concorrente publicou em canal aberto, com a data e o endereco de onde veio — e, com `fase=transcrever`, a FALA do video, num campo separado da legenda\n          rota: YouTube, Instagram, LinkedIn, Facebook · pago quando passa pela rota Apify; `transcrever` custa zero dolares e paga-se em tempo de maquina\n      concorrencia-meta  ->  coleta/concorrencia_meta.py\n          traz: os cartoes de anuncio pago que cada pagina de concorrente (e da ADAMA) mostrou a quem estava na Italia, com o snapshot datado, o RAW da pagina e a comparacao com a rodada anterior\n          rota: Meta Ads Library (Chrome com janela, sem login) · gratuito (tempo de maquina e VPN italiana)\n      italia-recorrente  ->  coleta/italy_executor.py\n          traz: a pagina da fonte web nomeada no pedido (noticia, boletim, documento), como HTML ou PDF, com a versao do documento e o sitio onde o byte ficou\n          rota: HTTP direto · gratuito\n\n  contratos que a corrida tem de cumprir:\n      procedencia        carimba de onde veio, no momento em que entra\n      tempo do fato      separa quando o fato aconteceu de quando nos o capturamos\n      lugar do fato      separa o lugar de onde veio o documento do lugar onde o fato aconteceu\n      recibo da corrida  quem correu, quando, com que entrada, quanto trouxe e quanto custou\n\n  saida esperada: itens de «COMPETITORS» com procedencia, tempo do fato e lugar do fato carimbados, prontos para a porta de admissao\n\n  · manifesto: 6 campo(s) do contrato ficaram NOT_PRESERVED: DATASET_ID, EVIDENCE_PATH, OUTPUT_WRITTEN_AT, RAW_EVIDENCE_PATH, RAW_EVIDENCE_STATE, SOURCE_VERSION\nCORRIDA SUCCESS · IT-T9-2026-10-02-190738-3b6740fbf7a41ed8\n  persistencia: DESCARTAVEL (127.0.0.1:51293/descartavel)\n  executor coleta/scrap_colheita.py @ c214b0413\n  de 2026-10-02T19:07:38Z a 2026-10-02T19:08:08Z\n  ERRO (nao e rejeicao): Could not find platform independent libraries <prefix>\n  colheita encontrada: 2 item(ns)\n  pela porta de admissao: NAO_SEI 2\n",
+  "ERRO_FIM": "Could not find platform independent libraries <prefix>\n",
+  "MEDIDA": {
+   "RAW": [
+    [
+     "4",
+     "video/mp4",
+     "3776684",
+     "t"
+    ],
+    [
+     "5",
+     "video/mp4",
+     "2587646",
+     "t"
+    ]
+   ],
+   "DERIVED": [
+    [
+     "TRANSCRIPTION",
+     "452"
+    ],
+    [
+     "TRANSCRIPTION",
+     "295"
+    ]
+   ],
+   "SALA": []
+  }
+ }
+}

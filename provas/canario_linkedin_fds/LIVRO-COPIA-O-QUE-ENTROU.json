@@ -1,0 +1,126 @@
+{
+ "DATASET": "CANARIO-LINKEDIN-FDS-LIVRO-COPIA-O-QUE-ENTROU",
+ "LEI": "so o que a regua --aplicar --copia ACRESCENTOU a copia do livro do servico (append-only); o livro vivo NAO foi tocado",
+ "TRANSICOES_ANTES": 5710,
+ "TRANSICOES_DEPOIS": 5713,
+ "PROVAS_ANTES": 5957,
+ "PROVAS_DEPOIS": 5963,
+ "TRANSICOES_NOVAS": [
+  {
+   "SOURCE_ID": "IT-T9-026",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario do Scrap (video-linkedin): 2 itens (2 da propria pagina) com identidade da plataforma e data, autorizacao do dono e politica escritas; 2 linhas RAW no banco",
+   "EVIDENCE_REF": "EV-IT-T9-026-CANARY_SOCIAL-5958",
+   "OBSERVED_AT": "2026-10-02T19:15:15.388704+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-191",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario do Scrap (video-linkedin): 1 itens (1 da propria pagina) com identidade da plataforma e data, autorizacao do dono e politica escritas; 1 linhas RAW no banco",
+   "EVIDENCE_REF": "EV-IT-T5-191-CANARY_SOCIAL-5960",
+   "OBSERVED_AT": "2026-10-02T19:15:16.541899+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-025",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario do Scrap (video-linkedin): 2 itens (2 da propria pagina) com identidade da plataforma e data, autorizacao do dono e politica escritas; 2 linhas RAW no banco",
+   "EVIDENCE_REF": "EV-IT-T9-025-CANARY_SOCIAL-5963",
+   "OBSERVED_AT": "2026-10-02T19:15:18.132147+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  }
+ ],
+ "PROVAS_NOVAS": [
+  {
+   "EVIDENCE_REF": "EV-IT-T9-026-CANARY_SOCIAL-5958",
+   "SOURCE_ID": "IT-T9-026",
+   "ETAPA": "CANARY_SOCIAL",
+   "OBSERVED_AT": "2026-10-02T19:15:15.031482+00:00",
+   "DADOS": {
+    "SOURCE_ID": "IT-T9-026",
+    "FASE": "video-linkedin",
+    "FASE_DA_CORRIDA": "video-linkedin",
+    "RUN_ID": "IT-T9-2026-10-02-190227-f7815ad411f55b0a",
+    "VEREDITO": "READY",
+    "PORQUE": "canario do Scrap (video-linkedin): 2 itens (2 da propria pagina) com identidade da plataforma e data, autorizacao do dono e politica escritas; 2 linhas RAW no banco"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-253-CANARY_SOCIAL-5959",
+   "SOURCE_ID": "IT-T7-253",
+   "ETAPA": "CANARY_SOCIAL",
+   "OBSERVED_AT": "2026-10-02T19:15:15.752768+00:00",
+   "DADOS": {
+    "SOURCE_ID": "IT-T7-253",
+    "FASE": "video-linkedin",
+    "FASE_DA_CORRIDA": "video-linkedin",
+    "RUN_ID": "IT-T7-2026-10-02-190353-47bb96c244bafc2c",
+    "VEREDITO": "ZERO",
+    "PORQUE": "a rota abriu e nao havia item publico (ZERO_RESULTS): zero legitimo, nao prontidao"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-191-CANARY_SOCIAL-5960",
+   "SOURCE_ID": "IT-T5-191",
+   "ETAPA": "CANARY_SOCIAL",
+   "OBSERVED_AT": "2026-10-02T19:15:16.205428+00:00",
+   "DADOS": {
+    "SOURCE_ID": "IT-T5-191",
+    "FASE": "video-linkedin",
+    "FASE_DA_CORRIDA": "video-linkedin",
+    "RUN_ID": "IT-T5-2026-10-02-190423-10edda34e31f6814",
+    "VEREDITO": "READY",
+    "PORQUE": "canario do Scrap (video-linkedin): 1 itens (1 da propria pagina) com identidade da plataforma e data, autorizacao do dono e politica escritas; 1 linhas RAW no banco"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-190-CANARY_SOCIAL-5961",
+   "SOURCE_ID": "IT-T5-190",
+   "ETAPA": "CANARY_SOCIAL",
+   "OBSERVED_AT": "2026-10-02T19:15:16.902076+00:00",
+   "DADOS": {
+    "SOURCE_ID": "IT-T5-190",
+    "FASE": "video-linkedin",
+    "FASE_DA_CORRIDA": "video-linkedin",
+    "RUN_ID": "IT-T5-2026-10-02-190641-4cbbc22776824198",
+    "VEREDITO": "ZERO",
+    "PORQUE": "a rota abriu e nao havia item publico (ZERO_RESULTS): zero legitimo, nao prontidao"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-254-CANARY_SOCIAL-5962",
+   "SOURCE_ID": "IT-T7-254",
+   "ETAPA": "CANARY_SOCIAL",
+   "OBSERVED_AT": "2026-10-02T19:15:17.306433+00:00",
+   "DADOS": {
+    "SOURCE_ID": "IT-T7-254",
+    "FASE": "video-linkedin",
+    "FASE_DA_CORRIDA": "video-linkedin",
+    "RUN_ID": "IT-T7-2026-10-02-190710-b892a95fa80bfa8c",
+    "VEREDITO": "ZERO",
+    "PORQUE": "a rota abriu e nao havia item publico (ZERO_RESULTS): zero legitimo, nao prontidao"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T9-025-CANARY_SOCIAL-5963",
+   "SOURCE_ID": "IT-T9-025",
+   "ETAPA": "CANARY_SOCIAL",
+   "OBSERVED_AT": "2026-10-02T19:15:17.746450+00:00",
+   "DADOS": {
+    "SOURCE_ID": "IT-T9-025",
+    "FASE": "video-linkedin",
+    "FASE_DA_CORRIDA": "video-linkedin",
+    "RUN_ID": "IT-T9-2026-10-02-190738-3b6740fbf7a41ed8",
+    "VEREDITO": "READY",
+    "PORQUE": "canario do Scrap (video-linkedin): 2 itens (2 da propria pagina) com identidade da plataforma e data, autorizacao do dono e politica escritas; 2 linhas RAW no banco"
+   }
+  }
+ ]
+}
