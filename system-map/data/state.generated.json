@@ -4887,9 +4887,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/casco-cruzamento-v1",
-    "HEAD": "68870df1cb5ac527cf468778eebbb472d6b12b9b",
-    "GENERATED_AT": "2026-10-02T04:05:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0e853f316d8cecb1408fa3d1b6de92d13c57a80e1794c3c51f76fc2136f9c8a7"
+    "HEAD": "221b899f1446f1caaded3b071be645db09ecdb4d",
+    "GENERATED_AT": "2026-10-02T04:25:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "38be8b49c8d0c41342e8cbf75f3f9e2aad255862b5e6d85b5732f9147b6d9c3d"
   },
   "FAMILIES": [
     {
@@ -51210,6 +51210,7 @@
         "C-INT-FILA-BULAS",
         "C-INT-MOTOR-CAPACIDADES",
         "C-LUGAR-COLETA",
+        "C-PORTAL-MODELO",
         "C-POTE-INT-CASCO",
         "C-PRECO-DE-MERCADO",
         "C-PROVA-COLETA",
@@ -51267,9 +51268,9 @@
         "PLANO": null,
         "PROVA": [
           "coleta/concorrencia_meta.py:72",
+          "italia-portale/client/sintonia-cruzamento-publicado.js:6",
           "leis/boletim_do_campo.py:785",
-          "leis/preco_de_mercado.py:339",
-          "motor/cap_win.py:87"
+          "leis/preco_de_mercado.py:339"
         ],
         "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -58391,6 +58392,7 @@
       "inbound": [
         "C-ADAMA-REFERENCE",
         "C-AUDIT-CASCO",
+        "C-INT-PORTA-REFERENCIA",
         "C-LASTMILE",
         "C-PORTAL-DADOS",
         "C-PROVA-PUBLICA-SOZINHO",
@@ -58418,7 +58420,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 27
+        "ITALIA": 29
       },
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
@@ -58474,6 +58476,7 @@
         "italia-portale/client/upstream/IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json",
         "italia-portale/client/upstream/IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json",
         "italia-portale/client/upstream/IT-TOP3-SENSORES-V1.json",
+        "motor/porta_da_referencia.py",
         "referencia/adama/PRODUCT-ACTIVE-INGREDIENTS.json",
         "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json",
         "research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json",
@@ -117413,6 +117416,41 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-PORTA-REFERENCIA",
+      "to": "C-PORTAL-MODELO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta unica da referencia ADAMA — bulas e portfolio, uma edicao alimenta Modelo de aplicacao do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/sintonia-cruzamento-publicado.js",
+          "line": 6,
+          "snippet": "window.SINTONIA_CRUZAMENTO_PUBLICADO = {\"CRUZAMENTO_SHA256\": \"6fce1c0bd1385fdf2ad2994296c035c09a362bfecff54c1b217d28a67eb995bd\", \"REMESSA\": \"remessa-001\", \"PUBL",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-PORTA-REFERENCIA--READS-->C-PORTAL-MODELO",
+            "FROM": "C-INT-PORTA-REFERENCIA",
+            "TO": "C-PORTAL-MODELO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -178451,8 +178489,8 @@
     "components_pending": 277,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1974,
-    "edges_proven": 1905,
+    "edges": 1975,
+    "edges_proven": 1906,
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4293,

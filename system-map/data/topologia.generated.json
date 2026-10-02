@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-02T07:10:35+00:00",
-  "HEAD": "68870df1cb5ac527cf468778eebbb472d6b12b9b",
+  "GENERATED_AT": "2026-10-02T07:33:49+00:00",
+  "HEAD": "221b899f1446f1caaded3b071be645db09ecdb4d",
   "BRANCH": "claude/casco-cruzamento-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "0e853f316d8cecb1408fa3d1b6de92d13c57a80e1794c3c51f76fc2136f9c8a7",
+  "SOURCE_TREE_FINGERPRINT": "38be8b49c8d0c41342e8cbf75f3f9e2aad255862b5e6d85b5732f9147b6d9c3d",
   "FICHEIROS_NA_IMPRESSAO": 4441,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2190,14 +2190,14 @@
    {
     "PATH": "italia-portale/client/sintonia-cruzamento-casco.js",
     "PAPEL": "FONTE",
-    "VERSAO": "c675b7a1bd339586b62f5fc2fc74aa0a049ce3de",
+    "VERSAO": "588f1dd51a03fbd4299737fc08f5f7975205db3b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "italia-portale/client/sintonia-cruzamento-publicado.js",
     "PAPEL": "FONTE",
-    "VERSAO": "3252691dbc556702b1125f93b2a4e66503c40d1a",
+    "VERSAO": "b8639ab226019bac232ae558571899280fcc6fd5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5725,14 +5725,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0e853f316d8cecb1408fa3d1b6de92d13c57a80e1794c3c51f76fc2136f9c8a7",
+    "VERSAO": "38be8b49c8d0c41342e8cbf75f3f9e2aad255862b5e6d85b5732f9147b6d9c3d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0e853f316d8cecb1408fa3d1b6de92d13c57a80e1794c3c51f76fc2136f9c8a7",
+    "VERSAO": "38be8b49c8d0c41342e8cbf75f3f9e2aad255862b5e6d85b5732f9147b6d9c3d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8475,7 +8475,7 @@
    }
   ],
   "INPUTS_COUNT": 1205,
-  "INPUTS_DIGEST": "143e19bcb0220610987ce407739e21a3e31308992640d7fc1fda683b9e454347",
+  "INPUTS_DIGEST": "3be2db6ed8332621ad08e448a945dd4689e6df2c8680cc72a8e9bab44bbb8a46",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8508,8 +8508,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "7eb1739a131969f74daf48382ef0fe6a2eef14f908b096e5ef5a82bdf114e8d7",
-  "SEMANTIC_HASH": "9e66d90bb4bc9e2962ae3dfbca3c5ae468b5e19b1c9eed65e0dae16dabb458cf"
+  "MEASUREMENT_HASH": "b4340669dd74288f57465e3a6662122823c101adc32993367c204b9c4b43ded5",
+  "SEMANTIC_HASH": "81e1b66e51f3c50bcb2556ea6ae23738e16287c6a50504619f9bf6819d682a6d"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -31596,6 +31596,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-VOCI-DAL-CAMPO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INT-PORTA-REFERENCIA--READS-->C-PORTAL-MODELO",
+    "FROM": "C-INT-PORTA-REFERENCIA",
+    "TO": "C-PORTAL-MODELO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "italia-portale/client/sintonia-cruzamento-publicado.js",
+      "LINHA": 6,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-PORTA-REFERENCIA--READS-->C-PORTAL-MODELO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -65907,12 +65929,12 @@
     ]
    }
   ],
-  "COUNT": 1877
+  "COUNT": 1878
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 242,
   "CARTOES_AUDITADOS": 242,
-  "ARESTAS_RELACIONADAS": 1877,
+  "ARESTAS_RELACIONADAS": 1878,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -66431,7 +66453,7 @@
    "CONTROL": 90,
    "DATA": 30,
    "PROOF": 665,
-   "READ": 423,
+   "READ": 424,
    "RULE": 297,
    "WRITE": 23
   },
@@ -70827,7 +70849,7 @@
     "pathlib"
    ],
    "ENTRAM": 2,
-   "SAEM": 18,
+   "SAEM": 19,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ"
@@ -73478,7 +73500,7 @@
     "withered",
     "working"
    ],
-   "ENTRAM": 8,
+   "ENTRAM": 9,
    "SAEM": 16,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
