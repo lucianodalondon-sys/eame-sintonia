@@ -6,10 +6,10 @@
     "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
   ],
   "PROVENANCE": {
-    "HEAD": "0156ecf0e87791d6f678f200410bdcee80ad6211",
-    "BRANCH": "coord/t9-social-catalogo",
-    "GENERATED_AT": "2026-10-02T00:11:56+00:00",
-    "SOURCE_TREE_FINGERPRINT": "ff0af8a103e9dc0dc29aa35661e554a7158b3e3086f72d98b7361589e3ed59b4"
+    "HEAD": "75d6304da7b081a6b84e4994b9794184134aafe5",
+    "BRANCH": "coord/social-onda",
+    "GENERATED_AT": "2026-10-02T07:15:10+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ce6fc0b5515b168fce3107182504476f155a182c697c336265b8f299d9788d26"
   },
   "CARIMBOS_NAO_COMPARAVEIS": [
     "HEAD",
@@ -20,11 +20,11 @@
     "PROVENANCE"
   ],
   "RESUMO": {
-    "ARESTAS_TOTAL": 1955,
-    "LINHAS_PARTILHADAS": 185,
+    "ARESTAS_TOTAL": 1957,
+    "LINHAS_PARTILHADAS": 186,
     "LINHAS_PARTILHADAS_ENTRE_TIPOS": 81,
-    "ARESTAS_REVISTAS": 227,
-    "SUPPORTED": 185,
+    "ARESTAS_REVISTAS": 229,
+    "SUPPORTED": 187,
     "AMBIGUOUS": 27,
     "UNSUPPORTED": 15,
     "SEM_PORQUE": [],
@@ -32,7 +32,7 @@
       "AMBIGUOUS·READS": 27,
       "SUPPORTED·ALIMENTA": 2,
       "SUPPORTED·IMPORTS": 35,
-      "SUPPORTED·READS": 125,
+      "SUPPORTED·READS": 127,
       "SUPPORTED·RUNS": 23,
       "UNSUPPORTED·ABRE_O_CANAL": 3,
       "UNSUPPORTED·ENTREGA_A_LISTA": 4,
@@ -1587,6 +1587,34 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-COLETA",
+      "FROM": "C-CENSO-UNIFICACAO",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/t9_social/ensaio_social.py",
+          "line": 68,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-COLETA",
+        "FROM": "C-CENSO-UNIFICACAO",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-ROTAS-REAIS",
       "FROM": "C-CENSO-UNIFICACAO",
       "TO": "C-PROVA-ROTAS-REAIS",
@@ -2498,6 +2526,34 @@
         "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
         "FROM": "C-DETECTOR-CAPA-GABARITO",
         "TO": "C-ORDENS-63",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-COLETA",
+      "FROM": "C-DETECTOR-CAPA-GABARITO",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/t9_social/ensaio_social.py",
+          "line": 68,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-COLETA",
+        "FROM": "C-DETECTOR-CAPA-GABARITO",
+        "TO": "C-PROVA-COLETA",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
@@ -5373,6 +5429,11 @@
         {
           "file": "provas/rodadas_mutacao.py",
           "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/t9_social/mutacao_porta_social.py",
+          "line": 24,
           "SUPPORTS": "YES"
         },
         {
