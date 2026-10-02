@@ -490,7 +490,9 @@ def conferir(saida, fatos, sinais, ref, fen, hoje=None, ctx=None, hist=None):
         problemas += ["FACT_ID_INEXISTENTE:%s" % i for i in fids if i not in fatos]
         problemas += ["USE_ID_INEXISTENTE:%s" % i for i in uids if i not in ref["USE_IDS"]]
         problemas += ["FENOLOGIA_ID_INEXISTENTE:%s" % i for i in pids if i not in fen["IDS"]]
-        problemas += ["CONTEXTO_ID_INEXISTENTE:%s" % i for i in cids if i not in ctx_ids and i not in hist_ids]
+        # id de fenologia (bloco E) citado em CONTEXTO_IDs existe: conta como FENOLOGIA (medido 02/10, 3/3 rejeitados)
+        problemas += ["CONTEXTO_ID_INEXISTENTE:%s" % i for i in cids
+                      if i not in ctx_ids and i not in hist_ids and i not in fen["IDS"]]
         for sc in o.get("SINAIS_CRUZADOS") or []:
             if sc.get("SIGNAL_ID") not in sinais_ids:
                 problemas.append("SIGNAL_ID_INEXISTENTE:%s" % sc.get("SIGNAL_ID"))
@@ -529,7 +531,8 @@ def conferir(saida, fatos, sinais, ref, fen, hoje=None, ctx=None, hist=None):
         regua_do_destino(o)
         o["CONTEXTOS_CITADOS"] = sorted({ctx_ids[i] for i in cids if i in ctx_ids} |
                                         ({"HISTORICO"} if any(i in hist_ids for i in cids) else set()) |
-                                        ({"REFERENCIA_ADAMA"} if uids else set()) | ({"FENOLOGIA"} if pids else set()))
+                                        ({"REFERENCIA_ADAMA"} if uids else set()) |
+                                        ({"FENOLOGIA"} if pids or any(i in fen["IDS"] for i in cids) else set()))
         o["CONTEXTO_IDs"] = cids
         texto_it_afirma_nao_sei(o)
         # medidas do Done (nao filtram)

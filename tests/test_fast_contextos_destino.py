@@ -70,6 +70,11 @@ class ContextoIds(unittest.TestCase):
         self.assertEqual(rej, [])
         self.assertEqual(ok[0]["CONTEXTOS_CITADOS"], ["CLI", "HISTORICO", "RES"])
 
+    def test_fenologia_citada_em_contexto_ids_existe(self):
+        ok, rej = _conf(_obj(ctx_ids=["IT-PHEN-001"]))
+        self.assertEqual(rej, [])
+        self.assertEqual(ok[0]["CONTEXTOS_CITADOS"], ["FENOLOGIA"])
+
     def test_contexto_sozinho_sem_fato_rejeita(self):
         o = _obj(ctx_ids=["CTX-CLI-001"])
         o["FACT_IDs"] = []
