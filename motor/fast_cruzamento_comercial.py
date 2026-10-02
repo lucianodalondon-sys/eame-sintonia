@@ -48,12 +48,49 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 from motor import porta_da_referencia as PORTA  # noqa: E402
 
-VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v1"
+VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v2-contextos"
 MODELO = os.environ.get("FAST_MODELO", "claude-opus-5")
 JANELAS_DIR = RAIZ / "build" / "ITALY-REALITY-HANDOFF-V2" / "PREVIOUS-HANDOFF" / "01-DESIGN-READY" / "CROP-WINDOWS"
 FENOLOGIA = JANELAS_DIR / "current-phenology.json"
 JANELAS = JANELAS_DIR / "crop-windows.json"
 PROMPT_FILE = Path(__file__).with_name("fast_cruzamento_comercial.prompt.md")
+HANDOFF = RAIZ / "build" / "ITALY-REALITY-HANDOFF-V2"
+_DR = Path("PREVIOUS-HANDOFF") / "01-DESIGN-READY"
+#: FDS v0.2 sec.11 — dominios de conhecimento que o Opus le dos ficheiros que JA existem (nenhum banco novo).
+#: (SIGLA, DOMINIO, ficheiro relativo ao handoff, lista, campos mostrados). O ID e o do registo, ou
+#: CTX-<SIGLA>-<n> (posicao 1-based no ficheiro, cujo sha256 vai carimbado no JSON da rodada).
+DOMINIOS = (
+    ("CLI", "CLIMA / AGROMETEOROLOGIA", Path("AGROMET-CONDITIONS.json"), "RECORDS",
+     ("tipo", "o_que", "valor", "periodo", "region", "source_name")),
+    ("FIT", "FITOSSANITARIO / FENOLOGIA DE CAMPO (boletins)", Path("CURRENT-FIELD-SIGNALS.json"), "RECORDS",
+     ("tipo", "o_que", "periodo", "region", "source_name")),
+    ("HRB", "HERBICIDAS — JANELA E CONTEXTO CORRENTE", Path("HERBICIDE-CURRENT-CONTEXT.json"), "RECORDS",
+     ("tipo", "crop", "o_que", "o_que_nao_prova")),
+    ("MKT", "MERCADO (precos, producao, oferta)", Path("MARKET-OBSERVATIONS.json"), "RECORDS",
+     ("tipo", "crop", "o_que", "valor", "unidade", "periodo", "region")),
+    ("PES", "PESO ECONOMICO DA CULTURA / GEOGRAFIA", Path("CROP-ECONOMIC-WEIGHT.json"), "RECORDS",
+     ("tipo", "crop", "region", "o_que", "periodo")),
+    ("CON", "CONCORRENCIA (sinais publicos)", Path("COMPETITOR-PUBLIC-SIGNALS.json"), "RECORDS",
+     ("tipo", "o_que", "source_name", "publication_date")),
+    ("FUT", "EVENTOS FUTUROS", Path("FUTURE-EVENTS.json"), "RECORDS", ("tipo", "o_que", "periodo", "region")),
+    ("RES", "CIENCIA — RESISTENCIA A HERBICIDAS", _DR / "SCIENCE" / "herbicide-resistance.json", "RESISTANCES",
+     ("SPECIES", "MECHANISM", "CROP_DECLARED", "REGIONS", "FIRST_CASE_YEAR")),
+    ("SCI", "CIENCIA — REGISTOS CIENTIFICOS", _DR / "SCIENCE" / "scientific-records.json", "RECORDS",
+     ("TITLE", "PUBLISHED_AT", "CROP", "ISSUE", "COUNTRY_OF_FACT")),
+    ("TEM", "CIENCIA — TEMAS DE PESQUISA", _DR / "SCIENCE" / "research-themes.json", "THEMES",
+     ("THEME", "WORKS", "AUTHORS_IT", "AUTHORS_ACTIVE_SINCE_2024")),
+    ("PER", "PESQUISADORES", _DR / "SCIENCE" / "researchers.json", "RESEARCHERS",
+     ("PERSON", "INSTITUTIONS", "THEME", "LAST_ACTIVITY", "FACT_REGION")),
+)
+#: dominios do FDS sec.11 sem ficheiro proprio lido aqui — declarados, nunca inventados
+DOMINIOS_SEM_FICHEIRO = {"SOCIAL / CAMPO (LinkedIn, Instagram, YouTube)": "NAO_DISPONIVEL — so entra pelos factos da remessa"}
+#: FDS (ordem do dono 02/10): para onde o objeto vai no Casco. Um objeto pode ir a mais de uma ferramenta.
+DESTINOS = ("OPPORTUNITY_RADAR", "FUTURE_RADAR", "PORTAFOGLIO", "CROP_WINDOWS", "LABEL_INTELLIGENCE",
+            "MARKET_PULSE", "RESEARCH", "COMPETITION", "ACTION_BRIEF")
+#: FDS v0.2 sec.15: Opportunity Radar so OPORTUNIDADE; Future Radar recebe LEAD e SINAL; Portafoglio mostra GAPS.
+DESTINO_DA_CLASSE = {"OPORTUNIDADE": "OPPORTUNITY_RADAR", "SINAL": "FUTURE_RADAR", "LEAD": "FUTURE_RADAR",
+                     "GAP": "PORTAFOGLIO"}
+HISTORICO_RODADAS = 6
 CLASSES = ("SINAL", "LEAD", "GAP", "OPORTUNIDADE")
 CAMPOS = ("O_QUE_ACONTECEU", "CULTURA", "LOCAL", "PROBLEMA", "JANELA", "PRODUTO_ADAMA",
           "AUTORIZACAO_LABEL", "POR_QUE_AGORA", "ACAO_COMERCIAL")
@@ -127,6 +164,66 @@ def contexto_fenologia():
             "SHA256": {"current-phenology.json": _sha(FENOLOGIA), "crop-windows.json": _sha(JANELAS)}}
 
 
+def _linha_ctx(sigla, i, r, campos):
+    rid = r.get("ID") or "CTX-%s-%03d" % (sigla, i)
+    partes = []
+    for k in campos:
+        v = r.get(k)
+        if v in (None, "", []):
+            continue
+        if isinstance(v, (list, dict)):
+            v = json.dumps(v, ensure_ascii=False)
+        partes.append("%s=%s" % (k, _corta(v, 300 if k in ("o_que", "TITLE") else 110)))
+    return rid, "%s | %s" % (rid, " | ".join(partes))
+
+
+def contexto_dominios(raiz=None):
+    """Le os dominios do FDS sec.11 dos ficheiros existentes do handoff Italia V2. Nada e copiado nem filtrado por
+    relevancia (isso e do Opus); ficheiro ausente = dominio NAO_DISPONIVEL, declarado."""
+    raiz = Path(raiz) if raiz else HANDOFF
+    blocos, ids, carimbo = [], {}, OrderedDict()
+    for sigla, nome, rel, lista, campos in DOMINIOS:
+        f = raiz / rel
+        if not f.exists():
+            carimbo[sigla] = {"DOMINIO": nome, "ESTADO": "NAO_DISPONIVEL", "FICHEIRO": rel.as_posix()}
+            continue
+        d = json.loads(f.read_text(encoding="utf-8"))
+        regs = d.get(lista) or []
+        linhas = []
+        for i, r in enumerate(regs, 1):
+            rid, ln = _linha_ctx(sigla, i, r, campos)
+            assert rid not in ids, "CONTEXTO_ID repetido: %s" % rid
+            ids[rid] = sigla
+            linhas.append(ln)
+        carimbo[sigla] = {"DOMINIO": nome, "ESTADO": "LIDO", "FICHEIRO": rel.as_posix(), "SHA256": _sha(f),
+                          "BUILT_AT": d.get("BUILT_AT"), "QA_GATE": d.get("QA_GATE"), "N": len(regs)}
+        blocos.append(("%s · %s · construido em %s · %d registos" % (sigla, nome, d.get("BUILT_AT"), len(regs)),
+                       linhas))
+    for nome, estado in DOMINIOS_SEM_FICHEIRO.items():
+        carimbo[nome] = {"DOMINIO": nome, "ESTADO": estado}
+    return {"BLOCOS": blocos, "IDS": ids, "CARIMBO": carimbo}
+
+
+def contexto_historico(pasta: Path, n=HISTORICO_RODADAS):
+    """HISTORICO = objetos comerciais das rodadas FAST anteriores (irmas da pasta), so leitura. Serve para o Opus
+    dizer se o assunto e recorrente; nunca e evidencia factual (o facto continua nas rodadas de origem)."""
+    pasta = Path(pasta).resolve()
+    irmas = sorted(q for q in pasta.parent.glob("FAST-*") if q.is_dir() and q.name < pasta.name
+                   and (q / "CRUZAMENTO-COMERCIAL.json").exists())[-n:]
+    linhas, ids = [], set()
+    for q in irmas:
+        try:
+            d = json.loads((q / "CRUZAMENTO-COMERCIAL.json").read_text(encoding="utf-8"))
+        except ValueError:
+            continue
+        for o in d.get("OBJETOS") or []:
+            hid = "HIST-%s-%s" % (q.name, o.get("ID"))
+            ids.add(hid)
+            linhas.append("%s | %s | %s | elo_que_falta=%s" % (hid, o.get("CLASSE"), _corta(o.get("TITULO"), 160),
+                                                                 _corta(o.get("ELO_QUE_FALTA"), 140)))
+    return {"LINHAS": linhas, "IDS": ids, "RODADAS": [q.name for q in irmas]}
+
+
 # ---------------------------------------------------------------- remessa
 ENTRADA_REMESSA = ("FATOS.validado.json", "SIGNALS.validado.json", "OPPORTUNITIES.validado.json")
 ENTRADA_FAST_AUTO = ("FACTS_FAST.json", "SIGNALS_FAST.json", "OPPORTUNITIES_FAST.json")
@@ -188,7 +285,7 @@ def linha_fato(f):
         _v(f, "cultura"), _v(f, "problema"), _corta(_v(f, "empresas_produtos"), 120), _corta(_v(f, "numeros"), 120))
 
 
-def montar_prompt(fatos, sinais, opps, ref, fen):
+def montar_prompt(fatos, sinais, opps, ref, fen, ctx=None, hist=None):
     regras = PROMPT_FILE.read_text(encoding="utf-8")
     blocos = [
         regras,
@@ -218,8 +315,18 @@ def montar_prompt(fatos, sinais, opps, ref, fen):
         "\n".join(ref["USOS"]),
         "\n=== E. FENOLOGIA E JANELAS DE CULTURA (Italia) — %s ===" % fen["AVISO"],
         "\n".join(fen["LINHAS"]),
-        "\nResponda AGORA so com o JSON pedido.",
     ]
+    if ctx:
+        blocos.append("\n=== F. CONTEXTO DOS DOMINIOS (handoff Italia V2; ids CTX-*/IT-*) — retrato de ~set/2026, nao "
+                      "noticia nova; cite em CONTEXTO_IDs. Contexto NAO e facto da remessa e nao conta como documento "
+                      "independente ===")
+        for titulo, linhas in ctx["BLOCOS"]:
+            blocos += ["\n-- " + titulo, "\n".join(linhas)]
+        blocos.append("\n-- Dominios sem ficheiro lido: " + "; ".join("%s = %s" % kv for kv in DOMINIOS_SEM_FICHEIRO.items()))
+    if hist is not None:
+        blocos += ["\n=== G. HISTORICO — objetos das %d rodadas anteriores (ids HIST-*; recorrencia, nunca prova) ==="
+                   % len(hist["RODADAS"]), "\n".join(hist["LINHAS"]) or "(nenhum)"]
+    blocos.append("\nResponda AGORA so com o JSON pedido.")
     return "\n".join(blocos)
 
 
@@ -317,8 +424,30 @@ def regua_do_agora(o, fatos, hoje) -> None:
         c["valor"] = "NAO_SEI — sem prova do agora: " + motivo
 
 
-def conferir(saida, fatos, sinais, ref, fen, hoje=None):
+def regua_do_destino(o) -> None:
+    """DESTINO_FERRAMENTA: lista fechada; OPPORTUNITY_RADAR so para OPORTUNIDADE (FDS sec.15); a ferramenta da classe
+    entra sempre. O que o modelo pediu fica em DESTINO_DO_MODELO (nada se apaga)."""
+    pedido = o.get("DESTINO_FERRAMENTA")
+    pedido = [pedido] if isinstance(pedido, str) else list(pedido or [])
+    o["DESTINO_DO_MODELO"] = pedido
+    final, recusados = [], []
+    for d in pedido:
+        if d not in DESTINOS or (d == "OPPORTUNITY_RADAR" and o.get("CLASSE") != "OPORTUNIDADE"):
+            recusados.append(d)
+        elif d not in final:
+            final.append(d)
+    base = DESTINO_DA_CLASSE.get(o.get("CLASSE"))
+    if base and base not in final:
+        final.insert(0, base)
+    o["DESTINO_FERRAMENTA"] = final
+    if recusados:
+        o["DESTINO_RECUSADO"] = recusados
+
+
+def conferir(saida, fatos, sinais, ref, fen, hoje=None, ctx=None, hist=None):
     hoje = hoje or date.today()
+    ctx_ids = (ctx or {}).get("IDS") or {}
+    hist_ids = (hist or {}).get("IDS") or set()
     sinais_ids = {s["SIGNAL_ID"] for s in sinais}
     objetos, rejeitados = [], []
     for o in saida.get("objetos") or []:
@@ -332,9 +461,11 @@ def conferir(saida, fatos, sinais, ref, fen, hoje=None):
         fids = list(dict.fromkeys((o.get("FACT_IDs") or []) + _ids_citados(campos, "FACT_IDs")))
         uids = list(dict.fromkeys(_ids_citados(campos, "USE_IDs")))
         pids = list(dict.fromkeys(_ids_citados(campos, "FENOLOGIA_IDs")))
+        cids = list(dict.fromkeys((o.get("CONTEXTO_IDs") or []) + _ids_citados(campos, "CONTEXTO_IDs")))
         problemas += ["FACT_ID_INEXISTENTE:%s" % i for i in fids if i not in fatos]
         problemas += ["USE_ID_INEXISTENTE:%s" % i for i in uids if i not in ref["USE_IDS"]]
         problemas += ["FENOLOGIA_ID_INEXISTENTE:%s" % i for i in pids if i not in fen["IDS"]]
+        problemas += ["CONTEXTO_ID_INEXISTENTE:%s" % i for i in cids if i not in ctx_ids and i not in hist_ids]
         for sc in o.get("SINAIS_CRUZADOS") or []:
             if sc.get("SIGNAL_ID") not in sinais_ids:
                 problemas.append("SIGNAL_ID_INEXISTENTE:%s" % sc.get("SIGNAL_ID"))
@@ -366,6 +497,11 @@ def conferir(saida, fatos, sinais, ref, fen, hoje=None):
         # reguas do LAB (02/10) — antes das medidas, para a medida ver a classe e o agora ja corrigidos
         regua_da_classe(o)
         regua_do_agora(o, fatos, hoje)
+        regua_do_destino(o)
+        o["CONTEXTOS_CITADOS"] = sorted({ctx_ids[i] for i in cids if i in ctx_ids} |
+                                        ({"HISTORICO"} if any(i in hist_ids for i in cids) else set()) |
+                                        ({"REFERENCIA_ADAMA"} if uids else set()) | ({"FENOLOGIA"} if pids else set()))
+        o["CONTEXTO_IDs"] = cids
         # medidas do Done (nao filtram)
         texto = json.dumps(o, ensure_ascii=False)
         o["CONFERENCIA"] = {
@@ -389,17 +525,19 @@ def main(argv):
     so_contexto = "--so-contexto" in argv
     fatos, sinais, opps = ler_remessa(pasta)
     ref, fen = contexto_referencia(), contexto_fenologia()
-    prompt = montar_prompt(fatos, sinais, opps, ref, fen)
+    ctx, hist = contexto_dominios(), contexto_historico(pasta)
+    prompt = montar_prompt(fatos, sinais, opps, ref, fen, ctx, hist)
     saida_dir = pasta / "cruzamento-comercial"
     saida_dir.mkdir(exist_ok=True)
     (saida_dir / "PROMPT.txt").write_text(prompt, encoding="utf-8")
-    print("PROMPT %d chars | fatos %d | sinais %d | candidatas %d | usos %d | fenologia %d" % (
-        len(prompt), len(fatos), len(sinais), len(opps), len(ref["USOS"]), len(fen["LINHAS"])))
+    print("PROMPT %d chars | fatos %d | sinais %d | candidatas %d | usos %d | fenologia %d | contexto %d | historico %d"
+          % (len(prompt), len(fatos), len(sinais), len(opps), len(ref["USOS"]), len(fen["LINHAS"]), len(ctx["IDS"]),
+             len(hist["LINHAS"])))
     if so_contexto:
         return 0
     saida, custo = chamar_opus(prompt)
     (saida_dir / "SAIDA_BRUTA_DO_MODELO.json").write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding="utf-8")
-    objetos, rejeitados = conferir(saida, fatos, sinais, ref, fen)
+    objetos, rejeitados = conferir(saida, fatos, sinais, ref, fen, ctx=ctx, hist=hist)
     head = subprocess.run(["git", "-C", str(RAIZ), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     sujo = subprocess.run(["git", "-C", str(RAIZ), "status", "--porcelain", "--", "motor"], capture_output=True,
                           text=True).stdout.strip()
@@ -416,6 +554,9 @@ def main(argv):
         ("PROMPT_SHA256", hashlib.sha256(prompt.encode("utf-8")).hexdigest()),
         ("REFERENCIA", ref["CARIMBO"]),
         ("FENOLOGIA", {"BUILT_AT": fen["BUILT_AT"], "AVISO": fen["AVISO"], "SHA256": fen["SHA256"]}),
+        ("CONTEXTOS", {"DOMINIOS": ctx["CARIMBO"], "HISTORICO_RODADAS": hist["RODADAS"],
+                       "USADOS_PELOS_OBJETOS": sorted({c for o in objetos for c in o["CONTEXTOS_CITADOS"]})}),
+        ("DESTINOS", {d: [o["ID"] for o in objetos if d in o["DESTINO_FERRAMENTA"]] for d in DESTINOS}),
         ("CUSTO", custo),
         ("CONTAGEM", contagem),
         ("CONTAGEM_DO_MODELO", contagem_do_modelo),
