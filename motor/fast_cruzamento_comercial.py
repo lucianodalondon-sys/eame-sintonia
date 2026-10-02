@@ -432,6 +432,10 @@ def regua_do_agora(o, fatos, hoje) -> None:
 _NEGA_IT = re.compile(r"\b(non abbiamo|non esiste|non c'è|nessun\w*|non ha|non hanno|assent\w*|manca(?:no)? del tutto)\b",
                       re.I)
 _CAMPOS_NEGAVEIS = ("PRODUTO_ADAMA", "AUTORIZACAO_LABEL")
+_SOBRE_PRODUTO_IT = re.compile(r"\b(prodott\w*|impieg\w*|uso|usi|autorizz\w*|etichett\w*|soluzion\w*|registrazion\w*)\b",
+                               re.I)
+_RESSALVA_IT = re.compile(r"(etichette lette|non (?:è stato |e stato )?trovat\w*|da confermare|non (?:abbiamo )?lett\w*)",
+                          re.I)
 
 
 def texto_it_afirma_nao_sei(o) -> None:
@@ -443,8 +447,13 @@ def texto_it_afirma_nao_sei(o) -> None:
     vis = o.get("TEXTOS_VISIVEIS_IT") if isinstance(o.get("TEXTOS_VISIVEIS_IT"), dict) else {}
     achados = []
     for nome, t in [("TITULO_IT", o.get("TITULO_IT"))] + [("TEXTOS_VISIVEIS_IT." + k, v) for k, v in vis.items()]:
-        for m in _NEGA_IT.finditer(str(t or "")):
-            achados.append({"ONDE": nome, "EXPRESSAO": m.group(0)})
+        # frase a frase: so conta a negacao que fala de produto/uso/etiqueta e nao traz a ressalva da leitura
+        # (ensaio real 02/10: «nessun insetto» sobre o FACTO e «non trovato nelle etichette lette» davam alarme falso)
+        for frase in re.split(r"(?<=[.!?;:])\s+", str(t or "")):
+            if not _SOBRE_PRODUTO_IT.search(frase) or _RESSALVA_IT.search(frase):
+                continue
+            for m in _NEGA_IT.finditer(frase):
+                achados.append({"ONDE": nome, "EXPRESSAO": m.group(0), "FRASE": _corta(frase, 200)})
     if achados:
         o["TEXTO_IT_AFIRMA_ALEM_DO_CAMPO"] = achados
 

@@ -87,6 +87,17 @@ class TextoItalianoNaoNegaNaoSei(unittest.TestCase):
         ok, _ = _conf(_obj(titulo_it="Mais: impiego non trovato nelle etichette lette"))
         self.assertNotIn("TEXTO_IT_AFIRMA_ALEM_DO_CAMPO", ok[0])
 
+    def test_frases_reais_do_ensaio_nao_dao_alarme(self):
+        vis = {"COSA_MANCA": "Il fatto non nomina nessun insetto, fungo o erba infestante. Restano 61 etichette in "
+                             "vigore che non abbiamo letto, quindi la lacuna è da confermare. Per mirtillo non è stato "
+                             "trovato nelle etichette lette un uso autorizzato, e nei bollettini non c'è nessuna fase."}
+        ok, _ = _conf(_obj(vis=vis))
+        self.assertNotIn("TEXTO_IT_AFIRMA_ALEM_DO_CAMPO", ok[0])
+
+    def test_negacao_de_produto_no_texto_visivel_e_medida(self):
+        ok, _ = _conf(_obj(vis={"COSA_MANCA": "Non esiste un prodotto per questo problema."}))
+        self.assertEqual(ok[0]["TEXTO_IT_AFIRMA_ALEM_DO_CAMPO"][0]["ONDE"], "TEXTOS_VISIVEIS_IT.COSA_MANCA")
+
     def test_campo_com_valor_nao_e_medido(self):
         ok, _ = _conf(_obj(titulo_it="Nessun problema", produto="PROD X"))
         self.assertNotIn("TEXTO_IT_AFIRMA_ALEM_DO_CAMPO", ok[0])
