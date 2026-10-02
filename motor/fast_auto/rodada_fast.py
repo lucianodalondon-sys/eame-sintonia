@@ -82,7 +82,7 @@ def main():
     maximo = int(sys.argv[sys.argv.index("--max") + 1]) if "--max" in sys.argv else 20
     if "--por-fonte" in sys.argv:
         POR_FONTE = int(sys.argv[sys.argv.index("--por-fonte") + 1])
-    novos = candidatos(maximo)
+    novos = [] if "--retomar" in sys.argv else candidatos(maximo)
     if "--listar" in sys.argv:
         for r in novos:
             print(r)
@@ -91,20 +91,32 @@ def main():
     if not head or sujo:
         log("ERRO codigo nao versionado ou sujo em %s (HEAD=%s) - nao corro" % (REPO, head or "NAO_SEI"))
         sys.exit(1)
-    if not novos:
+    retomar = sys.argv[sys.argv.index("--retomar") + 1] if "--retomar" in sys.argv else None
+    if retomar:
+        # rodada que caiu depois dos fatos: nao repaga passo1/passo2; corre o resto com o codigo atual
+        run_id, pasta = retomar, os.path.join(RAIZ, retomar)
+        ids = json.load(open(os.path.join(pasta, "IDS.json"), encoding="utf-8"))
+        D = json.load(open(os.path.join(pasta, "DOCUMENTOS_FAST.json"), encoding="utf-8"))
+        novos = [{"id": x["RAW_ASSET_ID"], "source_id": x["SOURCE_ID"]} for x in D]
+        assert sorted(r["id"] for r in novos) == sorted(ids), "IDS.json != DOCUMENTOS_FAST.json"
+        assert os.path.exists(os.path.join(pasta, "FACTS_FAST.json")), "sem FACTS_FAST.json: nao ha o que retomar"
+        primeiro = 2
+    elif not novos:
         log("SEM_RAW_NOVO (nada a fazer; ULTIMA.txt inalterado) CODIGO_HEAD=%s" % head)
         return
-    ids = sorted(r["id"] for r in novos)
-    run_id = "FAST-" + datetime.datetime.now().strftime("%Y%m%dT%H%M%S")
-    pasta = os.path.join(RAIZ, run_id)
-    os.makedirs(pasta)
-    json.dump(ids, open(os.path.join(pasta, "IDS.json"), "w", encoding="utf-8"))
+    else:
+        ids = sorted(r["id"] for r in novos)
+        run_id = "FAST-" + datetime.datetime.now().strftime("%Y%m%dT%H%M%S")
+        pasta = os.path.join(RAIZ, run_id)
+        os.makedirs(pasta)
+        json.dump(ids, open(os.path.join(pasta, "IDS.json"), "w", encoding="utf-8"))
+        primeiro = 0
     fontes = OrderedDict()
     for r in novos:
         fontes[r["source_id"]] = fontes.get(r["source_id"], 0) + 1
-    log("INICIO %s CODIGO_HEAD=%s RAW=%s FONTES=%d MAX_POR_FONTE=%d" % (
-        run_id, head, ",".join(map(str, ids)), len(fontes), max(fontes.values())))
-    passos = [(s, [sys.executable, os.path.join(CODIGO, s), pasta]) for s in PASSOS]
+    log("%s %s CODIGO_HEAD=%s RAW=%s FONTES=%d MAX_POR_FONTE=%d" % (
+        "RETOMA" if retomar else "INICIO", run_id, head, ",".join(map(str, ids)), len(fontes), max(fontes.values())))
+    passos = [(s, [sys.executable, os.path.join(CODIGO, s), pasta]) for s in PASSOS][primeiro:]
     passos.append(("fast_cruzamento_comercial.py", [sys.executable, COMERCIAL, pasta]))
     for nome, cmd in passos:
         r = subprocess.run(cmd, cwd=pasta, capture_output=True, text=True, encoding="utf-8", errors="replace")

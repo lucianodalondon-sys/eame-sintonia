@@ -218,6 +218,17 @@ def montar_prompt(fatos, sinais, opps, ref, fen):
 
 # ---------------------------------------------------------------- LLM
 def chamar_opus(prompt: str):
+    """Uma nova tentativa se o modelo devolver JSON invalido (mesmo prompt; nao conserta JSON a mao)."""
+    try:
+        return _chamar_opus_uma_vez(prompt)
+    except (ValueError, SystemExit) as e:
+        if "rc=" in str(e) or "ANTHROPIC_API_KEY" in str(e) or "nao encontrado" in str(e):
+            raise
+        print("TENTATIVA 1 JSON_INVALIDO", repr(e)[:200], flush=True)
+        return _chamar_opus_uma_vez(prompt)
+
+
+def _chamar_opus_uma_vez(prompt: str):
     exe = shutil.which("claude")
     if not exe:
         raise SystemExit("claude CLI nao encontrado")

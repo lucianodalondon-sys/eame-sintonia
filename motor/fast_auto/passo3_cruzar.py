@@ -32,10 +32,20 @@ FATOS:
 %s"""
 
 entrada = json.dumps([compacto(f) for f in aceitos.values()], ensure_ascii=False)
-r = subprocess.run([shutil.which("claude"), "-p", "--model", MODELO, "--output-format", "json"], input=PROMPT % entrada,
-                   capture_output=True, text=True, encoding="utf-8", timeout=1200)
-env = json.loads(r.stdout)
-res = json.loads(re.search(r"\{.*\}", env["result"], re.S).group(0))
+# defeito medido (FAST-20261002T030919): o modelo devolveu JSON invalido e a rodada inteira caiu.
+# Uma nova tentativa com o MESMO prompt; a saida bruta de cada tentativa fica gravada. Nao conserta JSON a mao.
+for tentativa in (1, 2):
+    r = subprocess.run([shutil.which("claude"), "-p", "--model", MODELO, "--output-format", "json"], input=PROMPT % entrada,
+                       capture_output=True, text=True, encoding="utf-8", timeout=1200)
+    open(AQUI + "/passo3_saida_bruta_%d.txt" % tentativa, "w", encoding="utf-8").write(r.stdout)
+    try:
+        env = json.loads(r.stdout)
+        res = json.loads(re.search(r"\{.*\}", env["result"], re.S).group(0))
+        break
+    except Exception as e:
+        print("TENTATIVA", tentativa, "JSON_INVALIDO", repr(e)[:200], flush=True)
+        if tentativa == 2:
+            raise
 RUN = "FAST-RUN-X-" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
 
