@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Sintonia · Sinais e Oportunidades</title>
+<link rel="stylesheet" href="_ds/adama-brandwell/tokens/colors.css">
+<link rel="stylesheet" href="_ds/adama-brandwell/tokens/typography.css">
+<style>
+:root{--bg:#110E0D;--card:#1C1817;--line:#2E2826;--ink:#fff;--mut:#A9A2A0;--dim:#8F8886;--ok:#00B152;--warn:#E8A33D;--bad:#E5484D}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-primary,system-ui,sans-serif);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--ok);text-decoration:none;cursor:pointer}a:hover{text-decoration:underline}
+.top{position:sticky;top:0;z-index:2;background:#0B0908;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.brand{font-weight:700;letter-spacing:.02em}
+.tag{font-family:var(--font-secondary,inherit);font-size:10px;font-weight:700;letter-spacing:.12em;padding:3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.tag.warn{color:var(--warn)}.tag.ok{color:var(--ok)}.tag.bad{color:var(--bad)}.tag.mut{color:var(--mut)}
+.tabs{display:flex;gap:4px}
+.tabs a{padding:6px 12px;border-radius:6px;color:var(--mut);font-weight:600}
+.tabs a.on{background:rgba(0,152,69,.16);color:var(--ok)}
+.meta{color:var(--dim);font-size:12px;margin-left:auto}
+main{max-width:1080px;margin:0 auto;padding:24px}
+.k{font-family:var(--font-secondary,inherit);font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;margin:0 0 4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:0 0 14px}
+.card h2{margin:6px 0 10px;font-size:18px;line-height:1.3}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 20px;margin:12px 0}
+.nao{color:var(--warn);font-weight:600}
+.ia{border-left:3px solid var(--warn);padding-left:10px}
+ul{margin:4px 0 0;padding-left:18px}
+.ev{border-top:1px solid var(--line);padding:10px 0}
+q,.trecho{display:block;font-style:italic;color:#E6E1DF;background:#0F0C0B;border-left:3px solid var(--ok);padding:6px 10px;margin:4px 0;quotes:none}
+.trecho.bad{border-color:var(--bad);text-decoration:line-through;opacity:.7}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;vertical-align:top;padding:8px 6px;border-top:1px solid var(--line)}th{color:var(--dim);font-weight:600;width:150px}
+pre{white-space:pre-wrap;word-break:break-word;background:#0F0C0B;border:1px solid var(--line);border-radius:8px;padding:14px;max-height:70vh;overflow:auto;font-size:12.5px}
+mark{background:rgba(0,177,82,.35);color:#fff}
+.crumb{color:var(--dim);font-size:12px;margin-bottom:10px}
+.empty{padding:40px;text-align:center;color:var(--mut)}
+.rod{margin:26px 0 10px;padding-top:14px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}.rod b{color:#fff}
+.mono{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--mut);word-break:break-all}
+@media (max-width:640px){main{padding:14px}.top{padding:10px 14px}.meta{margin-left:0}th{width:100px}}
+
+.tipo{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--mut)}
+.cont{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 18px;color:var(--mut);font-size:12.5px}.cont b{color:#fff;font-size:15px}
+.lista a.card{display:block;color:inherit;text-decoration:none}.lista a.card:hover{border-color:var(--ok)}
+.fonte{color:var(--dim);font-size:12px}
+</style>
+</head>
+<body>
+<div class="top">
+  <span class="brand">SINTONIA</span>
+  <span class="tag warn">LEITURA DA IA · CONFERIDA SÓ PELO TRECHO</span>
+  <nav class="tabs"><a href="#oportunidades" id="t-o">Oportunidades</a><a href="#sinais" id="t-s">Sinais</a><a href="#documentos" id="t-d">Documentos</a></nav>
+  <span class="meta" id="meta"></span>
+</div>
+<main id="app"><div class="empty">Carregando…</div></main>
+<script src="sintonia-remessa.local.js"></script>
+<script>
+(function(){
+var R=window.SINTONIA_REMESSA, app=document.getElementById('app');
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+if(!R){app.innerHTML='<div class="empty"><b>NÃO SEI</b><br>Nenhuma remessa carregada nesta cópia do portal.</div>';return}
+var F=R.FATOS, S=R.SIGNALS.itens, O=R.OPPORTUNITIES.itens, D=R.DOCUMENTOS, V=R.VALIDACAO;
+var fat={}, docDe={};
+F.documentos.forEach(function(d){(d.fatos||[]).forEach(function(f){fat[f.FACT_ID]=f;docDe[f.FACT_ID]=d})});
+var sig={};S.forEach(function(s){sig[s.SIGNAL_ID]=s});
+function nao(v){return v==null||v===''||v==='NAO_SEI'||(Array.isArray(v)&&!v.length)}
+function val(v){return nao(v)?'<span class="nao">NÃO SEI</span>':esc(Array.isArray(v)?v.join(' · '):v)}
+function dt(s){if(!s)return '<span class="nao">NÃO SEI</span>';var d=new Date(s);if(isNaN(d))return esc(s);
+ return d.toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})+' (Brasília)'}
+function fids(x){return x.FACT_IDS_VALIDOS||[]}
+function factLink(id){var f=fat[id];return f?'<a href="#f/'+encodeURIComponent(id)+'">'+esc(f.fato)+'</a>':'<span class="nao">'+esc(id)+' ? (fato não encontrado)</span>'}
+function fontes(x){var u={};fids(x).forEach(function(id){var d=docDe[id];if(d)u[d.DOCUMENT_ID]=d});return Object.keys(u).map(function(k){return u[k]})}
+document.getElementById('meta').textContent='Remessa '+R.PASTA+' · '+V.fatos_ok+' fatos conferidos de '+V.fatos_in;
+function contagem(){return '<div class="cont"><span>Documentos lidos <b>'+F.documentos.length+'</b></span><span>Relevantes <b>'+F.documentos.filter(function(d){return d.relevante==='SIM'}).length+'</b></span><span>Fatos <b>'+Object.keys(fat).length+'</b></span><span>Sinais <b>'+S.length+'</b></span><span>Oportunidades <b>'+O.length+'</b></span></div>'}
+var AVISO='<p class="fonte">A IA leu documentos reais coletados e escreveu estas conclusões. O conferidor só garante que cada trecho citado existe no texto original; ele não garante que a conclusão esteja certa. A decisão é humana.</p>';
+function cardO(o){var fs=fontes(o);return '<a class="card" href="#o/'+esc(o.OPP_ID)+'"><div class="tipo">OPORTUNIDADE · CONFIANÇA DA IA: '+val(o.confianca)+'</div><h2>'+esc(o.titulo)+'</h2><div class="grid"><div><p class="k">Para quem</p>'+val(o.para_quem)+'</div><div><p class="k">Janela</p>'+val(o.janela)+'</div><div><p class="k">Sustentação</p>'+fids(o).length+' fatos · '+fs.length+' documento(s) · '+val(o.fontes_independentes)+' fonte(s) independente(s)</div></div></a>'}
+function cardS(s){var fs=fontes(s);return '<a class="card" href="#s/'+esc(s.SIGNAL_ID)+'"><div class="tipo">SINAL · '+esc(s.tipo)+' · CONFIANÇA DA IA: '+val(s.confianca)+'</div><h2>'+esc(s.titulo)+'</h2><div class="grid"><div><p class="k">Onde</p>'+val(s.onde)+'</div><div><p class="k">Quando</p>'+val(s.quando)+'</div><div><p class="k">Sustentação</p>'+fids(s).length+' fatos · '+fs.length+' documento(s)</div></div></a>'}
+function provas(x){var h='<h3 class="k" style="margin-top:18px">Fatos que sustentam ('+fids(x).length+')</h3><ul>';fids(x).forEach(function(id){h+='<li>'+factLink(id)+' <span class="fonte">· '+(docDe[id]?esc(docDe[id].SOURCE_ID):'')+'</span></li>'});
+ var fora=(x.FACT_IDs||[]).filter(function(id){return fids(x).indexOf(id)<0});if(fora.length)h+='</ul><p class="nao">'+fora.length+' fato(s) citado(s) pela IA foram recusados pelo conferidor e não contam.</p>';else h+='</ul>';
+ if(!fids(x).length)h+='<p class="nao">Sem prova ligada.</p>';return h}
+function vO(id){var o=O.filter(function(x){return x.OPP_ID===id})[0];if(!o)return nf();
+ var h='<div class="crumb"><a href="#oportunidades">Oportunidades</a> › '+esc(id)+'</div><div class="card"><div class="tipo">OPORTUNIDADE · CONFIANÇA DA IA: '+val(o.confianca)+'</div><h2>'+esc(o.titulo)+'</h2>';
+ h+='<div class="grid"><div><p class="k">Para quem</p>'+val(o.para_quem)+'</div><div><p class="k">Janela</p>'+val(o.janela)+'</div></div>';
+ h+='<div class="ia"><p class="k">Por que agora (leitura da IA)</p>'+val(o.por_que_agora)+'<p class="k" style="margin-top:10px">Ação sugerida (leitura da IA, a decisão é humana)</p>'+val(o.acao_sugerida)+'</div>';
+ h+='<p class="k" style="margin-top:14px">O que falta saber</p><p class="nao" style="font-weight:400">'+val(o.o_que_falta)+'</p>';
+ if((o.SIGNAL_IDs||[]).length){h+='<p class="k">Sinais ligados</p><ul>'+o.SIGNAL_IDs.map(function(s){return '<li>'+(sig[s]?'<a href="#s/'+esc(s)+'">'+esc(sig[s].titulo)+'</a>':'<span class="nao">'+esc(s)+' ?</span>')+'</li>'}).join('')+'</ul>'}
+ return h+provas(o)+'</div>'+AVISO}
+function vS(id){var s=sig[id];if(!s)return nf();
+ var h='<div class="crumb"><a href="#sinais">Sinais</a> › '+esc(id)+'</div><div class="card"><div class="tipo">SINAL · '+esc(s.tipo)+' · CONFIANÇA DA IA: '+val(s.confianca)+'</div><h2>'+esc(s.titulo)+'</h2>';
+ h+='<div class="grid"><div><p class="k">Onde</p>'+val(s.onde)+'</div><div><p class="k">Quando</p>'+val(s.quando)+'</div><div><p class="k">Fontes independentes</p>'+val(s.fontes_independentes)+'</div></div>';
+ h+='<div class="ia"><p class="k">O que a IA concluiu</p>'+val(s.descricao)+'</div><p class="k" style="margin-top:14px">Limites (apontados pela IA)</p><p class="nao" style="font-weight:400">'+val(s.contra_ou_limite)+'</p>';
+ var op=O.filter(function(o){return (o.SIGNAL_IDs||[]).indexOf(id)>=0});if(op.length)h+='<p class="k">Aparece nas oportunidades</p><ul>'+op.map(function(o){return '<li><a href="#o/'+esc(o.OPP_ID)+'">'+esc(o.titulo)+'</a></li>'}).join('')+'</ul>';
+ return h+provas(s)+'</div>'+AVISO}
+var CAMPOS=[['onde','Onde aconteceu'],['quando','Quando aconteceu'],['cultura','Cultura'],['problema','Problema'],['empresas_produtos','Empresas / produtos'],['numeros','Números']];
+function vF(id){var f=fat[id],d=docDe[id];if(!f)return nf();var ok=f.VALIDACAO==='EVIDENCIA_EXISTE_NO_TEXTO';
+ var h='<div class="crumb">Fato › '+esc(id)+'</div><div class="card"><div class="tipo">FATO TIRADO PELA IA DO DOCUMENTO</div><h2>'+esc(f.fato)+'</h2>';
+ h+=ok?'<span class="tag ok">TRECHO EXISTE NO DOCUMENTO</span>':'<span class="tag warn">'+esc(f.VALIDACAO||'SEM MARCA DO CONFERIDOR')+'</span>';
+ var ev=f.evidencias||{};h+=trecho(ev.fato,d,ok);
+ h+='<table style="margin-top:12px">';CAMPOS.forEach(function(c){var v=f[c[0]],e=ev[c[0]];h+='<tr><th>'+c[1]+'</th><td>'+val(v)+(nao(v)?'':(e?trecho(e,d,ok):'<div class="fonte nao">sem trecho que prove este campo</div>'))+'</td></tr>'});
+ h+='<tr><th>Publicado em</th><td>'+val(f.data_publicacao)+' <span class="fonte">(data da publicação, não do fato)</span></td></tr></table>';
+ h+=docBloco(d)+'</div>';
+ var us=S.filter(function(s){return fids(s).indexOf(id)>=0}).map(function(s){return '<li><a href="#s/'+esc(s.SIGNAL_ID)+'">Sinal: '+esc(s.titulo)+'</a></li>'}).concat(O.filter(function(o){return fids(o).indexOf(id)>=0}).map(function(o){return '<li><a href="#o/'+esc(o.OPP_ID)+'">Oportunidade: '+esc(o.titulo)+'</a></li>'}));
+ if(us.length)h+='<div class="card"><p class="k">Usado em</p><ul>'+us.join('')+'</ul></div>';return h}
+function trecho(t,d,ok){if(!t)return '';return '<q class="trecho'+(ok?'':' bad')+'">“'+esc(t)+'”</q>'+(d?'<a class="fonte" href="#d/'+encodeURIComponent(d.DOCUMENT_ID)+'?t='+encodeURIComponent(t)+'">ver no documento original ›</a>':'')}
+function docBloco(d){if(!d)return '<p class="nao">Documento: NÃO SEI</p>';var x=D[d.DOCUMENT_ID]||{};
+ return '<table style="margin-top:14px"><tr><th>Documento</th><td><a href="#d/'+encodeURIComponent(d.DOCUMENT_ID)+'">'+esc(d.DOCUMENT_ID)+'</a></td></tr><tr><th>Fonte</th><td>'+val(d.SOURCE_ID)+'</td></tr><tr><th>Endereço</th><td>'+(d.URL?'<a href="'+esc(d.URL)+'" target="_blank" rel="noopener">'+esc(d.URL)+'</a>':'<span class="nao">NÃO SEI</span>')+'</td></tr><tr><th>Coletado em</th><td>'+dt(d.DATA_COLETA)+' <span class="fonte">(data da coleta, não do fato)</span></td></tr><tr><th>Assinatura do original</th><td class="mono">'+val(x.RAW_SHA256)+'</td></tr></table>'}
+function vD(id,t){var x=D[id];var fd=F.documentos.filter(function(d){return d.DOCUMENT_ID===id})[0];if(!x)return nf();
+ var txt=esc(x.TEXTO||''),hit=false;if(t){var re=new RegExp(esc(t).replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+'),'i');txt=txt.replace(re,function(m){hit=true;return '<mark id="hit">'+m+'</mark>'})}
+ var h='<div class="crumb"><a href="#documentos">Documentos</a> › '+esc(id)+'</div><div class="card"><div class="tipo">DOCUMENTO ORIGINAL COLETADO</div>';
+ if(fd)h+='<p>Relevante segundo a IA: <b>'+esc(fd.relevante)+'</b> — '+esc(fd.motivo)+'</p>';
+ h+=docBloco(fd||x);if(t)h+=hit?'<p class="tag ok" style="display:inline-block;margin:10px 0">TRECHO GRIFADO ABAIXO</p>':'<p class="nao">Trecho não localizado nesta exibição.</p>';
+ if(fd&&fd.fatos&&fd.fatos.length)h+='<p class="k" style="margin-top:12px">Fatos tirados deste documento ('+fd.fatos.length+')</p><ul>'+fd.fatos.map(function(f){return '<li>'+factLink(f.FACT_ID)+'</li>'}).join('')+'</ul>';
+ return h+'<p class="k" style="margin-top:14px">Texto</p><pre>'+txt+'</pre></div>'}
+function vDocs(){var l=F.documentos.slice().sort(function(a,b){return (b.relevante==='SIM')-(a.relevante==='SIM')});
+ return contagem()+'<div class="card"><table><tr><th>Relevante</th><td><b>Documento</b></td></tr>'+l.map(function(d){return '<tr><th>'+(d.relevante==='SIM'?'<span class="tag ok">SIM · '+d.fatos.length+' fatos</span>':'<span class="tag mut">NÃO</span>')+'</th><td><a href="#d/'+encodeURIComponent(d.DOCUMENT_ID)+'">'+esc(d.URL||d.DOCUMENT_ID)+'</a><div class="fonte">'+esc(d.SOURCE_ID)+' · coletado '+dt(d.DATA_COLETA)+' · '+esc(d.motivo)+'</div></td></tr>'}).join('')+'</table></div>'}
+function nf(){return '<div class="empty"><b>NÃO ENCONTRADO</b><br><a href="#oportunidades">voltar</a></div>'}
+function render(){var h=decodeURIComponent(location.hash.slice(1)),out,tab='o';
+ var m=h.match(/^([osfd])\/([^?]*)(?:\?t=(.*))?$/);
+ if(m){tab=m[1]==='f'||m[1]==='d'?'d':m[1];out=m[1]==='o'?vO(m[2]):m[1]==='s'?vS(m[2]):m[1]==='f'?vF(m[2]):vD(m[2],m[3])}
+ else if(h==='sinais'){tab='s';out=contagem()+'<div class="lista">'+(S.length?S.map(cardS).join(''):'<div class="empty">Nenhum sinal nesta remessa.</div>')+'</div>'+AVISO}
+ else if(h==='documentos'){tab='d';out=vDocs()}
+ else out=contagem()+'<div class="lista">'+(O.length?O.map(cardO).join(''):'<div class="empty">Nenhuma oportunidade nesta remessa. Zero verdadeiro.</div>')+'</div>'+AVISO;
+ app.innerHTML=out;['o','s','d'].forEach(function(k){document.getElementById('t-'+k).className=k===tab?'on':''});
+ var hit=document.getElementById('hit');if(hit)hit.scrollIntoView({block:'center'});else window.scrollTo(0,0)}
+window.addEventListener('hashchange',render);render();
+})();
+</script>
+</body>
+</html>
