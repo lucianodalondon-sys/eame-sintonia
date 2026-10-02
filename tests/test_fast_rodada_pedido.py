@@ -158,5 +158,49 @@ class Carimbo(unittest.TestCase):
             self.assertTrue(p["RODADA_PEDIDA"])
 
 
+class LeituraDoBanco(unittest.TestCase):
+    def test_o_dsn_do_ficheiro_chega_ao_psql(self):
+        """Contraprova de uma quase-falha medida: sem o dsn como argumento, o psql cai em
+        `localhost:5432` e recusa em portugues -- e a rodada morre sem explicacao."""
+        class _R:
+            returncode = 0
+            stdout = 'on\n{"id":1,"source_id":"S","captured_at":"x"}\n'
+            stderr = ""
+
+        orig_base, orig_run = RF.BASE, RF.subprocess.run
+        chamadas = []
+
+        def falso(argv, **kw):
+            chamadas.append(argv)
+            return _R()
+
+        RF.BASE = tempfile.mkdtemp()
+        dsn = "postgresql://u:p@host:5432/db"
+        Path(os.path.join(RF.BASE, "SALA_DSN.txt")).write_text(dsn, encoding="utf-8")
+        RF.subprocess.run = falso
+        try:
+            self.assertEqual(RF.linhas_banco("select 1"), [{"id": 1, "source_id": "S", "captured_at": "x"}])
+            self.assertIn(dsn, chamadas[0])
+        finally:
+            RF.BASE, RF.subprocess.run = orig_base, orig_run
+
+    def test_sem_read_only_confere_e_diz_por_que(self):
+        class _R:
+            returncode = 2
+            stdout = ""
+            stderr = "psql: erro: a conexao com o servidor falhou"
+
+        orig_base, orig_run = RF.BASE, RF.subprocess.run
+        RF.BASE = tempfile.mkdtemp()
+        Path(os.path.join(RF.BASE, "SALA_DSN.txt")).write_text("postgresql://x", encoding="utf-8")
+        RF.subprocess.run = lambda argv, **kw: _R()
+        try:
+            with self.assertRaises(AssertionError) as e:
+                RF.linhas_banco("select 1")
+            self.assertIn("conexao com o servidor falhou", str(e.exception))
+        finally:
+            RF.BASE, RF.subprocess.run = orig_base, orig_run
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -49,10 +49,13 @@ def linhas_banco(sql):
     """Leitura do banco, SO em transacao read only (o `show` e conferido, nao suposto)."""
     env = dict(os.environ, PGPASSFILE=BASE + "/pgpass.conf", PGCLIENTENCODING="UTF8")
     dsn = open(BASE + "/SALA_DSN.txt").read().strip()
-    out = subprocess.run([PSQL, "-w", "-X", "-A", "-t", "-c", sql], env=env, capture_output=True,
-                         text=True, encoding="utf-8").stdout
-    linhas = [l.strip() for l in out.splitlines() if l.strip()]
-    assert "on" in linhas, ("transacao nao estava read only", linhas[:3])
+    r = subprocess.run([PSQL, "-w", "-X", "-A", "-t", "-c", sql, dsn], env=env, capture_output=True,
+                       text=True, encoding="utf-8", errors="replace")
+    linhas = [l.strip() for l in r.stdout.splitlines() if l.strip()]
+    # o motivo da recusa vai na propria mensagem: sem o stderr do psql, "nao estava read only"
+    # com a lista vazia esconde a causa real (foi medido: um erro do psql chega aqui sem explicacao).
+    assert "on" in linhas, ("transacao nao estava read only", "rc=%s" % r.returncode,
+                            (r.stderr or "").strip()[:300], linhas[:3])
     return [json.loads(l) for l in linhas if l.startswith("{")]
 
 
