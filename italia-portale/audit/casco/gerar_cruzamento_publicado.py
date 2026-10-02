@@ -27,7 +27,9 @@ def main(pasta, destino):
         return 3
     env = {
         'CRUZAMENTO_SHA256': sha,
-        'REMESSA': os.path.basename(os.path.dirname(os.path.abspath(pasta))),
+        # rodada FAST-AUTO: a pasta E a rodada (<FAST-AUTO>/<RUN_ID>); remessa antiga: <remessa>/cruzamento-comercial
+        'REMESSA': (os.path.basename(os.path.abspath(pasta)) if os.path.basename(os.path.abspath(pasta)).startswith('FAST-')
+                    else os.path.basename(os.path.dirname(os.path.abspath(pasta)))),
         'PUBLICADO_EM': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
         'CRUZAMENTO': c,
     }
