@@ -16,7 +16,7 @@ from motor import fast_cruzamento_comercial as FC  # noqa: E402
 
 FATOS = {
     "d:1#F1": {"FACT_ID": "d:1#F1", "DOCUMENT_ID": "d:1", "SOURCE_ID": "S-A", "URL": "https://www.a.it/x",
-               "evidencias": {"fato": "trecho um"}},
+               "quando": "24/09/2026", "evidencias": {"fato": "trecho um"}},
     "d:1#F2": {"FACT_ID": "d:1#F2", "DOCUMENT_ID": "d:1", "SOURCE_ID": "S-A", "URL": "https://www.a.it/x",
                "evidencias": {"fato": "trecho dois"}},
     "d:2#F1": {"FACT_ID": "d:2#F1", "DOCUMENT_ID": "d:2", "SOURCE_ID": "S-B", "URL": "https://a.it/y",
@@ -39,7 +39,8 @@ def _obj(**kw):
 
 
 def conf(*objs):
-    return FC.conferir({"objetos": list(objs)}, FATOS, SINAIS, REF, FEN)
+    from datetime import date
+    return FC.conferir({"objetos": list(objs)}, FATOS, SINAIS, REF, FEN, hoje=date(2026, 10, 2))
 
 
 class TestConferencia(unittest.TestCase):
@@ -89,7 +90,10 @@ class TestConferencia(unittest.TestCase):
         self.assertEqual(c["SINAIS_SEM_ACRESCIMO"], ["S02"])
 
     def test_contraprova_limpa(self):
-        ok, _ = conf(_obj(CLASSE="OPORTUNIDADE", FACT_IDs=["d:1#F1", "d:2#F1"],
+        # LAB 02/10: uma OPORTUNIDADE limpa tem o POR_QUE_AGORA provado por facto do ano corrente, sem inferencia
+        campos = _campos()
+        campos["POR_QUE_AGORA"] = {"valor": "x", "FACT_IDs": ["d:1#F1"]}
+        ok, _ = conf(_obj(CLASSE="OPORTUNIDADE", FACT_IDs=["d:1#F1", "d:2#F1"], CAMPOS=campos,
                           SINAIS_CRUZADOS=[{"SIGNAL_ID": "S01", "ACRESCENTOU": "a"},
                                            {"SIGNAL_ID": "S02", "ACRESCENTOU": "b"}]))
         c = ok[0]["CONFERENCIA"]

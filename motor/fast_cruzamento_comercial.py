@@ -40,7 +40,7 @@ import subprocess
 import sys
 import time
 from collections import OrderedDict
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -96,7 +96,11 @@ def contexto_referencia():
                                    _corta(p.get("ACTIVE_INGREDIENT_TEXT"), 80))
                  for p in PORTA.livro(ref, "PORTFOLIO")]
     culturas = sorted({u["CROP_ON_LABEL"] for u in PORTA.livro(ref, "AUTHORIZED-USES")})
+    # LAB 02/10 (C01 avela): o prompt dizia «N linhas distintas» com N = combinacoes produto x cultura x alvo x estado
+    # (1414), e o modelo escreveu «nas 1414 linhas nao ha nocciolo». As linhas LIDAS sao outras (2030), e a palavra
+    # nocciolo esta no texto de 6 bulas, embora nenhuma linha a tenha no campo CROP_ON_LABEL. O universo vai com nome.
     return {"CARIMBO": carimbo, "FRESCOR": frescor, "USOS": linhas, "USE_IDS": use_ids,
+            "N_USOS_LIDOS": len(use_ids),
             "NAO_LIDAS": nomes_nao_lidas, "PORTFOLIO": portfolio, "CULTURAS_NAS_BULAS": culturas}
 
 
@@ -201,13 +205,16 @@ def montar_prompt(fatos, sinais, opps, ref, fen):
         "\n=== D. REFERENCIA ADAMA ITALIA (porta unica) — carimbo: edicao %s de %s, ultima checagem %s, "
         "ESTADO_FRESCOR=%s ===" % (ref["CARIMBO"].get("EDICAO_REGISTRO"), ref["CARIMBO"].get("DATA_DA_EDICAO_REGISTRO"),
                                    ref["CARIMBO"].get("ULTIMA_CHECAGEM_OK"), ref["FRESCOR"]),
-        "Culturas escritas nas bulas lidas: " + ", ".join(ref["CULTURAS_NAS_BULAS"]),
+        "Culturas no campo CROP_ON_LABEL das linhas de uso lidas (o TEXTO de uma bula pode nomear outras culturas que "
+        "a leitura nao separou em linha propria; por isso nao afirme que uma cultura nao aparece nas bulas — diga so "
+        "que nao ha linha de uso com ela): " + ", ".join(ref["CULTURAS_NAS_BULAS"]),
         "Bulas de registo ATIVO NAO lidas (%d) — podem autorizar, nao sabemos: %s" % (
             len(ref["NAO_LIDAS"]), ", ".join(ref["NAO_LIDAS"])),
         "\n-- D1. PORTFOLIO (catalogo, %d produtos): nome | categoria | ativo" % len(ref["PORTFOLIO"]),
         "\n".join(ref["PORTFOLIO"]),
-        "\n-- D2. USOS LIDOS NAS BULAS (%d linhas distintas): USE_ID|produto|cultura|alvo|alvo como escrito|estado"
-        " (AUT = AUTORIZADO_NA_BULA_LIDA)" % len(ref["USOS"]),
+        "\n-- D2. USOS LIDOS NAS BULAS (%s linhas de uso lidas, mostradas aqui como %d combinacoes distintas "
+        "produto x CROP_ON_LABEL x alvo x estado): USE_ID|produto|cultura|alvo|alvo como escrito|estado"
+        " (AUT = AUTORIZADO_NA_BULA_LIDA)" % (ref.get("N_USOS_LIDOS", "NAO_SEI"), len(ref["USOS"])),
         "\n".join(ref["USOS"]),
         "\n=== E. FENOLOGIA E JANELAS DE CULTURA (Italia) — %s ===" % fen["AVISO"],
         "\n".join(fen["LINHAS"]),
@@ -265,7 +272,53 @@ def _ids_citados(campos, chave):
     return out
 
 
-def conferir(saida, fatos, sinais, ref, fen):
+#: D162 (leitura provisoria do coordenador, aplicada pelo LAB em 02/10): GAP so com a NECESSIDADE fechada.
+NECESSIDADE_DO_GAP = ("O_QUE_ACONTECEU", "CULTURA", "LOCAL", "PROBLEMA", "JANELA")
+_ANO = re.compile(r"\b(20\d\d)\b")
+
+
+def _sem_valor(campo) -> bool:
+    v = str((campo or {}).get("valor", "NAO_SEI") or "NAO_SEI").strip()
+    return v.upper().startswith("NAO_SEI") or v.upper().startswith("NAO SEI")
+
+
+def regua_da_classe(o) -> None:
+    """R1 · GAP sem a necessidade fechada nao e GAP: e SINAL, com a hipotese e o que falta escritos (nada se apaga)."""
+    if o.get("CLASSE") != "GAP":
+        return
+    campos = o.get("CAMPOS") or {}
+    falta = [k for k in NECESSIDADE_DO_GAP if _sem_valor(campos.get(k))]
+    if falta:
+        o["CLASSE_DO_MODELO"] = "GAP"
+        o["CLASSE"] = "SINAL"
+        o["HIPOTESE_DE_GAP"] = {"ESTADO": "GAP_A_CONFIRMAR", "FALTA": falta,
+                                "REGRA": "GAP so com %s fechados (D162, leitura provisoria; LAB 02/10)"
+                                         % " + ".join(NECESSIDADE_DO_GAP)}
+
+
+def regua_do_agora(o, fatos, hoje) -> None:
+    """R2 · POR_QUE_AGORA com valor so com prova: sem inferencia da IA e com um facto citado cujo «quando» escreve o
+    ano corrente. Uma data do ano corrente nao prova sozinha que e agora; mas sem ela, o «agora» e certamente sem
+    prova (C03: factos de 2025). O texto do modelo fica em VALOR_DO_MODELO."""
+    c = (o.get("CAMPOS") or {}).get("POR_QUE_AGORA")
+    if not isinstance(c, dict) or _sem_valor(c):
+        return
+    motivo = None
+    if str(c.get("INTERPRETACAO_DA_IA") or "").strip():
+        motivo = "o «agora» e inferencia da IA, nao facto"
+    else:
+        anos = {a for i in (c.get("FACT_IDs") or []) if i in fatos
+                for a in _ANO.findall(str(_v(fatos[i], "quando")))}
+        if str(hoje.year) not in anos:
+            motivo = "nenhum facto citado tem data de %d (anos achados: %s)" % (hoje.year, ", ".join(sorted(anos)) or
+                                                                                "nenhum")
+    if motivo:
+        c["VALOR_DO_MODELO"] = c.get("valor")
+        c["valor"] = "NAO_SEI — sem prova do agora: " + motivo
+
+
+def conferir(saida, fatos, sinais, ref, fen, hoje=None):
+    hoje = hoje or date.today()
     sinais_ids = {s["SIGNAL_ID"] for s in sinais}
     objetos, rejeitados = [], []
     for o in saida.get("objetos") or []:
@@ -310,6 +363,9 @@ def conferir(saida, fatos, sinais, ref, fen):
                 "DIAS_SEM_CHECAGEM": ref["CARIMBO"].get("DIAS_SEM_CHECAGEM"),
                 "TEXTO": "Autorizacao lida na bula; referencia %s — confirmar registo vigente antes de uso comercial."
                          % ref["FRESCOR"]}
+        # reguas do LAB (02/10) — antes das medidas, para a medida ver a classe e o agora ja corrigidos
+        regua_da_classe(o)
+        regua_do_agora(o, fatos, hoje)
         # medidas do Done (nao filtram)
         texto = json.dumps(o, ensure_ascii=False)
         o["CONFERENCIA"] = {
@@ -348,6 +404,8 @@ def main(argv):
     sujo = subprocess.run(["git", "-C", str(RAIZ), "status", "--porcelain", "--", "motor"], capture_output=True,
                           text=True).stdout.strip()
     contagem = {c: sum(1 for o in objetos if o.get("CLASSE") == c) for c in CLASSES}
+    contagem_do_modelo = {c: sum(1 for o in objetos if o.get("CLASSE_DO_MODELO", o.get("CLASSE")) == c)
+                          for c in CLASSES}
     rodada = OrderedDict([
         ("ESTADO", "EXPERIMENTAL / NAO_PARA_CLIENTE"),
         ("VERSAO", VERSAO), ("MODELO", MODELO), ("CODIGO_HEAD", head),
@@ -360,6 +418,10 @@ def main(argv):
         ("FENOLOGIA", {"BUILT_AT": fen["BUILT_AT"], "AVISO": fen["AVISO"], "SHA256": fen["SHA256"]}),
         ("CUSTO", custo),
         ("CONTAGEM", contagem),
+        ("CONTAGEM_DO_MODELO", contagem_do_modelo),
+        ("REGUAS_DO_PROGRAMA", {"GAP": "so com %s fechados; senao SINAL + HIPOTESE_DE_GAP" % "+".join(NECESSIDADE_DO_GAP),
+                                "POR_QUE_AGORA": "sem inferencia da IA e com facto citado do ano corrente; senao NAO_SEI",
+                                "FONTE": "AUDITORIA-LAB-CRUZAMENTO.md sec. 1 (02/10), leitura da D162"}),
         ("REJEITADOS_POR_ID", rejeitados),
         ("CONFERENCIA_GLOBAL", {
             "OBJETOS_COM_VERIFICAR": [o["ID"] for o in objetos if o["CONFERENCIA"]["PALAVRAS_VERIFICAR"]],
