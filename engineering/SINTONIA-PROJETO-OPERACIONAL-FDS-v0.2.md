@@ -1300,6 +1300,224 @@ e o Casco não deve pintá-lo artificialmente de verde.
 
 Recebe preços, produção, área, oferta, demanda, custos, movimentos e impactos.
 
+A ferramenta precisa responder para um usuário leigo:
+
+```text
+O QUE ESTÁ ACONTECENDO NO MERCADO?
+POR QUE ISSO IMPORTA?
+O QUE ISSO MUDA PARA A CULTURA / REGIÃO?
+O QUE A ADAMA DEVE OBSERVAR OU FAZER?
+```
+
+Market Pulse não pode expor contagens internas como se fossem indicadores de mercado.
+
+Exemplo proibido:
+
+```text
+MAIS 13
+```
+
+Um número nunca aparece sozinho. Todo número visível precisa responder:
+
+```text
+13 O QUÊ?
+DE QUAL PERÍODO?
+DE QUAL FONTE?
+DE QUAL UNIDADE?
+O QUE ISSO SIGNIFICA?
+```
+
+Contagens de registros, linhas ingeridas, observações e cobertura são **metadados do sistema**, não fatos de mercado. Se forem úteis, ficam em uma área de cobertura/detalhe, claramente rotulados:
+
+```text
+13 osservazioni di prezzo
+```
+
+e nunca como headline comercial.
+
+#### Primeira camada — história do mercado por cultura
+
+Cada cultura deve abrir com uma leitura simples, visual e curta:
+
+```text
+MAIS · ITALIA
+
+PREZZO
+€ X / t
+↑ 6,4% vs 4 settimane fa
+
+PRODUZIONE
+↓ 14% vs media 5 anni
+
+OFFERTA
+Sotto pressione
+
+ULTIMO AGGIORNAMENTO
+02 OTT 2026
+
+COSA SIGNIFICA
+Una frase semplice.
+
+AZIONE
+Una frase concreta, solo quando supportata.
+```
+
+Mostrar somente blocos que tenham dados reais. Se produção não existir, não preencher com estimativa.
+
+#### Quatro perguntas visuais
+
+A tela deve organizar o mercado em quatro blocos fáceis:
+
+1. **PREZZO**
+   - valor;
+   - unidade;
+   - direção;
+   - comparação;
+   - praça/território;
+   - período.
+
+2. **OFFERTA / PRODUZIONE**
+   - produção;
+   - rendimento;
+   - área;
+   - estoque;
+   - disponibilidade;
+   - importação/exportação, quando existirem.
+
+3. **COSTI / PRESSIONI**
+   - fertilizante;
+   - energia;
+   - logística;
+   - outros custos observados.
+
+4. **COSA SIGNIFICA**
+   - síntese em linguagem humana;
+   - impacto provável para aquela cultura/região;
+   - o que vale observar;
+   - relação comercial quando houver evidência.
+
+Não mostrar um bloco vazio como se fosse dado.
+
+#### O cruzamento precisa ser legível
+
+O cliente precisa entender **o que foi cruzado** sem conhecer a arquitetura interna.
+
+Exemplo:
+
+```text
+PREZZO MAIS ↑
++
+RESA ↓
++
+CALDO / STRESS IDRICO
+=
+OFFERTA PIÙ TESA
+```
+
+ou:
+
+```text
+PREZZO ↑
++
+COSTO FERTILIZZANTE ↑
+=
+MARGINE DELL'AGRICOLTORE SOTTO PRESSIONE
+```
+
+Essas relações só aparecem quando cada elo tem evidência.
+
+A ferramenta deve mostrar visualmente as 2–4 entradas principais que sustentam a conclusão, não uma lista de dezenas de campos.
+
+#### Camada comercial
+
+Quando houver relação com oportunidade comercial, mostrar separadamente:
+
+```text
+COSA SIGNIFICA PER ADAMA
+```
+
+Exemplo de formato:
+
+```text
+La coltura resta economicamente rilevante,
+ma il margine è sotto pressione.
+
+DA MONITORARE
+pressione fitosanitaria + finestra agronomica
+
+AZIONE
+priorizzare il monitoraggio commerciale in ...
+```
+
+Não transformar automaticamente preço alto/baixo em oportunidade de produto. A ligação comercial precisa passar por cultura, problema, janela, produto e label quando aplicável.
+
+#### Atualização e confiança
+
+Cada cultura precisa mostrar:
+
+```text
+ULTIMO AGGIORNAMENTO
+DD MMM YYYY
+
+COPERTURA
+COMPLETA | PARZIALE | LIMITATA | NON DISPONIBILE
+```
+
+A cobertura precisa refletir quantos tipos de mercado estão realmente presentes, não apenas quantidade de linhas.
+
+Exemplo:
+
+```text
+COPERTURA LIMITATA
+Solo prezzi settimanali disponibili
+1 fonte
+Nessun dato su produzione, stock o costi
+```
+
+Isso evita que 13 observações de uma mesma série pareçam um mercado amplamente coberto.
+
+#### Fontes e timeline
+
+A evolução de mercado deve poder ser vista em linha do tempo, quando houver múltiplos eventos relevantes:
+
+```text
+12 AGO     03 SET     28 SET
+  ●──────────●──────────●
+Prezzo      Resa       Offerta
+cambia      rivista    sotto pressione
+```
+
+Cada evento abre a fonte original.
+
+A lista completa de registros fica em detalhe técnico/auditoria, não na primeira camada.
+
+#### Regra de linguagem
+
+A primeira tela do Market Pulse não pode usar:
+
+- nomes de tabelas;
+- contagem de rows;
+- códigos de série;
+- nomes de campos internos;
+- siglas sem explicação;
+- números sem unidade;
+- números sem período;
+- números sem significado.
+
+Regra:
+
+```text
+DADO
+↓
+SIGNIFICADO
+↓
+IMPLICAÇÃO
+↓
+AÇÃO, SE EXISTIR
+```
+
+Se o cliente precisa perguntar "13 o quê?", a ferramenta falhou na apresentação.
+
 ### Research / Science / Researchers
 
 Recebe pesquisadores, instituições, temas, papers, resistência, tendências, ciência emergente e especialistas por cultura/região.
