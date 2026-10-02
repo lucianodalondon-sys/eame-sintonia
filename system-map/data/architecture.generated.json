@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/casco-cruzamento-v1",
-    "HEAD": "e7cf87902d8f7c3838bd5450c53f73cb8a3a24ea",
-    "GENERATED_AT": "2026-10-02T04:50:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "8e6a330d87328fca54bb4c2550d64510fcda377f43a37aa05d66790c0f5d4e8f"
+    "HEAD": "f56dec02847af78ad4fc95b1b0212ee84861f4cd",
+    "GENERATED_AT": "2026-10-02T06:02:44-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3888502c542fb583b729b849850074e69b44b371e1eefa08a9376cf3928af341"
   },
   "FILES": [
     {
@@ -17454,7 +17454,7 @@
     },
     {
       "path": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
-      "sha": "2612d3fe893c0e13ead97051390f7162f1296fbc",
+      "sha": "29fe3fd914ab9618c2af61a93652bb36e718b883",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17482,7 +17482,7 @@
     },
     {
       "path": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
-      "sha": "380de3a8ff431580791d224ce867ccb8d47707fd",
+      "sha": "2b2a042d174eccefacd4d169356f41f37c0bd3a8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29502,6 +29502,13 @@
     {
       "path": "tests/test_psql_argv.py",
       "sha": "353be2525a9012118fe2ba85716045431f9cf00a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_publicar_cruzamento_fast_auto.py",
+      "sha": "41cc9a6d2d9e93a8dfddcc8c3d694c89246ae879",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -52695,7 +52702,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
-        "line": 36,
+        "line": 38,
         "snippet": "open(destino_js, 'w', encoding='utf-8', newline='\\n').write(corpo)"
       }
     },
@@ -52772,7 +52779,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
-        "line": 94,
+        "line": 113,
         "snippet": "g = subprocess.run([sys.executable, os.path.join(AQUI, 'gerar_cruzamento_publicado.py'), pasta, cli],"
       }
     },
@@ -52783,7 +52790,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
-        "line": 92,
+        "line": 111,
         "snippet": "open(os.path.join(tmp, 'package.json'), 'w').write('{\"name\":\"cruz-teste\",\"private\":true,\"scripts\":{\"build\":\"echo sem build\"}}\\n')"
       }
     },
@@ -52794,7 +52801,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
-        "line": 86,
+        "line": 105,
         "snippet": "arq = subprocess.run(['git', '-C', a.repo, 'archive', '--format=tar', commit, 'italia-portale/client', 'vercel.json'],"
       }
     },
@@ -115256,9 +115263,9 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4293,
-    "files_readable": 1806,
-    "files_code_dir": 2263,
+    "files_tracked": 4294,
+    "files_readable": 1807,
+    "files_code_dir": 2264,
     "file_edges": 7685,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0

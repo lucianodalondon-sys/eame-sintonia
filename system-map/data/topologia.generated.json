@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-02T07:54:46+00:00",
-  "HEAD": "e7cf87902d8f7c3838bd5450c53f73cb8a3a24ea",
+  "GENERATED_AT": "2026-10-02T09:07:14+00:00",
+  "HEAD": "f56dec02847af78ad4fc95b1b0212ee84861f4cd",
   "BRANCH": "claude/casco-cruzamento-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "8e6a330d87328fca54bb4c2550d64510fcda377f43a37aa05d66790c0f5d4e8f",
-  "FICHEIROS_NA_IMPRESSAO": 4441,
+  "SOURCE_TREE_FINGERPRINT": "3888502c542fb583b729b849850074e69b44b371e1eefa08a9376cf3928af341",
+  "FICHEIROS_NA_IMPRESSAO": 4442,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -5725,14 +5725,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8e6a330d87328fca54bb4c2550d64510fcda377f43a37aa05d66790c0f5d4e8f",
+    "VERSAO": "3888502c542fb583b729b849850074e69b44b371e1eefa08a9376cf3928af341",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8e6a330d87328fca54bb4c2550d64510fcda377f43a37aa05d66790c0f5d4e8f",
+    "VERSAO": "3888502c542fb583b729b849850074e69b44b371e1eefa08a9376cf3928af341",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7928,6 +7928,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_publicar_cruzamento_fast_auto.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "41cc9a6d2d9e93a8dfddcc8c3d694c89246ae879",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_publicar_portal_sozinho.py",
     "PAPEL": "FONTE",
     "VERSAO": "30a5221a3000650db0045f6cf291ed0cec85e04b",
@@ -8474,8 +8481,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1205,
-  "INPUTS_DIGEST": "e28c0f5dcc83bf15e2e008f8511396c886dca719dd68b754621ef563ec81ab81",
+  "INPUTS_COUNT": 1206,
+  "INPUTS_DIGEST": "9bc859885aa8f41de3414d9238beb0a4dd2df32e65978442f5d2995618e77b0c",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8508,8 +8515,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b4340669dd74288f57465e3a6662122823c101adc32993367c204b9c4b43ded5",
-  "SEMANTIC_HASH": "479eeca9a6348f31670c73d3ad217694f4465e5464c9489d09b2256cd3e325d3"
+  "MEASUREMENT_HASH": "1027605f779e6d8fc7070fb694a27f964405ddc6ad32c58a28d5157ef7504f81",
+  "SEMANTIC_HASH": "00d476b122d443619c3ac9b3438beacbdb70a13a739f61d1f562b81c04d5cd85"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13797,7 +13804,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
-      "LINHA": 36,
+      "LINHA": 38,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AUDIT-CASCO--WRITES-->C-PORTAL-MODELO",
@@ -62406,7 +62413,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
-      "LINHA": 86,
+      "LINHA": 105,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-AUDIT-CASCO",
@@ -78694,6 +78701,7 @@
     "tests/test_prova_teto_social.py",
     "tests/test_proveniencia.py",
     "tests/test_psql_argv.py",
+    "tests/test_publicar_cruzamento_fast_auto.py",
     "tests/test_publicar_portal_sozinho.py",
     "tests/test_publicar_preview_da_pasta.py",
     "tests/test_qualidade_t3.py",

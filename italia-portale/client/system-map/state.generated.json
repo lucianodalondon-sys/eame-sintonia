@@ -4289,6 +4289,7 @@
       "tests/test_prova_teto_social.py",
       "tests/test_proveniencia.py",
       "tests/test_psql_argv.py",
+      "tests/test_publicar_cruzamento_fast_auto.py",
       "tests/test_publicar_portal_sozinho.py",
       "tests/test_publicar_preview_da_pasta.py",
       "tests/test_qualidade_t3.py",
@@ -4887,9 +4888,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/casco-cruzamento-v1",
-    "HEAD": "e7cf87902d8f7c3838bd5450c53f73cb8a3a24ea",
-    "GENERATED_AT": "2026-10-02T04:50:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "8e6a330d87328fca54bb4c2550d64510fcda377f43a37aa05d66790c0f5d4e8f"
+    "HEAD": "f56dec02847af78ad4fc95b1b0212ee84861f4cd",
+    "GENERATED_AT": "2026-10-02T06:02:44-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3888502c542fb583b729b849850074e69b44b371e1eefa08a9376cf3928af341"
   },
   "FAMILIES": [
     {
@@ -73807,6 +73808,7 @@
         "tests/test_prova_teto_social.py",
         "tests/test_proveniencia.py",
         "tests/test_psql_argv.py",
+        "tests/test_publicar_cruzamento_fast_auto.py",
         "tests/test_publicar_portal_sozinho.py",
         "tests/test_publicar_preview_da_pasta.py",
         "tests/test_qualidade_t3.py",
@@ -73886,7 +73888,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 352,
+      "file_count": 353,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -85618,7 +85620,7 @@
       "evidence": [
         {
           "file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
-          "line": 36,
+          "line": 38,
           "snippet": "open(destino_js, 'w', encoding='utf-8', newline='\\n').write(corpo)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-CASCO--WRITES-->C-PORTAL-MODELO",
@@ -171931,7 +171933,7 @@
       "evidence": [
         {
           "file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
-          "line": 86,
+          "line": 105,
           "snippet": "arq = subprocess.run(['git', '-C', a.repo, 'archive', '--format=tar', commit, 'italia-portale/client', 'vercel.json'],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-AUDIT-CASCO",
@@ -178493,8 +178495,8 @@
     "edges_proven": 1906,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4293,
-    "files_covered": 1996,
+    "files_tracked": 4294,
+    "files_covered": 1997,
     "files_code_unclaimed": 0,
     "roles_proven": 211,
     "roles_declared_only": 11,
