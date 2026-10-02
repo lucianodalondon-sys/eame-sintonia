@@ -71,7 +71,10 @@ function dt(s){if(!s)return '<span class="nao">NÃO SEI</span>';var d=new Date(s
 function fids(x){return x.FACT_IDS_VALIDOS||[]}
 function factLink(id){var f=fat[id];return f?'<a href="#f/'+encodeURIComponent(id)+'">'+esc(f.fato)+'</a>':'<span class="nao">'+esc(id)+' ? (fato não encontrado)</span>'}
 function fontes(x){var u={};fids(x).forEach(function(id){var d=docDe[id];if(d)u[d.DOCUMENT_ID]=d});return Object.keys(u).map(function(k){return u[k]})}
-document.getElementById('meta').textContent='Remessa '+R.PASTA+' · '+V.fatos_ok+' fatos conferidos de '+V.fatos_in;
+document.getElementById('meta').textContent=R.REMESSA_ID&&R.VALIDACAO_SHA256
+ ?'Remessa '+R.REMESSA_ID+' · conferência '+String(R.VALIDACAO_SHA256).slice(0,12)+' · '+V.fatos_ok+' fatos conferidos de '+V.fatos_in
+ :'Remessa '+R.PASTA+' · gerada sem trava (sem ID/SHA da conferência) — NÃO CONFERIDA';
+document.getElementById('meta').title=R.VALIDACAO_SHA256?'SHA256 do VALIDACAO.json: '+R.VALIDACAO_SHA256:'';
 function contagem(){return '<div class="cont"><span>Documentos lidos <b>'+F.documentos.length+'</b></span><span>Relevantes <b>'+F.documentos.filter(function(d){return d.relevante==='SIM'}).length+'</b></span><span>Fatos <b>'+Object.keys(fat).length+'</b></span><span>Sinais <b>'+S.length+'</b></span><span>Oportunidades <b>'+O.length+'</b></span></div>'}
 var AVISO='<p class="fonte">A IA leu documentos reais coletados e escreveu estas conclusões. O conferidor só garante que cada trecho citado existe no texto original; ele não garante que a conclusão esteja certa. A decisão é humana.</p>';
 function cardO(o){var fs=fontes(o);return '<a class="card" href="#o/'+esc(o.OPP_ID)+'"><div class="tipo">OPORTUNIDADE · CONFIANÇA DA IA: '+val(o.confianca)+'</div><h2>'+esc(o.titulo)+'</h2><div class="grid"><div><p class="k">Para quem</p>'+val(o.para_quem)+'</div><div><p class="k">Janela</p>'+val(o.janela)+'</div><div><p class="k">Sustentação</p>'+fids(o).length+' fatos · '+fs.length+' documento(s) · '+val(o.fontes_independentes)+' fonte(s) independente(s)</div></div></a>'}
