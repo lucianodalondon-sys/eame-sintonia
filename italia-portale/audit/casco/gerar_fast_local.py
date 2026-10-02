@@ -5,6 +5,8 @@ e grava italia-portale/client/sintonia-fast.local.js (ignorado pelo Git e pela V
 Nao muda, nao filtra e nao reinterpreta nenhum objeto: so empacota para a tela.
 
 Uso: python italia-portale/audit/casco/gerar_fast_local.py [pasta]
+  pasta = uma corrida (FAST-V1) ou a raiz FAST-AUTO: com ULTIMA.txt (RUN_ID=<id>) le so
+  FAST-AUTO/<id>/; raw_texto/ so entra se estiver no SHA256SUMS e conferir.
 """
 import hashlib, json, os, sys
 
@@ -20,6 +22,16 @@ def sha(p):
 
 def main():
     pasta = sys.argv[1] if len(sys.argv) > 1 else PADRAO
+    run_id = None
+    ponteiro = os.path.join(pasta, "ULTIMA.txt")
+    if os.path.exists(ponteiro):
+        linhas = [l.strip() for l in open(ponteiro, encoding="utf-8") if l.strip()]
+        if len(linhas) != 1 or not linhas[0].startswith("RUN_ID="):
+            sys.exit(f"RECUSADO: ULTIMA.txt fora do contrato: {linhas!r}")
+        run_id = linhas[0][len("RUN_ID="):].strip()
+        if not run_id or "/" in run_id or "\\" in run_id or ".." in run_id:
+            sys.exit(f"RECUSADO: RUN_ID invalido {run_id!r}")
+        pasta = os.path.join(pasta, run_id)
     somas = {}
     for linha in open(os.path.join(pasta, "SHA256SUMS.txt"), encoding="utf-8"):
         if linha.strip():
@@ -35,7 +47,13 @@ def main():
     textos = {}
     for d in j["DOCUMENTOS_FAST.json"]:
         p = os.path.join(pasta, "raw_texto", d["DOCUMENT_ID"] + ".txt")
-        textos[d["DOCUMENT_ID"]] = open(p, encoding="utf-8").read() if os.path.exists(p) else None
+        nome = "raw_texto/" + d["DOCUMENT_ID"] + ".txt"
+        if not os.path.exists(p):
+            textos[d["DOCUMENT_ID"]] = None
+        elif run_id is not None and somas.get(nome) != sha(p):
+            textos[d["DOCUMENT_ID"]] = None  # sem conferencia = NAO SEI na tela
+        else:
+            textos[d["DOCUMENT_ID"]] = open(p, encoding="utf-8").read()
     # integridade do caminho de clique (so mede; nada e removido)
     fatos = {f["FACT_ID"] for f in j["FACTS_FAST.json"]["FATOS"]}
     sinais = {s["SIGNAL_ID"] for s in j["SIGNALS_FAST.json"]["SINAIS"]}
@@ -51,6 +69,7 @@ def main():
             quebras.append(f"{f['FACT_ID']}->{f['DOCUMENT_ID']}")
     pacote = {
         "PASTA": pasta.replace("\\", "/"),
+        "RUN_ID_PONTEIRO": run_id,
         "SHA256": conf,
         "FACTS": j["FACTS_FAST.json"],
         "SIGNALS": j["SIGNALS_FAST.json"],
@@ -63,7 +82,7 @@ def main():
     open(SAIDA, "w", encoding="utf-8", newline="\n").write(
         "/* GERADO por italia-portale/audit/casco/gerar_fast_local.py — so local, nunca publicar */\n"
         "window.SINTONIA_FAST = " + corpo + ";\n")
-    print(f"OK {SAIDA}\n  fatos={len(fatos)} sinais={len(sinais)} oportunidades="
+    print(f"OK {SAIDA} run={run_id}\n  fatos={len(fatos)} sinais={len(sinais)} oportunidades="
           f"{len(j['OPPORTUNITIES_FAST.json']['OPORTUNIDADES'])} docs={len(docs)} "
           f"textos={sum(1 for v in textos.values() if v)} links_quebrados={len(quebras)}")
 
