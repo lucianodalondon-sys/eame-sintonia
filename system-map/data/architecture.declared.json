@@ -5294,7 +5294,7 @@
     "audit",
     "diagnostic"
    ],
-   "what": "Uma prova de ZERO REDE EXTERNA que liga o transporte real do coletor (curl) contra um servidor HTTP em 127.0.0.1 e conta os pedidos NO SERVIDOR: robots que proibe um caminho da 0 pedidos a ele; robots que proibe o indice deixa a fonte UNKNOWN e o livro intacto; a pausa minima (1 s, 2 s configurada, Crawl-delay 3) mede-se entre chegadas; o teto de 5 (D7) e o configurado cortam exactamente; robots ilegivel e indisponivel nao deixam passar; o salto de redireccionamento pede licenca outra vez; `www.site` e `site` contam como UM site (o caso Villoresi, medido na rede real: 6 pedidos antes da correccao). E um red team de 17 mutantes, um por guarda, com bandeira que prova que a linha mutada correu, restauro conferido por sha.",
+   "what": "Uma prova de ZERO REDE EXTERNA que liga o transporte real do coletor (curl) contra um servidor HTTP em 127.0.0.1 e conta os pedidos NO SERVIDOR: robots que proibe um caminho da 0 pedidos a ele; robots que proibe o indice deixa a fonte UNKNOWN e o livro intacto; a pausa minima (1 s, 2 s configurada, Crawl-delay 3) mede-se entre chegadas; o teto de 5 (D7) e o configurado cortam exactamente; robots ilegivel e indisponivel nao deixam passar; o salto de redireccionamento pede licenca outra vez; `www.site` e `site` contam como UM site (o caso Villoresi, medido na rede real: 6 pedidos antes da correccao). E um red team de 17 mutantes, um por guarda, com bandeira que prova que a linha mutada correu, restauro conferido por sha. T10-TLS-RETRY (01/10/2026): o `baixar()` de producao com um curl FALSO (`trocarCurlParaTeste`) prova o recuo so na falha transitoria (curl 35 TLS: 3 s, 5 s, limite 5 s, somado a pausa) e a retentativa DENTRO da mesma reserva do livro de 24 h; o desafio continua recusa; mutacao 14/14 em provas/t10_tls_retry/MUTACAO-T10.json.",
    "why_here": "Medido na A4: o coletor nao lia robots nem espacava pedidos; quem o fazia era o condutor da micro, por fora — uma regra com dois donos vale para um e falta ao outro. A prova arranca o coletor, nao a regra, porque so assim mede a ROTA: um teste que importa `robotsPermite` provaria o leitor do robots e nunca veria o `baixar()` a ignora-lo.",
    "departments": [
     "ENGENHARIA"
@@ -5304,6 +5304,7 @@
     "provas/cortesia_red_team.mjs",
     "provas/CORTESIA-RED-TEAM-V1.json",
     "provas/teto_dominio_local.mjs",
+    "provas/t10_tls_retry/*",
     "provas/feed_local.mjs",
     "provas/scrap_evolucao/medir_feeds_no_acervo.py",
     "provas/scrap_evolucao/comparar_links_no_acervo.py",
