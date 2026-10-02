@@ -109,6 +109,28 @@ def _politica_do_contrato(c: dict) -> list[tuple[str, str]]:
     return []
 
 
+#: SOCIAL-ONDA (02/10): o filtro em que as fases de Reel do Scrap recebem o endereco (`scrap_colheita.NOMEADOS`)
+IG_FILTRO_URL = "url"
+
+
+def _reel_por_url_directa(plat: str | None, aq: dict) -> list[tuple[str, str]]:
+    """SOCIAL-ONDA (02/10): Instagram so o Reel por URL DIRECTA (D22/D157). Um endereco de perfil ou de conta e
+    listagem — recusa com nome, mesmo que um dia o Curator tenha conferidor para as fases de Reel. A regra do que
+    e um Reel e a que ja existia (`coleta/social_por_url_achado.especie_do_endereco`), nao uma nova."""
+    if plat != "INSTAGRAM" or aq.get("FASE") not in FASES_DO_AMBITO:
+        return []
+    url = str((aq.get("FILTROS") or {}).get(IG_FILTRO_URL) or "").strip()
+    if not url:
+        return [("ROTA_NAO_CONFERIDA", "o contrato nao traz a URL directa do Reel (FILTROS.%s vazio)" % IG_FILTRO_URL)]
+    sys.path.insert(0, str(RAIZ / "coleta"))
+    import social_por_url_achado as SPA                                 # noqa: PLC0415
+    esp = SPA.especie_do_endereco(url)
+    if esp.get("ESPECIE") != "REEL":
+        return [("LISTAGEM_NAO_AUTORIZADA", "FILTROS.%s=%s nao e URL directa de Reel (perfil ou listagem); "
+                                            "D22/D157: so o Reel por URL directa" % (IG_FILTRO_URL, url))]
+    return []
+
+
 def _motivos_scrap_fase(c: dict, declarado) -> tuple[str | None, list]:
     import rota_do_scrap_social as RSS                                  # noqa: PLC0415
     aq = c.get("ACQUISITION") or {}
@@ -126,7 +148,7 @@ def _motivos_scrap_fase(c: dict, declarado) -> tuple[str | None, list]:
                   % (plat, ", ".join(sorted(AMBITO)))))
     elif fase not in FASES_DO_AMBITO and not m:
         m.append(("FORA_DO_AMBITO_AUTORIZADO", "SCRAP_FASE/%s: %s — %s" % (fase, plat, AMBITO[plat])))
-    m += _rastro_do_dono(plat, aq) + _politica_do_contrato(c)
+    m += _reel_por_url_directa(plat, aq) + _rastro_do_dono(plat, aq) + _politica_do_contrato(c)
     ok, porque = RSS.conferir(aq)
     if not ok:
         m.append(("ROTA_NAO_CONFERIDA", porque))

@@ -5,6 +5,7 @@
           --teto-24h=<TETO-24H.json> [--plano=<RODADAS-PLANO.json>] [--estado-rodadas=<RODADAS-ESTADO.json>]
           [--historico=a.json,b.json] [--livros-do-dia=<pasta das ondas>] [--recibos=<pasta,pasta>]
           [--max-fontes=N] [--paralelo] [--janela-24h]   (D124: a janela D79 so se ligada)
+          [--autorizado-pelo-dono]   (SOCIAL-ONDA: liga a onda da linha SOCIAL; POR OMISSAO DESLIGADA)
     py ferramentas/big_collection/coleta_continua.py --servico   (os mesmos) [--intervalo-min=30]
     py ferramentas/big_collection/coleta_continua.py --ensaio-a-seco (os mesmos) [--agora=<ISO>]   0 rede, 0 Sala
     py ferramentas/big_collection/coleta_continua.py --estado  --base=<pasta>
@@ -65,6 +66,13 @@ as outras ficam ESPERA_LIGACAO, com o ficheiro onde falta a linha (CONTADOR-24H.
 de ciclo para ciclo. `--paralelo` corre as ondas das linhas ao mesmo tempo (o orcamento ja foi repartido, e
 o livro de 24 h reserva cada pedido sob trinco).
 
+SOCIAL-ONDA (02/10): a linha SOCIAL tem onda PROPRIA, atras do `--autorizado-pelo-dono` (o dono liga-a; sem a flag
+a linha diz BLOQUEADA_PERMISSAO_SOCIAL). A onda consome SO as unidades ACEITES pela porta T9
+(`plano_onda_social.triagem_social`) que o maestro sabe correr, e corre-as pelo MAESTRO SOCIAL que ja existia
+(`maestro_social.py --correr --autorizado-pelo-dono --fontes=`): nada de extrator, rota ou transporte novo. O ciclo
+e o mesmo dos SITES — egresso IT antes/depois, backup da Sala, robo, livro de 24 h (o freio do Scrap reserva nele:
+`coleta/teto_da_onda.py`), prova-teto do ciclo e das 24 h, reconciliacao. So a onda da linha muda.
+
     O AGENDADOR ESCOLHE; O TRANSPORTE CORTA; A PROVA CONFERE. TRES DONOS, NENHUM CONFIA NO OUTRO.
 """
 from __future__ import annotations
@@ -120,7 +128,9 @@ LINHAS = [
     {"LINHA": "CIENCIA", "FAMILIA": "APIs cientificas OpenAlex/Crossref/ORCID (excecao de robots D91)",
      "TRANSPORTE": "coleta/pesquisadores_t6.py", "SONDA_PY": "ferramentas/big_collection/sonda_ligacao_linha.py"},
     {"LINHA": "SOCIAL", "FAMILIA": "YouTube/social (so o que o freio social ja libera)",
-     "TRANSPORTE": "coleta/teto_da_onda.py", "SONDA_PY": "ferramentas/big_collection/sonda_ligacao_linha.py"},
+     "TRANSPORTE": "coleta/teto_da_onda.py", "SONDA_PY": "ferramentas/big_collection/sonda_ligacao_linha.py",
+     "ONDA": "ferramentas/maestro_social/maestro_social.py --correr --autorizado-pelo-dono (so as ACEITES da porta "
+             "T9; so com --autorizado-pelo-dono na coleta continua)"},
     {"LINHA": "PESQUISADORES", "FAMILIA": "paginas de pesquisadores T6",
      "TRANSPORTE": "ferramentas/seguir_pesquisadores/seguir.py",
      "SONDA_PY": "ferramentas/big_collection/sonda_ligacao_linha.py"},
@@ -238,6 +248,30 @@ def _catalogo_ciencia(raiz: Path) -> dict:
             "COMO_CORRE": "por RODADA sobre o seu ESTADO.json (pesquisadores_t6.py --rede --rodada=N)"}
 
 
+# SOCIAL-ONDA (02/10): o que a onda social sabe correr, por FASE do contrato, e o que cada fonte pede por dominio.
+# Os numeros sao os do plano social que ja existia (`plano_onda_social.previsto_linkedin`, com o teto do pedido C2):
+# o maestro so poe numa onda as fases video-linkedin e canal/audio-youtube (`plano_onda_social.rodadas`), e o
+# canal-youtube esta fora do ambito do T9. Fase aceite sem previsto aqui nao corre: nao se inventa rota.
+def candidatas_sociais(aceites: list, contratos: dict) -> tuple:
+    """(CANDIDATAS no formato do agendador, {SOURCE_ID: porque nao tem rota na onda social}). Puro, sem rede.
+    PREVISTOS = a soma dos dominios (cada dominio e conferido com esse numero: mais apertado, nunca mais largo)."""
+    sys.path.insert(0, str(RAIZ / "curadoria"))
+    import plano_onda_social as POS                                    # noqa: PLC0415
+    previsto = {"video-linkedin": POS.previsto_linkedin(POS.TETO_LINKEDIN_NA_ONDA)}
+    cands, sem_rota = [], {}
+    for s in aceites:
+        fase = ((contratos.get(s) or {}).get("ACQUISITION") or {}).get("FASE")
+        p = previsto.get(fase)
+        if not p:
+            sem_rota[s] = ("fase %r sem rota na onda social (o maestro corre nesta onda: %s)"
+                           % (fase, ", ".join(sorted(previsto))))
+            continue
+        cands.append({"SOURCE_ID": s, "DOMINIO": sorted(p)[0], "PREVISTOS": sum(p.values()), "DOMINIOS": sorted(p),
+                      "PREVISTO_POR_DOMINIO": dict(p), "FASE": fase, "RODADA_DO_PLANO": None,
+                      "CLASSE_PRIORIDADE": None, "LINHA": "SOCIAL"})
+    return cands, sem_rota
+
+
 def _catalogo_social(raiz: Path) -> dict:
     # T9 SOCIAL-CATALOGO-AUTORIZADO (01/10): a porta (`plano_onda_social.triagem_social`) aceita so o contrato com
     # rastro, dentro do ambito, e diz o MOTIVO de cada recusa. O estado vem do livro do ciclo de vida DESTA raiz.
@@ -259,20 +293,25 @@ def _catalogo_social(raiz: Path) -> dict:
     for r in tri["RECUSADAS"]:
         por_motivo.setdefault(r["MOTIVO"], []).append(r["SOURCE_ID"])
     ready = ((_json(raiz, coorte).get("PLANO") or {}).get("PAINEL_DO_GATE") or {}).get("READY_SOCIAL_TOTAL")
+    cands, sem_rota = candidatas_sociais(sociais, contratos)
     m = [] if sociais else [
         ("SEM_CATALOGO", "0 fontes aceites na porta social (plano_onda_social.triagem_social) em %s: %d recusadas "
                          "com motivo (%s); %d contratos nao sociais" % (
                              rel, len(tri["RECUSADAS"]),
                              ", ".join("%s=%d" % (k, len(v)) for k, v in sorted(por_motivo.items())) or "nenhuma",
                              tri["NAO_SOCIAIS"]))]
+    if sociais and not cands:
+        m.append(("BLOQUEADA_CAPACIDADE", "%d aceites na porta e nenhuma com rota na onda social: %s" % (
+            len(sociais), "; ".join("%s: %s" % kv for kv in sorted(sem_rota.items())))))
     return {"CATALOGO": rel, "UNIDADE": "fonte social aceite na porta (rastro + ambito do T9)",
-            "UNIDADES_GOVERNADAS": len(sociais),
+            "UNIDADES_GOVERNADAS": len(sociais), "CANDIDATAS": cands,
             "PORTA_SOCIAL": {"ACEITES": sociais, "RECUSADAS": dict(sorted(por_motivo.items())),
-                             "POR_PLATAFORMA": tri["POR_PLATAFORMA"]},
-            "MOTIVOS": m + [
-                ("BLOQUEADA_PERMISSAO_SOCIAL", "correr fontes sociais exige --autorizado-pelo-dono "
-                                               "(ferramentas/maestro_social/maestro_social.py); a coorte declara "
-                                               "READY_SOCIAL_TOTAL=%s (%s)" % (ready, coorte))],
+                             "POR_PLATAFORMA": tri["POR_PLATAFORMA"], "SEM_ROTA_NA_ONDA": sem_rota},
+            "MOTIVOS": m,
+            # SOCIAL-ONDA: a permissao nao e do catalogo, e do dono — o alimentador junta-a sem a flag
+            "PEDE_AUTORIZACAO": ("BLOQUEADA_PERMISSAO_SOCIAL", "a onda social so corre com --autorizado-pelo-dono na "
+                                 "coleta continua (por omissao fica desligada; quem liga e o dono); a coorte declara "
+                                 "READY_SOCIAL_TOTAL=%s (%s)" % (ready, coorte)),
             "COMO_CORRE": "pelo maestro_social (--correr --autorizado-pelo-dono --fontes=)"}
 
 
@@ -292,10 +331,11 @@ CATALOGOS = {"BUSCA": _catalogo_busca, "CIENCIA": _catalogo_ciencia, "SOCIAL": _
              "PESQUISADORES": _catalogo_pesquisadores}
 
 
-def alimentar_linhas(plano: dict, raiz: Path = RAIZ) -> dict:
+def alimentar_linhas(plano: dict, raiz: Path = RAIZ, autorizado_social: bool = False) -> dict:
     """{linha: {"CANDIDATAS": [...], "ESTADO": None | um de ESTADOS_DE_BLOQUEIO, "PORQUE", "CATALOGO",
     "UNIDADE", "UNIDADES_GOVERNADAS", "MOTIVOS"}}. So leitura, 0 rede. So recebe CANDIDATAS a linha com ONDA no
-    ciclo (hoje a SITES, pelo plano); as outras dizem o que o catalogo delas tem e porque nao correm."""
+    ciclo e sem bloqueio (a SITES, pelo plano; a SOCIAL, so com `autorizado_social` — o --autorizado-pelo-dono);
+    as outras dizem o que o catalogo delas tem e porque nao correm."""
     out = {}
     for l in LINHAS:
         nome = l["LINHA"]
@@ -310,11 +350,14 @@ def alimentar_linhas(plano: dict, raiz: Path = RAIZ) -> dict:
         except (OSError, ValueError, KeyError, TypeError, AttributeError, ImportError) as ex:
             f = {"CATALOGO": None, "MOTIVOS": [("SEM_CATALOGO", "catalogo ilegivel: %s" % str(ex)[:200])]}
         motivos = list(f["MOTIVOS"])
+        if f.get("PEDE_AUTORIZACAO") and not autorizado_social:       # SOCIAL-ONDA: desligada por omissao
+            motivos.append(f["PEDE_AUTORIZACAO"])
         if not l.get("ONDA"):
             motivos.append(("BLOQUEADA_CAPACIDADE", SEM_ONDA + ("; o transporte da linha corre " + f["COMO_CORRE"]
                                                                 if f.get("COMO_CORRE") else "")))
         motivos = [{"ESTADO": e, "PORQUE": p} for e, p in sorted(motivos, key=lambda m: ESTADOS_DE_BLOQUEIO.index(m[0]))]
-        out[nome] = {"CANDIDATAS": [], "ESTADO": motivos[0]["ESTADO"] if motivos else None,
+        out[nome] = {"CANDIDATAS": [] if motivos else list(f.get("CANDIDATAS") or []),
+                     "ESTADO": motivos[0]["ESTADO"] if motivos else None,
                      "PORQUE": motivos[0]["PORQUE"] if motivos else None,
                      "CATALOGO": f.get("CATALOGO"), "UNIDADE": f.get("UNIDADE"),
                      "UNIDADES_GOVERNADAS": f.get("UNIDADES_GOVERNADAS", 0), "MOTIVOS": motivos}
@@ -545,10 +588,95 @@ def portao_da_fonte_real(ids: list) -> dict:
     return {s: GATE.avaliar(s, **ctx) for s in ids}
 
 
+# ── 4b. a onda da linha SOCIAL (SOCIAL-ONDA, 02/10): o maestro social que ja existia, visto pelo ciclo ─────
+MAESTRO = RAIZ / "ferramentas" / "maestro_social" / "maestro_social.py"
+MAESTRO_ESTADO = "MAESTRO-SOCIAL-ESTADO.json"                      # = maestro_social.ESTADO
+MAESTRO_LIMITE_S = 1800 + 120                                      # maestro_social.LIMITE_S por fonte, + folga
+#: a onda de cada linha no ciclo: o nome da peca. A que nao esta aqui vai a onda dos SITES (`pecas["onda"]`)
+ONDA_DA_LINHA = {"SOCIAL": "onda_social"}
+
+
+def correr_maestro_real(fontes: list, saida: Path, *, run=subprocess.run) -> int:
+    """O maestro social pela linha de comando de sempre: `--correr --autorizado-pelo-dono --fontes=` (sem
+    --canario: o canario e outra decisao). Noutro processo — o maestro mexe no ambiente (SINTONIA_TETO_ONDA)."""
+    cmd = [sys.executable, str(MAESTRO), "--correr", "--autorizado-pelo-dono", "--saida=" + str(saida),
+           "--fontes=" + ",".join(fontes)]
+    registo = Path(saida).parent / "MAESTRO-SAIDA.txt"
+    try:
+        r = run(cmd, cwd=RAIZ, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                timeout=MAESTRO_LIMITE_S * (len(fontes) + 1))
+    except subprocess.TimeoutExpired as ex:
+        registo.write_text("TIMEOUT: %s" % ex, encoding="utf-8")
+        return 124
+    registo.write_text((r.stdout or "") + "\n---STDERR---\n" + (r.stderr or ""), encoding="utf-8")
+    return r.returncode
+
+
+def foto_sala_real() -> dict:
+    """A MESMA fotografia da Sala que a onda dos SITES tira (`onda_web.correr`: `ensaio_offline.fotografia`), so
+    SELECT. Se falhar, levanta: o ciclo PARA (ERRO_NO_CICLO) antes de o maestro correr."""
+    sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
+    import ensaio_offline as E                                         # noqa: PLC0415
+    return {k: v["LINHAS"] for k, v in E.fotografia().items()}
+
+
+def onda_social_real(sha: str, fontes: list, pasta: Path, historico: list, retomar: bool, *, maestro=None,
+                     foto=None) -> int:
+    """A onda da linha SOCIAL. Mesma assinatura que `rodadas.onda_real`, e deixa em `pasta` o que o ciclo, a
+    prova-teto e o relatorio leem da onda dos SITES:
+      · ONDA-WEB-ESTADO.json — FONTES[] do maestro (SOURCE_ID, CORREU, RUN_ID, STATUS, GATE, EGRESSO) com
+        PEDIDOS_POR_DOMINIO (dos PEDIDOS_POR_HOST que o livro de corridas deu ao maestro), SALA_INICIO/SALA_FIM
+        (a mesma fotografia da onda dos SITES) e PAROU (o do maestro; sem estado do maestro = PAROU);
+      · TETO-ONDA.json — a SOMA dos livros das ondas do maestro (`MAESTRO/ONDA-nn/TETO-ONDA.json`), lidos agora.
+        Livro ilegivel NAO e zero: fica sem PEDIDOS_POR_DOMINIO, e a prova-teto corre (e para).
+    `sha`, `historico` e `retomar` sao da onda dos SITES: o maestro nao os usa (rodada nova, pasta nova)."""
+    maestro = maestro or correr_maestro_real
+    foto = foto or foto_sala_real
+    pasta.mkdir(parents=True, exist_ok=True)
+    saida = pasta / "MAESTRO"
+    estado = {"LINHA": "SOCIAL", "SO_AS_FONTES": list(fontes), "MAESTRO": str(saida), "SALA_INICIO": foto(),
+              "FONTES": [], "PAROU": None}
+    codigo = maestro(list(fontes), saida)
+    try:
+        m = json.loads((saida / MAESTRO_ESTADO).read_text(encoding="utf-8"))
+    except (OSError, ValueError) as ex:
+        m = None
+        estado["PAROU"] = {"PORQUE": "MAESTRO_SEM_ESTADO: %s" % str(ex)[:200]}
+    if isinstance(m, dict):
+        estado["PAROU"] = m.get("PAROU")
+        for x in m.get("FONTES") or []:
+            ped: dict = {}
+            for h, n in (x.get("PEDIDOS_POR_HOST") or {}).items():
+                d = PT.dominio_registavel(h)
+                ped[d] = ped.get(d, 0) + int(n)
+            estado["FONTES"].append(dict({k: x.get(k) for k in ("SOURCE_ID", "CORREU", "RUN_ID", "STATUS", "GATE",
+                                                               "EGRESSO", "ONDA", "FASE", "PORQUE_NAO_CORREU")},
+                                         PEDIDOS_POR_DOMINIO=ped))
+    elif m is not None:
+        estado["PAROU"] = {"PORQUE": "MAESTRO_ESTADO_NAO_E_OBJECTO: %s" % type(m).__name__}
+    livros = sorted(saida.glob("ONDA-*/TETO-ONDA.json"))
+    soma: dict = {}
+    ilegiveis = []
+    for lv in livros:
+        try:
+            for d, n in json.loads(lv.read_text(encoding="utf-8"))["PEDIDOS_POR_DOMINIO"].items():
+                soma[d] = soma.get(d, 0) + int(n)
+        except (OSError, ValueError, KeyError, TypeError, AttributeError) as ex:
+            ilegiveis.append("%s: %s" % (lv, str(ex)[:120]))
+    (pasta / "TETO-ONDA.json").write_text(json.dumps({"LIVROS_ILEGIVEIS": ilegiveis} if ilegiveis else
+                                                     {"PEDIDOS_POR_DOMINIO": soma}), encoding="utf-8")
+    estado["LIVROS_DAS_ONDAS_DO_MAESTRO"] = [str(x) for x in livros]
+    estado["CODIGO_DO_MAESTRO"] = codigo
+    estado["SALA_FIM"] = foto()
+    (pasta / "ONDA-WEB-ESTADO.json").write_text(json.dumps(estado, ensure_ascii=False, indent=1, default=str),
+                                                encoding="utf-8")
+    return codigo
+
+
 def pecas_reais() -> dict:
     return {"portao": R.portao_real, "onda": R.onda_real, "relatorio": R.relatorio_real, "ledger": R.ledger_real(),
             "ram": ram_livre_gb_real, "backup": backup_real, "robo": RoboReal(), "reconciliar": reconciliar_real,
-            "fonte": portao_da_fonte_real}
+            "fonte": portao_da_fonte_real, "onda_social": onda_social_real}
 
 
 # ── 5. o estado e o livro de ciclos ──────────────────────────────────────────
@@ -769,8 +897,9 @@ def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_
         os.environ["SINTONIA_CORTESIA_LIVRO"] = str(livro_24h)
     pastas = {n: base / ("CICLO-%04d" % reg["CICLO"]) / n for n in correm}
 
-    def uma(n):
-        return n, pecas["onda"](sha, [c["SOURCE_ID"] for c in correm[n]], pastas[n], list(historico or []), False)
+    def uma(n):                                                    # SOCIAL-ONDA: cada linha na SUA onda
+        return n, pecas[ONDA_DA_LINHA.get(n, "onda")](sha, [c["SOURCE_ID"] for c in correm[n]], pastas[n],
+                                                      list(historico or []), False)
     if paralelo and len(correm) > 1:
         with ThreadPoolExecutor(len(correm)) as ex:
             codigos = dict(ex.map(uma, list(correm)))
@@ -1026,7 +1155,8 @@ def main(argv=None) -> int:
     recibos = tuple(Path(x) for x in arg.get("recibos", "").split(",") if x)
     livro_24h = Path(arg["teto-24h"]) if arg.get("teto-24h") else None
     max_f = int(arg["max-fontes"]) if arg.get("max-fontes") else None
-    alim = alimentar_linhas(plano)                                     # FEEDER-4-LINHAS: cada linha pelo seu catalogo
+    # FEEDER-4-LINHAS: cada linha pelo seu catalogo. SOCIAL-ONDA: a SOCIAL so recebe candidatas com a flag do dono
+    alim = alimentar_linhas(plano, autorizado_social="--autorizado-pelo-dono" in argv)
     cands = {n: a["CANDIDATAS"] for n, a in alim.items()}
     kw = dict(historico=historico, livros=livros, recibos=recibos, livro_24h=livro_24h, max_fontes=max_f,
               paralelo="--paralelo" in argv, janela_h=24 if "--janela-24h" in argv else None,

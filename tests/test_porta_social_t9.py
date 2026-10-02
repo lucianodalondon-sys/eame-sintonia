@@ -231,7 +231,7 @@ class LinhaSocialT9(unittest.TestCase):
         a = self.C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz)
         self.assertEqual(a["SOCIAL"]["PORTA_SOCIAL"]["ACEITES"], ["IT-T5-970"], a["SOCIAL"])
         self.assertEqual(a["SOCIAL"]["UNIDADES_GOVERNADAS"], 1)
-        self.assertEqual(a["SOCIAL"]["CANDIDATAS"], [])         # sem onda propria a linha nao recebe candidatas
+        self.assertEqual(a["SOCIAL"]["CANDIDATAS"], [])         # sem --autorizado-pelo-dono nao recebe (SOCIAL-ONDA)
         self.assertEqual(a["SOCIAL"]["ESTADO"], "BLOQUEADA_PERMISSAO_SOCIAL")
 
 

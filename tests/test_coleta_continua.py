@@ -1114,9 +1114,12 @@ class FeederQuatroLinhas(Base):
         self.assertEqual({n: f[n]["ESTADO"] for n in QUATRO},
                          {"BUSCA": "BLOQUEADA_CAPACIDADE", "CIENCIA": "BLOQUEADA_POLITICA",
                           "SOCIAL": "SEM_CATALOGO", "PESQUISADORES": "BLOQUEADA_ROBOTS"})
-        for n in QUATRO:                                          # nenhuma tem onda: a capacidade esta sempre la
+        # SOCIAL-ONDA (02/10) — AJUSTE DECLARADO: a SOCIAL ganhou onda propria (o maestro social, atras do
+        # --autorizado-pelo-dono); deixou de ter BLOQUEADA_CAPACIDADE. As outras tres continuam sem onda.
+        for n in ("BUSCA", "CIENCIA", "PESQUISADORES"):           # sem onda: a capacidade esta sempre la
             self.assertIn("BLOQUEADA_CAPACIDADE", [m["ESTADO"] for m in f[n]["MOTIVOS"]], n)
-        self.assertIn("BLOQUEADA_PERMISSAO_SOCIAL", [m["ESTADO"] for m in f["SOCIAL"]["MOTIVOS"]])
+        self.assertNotIn("BLOQUEADA_CAPACIDADE", [m["ESTADO"] for m in f["SOCIAL"]["MOTIVOS"]])
+        self.assertIn("BLOQUEADA_PERMISSAO_SOCIAL", [m["ESTADO"] for m in f["SOCIAL"]["MOTIVOS"]])   # sem a flag
 
     def test_ensaio_a_seco_por_linha_nenhuma_das_quatro_diz_nada_elegivel(self):
         plano = self.tmp / "RODADAS-PLANO.json"
