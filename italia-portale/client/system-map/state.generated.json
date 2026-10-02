@@ -3041,6 +3041,23 @@
       "provas/canario_d24_reel_de_pessoa.py",
       "provas/canario_d24_video_de_pessoa.py",
       "provas/canario_d24_video_youtube_de_pessoa.py",
+      "provas/canario_linkedin_fds/CORRER.log",
+      "provas/canario_linkedin_fds/LEIA-ME.md",
+      "provas/canario_linkedin_fds/LIVRO-COPIA-O-QUE-ENTROU.json",
+      "provas/canario_linkedin_fds/REGUA-APLICADA-NA-COPIA.json",
+      "provas/canario_linkedin_fds/REGUA-LEITURA.json",
+      "provas/canario_linkedin_fds/RESULTADOS.json",
+      "provas/canario_linkedin_fds/SHA256-LIVROS.txt",
+      "provas/canario_linkedin_fds/SHA256-RAW-MP4.txt",
+      "provas/canario_linkedin_fds/SONDA-DOS-ZEROS.json",
+      "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+      "provas/canario_linkedin_fds/envelopes/IT-T5-2026-10-02-190423-10edda34e31f6814/ENVELOPE.json",
+      "provas/canario_linkedin_fds/envelopes/IT-T5-2026-10-02-190641-4cbbc22776824198/ENVELOPE.json",
+      "provas/canario_linkedin_fds/envelopes/IT-T7-2026-10-02-190353-47bb96c244bafc2c/ENVELOPE.json",
+      "provas/canario_linkedin_fds/envelopes/IT-T7-2026-10-02-190710-b892a95fa80bfa8c/ENVELOPE.json",
+      "provas/canario_linkedin_fds/envelopes/IT-T9-2026-10-02-190227-f7815ad411f55b0a/ENVELOPE.json",
+      "provas/canario_linkedin_fds/envelopes/IT-T9-2026-10-02-190738-3b6740fbf7a41ed8/ENVELOPE.json",
+      "provas/canario_linkedin_fds/sonda_dos_zeros.py",
       "provas/canario_reels_instagram.py",
       "provas/canario_social_onda2.py",
       "provas/candidatos_tematicos.py",
@@ -4364,8 +4381,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 939 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 939 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 945 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 945 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -4877,10 +4894,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coord/social-onda",
-    "HEAD": "75d6304da7b081a6b84e4994b9794184134aafe5",
-    "GENERATED_AT": "2026-10-02T04:12:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ce6fc0b5515b168fce3107182504476f155a182c697c336265b8f299d9788d26"
+    "BRANCH": "coord/canario-linkedin-fds",
+    "HEAD": "cacea0d5c9926d5304ea694eb0d7fc60a57e7c91",
+    "GENERATED_AT": "2026-10-02T16:22:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a1fe7bea1bb60b5069a1c4e9730820d2386c061ba393122c0bdac862e0c8cba3"
   },
   "FAMILIES": [
     {
@@ -60549,6 +60566,8 @@
         "provas/c6_repetido/PROVA-SQL-C6.json",
         "provas/c6_repetido/mutacao_c6.py",
         "provas/c6_repetido/prova_sql_c6.py",
+        "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+        "provas/canario_linkedin_fds/sonda_dos_zeros.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/censo_executavel_da_v1.py",
@@ -60660,7 +60679,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 145,
+      "file_count": 147,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -60782,7 +60801,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 16,
+        "ITALIA": 17,
         "ESPANHA": 3
       },
       "pais": "TRANSVERSAL",
@@ -60854,6 +60873,7 @@
           "SAIDAS_DA_PORTA",
           "SENTINELAS_MEDIDAS",
           "SE_DECLARAM",
+          "SIDS",
           "STATUS_PROIBIDO",
           "TERMOS_ITALIANOS_SEM_AUTORIDADE",
           "TESTES",
@@ -60863,12 +60883,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 2067,
+        "palavras": 2073,
         "por_lingua": {
           "PT": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 2063,
+        "sem_marca_de_lingua": 2069,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -64214,8 +64234,8 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "provas/canario_linkedin_fds/canario_linkedin_fds.py:48",
           "provas/canario_social_onda2.py:43",
-          "provas/migracao_037_ensaio_descartavel.py:57",
           "scripts/regua_t2/prova_d29_porta.py:39",
           "tests/test_a_porta_cli_liga_o_banco.py:378"
         ],
@@ -84583,8 +84603,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Ask Sintonia alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+          "line": 68,
+          "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-COLETA",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/canario_linkedin_fds/sonda_dos_zeros.py",
+          "line": 32,
+          "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-COLETA",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/mutacao_da_sala_duravel.py",
           "line": 34,
@@ -91364,8 +91416,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+          "line": 90,
+          "snippet": "d = json.load(open(os.path.join(WT, \"curadoria\", \"italy_contracts_curator.json\"), encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-COLETA",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/social_onda/ensaio_social_onda.py",
           "line": 36,
@@ -140310,8 +140378,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+          "line": 114,
+          "snippet": "cmd = [sys.executable, \"orquestrador/orquestrador.py\", \"colete %s\" % APELIDO[terr],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-PROVA-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 74,
@@ -152669,8 +152753,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova de que a porta CLI liga o banco — como PROCESSO, contra Postgres 16 real tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A prova de que a porta CLI liga o banco — como PROCESSO, contra Postgres 16 real tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+          "line": 48,
+          "snippet": "import a_porta_cli_liga_o_banco as P",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/migracao_037_ensaio_descartavel.py",
           "line": 57,
@@ -165017,7 +165117,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 60 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 61 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -177239,7 +177339,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2307,
+  "UNCLAIMED_FILES_COUNT": 2322,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -177515,8 +177615,8 @@
     "edges_proven": 1888,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4284,
-    "files_covered": 1977,
+    "files_tracked": 4301,
+    "files_covered": 1979,
     "files_code_unclaimed": 0,
     "roles_proven": 209,
     "roles_declared_only": 11,

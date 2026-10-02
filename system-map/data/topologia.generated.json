@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-02T07:20:57+00:00",
-  "HEAD": "75d6304da7b081a6b84e4994b9794184134aafe5",
-  "BRANCH": "coord/social-onda",
+  "GENERATED_AT": "2026-10-02T19:29:55+00:00",
+  "HEAD": "cacea0d5c9926d5304ea694eb0d7fc60a57e7c91",
+  "BRANCH": "coord/canario-linkedin-fds",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ce6fc0b5515b168fce3107182504476f155a182c697c336265b8f299d9788d26",
-  "FICHEIROS_NA_IMPRESSAO": 4432,
+  "SOURCE_TREE_FINGERPRINT": "a1fe7bea1bb60b5069a1c4e9730820d2386c061ba393122c0bdac862e0c8cba3",
+  "FICHEIROS_NA_IMPRESSAO": 4449,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3588,6 +3588,20 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "19362362105d7ba023dbf00b54510cfe0ea4422a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/canario_linkedin_fds/sonda_dos_zeros.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4f4ef750e7b5f62682b0fb07af08f66648c3cf12",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/canario_reels_instagram.py",
     "PAPEL": "FONTE",
     "VERSAO": "f8a2c02c5e62f1d17eb4c5c5ee852672a71519d6",
@@ -5704,14 +5718,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ce6fc0b5515b168fce3107182504476f155a182c697c336265b8f299d9788d26",
+    "VERSAO": "a1fe7bea1bb60b5069a1c4e9730820d2386c061ba393122c0bdac862e0c8cba3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ce6fc0b5515b168fce3107182504476f155a182c697c336265b8f299d9788d26",
+    "VERSAO": "a1fe7bea1bb60b5069a1c4e9730820d2386c061ba393122c0bdac862e0c8cba3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8446,8 +8460,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1201,
-  "INPUTS_DIGEST": "c8d2613983cedfd6e94485b66e7c4306c6c2fc709d3ae8650cf2cb74d62a8c38",
+  "INPUTS_COUNT": 1203,
+  "INPUTS_DIGEST": "51b1a0d12f40a17422d8b8fd4275f4700d1800664e6e15aebb780e26f7e8127a",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8473,15 +8487,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 644,
+  "DOCUMENTOS_LIDOS": 645,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "67abce18de08e1512dff2406990744b92c70599eb27eef18bfd1f502f39ac8dd",
-  "SEMANTIC_HASH": "fdf63376665e86d0a35720b5d4f0741fd97855a718b8930ee34bcdb037055fb1"
+  "MEASUREMENT_HASH": "91e7f0747931cd81ccdc79d1b3a818a87bbcd75ee999e0510ab7ab73352e7731",
+  "SEMANTIC_HASH": "44a691f572d1908a3ccb6d54c96535575e5d6b00134ea910010ec352e453384b"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13416,6 +13430,22 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+      "LINHA": 68,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/canario_linkedin_fds/sonda_dos_zeros.py",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/mutacao_da_sala_duravel.py",
       "LINHA": 34,
       "SUPPORTS": "YES",
@@ -16877,6 +16907,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+      "LINHA": 90,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "provas/social_onda/ensaio_social_onda.py",
       "LINHA": 36,
@@ -45136,6 +45174,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+      "LINHA": 114,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/medir_admission_t3_atual.py",
       "LINHA": 74,
       "SUPPORTS": "YES",
@@ -51723,6 +51769,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "provas/migracao_037_ensaio_descartavel.py",
       "LINHA": 57,
@@ -66645,6 +66699,8 @@
     "provas/canario_d23_linkedin_video.py",
     "provas/canario_d24_video_de_pessoa.py",
     "provas/canario_d24_video_youtube_de_pessoa.py",
+    "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+    "provas/canario_linkedin_fds/sonda_dos_zeros.py",
     "provas/canario_reels_instagram.py",
     "provas/canario_social_onda2.py",
     "provas/comentarios_v1/medir_comentarios_linkedin.py",
@@ -72490,6 +72546,7 @@
     "provas/_mutantes_social_bruto.py",
     "provas/a_porta_cli_liga_o_banco.py",
     "provas/a_sala_de_espera_nao_tem_morada.py",
+    "provas/canario_linkedin_fds/canario_linkedin_fds.py",
     "provas/canario_social_onda2.py",
     "provas/entradas_do_scrap_v1.py",
     "provas/medir_admission_t3_atual.py",
@@ -73863,6 +73920,8 @@
     "provas/c6_repetido/PROVA-SQL-C6.json",
     "provas/c6_repetido/mutacao_c6.py",
     "provas/c6_repetido/prova_sql_c6.py",
+    "provas/canario_linkedin_fds/canario_linkedin_fds.py",
+    "provas/canario_linkedin_fds/sonda_dos_zeros.py",
     "provas/candidatos_tematicos.py",
     "provas/censo_corpus_rotulado_admission.py",
     "provas/censo_executavel_da_v1.py",
@@ -77896,6 +77955,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/canario_linkedin_fds/canario_linkedin_fds.py",
     "provas/entradas_do_scrap_v1.py",
     "provas/mutacao_da_release_v1.py",
     "provas/social-micro-prep/sala_diag.sh",

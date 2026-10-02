@@ -6,10 +6,10 @@
     "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
   ],
   "PROVENANCE": {
-    "HEAD": "75d6304da7b081a6b84e4994b9794184134aafe5",
-    "BRANCH": "coord/social-onda",
-    "GENERATED_AT": "2026-10-02T07:15:10+00:00",
-    "SOURCE_TREE_FINGERPRINT": "ce6fc0b5515b168fce3107182504476f155a182c697c336265b8f299d9788d26"
+    "HEAD": "cacea0d5c9926d5304ea694eb0d7fc60a57e7c91",
+    "BRANCH": "coord/canario-linkedin-fds",
+    "GENERATED_AT": "2026-10-02T19:24:00+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a1fe7bea1bb60b5069a1c4e9730820d2386c061ba393122c0bdac862e0c8cba3"
   },
   "CARIMBOS_NAO_COMPARAVEIS": [
     "HEAD",
@@ -21,10 +21,10 @@
   ],
   "RESUMO": {
     "ARESTAS_TOTAL": 1957,
-    "LINHAS_PARTILHADAS": 186,
+    "LINHAS_PARTILHADAS": 188,
     "LINHAS_PARTILHADAS_ENTRE_TIPOS": 81,
-    "ARESTAS_REVISTAS": 229,
-    "SUPPORTED": 187,
+    "ARESTAS_REVISTAS": 230,
+    "SUPPORTED": 188,
     "AMBIGUOUS": 27,
     "UNSUPPORTED": 15,
     "SEM_PORQUE": [],
@@ -32,7 +32,7 @@
       "AMBIGUOUS·READS": 27,
       "SUPPORTED·ALIMENTA": 2,
       "SUPPORTED·IMPORTS": 35,
-      "SUPPORTED·READS": 127,
+      "SUPPORTED·READS": 128,
       "SUPPORTED·RUNS": 23,
       "UNSUPPORTED·ABRE_O_CANAL": 3,
       "UNSUPPORTED·ENTREGA_A_LISTA": 4,
@@ -1529,12 +1529,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 244,
+          "line": 278,
           "SUPPORTS": "YES"
         },
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 501,
+          "line": 544,
           "SUPPORTS": "YES"
         }
       ],
@@ -1593,6 +1593,11 @@
       "RELATION_TYPE": "READS",
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
+        {
+          "file": "provas/social_onda/ensaio_social_onda.py",
+          "line": 36,
+          "SUPPORTS": "YES"
+        },
         {
           "file": "provas/t9_social/ensaio_social.py",
           "line": 68,
@@ -2544,6 +2549,16 @@
       "RELATION_TYPE": "READS",
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
+        {
+          "file": "provas/social_onda/ensaio_social_onda.py",
+          "line": 36,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/social_onda/ensaio_social_onda.py",
+          "line": 37,
+          "SUPPORTS": "YES"
+        },
         {
           "file": "provas/t9_social/ensaio_social.py",
           "line": 68,
@@ -5432,6 +5447,11 @@
           "SUPPORTS": "YES"
         },
         {
+          "file": "provas/social_onda/mutacao_onda_social.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": "provas/t9_social/mutacao_porta_social.py",
           "line": 24,
           "SUPPORTS": "YES"
@@ -7752,7 +7772,7 @@
       "OLD_EVIDENCE": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 244,
+          "line": 278,
           "SUPPORTS": "YES"
         },
         {
@@ -7793,6 +7813,79 @@
         "EDGE_ID": "C-TESTES--READS-->C-PRECO-DE-MERCADO",
         "FROM": "C-TESTES",
         "TO": "C-PRECO-DE-MERCADO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+      "FROM": "C-TESTES",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/c2_juiz_mutacao.py",
+          "line": 58,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/coleta_continua_mutacao.py",
+          "line": 26,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+          "line": 19,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/integra_noite/mutacao_lote5_integra.py",
+          "line": 19,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/integra_noite/mutacao_lote5_integra.py",
+          "line": 20,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 19,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 354,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/rodadas_mutacao.py",
+          "line": 66,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/social_onda/ensaio_social_onda.py",
+          "line": 37,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/t9_social/ensaio_social.py",
+          "line": 69,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+        "FROM": "C-TESTES",
+        "TO": "C-PROVA-COLETA",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
