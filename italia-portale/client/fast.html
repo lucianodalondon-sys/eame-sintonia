@@ -85,7 +85,7 @@ function campo(nome,c){
   var v=c.VERIFICACAO||'';
   if(/^REJEITADO/.test(v))return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span> <span class="tag bad">RECUSADO PELO VERIFICADOR</span><div style="color:var(--dim);font-size:12px;margin-top:4px">A IA citou um trecho que não existe no documento; o valor proposto não é exibido.</div></td></tr>';
   if(v==='NAO_SEI'||isNao(c.VALOR))return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span></td></tr>';
-  return'<tr><th>'+nome+'</th><td>'+esc(c.VALOR)+' <span class="tag ok">TRECHO EXISTE NO DOCUMENTO</span><span class="trecho">'+esc(c.TRECHO)+'</span><a href="#d/'+c.DOCUMENT_ID+'?t='+encodeURIComponent(c.TRECHO||'')+'">ver no documento →</a></td></tr>'}
+  return'<tr><th>'+nome+'</th><td>'+esc(c.VALOR)+' '+(v==='TRECHO_ENCONTRADO_NO_RAW'?'<span class="tag ok">TRECHO EXISTE NO DOCUMENTO</span>':'<span class="tag warn">'+esc(v||'SEM VERIFICAÇÃO')+'</span>')+'<span class="trecho">'+esc(c.TRECHO)+'</span><a href="#d/'+c.DOCUMENT_ID+'?t='+encodeURIComponent(c.TRECHO||'')+'">ver no documento →</a></td></tr>'}
 function fato(f){
   var d=DOC[f.DOCUMENT_ID]||{};
   var usado=OPS.filter(function(o){return(o.FACT_IDS||[]).indexOf(f.FACT_ID)>=0}).map(function(o){return'<a href="#o/'+o.OPPORTUNITY_ID+'">'+o.OPPORTUNITY_ID+'</a>'})
