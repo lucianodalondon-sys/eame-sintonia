@@ -531,37 +531,38 @@ function registarResposta(host, url, r, marcas = []) {
 // dessa reserva; `recuoS` soma-se a pausa; `proximoRecuoS` (numero) = ha outra tentativa depois desta, e a
 // falha transitoria que couber na reserva sai SEM fechar a reserva (`respostaAdiada`).
 async function umaIda(url, host, tipo, crawlDelay, condicional = null, { reservaEm = null, recuoS = 0, proximoRecuoS = null } = {}) {
-  const pausaS = Math.max(CORTESIA.cfg.PAUSA_S ?? CA.classeDe(dominio24h(host))[1].PAUSA_S, crawlDelay || 0);
-  const minimo = (pausaS + recuoS) * 1000;
+  const minimo = Math.max(CORTESIA.cfg.PAUSA_S ?? CA.classeDe(dominio24h(host))[1].PAUSA_S, crawlDelay || 0) * 1000;
+  const pausaS = minimo / 1000;
   host = siteDe(host);
   const ultimo = CORTESIA.ultimo.get(host);
   if (ultimo !== undefined) {
-    const falta = ultimo + minimo - Date.now();
+    const falta = ultimo + minimo + recuoS * 1000 - Date.now();   // T10: o recuo SOMA-SE a pausa
     if (falta > 0) await dormir(falta);
   }
-  if (reservaEm === null) {
-    // D90/D124: com livro, o pedido so sai com a RESERVA escrita (antes de contar o que for). Uma espera
-    // CURTA (um de cada vez, pausa minima, limite global) espera-se; orcamento esgotado, Retry-After e
-    // pausa de 24 h nunca se esperam aqui: o pedido nao sai.
-    reservaEm = Date.now() / 1000;
-    if (livro24h()) {
-      let r;
-      for (let i = 0; ; i++) {
-        r = reservar24h(host, 1, { crawlDelayS: crawlDelay || null });
-        if (r.ESTADO !== "ADIADO_ATE" || !CA.ESPERA_CURTA.includes(r.MOTIVO) || i >= 60 || r.ATE * 1000 - Date.now() > 180e3) break;
-        await dormir(Math.max(10, r.ATE * 1000 - Date.now()));
-      }
-      if (r.ESTADO !== "RESERVADO")
-        throw Object.assign(new Error(`TETO_24H ${r.ESTADO}: ${r.DOMINIO} ${r.MOTIVO || ""} ${r.PORQUE || (r.ATE ? "ate " + new Date(r.ATE * 1000).toISOString() : "")}`),
-                            { code: "TETO_24H", reserva: r });
-      reservaEm = r.EM;
+  // T10: a retentativa DENTRO da reserva de uma tentativa anterior nao reserva nem conta outra vez.
+  const naMesmaReserva = reservaEm !== null;
+  if (!naMesmaReserva) reservaEm = Date.now() / 1000;
+  // D90/D124: com livro, o pedido so sai com a RESERVA escrita (antes de contar o que for). Uma espera
+  // CURTA (um de cada vez, pausa minima, limite global) espera-se; orcamento esgotado, Retry-After e
+  // pausa de 24 h nunca se esperam aqui: o pedido nao sai.
+  if (livro24h() && !naMesmaReserva) {
+    let r;
+    for (let i = 0; ; i++) {
+      r = reservar24h(host, 1, { crawlDelayS: crawlDelay || null });
+      if (r.ESTADO !== "ADIADO_ATE" || !CA.ESPERA_CURTA.includes(r.MOTIVO) || i >= 60 || r.ATE * 1000 - Date.now() > 180e3) break;
+      await dormir(Math.max(10, r.ATE * 1000 - Date.now()));
     }
-    CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
-    const dominio = orcamentoDe(host);
-    CORTESIA.porDominio.set(dominio, (CORTESIA.porDominio.get(dominio) || 0) + 1);
-    gastarNaOnda(dominio);               // o pedido que sai gasta o lugar, responda ou nao
-  } else {
-    CORTESIA.retentativas.set(host, (CORTESIA.retentativas.get(host) || 0) + 1);   // T10: na MESMA reserva
+    if (r.ESTADO !== "RESERVADO")
+      throw Object.assign(new Error(`TETO_24H ${r.ESTADO}: ${r.DOMINIO} ${r.MOTIVO || ""} ${r.PORQUE || (r.ATE ? "ate " + new Date(r.ATE * 1000).toISOString() : "")}`),
+                          { code: "TETO_24H", reserva: r });
+    reservaEm = r.EM;
+  }
+  if (naMesmaReserva) CORTESIA.retentativas.set(host, (CORTESIA.retentativas.get(host) || 0) + 1);
+  else {
+  CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
+  const dominio = orcamentoDe(host);
+  CORTESIA.porDominio.set(dominio, (CORTESIA.porDominio.get(dominio) || 0) + 1);
+  gastarNaOnda(dominio);                 // o pedido que sai gasta o lugar, responda ou nao
   }
   CORTESIA.pedidos[tipo]++;
   try {

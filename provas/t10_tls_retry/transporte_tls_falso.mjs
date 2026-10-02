@@ -19,6 +19,8 @@
 //   E        3 tentativas, 35 em todas                         -> recuo crescente e o limite
 //   F        o robots.txt com 35 e depois 404                  -> o recuo e a reserva no robots
 //   G        LEASE_S curto: a 2.a tentativa nao cabe na reserva -> nao sai
+//   H        orcamento 1: o robots (35, depois 404) gasta o ULTIMO lugar -> a retentativa sai na mesma reserva
+//   H2       orcamento 2: robots + materia (35, depois 200) no ultimo lugar -> idem, e a reserva fecha
 import { mkdtempSync, rmSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -41,6 +43,8 @@ const POL_REAL = join(RAIZ, "politica-real.json");
 writeFileSync(POL_REAL, readFileSync(POLITICA_F));
 const POL_ZERO = politica(p => { p.CLASSES.SITE.PAUSA_MINIMA_S = 0; });
 const POL_LEASE_CURTO = politica(p => { p.CLASSES.SITE.PAUSA_MINIMA_S = 0; p.LEASE_S = 95; });
+const orcamento = n => politica(p => { Object.assign(p.CLASSES.SITE, { PAUSA_MINIMA_S: 0, ORCAMENTO_INICIAL_24H: n, MINIMO_24H: 1 }); });
+const POL_ORC_1 = orcamento(1), POL_ORC_2 = orcamento(2);
 
 const M = await import("../../coleta/italy_pilot_collect.mjs");
 const CA = await import("../../coleta/cortesia_adaptativa.mjs");
@@ -138,6 +142,9 @@ R.F = await caso("F", { livro: true, pol: POL_ZERO, host: "www.caso-f.test",
   roteiro: h => ({ [`https://${h}/robots.txt`]: [TLS, { status: 404, corpo: "non trovato" }], [fonteDe(h)]: [OK] }) });
 R.G = await caso("G", { livro: true, pol: POL_LEASE_CURTO, host: "www.caso-g.test",
   roteiro: h => ({ [fonteDe(h)]: [{ codigo: 35, demoraMs: 2500 }, OK] }) });
+R.H = await caso("H", { livro: true, pol: POL_ORC_1, host: "www.caso-h.test",
+  roteiro: h => ({ [`https://${h}/robots.txt`]: [TLS, { status: 404, corpo: "non trovato" }], [fonteDe(h)]: [OK] }) });
+R.H2 = await caso("H2", { livro: true, pol: POL_ORC_2, host: "www.caso-h2.test", roteiro: h => ({ [fonteDe(h)]: [TLS, OK] }) });
 
 R._RECUO = { RECUO_TRANSITORIO: M.RECUO_TRANSITORIO ?? null,
              PAUSA_SITE_REAL_S: JSON.parse(readFileSync(POLITICA_F, "utf8")).CLASSES.SITE.PAUSA_MINIMA_S,

@@ -129,6 +129,22 @@ class TestTransporteTlsRetry(unittest.TestCase):
         self.assertEqual([x["STATUS"] for x in self._respostas("G")], [0], g["LIVRO"])
         self.assertIsNone(g["LIVRO"]["EM_CURSO_ATE"], "a reserva ficou aberta")
 
+    def test_H_o_ultimo_lugar_do_robots_cobre_a_retentativa(self):
+        h = self.R["H"]
+        self.assertEqual(h["CHAMADAS_ROBOTS"], 2, "a retentativa do robots foi recusada pelo teto: %s" % h)
+        self.assertEqual(h["LIVRO"]["RESERVAS"], 1, h["LIVRO"])
+        # o orcamento (1) ficou no robots: a materia e recusada pelo teto, sem ir a rede
+        self.assertEqual(h["CHAMADAS_FONTE"], 0, h)
+        self.assertEqual(h["RESULTADO"]["recusado"], "TETO_24H", h)
+        self.assertIsNone(h["LIVRO"]["EM_CURSO_ATE"], "a reserva do robots ficou aberta")
+
+    def test_H2_o_ultimo_lugar_da_materia_cobre_a_retentativa(self):
+        h = self.R["H2"]
+        self.assertEqual(h["RESULTADO"]["status"], 200, "a retentativa foi recusada pelo teto: %s" % h["RESULTADO"])
+        self.assertEqual(h["CHAMADAS_FONTE"], 2, h)
+        self.assertEqual(h["LIVRO"]["RESERVAS"], 2, h["LIVRO"])
+        self.assertIsNone(h["LIVRO"]["EM_CURSO_ATE"], "a reserva ficou aberta")
+
     # ── os controlos ──
     def test_C_desafio_nao_e_transitorio_e_continua_recusa(self):
         c = self.R["C"]
