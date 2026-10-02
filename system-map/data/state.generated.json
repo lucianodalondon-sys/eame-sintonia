@@ -4867,9 +4867,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "coord/t9-social-catalogo",
-    "HEAD": "ec871742fa253bd7c0cb9259e20d5b63cc98a16b",
-    "GENERATED_AT": "2026-10-01T19:57:29-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4b740096d2546c2eb9d7d167591946f5017cfd5c6c04aa5e7f808c1248043e55"
+    "HEAD": "0156ecf0e87791d6f678f200410bdcee80ad6211",
+    "GENERATED_AT": "2026-10-01T21:09:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ff0af8a103e9dc0dc29aa35661e554a7158b3e3086f72d98b7361589e3ed59b4"
   },
   "FAMILIES": [
     {
@@ -42617,6 +42617,7 @@
         "C-ORDENS-63",
         "C-PACOTE-ONDA3",
         "C-PONTE-ONBOARD",
+        "C-PROVA-COLETA",
         "C-PROVA-JANELA-FORMAS",
         "C-PROVA-ROTAS-REAIS",
         "C-PROVA-T2-BOLETINS",
@@ -45955,6 +45956,7 @@
         "C-LINHA-BUSCA",
         "C-ONDA-WEB",
         "C-ORDENS-63",
+        "C-PROVA-COLETA",
         "C-PROVA-CORTESIA",
         "C-PROVA-ROTAS-REAIS",
         "C-RECEITAS-PROPOSTA",
@@ -60624,6 +60626,9 @@
         "provas/sala_verifica.py",
         "provas/so_a_colheita_atravessa.py",
         "provas/social_persistencia_no_postgres.py",
+        "provas/t9_social/ensaio_social.py",
+        "provas/t9_social/medir_porta.py",
+        "provas/t9_social/mutacao_porta_social.py",
         "provas/tempo_e_lugar_acervo.py",
         "provas/tempo_e_lugar_medir.py",
         "provas/tempo_e_lugar_replay.py",
@@ -60641,7 +60646,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 140,
+      "file_count": 143,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -60667,6 +60672,7 @@
         "C-CENSO-CARDS-SENSORES",
         "C-CENSO-EXECUTORES",
         "C-CENSO-OBSERVABILIDADE",
+        "C-CENSO-UNIFICACAO",
         "C-CI-MAPA",
         "C-CI-PERSIST",
         "C-COLETA-BASE",
@@ -60679,6 +60685,7 @@
         "C-CONTRATO-TELEMETRIA",
         "C-CORTESIA-ADAPTATIVA",
         "C-DERIVACAO-FORWARD",
+        "C-DETECTOR-CAPA-GABARITO",
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
@@ -60761,7 +60768,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 14,
+        "ITALIA": 15,
         "ESPANHA": 3
       },
       "pais": "TRANSVERSAL",
@@ -60842,12 +60849,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1980,
+        "palavras": 2020,
         "por_lingua": {
           "PT": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 1976,
+        "sem_marca_de_lingua": 2016,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -60997,7 +61004,9 @@
         "coleta/teto_da_onda.py",
         "coleta/youtube_janela.py",
         "coleta/youtube_oficial.py",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
         "curadoria/atribuir_source_id.py",
+        "curadoria/italy_contracts_curator.json",
         "curadoria/plano_onda_social.py",
         "curadoria/retrato_html.py",
         "data/collection-ledger/italy/observations.ndjson",
@@ -61083,6 +61092,7 @@
         "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
         "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
         "docs/operacao/T3-REVIEW-PACKET-V1.md",
+        "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
         "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/big_collection/rodadas.py",
         "ferramentas/big_collection/sonda_ligacao_sites.mjs",
@@ -61140,6 +61150,7 @@
         "provas/preservar_coleta_no_postgres.py",
         "provas/scrap_evolucao/feed_ligado_local.mjs",
         "provas/superficie_do_scrap_v1.py",
+        "provas/t9_social/PORTA-SOCIAL-MUTACAO.json",
         "provas/teto_adaptativo/MUTACAO-REBASE.json",
         "provas/teto_adaptativo/transporte_rebase_local.mjs",
         "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
@@ -91330,6 +91341,41 @@
     },
     {
       "from": "C-CENSO-UNIFICACAO",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/t9_social/ensaio_social.py",
+          "line": 68,
+          "snippet": "f: sha(cat / f) for f in (\"curadoria/italy_contracts_curator.json\", \"curadoria/LIFECYCLE-LEDGER-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-COLETA",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
       "to": "C-PROVA-JANELA-FORMAS",
       "type": "READS",
       "payload": "artefacto",
@@ -103088,6 +103134,41 @@
         }
       ],
       "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/t9_social/ensaio_social.py",
+          "line": 68,
+          "snippet": "f: sha(cat / f) for f in (\"curadoria/italy_contracts_curator.json\", \"curadoria/LIFECYCLE-LEDGER-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-COLETA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -133073,7 +133154,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Provas da coleta canonica. Provado por 44 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Provas da coleta canonica. Provado por 45 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -138325,7 +138406,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/coleta_continua_mutacao.py",
@@ -138363,6 +138444,22 @@
           "file": "provas/rodadas_mutacao.py",
           "line": 22,
           "snippet": "ALVO = \"ferramentas/big_collection/rodadas.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/t9_social/mutacao_porta_social.py",
+          "line": 24,
+          "snippet": "LINHA = \"ferramentas/big_collection/coleta_continua.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
             "FROM": "C-ONDA-WEB",
@@ -172012,7 +172109,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes alimenta Provas da coleta canonica. Provado por 8 linhas de codigo.",
+      "reason": "Suite de testes alimenta Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/c2_juiz_mutacao.py",
@@ -172130,6 +172227,22 @@
           "file": "provas/rodadas_mutacao.py",
           "line": 66,
           "snippet": "r = subprocess.run([sys.executable, \"tests/test_rodadas.py\"], cwd=pasta, env=env, capture_output=True,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/t9_social/ensaio_social.py",
+          "line": 69,
+          "snippet": "\"ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json\")}}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
             "FROM": "C-TESTES",
@@ -176964,12 +177077,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/t9_social/ensaio_social.py",
-    "provas/t9_social/medir_porta.py",
-    "provas/t9_social/mutacao_porta_social.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 2302,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 2299,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -177241,13 +177350,13 @@
     "components_pending": 274,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1955,
-    "edges_proven": 1886,
+    "edges": 1957,
+    "edges_proven": 1888,
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4273,
-    "files_covered": 1971,
-    "files_code_unclaimed": 3,
+    "files_covered": 1974,
+    "files_code_unclaimed": 0,
     "roles_proven": 209,
     "roles_declared_only": 11,
     "roles_unknown": 95,

@@ -6,10 +6,10 @@
     "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
   ],
   "PROVENANCE": {
-    "HEAD": "ec871742fa253bd7c0cb9259e20d5b63cc98a16b",
+    "HEAD": "0156ecf0e87791d6f678f200410bdcee80ad6211",
     "BRANCH": "coord/t9-social-catalogo",
-    "GENERATED_AT": "2026-10-01T23:00:35+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4b740096d2546c2eb9d7d167591946f5017cfd5c6c04aa5e7f808c1248043e55"
+    "GENERATED_AT": "2026-10-02T00:11:56+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ff0af8a103e9dc0dc29aa35661e554a7158b3e3086f72d98b7361589e3ed59b4"
   },
   "CARIMBOS_NAO_COMPARAVEIS": [
     "HEAD",
@@ -20,11 +20,11 @@
     "PROVENANCE"
   ],
   "RESUMO": {
-    "ARESTAS_TOTAL": 1950,
-    "LINHAS_PARTILHADAS": 184,
+    "ARESTAS_TOTAL": 1955,
+    "LINHAS_PARTILHADAS": 185,
     "LINHAS_PARTILHADAS_ENTRE_TIPOS": 81,
-    "ARESTAS_REVISTAS": 225,
-    "SUPPORTED": 183,
+    "ARESTAS_REVISTAS": 227,
+    "SUPPORTED": 185,
     "AMBIGUOUS": 27,
     "UNSUPPORTED": 15,
     "SEM_PORQUE": [],
@@ -32,7 +32,7 @@
       "AMBIGUOUS·READS": 27,
       "SUPPORTED·ALIMENTA": 2,
       "SUPPORTED·IMPORTS": 35,
-      "SUPPORTED·READS": 123,
+      "SUPPORTED·READS": 125,
       "SUPPORTED·RUNS": 23,
       "UNSUPPORTED·ABRE_O_CANAL": 3,
       "UNSUPPORTED·ENTREGA_A_LISTA": 4,
@@ -1509,6 +1509,39 @@
         "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
         "FROM": "C-CENSO-UNIFICACAO",
         "TO": "C-LEGACY-99",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
+      "FROM": "C-CENSO-UNIFICACAO",
+      "TO": "C-ONDA-WEB",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 244,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 501,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
+        "FROM": "C-CENSO-UNIFICACAO",
+        "TO": "C-ONDA-WEB",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
@@ -7638,6 +7671,39 @@
         "EDGE_ID": "C-TESTES--READS-->C-LEITOR-DATA-YT",
         "FROM": "C-TESTES",
         "TO": "C-LEITOR-DATA-YT",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-TESTES--READS-->C-ONDA-WEB",
+      "FROM": "C-TESTES",
+      "TO": "C-ONDA-WEB",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 244,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/big_collection/onda_web.py",
+          "line": 44,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-TESTES--READS-->C-ONDA-WEB",
+        "FROM": "C-TESTES",
+        "TO": "C-ONDA-WEB",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },

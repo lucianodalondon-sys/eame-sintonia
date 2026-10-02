@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-01T23:11:05+00:00",
-  "HEAD": "ec871742fa253bd7c0cb9259e20d5b63cc98a16b",
+  "GENERATED_AT": "2026-10-02T00:19:17+00:00",
+  "HEAD": "0156ecf0e87791d6f678f200410bdcee80ad6211",
   "BRANCH": "coord/t9-social-catalogo",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "4b740096d2546c2eb9d7d167591946f5017cfd5c6c04aa5e7f808c1248043e55",
+  "SOURCE_TREE_FINGERPRINT": "ff0af8a103e9dc0dc29aa35661e554a7158b3e3086f72d98b7361589e3ed59b4",
   "FICHEIROS_NA_IMPRESSAO": 4421,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -4848,6 +4848,27 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/t9_social/ensaio_social.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0c9102f2798f150b325ec83b1936ad9632d72e2d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/t9_social/medir_porta.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "81985a31aa5e7f18f7a8c8c4b2bacbcbcbd6f8cf",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/t9_social/mutacao_porta_social.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4ce3e6bc218c29e5e5e3db492af637c920d73350",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/tempo_e_lugar_acervo.py",
     "PAPEL": "FONTE",
     "VERSAO": "3c64ec8040c458e135efd1f1714ef43503054b23",
@@ -5669,14 +5690,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4b740096d2546c2eb9d7d167591946f5017cfd5c6c04aa5e7f808c1248043e55",
+    "VERSAO": "ff0af8a103e9dc0dc29aa35661e554a7158b3e3086f72d98b7361589e3ed59b4",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4b740096d2546c2eb9d7d167591946f5017cfd5c6c04aa5e7f808c1248043e55",
+    "VERSAO": "ff0af8a103e9dc0dc29aa35661e554a7158b3e3086f72d98b7361589e3ed59b4",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8404,8 +8425,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1195,
-  "INPUTS_DIGEST": "555d6616b1064ffa983dc136f04e4601d87a73e2362279f7e87f03d92a55eafb",
+  "INPUTS_COUNT": 1198,
+  "INPUTS_DIGEST": "65411d7f9586e836562bf8d805b6beae4412d744ebcb4ef45593fd9a0e1fc0e5",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8438,8 +8459,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "470cf6a1866bdf5b29ff6c2e0f8af3cb8f9198b6de032cd3ed584d77a04a2053",
-  "SEMANTIC_HASH": "c23705dff89cb4d6ef063e2176b5d843513a381963bf642b08e5d6af77acbc55"
+  "MEASUREMENT_HASH": "49925681f7a54e61c232b29b8eee9786a4918c1065b1fe4c7bed2ec726b1f635",
+  "SEMANTIC_HASH": "53daebed64a33ba6f19a58233f4ab07cccd35a958f84574e626627924bbbf3f6"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -16824,6 +16845,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-COLETA",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/t9_social/ensaio_social.py",
+      "LINHA": 68,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-JANELA-FORMAS",
     "FROM": "C-CENSO-UNIFICACAO",
     "TO": "C-PROVA-JANELA-FORMAS",
@@ -23689,6 +23732,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-COLETA",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/t9_social/ensaio_social.py",
+      "LINHA": 68,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-COLETA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -43961,6 +44026,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/t9_social/mutacao_porta_social.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/teto_adaptativo/mutacao_rebase.py",
       "LINHA": 29,
       "SUPPORTS": "YES",
@@ -62377,6 +62450,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/t9_social/ensaio_social.py",
+      "LINHA": 69,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -65397,12 +65478,12 @@
     ]
    }
   ],
-  "COUNT": 1860
+  "COUNT": 1862
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 241,
   "CARTOES_AUDITADOS": 241,
-  "ARESTAS_RELACIONADAS": 1860,
+  "ARESTAS_RELACIONADAS": 1862,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -65918,7 +65999,7 @@
    "CODE": 346,
    "CONTROL": 90,
    "DATA": 30,
-   "PROOF": 660,
+   "PROOF": 662,
    "READ": 416,
    "RULE": 298,
    "WRITE": 20
@@ -67570,7 +67651,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 10,
-   "SAEM": 23,
+   "SAEM": 24,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -68826,7 +68907,7 @@
     "urllib"
    ],
    "ENTRAM": 12,
-   "SAEM": 17,
+   "SAEM": 18,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -73773,6 +73854,9 @@
     "provas/sala_verifica.py",
     "provas/so_a_colheita_atravessa.py",
     "provas/social_persistencia_no_postgres.py",
+    "provas/t9_social/ensaio_social.py",
+    "provas/t9_social/medir_porta.py",
+    "provas/t9_social/mutacao_porta_social.py",
     "provas/tempo_e_lugar_acervo.py",
     "provas/tempo_e_lugar_medir.py",
     "provas/tempo_e_lugar_replay.py",
@@ -73983,7 +74067,7 @@
     "unnest",
     "urllib"
    ],
-   "ENTRAM": 107,
+   "ENTRAM": 109,
    "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
