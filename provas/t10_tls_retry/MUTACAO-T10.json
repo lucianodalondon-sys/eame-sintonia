@@ -1,0 +1,173 @@
+{
+ "PROVA": "T10-TLS-RETRY mutacao",
+ "HEAD": "a1b4c541e79111bd71a958d528904a176da02861",
+ "TESTE": "tests.test_transporte_tls_retry",
+ "SHA256_ORIGINAIS": {
+  "coleta/cortesia_adaptativa.mjs": "c827815c3902ed34b3e9ddb2a2b84399bf455ef57122ca97bf4e3f0a6eff0807",
+  "coleta/italy_pilot_collect.mjs": "e876c2f39d8ca5711ace4ea8e45e7882a7dd8f1fad8deb52296ad3e2cf14ac83"
+ },
+ "CONTROLO_SEM_MUTANTE": {
+  "RC": 0,
+  "SEGUNDOS": 49.2,
+  "FALHAS": []
+ },
+ "MORTOS": 14,
+ "TOTAL": 14,
+ "SOBREVIVENTES": [],
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01_RECUO_SAI_DA_MATERIA",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 41.9,
+   "APANHADO_POR": [
+    "FAIL: test_A_REAL_o_recuo_soma_se_a_pausa_de_cortesia",
+    "FAIL: test_A_recuo_entre_as_tentativas_depois_do_curl_35",
+    "FAIL: test_E_recuo_crescente_e_com_limite"
+   ]
+  },
+  {
+   "MUTANTE": "M02_RECUO_SAI_DO_ROBOTS",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 43.3,
+   "APANHADO_POR": [
+    "FAIL: test_F_recuo_e_mesma_reserva_tambem_no_robots"
+   ]
+  },
+  {
+   "MUTANTE": "M03_RECUO_SEM_LIMITE",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 50.0,
+   "APANHADO_POR": [
+    "FAIL: test_E_recuo_crescente_e_com_limite"
+   ]
+  },
+  {
+   "MUTANTE": "M04_RECUO_ENGOLIDO_PELA_PAUSA",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 45.8,
+   "APANHADO_POR": [
+    "FAIL: test_A_REAL_o_recuo_soma_se_a_pausa_de_cortesia"
+   ]
+  },
+  {
+   "MUTANTE": "M05_RECUO_ANTES_DA_1A_TENTATIVA",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 68.5,
+   "APANHADO_POR": [
+    "FAIL: test_D_erro_nao_transitorio_sem_recuo_nem_segunda_tentativa"
+   ]
+  },
+  {
+   "MUTANTE": "M06_TLS_35_NAO_E_TRANSITORIO",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 8.6,
+   "APANHADO_POR": [
+    "FAIL: test_A_REAL_o_recuo_soma_se_a_pausa_de_cortesia",
+    "FAIL: test_A_a_retentativa_nao_conta_no_teto_da_corrida",
+    "FAIL: test_A_recuo_entre_as_tentativas_depois_do_curl_35",
+    "FAIL: test_B2_duas_falhas_uma_reserva_e_a_resposta_status_0",
+    "FAIL: test_B3_subsites_do_mesmo_dominio_dividem_a_cota",
+    "FAIL: test_B_falha_e_sucesso_cabem_numa_so_reserva",
+    "FAIL: test_E_recuo_crescente_e_com_limite",
+    "FAIL: test_F_recuo_e_mesma_reserva_tambem_no_robots",
+    "FAIL: test_H2_o_ultimo_lugar_da_materia_cobre_a_retentativa",
+    "FAIL: test_H_o_ultimo_lugar_do_robots_cobre_a_retentativa"
+   ]
+  },
+  {
+   "MUTANTE": "M07_A_FALHA_FECHA_A_RESERVA",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 49.8,
+   "APANHADO_POR": [
+    "FAIL: test_B2_duas_falhas_uma_reserva_e_a_resposta_status_0",
+    "FAIL: test_B_falha_e_sucesso_cabem_numa_so_reserva"
+   ]
+  },
+  {
+   "MUTANTE": "M08_RETENTATIVA_PEDE_RESERVA_NOVA",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 5,
+   "SEGUNDOS": 600.6,
+   "APANHADO_POR": [
+    "ERROR: setUpClass"
+   ]
+  },
+  {
+   "MUTANTE": "M09_SEM_CONFERIR_O_LEASE",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 52.4,
+   "APANHADO_POR": [
+    "FAIL: test_G_a_retentativa_que_nao_cabe_na_reserva_nao_sai"
+   ]
+  },
+  {
+   "MUTANTE": "M10_RETENTATIVA_DO_ROBOTS_PERGUNTA_O_TETO",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 46.2,
+   "APANHADO_POR": [
+    "FAIL: test_H_o_ultimo_lugar_do_robots_cobre_a_retentativa"
+   ]
+  },
+  {
+   "MUTANTE": "M11_RETENTATIVA_DA_MATERIA_PERGUNTA_O_TETO",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 46.5,
+   "APANHADO_POR": [
+    "FAIL: test_H2_o_ultimo_lugar_da_materia_cobre_a_retentativa"
+   ]
+  },
+  {
+   "MUTANTE": "M12_RETENTATIVA_ESCONDIDA",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 50.9,
+   "APANHADO_POR": [
+    "FAIL: test_A_a_retentativa_nao_conta_no_teto_da_corrida"
+   ]
+  },
+  {
+   "MUTANTE": "M13_RETENTATIVA_CONTA_NO_TETO",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 49.6,
+   "APANHADO_POR": [
+    "FAIL: test_A_a_retentativa_nao_conta_no_teto_da_corrida",
+    "FAIL: test_E_recuo_crescente_e_com_limite"
+   ]
+  },
+  {
+   "MUTANTE": "M14_DESAFIO_DEIXA_DE_SER_SINAL",
+   "FICHEIRO": "coleta/cortesia_adaptativa.mjs",
+   "ESTADO": "MORTO",
+   "RC": 1,
+   "SEGUNDOS": 50.6,
+   "APANHADO_POR": [
+    "FAIL: test_C_LIVRO_desafio_e_sinal_no_livro",
+    "FAIL: test_C_desafio_nao_e_transitorio_e_continua_recusa"
+   ]
+  }
+ ]
+}
