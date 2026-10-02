@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-02T00:55:06+00:00",
-  "HEAD": "f64d6b80edf57d9c2dfa4cf5c9191a0f04b5f444",
+  "GENERATED_AT": "2026-10-02T01:03:43+00:00",
+  "HEAD": "884505b18607b8370f8a72463a7ebe2333207b30",
   "BRANCH": "coord/t10-tls-retry",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c",
+  "SOURCE_TREE_FINGERPRINT": "5d7c7dca282bed538745192d0c3e456925abfbc7e2e5e9cd46cbb6229a56c8e2",
   "FICHEIROS_NA_IMPRESSAO": 4413,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -4813,6 +4813,20 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/t10_tls_retry/mutar_t10.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7dd03589a0c11ee03d1c6e673a5b305cb63679b7",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "b0ae894281584ac53f914b02ad98f9e78f44daa7",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/t2_boletins/canario_arpae.py",
     "PAPEL": "FONTE",
     "VERSAO": "f8186a5f98e24bf7d6ea9b7ae5e21d1677f08dd4",
@@ -5669,14 +5683,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c",
+    "VERSAO": "5d7c7dca282bed538745192d0c3e456925abfbc7e2e5e9cd46cbb6229a56c8e2",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c",
+    "VERSAO": "5d7c7dca282bed538745192d0c3e456925abfbc7e2e5e9cd46cbb6229a56c8e2",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8404,8 +8418,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1195,
-  "INPUTS_DIGEST": "02ef3bb567731280edcac80bb9ef026be9f074647588591a0994628074ea6203",
+  "INPUTS_COUNT": 1197,
+  "INPUTS_DIGEST": "2e5e311ab8e453e576f79a967dde88497439bf781e793277fd5782f781e91e19",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8438,8 +8452,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "66131161e63741edae6d91a20b971f408a8a478bba19c443a96f9d31c5131663",
-  "SEMANTIC_HASH": "f66eeb8f7a571fdc3207f7169f8aea97eb117099979f3084db7d046d7835e8a2"
+  "MEASUREMENT_HASH": "d599734c6dce09f9ce3ab931f5ee4d76bf2aaa79f6caacc15c41bee9480ca963",
+  "SEMANTIC_HASH": "261da70f669ee7dcfbf6f7e61435f95b7ac5c90a750de0eec681747f8d3b9f28"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -22506,6 +22520,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-CORTESIA",
+    "FROM": "C-CORTESIA-ADAPTATIVA",
+    "TO": "C-PROVA-CORTESIA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/t10_tls_retry/mutar_t10.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+      "LINHA": 50,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-TESTES",
     "FROM": "C-CORTESIA-ADAPTATIVA",
     "TO": "C-TESTES",
@@ -32991,6 +33035,22 @@
      {
       "FICHEIRO": "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
       "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/t10_tls_retry/mutar_t10.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+      "LINHA": 49,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
@@ -50868,6 +50928,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_transporte_tls_retry.py",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -65263,12 +65331,12 @@
     ]
    }
   ],
-  "COUNT": 1855
+  "COUNT": 1856
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 241,
   "CARTOES_AUDITADOS": 241,
-  "ARESTAS_RELACIONADAS": 1855,
+  "ARESTAS_RELACIONADAS": 1856,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -65785,7 +65853,7 @@
    "CONTROL": 90,
    "DATA": 30,
    "PROOF": 656,
-   "READ": 416,
+   "READ": 417,
    "RULE": 297,
    "WRITE": 20
   },
@@ -68416,7 +68484,7 @@
     "pathlib"
    ],
    "ENTRAM": 1,
-   "SAEM": 13,
+   "SAEM": 14,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE"
    ],
@@ -73972,6 +74040,9 @@
     "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
     "provas/scrap_evolucao/mutantes_feed_ligado.py",
     "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
+    "provas/t10_tls_retry/MUTACAO-T10.json",
+    "provas/t10_tls_retry/mutar_t10.py",
+    "provas/t10_tls_retry/transporte_tls_falso.mjs",
     "provas/teto_dominio_local.mjs",
     "provas/teto_dominio_mutacao.py"
    ],
@@ -73985,6 +74056,7 @@
     "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
     "provas/scrap_evolucao/mutantes_feed_ligado.py",
     "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
+    "provas/t10_tls_retry/mutar_t10.py",
     "provas/teto_adaptativo/mutacao_rebase.py",
     "provas/teto_adaptativo/transporte_rebase_local.mjs",
     "provas/teto_dominio_local.mjs",
@@ -73993,7 +74065,8 @@
     "tests/test_cortesia_no_transporte.py",
     "tests/test_feed_discovery.py",
     "tests/test_feed_ligado.py",
-    "tests/test_teto_dominio.py"
+    "tests/test_teto_dominio.py",
+    "tests/test_transporte_tls_retry.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "SCRAP-EVOLUCAO.md",
@@ -74010,7 +74083,7 @@
     "patchright",
     "urllib"
    ],
-   "ENTRAM": 10,
+   "ENTRAM": 11,
    "SAEM": 4,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",

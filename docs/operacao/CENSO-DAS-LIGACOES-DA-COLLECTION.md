@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  f64d6b80edf57d9c2dfa4cf5c9191a0f04b5f444
+HEAD_DA_MEDICAO  884505b18607b8370f8a72463a7ebe2333207b30
 BRANCH           coord/t10-tls-retry
-GERADO_EM        2026-10-01T21:30:25-03:00
+GERADO_EM        2026-10-01T21:58:30-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -213,13 +213,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `regras/POLITICA-CORTESIA-ADAPTATIVA.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 13 |
-| **arestas provadas** | entram 1 · saem 12 |
+| **arestas no mapa** | entram 1 · saem 14 |
+| **arestas provadas** | entram 1 · saem 13 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 13 · NÃO SEI 1 |
+| **prova das ligações** | CODE 14 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 

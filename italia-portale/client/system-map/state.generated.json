@@ -4859,9 +4859,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "coord/t10-tls-retry",
-    "HEAD": "f64d6b80edf57d9c2dfa4cf5c9191a0f04b5f444",
-    "GENERATED_AT": "2026-10-01T21:30:25-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cd64a98abd09a07dee9f9a57111929478f95dde482198191abfee9247fbee88c"
+    "HEAD": "884505b18607b8370f8a72463a7ebe2333207b30",
+    "GENERATED_AT": "2026-10-01T21:58:30-03:00",
+    "SOURCE_TREE_FINGERPRINT": "5d7c7dca282bed538745192d0c3e456925abfbc7e2e5e9cd46cbb6229a56c8e2"
   },
   "FAMILIES": [
     {
@@ -45026,6 +45026,7 @@
         "C-PESQUISADORES-T6",
         "C-PROVA-COLETA",
         "C-PROVA-CONTADOR-24H",
+        "C-PROVA-CORTESIA",
         "C-PROVA-TETO-DOMINIO",
         "C-SCRAP-SOCIAL",
         "C-SEGUIR-PESQUISADORES",
@@ -61462,7 +61463,7 @@
       "name": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Uma prova de ZERO REDE EXTERNA que liga o transporte real do coletor (curl) contra um servidor HTTP em 127.0.0.1 e conta os pedidos NO SERVIDOR: robots que proibe um caminho da 0 pedidos a ele; robots que proibe o indice deixa a fonte UNKNOWN e o livro intacto; a pausa minima (1 s, 2 s configurada, Crawl-delay 3) mede-se entre chegadas; o teto de 5 (D7) e o configurado cortam exactamente; robots ilegivel e indisponivel nao deixam passar; o salto de redireccionamento pede licenca outra vez; `www.site` e `site` contam como UM site (o caso Villoresi, medido na rede real: 6 pedidos antes da correccao). E um red team de 17 mutantes, um por guarda, com bandeira que prova que a linha mutada correu, restauro conferido por sha.",
+      "what": "Uma prova de ZERO REDE EXTERNA que liga o transporte real do coletor (curl) contra um servidor HTTP em 127.0.0.1 e conta os pedidos NO SERVIDOR: robots que proibe um caminho da 0 pedidos a ele; robots que proibe o indice deixa a fonte UNKNOWN e o livro intacto; a pausa minima (1 s, 2 s configurada, Crawl-delay 3) mede-se entre chegadas; o teto de 5 (D7) e o configurado cortam exactamente; robots ilegivel e indisponivel nao deixam passar; o salto de redireccionamento pede licenca outra vez; `www.site` e `site` contam como UM site (o caso Villoresi, medido na rede real: 6 pedidos antes da correccao). E um red team de 17 mutantes, um por guarda, com bandeira que prova que a linha mutada correu, restauro conferido por sha. T10-TLS-RETRY (01/10/2026): o `baixar()` de producao com um curl FALSO (`trocarCurlParaTeste`) prova o recuo so na falha transitoria (curl 35 TLS: 3 s, 5 s, limite 5 s, somado a pausa) e a retentativa DENTRO da mesma reserva do livro de 24 h; o desafio continua recusa; mutacao 14/14 em provas/t10_tls_retry/MUTACAO-T10.json.",
       "why_here": "Medido na A4: o coletor nao lia robots nem espacava pedidos; quem o fazia era o condutor da micro, por fora — uma regra com dois donos vale para um e falta ao outro. A prova arranca o coletor, nao a regra, porque so assim mede a ROTA: um teste que importa `robotsPermite` provaria o leitor do robots e nunca veria o `baixar()` a ignora-lo.",
       "departments": [
         "ENGENHARIA"
@@ -61495,15 +61496,19 @@
         "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
         "provas/scrap_evolucao/mutantes_feed_ligado.py",
         "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
+        "provas/t10_tls_retry/MUTACAO-T10.json",
+        "provas/t10_tls_retry/mutar_t10.py",
+        "provas/t10_tls_retry/transporte_tls_falso.mjs",
         "provas/teto_dominio_local.mjs",
         "provas/teto_dominio_mutacao.py"
       ],
-      "file_count": 19,
+      "file_count": 22,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-CORTESIA-ADAPTATIVA",
         "C-DETECTOR-CAPA-GABARITO",
         "C-IT-COLETA",
         "C-IT-CONTRATOS",
@@ -61522,7 +61527,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 14
+        "ITALIA": 16
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -61532,14 +61537,23 @@
           "LIVROS",
           "MUTANTES"
         ],
-        "palavras": 181,
+        "palavras": 200,
         "por_lingua": {},
-        "sem_marca_de_lingua": 181,
+        "sem_marca_de_lingua": 200,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "provas/t10_tls_retry",
+          "prova": {
+            "file": "provas/t10_tls_retry/mutar_t10.py",
+            "line": 142,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
       "destino": [
         "GIT"
       ],
@@ -61553,6 +61567,12 @@
         {
           "onde": "GIT",
           "file": "provas/scrap_evolucao/SITEMAP-NO-ACERVO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/t10_tls_retry/MUTACAO-T10.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
@@ -61583,6 +61603,7 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "coleta/cortesia_adaptativa.mjs",
         "coleta/espera_por_dominio.py",
         "coleta/italy_executor.py",
         "coleta/italy_pilot_collect.mjs",
@@ -61600,6 +61621,7 @@
         "provas/feed_local.mjs",
         "provas/scrap_evolucao/FEEDS-NO-ACERVO.json",
         "provas/scrap_evolucao/feed_ligado_local.mjs",
+        "provas/t10_tls_retry/MUTACAO-T10.json",
         "provas/teto_dominio_local.mjs",
         "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
         "regras/feed_discovery_test.mjs",
@@ -100828,6 +100850,57 @@
     },
     {
       "from": "C-CORTESIA-ADAPTATIVA",
+      "to": "C-PROVA-CORTESIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/t10_tls_retry/mutar_t10.py",
+          "line": 21,
+          "snippet": "CORTESIA = \"coleta/cortesia_adaptativa.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+          "line": 50,
+          "snippet": "const CA = await import(\"../../coleta/cortesia_adaptativa.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CORTESIA-ADAPTATIVA",
       "to": "C-PROVA-TETO-DOMINIO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -119321,7 +119394,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 9 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cortesia_http_local.mjs",
@@ -119423,6 +119496,38 @@
           "file": "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
           "line": 32,
           "snippet": "(\"COLETOR: item sem data no feed vira null em vez de NAO SEI\", \"coleta/italy_pilot_collect.mjs\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/t10_tls_retry/mutar_t10.py",
+          "line": 20,
+          "snippet": "COLETOR = \"coleta/italy_pilot_collect.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/t10_tls_retry/transporte_tls_falso.mjs",
+          "line": 49,
+          "snippet": "const M = await import(\"../../coleta/italy_pilot_collect.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
             "FROM": "C-IT-COLETA",
@@ -151177,7 +151282,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cortesia_no_transporte.py",
@@ -151263,6 +151368,22 @@
           "file": "tests/test_teto_dominio.py",
           "line": 22,
           "snippet": "r = subprocess.run([\"node\", \"provas/teto_dominio_local.mjs\"], cwd=RAIZ, env=env,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
+            "FROM": "C-PROVA-CORTESIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_transporte_tls_retry.py",
+          "line": 34,
+          "snippet": "p = subprocess.run([\"node\", \"provas/t10_tls_retry/transporte_tls_falso.mjs\"], cwd=RAIZ, env=env,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
             "FROM": "C-PROVA-CORTESIA",
@@ -176727,11 +176848,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/t10_tls_retry/mutar_t10.py",
-    "provas/t10_tls_retry/transporte_tls_falso.mjs"
-  ],
-  "UNCLAIMED_FILES_COUNT": 2295,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 2292,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -177003,13 +177121,13 @@
     "components_pending": 274,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1950,
-    "edges_proven": 1881,
+    "edges": 1951,
+    "edges_proven": 1882,
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4265,
-    "files_covered": 1970,
-    "files_code_unclaimed": 2,
+    "files_covered": 1973,
+    "files_code_unclaimed": 0,
     "roles_proven": 209,
     "roles_declared_only": 11,
     "roles_unknown": 95,
