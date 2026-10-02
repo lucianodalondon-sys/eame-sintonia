@@ -24,8 +24,8 @@
 import { execFile, execFileSync } from "node:child_process";
 import { promisify } from "node:util";
 import { openSync, closeSync, unlinkSync, existsSync, writeFileSync, readFileSync, mkdirSync, appendFileSync } from "node:fs";
-import { PROFILES, PERFIL_PADRAO } from "./italy_profiles.mjs";
-import { CONTRACTS } from "./italy_contracts.mjs";
+import { PROFILES, PERFIL_PADRAO } from "../candidatas/italy_profiles.mjs";
+import { CONTRACTS } from "../regras/italy_contracts.mjs";
 
 const run = promisify(execFile);
 const arg = n => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : null; };
@@ -73,7 +73,7 @@ async function main() {
     RUNNER_HEALTH: "HEALTHY", RUN_STATE: null,
     SCHEDULER_TIMEZONE: PROFILE?.SCHEDULER_TIMEZONE, HORA_EM_ROMA: horaEmRoma(), DATA_EM_ROMA: dataEmRoma(),
     EGRESS_COUNTRY: null, EGRESS_IP: null,
-    SOURCE_ATTEMPTED: 0, SOURCE_HEALTHY: 0, SOURCE_DEGRADED: 0, SOURCE_FAILED: 0, SOURCE_NOT_MEASURED: 0,
+    SOURCE_ATTEMPTED: 0, SOURCE_HEALTHY: 0, SOURCE_DEGRADED: 0, SOURCE_FAILED: 0, SOURCE_NOT_MEASURED: 0, SOURCE_SKIPPED_OUT_OF_COHORT: 0,
     NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, RAW_CREATED: 0, NORMALIZED_NEW: 0,
     COMMIT: null, REMOTE_HEAD: null, LOCAL_HEAD: null, RUN_STORAGE_STATE: null
   };
@@ -120,13 +120,27 @@ async function main() {
     try { mkdirSync(LEDGER_DIR, { recursive: true }); writeFileSync(`${LEDGER_DIR}/.w`, "x"); unlinkSync(`${LEDGER_DIR}/.w`); }
     catch (e) { resumo.RUN_STATE = "FAILED_PRECONDITION"; resumo.reason = "storage nao gravavel"; resumo.RUNNER_HEALTH = "FAILED"; resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length; return fim(resumo, t0); }
 
-    // 6 · contratos existem para todas as fontes do perfil
-    const semContrato = PROFILE.SOURCES.filter(s => !CONTRACTS[s]);
-    if (semContrato.length) { resumo.RUN_STATE = "FAILED_PRECONDITION"; resumo.reason = `sem contrato: ${semContrato}`; resumo.RUNNER_HEALTH = "FAILED"; resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length; return fim(resumo, t0); }
+    // 6 · DECISAO 5 — FONTE_FORA_DA_COORTE != ONDA_PARADA
+    // Fonte sem contrato e registrada e PULADA; a onda continua com as contratadas.
+    // So ha FAILED_PRECONDITION se NENHUMA fonte do perfil for coletavel.
+    const foraDaCoorte = PROFILE.SOURCES.filter(s => !CONTRACTS[s]);
+    const coletaPossivel = PROFILE.SOURCES.filter(s => CONTRACTS[s]);
+    if (foraDaCoorte.length) {
+      resumo.SOURCE_SKIPPED_OUT_OF_COHORT = foraDaCoorte.length;
+      resumo.SKIP_EVENTS = foraDaCoorte.map(s => ({ SOURCE_ID: s, SKIP: "FORA_DA_COORTE", ACAO: "registrada e pulada; a onda continua" }));
+      resumo.lei_skip = "FONTE_FORA_DA_COORTE != ONDA_PARADA — fonte sem contrato e registrada e pulada, nunca derruba a coleta inteira";
+    }
+    if (coletaPossivel.length === 0) {
+      resumo.RUN_STATE = "FAILED_PRECONDITION";
+      resumo.reason = `nenhuma fonte coletavel — todas fora da coorte: ${foraDaCoorte}`;
+      resumo.RUNNER_HEALTH = "FAILED";
+      resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
+      return fim(resumo, t0);
+    }
 
     // 7..14 · a coleta em si fica no coletor do piloto, reusado com o perfil restrito
     const { executarRodada } = await import("./italy_pilot_collect.mjs");
-    const r = await executarRodada({ nota: `ops ${PROFILE_NAME}`, apenas: PROFILE.SOURCES, arpavZonas: PROFILE.ARPAV_OPERATIONAL_ZONES ? "TODAS" : null, raiz: OPS_ROOT });
+    const r = await executarRodada({ nota: `ops ${PROFILE_NAME}`, apenas: coletaPossivel, arpavZonas: PROFILE.ARPAV_OPERATIONAL_ZONES ? "TODAS" : null, raiz: OPS_ROOT });
     const c = r.resumo.contadores;
     resumo.RUN_ID = r.resumo.RUN_ID;
     resumo.SOURCE_ATTEMPTED = c.SOURCES_ATTEMPTED; resumo.SOURCE_HEALTHY = c.HEALTHY;

@@ -24,7 +24,7 @@ import { execFileSync, execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, appendFileSync, rmSync } from "node:fs";
 import { createHash, randomUUID } from "node:crypto";
-import { CONTRACTS } from "./italy_contracts.mjs";
+import { CONTRACTS } from "../regras/italy_contracts.mjs";
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
@@ -269,12 +269,25 @@ export async function executarRodada({ nota = "", forcarBuf = null, pularParse =
   try { egress = JSON.parse((await run("curl", ["-s", "--max-time", "15", "https://ipinfo.io/json"], { encoding: "utf8" })).stdout); } catch { }
   const GIT_HEAD = (() => { try { return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(); } catch { return "NAO SEI"; } })();
 
-  const cont = { SOURCES_ATTEMPTED: 0, HEALTHY: 0, DEGRADED: 0, FAILED: 0, UNKNOWN: 0, NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, SEMANTIC_ID_CHANGED_SAME_BYTES: 0, RAW_OBJECTS_CREATED: 0, NORMALIZED_OBSERVATIONS_NEW: 0 };
+  const cont = { SOURCES_ATTEMPTED: 0, HEALTHY: 0, DEGRADED: 0, FAILED: 0, UNKNOWN: 0, SKIPPED_OUT_OF_COHORT: 0, NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, SEMANTIC_ID_CHANGED_SAME_BYTES: 0, RAW_OBJECTS_CREATED: 0, NORMALIZED_OBSERVATIONS_NEW: 0 };
   const detalhes = [];
 
   for (const sourceId of FONTES) {
-    cont.SOURCES_ATTEMPTED++;
     const c = CONTRACTS[sourceId];
+    // DECISAO 5 — FONTE_FORA_DA_COORTE != ONDA_PARADA
+    // Fonte sem contrato (fora da coorte) nao e falha da fonte e nao derruba a onda:
+    // registra-se o SKIP e o servico continua com as fontes contratadas.
+    if (!c) {
+      const obs = {
+        RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: null, DOCUMENT_ID: null,
+        HEALTH_STATE: "NOT_MEASURED", OBSERVATION_RESULT: "SKIPPED_OUT_OF_COHORT",
+        motivo: "fonte sem contrato (fora da coorte) — registrada e pulada; a onda continua",
+        SKIP_ACAO: "SKIP", CAPTURED_AT: agora(), COLLECTION_RUN_STARTED_AT: STARTED_AT
+      };
+      cont.SKIPPED_OUT_OF_COHORT++;
+      gravar(obs); detalhes.push(obs); continue;
+    }
+    cont.SOURCES_ATTEMPTED++;
     const alvos = await alvosDe(sourceId);
     if (alvos?.erro) {
       cont.FAILED++;

@@ -1,7 +1,7 @@
 // GUARDAS DO AGENDAMENTO FORWARD-ONLY.
 // Cada lei critica tem um controle negativo REAL, medido do log de execucoes.
 import { readFileSync, existsSync } from "node:fs";
-import { PROFILES } from "./italy_profiles.mjs";
+import { PROFILES } from "../candidatas/italy_profiles.mjs";
 
 const OPS = "C:/eame-sintonia-ops";
 const LOG = `${OPS}/data/collection-ledger/italy/logs/runs.log`;
@@ -17,6 +17,15 @@ export function guardasDeAgendamento(T) {
     ["IT-T3-005", "IT-T2-002", "IT-T2-004"].every(s => P.SOURCES.includes(s)));
   T("nenhuma fonte de outra prioridade entrou no perfil",
     !P.SOURCES.some(s => ["IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"].includes(s)));
+
+  console.log("\n32b · FONTE_FORA_DA_COORTE != ONDA_PARADA (Decisao 5)");
+  T("o runner registra o SKIP em vez de parar a onda",
+    /SKIPPED_OUT_OF_COHORT/.test(runner) && /FONTE_FORA_DA_COORTE != ONDA_PARADA/.test(runner));
+  T("fonte fora da coorte nunca vira FAILED_PRECONDITION da onda inteira",
+    runs.every(r => !(r.SOURCE_SKIPPED_OUT_OF_COHORT > 0 && r.RUN_STATE === "FAILED_PRECONDITION")),
+    `runs com skip: ${runs.filter(r => r.SOURCE_SKIPPED_OUT_OF_COHORT > 0).length}`);
+  T("o coletor separa fonte PULADA de fonte TENTADA",
+    /SKIPPED_OUT_OF_COHORT: 0/.test(readFileSync("coleta/italy_pilot_collect.mjs", "utf8")));
   T("nenhuma execucao agendada tocou mais de 3 fontes",
     runs.filter(r => r.SOURCE_ATTEMPTED > 0).every(r => r.SOURCE_ATTEMPTED === 3),
     [...new Set(runs.map(r => r.SOURCE_ATTEMPTED))].join(","));
