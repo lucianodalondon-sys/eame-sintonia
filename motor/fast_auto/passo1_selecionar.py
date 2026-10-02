@@ -1,6 +1,23 @@
 # SINTONIA_FAST_V1 - passo 1: 20 RAW reais da tabela raw_asset -> texto legivel
 # Le o banco SO em leitura (transacao read only) e o arquivo do armazem. Nao escreve nada fora desta pasta.
+#
+# CAMADA DE TEXTO (duas camadas, ambas neste ficheiro -- nao existe extrator paralelo):
+#   (1) ESTRUTURA - descarta o texto que vem de casca: <nav> <header> <footer> <form> <aside> <button>
+#       <select> <label> <input>, e de container cujo class/id carrega um TOKEN INTEIRO de casca (menu,
+#       menu-item, breadcrumb, cookie, sidebar, widget, related, newsletter, login, sponsor, ...).
+#       Token inteiro de proposito: o class do <body> do WordPress costuma conter "navigation" e casar
+#       por substring engoliria a materia inteira (defeito medido -- ver provas/).
+#   (2) REPETICAO - linha CURTA (<= 80 chars) que aparece em 3 ou mais documentos DA MESMA RODADA e' template
+#       do site (menu, rodape, aviso de cookies, "conta ou e-mail", "senha esquecida").
+#   GUARDA: se a limpeza derrubar o texto abaixo de 15% do bruto (em documento com mais de 2000 chars), a
+#       limpeza e' tratada como suspeita: entrega-se o BRUTO e grava-se o motivo. Nunca corta o corpo em silencio.
+#
+# HASH: TEXTO_SHA256 e' o sha256 do texto GRAVADO em raw_texto/<DOC>.txt -- exatamente o que o passo2 le e manda
+#   ao modelo. TEXTO_SHA256_NO_DISCO e' o sha256 do mesmo texto lido DE VOLTA do ficheiro (a prova de que o
+#   ficheiro em disco e' aquilo que foi hasheado). O corte que o passo2 faz antes de enviar tem dono unico aqui
+#   (LIMITE_ENTREGA_CHARS) e o passo2 grava TEXTO_ENTREGUE_SHA256: o hash passa a descrever o que o modelo viu.
 import hashlib, html, json, os, re, subprocess, sys
+from collections import Counter
 from html.parser import HTMLParser
 
 AQUI = os.path.abspath(sys.argv[1])  # pasta da rodada (o codigo fica no Git, os dados fora)
@@ -8,6 +25,13 @@ BASE = r"C:/Users/London1/sintonia-sala-italia"
 ARM = BASE + "/armazem/"
 PSQL = r"C:/Users/London1/orca/pgtmp/pgsql/bin/psql.exe"
 IDS = json.load(open(AQUI + "/IDS.json", encoding="utf-8"))  # escrito pelo rodada_fast.py
+
+LIMITE_ENTREGA_CHARS = int(os.environ.get("FAST_MAX_CHARS", 18000))  # dono unico: o passo2 le daqui
+LIMITE_SUSPEITO = 0.15      # limpeza que derruba abaixo disto (em documento grande) e' suspeita...
+PROSA_MINIMA = 400          # ...a nao ser que o corpo tenha sobrevivido: prosa = chars em linhas com 80+
+MINIMO_PARA_SUSPEITAR = 2000
+LINHA_TEMPLATE_MAX = 80
+REPETICOES_TEMPLATE = 3
 
 env = dict(os.environ, PGPASSFILE=BASE + "/pgpass.conf", PGCLIENTENCODING="UTF8")
 dsn = open(BASE + "/SALA_DSN.txt").read().strip()
@@ -21,46 +45,156 @@ assert "on" in [l.strip() for l in linhas], ("transacao nao estava read only", l
 rows = [json.loads(l) for l in linhas if l.startswith("{")]
 assert len(rows) == len(IDS), (len(rows), len(IDS))
 
+TAGS_CASCA = {"nav", "header", "footer", "form", "aside", "button", "select", "label", "input"}
+TOKENS_CASCA = {"menu", "menu-item", "menu-label", "menulabel", "navbar", "submenu", "megamenu",
+                "breadcrumb", "breadcrumbs", "cookie", "cookiebanner", "cmplz-cookiebanner", "widget", "sidebar",
+                "related", "correlati", "correlate", "leggi-anche", "leggianche", "newsletter", "subscribe",
+                "abbonati", "abbonamento", "login", "login-form", "search-form", "searchform", "subscr", "consent",
+                "gdpr", "sponsor", "sponsorizzato", "pagination", "paginazione", "social", "share", "tagcloud",
+                "skip-link", "site-header", "site-footer", "main-menu", "primary-menu", "secondary-menu",
+                "topbar", "toolbar", "widget-area", "consenso"}
+# fora da lista, de proposito: "navigation" -- e' TOKEN do class do <body> em tema WordPress e marcaria a
+# pagina inteira como casca (defeito medido: derrubou o corpo de 9323 para 24 chars numa prova).
+PREFIXOS_CASCA = ("menu-item-", "menu-", "td_block_wrap", "td_block", "td_module", "cmplz-")
+
 
 class T(HTMLParser):
     SKIP = {"script", "style", "noscript", "svg", "head", "template"}
     BLOCO = {"p", "div", "br", "li", "h1", "h2", "h3", "h4", "h5", "tr", "section", "article", "td", "header", "footer"}
+
     def __init__(s):
-        super().__init__(convert_charrefs=True); s.o = []; s.d = 0
+        super().__init__(convert_charrefs=True)
+        s.o = []
+        s.d = 0
+        s.p = []
+        s.casca = Counter()
+
+    def _motivo(s, t, a):
+        if t in TAGS_CASCA:
+            return "<%s>" % t
+        at = dict(a)
+        for chave in ("class", "id", "role", "aria-label"):
+            for x in (at.get(chave) or "").split():
+                xl = x.lower()
+                if xl in TOKENS_CASCA or xl.startswith(PREFIXOS_CASCA):
+                    return x[:40]
+        return None
+
+    def _casca(s):
+        for t, m in reversed(s.p):
+            if m:
+                return m
+        return None
+
     def handle_starttag(s, t, a):
-        if t in s.SKIP: s.d += 1
-        elif t in s.BLOCO: s.o.append("\n")
+        if t in s.SKIP:
+            s.d += 1
+            return
+        if t == "body" and s.d:      # <head>/<title> sem fecho deixava o corpo inteiro em silencio
+            s.d = 0                  # (defeito medido numa prova: documento entregue com 24 caracteres)
+        s.p.append((t, s._motivo(t, a)))
+        if t in s.BLOCO:
+            s.o.append("\n")
+
     def handle_endtag(s, t):
-        if t in s.SKIP and s.d: s.d -= 1
-        elif t in s.BLOCO: s.o.append("\n")
+        if t in s.SKIP:
+            if s.d:
+                s.d -= 1
+            return
+        for i in range(len(s.p) - 1, -1, -1):
+            if s.p[i][0] == t:
+                del s.p[i:]
+                break
+        if t in s.BLOCO:
+            s.o.append("\n")
+
     def handle_data(s, x):
-        if not s.d: s.o.append(x)
+        if s.d:
+            return
+        m = s._casca()
+        if m:
+            if x.strip():
+                s.casca[m] += len(re.sub(r"[ \t\u00a0]+", " ", x))
+        else:
+            s.o.append(x)
 
 
-def texto(path, mt):
+def normaliza(t):
+    t = re.sub(r"[ \t\u00a0]+", " ", t)
+    t = re.sub(r"\n\s*\n+", "\n", t)
+    return t.strip()
+
+
+def bruto(path, mt):
     b = open(path, "rb").read()
     if mt == "application/pdf":
         import pypdf
         r = pypdf.PdfReader(path)
-        t = "\n".join((p.extract_text() or "") for p in r.pages)
-    else:
-        p = T(); p.feed(b.decode("utf-8", "replace")); t = "".join(p.o)
-    t = re.sub(r"[ \t\u00a0]+", " ", t)
-    t = re.sub(r"\n\s*\n+", "\n", t)
-    return b, t.strip()
+        return b, "\n".join((p.extract_text() or "") for p in r.pages), Counter()
+    p = T()
+    p.feed(b.decode("utf-8", "replace"))
+    return b, "".join(p.o), p.casca
+
+
+def linhas_de_template(textos):
+    vistos = Counter()
+    for t in textos.values():
+        for l in {re.sub(r"\s+", " ", x).strip().lower() for x in t.split("\n")}:
+            if 15 < len(l) <= LINHA_TEMPLATE_MAX:
+                vistos[l] += 1
+    return {l for l, n in vistos.items() if n >= REPETICOES_TEMPLATE}
+
+
+def tira_template(t, template):
+    fora, n, chars = [], 0, 0
+    for l in t.split("\n"):
+        if re.sub(r"\s+", " ", l).strip().lower() in template:
+            n += 1
+            chars += len(l)
+            continue
+        fora.append(l)
+    return normaliza("\n".join(fora)), n, chars
 
 
 os.makedirs(AQUI + "/raw_texto", exist_ok=True)
-docs = []
+preparo = []
 for r in rows:
     path = ARM + r["storage_path"]
-    b, t = texto(path, r["media_type"])
-    sha = hashlib.sha256(b).hexdigest()
+    b, t_bruto, casca = bruto(path, r["media_type"])
+    preparo.append((r, b, normaliza(t_bruto), casca, t_bruto))
+
+template = linhas_de_template({r["id"]: t for r, b, t, c, n in preparo})
+
+docs = []
+for r, b, t_corpo, casca, t_bruto in preparo:
     did = "RAW-%d" % r["id"]
-    open(AQUI + "/raw_texto/%s.txt" % did, "w", encoding="utf-8").write(t)
+    limpo, linhas_removidas, chars_linhas = tira_template(t_corpo, template)
+    prosa = sum(len(l) for l in limpo.split("\n") if len(l) >= 80)
+    motivo = "LIMPO"
+    if len(limpo) < LIMITE_SUSPEITO * len(t_corpo) and len(t_corpo) > MINIMO_PARA_SUSPEITAR and prosa < PROSA_MINIMA:
+        limpo, motivo = t_corpo, "LIMPEZA_SUSPEITA_MANTIDO_BRUTO"
+    sha = hashlib.sha256(b).hexdigest()
+    with open(AQUI + "/raw_texto/%s.txt" % did, "w", encoding="utf-8", newline="\n") as f:
+        f.write(limpo)
+    lido = open(AQUI + "/raw_texto/%s.txt" % did, "rb").read()   # o ficheiro como ele esta' no disco
     docs.append(dict(DOCUMENT_ID=did, RAW_ASSET_ID=r["id"], SOURCE_ID=r["source_id"], URL=r["source_url"],
                      STORAGE_PATH=r["storage_path"], MEDIA_TYPE=r["media_type"], CAPTURED_AT=r["captured_at"],
                      RAW_SHA256_BANCO=r["sha256"], RAW_SHA256_ARQUIVO=sha, SHA_CONFERE=(sha == r["sha256"].strip()),
-                     TEXTO_CHARS=len(t), TEXTO_SHA256=hashlib.sha256(t.encode()).hexdigest()))
-    print(did, r["source_id"], r["media_type"], len(t), "SHA_OK" if sha == r["sha256"].strip() else "SHA_DIFERENTE")
+                     TEXTO_BRUTO_CHARS=len(t_corpo),
+                     CASCA_POR_ESTRUTURA_CHARS=sum(casca.values()),
+                     CASCA_POR_ESTRUTURA_MOTIVOS=dict(casca.most_common(5)),
+                     CASCA_POR_REPETICAO_LINHAS=linhas_removidas,
+                     CASCA_POR_REPETICAO_CHARS=chars_linhas,
+                     LIMPEZA=motivo, TEXTO_CHARS=len(limpo),
+                     TEXTO_SHA256=hashlib.sha256(limpo.encode("utf-8")).hexdigest(),
+                     TEXTO_SHA256_NO_DISCO=hashlib.sha256(lido).hexdigest(),
+                     LIMITE_ENTREGA_CHARS=LIMITE_ENTREGA_CHARS,
+                     ENTREGA_CORTADA=(len(limpo) > LIMITE_ENTREGA_CHARS)))
+    print(did, r["source_id"], r["media_type"], len(t_corpo), "->", len(limpo),
+          "casca=%d" % sum(casca.values()), "linhas=%d" % linhas_removidas, motivo,
+          "SHA_OK" if sha == r["sha256"].strip() else "SHA_DIFERENTE")
 json.dump(docs, open(AQUI + "/DOCUMENTOS_FAST.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+tb = sum(d["TEXTO_BRUTO_CHARS"] for d in docs)
+tc = sum(d["TEXTO_CHARS"] for d in docs)
+print("TOTAL bruto=%d entregue=%d removido=%d (%.1f%%) linhas_de_template=%d" % (
+    tb, tc, tb - tc, 100.0 * (tb - tc) / max(1, tb), len(template)))
