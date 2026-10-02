@@ -81,6 +81,8 @@
      (portoes/publicar_portal_sozinho.py) escreve o envelope conferido na copia que implanta. -->
 <script src="sintonia-pote-publicado.js"></script>
 <script src="sintonia-pote-casco.js"></script>
+<script src="sintonia-cruzamento-publicado.js"></script>
+<script src="sintonia-cruzamento-casco.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
   a { color:#009845; text-decoration:none; }
@@ -488,6 +490,62 @@
          La lingua visiva e quella di a14b9e1 e non cambia: la MASSA della
          scheda e la categoria, gli inchiostri sopra si separano per luminanza.
     -->
+    <!-- ================= CRUZAMENTO COMERCIAL (remessa) · so ENDERECO DE TESTE =================
+         A classe vem escrita pela Intelligence (CRUZAMENTO-COMERCIAL.json); o casco so escolhe a superficie que ja
+         existe: OPORTUNIDADE → Radar · SINAL e LEAD → Radar Futuro · GAP → Portafoglio. Em Production o envelope e
+         null e este bloco nao aparece. As «opportunita» antigas do snapshot nao sao mostradas enquanto ele vale. -->
+    <sc-if value="{{ temCruz }}" hint-placeholder-val="{{ false }}">
+    <div data-view="cruzamento" data-cruz-n="{{ cruz.n }}" style="padding:16px 22px 8px;display:flex;flex-direction:column;gap:12px">
+      <div data-marca="1" style="border-radius:10px;background:#000;color:#fff;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.08em">{{ cruz.faixa }}</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><h1 style="margin:0;font-size:24px;font-weight:700;letter-spacing:-0.01em;color:#fff">{{ cruz.titulo }}</h1><span style="padding:3px 10px;border-radius:9999px;background:rgba(255,255,255,0.06);border:1px solid rgba(203,197,195,0.25);font-size:12px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ cruz.n }}</span></div>
+        <div style="font-family:var(--font-secondary);font-size:11px;color:#8F8886;word-break:break-word">{{ cruz.origem }}</div>
+      </div>
+      <sc-if value="{{ cruz.recusado }}" hint-placeholder-val="{{ false }}"><div data-cruz-recusado="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ cruz.recusa }}</div></sc-if>
+      <sc-if value="{{ cruz.vazio }}" hint-placeholder-val="{{ false }}">
+      <div data-cruz-vazio="1" style="border-radius:12px;border:1px solid rgba(203,197,195,0.18);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:15px;font-weight:700;color:#fff">{{ cruz.vazioTexto }}</div>
+        <sc-if value="{{ cruz.temPorque }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:12px;line-height:1.5;color:#C9C3C1">{{ cruz.porque }}</div>
+        <sc-for list="{{ cruz.antigas }}" as="a" hint-placeholder-count="3">
+          <div data-cruz-antiga="{{ a.id }}" style="display:flex;flex-direction:column;gap:3px;padding:8px 0;border-top:1px solid rgba(255,255,255,0.06)">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:11px;color:#8F8886;text-decoration:line-through">{{ a.id }}</span><span style="font-size:10px;font-weight:700;letter-spacing:0.1em;color:{{ a.cor }};border:1px solid {{ a.cor }};border-radius:9999px;padding:1px 8px">→ {{ a.para }}</span><span style="font-size:12px;color:#EDEAE9">{{ a.titulo }}</span></div>
+            <div style="font-size:11px;color:#8F8886">{{ a.anello }}</div>
+          </div>
+        </sc-for>
+        </sc-if>
+      </div>
+      </sc-if>
+      <sc-for list="{{ cruz.cartoes }}" as="c" hint-placeholder-count="2">
+      <div data-cruz-objeto="{{ c.id }}" data-cruz-classe="{{ c.classe }}" style="border-radius:14px;border:1px solid rgba(203,197,195,0.14);border-left:4px solid {{ c.cor }};background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span data-cruz-selo="{{ c.classe }}" style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-size:10px;font-weight:700;letter-spacing:0.11em;color:{{ c.cor }};border:1px solid {{ c.cor }}">{{ c.rotulo }}</span>
+          <span style="font-size:11px;font-weight:700;color:#fff">{{ c.id }}</span>
+          <sc-if value="{{ c.temEra }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:#8F8886">{{ c.era }}</span></sc-if>
+          <sc-if value="{{ c.unDoc }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#F5B317;border:1px solid rgba(245,179,23,0.5);padding:1px 7px;border-radius:4px">{{ c.unDocL }}</span></sc-if>
+          <sc-if value="{{ c.verif }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#F5B317;border:1px solid rgba(245,179,23,0.5);padding:1px 7px;border-radius:4px">{{ c.verifL }}</span></sc-if>
+        </div>
+        <div style="font-size:16px;font-weight:700;line-height:1.35;color:#fff">{{ c.titulo }}</div>
+        <div style="font-size:12px;line-height:1.5;color:#F5B317"><b>{{ c.anelloL }}:</b> {{ c.anello }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">
+          <sc-for list="{{ c.campos }}" as="f" hint-placeholder-count="9">
+          <div data-cruz-campo="{{ f.l }}" data-nao-sei="{{ f.naoSei }}" style="display:flex;flex-direction:column;gap:3px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.03)">
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;color:#8F8886">{{ f.l }}</span>
+            <span style="font-size:12px;line-height:1.45;color:#EDEAE9;word-break:break-word">{{ f.v }}</span>
+            <sc-if value="{{ f.temIa }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;line-height:1.4;color:#8FB8DE;font-style:italic">{{ f.ia }}</span></sc-if>
+            <span style="font-size:10px;color:#6F6967;word-break:break-all">{{ f.fatos }}</span>
+          </div>
+          </sc-for>
+        </div>
+        <sc-for list="{{ c.blocos }}" as="b" hint-placeholder-count="4"><div style="font-size:12px;line-height:1.5;color:#C9C3C1"><b style="color:#fff">{{ b.l }}:</b> {{ b.v }}</div></sc-for>
+        <details style="font-size:12px;color:#C9C3C1"><summary style="cursor:pointer;font-weight:700;color:#fff">{{ c.evidL }}</summary>
+          <sc-for list="{{ c.evid }}" as="e" hint-placeholder-count="3"><div style="padding:6px 0;border-top:1px dotted rgba(151,139,135,0.35);display:flex;flex-direction:column;gap:2px"><span style="color:#EDEAE9">{{ e.trecho }}</span><span style="font-size:10px;color:#8F8886;word-break:break-all">{{ e.fonte }} · <a href="{{ e.url }}" target="_blank" rel="noopener">{{ e.url }}</a></span></div></sc-for>
+        </details>
+      </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
     <sc-if value="{{ isMeeting }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
       <!-- D152 · A LINHA LIVE E O SNAPSHOT, SEPARADOS. So com o pote pedido (publicado ou ?pote=local). A linha
@@ -4100,6 +4158,36 @@ class Component extends DCLogic {
      fica exatamente como estava. */
   static FLAGS_DO_LEGADO = ['isMeeting', 'isRadarFuturo', 'isFuture', 'isArchive', 'isWindows', 'isMarket',
     'isVoices', 'isCompetitors', 'isScience', 'isPortfolio', 'isEtichette', 'isSources', 'isField'];
+  /* CRUZAMENTO COMERCIAL (remessa) — so com o envelope publicado (endereco de teste). A classe e da Intelligence;
+     aqui so: (1) a superficie desenha o bloco do cruzamento; (2) Radar e Radar Futuro deixam de desenhar o snapshot
+     antigo; (3) as «opportunita» antigas saem das outras telas (Campo, Scienza, Finestre); (4) a barra conta o que a
+     superficie recebe. Sem envelope (Production) nada muda. */
+  _cruzamento(v) {
+    const W = (typeof window !== 'undefined') ? window : {};
+    const C = W.SINTONIA_CRUZAMENTO_CASCO || null;
+    const env = W.SINTONIA_CRUZAMENTO_PUBLICADO || null;
+    v.temCruz = false; v.cruz = {};
+    if (!C || !env) return v;
+    const cz = C.vista(env, this.state.view, this.state.lang);
+    if (cz) {
+      v.temCruz = true; v.cruz = cz;
+      v.isMeeting = false; v.isRadarFuturo = false; v.poteVista = false; v.temLive = false;
+    }
+    if (C.conferir(env).length) return v;
+    const IT = this.state.lang !== 'en';
+    v.fieldCases = [];
+    v.fieldKpis = (v.fieldKpis || []).filter(k => !/opportunit/i.test(String(k.label || '')));
+    v.sciThemes = (v.sciThemes || []).map(th => Object.assign({}, th, { caseObjs: [] }));
+    v.t = Object.assign({}, v.t, {
+      cwBizOpp: IT ? 'USO IN ETICHETTA · NON È OPPORTUNITÀ' : 'LABEL USE · NOT AN OPPORTUNITY',
+      lblScienceConnected: IT ? 'SCIENZA · NESSUN LEGAME A OPPORTUNITÀ IN QUESTA LETTURA' : 'SCIENCE · NO OPPORTUNITY LINK IN THIS READING',
+      lblFieldSignalsAdded: IT ? 'NESSUNA OPPORTUNITÀ CONFERMATA DAL CRUZAMENTO' : 'NO OPPORTUNITY CONFIRMED BY THE CROSSING'
+    });
+    const conta = (n) => { const k = C.contagem(env, n.view); return (k === null || n.view === 'portfolio') ? n : Object.assign({}, n, { count: k }); };
+    ['nav', 'navEvidence', 'navIntegrationItems'].forEach(k => { if (Array.isArray(v[k])) v[k] = v[k].map(conta); });
+    return v;
+  }
+
   _poteTemPrecedencia(v) {
     const W = (typeof window !== 'undefined') ? window : {};
     const P = W.SINTONIA_POTE_CASCO || null;
@@ -12304,7 +12392,7 @@ class Component extends DCLogic {
     const REF_MON = T.months || ['GEN', 'FEB', 'MAR', 'APR', 'MAG', 'GIU', 'LUG', 'AGO', 'SET', 'OTT', 'NOV', 'DIC'];
     const todayLabel = (REFP[2] + ' ' + (REF_MON[Number(REFP[1]) - 1] || '')).trim().toUpperCase();
 
-    return this._poteTemPrecedencia({
+    return this._cruzamento(this._poteTemPrecedencia({
       nav, navEvidence,
       /* La stessa voce del menu, letta dalla schermata dei segnali: un solo
          oggetto, un solo contatore, un solo proprietario. */
@@ -12672,7 +12760,7 @@ class Component extends DCLogic {
       // search
       envBadge: String(s.lang || 'it').toUpperCase(),
       searchGroups, searchTotal: sHits.length
-    });
+    }));
   }
 }
 </script>
