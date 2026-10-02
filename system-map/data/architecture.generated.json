@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coord/parada-sobre-servico",
-    "HEAD": "5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579",
-    "GENERATED_AT": "2026-10-01T13:46:22-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db"
+    "BRANCH": "claude/int-fast-v22-casos-v1",
+    "HEAD": "495d85d7b9818f5f922cfb228b464ca12ec897c2",
+    "GENERATED_AT": "2026-10-02T20:25:24-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f472c2bcd1c5346c6318926f34b09d5478bebdb5720688d9a2a63889988985d9"
   },
   "FILES": [
     {
@@ -18671,6 +18671,13 @@
       "code_dir": true
     },
     {
+      "path": "medida/medir_casca_do_que_vai_ao_opus.py",
+      "sha": "0ba6195c37475ed232a249226e1bf95abee7ea2e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "medidas/COORTE-MICRO-COLLECTION-V1.json",
       "sha": "8b31dd04e026365652e1332a69771b7952de2e8b",
       "ext": ".json",
@@ -19212,6 +19219,69 @@
     {
       "path": "motor/cruzamentos_max.py",
       "sha": "6fd9321d014b6f7bac74ba5edb54b6c20d5fb7b8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_auto/passo1_selecionar.py",
+      "sha": "e8eea1ecc8da69ab6705dabb2ea4339b522d474b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_auto/passo2_fatos.py",
+      "sha": "57bb45854b8dc7f9691484b179b37fbb66aad6fb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_auto/passo3_cruzar.py",
+      "sha": "2258c0d8467603bc445603fe10ac57d6624bbc0e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_auto/rodada_fast.py",
+      "sha": "8135d1523c307760ce17321a51c2730b0c5cfd9d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_casos.py",
+      "sha": "17932e41eaa64ec41e76823a8e7d1db428f0965d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_casos_agrupar.prompt.md",
+      "sha": "66586c364857fdc11721353a5e82917cf221c3c2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_casos_dossie.prompt.md",
+      "sha": "58350139be0d6ec47c5ff0368172869360f44a13",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_cruzamento_comercial.prompt.md",
+      "sha": "2716dd378894bcdd3a52f058eb6ff1633035885d",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_cruzamento_comercial.py",
+      "sha": "00159a20fab20e04e6163672b1a25c0c778afb0b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19875,6 +19945,27 @@
       "code_dir": true
     },
     {
+      "path": "provas/PROVA-ANTES-DEPOIS.json",
+      "sha": "f615a2f9134f5722d3ce2835239a0350b6b0eefd",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/PROVA-ANTES-DEPOIS.md",
+      "sha": "5465d2c660cb6eb0df66e38bc8c67de2865a5355",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/PROVA-RED-TEAM-HASH-DO-ENTREGUE.json",
+      "sha": "184914c66d95add3c9fa3cbe2987189b6d0b8657",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
       "sha": "c6c9d85b3d8f5b82cdbe9e3a718b294e87afe539",
       "ext": ".json",
@@ -19892,6 +19983,13 @@
       "path": "provas/RED-TEAM-DUAS-PORTAS-V1.json",
       "sha": "4a60c8033a2f905f0157da17395c9fa1eb154132",
       "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/RELATORIO-TEXTO-LIMPO-FAST.md",
+      "sha": "54888f575c83fee9e948644dbea80d199e959a1d",
+      "ext": ".md",
       "readable": false,
       "code_dir": true
     },
@@ -20381,6 +20479,13 @@
     {
       "path": "provas/amostragem_neutra_t3.py",
       "sha": "b083b5ff41fa87e1474fea58acd969baf3c5013b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/antes_depois_do_texto_fast.py",
+      "sha": "136d78ed73bdf705516918a1dcb5372973ddf467",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22943,6 +23048,13 @@
     {
       "path": "provas/red_team_gate_fase_1d.py",
       "sha": "8139f6c41691d0c87bb8dac03406ac386b818fff",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/red_team_hash_do_entregue.py",
+      "sha": "a281aaf9d9bc8f5a6a0752038c77a5260918ccbe",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26582,7 +26694,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "46b0c8f9eed16b3fecc338b00fba767c716147f0",
+      "sha": "6bb7c02d5a4222dde4643ad75009f45a4de5de1b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28452,6 +28564,69 @@
     {
       "path": "tests/test_fase_italiana_no_workflow.py",
       "sha": "3c45ab1ece65a32bf1a1c0fa180e0916c28f64fe",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_auto_rodada.py",
+      "sha": "bd68b02109694649927204e451145e44bb714c9d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_casos.py",
+      "sha": "296061b941920df15470fd4b17fc076a6216c925",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_contextos_destino.py",
+      "sha": "4be748c5c8825b9a74b579b704f667c93290c694",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_cruzamento_comercial.py",
+      "sha": "f763fc5fda0d8d7fbcd71d582c617c18637252dd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_regua_lab.py",
+      "sha": "ea4dbc254376c88e0b751b724de4214cc8b9df8d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_regua_lab_textos_it.py",
+      "sha": "95e3b61b64571fd32f1bcc33143412b479b6d72e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_texto_limpo.py",
+      "sha": "aca91b0eeceb2af70cd3015875a01a2096665fec",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_texto_nao_mais_forte.py",
+      "sha": "66d38a9749ca154247f088589c0f0114d58edca1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_texto_no_codigo.py",
+      "sha": "795b150007a2705eaf39cffd42b168471d86322d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -59351,6 +59526,237 @@
       }
     },
     {
+      "from_file": "motor/fast_auto/rodada_fast.py",
+      "to_file": "motor/fast_auto/passo1_selecionar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_auto/rodada_fast.py",
+        "line": 21,
+        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo3_cruzar.py\"]"
+      }
+    },
+    {
+      "from_file": "motor/fast_auto/rodada_fast.py",
+      "to_file": "motor/fast_auto/passo2_fatos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_auto/rodada_fast.py",
+        "line": 21,
+        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo3_cruzar.py\"]"
+      }
+    },
+    {
+      "from_file": "motor/fast_auto/rodada_fast.py",
+      "to_file": "motor/fast_auto/passo3_cruzar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_auto/rodada_fast.py",
+        "line": 21,
+        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo3_cruzar.py\"]"
+      }
+    },
+    {
+      "from_file": "motor/fast_auto/rodada_fast.py",
+      "to_file": "motor/fast_cruzamento_comercial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_auto/rodada_fast.py",
+        "line": 22,
+        "snippet": "COMERCIAL = os.path.join(REPO, \"motor\", \"fast_cruzamento_comercial.py\")"
+      }
+    },
+    {
+      "from_file": "motor/fast_casos.py",
+      "to_file": "motor/fast_casos_agrupar.prompt.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_casos.py",
+        "line": 47,
+        "snippet": "PROMPT_AGRUPAR = Path(__file__).with_name(\"fast_casos_agrupar.prompt.md\")"
+      }
+    },
+    {
+      "from_file": "motor/fast_casos.py",
+      "to_file": "motor/fast_casos_dossie.prompt.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_casos.py",
+        "line": 48,
+        "snippet": "PROMPT_DOSSIE = Path(__file__).with_name(\"fast_casos_dossie.prompt.md\")"
+      }
+    },
+    {
+      "from_file": "motor/fast_casos.py",
+      "to_file": "provas/janela_formas/cjs/INDICE.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_casos.py",
+        "line": 469,
+        "snippet": "(CASOS / \"INDICE.json\").write_text(json.dumps(idx, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/AGROMET-CONDITIONS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 63,
+        "snippet": "(\"CLI\", \"CLIMA / AGROMETEOROLOGIA\", Path(\"AGROMET-CONDITIONS.json\"), \"RECORDS\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/COMPETITOR-PUBLIC-SIGNALS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 73,
+        "snippet": "(\"CON\", \"CONCORRENCIA (sinais publicos)\", Path(\"COMPETITOR-PUBLIC-SIGNALS.json\"), \"RECORDS\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/CROP-ECONOMIC-WEIGHT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 71,
+        "snippet": "(\"PES\", \"PESO ECONOMICO DA CULTURA / GEOGRAFIA\", Path(\"CROP-ECONOMIC-WEIGHT.json\"), \"RECORDS\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/CURRENT-FIELD-SIGNALS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 65,
+        "snippet": "(\"FIT\", \"FITOSSANITARIO / FENOLOGIA DE CAMPO (boletins)\", Path(\"CURRENT-FIELD-SIGNALS.json\"), \"RECORDS\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/FUTURE-EVENTS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 75,
+        "snippet": "(\"FUT\", \"EVENTOS FUTUROS\", Path(\"FUTURE-EVENTS.json\"), \"RECORDS\", (\"tipo\", \"o_que\", \"periodo\", \"region\")),"
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/HERBICIDE-CURRENT-CONTEXT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 67,
+        "snippet": "(\"HRB\", \"HERBICIDAS — JANELA E CONTEXTO CORRENTE\", Path(\"HERBICIDE-CURRENT-CONTEXT.json\"), \"RECORDS\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/MARKET-OBSERVATIONS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 69,
+        "snippet": "(\"MKT\", \"MERCADO (precos, producao, oferta)\", Path(\"MARKET-OBSERVATIONS.json\"), \"RECORDS\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/crop-windows.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 55,
+        "snippet": "JANELAS = JANELAS_DIR / \"crop-windows.json\""
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/current-phenology.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 54,
+        "snippet": "FENOLOGIA = JANELAS_DIR / \"current-phenology.json\""
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/herbicide-resistance.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 76,
+        "snippet": "(\"RES\", \"CIENCIA — RESISTENCIA A HERBICIDAS\", _DR / \"SCIENCE\" / \"herbicide-resistance.json\", \"RESISTANCES\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/research-themes.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 80,
+        "snippet": "(\"TEM\", \"CIENCIA — TEMAS DE PESQUISA\", _DR / \"SCIENCE\" / \"research-themes.json\", \"THEMES\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/researchers.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 82,
+        "snippet": "(\"PER\", \"PESQUISADORES\", _DR / \"SCIENCE\" / \"researchers.json\", \"RESEARCHERS\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/scientific-records.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 78,
+        "snippet": "(\"SCI\", \"CIENCIA — REGISTOS CIENTIFICOS\", _DR / \"SCIENCE\" / \"scientific-records.json\", \"RECORDS\","
+      }
+    },
+    {
+      "from_file": "motor/fast_cruzamento_comercial.py",
+      "to_file": "motor/fast_cruzamento_comercial.prompt.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_cruzamento_comercial.py",
+        "line": 56,
+        "snippet": "PROMPT_FILE = Path(__file__).with_name(\"fast_cruzamento_comercial.prompt.md\")"
+      }
+    },
+    {
       "from_file": "motor/fila_bulas_a_ler.py",
       "to_file": "motor/porta_da_referencia.py",
       "type": "IMPORTS",
@@ -69369,6 +69775,39 @@
         "file": "provas/amostragem_neutra_t3.py",
         "line": 150,
         "snippet": "with open(os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"),"
+      }
+    },
+    {
+      "from_file": "provas/antes_depois_do_texto_fast.py",
+      "to_file": "motor/fast_auto/passo1_selecionar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/antes_depois_do_texto_fast.py",
+        "line": 24,
+        "snippet": "FONTE = open(os.path.join(RAIZ, \"motor\", \"fast_auto\", \"passo1_selecionar.py\"), encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "provas/antes_depois_do_texto_fast.py",
+      "to_file": "provas/PROVA-ANTES-DEPOIS.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/antes_depois_do_texto_fast.py",
+        "line": 129,
+        "snippet": "open(\"PROVA-ANTES-DEPOIS.json\", \"w\", encoding=\"utf-8\"), ensure_ascii=False, indent=1)"
+      }
+    },
+    {
+      "from_file": "provas/antes_depois_do_texto_fast.py",
+      "to_file": "provas/PROVA-ANTES-DEPOIS.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/antes_depois_do_texto_fast.py",
+        "line": 126,
+        "snippet": "open(\"PROVA-ANTES-DEPOIS.md\", \"w\", encoding=\"utf-8\", newline=\"\\n\").write(\"\\n\".join(tab))"
       }
     },
     {
@@ -80974,6 +81413,17 @@
         "file": "provas/red_team_gate_fase_1d.py",
         "line": 40,
         "snippet": "VALIDADOR = os.path.join(RAIZ, \"system-map\", \"scripts\", \"validate_system_map.py\")"
+      }
+    },
+    {
+      "from_file": "provas/red_team_hash_do_entregue.py",
+      "to_file": "motor/fast_auto/passo2_fatos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_hash_do_entregue.py",
+        "line": 48,
+        "snippet": "fonte = open(PASSO2, encoding=\"utf-8\").read()"
       }
     },
     {
@@ -101239,6 +101689,116 @@
       }
     },
     {
+      "from_file": "tests/test_fast_auto_rodada.py",
+      "to_file": "motor/fast_auto/passo3_cruzar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_auto_rodada.py",
+        "line": 92,
+        "snippet": "p = open(os.path.join(RAIZ, \"motor\", \"fast_auto\", \"passo3_cruzar.py\"), encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_auto_rodada.py",
+      "to_file": "motor/fast_auto/rodada_fast.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_auto_rodada.py",
+        "line": 21,
+        "snippet": "spec = importlib.util.spec_from_file_location(\"rodada_fast\", os.path.join(RAIZ, \"motor\", \"fast_auto\", \"rodada_fast.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_contextos_destino.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/AGROMET-CONDITIONS.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_contextos_destino.py",
+        "line": 90,
+        "snippet": "(Path(t) / \"AGROMET-CONDITIONS.json\").write_text(json.dumps("
+      }
+    },
+    {
+      "from_file": "tests/test_fast_regua_lab_textos_it.py",
+      "to_file": "motor/fast_auto/passo2_fatos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_regua_lab_textos_it.py",
+        "line": 16,
+        "snippet": "_src = (RAIZ / \"motor\" / \"fast_auto\" / \"passo2_fatos.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_texto_limpo.py",
+      "to_file": "motor/fast_auto/passo1_selecionar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_texto_limpo.py",
+        "line": 11,
+        "snippet": "FONTE = open(os.path.join(RAIZ, \"motor\", \"fast_auto\", \"passo1_selecionar.py\"), encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_texto_limpo.py",
+      "to_file": "motor/fast_auto/passo2_fatos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_texto_limpo.py",
+        "line": 116,
+        "snippet": "src = open(os.path.join(RAIZ, \"motor\", \"fast_auto\", \"passo2_fatos.py\"), encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_texto_nao_mais_forte.py",
+      "to_file": "motor/fast_auto/passo2_fatos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_texto_nao_mais_forte.py",
+        "line": 18,
+        "snippet": "src = (RAIZ / \"motor\" / \"fast_auto\" / \"passo2_fatos.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_texto_nao_mais_forte.py",
+      "to_file": "motor/fast_cruzamento_comercial.prompt.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_texto_nao_mais_forte.py",
+        "line": 12,
+        "snippet": "t = (RAIZ / \"motor\" / \"fast_cruzamento_comercial.prompt.md\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_texto_nao_mais_forte.py",
+      "to_file": "motor/fast_cruzamento_comercial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_texto_nao_mais_forte.py",
+        "line": 29,
+        "snippet": "src = (RAIZ / \"motor\" / \"fast_cruzamento_comercial.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_texto_no_codigo.py",
+      "to_file": "motor/fast_auto/rodada_fast.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_texto_no_codigo.py",
+        "line": 13,
+        "snippet": "spec = importlib.util.spec_from_file_location(\"rodada_fast\", os.path.join(RAIZ, \"motor\", \"fast_auto\", \"rodada_fast.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_fato_do_texto.py",
       "to_file": "leis/fato_do_texto.py",
       "type": "IMPORTS",
@@ -114339,10 +114899,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4261,
-    "files_readable": 1790,
-    "files_code_dir": 2235,
-    "file_edges": 7622,
+    "files_tracked": 4286,
+    "files_readable": 1808,
+    "files_code_dir": 2259,
+    "file_edges": 7657,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

@@ -6541,6 +6541,49 @@
    "files": [
     "medidas/materia_prima_por_dia.py"
    ]
+  },
+  {
+    "id": "C-INT-FAST-CEREBRO",
+    "name": "FAST — o cerebro da rodada automatica (via paralela do Projeto FDS): RAW -> texto -> fatos -> sinais -> cruzamento comercial -> casos",
+    "territory": "Z-MOTOR",
+    "kind": "engine",
+    "icon": "⚡",
+    "views": [
+      "audit"
+    ],
+    "departments": [
+      "ENGENHARIA",
+      "INTELIGENCIA"
+    ],
+    "what": "Corre de 2 em 2 h pela tarefa SINTONIA-FAST-BRAIN (disparo_tarefa.cmd fora do Git, em FAST-AUTO/) a partir de um worktree destacado num sha publicado; grava CODIGO_HEAD por rodada. passo1_selecionar le ate 20 RAW novos (max por fonte) da raw_asset por SQL read-only e tira o texto (camada de texto limpo do Scrap, TEXTO_SHA256 do ficheiro); passo2_fatos pede ao Opus fatos com TRECHO conferido no texto ENTREGUE (TEXTO_ENTREGUE_SHA256); passo3_cruzar forma sinais; fast_cruzamento_comercial le a referencia ADAMA pela porta unica (motor/porta_da_referencia.py), fenologia e contextos do handoff e classifica SINAL/LEAD/GAP/OPORTUNIDADE com reguas do programa (GAP so com necessidade fechada; POR_QUE_AGORA so com prova; texto visivel nunca mais forte que os campos); fast_casos agrupa objetos das rodadas em CASE_ID. Saida: FAST-AUTO/<RUN_ID>/ (EXPERIMENTAL / NAO_PARA_CLIENTE).",
+    "why_here": "Ordem do dono (01/10 22:52; FDS v0.2 02/10): via paralela que roda ja, fora do caminho canonico Sala->motor das capacidades->pote v2. Declarada aqui para nao ser arquitetura invisivel (P9); NAO e o motor canonico e NAO escreve na Sala. O disparo vivo pode estar noutro sha (RODADAS.log): ramo publicado != cerebro em uso.",
+    "files": [
+      "motor/fast_auto/passo1_selecionar.py",
+      "motor/fast_auto/passo2_fatos.py",
+      "motor/fast_auto/passo3_cruzar.py",
+      "motor/fast_auto/rodada_fast.py",
+      "motor/fast_cruzamento_comercial.py",
+      "motor/fast_casos.py"
+    ]
+  },
+  {
+    "id": "C-PROVA-FAST-TEXTO",
+    "name": "As provas da camada de texto do FAST — antes/depois e red team do hash do entregue",
+    "territory": "Z-PROVA",
+    "kind": "proof",
+    "icon": "🧬",
+    "views": [
+      "audit"
+    ],
+    "departments": [
+      "ENGENHARIA"
+    ],
+    "what": "antes_depois_do_texto_fast.py mede, nos HTML reais de uma rodada, o texto antes e depois da limpeza (chars, alarmes); red_team_hash_do_entregue.py corre o passo2 com um modelo stub (custo 0) e prova que TEXTO_ENTREGUE_SHA256 descreve o que o modelo viu e que um trecho fora do corte e REJEITADO.",
+    "why_here": "A prova vive fora da peca que prova (Scrap, 67d92a819).",
+    "files": [
+      "provas/antes_depois_do_texto_fast.py",
+      "provas/red_team_hash_do_entregue.py"
+    ]
   }
  ],
  "BUSINESS_EDGES": [

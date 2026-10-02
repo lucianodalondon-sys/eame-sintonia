@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-01T16:54:25+00:00",
-  "HEAD": "5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579",
-  "BRANCH": "coord/parada-sobre-servico",
+  "GENERATED_AT": "2026-10-02T23:39:06+00:00",
+  "HEAD": "495d85d7b9818f5f922cfb228b464ca12ec897c2",
+  "BRANCH": "claude/int-fast-v22-casos-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db",
-  "FICHEIROS_NA_IMPRESSAO": 4409,
+  "SOURCE_TREE_FINGERPRINT": "f472c2bcd1c5346c6318926f34b09d5478bebdb5720688d9a2a63889988985d9",
+  "FICHEIROS_NA_IMPRESSAO": 4434,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -5669,14 +5669,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db",
+    "VERSAO": "f472c2bcd1c5346c6318926f34b09d5478bebdb5720688d9a2a63889988985d9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "7b0014d6b3039a4c985acd706c494d71809797445cd9359eb1618d490bd195db",
+    "VERSAO": "f472c2bcd1c5346c6318926f34b09d5478bebdb5720688d9a2a63889988985d9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7028,6 +7028,69 @@
     "PATH": "tests/test_fase_italiana_no_workflow.py",
     "PAPEL": "FONTE",
     "VERSAO": "3c45ab1ece65a32bf1a1c0fa180e0916c28f64fe",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_auto_rodada.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "bd68b02109694649927204e451145e44bb714c9d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_casos.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "296061b941920df15470fd4b17fc076a6216c925",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_contextos_destino.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "534929b0fcc01371dc95e2b167388258845d2976",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_cruzamento_comercial.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "f763fc5fda0d8d7fbcd71d582c617c18637252dd",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_regua_lab.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ea4dbc254376c88e0b751b724de4214cc8b9df8d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_regua_lab_textos_it.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "005c229b8e0299221baf8864f45104ec73fc5fe8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_texto_limpo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "aca91b0eeceb2af70cd3015875a01a2096665fec",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_texto_nao_mais_forte.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "66d38a9749ca154247f088589c0f0114d58edca1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_fast_texto_no_codigo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "03c79de1bf594fa40bd336cf9c5d65398d4a1784",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8397,8 +8460,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1194,
-  "INPUTS_DIGEST": "a9c87d2b74e53b950fb0483ad3b15480e759be16c5ddfc8795388de4c40f5d2a",
+  "INPUTS_COUNT": 1203,
+  "INPUTS_DIGEST": "af8be8d13648221b6885230263f24ac64cc385476ce3a6e85f196c4489f2be49",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8424,15 +8487,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 644,
+  "DOCUMENTOS_LIDOS": 649,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "038f35498100f61fa926d6b97a6f7e5fa70b7552cd4f22d823c9f7f4a5f6bd95",
-  "SEMANTIC_HASH": "b8a97b9c482b49aa9c41de75b956e2090256a5c55e3e00f7ec3b677f141f4928"
+  "MEASUREMENT_HASH": "359cb4c7459d6447c3f33e6adba660e5b0596130c5cdb3e75ede32392d14a3fe",
+  "SEMANTIC_HASH": "559d0c4ef5368be1cec78f59946393ae0a8a11519aa53116e7f9f27ffac9ff5a"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -30509,6 +30572,106 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-ESPINHA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+    "FROM": "C-INT-FAST-CEREBRO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_fast_auto_rodada.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_fast_auto_rodada.py",
+      "LINHA": 92,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_fast_regua_lab_textos_it.py",
+      "LINHA": 16,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_fast_texto_limpo.py",
+      "LINHA": 11,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_fast_texto_limpo.py",
+      "LINHA": 116,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_fast_texto_nao_mais_forte.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_fast_texto_nao_mais_forte.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_fast_texto_no_codigo.py",
+      "LINHA": 13,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INT-FAST-CEREBRO--WRITES-->C-PROVA-JANELA-FORMAS",
+    "FROM": "C-INT-FAST-CEREBRO",
+    "TO": "C-PROVA-JANELA-FORMAS",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/fast_casos.py",
+      "LINHA": 469,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-FAST-CEREBRO--WRITES-->C-PROVA-JANELA-FORMAS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -61842,6 +62005,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "italia-portale/audit/cadeia-de-familias.mjs",
+      "LINHA": 61,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-AUDIT-GERAL",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "italia-portale/audit/deploy-surface.mjs",
       "LINHA": 59,
       "SUPPORTS": "YES",
@@ -61959,6 +62130,50 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-FONTE-DO-ATLAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-INT-ACHADO",
+    "FROM": "C-TESTES",
+    "TO": "C-INT-ACHADO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/v21_fechar.py",
+      "LINHA": 66,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-INT-ACHADO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-INT-FAST-CEREBRO",
+    "FROM": "C-TESTES",
+    "TO": "C-INT-FAST-CEREBRO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/fast_cruzamento_comercial.py",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-INT-FAST-CEREBRO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -62129,6 +62344,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PORTAL-DADOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-PORTAL-MODELO",
+    "FROM": "C-TESTES",
+    "TO": "C-PORTAL-MODELO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "italia-portale/client/italy-v21.js",
+      "LINHA": 5,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PORTAL-MODELO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -62589,6 +62826,72 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-SEGUIR-PESQUISADORES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-SITE-INGEST",
+    "FROM": "C-TESTES",
+    "TO": "C-SITE-INGEST",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "portoes/site_v21_ingest.py",
+      "LINHA": 353,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-SITE-INGEST",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-V2-LEGADO",
+    "FROM": "C-TESTES",
+    "TO": "C-V2-LEGADO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/v2_montar_handoff.py",
+      "LINHA": 53,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-V2-LEGADO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-V21-INGEST",
+    "FROM": "C-TESTES",
+    "TO": "C-V21-INGEST",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/v21_ingest_b.py",
+      "LINHA": 334,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-V21-INGEST",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -65256,12 +65559,12 @@
     ]
    }
   ],
-  "COUNT": 1855
+  "COUNT": 1863
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 241,
   "CARTOES_AUDITADOS": 241,
-  "ARESTAS_RELACIONADAS": 1855,
+  "ARESTAS_RELACIONADAS": 1863,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -65504,7 +65807,6 @@
    "C-PROVA-CUTOVER",
    "C-PROVA-GATE-1D",
    "C-PROVA-INT-R7",
-   "C-PROVA-JANELA-FORMAS",
    "C-PROVA-L2-DISPARADOR",
    "C-PROVA-LINHA-BUSCA",
    "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -65678,6 +65980,10 @@
     "opportunity",
     "science"
    ],
+   "C-INT-FAST-CEREBRO": [
+    "generator",
+    "opportunity"
+   ],
    "C-IT-INCREMENTALIDADE": [
     "performance"
    ],
@@ -65704,6 +66010,9 @@
    "C-PROVA-CUTOVER": [
     "audit",
     "diagnostic"
+   ],
+   "C-PROVA-FAST-TEXTO": [
+    "infra"
    ],
    "C-PROVA-INDEPENDENCIA": [
     "infra"
@@ -65777,10 +66086,10 @@
    "CODE": 346,
    "CONTROL": 90,
    "DATA": 30,
-   "PROOF": 656,
+   "PROOF": 663,
    "READ": 416,
    "RULE": 297,
-   "WRITE": 20
+   "WRITE": 21
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -69907,10 +70216,11 @@
    "LE_DE": [
     "collections"
    ],
-   "ENTRAM": 4,
+   "ENTRAM": 5,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
+    "PROOF",
     "READ"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -70150,7 +70460,9 @@
    "FICHEIROS": [
     "motor/porta_da_referencia.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    "motor/fast_cruzamento_comercial.py"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/ligacao_adama/mutantes.py",
     "provas/lote7_integra/medir_grao_na_porta.py",
@@ -72816,9 +73128,10 @@
     "withered",
     "working"
    ],
-   "ENTRAM": 4,
+   "ENTRAM": 5,
    "SAEM": 13,
    "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF",
     "READ"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -74399,7 +74712,9 @@
     "provas/janela_formas/julgar_paginas_boletim.py",
     "provas/janela_formas/pagina_boletim_local.mjs"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    "motor/fast_casos.py"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/boletins_data_local/testes_por_nome.py",
     "provas/janela_formas/buscar_paginas_boletim.py",
@@ -74412,17 +74727,18 @@
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
     "datetime",
     "pathlib"
    ],
-   "ENTRAM": 6,
+   "ENTRAM": 7,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ",
-    "RULE"
+    "RULE",
+    "WRITE"
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -77283,7 +77599,7 @@
    "FAMILIA": "F-ENTREGA",
    "TERRITORIO": "Z-PORTOES",
    "KIND": "engine",
-   "STATUS": "PENDING",
+   "STATUS": "PROVEN",
    "FICHEIROS": [
     "portoes/build_portal.py",
     "portoes/site_v21_ingest.py"
@@ -77300,9 +77616,10 @@
    "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 5,
+   "ENTRAM": 6,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF",
     "READ"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -77835,6 +78152,15 @@
     "tests/test_extrator_lugar_v2.py",
     "tests/test_falhas.py",
     "tests/test_fase_italiana_no_workflow.py",
+    "tests/test_fast_auto_rodada.py",
+    "tests/test_fast_casos.py",
+    "tests/test_fast_contextos_destino.py",
+    "tests/test_fast_cruzamento_comercial.py",
+    "tests/test_fast_regua_lab.py",
+    "tests/test_fast_regua_lab_textos_it.py",
+    "tests/test_fast_texto_limpo.py",
+    "tests/test_fast_texto_nao_mais_forte.py",
+    "tests/test_fast_texto_no_codigo.py",
     "tests/test_fato_do_texto.py",
     "tests/test_fechar_ground_truth_t3.py",
     "tests/test_feed_discovery.py",
@@ -78117,7 +78443,8 @@
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
     "ferramentas/onda3_pacote/RELATORIO-E-PLANO-ONDA3.md",
-    "ferramentas/onda3_pacote/v2/RELATORIO-E-PLANO-ONDA3-V2.md"
+    "ferramentas/onda3_pacote/v2/RELATORIO-E-PLANO-ONDA3-V2.md",
+    "provas/RELATORIO-TEXTO-LIMPO-FAST.md"
    ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,
@@ -78168,11 +78495,13 @@
     "espinha_da_intelligence",
     "fractions",
     "guarda",
+    "html",
     "http",
     "information_schema",
     "leis",
     "mapa_regfi",
     "metricas_canonicas",
+    "motor",
     "novo",
     "orquestrador",
     "pathlib",
@@ -78198,8 +78527,8 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 279,
-   "SAEM": 48,
+   "ENTRAM": 280,
+   "SAEM": 54,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -78383,7 +78712,7 @@
     "eppo_gd",
     "v"
    ],
-   "ENTRAM": 7,
+   "ENTRAM": 8,
    "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",

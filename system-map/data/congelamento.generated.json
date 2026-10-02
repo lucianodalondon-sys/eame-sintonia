@@ -1,9 +1,9 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "5b01354e3b6f9d944cb5f2c9b8e73c8fe304d579",
+  "FROZEN_AT_HEAD": "495d85d7b9818f5f922cfb228b464ca12ec897c2",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 322,
+  "ARTEFATOS": 328,
   "POR_ESPECIE": {
     "CONTRACT": 4,
     "DATA_SAMPLE": 105,
@@ -11,9 +11,9 @@
     "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 16,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 58,
+    "MENCAO_FRACA_APENAS": 61,
     "PORTAL_UI": 69,
-    "TEST": 33
+    "TEST": 36
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -641,7 +641,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "46b0c8f9eed16b3fecc338b00fba767c716147f0",
+      "GIT_BLOB_SHA": "6bb7c02d5a4222dde4643ad75009f45a4de5de1b",
       "MARCAS_FORTES": []
     }
   ],
@@ -1219,6 +1219,18 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "motor/fast_auto/passo3_cruzar.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/fast_auto/rodada_fast.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/fast_cruzamento_comercial.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "motor/fila_bulas_a_ler.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
@@ -1512,6 +1524,18 @@
     },
     {
       "PATH": "tests/test_espinha_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_fast_auto_rodada.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_fast_contextos_destino.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_fast_cruzamento_comercial.py",
       "SPECIES": "TEST"
     },
     {
