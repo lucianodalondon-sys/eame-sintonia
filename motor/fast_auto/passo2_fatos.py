@@ -4,7 +4,7 @@ import shutil, concurrent.futures as cf, datetime, hashlib, json, os, re, subpro
 
 AQUI = os.path.abspath(sys.argv[1])  # pasta da rodada
 MODELO = os.environ.get("FAST_MODELO", "claude-opus-5")
-MAX_CHARS = 18000
+LIMITE_PADRAO = 18000  # so fallback: o dono do limite e' o passo1 (LIMITE_ENTREGA_CHARS em DOCUMENTOS_FAST.json)
 CAMPOS = ["O_QUE", "ONDE", "QUANDO", "CULTURA", "PRAGA_DOENCA", "PRODUTO_OU_EMPRESA", "NUMERO"]
 
 PROMPT = """Voce e o extrator do SINTONIA (agro, Italia). Abaixo vai o TEXTO de um documento coletado.
@@ -47,25 +47,36 @@ def chamar(prompt):
 
 
 def extrair(d):
-    t = open(AQUI + "/raw_texto/%s.txt" % d["DOCUMENT_ID"], encoding="utf-8").read()
-    corte = t[:MAX_CHARS]
+    caminho = AQUI + "/raw_texto/%s.txt" % d["DOCUMENT_ID"]
+    bruto_bytes = open(caminho, "rb").read()          # o ficheiro como ele esta' no disco
+    t = bruto_bytes.decode("utf-8")
+    lim = d.get("LIMITE_ENTREGA_CHARS") or LIMITE_PADRAO
+    corte = t[:lim]
+    # o que vai ao modelo fica medido e hasheado AQUI, no ponto de entrega
+    sha_arquivo = hashlib.sha256(bruto_bytes).hexdigest()
+    entrega = dict(TEXTO_ARQUIVO_CHARS=len(t), TEXTO_ARQUIVO_SHA256=sha_arquivo,
+                   CONFERE_COM_DOCUMENTOS=(sha_arquivo == d.get("TEXTO_SHA256")),
+                   TEXTO_ENTREGUE_CHARS=len(corte),
+                   TEXTO_ENTREGUE_SHA256=hashlib.sha256(corte.encode("utf-8")).hexdigest(),
+                   TEXTO_CORTADO_EM=(lim if len(corte) < len(t) else None))
     p = PROMPT % dict(campos=", ".join(CAMPOS), did=d["DOCUMENT_ID"], url=d["URL"], texto=corte)
     for tent in range(2):
         try:
             res, env = chamar(p)
-            return d, t, len(corte) < len(t), res, env.get("total_cost_usd"), env.get("modelUsage") and list(env["modelUsage"].keys())
+            return d, corte, entrega, res, env.get("total_cost_usd"), env.get("modelUsage") and list(env["modelUsage"].keys())
         except Exception as e:
             err = repr(e)
-    return d, t, len(corte) < len(t), {"ERRO": err}, None, None
+    return d, corte, entrega, {"ERRO": err}, None, None
 
 
 docs = json.load(open(AQUI + "/DOCUMENTOS_FAST.json", encoding="utf-8"))
 RUN = "FAST-RUN-" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 fatos, rel, custo = [], [], 0.0
 with cf.ThreadPoolExecutor(5) as ex:
-    for d, t, cortado, res, c, modelos in ex.map(extrair, docs):
+    for d, corte, entrega, res, c, modelos in ex.map(extrair, docs):
         custo += c or 0
-        tn = norm(t)
+        # o TRECHO e' conferido no texto ENTREGUE (o corte), nunca no texto que o modelo nao viu
+        tn = norm(corte)
         lista = res.get("FATOS") if isinstance(res, dict) else None
         if lista is None:
             rel.append(dict(DOCUMENT_ID=d["DOCUMENT_ID"], ESTADO="ERRO_LLM", DETALHE=str(res)[:300])); continue
@@ -83,6 +94,8 @@ with cf.ThreadPoolExecutor(5) as ex:
                 ok = bool(tr) and len(norm(tr)) >= 8 and norm(tr) in tn
                 pos = tn.find(norm(tr)) if ok else -1
                 campos[k] = {"VALOR": val, "TRECHO": tr, "DOCUMENT_ID": d["DOCUMENT_ID"],
+                             # o rotulo continua o mesmo de proposito: passo3 e fast_cruzamento_comercial filtram
+                             # por este texto exato -- mudar o rotulo e' contrato de outra peca (achado registado)
                              "VERIFICACAO": "TRECHO_ENCONTRADO_NO_RAW" if ok else "REJEITADO_TRECHO_NAO_EXISTE_NO_RAW",
                              "POSICAO_NO_TEXTO_NORMALIZADO": pos if ok else None}
                 if not ok: rejeitados.append(k)
@@ -92,12 +105,14 @@ with cf.ThreadPoolExecutor(5) as ex:
                               URL=d["URL"], RAW_SHA256=d["RAW_SHA256_ARQUIVO"], CAPTURED_AT=d["CAPTURED_AT"],
                               TIPO=f.get("TIPO", "OUTRO"), ESTADO=estado, CAMPOS_REJEITADOS=rejeitados, **campos))
         rel.append(dict(DOCUMENT_ID=d["DOCUMENT_ID"], ESTADO="PROCESSADO", FATOS=len(lista), ACEITOS=n_ok, REJEITADOS=n_rej,
-                        TEXTO_CORTADO_EM=MAX_CHARS if cortado else None, MODELOS=modelos))
-        print(d["DOCUMENT_ID"], d["SOURCE_ID"], "fatos", len(lista), "aceitos", n_ok, "rejeitados", n_rej, flush=True)
+                        MARCA_TEXTUAL=d.get("LIMPEZA"), FORA_POR_REPETICAO_CHARS=d.get("CASCA_POR_REPETICAO_CHARS"),
+                        MODELOS=modelos, **entrega))
+        print(d["DOCUMENT_ID"], d["SOURCE_ID"], "fatos", len(lista), "aceitos", n_ok, "rejeitados", n_rej,
+              "entregue=%d sha=%s" % (entrega["TEXTO_ENTREGUE_CHARS"], entrega["TEXTO_ENTREGUE_SHA256"][:16]), flush=True)
 
 saida = dict(ARTEFATO="FACTS_FAST", VERSAO="SINTONIA_FAST_V1", RUN_ID=RUN, MODELO_PEDIDO=MODELO,
-             GERADO_EM=datetime.datetime.now().astimezone().isoformat(), REGRA="VALOR+TRECHO+DOCUMENT_ID; trecho inexistente no RAW = REJEITADO",
-             VERIFICACAO="substring do TRECHO no texto extraido do RAW (espacos colapsados, minusculas)",
+             GERADO_EM=datetime.datetime.now().astimezone().isoformat(), REGRA="VALOR+TRECHO+DOCUMENT_ID; trecho inexistente no texto ENTREGUE = REJEITADO",
+             VERIFICACAO="substring do TRECHO no texto efetivamente enviado ao modelo (espacos colapsados, minusculas)",
              MARCA="EXPERIMENTAL / NAO_PARA_CLIENTE", CUSTO_USD=round(custo, 4), DOCUMENTOS=rel, FATOS=fatos)
 json.dump(saida, open(AQUI + "/FACTS_FAST.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("TOTAL fatos", len(fatos), "aceitos", sum(f["ESTADO"] != "REJEITADO" for f in fatos), "custo", round(custo, 3))
