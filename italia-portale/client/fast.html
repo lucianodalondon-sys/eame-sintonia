@@ -36,44 +36,47 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0F0C0B;border:1px sol
 mark{background:rgba(0,177,82,.35);color:#fff}
 .crumb{color:var(--dim);font-size:12px;margin-bottom:10px}
 .empty{padding:40px;text-align:center;color:var(--mut)}
+.rod{margin:26px 0 10px;padding-top:14px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}.rod b{color:#fff}
 .mono{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--mut);word-break:break-all}
 @media (max-width:640px){main{padding:14px}.top{padding:10px 14px}.meta{margin-left:0}th{width:100px}}
 </style>
 </head>
 <body>
 <div class="top">
-  <span class="brand">SINTONIA · FAST V1</span>
-  <span class="tag warn">EXPERIMENTAL · NÃO É PARA O CLIENTE</span>
+  <span class="brand">SINTONIA · FAST</span>
+  <span class="tag warn">LEITURA DA IA · EM AUDITORIA</span>
   <nav class="tabs"><a href="#oportunidades" id="t-o">Oportunidades</a><a href="#sinais" id="t-s">Sinais</a></nav>
   <span class="meta" id="meta"></span>
 </div>
 <main id="app"><div class="empty">Carregando…</div></main>
-<script>
-// Os dados só existem nesta máquina (ficheiro *.local.js fora do Git e do deploy).
-document.write('<script src="sintonia-fast.local.js"><\/script>');
-</script>
+<script src="sintonia-fast.local.js"></script>
 <script>
 (function(){
-var F=window.SINTONIA_FAST, app=document.getElementById('app');
+var P=window.SINTONIA_FAST, app=document.getElementById('app');
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function isNao(v){return v==null||v===''||v==='NAO_SEI'||v==='NÃO SEI'}
 function val(v){return isNao(v)?'<span class="nao">NÃO SEI</span>':esc(v)}
-if(!F){app.innerHTML='<div class="empty"><b>DADO NÃO DISPONÍVEL</b><br>O pacote FAST não está nesta máquina. Gere-o com <span class="mono">python italia-portale/audit/casco/gerar_fast_local.py</span>.</div>';return}
-var FAT={},SIN={},DOC={};
-F.FACTS.FATOS.forEach(function(f){FAT[f.FACT_ID]=f});
-F.SIGNALS.SINAIS.forEach(function(s){SIN[s.SIGNAL_ID]=s});
-F.DOCUMENTOS.forEach(function(d){DOC[d.DOCUMENT_ID]=d});
-var OPS=F.OPPORTUNITIES.OPORTUNIDADES;
+if(!P||!P.RODADAS||!P.RODADAS.length){app.innerHTML='<div class="empty"><b>DADO NÃO DISPONÍVEL</b><br>Nenhuma rodada da Intelligence foi entregue a esta página.</div>';return}
 function brt(iso){if(!iso)return'NÃO SEI';var d=new Date(iso);if(isNaN(d))return esc(iso);return d.toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',dateStyle:'short',timeStyle:'short'})+' (Brasília)'}
-document.getElementById('meta').innerHTML='Produzido pela Intelligence em '+brt(F.OPPORTUNITIES.GERADO_EM)+' · '+F.DOCUMENTOS.length+' documentos · '+F.FACTS.FATOS.length+' fatos · motor '+esc(F.OPPORTUNITIES.MODELO_PEDIDO)+(F.LINKS_QUEBRADOS.length?' · <span style="color:var(--bad)">'+F.LINKS_QUEBRADOS.length+' ligações quebradas</span>':'');
-function lk(s){return esc(s).replace(/\[(F-RAW-\d+-\d+)\]/g,function(m,id){return FAT[id]?'[<a href="#f/'+id+'">'+id+'</a>]':'[<span class="nao" title="fato não existe no pacote">'+id+' ?</span>]'})}
+// cada rodada tem seus proprios IDs (S-01 existe em varias); todo link leva o nome da rodada
+var R={},ORD=[];
+P.RODADAS.forEach(function(F){var x={F:F,FAT:{},SIN:{},DOC:{},OPS:F.OPPORTUNITIES.OPORTUNIDADES};
+  F.FACTS.FATOS.forEach(function(f){x.FAT[f.FACT_ID]=f});F.SIGNALS.SINAIS.forEach(function(s){x.SIN[s.SIGNAL_ID]=s});F.DOCUMENTOS.forEach(function(d){x.DOC[d.DOCUMENT_ID]=d});
+  R[F.RODADA]=x;ORD.push(F.RODADA)});
+ORD.sort(function(a,b){return String(R[b].F.OPPORTUNITIES.GERADO_EM||'').localeCompare(String(R[a].F.OPPORTUNITIES.GERADO_EM||''))});
+var tot={d:0,f:0,s:0,o:0,q:0};ORD.forEach(function(k){var F=R[k].F;tot.d+=F.DOCUMENTOS.length;tot.f+=F.FACTS.FATOS.length;tot.s+=F.SIGNALS.SINAIS.length;tot.o+=F.OPPORTUNITIES.OPORTUNIDADES.length;tot.q+=F.LINKS_QUEBRADOS.length});
+document.getElementById('meta').innerHTML=ORD.length+' rodadas · última em '+brt(R[ORD[0]].F.OPPORTUNITIES.GERADO_EM)+' · '+tot.d+' documentos · '+tot.f+' fatos'+(tot.q?' · <span style="color:var(--bad)">'+tot.q+' ligações quebradas</span>':'')+((P.RODADAS_RECUSADAS||[]).length?' · <span style="color:var(--bad)">'+P.RODADAS_RECUSADAS.length+' rodada(s) recusada(s) na conferência</span>':'');
+var X,K; // rodada corrente durante a pintura
+function u(t,id){return'#'+t+'/'+encodeURIComponent(K)+'/'+encodeURIComponent(id)}
+function lk(s){return esc(s).replace(/\[(F-RAW-\d+-\d+)\]/g,function(m,id){return X.FAT[id]?'[<a href="'+u('f',id)+'">'+id+'</a>]':'[<span class="nao" title="fato não existe nesta rodada">'+id+' ?</span>]'})}
 function ltxt(v){return isNao(v)?'<span class="nao">NÃO SEI</span>':lk(v)}
 function janela(o){if(!('JANELA_ESTADO' in o)&&!('JANELA_ATE' in o))return'';var e=o.JANELA_ESTADO||'NAO_SEI',c=e==='ABERTA'?'ok':e==='VENCIDA'?'bad':'warn',r=e==='NAO_SEI'?'JANELA: NÃO SEI':'JANELA '+e;var j=o.JANELA_ATE,t=(j&&typeof j==='object')?'<table style="margin-top:8px">'+campo('Janela até',j)+'</table>':'';return'<div style="margin:10px 0"><span class="tag '+c+'">'+r+'</span>'+(e==='VENCIDA'?' <span style="color:var(--bad);font-weight:600">O prazo desta oportunidade já passou.</span>':'')+t+'</div>'}
 function lista(a){if(!a||!a.length)return'<span class="nao">NÃO SEI</span>';if(!Array.isArray(a))return esc(a);return'<ul>'+a.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul>'}
-function fontes(o){return (o.DOCUMENTOS||[]).map(function(id){var d=DOC[id];return'<a href="#d/'+id+'">'+esc(d?d.SOURCE_ID:id)+'</a>'}).join(' · ')||'<span class="nao">NÃO SEI</span>'}
+function fontes(o){return (o.DOCUMENTOS||[]).map(function(id){var d=X.DOC[id];return'<a href="'+u('d',id)+'">'+esc(d?d.SOURCE_ID:id)+'</a>'}).join(' · ')||'<span class="nao">NÃO SEI</span>'}
 function confTag(c){return c?'<span class="tag '+(c==='ALTA'?'ok':c==='MEDIA'?'warn':'mut')+'">CONFIANÇA DA IA: '+esc(c)+'</span>':''}
-function evid(o){return (o.EVIDENCIAS||[]).map(function(e){return'<div class="ev"><a href="#f/'+e.FACT_ID+'">'+esc(e.FACT_ID)+'</a> · <a href="#d/'+e.DOCUMENT_ID+'">'+esc(e.SOURCE_ID)+'</a><div>'+esc(e.O_QUE)+'</div><q>'+esc(e.TRECHO)+'</q></div>'}).join('')||'<span class="nao">NÃO SEI</span>'}
-function corpo(o,tipo){
+function rodTag(){return'<span class="tag mut" title="Rodada da Intelligence">RODADA '+esc(K)+' · '+brt(X.F.OPPORTUNITIES.GERADO_EM)+'</span>'}
+function evid(o){return (o.EVIDENCIAS||[]).map(function(e){return'<div class="ev"><a href="'+u('f',e.FACT_ID)+'">'+esc(e.FACT_ID)+'</a> · <a href="'+u('d',e.DOCUMENT_ID)+'">'+esc(e.SOURCE_ID)+'</a><div>'+esc(e.O_QUE)+'</div><q>'+esc(e.TRECHO)+'</q></div>'}).join('')||'<span class="nao">NÃO SEI</span>'}
+function corpo(o){
   var h=janela(o)+'<div class="grid"><div><p class="k">Onde</p>'+val(o.ONDE)+'</div><div><p class="k">Quando</p>'+val(o.QUANDO)+'</div><div><p class="k">Fontes</p>'+fontes(o)+'</div></div>'
   +'<p class="k">O que aconteceu</p><p>'+ltxt(o.O_QUE_ACONTECEU)+'</p>'
   +'<div class="ia"><p class="k">Por que importa · leitura da IA</p><p>'+ltxt(o.POR_QUE_IMPORTA)+'</p></div>';
@@ -81,53 +84,55 @@ function corpo(o,tipo){
   if(o.ACAO_SUGERIDA)h+='<div class="ia"><p class="k">Sugestão da IA · decisão é humana</p><p>'+lk(o.ACAO_SUGERIDA)+'</p></div>';
   h+='<p class="k">O que não sabemos</p>'+lista(o.O_QUE_NAO_SABEMOS);
   return h}
-function cardO(o){return'<div class="card"><span class="tag ok">OPORTUNIDADE · '+esc(o.OPPORTUNITY_ID)+'</span> '+confTag(o.CONFIANCA)+' <span class="tag mut">'+esc(o.VALIDACAO||'')+'</span><h2><a href="#o/'+o.OPPORTUNITY_ID+'" style="color:#fff">'+esc(o.TITULO)+'</a></h2>'+corpo(o)+'<p style="margin-top:12px"><a href="#o/'+o.OPPORTUNITY_ID+'">Ver as '+(o.EVIDENCIAS||[]).length+' evidências e os sinais →</a></p></div>'}
-function cardS(s){return'<div class="card"><span class="tag mut">SINAL · '+esc(s.SIGNAL_ID)+'</span> '+confTag(s.CONFIANCA)+'<h2><a href="#s/'+s.SIGNAL_ID+'" style="color:#fff">'+esc(s.TITULO)+'</a></h2>'+corpo(s)+'<p style="margin-top:12px"><a href="#s/'+s.SIGNAL_ID+'">Ver as '+(s.EVIDENCIAS||[]).length+' evidências →</a></p></div>'}
+function cardO(o,det){return'<div class="card"><span class="tag ok">OPORTUNIDADE · '+esc(o.OPPORTUNITY_ID)+'</span> '+confTag(o.CONFIANCA)+' <span class="tag mut">'+esc(o.VALIDACAO||'')+'</span> '+rodTag()+'<h2><a href="'+u('o',o.OPPORTUNITY_ID)+'" style="color:#fff">'+esc(o.TITULO)+'</a></h2>'+corpo(o)+(det?'':'<p style="margin-top:12px"><a href="'+u('o',o.OPPORTUNITY_ID)+'">Ver as '+(o.EVIDENCIAS||[]).length+' evidências e os sinais →</a></p>')+'</div>'}
+function cardS(s,det){return'<div class="card"><span class="tag mut">SINAL · '+esc(s.SIGNAL_ID)+'</span> '+confTag(s.CONFIANCA)+' '+rodTag()+'<h2><a href="'+u('s',s.SIGNAL_ID)+'" style="color:#fff">'+esc(s.TITULO)+'</a></h2>'+corpo(s)+(det?'':'<p style="margin-top:12px"><a href="'+u('s',s.SIGNAL_ID)+'">Ver as '+(s.EVIDENCIAS||[]).length+' evidências →</a></p>')+'</div>'}
 function campo(nome,c){
   if(!c)return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span></td></tr>';
   var v=c.VERIFICACAO||'';
-  if(v==='VALOR_DO_CONTEXTO')return'<tr><th>'+nome+'</th><td>'+esc(c.VALOR)+' <span class="tag warn">TIRADO DO CONTEXTO DO DOCUMENTO</span><div style="color:var(--dim);font-size:12px;margin-top:4px">O trecho citado não traz este valor; ele vem de outra parte do mesmo documento.</div>'+(c.TRECHO?'<span class="trecho">'+esc(c.TRECHO)+'</span><a href="#d/'+c.DOCUMENT_ID+'?t='+encodeURIComponent(c.TRECHO)+'">ver no documento →</a>':'')+'</td></tr>';
+  if(v==='VALOR_DO_CONTEXTO')return'<tr><th>'+nome+'</th><td>'+esc(c.VALOR)+' <span class="tag warn">TIRADO DO CONTEXTO DO DOCUMENTO</span><div style="color:var(--dim);font-size:12px;margin-top:4px">O trecho citado não traz este valor; ele vem de outra parte do mesmo documento.</div>'+(c.TRECHO?'<span class="trecho">'+esc(c.TRECHO)+'</span><a href="'+u('d',c.DOCUMENT_ID)+'?t='+encodeURIComponent(c.TRECHO)+'">ver no documento →</a>':'')+'</td></tr>';
   if(/^REJEITADO/.test(v))return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span> <span class="tag bad">RECUSADO PELO VERIFICADOR</span><div style="color:var(--dim);font-size:12px;margin-top:4px">A IA citou um trecho que não existe no documento; o valor proposto não é exibido.</div></td></tr>';
   if(v==='NAO_SEI'||isNao(c.VALOR))return'<tr><th>'+nome+'</th><td><span class="nao">NÃO SEI</span></td></tr>';
-  return'<tr><th>'+nome+'</th><td>'+esc(c.VALOR)+' '+(v==='TRECHO_ENCONTRADO_NO_RAW'?'<span class="tag ok">TRECHO EXISTE NO DOCUMENTO</span>':'<span class="tag warn">'+esc(v||'SEM VERIFICAÇÃO')+'</span>')+'<span class="trecho">'+esc(c.TRECHO)+'</span><a href="#d/'+c.DOCUMENT_ID+'?t='+encodeURIComponent(c.TRECHO||'')+'">ver no documento →</a></td></tr>'}
+  return'<tr><th>'+nome+'</th><td>'+esc(c.VALOR)+' '+(v==='TRECHO_ENCONTRADO_NO_RAW'?'<span class="tag ok">TRECHO EXISTE NO DOCUMENTO</span>':'<span class="tag warn">'+esc(v||'SEM VERIFICAÇÃO')+'</span>')+'<span class="trecho">'+esc(c.TRECHO)+'</span><a href="'+u('d',c.DOCUMENT_ID)+'?t='+encodeURIComponent(c.TRECHO||'')+'">ver no documento →</a></td></tr>'}
 function fato(f){
-  var d=DOC[f.DOCUMENT_ID]||{};
-  var usado=OPS.filter(function(o){return(o.FACT_IDS||[]).indexOf(f.FACT_ID)>=0}).map(function(o){return'<a href="#o/'+o.OPPORTUNITY_ID+'">'+o.OPPORTUNITY_ID+'</a>'})
-   .concat(F.SIGNALS.SINAIS.filter(function(s){return(s.FACT_IDS||[]).indexOf(f.FACT_ID)>=0}).map(function(s){return'<a href="#s/'+s.SIGNAL_ID+'">'+s.SIGNAL_ID+'</a>'}));
-  return'<div class="crumb">Fato</div><div class="card"><span class="tag mut">FATO · '+esc(f.FACT_ID)+'</span> <span class="tag mut">'+esc(f.TIPO)+'</span>'+(f.CAMPOS_REJEITADOS&&f.CAMPOS_REJEITADOS.length?' <span class="tag bad">'+f.CAMPOS_REJEITADOS.length+' CAMPO(S) RECUSADO(S)</span>':'')
+  var d=X.DOC[f.DOCUMENT_ID]||{};
+  var usado=X.OPS.filter(function(o){return(o.FACT_IDS||[]).indexOf(f.FACT_ID)>=0}).map(function(o){return'<a href="'+u('o',o.OPPORTUNITY_ID)+'">'+o.OPPORTUNITY_ID+'</a>'})
+   .concat(X.F.SIGNALS.SINAIS.filter(function(s){return(s.FACT_IDS||[]).indexOf(f.FACT_ID)>=0}).map(function(s){return'<a href="'+u('s',s.SIGNAL_ID)+'">'+s.SIGNAL_ID+'</a>'}));
+  return'<div class="crumb">Rodada '+esc(K)+' / Fato</div><div class="card"><span class="tag mut">FATO · '+esc(f.FACT_ID)+'</span> <span class="tag mut">'+esc(f.TIPO)+'</span>'+(f.CAMPOS_REJEITADOS&&f.CAMPOS_REJEITADOS.length?' <span class="tag bad">'+f.CAMPOS_REJEITADOS.length+' CAMPO(S) RECUSADO(S)</span>':'')
   +'<p style="color:var(--dim);font-size:12px;margin:10px 0">Cada campo traz o valor que a IA leu e o trecho do documento que ela citou. O verificador confere só que o trecho existe no documento; leia o trecho para ver se ele sustenta o valor.</p><table>'
   +campo('O que',f.O_QUE)+campo('Onde (do fato)',f.ONDE)+campo('Quando (do fato)',f.QUANDO)+campo('Cultura',f.CULTURA)+campo('Praga / doença',f.PRAGA_DOENCA)+campo('Produto / empresa',f.PRODUTO_OU_EMPRESA)+campo('Número',f.NUMERO)
-  +'</table><p class="k" style="margin-top:14px">Documento de origem</p><a href="#d/'+f.DOCUMENT_ID+'">'+esc(f.DOCUMENT_ID)+' · '+esc(d.SOURCE_ID||f.SOURCE_ID)+'</a> · coletado em '+brt(f.CAPTURED_AT)
+  +'</table><p class="k" style="margin-top:14px">Documento de origem</p><a href="'+u('d',f.DOCUMENT_ID)+'">'+esc(f.DOCUMENT_ID)+' · '+esc(d.SOURCE_ID||f.SOURCE_ID)+'</a> · coletado em '+brt(f.CAPTURED_AT)
   +'<p class="k" style="margin-top:14px">Usado em</p>'+(usado.join(' · ')||'<span style="color:var(--dim)">nenhum sinal ou oportunidade</span>')+'</div>'}
-function norm(s){return s.replace(/\s+/g,' ').toLowerCase()}
 function documento(id,t){
-  var d=DOC[id];if(!d)return'<div class="empty">Documento '+esc(id)+' não está no pacote.</div>';
-  var txt=F.RAW_TEXTO[id],corpoT;
-  if(txt==null)corpoT='<span class="nao">DADO NÃO DISPONÍVEL</span> — o texto lido deste documento não veio no pacote.';
+  var d=X.DOC[id];if(!d)return'<div class="empty">Documento '+esc(id)+' não está nesta rodada.</div>';
+  var txt=X.F.RAW_TEXTO[id],corpoT;
+  if(txt==null)corpoT='<span class="nao">DADO NÃO DISPONÍVEL</span> — o texto lido deste documento não veio no pacote ou não conferiu.';
   else{
     var html=esc(txt);
-    if(t){ // destaca o trecho: busca tolerante a espaços e maiúsculas
-      var pat=t.trim().split(/\s+/).map(function(w){return esc(w).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).join('\\s+');
-      try{var re=new RegExp(pat,'i');var m=html.match(re);if(m)html=html.replace(re,'<mark id="hit">'+m[0]+'</mark>');else html='<div class="nao" style="margin-bottom:8px">Trecho não localizado nesta visualização.</div>'+html}catch(e){}
-    }
+    if(t){var pat=t.trim().split(/\s+/).map(function(w){return esc(w).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).join('\\s+');
+      try{var re=new RegExp(pat,'i');var m=html.match(re);if(m)html=html.replace(re,'<mark id="hit">'+m[0]+'</mark>');else html='<div class="nao" style="margin-bottom:8px">Trecho não localizado nesta visualização.</div>'+html}catch(e){}}
     corpoT='<pre>'+html+'</pre>'}
-  var fs=F.FACTS.FATOS.filter(function(f){return f.DOCUMENT_ID===id});
-  return'<div class="crumb">Documento original (RAW)</div><div class="card"><span class="tag mut">DOCUMENTO · '+esc(id)+'</span>'+(d.SHA_CONFERE?' <span class="tag ok">ARQUIVO CONFERE COM O BANCO</span>':' <span class="tag bad">ARQUIVO NÃO CONFERE</span>')
+  var fs=X.F.FACTS.FATOS.filter(function(f){return f.DOCUMENT_ID===id});
+  return'<div class="crumb">Rodada '+esc(K)+' / Documento original (RAW)</div><div class="card"><span class="tag mut">DOCUMENTO · '+esc(id)+'</span>'+(d.SHA_CONFERE?' <span class="tag ok">ARQUIVO CONFERE COM O BANCO</span>':' <span class="tag bad">ARQUIVO NÃO CONFERE</span>')
   +'<table style="margin-top:12px"><tr><th>Fonte</th><td>'+esc(d.SOURCE_ID)+'</td></tr><tr><th>Endereço</th><td>'+(d.URL?'<a href="'+esc(d.URL)+'" target="_blank" rel="noopener">'+esc(d.URL)+'</a>':'<span class="nao">NÃO SEI</span>')+'</td></tr>'
   +'<tr><th>Coletado em</th><td>'+brt(d.CAPTURED_AT)+' <span style="color:var(--dim)">(data da coleta, não do fato)</span></td></tr><tr><th>Tipo</th><td>'+esc(d.MEDIA_TYPE)+'</td></tr>'
-  +'<tr><th>Impressão digital</th><td class="mono">'+esc(d.RAW_SHA256_ARQUIVO)+'</td></tr><tr><th>No armazém</th><td class="mono">'+esc(d.STORAGE_PATH)+'</td></tr>'
-  +'<tr><th>Fatos extraídos</th><td>'+(fs.map(function(f){return'<a href="#f/'+f.FACT_ID+'">'+f.FACT_ID+'</a>'}).join(' · ')||'<span class="nao">nenhum</span>')+'</td></tr></table>'
+  +'<tr><th>Impressão digital</th><td class="mono">'+esc(d.RAW_SHA256_ARQUIVO)+'</td></tr>'
+  +'<tr><th>Fatos extraídos</th><td>'+(fs.map(function(f){return'<a href="'+u('f',f.FACT_ID)+'">'+f.FACT_ID+'</a>'}).join(' · ')||'<span class="nao">nenhum</span>')+'</td></tr></table>'
   +'<p class="k" style="margin-top:14px">Texto lido pela IA</p>'+corpoT+'</div>'}
+function cab(k,n,nome){var F=R[k].F;return'<div class="rod"><b>Rodada '+esc(k)+'</b> · produzida em '+brt(F.OPPORTUNITIES.GERADO_EM)+' · '+F.DOCUMENTOS.length+' documentos · '+F.FACTS.FATOS.length+' fatos · '+n+' '+nome+(k===P.ULTIMA?' · <span style="color:var(--ok)">mais recente da coleta automática</span>':'')+'</div>'}
 function render(){
-  var h=decodeURIComponent(location.hash.slice(1))||'oportunidades',p=h.split('/'),out='';
+  var h=location.hash.slice(1)||'oportunidades',p=h.split('/').map(function(x){try{return decodeURIComponent(x)}catch(e){return x}}),out='';
   document.getElementById('t-o').className=(p[0]==='oportunidades'||p[0]==='o')?'on':'';
   document.getElementById('t-s').className=(p[0]==='sinais'||p[0]==='s')?'on':'';
-  if(p[0]==='oportunidades'){out='<p class="k">'+OPS.length+' oportunidades</p>'+(OPS.length?OPS.map(cardO).join(''):'<div class="empty">Nenhuma oportunidade nesta corrida.</div>')}
-  else if(p[0]==='sinais'){var S=F.SIGNALS.SINAIS;out='<p class="k">'+S.length+' sinais · sinal não é oportunidade: merece acompanhamento</p>'+S.map(cardS).join('')}
-  else if(p[0]==='o'){var o=OPS.filter(function(x){return x.OPPORTUNITY_ID===p[1]})[0];out=o?'<div class="crumb"><a href="#oportunidades">Oportunidades</a> / '+esc(o.OPPORTUNITY_ID)+'</div>'+cardO(o).replace(/<p style="margin-top:12px">.*?<\/p><\/div>$/,'</div>')+'<div class="card"><p class="k">Sinais que entraram</p>'+((o.SIGNAL_IDS||[]).map(function(id){return'<a href="#s/'+id+'">'+id+' · '+esc((SIN[id]||{}).TITULO||'não encontrado')+'</a>'}).join('<br>')||'<span class="nao">NÃO SEI</span>')+'</div><div class="card"><p class="k">Evidências ('+(o.EVIDENCIAS||[]).length+' fatos)</p>'+evid(o)+'</div>':'<div class="empty">Oportunidade não encontrada.</div>'}
-  else if(p[0]==='s'){var s=SIN[p[1]];out=s?'<div class="crumb"><a href="#sinais">Sinais</a> / '+esc(s.SIGNAL_ID)+'</div>'+cardS(s).replace(/<p style="margin-top:12px">.*?<\/p><\/div>$/,'</div>')+'<div class="card"><p class="k">Evidências ('+(s.EVIDENCIAS||[]).length+' fatos)</p>'+evid(s)+'</div>':'<div class="empty">Sinal não encontrado.</div>'}
-  else if(p[0]==='f'){var f=FAT[p[1]];out=f?fato(f):'<div class="empty">Fato não encontrado.</div>'}
-  else if(p[0]==='d'){var q=p.slice(1).join('/').split('?t=');out=documento(q[0],q[1]||null)}
+  if(p[0]==='oportunidades'){var n=0;ORD.forEach(function(k){n+=R[k].OPS.length});out='<p class="k">'+n+' oportunidades em '+ORD.length+' rodadas · a mais nova primeiro</p>';
+    ORD.forEach(function(k){K=k;X=R[k];out+=cab(k,X.OPS.length,'oportunidades')+(X.OPS.length?X.OPS.map(function(o){return cardO(o)}).join(''):'<div class="empty" style="padding:16px">Nenhuma oportunidade nesta rodada.</div>')})}
+  else if(p[0]==='sinais'){var m=0;ORD.forEach(function(k){m+=R[k].F.SIGNALS.SINAIS.length});out='<p class="k">'+m+' sinais em '+ORD.length+' rodadas · a mais nova primeiro · sinal não é oportunidade: merece acompanhamento</p>';
+    ORD.forEach(function(k){K=k;X=R[k];var S=X.F.SIGNALS.SINAIS;out+=cab(k,S.length,'sinais')+(S.length?S.map(function(s){return cardS(s)}).join(''):'<div class="empty" style="padding:16px">Nenhum sinal nesta rodada.</div>')})}
+  else if(R[p[1]]){K=p[1];X=R[K];var id=p.slice(2).join('/');
+    if(p[0]==='o'){var o=X.OPS.filter(function(x){return x.OPPORTUNITY_ID===id})[0];out=o?'<div class="crumb"><a href="#oportunidades">Oportunidades</a> / Rodada '+esc(K)+' / '+esc(id)+'</div>'+cardO(o,1)+'<div class="card"><p class="k">Sinais que entraram</p>'+((o.SIGNAL_IDS||[]).map(function(s){return'<a href="'+u('s',s)+'">'+esc(s)+' · '+esc((X.SIN[s]||{}).TITULO||'não encontrado')+'</a>'}).join('<br>')||'<span class="nao">NÃO SEI</span>')+'</div><div class="card"><p class="k">Evidências ('+(o.EVIDENCIAS||[]).length+' fatos)</p>'+evid(o)+'</div>':'<div class="empty">Oportunidade não encontrada.</div>'}
+    else if(p[0]==='s'){var s=X.SIN[id];out=s?'<div class="crumb"><a href="#sinais">Sinais</a> / Rodada '+esc(K)+' / '+esc(id)+'</div>'+cardS(s,1)+'<div class="card"><p class="k">Evidências ('+(s.EVIDENCIAS||[]).length+' fatos)</p>'+evid(s)+'</div>':'<div class="empty">Sinal não encontrado.</div>'}
+    else if(p[0]==='f'){var f=X.FAT[id];out=f?fato(f):'<div class="empty">Fato não encontrado.</div>'}
+    else if(p[0]==='d'){var q=id.split('?t=');out=documento(q[0],q[1]||null)}}
+  else out='<div class="empty">Endereço não reconhecido. <a href="#oportunidades">Voltar às oportunidades</a></div>';
   app.innerHTML=out;var hit=document.getElementById('hit');if(hit)hit.scrollIntoView({block:'center'});else window.scrollTo(0,0)}
 window.addEventListener('hashchange',render);render();
 })();
