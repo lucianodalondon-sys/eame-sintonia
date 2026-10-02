@@ -903,6 +903,76 @@ Zero oportunidades é uma saída válida.
 
 ---
 
+## 14A. Caso vivo e investigação ativa
+
+O Sintonia não deve terminar o raciocínio no primeiro lote de documentos.
+
+Quando um fato gerar SINAL, LEAD, GAP ou possível OPORTUNIDADE, a Intelligence deve tratar isso como um **caso vivo**:
+
+```text
+SINAL INICIAL
+↓
+CASE_ID
+↓
+O QUE JÁ SEI?
+↓
+O QUE FALTA?
+↓
+EVIDENCE_REQUEST
+↓
+BOT DE FONTES PROCURA FONTES ADICIONAIS
+↓
+SINTONIA SCRAP CAPTURA
+↓
+INTELLIGENCE INCORPORA AO MESMO CASO
+↓
+LINHA DO TEMPO
+↓
+NOVOS CRUZAMENTOS
+↓
+RECLASSIFICA
+```
+
+A busca deve procurar convergência entre fontes independentes quando isso puder mudar a interpretação, priorizando conforme o caso:
+
+```text
+órgão oficial
+boletim regional
+cooperativa
+associação
+agronomia de campo
+pesquisador
+clima
+mercado
+concorrência
+social
+```
+
+Não gerar vários cards para documentos sobre o mesmo caso. Documentos novos alimentam o mesmo `CASE_ID`.
+
+### Timeline obrigatória para casos
+
+Todo SINAL, LEAD, GAP ou OPORTUNIDADE deve poder montar uma linha do tempo:
+
+```text
+TIMELINE_EVENT
+data
+título curto
+o que acrescentou ao caso
+tipo de fonte
+URL original
+SOURCE_ID
+DOCUMENT_ID
+```
+
+No Casco, Opportunity Radar e Future Radar usam a timeline como forma principal de mostrar **como o caso evoluiu**.
+
+Cada ponto da timeline é clicável e abre o documento original.
+
+Não mostrar uma parede de documentos e trechos na primeira experiência do usuário. A lista completa de evidências fica recolhida para auditoria.
+
+---
+
 ## 15. Separação por ferramenta do Casco
 
 ### Opportunity Radar
@@ -959,6 +1029,79 @@ PROBLEMAS ASSOCIADOS
 CLIMA RELEVANTE
 ```
 
+#### Confiança e frescor da Crop Window — obrigatório por cultura
+
+A Crop Window não pode mostrar apenas uma janela. O usuário precisa saber imediatamente **quando aquela leitura foi verificada e se ainda é confiável para decisão**.
+
+Cada cultura/região exibida deve carregar um box visual curto de confiança:
+
+```text
+AGGIORNAMENTO
+Verificata il: DD MMM YYYY
+
+FONTE
+fonte canônica / boletim que sustenta a fase
+
+COPERTURA
+região / território ao qual a leitura se aplica
+
+STATO
+AGGIORNATA | PARZIALE | DA AGGIORNARE | NON VERIFICATA
+```
+
+Regras:
+
+- **AGGIORNATA**: existe evidência recente suficiente para a cultura/região e a verificação está dentro da cadência definida para aquele tipo de dado.
+- **PARZIALE**: existe evidência recente, mas faltam parte da geografia, fase ou cobertura necessária.
+- **DA AGGIORNARE**: existe referência, mas ela já saiu da cadência de atualização esperada.
+- **NON VERIFICATA**: não existe evidência recente suficiente para afirmar que a janela representa o estado atual.
+
+Não escrever “segura”, “confiável” ou equivalente apenas porque existe uma data. A confiança vem da combinação:
+
+```text
+FONTE
++
+DATA
++
+REGIÃO
++
+FASE
++
+COBERTURA
++
+FRESCOR
+```
+
+Se a fonte declarar um período de validade, mostrar também:
+
+```text
+VALIDA FINO A
+DD MMM YYYY
+```
+
+Se a fonte não declarar validade, **não inventar data de validade**.
+
+Na primeira camada, o box deve ser compacto e visual, por exemplo:
+
+```text
+✓ AGGIORNATA
+Verificata 02 OTT 2026
+Veneto
+```
+
+ou:
+
+```text
+! DA AGGIORNARE
+Ultima verifica 02 SET 2026
+```
+
+O detalhe pode explicar fonte, evidência, cobertura e limitações.
+
+A cor do estado deve reutilizar o Design System ADAMA; não criar uma paleta paralela.
+
+Importante: enquanto houver versões concorrentes de Crop Windows ou fenologia sem atualização corrente, o Casco não pode apresentar a janela como verificada. Deve mostrar o estado real de frescor.
+
 ### Label Intelligence
 
 Recebe mudanças de autorização, produtos, culturas, alvos, restrições, doses e frescor da referência.
@@ -993,6 +1136,48 @@ JANELA QUE ESTÁ CHEGANDO
 ## 16. Casco — produto para leigo
 
 O Casco é produto, não console de engenharia.
+
+### Regra visual atualizada
+
+Opportunity, Lead e Signal pertencem à mesma família visual de caso. O card usa a linguagem visual forte do Opportunity Radar e o Design System ADAMA:
+
+```text
+ÍCONE / CATEGORIA DO PROBLEMA
+COR ADAMA DA CATEGORIA
+PROBLEMA
+CULTURA · REGIÃO
+STATUS
+JANELA
+PRODUTO, QUANDO COMPROVADO
+ESPLORA
+```
+
+O card deve ter o mínimo de lettering possível.
+
+```text
+PRIMEIRA CAMADA = VER
+CLIQUE = ENTENDER
+DETALHE = PROVAR
+```
+
+No clique, a tela vira um dashboard do caso, priorizando blocos visuais e a timeline:
+
+```text
+O QUE SIGNIFICA
+AÇÃO
+TIMELINE
+CLIMA
+FENOLOGIA
+CROP WINDOW
+MERCADO
+PORTFÓLIO
+LABEL
+CONCORRÊNCIA
+```
+
+Somente os blocos com informação útil aparecem.
+
+As fontes reais não ficam empilhadas como uma lista longa. A timeline é o caminho principal; clicar em um evento abre a fonte original. Evidências completas continuam disponíveis em área recolhida de auditoria.
 
 ### Regra principal
 
