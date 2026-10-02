@@ -32,25 +32,48 @@ const ok = (t, cond, medido) => { linhas.push({ t, cond: !!cond, medido }); };
    outros portoes usam. */
 const server = await serve(8921);
 const { browser, page: pg } = await open({ port: 8921, width: 1500, height: 1000 });
-await pg.waitForSelector('[data-meeting-case], [data-view="cruzamento"]', { timeout: 45000 });
+await pg.waitForSelector('[data-meeting-case], [data-cruz-vazio]', { timeout: 45000 });
 
-/* ── 0 · RADAR ALIMENTADO PELO CRUZAMENTO COMERCIAL ─────────────────────────
-   Quando o envelope do cruzamento esta publicado, o Radar mostra SO o que a Intelligence classificou como
-   OPORTUNIDADE (ordem do dono, 02/10). Se a rodada tem 0, nao ha ficha para a barra filtrar: a barra do Radar
-   nao e medida (nao existe o que digitar contra) e no lugar mede-se a verdade do zero — o numero da tela = o do
-   envelope, nenhuma ficha antiga desenhada, e o aviso do porque visivel. O Portafoglio continua medido inteiro. */
-const cruzRadar = await pg.evaluate(() => {
-  const env = window.SINTONIA_CRUZAMENTO_PUBLICADO;
-  if (!env || !env.CRUZAMENTO || !document.querySelector('[data-view="cruzamento"]')) return null;
-  const esperado = (env.CRUZAMENTO.OBJETOS || []).filter((o) => o.CLASSE === 'OPORTUNIDADE').length;
-  const el = document.querySelector('[data-view="cruzamento"]');
-  return { esperado, tela: Number(el.getAttribute('data-cruz-n')), fichas: document.querySelectorAll('[data-cruz-objeto]').length,
-    antigas: document.querySelectorAll('[data-meeting-case]').length, vazio: document.querySelectorAll('[data-cruz-vazio]').length };
+/* ── 0 · A LEITURA COMERCIAL NO CASCO ORIGINAL ──────────────────────────────
+   Com o envelope do cruzamento publicado, cada classe vive no componente que JA
+   existia: OPORTUNIDADE nas fichas do Radar, LEAD/SINAL nas fichas do Radar
+   Futuro ([data-itfc]), GAP em fichas do Portafoglio. Mede-se que o desenho e o
+   ORIGINAL (barra, pastilhas, grelha) e que cada numero = o envelope. Uma tela
+   de diagnostico ([data-view="cruzamento"]) reprova.                         */
+const env = await pg.evaluate(() => {
+  const e = window.SINTONIA_CRUZAMENTO_PUBLICADO;
+  if (!e || !e.CRUZAMENTO || !Array.isArray(e.CRUZAMENTO.OBJETOS)) return null;
+  const n = (c) => e.CRUZAMENTO.OBJETOS.filter((o) => c.includes(o.CLASSE)).length;
+  return { opp: n(['OPORTUNIDADE']), rf: n(['LEAD', 'SINAL']), gap: n(['GAP']) };
 });
-if (cruzRadar && cruzRadar.esperado === 0) {
-  ok('RADAR · cruzamento: o numero da tela = OPORTUNIDADE do envelope', cruzRadar.tela === 0 && cruzRadar.fichas === 0, cruzRadar.tela + '/' + cruzRadar.fichas + ' = 0');
-  ok('RADAR · cruzamento: nenhuma ficha antiga desenhada', cruzRadar.antigas === 0, cruzRadar.antigas);
-  ok('RADAR · cruzamento: o zero diz-se com o porque', cruzRadar.vazio === 1, cruzRadar.vazio + ' aviso');
+const telaDiagnostico = await pg.locator('[data-view="cruzamento"]').count();
+ok('CASCO · nenhuma tela de diagnostico no lugar das ferramentas', telaDiagnostico === 0, telaDiagnostico);
+if (env) {
+  ok('RADAR · barra, pastilhas e filtros originais presentes',
+    await pg.locator('[data-radar-search]').count() === 1 && await pg.locator('[data-meeting-filter]').count() >= 2,
+    await pg.locator('[data-radar-search]').count() + ' barra · ' + await pg.locator('[data-meeting-filter]').count() + ' pastilhas');
+  ok('RADAR · fichas = OPORTUNIDADE do envelope', await pg.locator('[data-meeting-case]').count() === env.opp,
+    await pg.locator('[data-meeting-case]').count() + ' = ' + env.opp);
+  if (env.opp === 0) {
+    ok('RADAR · zero com estado vazio pequeno, dentro do desenho', await pg.locator('[data-cruz-vazio][data-cruz-n="0"]').count() === 1,
+      await pg.locator('[data-cruz-vazio]').count() + ' aviso');
+  }
+  await pg.evaluate(() => { location.hash = '#radarfuturo'; });
+  await pg.waitForTimeout(900);
+  const rf = await pg.locator('[data-itfc][data-cruz-objeto]').count();
+  ok('RADAR FUTURO · LEAD+SINAL nas fichas originais [data-itfc]', rf === env.rf, rf + ' = ' + env.rf);
+  ok('RADAR FUTURO · nenhuma ficha antiga misturada', await pg.locator('[data-itfc]').count() === env.rf,
+    await pg.locator('[data-itfc]').count() + ' = ' + env.rf);
+  await pg.locator('[data-itfc][data-cruz-objeto]').first().click();
+  await pg.waitForTimeout(700);
+  ok('RADAR FUTURO · a ficha abre o detalhe com a prova', await pg.locator('[data-cruz-detalhe] [data-cruz-campo]').count() > 0,
+    await pg.locator('[data-cruz-campo]').count() + ' campos');
+  await pg.evaluate(() => { location.hash = '#meeting'; });
+  await pg.waitForTimeout(900);
+}
+
+if (env && env.opp === 0) {
+  /* Sem ficha nao ha o que filtrar: a barra do Radar e medida no Portafoglio, abaixo. */
 } else {
 /* ── 1 · O RADAR ─────────────────────────────────────────────────────────── */
 const antesRadar = await pg.locator('[data-meeting-case]').count();
@@ -123,13 +146,17 @@ await pg.locator('[data-radar-clear]').click();
 await pg.waitForTimeout(450);
 ok('RADAR · CANCELLA TUTTO devolve tudo', await pg.locator('[data-meeting-case]').count() === antesRadar,
   await pg.locator('[data-meeting-case]').count() + ' = ' + antesRadar);
-
 }
 
 /* ── 2 · O PORTAFOGLIO ───────────────────────────────────────────────────── */
 await pg.evaluate(() => { location.hash = '#portfolio'; });
 await pg.waitForTimeout(600);
 await pg.waitForSelector('[data-expiry-slot]', { timeout: 30000 });
+if (env) {
+  const g = await pg.locator('[data-cruz-gaps] [data-cruz-classe="GAP"]').count();
+  ok('PORTAFOGLIO · GAP do envelope em fichas, catalogo intacto abaixo', g === env.gap && await pg.locator('[data-expiry-slot]').count() > 0,
+    g + ' = ' + env.gap);
+}
 
 const antesPort = await pg.locator('[data-expiry-slot]').count();
 const barraPort = pg.locator('[data-portfolio-search]');
