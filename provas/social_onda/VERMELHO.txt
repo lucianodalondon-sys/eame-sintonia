@@ -1,0 +1,361 @@
+Could not find platform independent libraries <prefix>
+C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\ferramentas\big_collection\coleta_continua.py:31: SyntaxWarning: invalid escape sequence '\T'
+  da cortesia, e o livro ANTIGO ({"RESERVAS": [...]}, `--teto-24h=%SI%\TETO-24H.json`) le-se e migra-se sozinho
+test_backup_sem_prova_vale_zero_pedidos (__main__.Guardas.test_backup_sem_prova_vale_zero_pedidos) ... ERROR
+test_egresso_antes_fora_de_it_zero_pedidos (__main__.Guardas.test_egresso_antes_fora_de_it_zero_pedidos) ... ERROR
+test_egresso_depois_fora_de_it_para (__main__.Guardas.test_egresso_depois_fora_de_it_para) ... ERROR
+test_livro_da_onda_ilegivel_nao_passa_por_nada_a_provar (__main__.Guardas.test_livro_da_onda_ilegivel_nao_passa_por_nada_a_provar) ... ERROR
+test_maestro_que_nao_escreve_estado_para (__main__.Guardas.test_maestro_que_nao_escreve_estado_para) ... ERROR
+test_maestro_que_para_para_o_servico (__main__.Guardas.test_maestro_que_para_para_o_servico) ... ERROR
+test_o_freio_do_transporte_corta_no_livro_de_24h (__main__.Guardas.test_o_freio_do_transporte_corta_no_livro_de_24h) ... ERROR
+test_ram_abaixo_de_5gb_zero_pedidos (__main__.Guardas.test_ram_abaixo_de_5gb_zero_pedidos) ... ERROR
+test_reconciliacao_que_nao_bate_para (__main__.Guardas.test_reconciliacao_que_nao_bate_para) ... ERROR
+test_sem_foto_da_sala_nao_ha_pass (__main__.Guardas.test_sem_foto_da_sala_nao_ha_pass) ... ERROR
+test_transporte_que_nao_reserva_prova_teto_fail (__main__.Guardas.test_transporte_que_nao_reserva_prova_teto_fail) ... ERROR
+test_instagram_com_url_de_perfil_recusa (__main__.InstagramSoReel.test_instagram_com_url_de_perfil_recusa) ... ERROR
+test_instagram_sem_url_tambem_nao_passa (__main__.InstagramSoReel.test_instagram_sem_url_tambem_nao_passa) ... ok
+test_reel_aceite_um_dia_nao_tem_rota_na_onda (__main__.InstagramSoReel.test_reel_aceite_um_dia_nao_tem_rota_na_onda) ... ERROR
+test_reel_directo_nao_e_listagem_mas_continua_sem_conferidor (__main__.InstagramSoReel.test_reel_directo_nao_e_listagem_mas_continua_sem_conferidor) ... ok
+test_aceite_com_flag_a_onda_social_corre_e_regista_run_id (__main__.OndaSocialCorre.test_aceite_com_flag_a_onda_social_corre_e_regista_run_id) ... ERROR
+test_as_pecas_reais_tem_a_onda_social (__main__.OndaSocialCorre.test_as_pecas_reais_tem_a_onda_social) ... ERROR
+test_feita_nao_volta_na_mesma_passagem (__main__.OndaSocialCorre.test_feita_nao_volta_na_mesma_passagem) ... ERROR
+test_o_maestro_real_e_chamado_com_a_flag_e_so_as_fontes_dadas (__main__.OndaSocialCorre.test_o_maestro_real_e_chamado_com_a_flag_e_so_as_fontes_dadas) ... ERROR
+test_social_e_sites_no_mesmo_ciclo_cada_um_na_sua_onda (__main__.OndaSocialCorre.test_social_e_sites_no_mesmo_ciclo_cada_um_na_sua_onda) ... ERROR
+test_aceite_sem_rota_na_onda_social_nao_corre_e_diz_porque (__main__.RecusadaNaPorta.test_aceite_sem_rota_na_onda_social_nao_corre_e_diz_porque) ... ERROR
+test_so_a_aceite_chega_a_onda (__main__.RecusadaNaPorta.test_so_a_aceite_chega_a_onda) ... ERROR
+test_unidade_recusada_pela_porta_zero_pedidos (__main__.RecusadaNaPorta.test_unidade_recusada_pela_porta_zero_pedidos) ... ERROR
+test_com_a_flag_o_ensaio_mostra_a_fonte_e_os_pedidos_previstos (__main__.SemFlag.test_com_a_flag_o_ensaio_mostra_a_fonte_e_os_pedidos_previstos) ... FAIL
+test_o_servico_sem_a_flag_fica_desligado (__main__.SemFlag.test_o_servico_sem_a_flag_fica_desligado) ... ok
+test_por_omissao_o_alimentador_nao_autoriza (__main__.SemFlag.test_por_omissao_o_alimentador_nao_autoriza) ... ok
+test_sem_flag_zero_pedidos_e_bloqueio_com_nome (__main__.SemFlag.test_sem_flag_zero_pedidos_e_bloqueio_com_nome) ... ERROR
+
+======================================================================
+ERROR: test_backup_sem_prova_vale_zero_pedidos (__main__.Guardas.test_backup_sem_prova_vale_zero_pedidos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 369, in test_backup_sem_prova_vale_zero_pedidos
+    _, r = self.ciclo_social(pecas=self.pecas(backup=lambda p: {"PROVA_VALE": False}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_egresso_antes_fora_de_it_zero_pedidos (__main__.Guardas.test_egresso_antes_fora_de_it_zero_pedidos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 359, in test_egresso_antes_fora_de_it_zero_pedidos
+    _, r = self.ciclo_social(pecas=self.pecas(portao=TC.Portao(falha_na_chamada=1)))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_egresso_depois_fora_de_it_para (__main__.Guardas.test_egresso_depois_fora_de_it_para)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 365, in test_egresso_depois_fora_de_it_para
+    _, r = self.ciclo_social(pecas=self.pecas(portao=TC.Portao(falha_na_chamada=2)))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_livro_da_onda_ilegivel_nao_passa_por_nada_a_provar (__main__.Guardas.test_livro_da_onda_ilegivel_nao_passa_por_nada_a_provar)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 424, in test_livro_da_onda_ilegivel_nao_passa_por_nada_a_provar
+    _, r = self.ciclo_social(pecas=self.pecas(onda_social=lambda *a: C.onda_social_real(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_maestro_que_nao_escreve_estado_para (__main__.Guardas.test_maestro_que_nao_escreve_estado_para)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 412, in test_maestro_que_nao_escreve_estado_para
+    _, r = self.ciclo_social(pecas=self.pecas(onda_social=lambda *a: C.onda_social_real(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_maestro_que_para_para_o_servico (__main__.Guardas.test_maestro_que_para_para_o_servico)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 404, in test_maestro_que_para_para_o_servico
+    _, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_o_freio_do_transporte_corta_no_livro_de_24h (__main__.Guardas.test_o_freio_do_transporte_corta_no_livro_de_24h)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 391, in test_o_freio_do_transporte_corta_no_livro_de_24h
+    _, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_ram_abaixo_de_5gb_zero_pedidos (__main__.Guardas.test_ram_abaixo_de_5gb_zero_pedidos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 376, in test_ram_abaixo_de_5gb_zero_pedidos
+    _, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_reconciliacao_que_nao_bate_para (__main__.Guardas.test_reconciliacao_que_nao_bate_para)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 399, in test_reconciliacao_que_nao_bate_para
+    _, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_sem_foto_da_sala_nao_ha_pass (__main__.Guardas.test_sem_foto_da_sala_nao_ha_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 429, in test_sem_foto_da_sala_nao_ha_pass
+    _, r = self.ciclo_social(pecas=self.pecas(onda_social=lambda *a: C.onda_social_real(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_transporte_que_nao_reserva_prova_teto_fail (__main__.Guardas.test_transporte_que_nao_reserva_prova_teto_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 383, in test_transporte_que_nao_reserva_prova_teto_fail
+    _, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_instagram_com_url_de_perfil_recusa (__main__.InstagramSoReel.test_instagram_com_url_de_perfil_recusa)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 322, in test_instagram_com_url_de_perfil_recusa
+    a, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_reel_aceite_um_dia_nao_tem_rota_na_onda (__main__.InstagramSoReel.test_reel_aceite_um_dia_nao_tem_rota_na_onda)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 347, in test_reel_aceite_um_dia_nao_tem_rota_na_onda
+    cands, sem_rota = C.candidatas_sociais(["IT-T5-983"], {"IT-T5-983": reel("IT-T5-983", REEL_IG)})
+                      ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'coleta_continua' has no attribute 'candidatas_sociais'. Did you mean: 'candidatas_do_plano'?
+
+======================================================================
+ERROR: test_aceite_com_flag_a_onda_social_corre_e_regista_run_id (__main__.OndaSocialCorre.test_aceite_com_flag_a_onda_social_corre_e_regista_run_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 166, in test_aceite_com_flag_a_onda_social_corre_e_regista_run_id
+    a, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_as_pecas_reais_tem_a_onda_social (__main__.OndaSocialCorre.test_as_pecas_reais_tem_a_onda_social)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 232, in test_as_pecas_reais_tem_a_onda_social
+    self.assertIs(C.pecas_reais()["onda_social"], C.onda_social_real)
+                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'onda_social'
+
+======================================================================
+ERROR: test_feita_nao_volta_na_mesma_passagem (__main__.OndaSocialCorre.test_feita_nao_volta_na_mesma_passagem)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 203, in test_feita_nao_volta_na_mesma_passagem
+    self.ciclo_social()
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_o_maestro_real_e_chamado_com_a_flag_e_so_as_fontes_dadas (__main__.OndaSocialCorre.test_o_maestro_real_e_chamado_com_a_flag_e_so_as_fontes_dadas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 222, in test_o_maestro_real_e_chamado_com_a_flag_e_so_as_fontes_dadas
+    self.assertEqual(C.correr_maestro_real([LI, "IT-T5-971"], self.tmp / "m", run=run), 0)
+                     ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'coleta_continua' has no attribute 'correr_maestro_real'
+
+======================================================================
+ERROR: test_social_e_sites_no_mesmo_ciclo_cada_um_na_sua_onda (__main__.OndaSocialCorre.test_social_e_sites_no_mesmo_ciclo_cada_um_na_sua_onda)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 209, in test_social_e_sites_no_mesmo_ciclo_cada_um_na_sua_onda
+    _, r = self.ciclo_social(extra=self.sites(["IT-T5-080"]))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_aceite_sem_rota_na_onda_social_nao_corre_e_diz_porque (__main__.RecusadaNaPorta.test_aceite_sem_rota_na_onda_social_nao_corre_e_diz_porque)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 309, in test_aceite_sem_rota_na_onda_social_nao_corre_e_diz_porque
+    a, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_so_a_aceite_chega_a_onda (__main__.RecusadaNaPorta.test_so_a_aceite_chega_a_onda)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 300, in test_so_a_aceite_chega_a_onda
+    a, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_unidade_recusada_pela_porta_zero_pedidos (__main__.RecusadaNaPorta.test_unidade_recusada_pela_porta_zero_pedidos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 288, in test_unidade_recusada_pela_porta_zero_pedidos
+    a, r = self.ciclo_social()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+ERROR: test_sem_flag_zero_pedidos_e_bloqueio_com_nome (__main__.SemFlag.test_sem_flag_zero_pedidos_e_bloqueio_com_nome)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 241, in test_sem_flag_zero_pedidos_e_bloqueio_com_nome
+    a, r = self.ciclo_social(autorizado=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 156, in ciclo_social
+    a = self.alimentar(autorizado)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 107, in alimentar
+    return C.alimentar_linhas({"RODADAS": []}, raiz=self.raiz, autorizado_social=autorizado)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: alimentar_linhas() got an unexpected keyword argument 'autorizado_social'
+
+======================================================================
+FAIL: test_com_a_flag_o_ensaio_mostra_a_fonte_e_os_pedidos_previstos (__main__.SemFlag.test_com_a_flag_o_ensaio_mostra_a_fonte_e_os_pedidos_previstos)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\social-onda\tests\test_onda_social_coleta.py", line 279, in test_com_a_flag_o_ensaio_mostra_a_fonte_e_os_pedidos_previstos
+    self.assertEqual((ln["ESTADO"], ln["FONTES"], ln["PEDIDOS_PREVISTOS"]), ("A_CORRER", [LI], 4), ln)
+AssertionError: Tuples differ: ('BLOQUEADA_PERMISSAO_SOCIAL', [], 0) != ('A_CORRER', ['IT-T5-970'], 4)
+
+First differing element 0:
+'BLOQUEADA_PERMISSAO_SOCIAL'
+'A_CORRER'
+
+- ('BLOQUEADA_PERMISSAO_SOCIAL', [], 0)
++ ('A_CORRER', ['IT-T5-970'], 4) : {'ESTADO': 'BLOQUEADA_PERMISSAO_SOCIAL', 'PORQUE': 'correr fontes sociais exige --autorizado-pelo-dono (ferramentas/maestro_social/maestro_social.py); a coorte declara READY_SOCIAL_TOTAL=0 (ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json)', 'CATALOGO': 'curadoria/italy_contracts_curator.json', 'UNIDADE': 'fonte social aceite na porta (rastro + ambito do T9)', 'UNIDADES_GOVERNADAS': 1, 'MOTIVOS': [{'ESTADO': 'BLOQUEADA_PERMISSAO_SOCIAL', 'PORQUE': 'correr fontes sociais exige --autorizado-pelo-dono (ferramentas/maestro_social/maestro_social.py); a coorte declara READY_SOCIAL_TOTAL=0 (ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json)'}, {'ESTADO': 'BLOQUEADA_CAPACIDADE', 'PORQUE': 'a coleta continua so tem a onda dos SITES (onda_web.py --correr), que so aceita a coorte congelada: uma fonte desta linha la dentro e FONTE_FORA_DA_COORTE, a onda sai != 0 e o servico PARA; o transporte da linha corre pelo maestro_social (--correr --autorizado-pelo-dono --fontes=)'}], 'PORTA_SOCIAL': {'ACEITES': ['IT-T5-970'], 'RECUSADAS': {}, 'POR_PLATAFORMA': {'LINKEDIN': {'ACEITES': 1, 'RECUSADAS': 0}}}, 'FONTES': [], 'PEDIDOS_PREVISTOS': 0, 'CANDIDATAS_RECEBIDAS': 0}
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.915s
+
+FAILED (failures=1, errors=22)
