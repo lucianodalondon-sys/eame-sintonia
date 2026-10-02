@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  75d6304da7b081a6b84e4994b9794184134aafe5
-BRANCH           coord/social-onda
-GERADO_EM        2026-10-02T04:12:16-03:00
+HEAD_DA_MEDICAO  719de4bc7c8438014949387dea0c25c825b385bb
+BRANCH           coord/coorte-fds-servico
+GERADO_EM        2026-10-02T16:13:31-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
