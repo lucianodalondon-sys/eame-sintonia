@@ -2530,9 +2530,11 @@
       "italia-portale/audit/casco/fonti-collegate.mjs",
       "italia-portale/audit/casco/fonti-divario.mjs",
       "italia-portale/audit/casco/fuga-tsr.mjs",
+      "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
       "italia-portale/audit/casco/mappa-azioni.mjs",
       "italia-portale/audit/casco/painel-operacao.mjs",
       "italia-portale/audit/casco/parita-visiva.mjs",
+      "italia-portale/audit/casco/publicar_cruzamento_preview.py",
       "italia-portale/audit/casco/quarantatre.mjs",
       "italia-portale/audit/casco/release-gate.mjs",
       "italia-portale/audit/casco/ricchezza.mjs",
@@ -2639,6 +2641,8 @@
       "italia-portale/client/meeting-labels.js",
       "italia-portale/client/meeting-surface.js",
       "italia-portale/client/portale.html",
+      "italia-portale/client/sintonia-cruzamento-casco.js",
+      "italia-portale/client/sintonia-cruzamento-publicado.js",
       "italia-portale/client/sintonia-pote-casco.js",
       "italia-portale/client/sintonia-pote-publicado.js",
       "italia-portale/client/support.js",
@@ -4369,8 +4373,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 940 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 940 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 944 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 944 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -4882,10 +4886,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "casco-sobre-cand-v1",
-    "HEAD": "8d9b750f8f58448b37ffa6ba6a80f564eeef7fec",
-    "GENERATED_AT": "2026-10-01T13:11:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "dfb98bea444515f4217a134b87dc9b1c78dff3576fe8a982972f89c6dd6b6417"
+    "BRANCH": "claude/casco-cruzamento-v1",
+    "HEAD": "b766e492952bdbdfc62c7a97e0e61fa5e53fe9a1",
+    "GENERATED_AT": "2026-10-02T03:57:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "884d04f4f7e75a5cd187404b17f0f21fbfcbb3feea38c223dd496c66edf674c4"
   },
   "FAMILIES": [
     {
@@ -6625,8 +6629,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 908",
-        "desses, mostrados aqui: 40 (ficam de fora 868)"
+        "enderecos que o codigo realmente chama: 909",
+        "desses, mostrados aqui: 40 (ficam de fora 869)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -58132,7 +58136,7 @@
         "PLANO": null,
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:582",
-          "italia-portale/client/portale.html:275",
+          "italia-portale/client/portale.html:277",
           "tests/test_publicar_portal_sozinho.py:340"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -72044,6 +72048,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-cruzamento-casco.js",
+        "italia-portale/client/sintonia-cruzamento-publicado.js",
         "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
@@ -72171,6 +72177,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-cruzamento-casco.js",
+        "italia-portale/client/sintonia-cruzamento-publicado.js",
         "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
@@ -72291,6 +72299,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-cruzamento-casco.js",
+        "italia-portale/client/sintonia-cruzamento-publicado.js",
         "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
@@ -73062,6 +73072,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-cruzamento-casco.js",
+        "italia-portale/client/sintonia-cruzamento-publicado.js",
         "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
@@ -73176,6 +73188,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-cruzamento-casco.js",
+        "italia-portale/client/sintonia-cruzamento-publicado.js",
         "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
@@ -145686,7 +145700,7 @@
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
-          "line": 275,
+          "line": 277,
           "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-CASCO--READS-->C-TELA-FIELD",
@@ -177994,8 +178008,13 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2297,
+  "UNCLAIMED_CODE_FILES": [
+    "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+    "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+    "italia-portale/client/sintonia-cruzamento-casco.js",
+    "italia-portale/client/sintonia-cruzamento-publicado.js"
+  ],
+  "UNCLAIMED_FILES_COUNT": 2301,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -178280,9 +178299,9 @@
     "edges_proven": 1902,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4289,
+    "files_tracked": 4293,
     "files_covered": 1992,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 4,
     "roles_proven": 211,
     "roles_declared_only": 11,
     "roles_unknown": 96,

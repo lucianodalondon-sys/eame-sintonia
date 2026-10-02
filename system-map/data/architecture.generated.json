@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "casco-sobre-cand-v1",
-    "HEAD": "8d9b750f8f58448b37ffa6ba6a80f564eeef7fec",
-    "GENERATED_AT": "2026-10-01T13:11:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "dfb98bea444515f4217a134b87dc9b1c78dff3576fe8a982972f89c6dd6b6417"
+    "BRANCH": "claude/casco-cruzamento-v1",
+    "HEAD": "b766e492952bdbdfc62c7a97e0e61fa5e53fe9a1",
+    "GENERATED_AT": "2026-10-02T03:57:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "884d04f4f7e75a5cd187404b17f0f21fbfcbb3feea38c223dd496c66edf674c4"
   },
   "FILES": [
     {
@@ -17453,6 +17453,13 @@
       "code_dir": true
     },
     {
+      "path": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+      "sha": "2612d3fe893c0e13ead97051390f7162f1296fbc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "italia-portale/audit/casco/mappa-azioni.mjs",
       "sha": "6f5917b8dbe9a55cc5a0ffd683b5cdf5ab4c9d85",
       "ext": ".mjs",
@@ -17470,6 +17477,13 @@
       "path": "italia-portale/audit/casco/parita-visiva.mjs",
       "sha": "b512f1ad187b1f40412bedf563ca988068eb7644",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+      "sha": "380de3a8ff431580791d224ce867ccb8d47707fd",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -18210,8 +18224,22 @@
     },
     {
       "path": "italia-portale/client/portale.html",
-      "sha": "3f226c41071bc18c80e4ca73974bfc223c0e840a",
+      "sha": "09ec3ec0d1083a142652c8330274b94dc98ee879",
       "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "italia-portale/client/sintonia-cruzamento-casco.js",
+      "sha": "c675b7a1bd339586b62f5fc2fc74aa0a049ce3de",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "italia-portale/client/sintonia-cruzamento-publicado.js",
+      "sha": "3252691dbc556702b1125f93b2a4e66503c40d1a",
+      "ext": ".js",
       "readable": true,
       "code_dir": true
     },
@@ -52650,6 +52678,28 @@
       }
     },
     {
+      "from_file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+      "to_file": "italia-portale/client/sintonia-cruzamento-publicado.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+        "line": 24,
+        "snippet": "destino_js = os.path.join(destino, 'sintonia-cruzamento-publicado.js')"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+      "to_file": "italia-portale/client/sintonia-cruzamento-publicado.js",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+        "line": 36,
+        "snippet": "open(destino_js, 'w', encoding='utf-8', newline='\\n').write(corpo)"
+      }
+    },
+    {
       "from_file": "italia-portale/audit/casco/mappa-azioni.mjs",
       "to_file": "italia-portale/audit/lib/harness.mjs",
       "type": "IMPORTS",
@@ -52713,6 +52763,39 @@
         "file": "italia-portale/audit/casco/painel-operacao.mjs",
         "line": 72,
         "snippet": "const coorteF = path.join(OPT.vivo, 'ferramentas', 'big_collection', 'COORTE-BIG-COLLECTION-V1.json');"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+      "to_file": "italia-portale/audit/casco/gerar_cruzamento_publicado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+        "line": 94,
+        "snippet": "g = subprocess.run([sys.executable, os.path.join(AQUI, 'gerar_cruzamento_publicado.py'), pasta, cli],"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+      "to_file": "package.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+        "line": 92,
+        "snippet": "open(os.path.join(tmp, 'package.json'), 'w').write('{\"name\":\"cruz-teste\",\"private\":true,\"scripts\":{\"build\":\"echo sem build\"}}\\n')"
+      }
+    },
+    {
+      "from_file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+      "to_file": "vercel.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/audit/casco/publicar_cruzamento_preview.py",
+        "line": 86,
+        "snippet": "arq = subprocess.run(['git', '-C', a.repo, 'archive', '--format=tar', commit, 'italia-portale/client', 'vercel.json'],"
       }
     },
     {
@@ -55802,7 +55885,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/client/portale.html",
-        "line": 275,
+        "line": 277,
         "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)"
       }
     },
@@ -56035,6 +56118,28 @@
         "file": "italia-portale/client/portale.html",
         "line": 60,
         "snippet": "<script src=\"meeting-surface.js\"></script>"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/portale.html",
+      "to_file": "italia-portale/client/sintonia-cruzamento-casco.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/portale.html",
+        "line": 85,
+        "snippet": "<script src=\"sintonia-cruzamento-casco.js\"></script>"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/portale.html",
+      "to_file": "italia-portale/client/sintonia-cruzamento-publicado.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/portale.html",
+        "line": 84,
+        "snippet": "<script src=\"sintonia-cruzamento-publicado.js\"></script>"
       }
     },
     {
@@ -115118,10 +115223,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4289,
-    "files_readable": 1802,
-    "files_code_dir": 2259,
-    "file_edges": 7675,
+    "files_tracked": 4293,
+    "files_readable": 1806,
+    "files_code_dir": 2263,
+    "file_edges": 7682,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
