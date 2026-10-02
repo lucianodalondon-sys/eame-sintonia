@@ -77,6 +77,23 @@ def alternar_fontes(novos, maximo, por_fonte):
     return out
 
 
+def texto_entregue(F) -> dict:
+    """O texto que o modelo viu, por documento, lido de FACTS_FAST.DOCUMENTOS (gravado pelo passo2 no ponto de
+    entrega). TEXTO_LIMPO_PROVADO so com TODOS os documentos com hash e com o ficheiro a conferir (vazio nao prova)."""
+    docs = F.get("DOCUMENTOS") or []
+    sem = [d.get("DOCUMENT_ID") for d in docs if not d.get("TEXTO_ENTREGUE_SHA256")]
+    nao_conf = [d.get("DOCUMENT_ID") for d in docs
+                if d.get("TEXTO_ENTREGUE_SHA256") and d.get("CONFERE_COM_DOCUMENTOS") is not True]
+    return OrderedDict([
+        ("TEXTO_LIMPO_PROVADO", bool(docs) and not sem and not nao_conf),
+        ("TEXTO_ENTREGUE_SHA256", {d.get("DOCUMENT_ID"): d["TEXTO_ENTREGUE_SHA256"] for d in docs
+                                   if d.get("TEXTO_ENTREGUE_SHA256")}),
+        ("TEXTO_ENTREGUE_CHARS", sum(d.get("TEXTO_ENTREGUE_CHARS") or 0 for d in docs)),
+        ("DOCUMENTOS_SEM_HASH", sem),
+        ("DOCUMENTOS_QUE_NAO_CONFEREM", nao_conf),
+        ("FONTE", "FACTS_FAST.json DOCUMENTOS (passo2_fatos.py, ponto de entrega ao modelo)")])
+
+
 def main():
     global POR_FONTE
     maximo = int(sys.argv[sys.argv.index("--max") + 1]) if "--max" in sys.argv else 20
@@ -136,9 +153,11 @@ def main():
         m = re.search(r" (INICIO|RETOMA) %s CODIGO_HEAD=([0-9a-f]{40})" % re.escape(run_id), l)
         if m and m.group(2) not in [v["CODIGO_HEAD"] for v in versoes]:
             versoes.append({"CODIGO_HEAD": m.group(2), "EVENTO": m.group(1), "EM": l[:19]})
+    F = json.load(open(os.path.join(pasta, "FACTS_FAST.json"), encoding="utf-8"))
     codigo = OrderedDict([("CODIGO_HEAD", head), ("VERSOES_DA_RODADA", versoes), ("REPO", REPO),
                           ("ARQUIVOS", {os.path.relpath(p, REPO).replace("\\", "/"): sha(p) for p in
                                         [os.path.join(CODIGO, s) for s in PASSOS] + [COMERCIAL, __file__]}),
+                          ("TEXTO_ENTREGUE", texto_entregue(F)),
                           ("SELECAO", {"MAX": maximo, "MAX_POR_FONTE": POR_FONTE, "FONTES": fontes})])
     json.dump(codigo, open(os.path.join(pasta, "CODIGO.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # SHA256SUMS: 4 JSON + cruzamento + raw_texto + codigo
