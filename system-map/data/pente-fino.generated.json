@@ -1,25 +1,49 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea"
+    "HEAD": "6f9456eb8d22ac3ab85c460e18acc264f9d06195"
   },
   "PECAS": [
     {
+      "id": "C-IT-PDF-BRUTO",
+      "nome": "Evidência bruta em PDF (Itália)",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": false,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 1,
+      "ficheiros": 0,
+      "estado": "gray"
+    },
+    {
+      "id": "C-IT-TEXTO-PESQUISAVEL",
+      "nome": "O texto que a máquina consegue ler",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": false,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 1,
+      "ficheiros": 20,
+      "estado": "gray"
+    },
+    {
       "id": "C-ADMISSAO",
       "nome": "A porta de admissao",
-      "zona": "8 · A PORTA DE ADMISSAO",
+      "zona": "4 · A PORTA DE ADMISSAO",
       "de_onde_vem": false,
       "para_onde_vai": true,
       "porque_existe": true,
       "alguem_corre": false,
       "respostas": 2,
       "ficheiros": 1,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-LEITORES",
       "nome": "Abrir PDF, ODS e HTML",
-      "zona": "4 · AS FERRAMENTAS",
+      "zona": "· as ferramentas da execucao",
       "de_onde_vem": false,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -31,7 +55,7 @@
     {
       "id": "C-PROCEDENCIA",
       "nome": "De onde veio — carimbado na coleta",
-      "zona": "6 · AS REGUAS QUE CARIMBAM",
+      "zona": "· as reguas que carimbam",
       "de_onde_vem": false,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -43,7 +67,7 @@
     {
       "id": "C-PEDIDO",
       "nome": "O pedido de coleta",
-      "zona": "1 · O PEDIDO E O PLANO",
+      "zona": "· PEDIDO — o contrato",
       "de_onde_vem": false,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -55,7 +79,7 @@
     {
       "id": "C-ADAMA-IT",
       "nome": "O que a ADAMA sabe de si",
-      "zona": "3 · AS FONTES",
+      "zona": "· as fontes",
       "de_onde_vem": false,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -67,7 +91,7 @@
     {
       "id": "V-HTTP",
       "nome": "PEDIDO HTTP DIRETO",
-      "zona": "5 · OS VEICULOS",
+      "zona": "· os canais",
       "de_onde_vem": false,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -79,7 +103,7 @@
     {
       "id": "C-TRANSCRICAO",
       "nome": "A fala vira texto, sem fatura",
-      "zona": "4 · AS FERRAMENTAS",
+      "zona": "· as ferramentas da execucao",
       "de_onde_vem": true,
       "para_onde_vai": false,
       "porque_existe": true,
@@ -91,7 +115,7 @@
     {
       "id": "C-RECEITAS",
       "nome": "A receita da coleta",
-      "zona": "1 · O PEDIDO E O PLANO",
+      "zona": "· PEDIDO — o contrato",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -103,7 +127,7 @@
     {
       "id": "C-AS-FONTES",
       "nome": "AS FONTES",
-      "zona": "3 · AS FONTES",
+      "zona": "· as fontes",
       "de_onde_vem": false,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -115,7 +139,7 @@
     {
       "id": "C-ROTULOS",
       "nome": "Baixar e ler os rotulos oficiais",
-      "zona": "7 · AS ACOES DA COLETA",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -127,7 +151,7 @@
     {
       "id": "C-COLETA-YOUTUBE",
       "nome": "Colher o YouTube",
-      "zona": "7 · AS ACOES DA COLETA",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": false,
       "porque_existe": true,
@@ -139,7 +163,7 @@
     {
       "id": "V-FACEBOOK",
       "nome": "FACEBOOK",
-      "zona": "5 · OS VEICULOS",
+      "zona": "· os canais",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -151,7 +175,7 @@
     {
       "id": "V-INSTAGRAM",
       "nome": "INSTAGRAM",
-      "zona": "5 · OS VEICULOS",
+      "zona": "· os canais",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -163,7 +187,7 @@
     {
       "id": "V-LINKEDIN",
       "nome": "LINKEDIN",
-      "zona": "5 · OS VEICULOS",
+      "zona": "· os canais",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -175,7 +199,7 @@
     {
       "id": "C-FONTES-EU",
       "nome": "Ler as bases oficiais da Europa",
-      "zona": "7 · AS ACOES DA COLETA",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -187,7 +211,7 @@
     {
       "id": "C-IT-CONTRATOS",
       "nome": "O contrato de cada fonte italiana",
-      "zona": "6 · AS REGUAS QUE CARIMBAM",
+      "zona": "· as reguas que carimbam",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -199,7 +223,7 @@
     {
       "id": "C-COLETA-BASE",
       "nome": "O motor de buscar",
-      "zona": "7 · AS ACOES DA COLETA",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -223,7 +247,7 @@
     {
       "id": "V-YOUTUBE",
       "nome": "YOUTUBE",
-      "zona": "5 · OS VEICULOS",
+      "zona": "· os canais",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -235,7 +259,7 @@
     {
       "id": "C-PORTA-FONTE",
       "nome": "A porta de entrada de fonte nova",
-      "zona": "2 · DE ONDE VEM UMA FONTE",
+      "zona": "· de onde vem uma fonte",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -247,7 +271,7 @@
     {
       "id": "C-APIFY-POOL",
       "nome": "Apify — a rota paga",
-      "zona": "4 · AS FERRAMENTAS",
+      "zona": "· as ferramentas da execucao",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -259,19 +283,19 @@
     {
       "id": "C-PALAVRAS",
       "nome": "As palavras que a busca digita",
-      "zona": "6 · AS REGUAS QUE CARIMBAM",
+      "zona": "· as reguas que carimbam",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 3,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-IT-COLETA",
       "nome": "Colher as fontes italianas",
-      "zona": "7 · AS ACOES DA COLETA",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -283,7 +307,7 @@
     {
       "id": "C-COLETA-INSTAGRAM",
       "nome": "Colher o Instagram",
-      "zona": "7 · AS ACOES DA COLETA",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -295,7 +319,7 @@
     {
       "id": "C-COLETA-PUBLICA",
       "nome": "Colher o que o concorrente publica",
-      "zona": "7 · AS ACOES DA COLETA",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -331,7 +355,7 @@
     {
       "id": "C-CORPUS",
       "nome": "Montar o corpus de fala e de ciencia",
-      "zona": "7 · AS ACOES DA COLETA",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -355,7 +379,7 @@
     {
       "id": "C-IT-CATALOGO",
       "nome": "O levantamento das fontes italianas",
-      "zona": "2 · DE ONDE VEM UMA FONTE",
+      "zona": "· de onde vem uma fonte",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -367,25 +391,13 @@
     {
       "id": "C-NAVEGADOR",
       "nome": "O navegador — a rota gratis",
-      "zona": "4 · AS FERRAMENTAS",
+      "zona": "· as ferramentas da execucao",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 2,
-      "estado": "green"
-    },
-    {
-      "id": "C-ORQUESTRADOR",
-      "nome": "O orquestrador",
-      "zona": "1 · O PEDIDO E O PLANO",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 1,
       "estado": "green"
     },
     {
@@ -401,21 +413,9 @@
       "estado": "green"
     },
     {
-      "id": "C-CI-COLETA",
-      "nome": "Os botoes que disparam a coleta",
-      "zona": "1 · O PEDIDO E O PLANO",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 3,
-      "estado": "green"
-    },
-    {
       "id": "C-IDENTIDADE",
       "nome": "Quem esta autorizado a ser coletado",
-      "zona": "6 · AS REGUAS QUE CARIMBAM",
+      "zona": "· as reguas que carimbam",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -423,26 +423,14 @@
       "respostas": 4,
       "ficheiros": 4,
       "estado": "green"
-    },
-    {
-      "id": "C-SINTONIA-SCRAP",
-      "nome": "SINTONIA SCRAP — o despachador",
-      "zona": "4 · AS FERRAMENTAS",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 1,
-      "estado": "green"
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 36,
-    "respondem_as_quatro": 17,
+    "pecas_da_coleta": 35,
+    "respondem_as_quatro": 14,
     "respondem_a_tres": 13,
     "respondem_a_duas": 6,
-    "respondem_a_uma": 0,
+    "respondem_a_uma": 2,
     "nao_respondem_a_nenhuma": 0
   }
 }

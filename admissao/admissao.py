@@ -79,7 +79,10 @@ RESULTADOS = (SIM, NAO, NAO_SEI, NAO_SE_APLICA, ERRO)
 
 # A versao da regra vive aqui e sobe quando a regra muda. E o que permite dizer
 # «reprocessa tudo o que a versao 1 rejeitou» sem reprocessar o resto.
-VERSAO_DA_REGRA = "1"
+# A VERSAO SOBE QUANDO A LEI MUDA, e ela mudou: a versao 1 dava NAO por
+# ausencia de palavra. Tudo o que ela rejeitou assim tem de poder ser
+# reprocessado — e sem numero de versao nao ha como saber o que reabrir.
+VERSAO_DA_REGRA = "2"
 
 
 @dataclass
@@ -174,7 +177,31 @@ def _tem_quando(item: dict) -> tuple:
 
 
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
-    """Pertence ao universo pedido? A resposta muda com o universo — de proposito."""
+    """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
+
+    A LEI CANONICA QUE ESTA FUNCAO VIOLAVA
+    ---------------------------------------
+        AUSENCIA DE EVIDENCIA NAO E EVIDENCIA DE AUSENCIA.
+
+    Ela devolvia NAO sempre que nenhuma palavra casava. Isso parece razoavel e
+    nao e: «nao encontrei nada deste universo» pode querer dizer duas coisas
+    completamente diferentes —
+
+        o item nao e disto                     ... e uma conclusao
+        o meu vocabulario nao chega a este item ... e uma confissao
+
+    e a porta nao tinha como as distinguir. Com um vocabulario incompleto — e o
+    desta casa esta comprovadamente incompleto — o NAO por ausencia transforma
+    cada buraco do lexico numa rejeicao com ar de julgamento. A coleta encolhe
+    sozinha e ninguem ve, porque um «nao» parece uma decisao tomada.
+
+    AGORA SO HA NAO COM EVIDENCIA POSITIVA:
+    quando o item fala claramente de OUTRO universo e nao deste. Isso e uma
+    prova a favor da exclusao, nao a falta de uma prova a favor da inclusao.
+
+    Sem essa prova, a resposta e NAO_SEI — que e mais util do que um nao errado,
+    porque um NAO_SEI faz alguem ir ver, e um NAO fecha o assunto.
+    """
     if not palavras:
         return NAO_SE_APLICA, (f"nao ha regra escrita do que conta como «{universo}». "
                                f"Sem regra, esta porta nao inventa uma."), {}
@@ -184,16 +211,72 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     if achadas:
         return SIM, (f"fala de {', '.join(achadas[:4])} — que e do que «{universo}» "
                      f"trata"), {"palavras": achadas[:8]}
-    return NAO, (f"nao encontrei nada de «{universo}» neste item. Isto e um NAO "
-                 f"para ESTE universo — o mesmo item pode ser SIM noutro."), {}
+
+    # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
+    noutros = {}
+    for outro, termos in PERGUNTAS_DO_UNIVERSO.items():
+        if outro == universo:
+            continue
+        casou = [t for t in termos if t.lower() in texto]
+        if casou:
+            noutros[outro] = casou[:4]
+    if noutros:
+        quais = "; ".join(f"{u}: {', '.join(w)}" for u, w in noutros.items())
+        return NAO, (f"nao fala de «{universo}», e fala claramente de outro "
+                     f"universo ({quais}). Isto e um NAO com prova a favor — nao "
+                     f"a simples falta de uma palavra."), {"achado_noutro": noutros}
+
+    return NAO_SEI, (f"nao encontrei nada de «{universo}» — nem de nenhum outro "
+                     f"universo. Isso NAO prova que o item nao pertence: prova que "
+                     f"o vocabulario nao lhe chegou. Ausencia de evidencia nao e "
+                     f"evidencia de ausencia, e por isso fica NAO_SEI."), {}
 
 
+# ── A PORTA TEM DE FALAR A LINGUA DO ITEM ──────────────────────────────────
+# Esta lista nasceu em PORTUGUES, e a porta decide sobre item ITALIANO. Medido
+# contra o unico texto italiano real desta arvore: **1 de 28** palavras aparecia
+# la. E das 28, **20 mudam** em italiano — `pesquisa` e `ricerca`, `artigo` e
+# `articolo`, `rotulo` e `etichetta`, `doenca` e `malattia`.
+#
+#     A BUSCA FOI CORRIGIDA E A PORTA FICOU PARA TRAS.
+#
+# O efeito e o pior possivel: o item chega, e como nenhuma palavra casa, ele nao
+# vira NAO_SEI — vira «nao pertence a este universo». Uma peneira que fala outra
+# lingua nao separa o que presta do que nao presta: rejeita tudo, e com ar de
+# quem julgou.
+#
+# NAO SE TRADUZ A LISTA: JUNTA-SE A OUTRA LINGUA AO LADO.
+# Traduzir apagaria o portugues, e ha itens nesta casa que vem em portugues (as
+# licoes do Brasil, os relatorios). O termo internacional — `doi`, `orcid` — nao
+# tem lingua e serve a todos.
+#
+# O QUE ISTO **NAO** RESOLVE, e fica dito: a arquitetura certa e CONCEITO ->
+# TERMO LOCAL (um `WHEAT_SEPTORIA` com as suas formas em IT/ES/FR/EN), e ela
+# NAO existe aqui. Isto e a correcao minima que faz a porta italiana funcionar
+# hoje; a arquitetura fica registada como proposta.
 PERGUNTAS_DO_UNIVERSO = {
-    "T7": ["estudo", "ensaio", "pesquisa", "doi", "orcid", "revista", "artigo",
-           "universidade", "instituto", "publicacao"],
-    "T9": ["lancamento", "campanha", "produto", "concorrente", "anuncio", "evento"],
-    "T4": ["autorizacao", "registro", "rotulo", "bula", "ministero", "decreto"],
-    "T3": ["praga", "doenca", "fungo", "inseto", "infestacao", "sintoma"],
+    # T7 · ciencia e ensaio
+    "T7": ["doi", "orcid",                                   # sem lingua
+           "estudo", "ensaio", "pesquisa", "revista", "artigo",
+           "universidade", "instituto", "publicacao",        # pt
+           "studio", "prova", "ricerca", "rivista", "articolo",
+           "universita", "istituto", "pubblicazione", "convegno",
+           "sperimentazione", "tesi"],                       # it
+    # T9 · o que o concorrente publica
+    "T9": ["concorrente", "evento",                          # serve nas duas
+           "lancamento", "campanha", "produto", "anuncio",   # pt
+           "lancio", "campagna", "prodotto", "annuncio",
+           "novita", "fiera"],                               # it
+    # T4 · regulatorio
+    "T4": ["registro", "ministero", "decreto",               # serve nas duas
+           "autorizacao", "rotulo", "bula",                  # pt
+           "autorizzazione", "etichetta", "foglietto",
+           "registrazione", "gazzetta"],                     # it
+    # T3 · praga e doenca
+    "T3": ["fungo",                                          # serve nas duas
+           "praga", "doenca", "inseto", "infestacao", "sintoma",   # pt
+           "parassita", "malattia", "insetto", "infestazione",
+           "sintomo", "avversita", "patogeno"],              # it
 }
 
 

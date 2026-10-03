@@ -1,0 +1,1461 @@
+{
+  "SCHEMA": "sintonia.semantica-it/1",
+  "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
+  "PROVENANCE": {
+    "HEAD": "caf160c8ae20e968e092408e5110409e5a8c1806"
+  },
+  "VOCABULARIOS": [
+    {
+      "VOCABULARY_ID": "sensor_coleta.TERMOS",
+      "FILE": "regras/sensor_coleta.py",
+      "OWNER": "regras",
+      "ROLE": "BUSCA",
+      "O_QUE_E": "os termos que a busca digita, por recorte cultura-problema",
+      "TOTAL_TERMS": 68,
+      "POR_ESCOPO": {
+        "IT_ONLY": 51,
+        "FR_ONLY": 6,
+        "ES_ONLY": 5,
+        "SCIENTIFIC_LATIN": 5,
+        "UNKNOWN": 1
+      },
+      "CLASSIFIED": 67,
+      "UNKNOWN": 1,
+      "FECHA": true,
+      "FOREIGN_ONLY": 11,
+      "CONSUMERS": [
+        ".github/workflows/apify-sensores.yml"
+      ],
+      "TERMOS": [
+        {
+          "termo": "repilo del olivo",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "Venturia oleaginea olivo",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "repilo olivar tratamiento",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "jornada tecnica olivar repilo",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "septoria trigo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "septoriosis del trigo",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "Zymoseptoria tritici trigo",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "jornada tecnica cereal septoria",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "flavescenza dorata vite",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "flavescenza dorata vigneto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "giallumi della vite",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "convegno flavescenza dorata",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "fusariosi grano duro",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "micotossine grano duro",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "fusariosi della spiga",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "convegno grano duro micotossine",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "mildiou de la vigne",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "Plasmopara viticola vigne",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "mildiou vigne traitement",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "webinaire mildiou vigne",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "septoriose du ble",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "Zymoseptoria tritici ble",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "septoriose ble traitement",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "webinaire septoriose ble",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "diserbo del mais",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "infestanti del mais",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo mais pre-emergenza",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo mais post-emergenza",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo dei cereali",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo del grano infestanti",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "loietto resistente frumento",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "avena resistente diserbo grano",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "amaranto resistente soia",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo della soia",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "infestanti resistenti soia",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "resistenza erbicidi soia",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo barbabietola da zucchero",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo bietola",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "infestanti barbabietola",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo bietola post-emergenza",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo del riso",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "riso crodo diserbo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "giavone risaia",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo risaia infestanti",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ticchiolatura del melo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "difesa del melo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ticchiolatura melo trattamenti",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "melo maculatura bruna",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo del vigneto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "gestione del sottofila vigneto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "inerbimento vigneto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diserbo sottofila vite",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "mosca delle olive difesa",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "Bactrocera oleae olivo",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "monitoraggio mosca olivo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "trattamento mosca olive",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "septoriosi del frumento",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "malattie fogliari frumento",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "difesa cereali a paglia",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ruggine gialla frumento",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "afidi del melo difesa",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "carpocapsa del melo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "insetticidi melo difesa",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "difesa melo insetti",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "peronospora del pomodoro",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "difesa pomodoro malattie",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "alternaria pomodoro",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "botrite pomodoro difesa",
+          "escopo": "IT_ONLY"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "rotulos_censo.TERMOS",
+      "FILE": "regras/rotulos_censo.py",
+      "OWNER": "regras",
+      "ROLE": "EXTRACAO",
+      "O_QUE_E": "os termos que se procuram DENTRO do rotulo ja baixado",
+      "TOTAL_TERMS": 35,
+      "POR_ESCOPO": {
+        "SCIENTIFIC_LATIN": 17,
+        "IT_ONLY": 11,
+        "UNKNOWN": 7
+      },
+      "CLASSIFIED": 28,
+      "UNKNOWN": 7,
+      "FECHA": true,
+      "FOREIGN_ONLY": 0,
+      "CONSUMERS": [],
+      "TERMOS": [
+        {
+          "termo": "scaphoideus",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "scafoideo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "flavescenza",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "giallumi della vite",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "bactrocera oleae",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "mosca dell.oliva",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "mosca dell.olivo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "bactrocera dorsalis",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "bactrocera zonata",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "occhio di pavone",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "spilocaea",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "cicloconio",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "venturia oleaginea",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "olivo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "oliveto",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "olive da",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "olivicol",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ticchiolatura",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "venturia inaequalis",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "halyomorpha",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "cimice asiatica",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "diabrotica",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "ostrinia",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "piralide",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "fusarium",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "fusarios",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "zymoseptoria",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "septoria",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "septorios",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "echinochloa",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "giavone",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "riso crodo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ambrosia artemisiifolia",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "popillia japonica",
+          "escopo": "SCIENTIFIC_LATIN"
+        },
+        {
+          "termo": "xylella",
+          "escopo": "SCIENTIFIC_LATIN"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "sensor_medir.OBSERVACAO_CAMPO",
+      "FILE": "regras/sensor_medir.py",
+      "OWNER": "regras",
+      "ROLE": "CLASSIFICACAO",
+      "O_QUE_E": "fala de campo",
+      "TOTAL_TERMS": 20,
+      "POR_ESCOPO": {
+        "UNKNOWN": 10,
+        "ES_ONLY": 5,
+        "IT_ONLY": 5
+      },
+      "CLASSIFIED": 10,
+      "UNKNOWN": 10,
+      "FECHA": true,
+      "FOREIGN_ONLY": 5,
+      "CONSUMERS": [
+        "coleta/youtube_relevancia.py",
+        "leis/regua_italia.py",
+        "provas/testa_coleta_canonica.py"
+      ],
+      "TERMOS": [
+        {
+          "termo": "hemos observado",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "se ha detectado",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "hemos detectado",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "en campo hemos",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "abbiamo osservato",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "abbiamo rilevato",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "in campo abbiamo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "si e osservato",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "nous avons observe",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "on a observe",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "nous avons constate",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "au champ",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "observamos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "detectamos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "primeros sintomas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "primi sintomi",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "premiers symptomes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "este ano hemos",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "quest'anno abbiamo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "cette annee",
+          "escopo": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "sensor_medir.PESQUISA",
+      "FILE": "regras/sensor_medir.py",
+      "OWNER": "regras",
+      "ROLE": "CLASSIFICACAO",
+      "O_QUE_E": "producao de pesquisa",
+      "TOTAL_TERMS": 16,
+      "POR_ESCOPO": {
+        "ES_ONLY": 6,
+        "IT_ONLY": 5,
+        "UNKNOWN": 4,
+        "FR_ONLY": 1
+      },
+      "CLASSIFIED": 12,
+      "UNKNOWN": 4,
+      "FECHA": true,
+      "FOREIGN_ONLY": 7,
+      "CONSUMERS": [
+        "coleta/youtube_relevancia.py",
+        "leis/regua_italia.py",
+        "provas/testa_coleta_canonica.py"
+      ],
+      "TERMOS": [
+        {
+          "termo": "nuestro estudio",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "nuestros resultados",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "el ensayo",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "los ensayos",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "nostro studio",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "i nostri risultati",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "la prova",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "le prove sperimentali",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "notre etude",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "nos resultats",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "essai",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "experimental",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ensayo de campo",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "resultados del ensayo",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "publicamos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "abbiamo pubblicato",
+          "escopo": "IT_ONLY"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "sensor_medir.INTERPRETACAO",
+      "FILE": "regras/sensor_medir.py",
+      "OWNER": "regras",
+      "ROLE": "CLASSIFICACAO",
+      "O_QUE_E": "leitura tecnica",
+      "TOTAL_TERMS": 17,
+      "POR_ESCOPO": {
+        "UNKNOWN": 7,
+        "ES_ONLY": 4,
+        "IT_ONLY": 4,
+        "FR_ONLY": 2
+      },
+      "CLASSIFIED": 10,
+      "UNKNOWN": 7,
+      "FECHA": true,
+      "FOREIGN_ONLY": 6,
+      "CONSUMERS": [
+        "coleta/youtube_relevancia.py",
+        "leis/regua_italia.py",
+        "provas/testa_coleta_canonica.py"
+      ],
+      "TERMOS": [
+        {
+          "termo": "esto significa",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "esto se debe",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "la razon es",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "por lo tanto",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "questo significa",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "questo e dovuto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "quindi",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "percio",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "cela signifie",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "cela est du",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "donc",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "par consequent",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "recomendamos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "raccomandiamo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "nous recommandons",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "se recomienda",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "si consiglia",
+          "escopo": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "sensor_medir.PRIMEIRA_PESSOA",
+      "FILE": "regras/sensor_medir.py",
+      "OWNER": "regras",
+      "ROLE": "CLASSIFICACAO",
+      "O_QUE_E": "quem viu com os olhos",
+      "TOTAL_TERMS": 51,
+      "POR_ESCOPO": {
+        "UNKNOWN": 24,
+        "IT_ONLY": 16,
+        "ES_ONLY": 10,
+        "FR_ONLY": 1
+      },
+      "CLASSIFIED": 27,
+      "UNKNOWN": 24,
+      "FECHA": true,
+      "FOREIGN_ONLY": 11,
+      "CONSUMERS": [
+        "coleta/youtube_relevancia.py",
+        "leis/regua_italia.py",
+        "provas/testa_coleta_canonica.py"
+      ],
+      "TERMOS": [
+        {
+          "termo": "en mi finca",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "en mi olivar",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "en mi parcela",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "mis olivos",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "mi cultivo",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "aqui en mi",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "tengo el problema",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "me paso",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "nos paso",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "aplicamos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "he aplicado",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "hemos aplicado",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "no me funciono",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "no funciono",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "nel mio campo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "nel mio vigneto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "nella mia azienda",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "i miei vitigni",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "i miei olivi",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "i miei vigneti",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "la mia azienda",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "il mio vigneto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ho applicato",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "abbiamo applicato",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "non ha funzionato",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "dans ma parcelle",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "dans mon vignoble",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "chez moi",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "j'ai applique",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "nous avons applique",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ca n a pas marche",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "nel mio mais",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "il mio mais",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "la mia soia",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "il mio grano",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "il mio frumento",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "nei miei campi",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "i miei campi",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "nel mio terreno",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "il mio terreno",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ho diserbato",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "abbiamo diserbato",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ho seminato",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "abbiamo seminato",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ho trattato",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "abbiamo trattato",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ho usato",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "abbiamo usato",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ho fatto il diserbo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ho provato",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "non mi ha funzionato",
+          "escopo": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "sensor_medir.EVENTO",
+      "FILE": "regras/sensor_medir.py",
+      "OWNER": "regras",
+      "ROLE": "CLASSIFICACAO",
+      "O_QUE_E": "convite e feira",
+      "TOTAL_TERMS": 14,
+      "POR_ESCOPO": {
+        "FR_ONLY": 4,
+        "UNKNOWN": 4,
+        "ES_ONLY": 3,
+        "IT_ONLY": 3
+      },
+      "CLASSIFIED": 10,
+      "UNKNOWN": 4,
+      "FECHA": true,
+      "FOREIGN_ONLY": 7,
+      "CONSUMERS": [
+        "coleta/youtube_relevancia.py",
+        "leis/regua_italia.py",
+        "provas/testa_coleta_canonica.py"
+      ],
+      "TERMOS": [
+        {
+          "termo": "jornada",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "congreso",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "convegno",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "giornata",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "colloque",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "journee",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "webinar",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "webinaire",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "seminario",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "inscripcion",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "iscrizione",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "inscription",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "programa del",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "programma del",
+          "escopo": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "sensor_medir.MARKETING",
+      "FILE": "regras/sensor_medir.py",
+      "OWNER": "regras",
+      "ROLE": "CLASSIFICACAO",
+      "O_QUE_E": "propaganda",
+      "TOTAL_TERMS": 12,
+      "POR_ESCOPO": {
+        "ES_ONLY": 5,
+        "UNKNOWN": 3,
+        "IT_ONLY": 2,
+        "FR_ONLY": 2
+      },
+      "CLASSIFIED": 9,
+      "UNKNOWN": 3,
+      "FECHA": true,
+      "FOREIGN_ONLY": 7,
+      "CONSUMERS": [
+        "coleta/youtube_relevancia.py",
+        "leis/regua_italia.py",
+        "provas/testa_coleta_canonica.py"
+      ],
+      "TERMOS": [
+        {
+          "termo": "nuestro producto",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "compra",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "disponible en tienda",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "oferta",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "nostro prodotto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "acquista",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "notre produit",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "achetez",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "suscribete",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "iscriviti",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "abonnez-vous",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "suscríbete",
+          "escopo": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "sensor_medir.NOTICIA",
+      "FILE": "regras/sensor_medir.py",
+      "OWNER": "regras",
+      "ROLE": "CLASSIFICACAO",
+      "O_QUE_E": "release e imprensa",
+      "TOTAL_TERMS": 9,
+      "POR_ESCOPO": {
+        "ES_ONLY": 4,
+        "IT_ONLY": 2,
+        "UNKNOWN": 2,
+        "FR_ONLY": 1
+      },
+      "CLASSIFIED": 7,
+      "UNKNOWN": 2,
+      "FECHA": true,
+      "FOREIGN_ONLY": 5,
+      "CONSUMERS": [
+        "coleta/youtube_relevancia.py",
+        "leis/regua_italia.py",
+        "provas/testa_coleta_canonica.py"
+      ],
+      "TERMOS": [
+        {
+          "termo": "segun informa",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "fuente:",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "redaccion",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "secondo quanto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "fonte:",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "d'apres",
+          "escopo": "FR_ONLY"
+        },
+        {
+          "termo": "source :",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "comunicado de prensa",
+          "escopo": "ES_ONLY"
+        },
+        {
+          "termo": "comunicato stampa",
+          "escopo": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "VOCABULARY_ID": "admissao.PERGUNTAS_DO_UNIVERSO",
+      "FILE": "admissao/admissao.py",
+      "OWNER": "admissao",
+      "ROLE": "ADMISSAO",
+      "O_QUE_E": "as palavras que decidem se o item pertence ao universo pedido",
+      "TOTAL_TERMS": 57,
+      "POR_ESCOPO": {
+        "IT_ONLY": 28,
+        "PT_ONLY": 20,
+        "SHARED_MULTILINGUAL": 6,
+        "INTERNATIONAL": 2,
+        "UNKNOWN": 1
+      },
+      "CLASSIFIED": 56,
+      "UNKNOWN": 1,
+      "FECHA": true,
+      "FOREIGN_ONLY": 0,
+      "CONSUMERS": [
+        "orquestrador/orquestrador.py",
+        "provas/testa_coleta_canonica.py",
+        "system-map/tests/test_system_map.py"
+      ],
+      "TERMOS": [
+        {
+          "termo": "doi",
+          "escopo": "INTERNATIONAL"
+        },
+        {
+          "termo": "orcid",
+          "escopo": "INTERNATIONAL"
+        },
+        {
+          "termo": "estudo",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "ensaio",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "pesquisa",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "revista",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "artigo",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "universidade",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "instituto",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "publicacao",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "studio",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "prova",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ricerca",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "rivista",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "articolo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "universita",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "istituto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "pubblicazione",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "convegno",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "sperimentazione",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "tesi",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "concorrente",
+          "escopo": "SHARED_MULTILINGUAL"
+        },
+        {
+          "termo": "evento",
+          "escopo": "SHARED_MULTILINGUAL"
+        },
+        {
+          "termo": "lancamento",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "campanha",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "produto",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "anuncio",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "lancio",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "campagna",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "prodotto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "annuncio",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "novita",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "fiera",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "registro",
+          "escopo": "SHARED_MULTILINGUAL"
+        },
+        {
+          "termo": "ministero",
+          "escopo": "SHARED_MULTILINGUAL"
+        },
+        {
+          "termo": "decreto",
+          "escopo": "SHARED_MULTILINGUAL"
+        },
+        {
+          "termo": "autorizacao",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "rotulo",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "bula",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "autorizzazione",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "etichetta",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "foglietto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "registrazione",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "gazzetta",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "fungo",
+          "escopo": "SHARED_MULTILINGUAL"
+        },
+        {
+          "termo": "praga",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "doenca",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "inseto",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "infestacao",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "sintoma",
+          "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "parassita",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "malattia",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "insetto",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "infestazione",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "sintomo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "avversita",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "patogeno",
+          "escopo": "IT_ONLY"
+        }
+      ]
+    }
+  ],
+  "COUNTS": {
+    "vocabularios": 10,
+    "termos_ao_todo": 299,
+    "por_papel": {
+      "ADMISSAO": 57,
+      "BUSCA": 68,
+      "CLASSIFICACAO": 139,
+      "EXTRACAO": 35
+    },
+    "estrangeiros_ao_todo": 59,
+    "todas_as_contas_fecham": true
+  }
+}
