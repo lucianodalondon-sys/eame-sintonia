@@ -539,6 +539,40 @@ def origem_da_captura(cadeia):
     return (ORIGEM_BUSCA if not faltam else ORIGEM_NAO_PROVADA), faltam
 
 
+def contrato_provado(ped, run_dir, repo=None):
+    """Trava do LAB/coordenador (02/10): BUSCA_ATIVA so quando o Source Contract foi CONFERIDO na rodada e a copia na
+    pasta e byte a byte o ficheiro do commit PUBLICADO do Bot de Fontes (`git show <commit>:<caminho>`).
+    Devolve a lista do que falta (vazia = provado). Nada aqui rejeita o documento: so impede chama-lo busca ativa."""
+    import subprocess
+    repo = str(repo or RAIZ)
+    if ped.get("CONTRATO_CONFERIDO") != "SIM":
+        return ["CONTRATO_NAO_CONFERIDO"]
+    copia = Path(run_dir) / "SOURCE_CONTRACT.json"
+    if not copia.exists():
+        return ["CONTRATO_SEM_COPIA_NA_RODADA"]
+    bts = copia.read_bytes()
+    if hashlib.sha256(bts).hexdigest() != ped.get("SOURCE_CONTRACT_SHA256"):
+        return ["CONTRATO_COPIA_DIVERGE_DO_SHA"]
+    commit, caminho = ped.get("SOURCE_CONTRACT_COMMIT") or "", ped.get("SOURCE_CONTRACT_PATH") or ""
+    if not re.fullmatch(r"[0-9a-f]{40}", commit) or not caminho:
+        return ["CONTRATO_SEM_COMMIT_PUBLICADO"]
+    if not subprocess.run(["git", "-C", repo, "branch", "-r", "--contains", commit],
+                          capture_output=True, text=True).stdout.strip():
+        return ["CONTRATO_SEM_COMMIT_PUBLICADO"]
+    g = subprocess.run(["git", "-C", repo, "show", "%s:%s" % (commit, caminho)], capture_output=True)
+    if g.returncode != 0 or g.stdout != bts:
+        return ["CONTRATO_COPIA_DIFERE_DO_PUBLICADO"]
+    try:
+        sc = json.loads(bts.decode("utf-8"))
+    except ValueError:
+        return ["CONTRATO_ILEGIVEL"]
+    falta = ["CONTRATO_DIVERGE_" + k for k in ("SOURCE_CONTRACT_ID", "CASE_ID", "EVIDENCE_REQUEST_ID", "SOURCE_ID")
+             if sc.get(k) != ped.get(k)]
+    if str(sc.get("APROVADA_PARA_CAPTURA")).upper() not in ("SIM", "TRUE"):
+        falta.append("CONTRATO_NAO_APROVADO_PARA_CAPTURA")
+    return falta
+
+
 def cmd_incorporar(cid, er_id, run_dir):
     """Liga documentos de uma rodada de captura PEDIDA ao caso. O pedido tem de existir no CASO.json do caso e o
     PEDIDO.json tem de ter o mesmo CASE_ID/ER_ID. A ORIGEM de cada documento vem de origem_da_captura (7 elos +
@@ -558,6 +592,7 @@ def cmd_incorporar(cid, er_id, run_dir):
         if f.get("ESTADO") != "REJEITADO":
             por_doc.setdefault(f["DOCUMENT_ID"], f)
     criado = er_criado_em(er_id)
+    falta_contrato = contrato_provado(ped, run_dir)
     cadeia_por_doc = OrderedDict()
     for did, f in por_doc.items():
         c = OrderedDict([
@@ -578,6 +613,12 @@ def cmd_incorporar(cid, er_id, run_dir):
             ("SOURCE_DATE_ISO", ped.get("SOURCE_DATE_ISO") or "NAO_SEI"),
             ("FACT_TIME", ped.get("FACT_TIME") or "UNKNOWN")])
         c["ORIGEM"], c["FALTAM_NA_CADEIA"] = origem_da_captura(c)
+        c["CONTRATO_CONFERIDO"] = "NAO" if falta_contrato else "SIM"
+        c["SOURCE_CONTRACT_COMMIT"] = ped.get("SOURCE_CONTRACT_COMMIT")
+        if falta_contrato:
+            c["FALTAM_NA_CADEIA"] = c["FALTAM_NA_CADEIA"] + falta_contrato
+            if c["ORIGEM"] == ORIGEM_BUSCA:
+                c["ORIGEM"] = ORIGEM_NAO_PROVADA
         # o documento continua evidencia historica; so nao se chama BUSCA_ATIVA sem a cadeia inteira
         c["BUSCA_ATIVA"], c["LINEAGE"] = ("SIM", "COMPLETA") if c["ORIGEM"] == ORIGEM_BUSCA else ("NAO", "PARCIAL")
         cadeia_por_doc[did] = c

@@ -307,7 +307,42 @@ class IncorporarCadeia(unittest.TestCase):
     """incorporar sobre uma pasta de rodada pedida: DOCUMENT_ID do ledger = DOCUMENT_KEY do RAW nomeado no pedido."""
     ER = "ER-CASE-001-CAMPO_COOPERATIVA"
 
-    def montar(self, ped_kw=None, doc_kw=None):
+    SC = {"SOURCE_CONTRACT_ID": "SC-CASE001-ER02-001", "CASE_ID": "CASE-001",
+          "EVIDENCE_REQUEST_ID": "ER-CASE-001-CAMPO_COOPERATIVA", "SOURCE_ID": "IT-NOVA-001",
+          "APROVADA_PARA_CAPTURA": "SIM"}
+
+    @classmethod
+    def setUpClass(cls):
+        """Repositorio git com remoto: o Source Contract e PUBLICADO como o Bot de Fontes faria."""
+        import subprocess as sp
+        cls.git_dir = Path(tempfile.mkdtemp())
+        g = lambda *a, cwd=None: sp.run(["git"] + list(a), cwd=cwd, capture_output=True, check=True)
+        g("init", "--bare", "-q", str(cls.git_dir / "remoto.git"))
+        cls.repo = cls.git_dir / "repo"
+        g("clone", "-q", str(cls.git_dir / "remoto.git"), str(cls.repo))
+        for k, v in (("user.email", "t@t"), ("user.name", "t")):
+            g("config", k, v, cwd=cls.repo)
+        (cls.repo / "fontes").mkdir()
+        cls.sc_bytes = json.dumps(cls.SC).encode("utf-8")
+        (cls.repo / "fontes" / "SC.json").write_bytes(cls.sc_bytes)
+        g("add", ".", cwd=cls.repo)
+        g("commit", "-q", "-m", "sc", cwd=cls.repo)
+        g("push", "origin", "HEAD:refs/heads/main", cwd=cls.repo)
+        g("fetch", "origin", cwd=cls.repo)
+        cls.pub = g("rev-parse", "HEAD", cwd=cls.repo).stdout.decode().strip()
+        (cls.repo / "fontes" / "SC.json").write_bytes(cls.sc_bytes.replace(b"SIM", b"NAO"))
+        g("commit", "-q", "-am", "local", cwd=cls.repo)
+        cls.local = g("rev-parse", "HEAD", cwd=cls.repo).stdout.decode().strip()
+
+    def setUp(self):
+        self._raiz = K.RAIZ
+        K.RAIZ = self.repo
+
+    def tearDown(self):
+        K.RAIZ = self._raiz
+
+    def montar(self, ped_kw=None, doc_kw=None, copia=None):
+        import hashlib
         import shutil
         base = Path(tempfile.mkdtemp())
         K.DADOS, K.CASOS = base, base / "CASOS"
@@ -323,11 +358,15 @@ class IncorporarCadeia(unittest.TestCase):
         run.mkdir()
         ped = {"CASE_ID": "CASE-001", "EVIDENCE_REQUEST_ID": self.ER, "SOURCE_CONTRACT_ID": "SC-CASE001-ER02-001",
                "SOURCE_ID": "IT-NOVA-001", "DOCUMENT_ID": "LIBERACR:103526", "RAW_ASSET_IDS": [9001],
-               "JA_ESTAVA_NO_ATLAS": "NAO", "SOURCE_DATE_ISO": "2026-09-13T08:15:00+02:00", "FACT_TIME": "UNKNOWN"}
+               "JA_ESTAVA_NO_ATLAS": "NAO", "SOURCE_DATE_ISO": "2026-09-13T08:15:00+02:00", "FACT_TIME": "UNKNOWN",
+               "CONTRATO_CONFERIDO": "SIM", "SOURCE_CONTRACT_COMMIT": self.pub, "SOURCE_CONTRACT_PATH": "fontes/SC.json"}
+        copia = self.sc_bytes if copia is None else copia
+        ped["SOURCE_CONTRACT_SHA256"] = hashlib.sha256(copia).hexdigest()
         ped.update(ped_kw or {})
         doc = {"DOCUMENT_ID": "RAW-9001", "RAW_ASSET_ID": 9001, "DOCUMENT_KEY": "LIBERACR:103526", "SHA_CONFERE": True}
         doc.update(doc_kw or {})
         (run / "PEDIDO.json").write_text(json.dumps(ped), encoding="utf-8")
+        (run / "SOURCE_CONTRACT.json").write_bytes(copia)
         (run / "DOCUMENTOS_FAST.json").write_text(json.dumps([doc]), encoding="utf-8")
         (run / "FACTS_FAST.json").write_text(json.dumps({"FATOS": [{
             "FACT_ID": "F-RAW-9001-01", "DOCUMENT_ID": "RAW-9001", "SOURCE_ID": "IT-NOVA-001",
@@ -350,9 +389,33 @@ class IncorporarCadeia(unittest.TestCase):
         self.assertEqual(self.montar(ped_kw={"RAW_ASSET_IDS": [1]})["ORIGEM"], K.ORIGEM_NAO_PROVADA)
         self.assertEqual(self.montar(doc_kw={"SHA_CONFERE": False})["ORIGEM"], K.ORIGEM_NAO_PROVADA)
 
+    def test_sc_preenchido_mas_rodado_sem_contrato_e_parcial(self):
+        """Furo do LAB em 71e645d81: SOURCE_CONTRACT_ID escrito a mao no PEDIDO, sem --contrato -> COMPLETA."""
+        c = self.montar(ped_kw={"CONTRATO_CONFERIDO": "NAO"})
+        self.assertEqual((c["ORIGEM"], c["BUSCA_ATIVA"], c["LINEAGE"]), (K.ORIGEM_NAO_PROVADA, "NAO", "PARCIAL"))
+        self.assertIn("CONTRATO_NAO_CONFERIDO", c["FALTAM_NA_CADEIA"])
+
+    def test_copia_que_nao_e_o_ficheiro_publicado_e_parcial(self):
+        """Ponto do dono: o sha da copia prova so que os bytes nao mudaram; a origem e o commit publicado."""
+        outra = self.sc_bytes.replace(b"IT-NOVA-001", b"IT-NOVA-001 ")
+        c = self.montar(copia=outra)
+        self.assertIn("CONTRATO_COPIA_DIFERE_DO_PUBLICADO", c["FALTAM_NA_CADEIA"])
+        self.assertEqual(c["LINEAGE"], "PARCIAL")
+
+    def test_commit_so_local_nao_publicado_e_parcial(self):
+        c = self.montar(ped_kw={"SOURCE_CONTRACT_COMMIT": self.local}, copia=self.sc_bytes.replace(b"SIM", b"NAO"))
+        self.assertIn("CONTRATO_SEM_COMMIT_PUBLICADO", c["FALTAM_NA_CADEIA"])
+        self.assertEqual(c["BUSCA_ATIVA"], "NAO")
+
+    def test_sha_no_pedido_diferente_da_copia_e_parcial(self):
+        c = self.montar(ped_kw={"SOURCE_CONTRACT_SHA256": "0" * 64})
+        self.assertIn("CONTRATO_COPIA_DIVERGE_DO_SHA", c["FALTAM_NA_CADEIA"])
+
     def test_sem_contrato_registra_e_segue(self):
         c = self.montar(ped_kw={"SOURCE_CONTRACT_ID": None})
-        self.assertEqual((c["ORIGEM"], c["FALTAM_NA_CADEIA"]), (K.ORIGEM_NAO_PROVADA, ["SOURCE_CONTRACT_ID"]))
+        # PEDIDO sem SC e contrato publicado com SC: falta o campo E o pedido diverge do contrato (os dois ditos)
+        self.assertEqual((c["ORIGEM"], c["FALTAM_NA_CADEIA"]),
+                         (K.ORIGEM_NAO_PROVADA, ["SOURCE_CONTRACT_ID", "CONTRATO_DIVERGE_SOURCE_CONTRACT_ID"]))
 
     def test_lineage_completa_so_com_cadeia_inteira(self):
         c = self.montar()

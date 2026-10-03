@@ -121,15 +121,39 @@ def ler_pedido(caminho):
     return d
 
 
-def conferir_contrato(ped, caminho):
-    """`--contrato SOURCE_CONTRACT.json`: o PEDIDO tem de dizer o MESMO que o Source Contract do Bot de Fontes
-    (SOURCE_CONTRACT_ID, CASE_ID, EVIDENCE_REQUEST_ID, SOURCE_ID) e a fonte tem de estar aprovada para captura.
-    Divergencia recusa a rodada: nao se escolhe um dos dois."""
-    p = Path(caminho)
+def contrato_publicado(ref, repo=None):
+    """`--contrato <COMMIT>:<CAMINHO>`: o Source Contract e lido do GIT, num commit PUBLICADO (contido numa branch
+    remota), nunca de um ficheiro solto -- o hash de uma copia prova que os bytes nao mudaram, nao de onde vieram.
+    Devolve (contrato, bytes, commit completo, caminho). Commit ausente, nao publicado ou caminho inexistente recusa."""
+    repo = repo or REPO
+    if not isinstance(ref, str) or ":" not in ref:
+        raise PedidoInvalido("--contrato exige <COMMIT>:<CAMINHO> publicado, nao %r" % (ref,))
+    commit, caminho = ref.split(":", 1)
+    r = subprocess.run(["git", "-C", repo, "rev-parse", "--verify", "--quiet", commit + "^{commit}"],
+                       capture_output=True, text=True)
+    full = r.stdout.strip()
+    if r.returncode != 0 or not re.fullmatch(r"[0-9a-f]{40}", full):
+        raise PedidoInvalido("commit do Source Contract inexistente aqui (git fetch?): %r" % commit)
+    remotas = subprocess.run(["git", "-C", repo, "branch", "-r", "--contains", full],
+                             capture_output=True, text=True).stdout.strip()
+    if not remotas:
+        raise PedidoInvalido("commit do Source Contract nao publicado (nenhuma branch remota o contem): %s" % full)
+    b = subprocess.run(["git", "-C", repo, "show", "%s:%s" % (full, caminho)], capture_output=True)
+    if b.returncode != 0:
+        raise PedidoInvalido("Source Contract inexistente em %s:%s" % (full, caminho))
     try:
-        sc = json.loads(p.read_text(encoding="utf-8"))
+        sc = json.loads(b.stdout.decode("utf-8"))
     except Exception as e:
-        raise PedidoInvalido("Source Contract ilegivel ou inexistente (%s: %r)" % (p, e))
+        raise PedidoInvalido("Source Contract ilegivel em %s:%s (%r)" % (full, caminho, e))
+    return sc, b.stdout, full, caminho
+
+
+def conferir_contrato(ped, sc):
+    """O PEDIDO tem de dizer o MESMO que o Source Contract do Bot de Fontes (SOURCE_CONTRACT_ID, CASE_ID,
+    EVIDENCE_REQUEST_ID, SOURCE_ID) e a fonte tem de estar aprovada para captura.
+    Divergencia recusa a rodada: nao se escolhe um dos dois."""
+    if not isinstance(sc, dict):
+        raise PedidoInvalido("Source Contract nao e um objeto")
     for k in ("SOURCE_CONTRACT_ID", "CASE_ID", "EVIDENCE_REQUEST_ID", "SOURCE_ID"):
         if sc.get(k) != ped.get(k):
             raise PedidoInvalido("%s do PEDIDO (%r) diverge do Source Contract (%r)" % (k, ped.get(k), sc.get(k)))
@@ -138,11 +162,19 @@ def conferir_contrato(ped, caminho):
     return sc
 
 
-def carimbar_pedido(pasta, pedido, run_id):
+def carimbar_pedido(pasta, pedido, run_id, contrato=None):
     """Escreve o `PEDIDO.json` DENTRO da pasta da rodada: e o elo que o `fast_casos` exige
     para aceitar a captura como BUSCA_ATIVA (sem este ficheiro ele recusa a incorporacao).
-    Ao pedido acrescenta-se apenas a identidade da rodada que o serviu."""
-    json.dump(dict(pedido, RUN_ID=run_id, RODADA_PEDIDA=True),
+    Ao pedido acrescenta-se a identidade da rodada e, so quando `--contrato` foi conferido, a origem do contrato
+    (commit publicado + caminho + sha256 dos bytes) e a copia exata `SOURCE_CONTRACT.json`. Sem contrato conferido
+    a rodada corre, mas fica CONTRATO_CONFERIDO=NAO e o `fast_casos` nunca a chama BUSCA_ATIVA."""
+    extra = {"CONTRATO_CONFERIDO": "NAO"}
+    if contrato:
+        _sc, bts, commit, caminho = contrato
+        open(os.path.join(pasta, "SOURCE_CONTRACT.json"), "wb").write(bts)
+        extra = {"CONTRATO_CONFERIDO": "SIM", "SOURCE_CONTRACT_COMMIT": commit, "SOURCE_CONTRACT_PATH": caminho,
+                 "SOURCE_CONTRACT_SHA256": hashlib.sha256(bts).hexdigest()}
+    json.dump(dict(pedido, RUN_ID=run_id, RODADA_PEDIDA=True, **extra),
               open(os.path.join(pasta, "PEDIDO.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
@@ -211,7 +243,7 @@ def main():
     maximo = int(sys.argv[sys.argv.index("--max") + 1]) if "--max" in sys.argv else 20
     if "--por-fonte" in sys.argv:
         POR_FONTE = int(sys.argv[sys.argv.index("--por-fonte") + 1])
-    pedido = None
+    pedido, contrato = None, None
     if "--pedido" in sys.argv:
         if "--retomar" in sys.argv:
             log("ERRO --pedido e --retomar sao modos diferentes - nao corro")
@@ -219,7 +251,8 @@ def main():
         try:
             pedido = ler_pedido(sys.argv[sys.argv.index("--pedido") + 1])
             if "--contrato" in sys.argv:
-                conferir_contrato(pedido, sys.argv[sys.argv.index("--contrato") + 1])
+                contrato = contrato_publicado(sys.argv[sys.argv.index("--contrato") + 1])
+                conferir_contrato(pedido, contrato[0])
             novos = raws_do_pedido(pedido)
         except PedidoInvalido as e:
             log("ERRO --pedido recusado: %s (ULTIMA.txt inalterado)" % e)
@@ -254,7 +287,7 @@ def main():
         os.makedirs(pasta)
         json.dump(ids, open(os.path.join(pasta, "IDS.json"), "w", encoding="utf-8"))
         if pedido:
-            carimbar_pedido(pasta, pedido, run_id)
+            carimbar_pedido(pasta, pedido, run_id, contrato)
         primeiro = 0
     fontes = OrderedDict()
     for r in novos:
@@ -292,11 +325,16 @@ def main():
                           ("MODO", "PEDIDO" if pedido else "CICLO"),
                           ("PEDIDO", ({"CASE_ID": pedido["CASE_ID"], "EVIDENCE_REQUEST_ID": pedido["EVIDENCE_REQUEST_ID"],
                                        "SOURCE_CONTRACT_ID": pedido["SOURCE_CONTRACT_ID"], "SOURCE_ID": pedido["SOURCE_ID"],
+                                       "CONTRATO_CONFERIDO": "SIM" if contrato else "NAO",
+                                       "SOURCE_CONTRACT_COMMIT": contrato[2] if contrato else None,
+                                       "SOURCE_CONTRACT_PATH": contrato[3] if contrato else None,
+                                       "SOURCE_CONTRACT_SHA256": hashlib.sha256(contrato[1]).hexdigest() if contrato else None,
                                        "RAW_ASSET_IDS": pedido["RAW_ASSET_IDS"]} if pedido else None)),
                           ("SELECAO", {"MAX": maximo, "MAX_POR_FONTE": POR_FONTE, "FONTES": fontes})])
     json.dump(codigo, open(os.path.join(pasta, "CODIGO.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # SHA256SUMS: 4 JSON + cruzamento + raw_texto + codigo
     nomes = ARQS + ["CRUZAMENTO-COMERCIAL.json", "CODIGO.json", "IDS.json"] + (["PEDIDO.json"] if pedido else []) + \
+        (["SOURCE_CONTRACT.json"] if contrato else []) + \
         ["cruzamento-comercial/" + f for f in ("PROMPT.txt", "SAIDA_BRUTA_DO_MODELO.json", "CRUZAMENTO-COMERCIAL.json")] + \
         ["raw_texto/" + f for f in sorted(os.listdir(os.path.join(pasta, "raw_texto")))]
     with open(os.path.join(pasta, "SHA256SUMS.txt"), "w", encoding="utf-8", newline="\n") as f:

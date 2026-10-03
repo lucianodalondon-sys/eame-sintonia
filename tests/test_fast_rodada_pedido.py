@@ -171,9 +171,7 @@ class LinhagemDoContrato(unittest.TestCase):
         sc = {"SOURCE_CONTRACT_ID": "SC-CASE-001-0001", "CASE_ID": "CASE-001",
               "EVIDENCE_REQUEST_ID": "ER-CASE-001-FONTE_OFICIAL", "SOURCE_ID": "S-A", "APROVADA_PARA_CAPTURA": "SIM"}
         sc.update(kw)
-        p = os.path.join(t, "SOURCE_CONTRACT.json")
-        Path(p).write_text(json.dumps(sc), encoding="utf-8")
-        return p
+        return sc
 
     def test_contraprova_contrato_igual_ao_pedido_passa(self):
         with tempfile.TemporaryDirectory() as t:
@@ -186,6 +184,64 @@ class LinhagemDoContrato(unittest.TestCase):
                 with self.assertRaises(RF.PedidoInvalido, msg=str(kw)):
                     RF.conferir_contrato(_pedido(), self.contrato(t, **kw))
 
+    def test_carimbo_sem_contrato_conferido_diz_nao(self):
+        with tempfile.TemporaryDirectory() as t:
+            RF.carimbar_pedido(t, _pedido(), "FAST-X")
+            p = json.loads(Path(os.path.join(t, "PEDIDO.json")).read_text(encoding="utf-8"))
+            self.assertEqual(p["CONTRATO_CONFERIDO"], "NAO")
+            self.assertFalse(os.path.exists(os.path.join(t, "SOURCE_CONTRACT.json")))
+
+    def test_carimbo_com_contrato_copia_bytes_commit_e_sha(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as t:
+            bts = json.dumps(self.contrato(t)).encode("utf-8")
+            RF.carimbar_pedido(t, _pedido(), "FAST-X", (self.contrato(t), bts, "a" * 40, "fontes/SC.json"))
+            p = json.loads(Path(os.path.join(t, "PEDIDO.json")).read_text(encoding="utf-8"))
+            self.assertEqual((p["CONTRATO_CONFERIDO"], p["SOURCE_CONTRACT_COMMIT"], p["SOURCE_CONTRACT_PATH"],
+                              p["SOURCE_CONTRACT_SHA256"]), ("SIM", "a" * 40, "fontes/SC.json",
+                                                             hashlib.sha256(bts).hexdigest()))
+            self.assertEqual(Path(os.path.join(t, "SOURCE_CONTRACT.json")).read_bytes(), bts)
+
+
+class ContratoPublicadoNoGit(unittest.TestCase):
+    """O contrato vem de um commit PUBLICADO (`git show <commit>:<caminho>`), nunca de ficheiro solto."""
+
+    def setUp(self):
+        import subprocess as sp
+        self.t = tempfile.mkdtemp()
+        g = lambda *a, cwd=None: sp.run(["git"] + list(a), cwd=cwd, capture_output=True, text=True, check=True)
+        self.g = g
+        g("init", "--bare", "-q", os.path.join(self.t, "remoto.git"))
+        self.repo = os.path.join(self.t, "repo")
+        g("clone", "-q", os.path.join(self.t, "remoto.git"), self.repo)
+        for k, v in (("user.email", "t@t"), ("user.name", "t")):
+            g("config", k, v, cwd=self.repo)
+        os.makedirs(os.path.join(self.repo, "fontes"))
+        Path(self.repo, "fontes", "SC.json").write_text(json.dumps({"SOURCE_CONTRACT_ID": "SC-1"}), encoding="utf-8")
+        g("add", ".", cwd=self.repo)
+        g("commit", "-q", "-m", "sc", cwd=self.repo)
+        g("push", "origin", "HEAD:refs/heads/main", cwd=self.repo)
+        g("fetch", "origin", cwd=self.repo)
+        self.pub = g("rev-parse", "HEAD", cwd=self.repo).stdout.strip()
+
+    def test_contraprova_publicado_le_os_bytes_do_commit(self):
+        sc, bts, commit, cam = RF.contrato_publicado(self.pub[:10] + ":fontes/SC.json", self.repo)
+        self.assertEqual((sc["SOURCE_CONTRACT_ID"], commit, cam), ("SC-1", self.pub, "fontes/SC.json"))
+
+    def test_commit_nao_publicado_recusa(self):
+        Path(self.repo, "fontes", "SC.json").write_text(json.dumps({"SOURCE_CONTRACT_ID": "SC-2"}), encoding="utf-8")
+        self.g("commit", "-q", "-am", "local", cwd=self.repo)
+        local = self.g("rev-parse", "HEAD", cwd=self.repo).stdout.strip()
+        with self.assertRaises(RF.PedidoInvalido):
+            RF.contrato_publicado(local + ":fontes/SC.json", self.repo)
+
+    def test_ficheiro_solto_ou_caminho_inexistente_recusa(self):
+        for ref in ("C/x/SOURCE_CONTRACT.json", self.pub + ":fontes/OUTRO.json", "0" * 40 + ":fontes/SC.json"):
+            with self.assertRaises(RF.PedidoInvalido, msg=ref):
+                RF.contrato_publicado(ref, self.repo)
+
+
+class CarimboFonte(unittest.TestCase):
     def test_carimbo_leva_contrato_e_fonte(self):
         with tempfile.TemporaryDirectory() as t:
             RF.carimbar_pedido(t, _pedido(), "FAST-X")
