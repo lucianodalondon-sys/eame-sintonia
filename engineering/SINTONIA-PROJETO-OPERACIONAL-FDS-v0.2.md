@@ -9,13 +9,15 @@ A ordem atual do Owner é:
 ```text
 SIMPLIFICAR ATÉ FUNCIONAR
 
-INSTAGRAM + LINKEDIN + YOUTUBE
+SITES + PDF + INSTAGRAM + LINKEDIN + YOUTUBE + DEMAIS ROTAS QUE JÁ FUNCIONAM
 → CAPTURA
 → TEXTO / TRANSCRIÇÃO
 → OPUS
 → INTELIGÊNCIA
 → CASCO
 ```
+
+O Sintonia **coleta tudo**. Nenhum canal já funcional deve ser desligado para provar outro.
 
 Não usar este documento antigo para reabrir gates, réguas, contratos, coortes, validações ou arquitetura que bloqueiem a demonstração de segunda-feira.
 
