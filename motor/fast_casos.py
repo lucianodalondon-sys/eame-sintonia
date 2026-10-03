@@ -495,6 +495,127 @@ def cmd_incorporar(cid, er_id, run_dir):
     return 0
 
 
+# ---------------------------------------------------------------- 4. CASES[] dentro do CRUZAMENTO-COMERCIAL.json
+# Ordem do dono 02/10 (TESTE 1): sem tabela/ponte/persistencia nova; o Casco le CRUZAMENTO-COMERCIAL.json -> CASES[].
+# CASE = verdade; DESTINO = apresentacao (vem da classe pela regra unica FC.DESTINO_DA_CLASSE, nunca recalculada).
+#: elos que o dono manda mostrar como NAO_SEI ate haver evidencia (nunca GAP, nunca A_CONFIRMAR no ecra)
+ELOS_NAO_SEI_ATE_EVIDENCIA = ("PRODUTO_ADAMA", "LABEL", "JANELA")
+
+
+def caso_para_cases(C, reg_caso):
+    """Projeta o CASO.json (dossie) nas chaves do dono. So renomeia/copia; valida ligacoes; nada se inventa."""
+    cid = C["case_id"]
+    ers = []
+    for e in C["evidence_requests"]:
+        ers.append(OrderedDict([
+            ("EVIDENCE_REQUEST_ID", e["id"]), ("CASE_ID", cid), ("PERGUNTA", e.get("pergunta_pt")),
+            ("PERGUNTA_IT", e.get("pergunta_it")), ("ELO_ALVO", e.get("elos_que_destrava") or []),
+            ("TIPO_DE_FONTE_DESEJADA", e.get("tipos_de_fonte") or []),
+            ("FATO_OU_CHAVE_QUE_FALTA", e.get("fato_ou_chave_que_falta")),
+            ("STATUS", e.get("estado") or "ABERTO")]))
+    er_ids = {e["EVIDENCE_REQUEST_ID"] for e in ers}
+    tl = []
+    for t in C["timeline"]:
+        tl.append(OrderedDict([
+            ("DATA", t["data"]), ("TIPO_DATA", t.get("tipo_data")), ("TITULO_CURTO_IT", t.get("titulo_curto_it")),
+            ("O_QUE_ACRESCENTOU_IT", t.get("o_que_acrescentou_it")), ("TIPO_FONTE", t.get("tipo_fonte")),
+            ("URL", t.get("url")), ("SOURCE_ID", t.get("source_id")), ("DOCUMENT_ID", t.get("document_id")),
+            ("ORIGEM", t.get("origem")), ("EVIDENCE_REQUEST_ID", t.get("evidence_request_id")),
+            ("FACT_IDS", t.get("fact_ids") or []), ("RAW_SHA256", t.get("raw_sha256")), ("RODADA", t.get("rodada"))]))
+    falt = []
+    for f in C["elos_faltantes"]:
+        est = f["estado"]
+        detalhe = None
+        if f["elo"] in ELOS_NAO_SEI_ATE_EVIDENCIA and est != "NAO_SEI":
+            detalhe, est = est, "NAO_SEI"
+        falt.append(OrderedDict([("ELO", f["elo"]), ("ESTADO", est), ("ESTADO_DETALHE", detalhe),
+                                 ("POR_QUE_IT", f.get("por_que")), ("EVIDENCE_REQUEST_ID", f.get("evidence_request_id"))]))
+    enc = [OrderedDict([("ELO", e["elo"]), ("VALOR", e.get("valor")), ("FACT_IDS", e.get("fact_ids") or []),
+                        ("DOCUMENT_IDS", e.get("document_ids") or []), ("CONTEXTO_IDS", e.get("contexto_ids") or []),
+                        ("USE_IDS", e.get("use_ids") or [])]) for e in C["elos_encontrados"]]
+    classe = C["classificacao"]
+    caso = OrderedDict([
+        ("CASE_ID", cid), ("TITULO_IT", C.get("titolo_it")), ("CLASSIFICACAO", classe),
+        ("DESTINO_FERRAMENTA", FC.DESTINO_DA_CLASSE.get(classe)),
+        ("ACAO_ATUAL_IT", C.get("acao_atual_it")), ("O_QUE_SABEMOS_IT", C.get("o_que_sabemos_it")),
+        ("O_QUE_FALTA_IT", C.get("o_que_falta_it")), ("POR_QUE_CLASSE_IT", C.get("por_que_classe_it")),
+        ("ATUALIZADO_EM", C.get("atualizado_em")),
+        ("TIMELINE", tl), ("ELOS_ENCONTRADOS", enc), ("ELOS_FALTANTES", falt), ("EVIDENCE_REQUESTS", ers),
+        ("OBJETOS_ABSORVIDOS", list(reg_caso["OBJETOS"])),
+        ("CONTAGEM", OrderedDict([("DOCUMENTOS", len({t["DOCUMENT_ID"] for t in tl})), ("EVENTOS_TIMELINE", len(tl)),
+                                  ("BUSCA_ATIVA", sum(1 for t in tl if t["ORIGEM"] == ORIGEM_BUSCA)),
+                                  ("ACHADO_POR_ACASO", sum(1 for t in tl if t["ORIGEM"] == ORIGEM_ACASO))])),
+        ("ESTADO", "EXPERIMENTAL / NAO_PARA_CLIENTE"), ("CODIGO_HEAD_DO_DOSSIE", C.get("CODIGO_HEAD"))])
+    conferir_case(caso, er_ids)
+    return caso
+
+
+def conferir_case(caso, er_ids=None):
+    """Impede referencia quebrada. BUSCA_ATIVA exige EVIDENCE_REQUEST_ID do proprio caso; so o achado por acaso
+    pode vir sem pedido. Elos do dono continuam NAO_SEI; NAO_SEI nunca vira GAP."""
+    er_ids = er_ids if er_ids is not None else {e["EVIDENCE_REQUEST_ID"] for e in caso["EVIDENCE_REQUESTS"]}
+    assert re.fullmatch(r"CASE-\d{3,}", caso["CASE_ID"] or ""), "CASE_ID mal formado"
+    for e in caso["EVIDENCE_REQUESTS"]:
+        assert e["CASE_ID"] == caso["CASE_ID"], "EVIDENCE_REQUEST de outro caso: %s" % e["EVIDENCE_REQUEST_ID"]
+    vistos = set()
+    for t in caso["TIMELINE"]:
+        assert t["DOCUMENT_ID"], "evento sem DOCUMENT_ID"
+        assert t["DOCUMENT_ID"] not in vistos, "documento repetido na timeline: %s" % t["DOCUMENT_ID"]
+        vistos.add(t["DOCUMENT_ID"])
+        assert t["ORIGEM"] in (ORIGEM_ACASO, ORIGEM_BUSCA), "ORIGEM fora da lista: %r" % t["ORIGEM"]
+        if t["ORIGEM"] == ORIGEM_BUSCA:
+            assert t["EVIDENCE_REQUEST_ID"] in er_ids, "BUSCA_ATIVA sem EVIDENCE_REQUEST_ID do caso (%s)" % t["DOCUMENT_ID"]
+        elif t["EVIDENCE_REQUEST_ID"]:
+            assert t["EVIDENCE_REQUEST_ID"] in er_ids, "EVIDENCE_REQUEST_ID inexistente (%s)" % t["DOCUMENT_ID"]
+    for f in caso["ELOS_FALTANTES"]:
+        assert f["ESTADO"] != "GAP", "NAO_SEI convertido em GAP (%s)" % f["ELO"]
+        if f["ELO"] in ELOS_NAO_SEI_ATE_EVIDENCIA:
+            assert f["ESTADO"] == "NAO_SEI", "%s deve ficar NAO_SEI ate evidencia" % f["ELO"]
+        if f["EVIDENCE_REQUEST_ID"]:
+            assert f["EVIDENCE_REQUEST_ID"] in er_ids, "elo aponta pedido inexistente (%s)" % f["ELO"]
+    assert caso["DESTINO_FERRAMENTA"] == FC.DESTINO_DA_CLASSE.get(caso["CLASSIFICACAO"]), "destino != regra da classe"
+    return True
+
+
+def cmd_anexar(run_dir):
+    """Escreve CASES[] (casos com dossie) no CRUZAMENTO-COMERCIAL.json da rodada (raiz + cruzamento-comercial/)
+    e reescreve as linhas desses ficheiros no SHA256SUMS.txt. O resto do ficheiro nao muda."""
+    reg = ler_registro()
+    conferir_registro(reg)
+    run_dir = Path(run_dir).resolve()
+    cases = [caso_para_cases(json.loads((CASOS / cid / "CASO.json").read_text(encoding="utf-8")), c)
+             for cid, c in reg["CASOS"].items() if (CASOS / cid / "CASO.json").exists()]
+    alvos = [run_dir / "CRUZAMENTO-COMERCIAL.json", run_dir / "cruzamento-comercial" / "CRUZAMENTO-COMERCIAL.json"]
+    J = json.loads(alvos[0].read_text(encoding="utf-8"))
+    antes = hashlib.sha256(alvos[0].read_bytes()).hexdigest()
+    J["CASES"] = cases
+    J["CASES_META"] = OrderedDict([("VERSAO", VERSAO), ("ANEXADO_EM", agora()), ("SHA256_ANTES_DOS_CASES", antes),
+                                   ("CODIGO_HEAD", FC.subprocess.run(["git", "-C", str(RAIZ), "rev-parse", "HEAD"],
+                                                                     capture_output=True, text=True).stdout.strip()),
+                                   ("REGRA", "CASE = verdade; DESTINO_FERRAMENTA = apresentacao pela classe")])
+    txt = json.dumps(J, ensure_ascii=False, indent=1)
+    for a in alvos:
+        a.write_text(txt, encoding="utf-8")
+    novo = hashlib.sha256(alvos[0].read_bytes()).hexdigest()
+    for sums, nomes in ((run_dir / "SHA256SUMS.txt", ("CRUZAMENTO-COMERCIAL.json", "cruzamento-comercial/CRUZAMENTO-COMERCIAL.json")),
+                        (run_dir / "cruzamento-comercial" / "SHA256SUMS.txt", ("CRUZAMENTO-COMERCIAL.json",))):
+        if not sums.exists():
+            continue
+        linhas = []
+        for l in sums.read_text(encoding="utf-8").splitlines():
+            h, _, n = l.partition(" ")
+            if n.lstrip(" *") in nomes:
+                l = "%s%s%s" % (novo, " ", n)
+            linhas.append(l)
+        with open(sums, "w", encoding="utf-8", newline="\n") as f:
+            f.write("\n".join(linhas) + "\n")
+    print(json.dumps({"RUN_DIR": str(run_dir), "SHA_ANTES": antes, "SHA_DEPOIS": novo,
+                      "CASES": [{"CASE_ID": c["CASE_ID"], "CLASSIFICACAO": c["CLASSIFICACAO"],
+                                 "DESTINO": c["DESTINO_FERRAMENTA"], **c["CONTAGEM"]} for c in cases]},
+                     ensure_ascii=False, indent=1))
+    return 0
+
+
 def main(argv):
     if len(argv) < 2:
         print(__doc__)
@@ -505,6 +626,8 @@ def main(argv):
         return cmd_dossie(argv[2])
     if argv[1] == "incorporar":
         return cmd_incorporar(argv[2], argv[3], argv[4])
+    if argv[1] == "anexar":
+        return cmd_anexar(argv[2])
     print(__doc__)
     return 2
 

@@ -154,5 +154,60 @@ class Dossie(unittest.TestCase):
         self.assertNotEqual(out["classificacao"], "OPORTUNIDADE")
 
 
+class Cases(unittest.TestCase):
+    """CASES[] no CRUZAMENTO-COMERCIAL.json (ordem do dono 02/10): so projecao + integridade."""
+    def caso(self, origem=K.ORIGEM_ACASO, er=None, prod="A_CONFIRMAR", classe="SINAL"):
+        return {"case_id": "CASE-001", "titolo_it": "t", "classificacao": classe, "acao_atual_it": "a",
+                "atualizado_em": "x", "CODIGO_HEAD": "h",
+                "timeline": [{"data": "2026-09-01", "document_id": "RAW-1", "source_id": "S1", "url": "u",
+                              "origem": origem, "evidence_request_id": er, "fact_ids": ["F1"]}],
+                "elos_encontrados": [{"elo": "PROBLEMA", "valor": "v", "fact_ids": ["F1"], "document_ids": ["RAW-1"]}],
+                "elos_faltantes": [{"elo": "PRODUTO_ADAMA", "estado": prod, "por_que": "p",
+                                    "evidence_request_id": "ER-CASE-001-ADAMA_LABEL"},
+                                   {"elo": "JANELA", "estado": "NAO_SEI", "por_que": "p", "evidence_request_id": None}],
+                "evidence_requests": [{"id": "ER-CASE-001-ADAMA_LABEL", "pergunta_pt": "?", "elos_que_destrava": ["LABEL"],
+                                       "tipos_de_fonte": ["ORGAO_OFICIAL"], "estado": "ABERTO"}]}
+
+    def test_chaves_do_dono_e_destino_pela_classe(self):
+        c = K.caso_para_cases(self.caso(), {"OBJETOS": ["R1#C01"]})
+        for k in ("CASE_ID", "TITULO_IT", "CLASSIFICACAO", "ACAO_ATUAL_IT", "ATUALIZADO_EM", "TIMELINE",
+                  "ELOS_ENCONTRADOS", "ELOS_FALTANTES", "EVIDENCE_REQUESTS"):
+            self.assertIn(k, c)
+        for k in ("DATA", "TITULO_CURTO_IT", "O_QUE_ACRESCENTOU_IT", "TIPO_FONTE", "URL", "SOURCE_ID", "DOCUMENT_ID",
+                  "ORIGEM", "EVIDENCE_REQUEST_ID"):
+            self.assertIn(k, c["TIMELINE"][0])
+        for k in ("EVIDENCE_REQUEST_ID", "CASE_ID", "PERGUNTA", "ELO_ALVO", "TIPO_DE_FONTE_DESEJADA", "STATUS"):
+            self.assertIn(k, c["EVIDENCE_REQUESTS"][0])
+        self.assertEqual(c["DESTINO_FERRAMENTA"], "FUTURE_RADAR")
+        self.assertEqual(c["OBJETOS_ABSORVIDOS"], ["R1#C01"])
+
+    def test_produto_adama_fica_nao_sei_nunca_gap(self):
+        c = K.caso_para_cases(self.caso(prod="A_CONFIRMAR"), {"OBJETOS": []})
+        p = [f for f in c["ELOS_FALTANTES"] if f["ELO"] == "PRODUTO_ADAMA"][0]
+        self.assertEqual((p["ESTADO"], p["ESTADO_DETALHE"]), ("NAO_SEI", "A_CONFIRMAR"))
+
+    def test_busca_ativa_sem_pedido_recusada(self):
+        with self.assertRaises(AssertionError):
+            K.caso_para_cases(self.caso(origem=K.ORIGEM_BUSCA, er=None), {"OBJETOS": []})
+        with self.assertRaises(AssertionError):
+            K.caso_para_cases(self.caso(origem=K.ORIGEM_BUSCA, er="ER-CASE-009-X"), {"OBJETOS": []})
+
+    def test_contraprova_busca_ativa_com_pedido_do_caso_passa(self):
+        c = K.caso_para_cases(self.caso(origem=K.ORIGEM_BUSCA, er="ER-CASE-001-ADAMA_LABEL"), {"OBJETOS": []})
+        self.assertEqual(c["CONTAGEM"]["BUSCA_ATIVA"], 1)
+
+    def test_nao_sei_convertido_em_gap_recusado(self):
+        c = K.caso_para_cases(self.caso(), {"OBJETOS": []})
+        c["ELOS_FALTANTES"][1]["ESTADO"] = "GAP"
+        with self.assertRaises(AssertionError):
+            K.conferir_case(c)
+
+    def test_destino_diferente_da_classe_recusado(self):
+        c = K.caso_para_cases(self.caso(), {"OBJETOS": []})
+        c["DESTINO_FERRAMENTA"] = "OPPORTUNITY_RADAR"
+        with self.assertRaises(AssertionError):
+            K.conferir_case(c)
+
+
 if __name__ == "__main__":
     unittest.main()
