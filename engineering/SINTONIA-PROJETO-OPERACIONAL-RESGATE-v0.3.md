@@ -37,9 +37,11 @@ Não apagar trabalho antigo. Não reconstruir a fundação. Apenas parar de deix
 A arquitetura inteira cabe nisto:
 
 ```text
+SITES / PDF
 INSTAGRAM
 LINKEDIN
 YOUTUBE
+OUTRAS FONTES QUE JÁ CONSEGUIMOS CAPTURAR
         ↓
 CAPTURA
         ↓
@@ -118,21 +120,30 @@ NAO_SEI
 
 ## 3. Fontes AGORA
 
-Até nova ordem:
+O Sintonia coleta **tudo o que já consegue capturar**.
 
 ```text
-INSTAGRAM = ATIVO
-LINKEDIN  = ATIVO
-YOUTUBE   = ATIVO
-
-SITES     = PAUSADO
-PDF       = PAUSADO
-WEB TRADICIONAL = PAUSADO
+SITES      = ATIVO
+PDF        = ATIVO
+INSTAGRAM  = ATIVO
+LINKEDIN   = ATIVO
+YOUTUBE    = ATIVO
+OUTRAS ROTAS EXISTENTES = ATIVAS, se já funcionam
 ```
 
-Não é uma decisão definitiva do produto.
+Não existe competição entre site e social. O objetivo é **volume útil vindo de todos os canais**.
 
-É uma missão operacional para provar e encher a camada social que já consumiu dias de desenvolvimento.
+A prioridade operacional é simples:
+
+```text
+NÃO PARAR O QUE JÁ FUNCIONA
++
+LIGAR TAMBÉM INSTAGRAM / LINKEDIN / YOUTUBE
++
+MANDAR TUDO PARA A IA
+```
+
+Sites e PDFs continuam fazendo parte da coleta. Social também. O erro a evitar é voltar a uma coleta que, na prática, só entrega sites.
 
 ### Fontes podem ser escolhidas manualmente
 
@@ -182,7 +193,7 @@ Não gastar dias tentando programar um filtro que adivinhe antes quais 300 serã
 
 ## 5. Registro mínimo de cada conteúdo
 
-Para funcionar agora, cada item social precisa apenas de:
+Para funcionar agora, cada item capturado precisa apenas de:
 
 ```text
 ITEM_ID
@@ -248,12 +259,12 @@ Automação completa volta depois.
 
 ## 7. Um inbox simples
 
-Todo conteúdo social capturado vai para uma entrada única do RESGATE.
+Todo conteúdo capturado — site, PDF, Instagram, LinkedIn, YouTube ou outra rota existente — pode ir para uma entrada única do RESGATE.
 
 Formato recomendado:
 
 ```text
-SOCIAL-INBOX.jsonl
+RESGATE-INBOX.jsonl
 ```
 
 Um registro por conteúdo.
@@ -417,9 +428,9 @@ OPUS seleciona os 10 assuntos mais promissores
         ↓
 humano + LLM escolhem os que têm maior chance comercial
         ↓
-buscar MAIS conteúdo social sobre esses assuntos
+buscar MAIS conteúdo sobre esses assuntos
         ↓
-Instagram / LinkedIn / YouTube
+Sites / PDFs / Instagram / LinkedIn / YouTube
         ↓
 Opus relê
         ↓
@@ -458,7 +469,7 @@ O QUE ACONTECEU
 POR QUE IMPORTA
 CULTURA · LOCAL
 DATA
-ORIGEM: Instagram / LinkedIn / YouTube
+ORIGEM: Site / PDF / Instagram / LinkedIn / YouTube
 STATUS
 ESPLORA →
 ```
@@ -517,6 +528,8 @@ cobra conteúdo → IA → Casco
 Só:
 
 ```text
+Sites
+PDF
 Instagram
 LinkedIn
 YouTube
@@ -531,7 +544,7 @@ Não redesenha a coleta.
 
 ### Bot de Fontes
 
-Só ajuda a montar rapidamente listas de contas/canais sociais.
+Só ajuda a montar rapidamente listas de fontes, contas e canais que valem capturar.
 
 Não cria processo de aprovação.
 
@@ -601,7 +614,7 @@ A limpeza agora é operacional, não destrutiva.
 - missões de prova que não colocam conteúdo no portal;
 - refatorações de arquitetura;
 - investigação de drift sem impacto imediato na demo;
-- criação de contratos e gates para conteúdo social;
+- criação de contratos e gates que impeçam conteúdo capturável de chegar à IA;
 - testes adicionais depois que a captura básica já estiver funcionando.
 
 ### Manter
@@ -629,16 +642,17 @@ Depois da demonstração fazemos limpeza estrutural com calma.
 Objetivo:
 
 ```text
-capturar social em volume
+capturar tudo em volume
 ```
 
 Meta operacional, não gate:
 
 ```text
+Sites/PDF: continuar captando o que já funciona
 Instagram: o máximo útil possível
 LinkedIn:  o máximo útil possível
 YouTube:   o máximo útil possível
-TOTAL:     centenas, se as capacidades permitirem
+TOTAL:     centenas de itens de todos os canais, se as capacidades permitirem
 ```
 
 Ao mesmo tempo, Opus já começa a ler os primeiros lotes.
@@ -678,11 +692,12 @@ Não iniciar engenharia nova.
 O trabalho do fim de semana está entregue quando:
 
 ```text
+SITES_PDF_CAPTURADOS > 0
 INSTAGRAM_CAPTURADOS > 0
 LINKEDIN_CAPTURADOS > 0
 YOUTUBE_CAPTURADOS > 0
 
-TOTAL_SOCIAL = volume suficiente para parecer um sistema vivo
+TOTAL_CAPTURADO = volume suficiente para parecer um sistema vivo
 
 OPUS_LEU = SIM
 OPUS_DESCARTOU_LIXO = SIM
@@ -709,10 +724,11 @@ Nenhum relatório longo.
 Responder apenas:
 
 ```text
+SITES_PDF_CAPTURADOS =
 INSTAGRAM_CAPTURADOS =
 LINKEDIN_CAPTURADOS =
 YOUTUBE_CAPTURADOS =
-TOTAL_SOCIAL =
+TOTAL_CAPTURADO =
 
 OPUS_LEU =
 DESCARTADOS =
@@ -737,7 +753,7 @@ BLOQUEIO_REAL, SE HOUVER =
 ## 20. Regra final
 
 ```text
-CAPTA MUITO
+CAPTA TUDO QUE CONSEGUIR
 → IA PENSA
 → MOSTRA POUCO E BOM
 ```
