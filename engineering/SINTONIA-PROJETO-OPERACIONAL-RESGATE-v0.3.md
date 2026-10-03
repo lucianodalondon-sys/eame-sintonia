@@ -145,6 +145,8 @@ MANDAR TUDO PARA A IA
 
 Sites e PDFs continuam fazendo parte da coleta. Social também. O erro a evitar é voltar a uma coleta que, na prática, só entrega sites.
 
+**A tarefa existente de coleta contínua de sites não deve ser desligada apenas para priorizar social.** Se estiver saudável, continua rodando. Social entra junto; não substitui o que já funciona.
+
 ### Fontes podem ser escolhidas manualmente
 
 Neste fim de semana não precisamos de descoberta perfeita.
@@ -164,6 +166,8 @@ Pode haver uma lista manual de:
 - páginas regionais.
 
 Se sabemos que vale acompanhar, capturamos.
+
+Para Instagram e YouTube, uma semente manual é válida: perfil, canal, post, reel ou vídeo pode ser indicado manualmente pelo Owner, Bot de Fontes ou equipe. Não esperar descoberta automática perfeita para capturar conteúdo público já identificado.
 
 ---
 
@@ -282,6 +286,52 @@ mesmo hash do conteúdo
 Nada de dedupe semântico em código.
 
 O Opus resolve equivalência semântica.
+
+---
+
+## 7A. Entrada da Intelligence por CONTEÚDO, não por MIME de web
+
+A Intelligence precisa ler o **texto útil**, independentemente do canal de origem.
+
+Entram no Opus:
+
+```text
+HTML → texto extraído
+PDF → texto extraído
+LinkedIn → texto/legenda e TRANSCRIPTION, quando houver vídeo
+Instagram → legenda/texto e TRANSCRIPTION, quando houver reel/vídeo
+YouTube → título/descrição e TRANSCRIPTION
+áudio/vídeo → TRANSCRIPTION
+```
+
+O FAST não pode filtrar semanticamente por `text/html` ou `application/pdf` e, com isso, ignorar conteúdo social já transcrito.
+
+Correção mínima permitida neste fim de semana:
+
+```text
+selecionar TEXTO_EXTRAÍDO + TRANSCRIPTION
+→ mandar para Opus
+```
+
+**Não** considerar envelope técnico `application/json` vazio como conteúdo. JSON de transporte/erro/observação só entra se contiver conteúdo real útil; caso contrário, fica fora sem criar nova régua semântica.
+
+O critério para `ENTROU_NA_INTELLIGENCE = SIM` é simples:
+
+```text
+existe texto/transcrição real
++
+Opus leu
++
+a leitura ficou registrada e ligada ao item/documento
+```
+
+Não é necessário o conteúdo entrar no CASE-001. O Opus pode dizer:
+
+```text
+FORA_DO_CASE
+```
+
+e ainda assim a leitura social está funcionando.
 
 ---
 
