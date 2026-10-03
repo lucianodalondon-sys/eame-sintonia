@@ -17,6 +17,27 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
   var CLASSES = ['OPORTUNIDADE', 'LEAD', 'SINAL', 'GAP'];
   var SUPERFICIE = { meeting: ['OPORTUNIDADE'], radarfuturo: ['LEAD', 'SINAL'], portfolio: ['GAP'] };
   var ROTA = { radar: 'meeting', msignals: 'meeting', mradar: 'meeting' };
+  /* RUN-AUTO-001: o DESTINO e escrito pela Intelligence (DESTINO_FERRAMENTA, lista fechada combinada na
+     Diretoria em 03/10). O casco so traduz o nome do destino para a tela que ja existe. ARCHIVE e
+     NAO_PUBLICAR sao destinos validos que nao vao para o cliente. Destino fora da lista = recusa inteira. */
+  var DESTINO_VISTA = { OPPORTUNITY_RADAR: 'meeting', FUTURE_RADAR: 'radarfuturo', PORTAFOGLIO: 'portfolio',
+    COMPETITION: 'competitors', MARKET_PULSE: 'market', RESEARCH: 'science', CROP_WINDOWS: 'windows',
+    LABEL_INTELLIGENCE: 'etichette', FIELD: 'voices', ARCHIVE: null, NAO_PUBLICAR: null };
+  var CLASSE_VISTA = { OPORTUNIDADE: 'meeting', LEAD: 'radarfuturo', SINAL: 'radarfuturo', GAP: 'portfolio' };
+  /* Arquivo sem DESTINO_FERRAMENTA (rodadas antigas) = o mapa antigo pela classe. */
+  function vistas(o) {
+    var d = o && o.DESTINO_FERRAMENTA;
+    if (Array.isArray(d) && d.length) {
+      var r = [];
+      d.forEach(function (x) { var v = DESTINO_VISTA[x]; if (v && r.indexOf(v) < 0) r.push(v); });
+      return r;
+    }
+    return CLASSE_VISTA[o && o.CLASSE] ? [CLASSE_VISTA[o.CLASSE]] : [];
+  }
+  function soFora(o) {
+    var d = o && o.DESTINO_FERRAMENTA;
+    return Array.isArray(d) && d.length > 0 && d.every(function (x) { return x === 'ARCHIVE' || x === 'NAO_PUBLICAR'; });
+  }
   var CAMPOS = ['O_QUE_ACONTECEU', 'CULTURA', 'LOCAL', 'PROBLEMA', 'JANELA', 'PRODUTO_ADAMA', 'AUTORIZACAO_LABEL',
     'POR_QUE_AGORA', 'ACAO_COMERCIAL'];
   var MESES = { it: ['GEN', 'FEB', 'MAR', 'APR', 'MAG', 'GIU', 'LUG', 'AGO', 'SET', 'OTT', 'NOV', 'DIC'],
@@ -49,7 +70,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       alemIt: 'TESTO DA VERIFICARE',
       campiL: 'Come è stata costruita questa lettura (campi di lavoro della Intelligence)',
       tec: 'Dettagli tecnici', rimessa: 'lettura', generato: 'generata il', modello: 'modello', era: 'prima era',
-      ritorno: { meeting: '← RADAR DELLE OPPORTUNITÀ', radarfuturo: '← RADAR FUTURO', portfolio: '← PORTAFOGLIO' },
+      ritorno: { meeting: '← RADAR DELLE OPPORTUNITÀ', radarfuturo: '← RADAR FUTURO', portfolio: '← PORTAFOGLIO' }, ritornoGen: '← INDIETRO',
+      destTit: 'Dalla lettura Sintonia', destSub: 'Schede assegnate a questo strumento dalla lettura automatica del Sintonia · sperimentale',
       gapTit: 'Lacune di portafoglio',
       gapSub: 'Necessità rilevate per cui non è stato trovato un prodotto ADAMA autorizzato in questa lettura. Il catalogo continua sotto.',
       rfLine: 'lead e segnali della lettura commerciale corrente',
@@ -83,7 +105,8 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
       alemIt: 'TEXT TO VERIFY',
       campiL: 'How this reading was built (Intelligence working fields)',
       tec: 'Technical details', rimessa: 'reading', generato: 'generated', modello: 'model', era: 'previously',
-      ritorno: { meeting: '← OPPORTUNITY RADAR', radarfuturo: '← FUTURE RADAR', portfolio: '← PORTFOLIO' },
+      ritorno: { meeting: '← OPPORTUNITY RADAR', radarfuturo: '← FUTURE RADAR', portfolio: '← PORTFOLIO' }, ritornoGen: '← BACK',
+      destTit: 'From the Sintonia reading', destSub: 'Cards assigned to this tool by the automatic Sintonia reading · experimental',
       gapTit: 'Portfolio gaps',
       gapSub: 'Needs detected for which no authorised ADAMA product was found in this reading. The catalogue continues below.',
       rfLine: 'leads and signals from the current commercial reading',
@@ -121,7 +144,17 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     if (!Array.isArray(c.OBJETOS) || !c.OBJETOS.length) f.push('sem OBJETOS');
     var n = {};
     (c.OBJETOS || []).forEach(function (o) {
-      if (CLASSES.indexOf(o && o.CLASSE) < 0) f.push((o && o.ID) + ': classe desconhecida ' + (o && o.CLASSE));
+      var d = o && o.DESTINO_FERRAMENTA;
+      if (d !== undefined && d !== null) {
+        if (!Array.isArray(d) || !d.length) f.push((o && o.ID) + ': DESTINO_FERRAMENTA vazio');
+        else d.forEach(function (x) {
+          if (!Object.prototype.hasOwnProperty.call(DESTINO_VISTA, x)) f.push((o && o.ID) + ': destino desconhecido ' + x);
+        });
+        /* O Radar delle Opportunita so recebe o que a Intelligence fechou como OPORTUNIDADE. */
+        if (Array.isArray(d) && d.indexOf('OPPORTUNITY_RADAR') >= 0 && o.CLASSE !== 'OPORTUNIDADE')
+          f.push((o && o.ID) + ': OPPORTUNITY_RADAR sem CLASSE=OPORTUNIDADE');
+      }
+      if (CLASSES.indexOf(o && o.CLASSE) < 0) { if (!soFora(o)) f.push((o && o.ID) + ': classe desconhecida ' + (o && o.CLASSE)); }
       else n[o.CLASSE] = (n[o.CLASSE] || 0) + 1;
     });
     var k = c.CONTAGEM || {};
@@ -134,10 +167,26 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     if (!valido(env)) return [];
     return env.CRUZAMENTO.OBJETOS.filter(function (o) { return classes.indexOf(o.CLASSE) >= 0; });
   }
+  /* Objetos que a Intelligence mandou para ESTA tela (pelo destino; sem destino, pela classe). */
+  function objetosDaVista(env, view) {
+    if (!valido(env)) return [];
+    var a = ROTA[view] || view;
+    return env.CRUZAMENTO.OBJETOS.filter(function (o) { return vistas(o).indexOf(a) >= 0; });
+  }
   function contagem(env, view) {
     var a = superficie(view);
     if (!a || !valido(env)) return null;
-    return objetos(env, SUPERFICIE[a]).length;
+    return objetosDaVista(env, a).length;
+  }
+  /* Contagem por destino, para a prova (inclui ARCHIVE / NAO_PUBLICAR, que nao aparecem). */
+  function porDestino(env) {
+    var r = {};
+    if (!valido(env)) return r;
+    env.CRUZAMENTO.OBJETOS.forEach(function (o) {
+      var d = Array.isArray(o.DESTINO_FERRAMENTA) && o.DESTINO_FERRAMENTA.length ? o.DESTINO_FERRAMENTA : ['(classe) ' + o.CLASSE];
+      d.forEach(function (x) { r[x] = (r[x] || 0) + 1; });
+    });
+    return r;
   }
   /* A data da RODADA, escrita pela Intelligence (REFERENCIA.HOJE; senao GERADO_EM). O casco nao le o
      relogio do navegador: «oggi» = o dia a que esta leitura se refere. */
@@ -231,10 +280,10 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     if (!o) return null;
     var conf = o.CONFERENCIA || {}, cam = o.CAMPOS || {};
     var verificar = ((c.CONFERENCIA_GLOBAL || {}).OBJETOS_COM_VERIFICAR) || [];
-    var sup = o.CLASSE === 'OPORTUNIDADE' ? 'meeting' : (o.CLASSE === 'GAP' ? 'portfolio' : 'radarfuturo');
+    var sup = vistas(o)[0] || (o.CLASSE === 'OPORTUNIDADE' ? 'meeting' : (o.CLASSE === 'GAP' ? 'portfolio' : 'radarfuturo'));
     return {
       id: txt(o.ID), classe: o.CLASSE, rotulo: t.cls[o.CLASSE], cor: COR[o.CLASSE], titulo: tit(o),
-      superficie: sup, ritorno: t.ritorno[sup], sper: t.sper, sperTip: t.sperTip,
+      superficie: sup, ritorno: t.ritorno[sup] || t.ritornoGen, sper: t.sper, sperTip: t.sperTip,
       cropRegion: curto(vis(o, 'COLTURA') || val(o, 'CULTURA'), t, 80) + ' · ' + curto(vis(o, 'LUOGO') || val(o, 'LOCAL'), t, 90),
       pub: pub(o), pubL: t.pubL, pubTip: t.pubTip,
       alemIt: (o.TEXTO_IT_AFIRMA_ALEM_DO_CAMPO || []).length > 0, alemItL: t.alemIt,
@@ -267,6 +316,7 @@ window.SINTONIA_CRUZAMENTO_CASCO = (function () {
     };
   }
   return { conferir: conferir, valido: valido, superficie: superficie, objetos: objetos, contagem: contagem,
+    objetosDaVista: objetosDaVista, porDestino: porDestino, vistas: vistas, DESTINO_VISTA: DESTINO_VISTA,
     dataDaRodada: dataDaRodada, fichaFuturo: fichaFuturo, fichaGap: fichaGap, fichaRadar: fichaRadar, detalhe: detalhe, textos: T,
     SUPERFICIE: SUPERFICIE, CLASSES: CLASSES };
 })();
