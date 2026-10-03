@@ -57,10 +57,36 @@ EVIDÊNCIA
 Toda afirmação factual aponta FACT_IDs (de A), USE_IDs (de D), FENOLOGIA_IDs (de E) ou CONTEXTO_IDs (de F/G). Interpretação sua vai
 em "INTERPRETACAO_DA_IA", separada do valor factual. Data de publicação não é data do facto.
 
-FERRAMENTA DO CASCO E TEXTO EM ITALIANO
-DESTINO_FERRAMENTA = lista (1 ou mais) de: OPPORTUNITY_RADAR (só OPORTUNIDADE), FUTURE_RADAR (SINAL e LEAD),
-PORTAFOGLIO (gaps e portfólio), CROP_WINDOWS, LABEL_INTELLIGENCE, MARKET_PULSE, RESEARCH, COMPETITION,
-ACTION_BRIEF. Ponha mais de uma só quando o objeto tiver significado diferente em cada uma.
+NATUREZA E VERIFICAÇÃO DE CADA FACTO (bloco A)
+Cada facto traz «afirmacao=<NATUREZA>/<VEREDICTO>» da segunda leitura automática contra a fonte:
+- FATO/SUPORTADO: pode ser dito como facto.
+- CLAIM_DA_FONTE ou INTERPRETACAO, ou veredicto PARCIAL: nunca como facto — no texto italiano escreva quem o
+  afirma («secondo X», «X sostiene che»). Ex.: «la società dice che il problema cresce» ≠ «il problema cresce in Italia».
+Factos NAO_SUPORTADO já foram retirados; não os reconstrua a partir de memória.
+
+FERRAMENTA DO CASCO (DESTINO) — VOCÊ decide; o Casco só obedece
+Para CADA facto/grupo de factos do bloco A decida onde ele pertence. Crie objeto também para o que NÃO deve ir ao
+cliente (destino NAO_PUBLICAR ou ARCHIVE) — todo documento do bloco A deve aparecer em pelo menos um objeto.
+DESTINO_FERRAMENTA = lista FECHADA (use exatamente estes nomes):
+- COMPETITION: o que um concorrente (outra empresa de agroquímicos/sementes/fertilizantes) fez ou anunciou.
+- MARKET_PULSE: preço, custo, procura, oferta, comércio, distribuição, política agrícola com efeito económico.
+- RESEARCH: estudo, ensaio, resultado científico.
+- CROP_WINDOWS: fase fenológica / janela de intervenção numa cultura e região.
+- LABEL_INTELLIGENCE: registo, autorização, revogação, bula, regra de uso de produto fitossanitário.
+- FIELD: o que produtores/técnicos relatam do campo (Voci dal Campo).
+- FUTURE_RADAR: SÓ quando existem os 4 elementos, e você os escreve em CRITERIO_FUTURE_RADAR:
+  MUDANCA_SE_FORMANDO (que mudança/sinal se está a formar), CONSEQUENCIA_FUTURA (que consequência terá),
+  HORIZONTE_OU_TRIGGER (quando / que gatilho ou condição futura), RAZAO_PARA_MONITORAR (porque a ADAMA deve vigiar).
+  Faltou um = não é Future Radar. Notícia genérica, assembleia, evento, comunicação institucional, campanha de
+  marca ou conteúdo agrícola «interessante» NÃO vai ao Future Radar.
+- OPPORTUNITY_RADAR: só CLASSE=OPORTUNIDADE. PORTAFOGLIO: só GAP de portfólio.
+- ARCHIVE: verdadeiro e agrícola, mas sem uso para a ADAMA agora (ex.: facto antigo, assunto lateral).
+- NAO_PUBLICAR: fora do domínio, comunicação de marca/promoção sem facto útil, menu/página vazia, conteúdo velho
+  (ex.: comunicado de 2023), ou quando os textos não podem ser escritos com segurança. NAO_PUBLICAR é resposta válida.
+NAO_PUBLICAR/ARCHIVE vão sozinhos (nunca juntos com uma ferramenta). Mais de uma ferramenta só quando o objeto
+tem significado diferente em cada uma. Diga em MOTIVO_DO_DESTINO, numa frase, porquê.
+A CLASSE (SINAL/LEAD/GAP/OPORTUNIDADE) diz o grau de conclusão; o DESTINO diz onde mora. SINAL de mercado vai a
+MARKET_PULSE, não ao FUTURE_RADAR, a menos que cumpra os 4 elementos.
 TITULO_IT e TEXTOS_VISIVEIS_IT: o que o utilizador italiano leigo lê no cartão — italiano simples, sem códigos,
 ids, siglas técnicas, SHA, nomes de ficheiro ou jargão de programador. Não acrescente nada que não esteja nos campos.
 Regras do texto visível (o leitor leigo acredita no que lê):
@@ -81,6 +107,14 @@ QUANDO=NAO_SEI → não ponha data no facto, no máximo «articolo del <data de 
   diga a data de cada um. Não troque a grandeza (produção ≠ rendimento do produtor; «carenza» ≠ «scaffali vuoti»).
 - Frase de método/definição de um estudo não é resultado.
 - COLTURA e LUOGO: em italiano para leigo, curtos; «non noto» quando não se sabe.
+- Para todo objeto publicado (destino diferente de NAO_PUBLICAR/ARCHIVE) TODOS estes textos são obrigatórios e
+  completos, em italiano: COSA_SUCCEDE, PERCHE_CONTA, AZIONE (o que monitorar ou fazer; «nessuna azione per ora:
+  monitorare X» é válido), TEMPISTICA (quando: data/período do facto ou «non noto»), COLTURA, LUOGO,
+  CLASSIFICAZIONE (em italiano: «Segnale», «Lead», «Gap di portafoglio», «Opportunità», e se o facto é dichiarazione
+  della fonte), FONTI (quem publicou e quando, ex.: «Copagri, comunicato del 9 settembre 2026»).
+  Nunca escreva «text not yet provided», «testo non ancora fornito», placeholder, português, nota interna, códigos
+  ou ids. «non noto» só para informação realmente desconhecida. Se não consegue escrever os textos com segurança,
+  use NAO_PUBLICAR.
 
 SAÍDA — APENAS este JSON, sem texto fora dele:
 {
@@ -101,11 +135,16 @@ SAÍDA — APENAS este JSON, sem texto fora dele:
    "SINAIS_CRUZADOS": [ {"SIGNAL_ID": "S01", "ACRESCENTOU": "o que este sinal trouxe que os outros não"} ],
    "FACT_IDs": ["todos os FACT_IDs usados"],
    "CONTEXTO_IDs": ["todos os CTX-*/IT-*/HIST-* usados"],
-   "DESTINO_FERRAMENTA": ["FUTURE_RADAR"],
+   "DESTINO_FERRAMENTA": ["MARKET_PULSE"],
+   "MOTIVO_DO_DESTINO": "frase curta: porquê esta ferramenta",
+   "CRITERIO_FUTURE_RADAR": {"MUDANCA_SE_FORMANDO": "... ou NAO_SEI", "CONSEQUENCIA_FUTURA": "... ou NAO_SEI",
+                             "HORIZONTE_OU_TRIGGER": "... ou NAO_SEI", "RAZAO_PARA_MONITORAR": "... ou NAO_SEI"},
    "TITULO_IT": "titolo breve in italiano",
    "TEXTOS_VISIVEIS_IT": {"COSA_SUCCEDE": "...", "PERCHE_CONTA": "...", "COSA_MANCA": "...",
-                          "AZIONE": "... ou null se non c'è azione", "COLTURA": "mais | non noto",
-                          "LUOGO": "Piemonte | Italia (senza regione) | non noto"},
+                          "AZIONE": "cosa monitorare o fare", "TEMPISTICA": "quando | non noto",
+                          "COLTURA": "mais | non noto", "LUOGO": "Piemonte | Italia (senza regione) | non noto",
+                          "CLASSIFICAZIONE": "Segnale di mercato (dichiarazione della fonte)",
+                          "FONTI": "Copagri, comunicato del 9 settembre 2026"},
    "O_QUE_FALTAVA": "o que impedia fechar antes",
    "O_QUE_O_SINTONIA_ENCONTROU": "o que D/E responderam (inclua os negativos)",
    "ELO_QUE_FALTA": "o primeiro elo que não fecha, ou null se OPORTUNIDADE",

@@ -35,6 +35,12 @@ Diga tambem, UMA vez para o documento inteiro:
   Marca de patrocinio de OUTRO artigo listado na pagina (menu, "leggi anche", barra lateral) NAO conta.
 - "DATA_PUBLICACAO": {"VALOR": "AAAA-MM-DD ou NAO_SEI", "TRECHO": "copia literal"} (so do proprio artigo).
 Adicione tambem "TIPO" (um de: PRAGA_DOENCA, CLIMA, MERCADO_PRECO, REGULACAO_POLITICA, PRODUTO_EMPRESA, PESQUISA, EVENTO, OUTRO).
+Adicione tambem, por fato, "NATUREZA_DA_AFIRMACAO" (RUN-AUTO-001, ordem do dono 03/10), um de:
+  FATO = o texto relata como acontecido/medido/oficial;
+  CLAIM_DA_FONTE = alguem (empresa, associacao, pessoa) AFIRMA/opina/promove; o fato e "X afirmou isso", nunca o conteudo;
+  INTERPRETACAO = leitura sua que o texto nao diz com todas as letras (evite; se usar, diga-o);
+  NAO_SEI = nao da para saber.
+  Ex.: "a empresa diz que o problema esta crescendo" -> CLAIM_DA_FONTE ("<empresa> afirma que ..."), NAO "o problema cresce na Italia".
 Se nao houver fato relevante, devolva lista vazia.
 Responda SO com JSON valido: {"NATUREZA_DO_DOCUMENTO": {...}, "DATA_PUBLICACAO": {...}, "FATOS": [ {"TIPO": "...", "O_QUE": {...}, "ONDE": {...}, ...} ]}
 
@@ -50,6 +56,7 @@ def norm(s):
     return re.sub(r"\s+", " ", s).strip().lower()
 
 
+NATUREZAS_DA_AFIRMACAO = ("FATO", "CLAIM_DA_FONTE", "INTERPRETACAO", "NAO_SEI")
 NATUREZAS = ("EDITORIAL", "PUBLICIDADE_PATROCINADO", "INSTITUCIONAL", "COMUNICADO_DE_EMPRESA", "CIENTIFICO", "OUTRO")
 
 
@@ -138,7 +145,9 @@ with cf.ThreadPoolExecutor(5) as ex:
             n_ok += estado != "REJEITADO"; n_rej += estado == "REJEITADO"
             fatos.append(dict(FACT_ID=fid, DOCUMENT_ID=d["DOCUMENT_ID"], RAW_ASSET_ID=d["RAW_ASSET_ID"], SOURCE_ID=d["SOURCE_ID"],
                               URL=d["URL"], RAW_SHA256=d["RAW_SHA256_ARQUIVO"], CAPTURED_AT=d["CAPTURED_AT"],
-                              TIPO=f.get("TIPO", "OUTRO"), ESTADO=estado, CAMPOS_REJEITADOS=rejeitados,
+                              TIPO=f.get("TIPO", "OUTRO"), ESTADO=estado,
+                              NATUREZA_DA_AFIRMACAO=(f.get("NATUREZA_DA_AFIRMACAO") if f.get("NATUREZA_DA_AFIRMACAO")
+                                                     in NATUREZAS_DA_AFIRMACAO else "NAO_SEI"), CAMPOS_REJEITADOS=rejeitados,
                               NATUREZA_DO_DOCUMENTO=doc_meta["NATUREZA_DO_DOCUMENTO"],
                               DATA_PUBLICACAO=doc_meta["DATA_PUBLICACAO"], **campos))
         rel.append(dict(DOCUMENT_ID=d["DOCUMENT_ID"], ESTADO="PROCESSADO", FATOS=len(lista), ACEITOS=n_ok, REJEITADOS=n_rej,

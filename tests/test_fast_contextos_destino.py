@@ -35,28 +35,84 @@ def _conf(o):
     return FC.conferir({"objetos": [o]}, FATOS, [], REF, FEN, hoje=HOJE, ctx=CTX, hist=HIST)
 
 
+VIS = {"COSA_SUCCEDE": "a", "PERCHE_CONTA": "b", "AZIONE": "c", "TEMPISTICA": "settembre 2026", "COLTURA": "mais",
+       "LUOGO": "Lombardia", "CLASSIFICAZIONE": "Segnale", "FONTI": "Copagri, 9 settembre 2026"}
+CRIT = {k: "x" for k in FC.CRITERIO_FUTURE_RADAR}
+
+
+def _pub(classe="SINAL", destino=None, crit=None, vis=None, titulo="Titolo"):
+    o = _obj(classe, destino)
+    o["TITULO_IT"], o["TEXTOS_VISIVEIS_IT"] = titulo, dict(VIS if vis is None else vis)
+    if crit is not None:
+        o["CRITERIO_FUTURE_RADAR"] = crit
+    return o
+
+
 class Destino(unittest.TestCase):
+    """RUN-AUTO-001 (ordem do dono 03/10): o modelo decide o destino na lista fechada de 11 nomes do Casco."""
+
+    def test_lista_fechada_do_casco(self):
+        self.assertEqual(set(FC.DESTINOS), {"OPPORTUNITY_RADAR", "FUTURE_RADAR", "PORTAFOGLIO", "COMPETITION",
+                                            "MARKET_PULSE", "RESEARCH", "CROP_WINDOWS", "LABEL_INTELLIGENCE", "FIELD",
+                                            "ARCHIVE", "NAO_PUBLICAR"})
+
     def test_sinal_nao_vai_ao_opportunity_radar(self):
-        ok, _ = _conf(_obj("SINAL", ["OPPORTUNITY_RADAR", "MARKET_PULSE"]))
-        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["FUTURE_RADAR", "MARKET_PULSE"])
+        ok, _ = _conf(_pub("SINAL", ["OPPORTUNITY_RADAR", "MARKET_PULSE"]))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["MARKET_PULSE"])
         self.assertEqual(ok[0]["DESTINO_RECUSADO"], ["OPPORTUNITY_RADAR"])
         self.assertEqual(ok[0]["DESTINO_DO_MODELO"], ["OPPORTUNITY_RADAR", "MARKET_PULSE"])
 
-    def test_oportunidade_pode_ir_ao_opportunity_radar(self):
-        ok, _ = _conf(_obj("OPORTUNIDADE", ["OPPORTUNITY_RADAR", "ACTION_BRIEF"]))
-        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["OPPORTUNITY_RADAR", "ACTION_BRIEF"])
+    def test_classe_nao_empurra_para_o_future_radar(self):
+        # defeito medido 03/10 (FAST-20261003T184228): 8/8 objetos no FUTURE_RADAR pela classe SINAL
+        ok, _ = _conf(_pub("SINAL", ["MARKET_PULSE"]))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["MARKET_PULSE"])
 
-    def test_destino_fora_da_lista_recusado_e_classe_garante_ferramenta(self):
-        o = _obj("GAP", ["DASHBOARD"])
-        for k in FC.NECESSIDADE_DO_GAP:  # GAP com a necessidade fechada (senao a R1 rebaixa a SINAL)
-            o["CAMPOS"][k]["valor"] = "x"
-        ok, _ = _conf(o)
-        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["PORTAFOGLIO"])
-        self.assertEqual(ok[0]["DESTINO_RECUSADO"], ["DASHBOARD"])
+    def test_future_radar_exige_os_quatro_elementos(self):
+        ok, _ = _conf(_pub("SINAL", ["FUTURE_RADAR"], crit=dict(CRIT, HORIZONTE_OU_TRIGGER="NAO_SEI")))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["NAO_PUBLICAR"])
+        self.assertIn("FUTURE_RADAR:FALTA_HORIZONTE_OU_TRIGGER", ok[0]["DESTINO_RECUSADO"])
+        ok, _ = _conf(_pub("SINAL", ["FUTURE_RADAR"]))  # sem criterio nenhum
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["NAO_PUBLICAR"])
 
-    def test_sem_destino_do_modelo_usa_a_classe(self):
-        ok, _ = _conf(_obj("LEAD"))
+    def test_future_radar_com_os_quatro_elementos_passa(self):
+        ok, _ = _conf(_pub("LEAD", ["FUTURE_RADAR"], crit=CRIT))
         self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["FUTURE_RADAR"])
+
+    def test_oportunidade_vai_ao_opportunity_radar(self):
+        ok, _ = _conf(_pub("OPORTUNIDADE", ["OPPORTUNITY_RADAR", "LABEL_INTELLIGENCE"]))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["OPPORTUNITY_RADAR", "LABEL_INTELLIGENCE"])
+
+    def test_destino_fora_da_lista_recusado(self):
+        ok, _ = _conf(_pub("SINAL", ["DASHBOARD", "ACTION_BRIEF"]))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["NAO_PUBLICAR"])
+        self.assertEqual(ok[0]["DESTINO_RECUSADO"], ["DASHBOARD", "ACTION_BRIEF"])
+
+    def test_sem_destino_do_modelo_nao_publica(self):
+        ok, _ = _conf(_pub("LEAD"))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["NAO_PUBLICAR"])
+
+    def test_nao_publicar_e_exclusivo(self):
+        ok, _ = _conf(_pub("SINAL", ["MARKET_PULSE", "NAO_PUBLICAR"]))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["NAO_PUBLICAR"])
+        ok, _ = _conf(_pub("SINAL", ["ARCHIVE"], vis={}))  # arquivo nao exige texto de cliente
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["ARCHIVE"])
+
+    def test_texto_italiano_incompleto_nao_vai_ao_cliente(self):
+        vis = dict(VIS); del vis["TEMPISTICA"]
+        ok, _ = _conf(_pub("SINAL", ["COMPETITION"], vis=vis))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["NAO_PUBLICAR"])
+        self.assertEqual(ok[0]["TEXTO_IT_INCOMPLETO"]["FALTAM"], ["TEMPISTICA"])
+
+    def test_placeholder_nao_vai_ao_cliente(self):
+        for sujo in ("testo non ancora fornito", "text not yet provided", "vedi FACT_ID F-1", "NAO_SEI"):
+            ok, _ = _conf(_pub("SINAL", ["RESEARCH"], vis=dict(VIS, FONTI=sujo)))
+            self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["NAO_PUBLICAR"], sujo)
+        ok, _ = _conf(_pub("SINAL", ["RESEARCH"], vis=dict(VIS, LUOGO="non noto")))  # desconhecido real e valido
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["RESEARCH"])
+
+    def test_sem_titulo_nao_vai_ao_cliente(self):
+        ok, _ = _conf(_pub("SINAL", ["FIELD"], titulo=""))
+        self.assertEqual(ok[0]["DESTINO_FERRAMENTA"], ["NAO_PUBLICAR"])
 
 
 class ContextoIds(unittest.TestCase):

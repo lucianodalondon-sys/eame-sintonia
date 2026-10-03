@@ -27,7 +27,9 @@ class TestTextoNaoMaisForte(unittest.TestCase):
 
     def test_versao_subiu(self):
         src = (RAIZ / "motor" / "fast_cruzamento_comercial.py").read_text(encoding="utf-8")
-        self.assertIn("v2.2-texto-nao-mais-forte", src)
+        # v2.2 = texto nao mais forte; v2.3 (RUN-AUTO-001) herda a regra e sobe outra vez
+        self.assertIn('VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v2.3-run-auto-001"', src)
+        self.assertIn("NUNCA PODE SER MAIS FORTE", (RAIZ / "motor" / "fast_cruzamento_comercial.prompt.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

@@ -48,7 +48,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 from motor import porta_da_referencia as PORTA  # noqa: E402
 
-VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v2.2-texto-nao-mais-forte"
+VERSAO = "FAST-CRUZAMENTO-COMERCIAL/v2.3-run-auto-001"
 MODELO = os.environ.get("FAST_MODELO", "claude-opus-5")
 JANELAS_DIR = RAIZ / "build" / "ITALY-REALITY-HANDOFF-V2" / "PREVIOUS-HANDOFF" / "01-DESIGN-READY" / "CROP-WINDOWS"
 FENOLOGIA = JANELAS_DIR / "current-phenology.json"
@@ -85,8 +85,18 @@ DOMINIOS = (
 #: dominios do FDS sec.11 sem ficheiro proprio lido aqui — declarados, nunca inventados
 DOMINIOS_SEM_FICHEIRO = {"SOCIAL / CAMPO (LinkedIn, Instagram, YouTube)": "NAO_DISPONIVEL — so entra pelos factos da remessa"}
 #: FDS (ordem do dono 02/10): para onde o objeto vai no Casco. Um objeto pode ir a mais de uma ferramenta.
-DESTINOS = ("OPPORTUNITY_RADAR", "FUTURE_RADAR", "PORTAFOGLIO", "CROP_WINDOWS", "LABEL_INTELLIGENCE",
-            "MARKET_PULSE", "RESEARCH", "COMPETITION", "ACTION_BRIEF")
+#: RUN-AUTO-001 (03/10): lista FECHADA combinada com o Casco na Diretoria (11 nomes; ACTION_BRIEF saiu).
+DESTINOS = ("OPPORTUNITY_RADAR", "FUTURE_RADAR", "PORTAFOGLIO", "COMPETITION", "MARKET_PULSE", "RESEARCH",
+            "CROP_WINDOWS", "LABEL_INTELLIGENCE", "FIELD", "ARCHIVE", "NAO_PUBLICAR")
+#: destinos que nao vao ao cliente; sao exclusivos (um objeto nao e "nao publicar" e publicado ao mesmo tempo)
+DESTINOS_FORA = ("NAO_PUBLICAR", "ARCHIVE")
+#: ordem do dono 03/10: Future Radar so com os 4 elementos (o modelo julga; o programa so confere que estao escritos)
+CRITERIO_FUTURE_RADAR = ("MUDANCA_SE_FORMANDO", "CONSEQUENCIA_FUTURA", "HORIZONTE_OU_TRIGGER", "RAZAO_PARA_MONITORAR")
+#: textos visiveis minimos para um objeto publicado (ordem do dono 03/10, sec.5); chaves que o Casco ja le
+TEXTOS_OBRIGATORIOS_IT = ("COSA_SUCCEDE", "PERCHE_CONTA", "AZIONE", "TEMPISTICA", "COLTURA", "LUOGO",
+                          "CLASSIFICAZIONE", "FONTI")
+_PLACEHOLDER = re.compile(r"text not yet provided|testo non ancora fornito|placeholder|lorem ipsum|\bTODO\b|"
+                          r"\b(?:FACT_ID|SIGNAL_ID|USE_ID|CTX-|HIST-|NAO_SEI|NÃO SEI)\b", re.I)
 #: FDS v0.2 sec.15: Opportunity Radar so OPORTUNIDADE; Future Radar recebe LEAD e SINAL; Portafoglio mostra GAPS.
 DESTINO_DA_CLASSE = {"OPORTUNIDADE": "OPPORTUNITY_RADAR", "SINAL": "FUTURE_RADAR", "LEAD": "FUTURE_RADAR",
                      "GAP": "PORTAFOGLIO"}
@@ -261,7 +271,10 @@ def ler_fast_auto(pasta: Path):
              "evidencias": {},
              # LAB 02/10: natureza e data de publicacao do documento (passo2 confere o trecho; ausente = NAO_SEI)
              "natureza": ((f.get("NATUREZA_DO_DOCUMENTO") or {}).get("VALOR") or "NAO_SEI"),
-             "publicado": ((f.get("DATA_PUBLICACAO") or {}).get("VALOR") or "NAO_SEI")}
+             "publicado": ((f.get("DATA_PUBLICACAO") or {}).get("VALOR") or "NAO_SEI"),
+             # RUN-AUTO-001: natureza da afirmacao + veredicto da SEGUNDA LEITURA (passo2b)
+             "afirmacao": f.get("NATUREZA_DA_AFIRMACAO") or "NAO_SEI",
+             "verificacao": ((f.get("SEGUNDA_LEITURA") or {}).get("VEREDICTO") or "NAO_VERIFICADO")}
         for novo, velho in _CAMPOS_FAST:
             c = f.get(velho) or {}
             ok = c.get("VERIFICACAO") == "TRECHO_ENCONTRADO_NO_RAW"
@@ -283,8 +296,9 @@ def _v(f, k):
 
 
 def linha_fato(f):
-    return "%s [%s] %s | natureza=%s | publicado=%s | onde=%s | quando=%s | cultura=%s | problema=%s | emp=%s | num=%s" % (
-        f["FACT_ID"], f["SOURCE_ID"], _corta(_v(f, "fato"), 300), f.get("natureza", "NAO_SEI"),
+    return "%s [%s] %s | afirmacao=%s/%s | natureza=%s | publicado=%s | onde=%s | quando=%s | cultura=%s | problema=%s | emp=%s | num=%s" % (
+        f["FACT_ID"], f["SOURCE_ID"], _corta(_v(f, "fato"), 300), f.get("afirmacao", "NAO_SEI"),
+        f.get("verificacao", "NAO_VERIFICADO"), f.get("natureza", "NAO_SEI"),
         f.get("publicado", "NAO_SEI"), _v(f, "onde"), _v(f, "quando"),
         _v(f, "cultura"), _v(f, "problema"), _corta(_v(f, "empresas_produtos"), 120), _corta(_v(f, "numeros"), 120))
 
@@ -459,20 +473,44 @@ def texto_it_afirma_nao_sei(o) -> None:
 
 
 def regua_do_destino(o) -> None:
-    """DESTINO_FERRAMENTA: lista fechada; OPPORTUNITY_RADAR so para OPORTUNIDADE (FDS sec.15); a ferramenta da classe
-    entra sempre. O que o modelo pediu fica em DESTINO_DO_MODELO (nada se apaga)."""
+    """DESTINO_FERRAMENTA (RUN-AUTO-001): o MODELO decide; o programa so confere a lista fechada e as regras do dono:
+    OPPORTUNITY_RADAR so para OPORTUNIDADE; FUTURE_RADAR so com os 4 elementos de CRITERIO_FUTURE_RADAR escritos;
+    NAO_PUBLICAR/ARCHIVE exclusivos; objeto sem os textos italianos minimos nao vai ao cliente (NAO_PUBLICAR).
+    A classe ja NAO empurra para o Future Radar (era o defeito medido 03/10: 8/8 no Future Radar).
+    O que o modelo pediu fica em DESTINO_DO_MODELO; recusas em DESTINO_RECUSADO (nada se apaga)."""
     pedido = o.get("DESTINO_FERRAMENTA")
     pedido = [pedido] if isinstance(pedido, str) else list(pedido or [])
     o["DESTINO_DO_MODELO"] = pedido
     final, recusados = [], []
+    crit = o.get("CRITERIO_FUTURE_RADAR") if isinstance(o.get("CRITERIO_FUTURE_RADAR"), dict) else {}
+    falta_fr = [k for k in CRITERIO_FUTURE_RADAR if _sem_valor({"valor": crit.get(k)})]
     for d in pedido:
-        if d not in DESTINOS or (d == "OPPORTUNITY_RADAR" and o.get("CLASSE") != "OPORTUNIDADE"):
+        if d not in DESTINOS:
             recusados.append(d)
+        elif d == "OPPORTUNITY_RADAR" and o.get("CLASSE") != "OPORTUNIDADE":
+            recusados.append(d)
+        elif d == "FUTURE_RADAR" and falta_fr:
+            recusados.append("FUTURE_RADAR:FALTA_" + "+".join(falta_fr))
         elif d not in final:
             final.append(d)
-    base = DESTINO_DA_CLASSE.get(o.get("CLASSE"))
-    if base and base not in final:
-        final.insert(0, base)
+    if o.get("CLASSE") == "OPORTUNIDADE" and "OPPORTUNITY_RADAR" not in final and not set(final) & set(DESTINOS_FORA):
+        final.insert(0, "OPPORTUNITY_RADAR")
+    fora = [d for d in final if d in DESTINOS_FORA]
+    if fora:
+        final = ["NAO_PUBLICAR"] if "NAO_PUBLICAR" in fora else ["ARCHIVE"]
+    publica = [d for d in final if d not in DESTINOS_FORA]
+    if publica:
+        vis = o.get("TEXTOS_VISIVEIS_IT") if isinstance(o.get("TEXTOS_VISIVEIS_IT"), dict) else {}
+        titulo = str(o.get("TITULO_IT") or "").strip()
+        faltam = ([] if titulo else ["TITULO_IT"]) + [k for k in TEXTOS_OBRIGATORIOS_IT if not str(vis.get(k) or "").strip()]
+        sujos = [k for k in ["TITULO_IT"] + list(TEXTOS_OBRIGATORIOS_IT)
+                 if _PLACEHOLDER.search(str(titulo if k == "TITULO_IT" else vis.get(k) or ""))]
+        if faltam or sujos:
+            o["TEXTO_IT_INCOMPLETO"] = {"FALTAM": faltam, "PLACEHOLDER_OU_CODIGO": sujos}
+            recusados += publica
+            final = ["NAO_PUBLICAR"]
+    if not final:
+        final = ["NAO_PUBLICAR"]  # nenhum destino valido: nunca inventar um (antes: a classe empurrava ao Future Radar)
     o["DESTINO_FERRAMENTA"] = final
     if recusados:
         o["DESTINO_RECUSADO"] = recusados
@@ -524,7 +562,9 @@ def conferir(saida, fatos, sinais, ref, fen, hoje=None, ctx=None, hist=None):
         o["EVIDENCIAS"] = [{"FACT_ID": f["FACT_ID"], "DOCUMENT_ID": f["DOCUMENT_ID"], "SOURCE_ID": f["SOURCE_ID"],
                             "URL": f["URL"], "trecho": (f.get("evidencias") or {}).get("fato"),
                             "NATUREZA_DO_DOCUMENTO": f.get("natureza", "NAO_SEI"),
-                            "DATA_PUBLICACAO": f.get("publicado", "NAO_SEI")} for f in validos]
+                            "DATA_PUBLICACAO": f.get("publicado", "NAO_SEI"),
+                            "NATUREZA_DA_AFIRMACAO": f.get("afirmacao", "NAO_SEI"),
+                            "SEGUNDA_LEITURA": f.get("verificacao", "NAO_VERIFICADO")} for f in validos]
         # LAB 02/10 (C01): alegacao de anunciante nao e noticia — marca por script, a partir do passo2
         o["FONTE_PUBLICITARIA"] = [f["FACT_ID"] for f in validos if f.get("natureza") == "PUBLICIDADE_PATROCINADO"]
         if uids:

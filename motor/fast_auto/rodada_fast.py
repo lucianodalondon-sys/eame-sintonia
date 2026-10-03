@@ -21,7 +21,8 @@ PSQL = r"C:/Users/London1/orca/pgtmp/pgsql/bin/psql.exe"
 FEITOS = os.path.join(RAIZ, "RAW_PROCESSADOS.txt")
 LOG = os.path.join(RAIZ, "RODADAS.log")
 ARQS = ["FACTS_FAST.json", "SIGNALS_FAST.json", "OPPORTUNITIES_FAST.json", "DOCUMENTOS_FAST.json"]
-PASSOS = ["passo1_selecionar.py", "passo2_fatos.py", "passo3_cruzar.py"]
+PASSOS = ["passo1_selecionar.py", "passo2_fatos.py", "passo2b_verificar.py", "passo3_cruzar.py"]
+# passo2b = SEGUNDA LEITURA Opus (RUN-AUTO-001): SUPORTADO / PARCIAL / NAO_SUPORTADO por afirmacao
 COMERCIAL = os.path.join(REPO, "motor", "fast_cruzamento_comercial.py")
 
 
@@ -281,7 +282,8 @@ def main():
         novos = [{"id": x["RAW_ASSET_ID"], "source_id": x["SOURCE_ID"]} for x in D]
         assert sorted(r["id"] for r in novos) == sorted(ids), "IDS.json != DOCUMENTOS_FAST.json"
         assert os.path.exists(os.path.join(pasta, "FACTS_FAST.json")), "sem FACTS_FAST.json: nao ha o que retomar"
-        primeiro = 2
+        Fr = json.load(open(os.path.join(pasta, "FACTS_FAST.json"), encoding="utf-8"))
+        primeiro = PASSOS.index("passo3_cruzar.py") if Fr.get("SEGUNDA_LEITURA") else PASSOS.index("passo2b_verificar.py")
     elif not novos:
         log("SEM_RAW_NOVO (nada a fazer; ULTIMA.txt inalterado) CODIGO_HEAD=%s" % head)
         return
@@ -341,6 +343,7 @@ def main():
     nomes = ARQS + ["CRUZAMENTO-COMERCIAL.json", "CODIGO.json", "IDS.json"] + (["PEDIDO.json"] if pedido else []) + \
         (["SOURCE_CONTRACT.json"] if contrato else []) + \
         ["cruzamento-comercial/" + f for f in ("PROMPT.txt", "SAIDA_BRUTA_DO_MODELO.json", "CRUZAMENTO-COMERCIAL.json")] + \
+        (["verificacao/VERIFICACAO.json"] if os.path.exists(os.path.join(pasta, "verificacao", "VERIFICACAO.json")) else []) + \
         ["raw_texto/" + f for f in sorted(os.listdir(os.path.join(pasta, "raw_texto")))]
     with open(os.path.join(pasta, "SHA256SUMS.txt"), "w", encoding="utf-8", newline="\n") as f:
         for n in nomes:
@@ -369,11 +372,14 @@ def main():
         for i in ids:
             f.write("%d\n" % i)
     k = C["CONTAGEM"]
+    v2 = (F.get("SEGUNDA_LEITURA") or {}).get("TOTAL") or {}
     log("ENTREGUE %s CODIGO_HEAD=%s DOCUMENTOS=%d FONTES=%d FATOS=%d SINAIS_PASSO3=%d | COMERCIAL SINAL=%d LEAD=%d "
-        "GAP=%d OPORTUNIDADE=%d REJEITADOS=%d MODELOS=%s" % (
+        "GAP=%d OPORTUNIDADE=%d REJEITADOS=%d MODELOS=%s | SEGUNDA_LEITURA %s | DESTINOS %s" % (
             run_id, head, len(ids), len(fontes), len(F.get("FATOS", [])), len(S.get("SINAIS", [])), k["SINAL"],
             k["LEAD"], k["GAP"], k["OPORTUNIDADE"], len(C.get("REJEITADOS_POR_ID") or []),
-            ",".join(C["CUSTO"].get("MODELOS") or [])))
+            ",".join(C["CUSTO"].get("MODELOS") or []),
+            " ".join("%s=%s" % kv for kv in v2.items()) or "NAO_CORREU",
+            " ".join("%s=%d" % (d, len(x)) for d, x in (C.get("DESTINOS") or {}).items() if x)))
     pos_rodada(run_id)
 
 
