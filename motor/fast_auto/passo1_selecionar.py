@@ -37,7 +37,10 @@ env = dict(os.environ, PGPASSFILE=BASE + "/pgpass.conf", PGCLIENTENCODING="UTF8"
 dsn = open(BASE + "/SALA_DSN.txt").read().strip()
 sql = ("begin transaction read only; show transaction_read_only; "
        "select row_to_json(t) from (select id,run_id,source_id,source_url,storage_path,media_type,bytes,sha256,"
-       "captured_at,document_key,identity_state from raw_asset where id in (%s) order by id) t; commit;"
+       "captured_at,document_key,identity_state,(select json_build_object('ID',d.id,'SHA256',d.sha256,"
+       "'STORAGE_PATH',d.storage_path,'PRODUTOR',d.producer||'@'||coalesce(d.producer_version::text,'NAO_SEI')) "
+       "from derived_artifact d where d.raw_asset_id=raw_asset.id and d.kind='TRANSCRIPTION' order by d.id desc "
+       "limit 1) transcricao from raw_asset where id in (%s) order by id) t; commit;"
        % ",".join(map(str, IDS)))
 out = subprocess.run([PSQL, "-w", "-X", "-A", "-t", "-c", sql, dsn], env=env, capture_output=True, text=True, encoding="utf-8").stdout
 linhas = [l for l in out.splitlines() if l.strip()]
@@ -125,8 +128,21 @@ def normaliza(t):
     return t.strip()
 
 
-def bruto(path, mt):
+def transcricao(r):
+    """v0.3 §7A: video/audio entra pela TRANSCRICAO que a Collection ja gravou (derived_artifact). O texto e
+    lido do armazem e o sha256 tem de bater com o do banco; nao bate = o passo para (nunca texto nao provado)."""
+    tr = r.get("transcricao")
+    if not tr:
+        return None
+    tb = open(ARM + tr["STORAGE_PATH"], "rb").read()
+    assert hashlib.sha256(tb).hexdigest() == tr["SHA256"].strip(), ("TRANSCRICAO_SHA_NAO_CONFERE", r["id"], tr["ID"])
+    return tb.decode("utf-8")
+
+
+def bruto(path, mt, texto_transcrito=None):
     b = open(path, "rb").read()
+    if texto_transcrito is not None:
+        return b, texto_transcrito, Counter()
     if mt == "application/pdf":
         import pypdf
         r = pypdf.PdfReader(path)
@@ -160,7 +176,7 @@ os.makedirs(AQUI + "/raw_texto", exist_ok=True)
 preparo = []
 for r in rows:
     path = ARM + r["storage_path"]
-    b, t_bruto, casca = bruto(path, r["media_type"])
+    b, t_bruto, casca = bruto(path, r["media_type"], transcricao(r))
     preparo.append((r, b, normaliza(t_bruto), casca, t_bruto))
 
 template = linhas_de_template({r["id"]: t for r, b, t, c, n in preparo})
@@ -179,6 +195,8 @@ for r, b, t_corpo, casca, t_bruto in preparo:
     lido = open(AQUI + "/raw_texto/%s.txt" % did, "rb").read()   # o ficheiro como ele esta' no disco
     docs.append(dict(DOCUMENT_ID=did, RAW_ASSET_ID=r["id"], SOURCE_ID=r["source_id"], URL=r["source_url"],
                      DOCUMENT_KEY=r.get("document_key") or "NAO_SEI",  # identidade do ledger (Scrap), so copiada
+                     TEXTO_ORIGEM=("TRANSCRIPTION" if r.get("transcricao") else "TEXT_EXTRACTION"),
+                     TRANSCRICAO=(r.get("transcricao") or "NAO_APLICAVEL"),  # DERIVED id/sha/produtor, so copiados
                      STORAGE_PATH=r["storage_path"], MEDIA_TYPE=r["media_type"], CAPTURED_AT=r["captured_at"],
                      RAW_SHA256_BANCO=r["sha256"], RAW_SHA256_ARQUIVO=sha, SHA_CONFERE=(sha == r["sha256"].strip()),
                      TEXTO_BRUTO_CHARS=len(t_corpo),

@@ -62,7 +62,12 @@ def linhas_banco(sql):
 def candidatos(maximo):
     rows = linhas_banco("begin transaction read only; show transaction_read_only; "
                         "select row_to_json(t) from (select id,source_id,captured_at from raw_asset where preserved "
-                        "and media_type in ('text/html','application/pdf') and bytes>3000 "
+                        "and ((media_type in ('text/html','application/pdf') and bytes>3000) "
+                        # v0.3 §7A: conteudo social entra pelo TEXTO que ja existe na Sala (transcricao
+                        # feita pela Collection, derived_artifact kind=TRANSCRIPTION) - sem regra de relevancia.
+                        # Envelopes application/json sem transcricao continuam fora.
+                        "or exists (select 1 from derived_artifact d where d.raw_asset_id=raw_asset.id "
+                        "and d.kind='TRANSCRIPTION')) "
                         "order by captured_at desc, id desc limit 500) t; commit;")
     ja = feitos()
     novos = [r for r in rows if r["id"] not in ja]
