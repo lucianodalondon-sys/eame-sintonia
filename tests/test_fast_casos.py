@@ -303,5 +303,57 @@ class CadeiaBuscaAtiva(unittest.TestCase):
         self.assertEqual((c["BUSCA_ATIVA"], c["CONTAGEM"]["ORIGEM_NAO_PROVADA"]), ("NAO", 1))
 
 
+class IncorporarCadeia(unittest.TestCase):
+    """incorporar sobre uma pasta de rodada pedida: DOCUMENT_ID do ledger = DOCUMENT_KEY do RAW nomeado no pedido."""
+    ER = "ER-CASE-001-CAMPO_COOPERATIVA"
+
+    def montar(self, ped_kw=None, doc_kw=None):
+        import shutil
+        base = Path(tempfile.mkdtemp())
+        K.DADOS, K.CASOS = base, base / "CASOS"
+        K.REGISTRO, K.HISTORICO = K.CASOS / "REGISTRO.json", K.CASOS / "HISTORICO.jsonl"
+        (K.CASOS / "CASE-001").mkdir(parents=True)
+        (K.CASOS / "CASE-001" / "CASO.json").write_text(json.dumps({"evidence_requests": [{"id": self.ER}]}),
+                                                         encoding="utf-8")
+        K.REGISTRO.write_text(json.dumps({"VERSAO": K.VERSAO, "PROXIMO": 2, "CASOS": {"CASE-001": {
+            "CASE_ID": "CASE-001", "OBJETOS": [], "INCORPORADOS": []}}}), encoding="utf-8")
+        K.HISTORICO.write_text(json.dumps({"EVENTO": "DOSSIE", "CASE_ID": "CASE-001", "ER": [self.ER],
+                                           "EM": "2026-10-02T22:49:10+00:00"}) + "\n", encoding="utf-8")
+        run = base / "FAST-PEDIDA"
+        run.mkdir()
+        ped = {"CASE_ID": "CASE-001", "EVIDENCE_REQUEST_ID": self.ER, "SOURCE_CONTRACT_ID": "SC-CASE001-ER02-001",
+               "SOURCE_ID": "IT-NOVA-001", "DOCUMENT_ID": "LIBERACR:103526", "RAW_ASSET_IDS": [9001],
+               "JA_ESTAVA_NO_ATLAS": "NAO", "SOURCE_DATE_ISO": "2026-09-13T08:15:00+02:00", "FACT_TIME": "UNKNOWN"}
+        ped.update(ped_kw or {})
+        doc = {"DOCUMENT_ID": "RAW-9001", "RAW_ASSET_ID": 9001, "DOCUMENT_KEY": "LIBERACR:103526", "SHA_CONFERE": True}
+        doc.update(doc_kw or {})
+        (run / "PEDIDO.json").write_text(json.dumps(ped), encoding="utf-8")
+        (run / "DOCUMENTOS_FAST.json").write_text(json.dumps([doc]), encoding="utf-8")
+        (run / "FACTS_FAST.json").write_text(json.dumps({"FATOS": [{
+            "FACT_ID": "F-RAW-9001-01", "DOCUMENT_ID": "RAW-9001", "SOURCE_ID": "IT-NOVA-001",
+            "CAPTURED_AT": "2026-10-03T01:37:00+00:00", "ESTADO": "ACEITO"}]}), encoding="utf-8")
+        K.cmd_incorporar("CASE-001", self.ER, str(run))
+        inc = json.loads(K.REGISTRO.read_text(encoding="utf-8"))["CASOS"]["CASE-001"]["INCORPORADOS"][-1]
+        shutil.rmtree(base, ignore_errors=True)
+        return inc["CADEIA"]["RAW-9001"]
+
+    def test_contraprova_cadeia_completa(self):
+        c = self.montar()
+        self.assertEqual((c["ORIGEM"], c["DOCUMENT_ID"], c["FACT_TIME"]), (K.ORIGEM_BUSCA, "LIBERACR:103526", "UNKNOWN"))
+
+    def test_document_id_que_nao_e_do_ledger_nao_prova(self):
+        c = self.montar(doc_kw={"DOCUMENT_KEY": "OUTRO:1"})
+        self.assertEqual(c["ORIGEM"], K.ORIGEM_NAO_PROVADA)
+        self.assertIn("DOCUMENT_ID", c["FALTAM_NA_CADEIA"])
+
+    def test_raw_fora_do_pedido_ou_sha_diferente_nao_prova(self):
+        self.assertEqual(self.montar(ped_kw={"RAW_ASSET_IDS": [1]})["ORIGEM"], K.ORIGEM_NAO_PROVADA)
+        self.assertEqual(self.montar(doc_kw={"SHA_CONFERE": False})["ORIGEM"], K.ORIGEM_NAO_PROVADA)
+
+    def test_sem_contrato_registra_e_segue(self):
+        c = self.montar(ped_kw={"SOURCE_CONTRACT_ID": None})
+        self.assertEqual((c["ORIGEM"], c["FALTAM_NA_CADEIA"]), (K.ORIGEM_NAO_PROVADA, ["SOURCE_CONTRACT_ID"]))
+
+
 if __name__ == "__main__":
     unittest.main()

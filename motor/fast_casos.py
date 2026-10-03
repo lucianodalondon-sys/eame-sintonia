@@ -549,6 +549,8 @@ def cmd_incorporar(cid, er_id, run_dir):
     ped = json.loads((run_dir / "PEDIDO.json").read_text(encoding="utf-8"))
     assert ped.get("EVIDENCE_REQUEST_ID") == er_id and ped.get("CASE_ID") == cid, "captura sem ligacao ao pedido"
     F = json.loads((run_dir / "FACTS_FAST.json").read_text(encoding="utf-8"))
+    D = {x["DOCUMENT_ID"]: x for x in json.loads((run_dir / "DOCUMENTOS_FAST.json").read_text(encoding="utf-8"))}
+    raws_pedidos = set(ped.get("RAW_ASSET_IDS") or [])
     por_doc = OrderedDict()
     for f in F["FATOS"]:
         if f.get("ESTADO") != "REJEITADO":
@@ -561,7 +563,12 @@ def cmd_incorporar(cid, er_id, run_dir):
             ("SOURCE_CONTRACT_ID", ped.get("SOURCE_CONTRACT_ID")),
             # SOURCE_ID e DOCUMENT_ID: do PEDIDO e iguais ao que a captura gravou; divergencia = elo em falta
             ("SOURCE_ID", ped.get("SOURCE_ID") if ped.get("SOURCE_ID") == f.get("SOURCE_ID") else None),
-            ("DOCUMENT_ID", did if ped.get("DOCUMENT_ID") == did else None),
+            # DOCUMENT_ID do ledger = raw_asset.document_key do RAW nomeado no pedido, com o sha conferido
+            ("DOCUMENT_ID", ped.get("DOCUMENT_ID") if (
+                ped.get("DOCUMENT_ID") and ped.get("DOCUMENT_ID") == (D.get(did) or {}).get("DOCUMENT_KEY")
+                and (D.get(did) or {}).get("RAW_ASSET_ID") in raws_pedidos
+                and (D.get(did) or {}).get("SHA_CONFERE") is True) else None),
+            ("RAW_DOCUMENT_ID", did),
             ("EVIDENCE_REQUEST_CRIADO_EM", criado),
             ("CAPTURED_AT", f.get("CAPTURED_AT")),
             ("JA_ESTAVA_NO_ATLAS", ped.get("JA_ESTAVA_NO_ATLAS")),

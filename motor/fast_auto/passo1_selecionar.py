@@ -178,6 +178,7 @@ for r, b, t_corpo, casca, t_bruto in preparo:
         f.write(limpo)
     lido = open(AQUI + "/raw_texto/%s.txt" % did, "rb").read()   # o ficheiro como ele esta' no disco
     docs.append(dict(DOCUMENT_ID=did, RAW_ASSET_ID=r["id"], SOURCE_ID=r["source_id"], URL=r["source_url"],
+                     DOCUMENT_KEY=r.get("document_key") or "NAO_SEI",  # identidade do ledger (Scrap), so copiada
                      STORAGE_PATH=r["storage_path"], MEDIA_TYPE=r["media_type"], CAPTURED_AT=r["captured_at"],
                      RAW_SHA256_BANCO=r["sha256"], RAW_SHA256_ARQUIVO=sha, SHA_CONFERE=(sha == r["sha256"].strip()),
                      TEXTO_BRUTO_CHARS=len(t_corpo),
