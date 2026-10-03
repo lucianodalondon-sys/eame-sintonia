@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-011",
+ "SOURCE": "UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pianta e degli Alimenti",
+ "OWNER": "Universita di Bari Aldo Moro",
+ "URL": "https://www.uniba.it/it/ricerca/dipartimenti/disspa",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:59Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 126187 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.uniba.it/it/ricerca/dipartimenti/disspa",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Dipartimento di Scienze del Suolo, della Pianta e degli Alimenti (Di.S.S.P.A.) — Scienze del Suolo, della Pianta e degli Alimenti",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": "2026-08-26",
+  "BYTES_LIDOS": 86831
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.uniba.it/it/ricerca/dipartimenti/processi-e-subprocessi-dei-dipartimenti-di-ricerca.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Processi e subprocessi associati ai Dipartimenti di ricerca",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 126187,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "ec646581de9a4112457ca28c15ca646a6c0a44db2cebd520e510a59395e7b3c3",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

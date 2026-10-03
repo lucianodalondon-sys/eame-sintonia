@@ -5,7 +5,7 @@ Provas de consistência dos documentos canônicos.
 Um estado antigo não pode sobreviver num documento canônico e contradizer o estado
 final. Estes testes comparam o que os documentos DECLARAM com o que eles CONTÊM.
 """
-import json, os, re, unittest
+import json, os, re, sys, unittest
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -319,12 +319,21 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
         """O número de provas não pode ser escrito à mão.
 
         A MISSÃO 06 declarou 38/38 num commit e 37/37 num relatório, e a suíte tinha 37.
-        Nenhum dos dois números era derivado. Este teste conta a suíte de verdade e
-        exige que o documento de congelamento diga esse número.
+        Nenhum dos dois números era derivado. Este teste pede a contagem ao DONO
+        (`pacote/metricas_canonicas.py`) e exige que o documento corrente a publique na
+        grafia do dono (4.521, não 4521 — era a terceira grafia deste número, §138).
+
+        Se o dono não consegue derivar (módulo de `tests/` que não carrega neste
+        ambiente), isto é vermelho com a causa — não verde por não ter comparado.
         """
-        suite = unittest.defaultTestLoader.discover(os.path.dirname(os.path.abspath(__file__)))
-        n = suite.countTestCases()
-        self.assertRegex(self.DOCS['corrente'], rf'TESTES_REAIS\s*=\s*{n}\b',
+        sys.path.insert(0, ROOT)
+        import _gavetas  # noqa: F401 — poe as gavetas do processo no caminho
+        import metricas_canonicas as mc
+        m = mc.build()['TEST_COUNT_CURRENT']
+        self.assertNotEqual(mc.NAO_MENSURAVEL, m['STATUS'],
+                            f'a contagem não é mensurável neste ambiente — {m["DERIVATION"]}')
+        n = mc.formatar_publicavel(m['VALUE'])
+        self.assertRegex(self.DOCS['corrente'], rf'TESTES_REAIS\s*=\s*{re.escape(n)}(?![\d.])',
                          f'o documento CORRENTE não declara TESTES_REAIS = {n}')
 
     def test_o_numero_da_missao_08_e_historico(self):

@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T10-010",
+ "SOURCE": "CSO Italy — Centro Servizi Ortofrutticoli",
+ "OWNER": "CSO Italy",
+ "URL": "https://www.csoservizi.com/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:32Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 496652 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.csoservizi.com/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "CSO Italy Centro Servizi Ortofrutticoli",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2023-12-22",
+  "BYTES_LIDOS": 332538
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.csoservizi.com/wp-content/uploads/2025/03/AGRIPAT_SCH_SINTESI_INIZIALE_DEF.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "CLICCARE QUI",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 496652,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "a508855d3303fa86d9457d907a04ad4669cf35ab07961e24052f087354b6a190",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

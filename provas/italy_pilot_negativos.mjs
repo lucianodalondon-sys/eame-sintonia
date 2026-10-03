@@ -4,8 +4,8 @@
 
 import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync, rmSync, appendFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { normalizarSias, estadoDeCadencia, lerLedger } from "./italy_pilot_collect.mjs";
-import { CONTRACTS } from "./italy_contracts.mjs";
+import { normalizarSias, estadoDeCadencia, lerLedger } from "../coleta/italy_pilot_collect.mjs";
+import { CONTRACTS } from "../regras/italy_contracts.mjs";
 
 const sha = b => createHash("sha256").update(b).digest("hex");
 let executados = 0, atingiram = 0;
@@ -87,13 +87,45 @@ console.log("CONTROLES NEGATIVOS — PILOTO RECORRENTE\n");
 }
 
 // ---- N6 · fonte SEM cadencia provada, mesmo hash -> NO_CHANGE, nunca DEGRADED ----
+//
+// ⚠️ ESTE CONTROLO MEDIA DUAS COISAS NUMA ASSERCAO SO, E SO UMA DELAS E CODIGO.
+//
+// Ele afirmava `CADENCE_UNKNOWN+HEALTHY`, e o segundo termo vinha do ULTIMO
+// registo do livro para `IT-T2-004` — ou seja, do que a SIAS respondeu da
+// ultima vez que alguem a foi buscar. No dia em que a SIAS estiver em baixo,
+// ou em que a politica de rede recusar a saida (medido nesta sessao: `403
+// CONNECT` a todos os hospedeiros externos), o livro passa a terminar em
+// `FAILED` e este controlo fica VERMELHO — por uma razao que nao tem nada a
+// ver com o codigo que ele existe para guardar.
+//
+//     UMA REGRESSAO QUE DEPENDE DE UM SERVIDOR DE TERCEIROS ESTAR DE PE
+//     NAO E UMA REGRESSAO: E UM SENSOR COM ROUPA DE TESTE.
+//
+// E o custo disso nao e o alarme — e a REACCAO ao alarme. Um controlo que fica
+// vermelho por causa da rede ensina toda a gente a ignora-lo, e no dia em que
+// ele acender por um defeito a serio ninguem olha.
+//
+// Entao sao dois, e dizem-se dois:
+//
+//   N6   REGRESSION TEST — deterministico. So a funcao de cadencia, com o
+//        contrato e a observacao como entrada. Nao le saude nenhuma.
+//   S1   EXTERNAL SOURCE SENSOR — o que a fonte respondeu da ultima vez.
+//        INFORMA, e nunca reprova a bateria.
 {
   const c = CONTRACTS["IT-T2-004"];   // OBSERVED_FREQUENCY = NÃO SEI
   const est = estadoDeCadencia(c, led.find(o => o.SOURCE_ID === "IT-T2-004"), false);
-  const saude = led.filter(o => o.SOURCE_ID === "IT-T2-004").at(-1).HEALTH_STATE;
   N("N6", "fonte sem cadencia observada devolve o MESMO hash",
-    "CADENCE_UNKNOWN+HEALTHY", `${est.CADENCE_STATE}+${saude}`,
-    "SAME_HASH != DEGRADED · NO_CHANGE != FAILURE");
+    "CADENCE_UNKNOWN", est.CADENCE_STATE,
+    "SAME_HASH != DEGRADED · NO_CHANGE != FAILURE · deterministico: nao le saude");
+}
+
+// ---- S1 · SENSOR (nao e regressao): que saude a fonte reportou da ultima vez ----
+{
+  const ultimas = led.filter(o => o.SOURCE_ID === "IT-T2-004");
+  const saude = ultimas.length ? ultimas.at(-1).HEALTH_STATE : "NAO SEI";
+  console.log(`SENSOR    S1  saude da ultima observacao de IT-T2-004: ${saude}`);
+  console.log(`           isto INFORMA e nao reprova. Um FAILED aqui fala da `
+    + `fonte ou da rede, nunca do codigo desta arvore.`);
 }
 
 // ---- N7 · fonte COM cadencia provada e prazo NAO vencido -> EXPECTED_NO_CHANGE, nao OVERDUE ----

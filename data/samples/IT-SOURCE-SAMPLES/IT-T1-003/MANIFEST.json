@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-003",
+ "SOURCE": "Regione Toscana — Agricoltura",
+ "OWNER": "Regione Toscana",
+ "URL": "https://www.regione.toscana.it/agricoltura-e-alimentazione",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:35Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 165734 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.regione.toscana.it/agricoltura-e-alimentazione",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Agricoltura e Alimentazione - Regione Toscana",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-09-12",
+  "BYTES_LIDOS": 239294
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.regione.toscana.it/regione/approfondimenti",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Approfondimenti",
+  "TITULO": "Approfondimenti - Regione Toscana",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 165734,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "15eb6f2262af053a49ab164834624734acf9b5f7ca57e206ace6669734347361",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

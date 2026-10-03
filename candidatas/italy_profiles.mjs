@@ -1,10 +1,28 @@
-// PERFIS OPERACIONAIS. Um perfil diz QUAIS fontes uma execucao agendada pode tocar.
-// Guarda impede que uma quarta fonte entre calada no perfil forward-only-live.
+// PERFIS OPERACIONAIS. Um perfil diz COMO uma execucao agendada colhe —
+// horario, fuso, zonas. NAO diz QUEM: isso passou a ser pergunta ao portao.
+//
+// ⚠️ A LISTA FIXA SAIU DAQUI EM 2026-09-22 (cutover, Fase 5).
+// Estava escrita `SOURCES: ["IT-T3-005", "IT-T2-002", "IT-T2-004"]` e nunca
+// tinha falado com o livro do Curator. Medido no dia em que se perguntou:
+// IT-T3-005 estava em SEMANTIC_REVIEW (nunca promovida) e IT-T2-002 e
+// IT-T2-004 estavam READY_LEGACY (promovidas pela regua antiga, antes de
+// existir gate de detalhe). Nenhuma das tres era elegivel, e a lista dizia
+// que as tres eram.
+//
+//     UMA LISTA ESCRITA A MAO NAO ENVELHECE COM O LIVRO.
+//     NO DIA SEGUINTE ELA E UM CARIMBO VELHO COM CARA DE DECISAO.
+//
+// A populacao vem agora de `curadoria/collection_gate.py`, que e o dono
+// unico da regra. A regra NAO e copiada para JavaScript: uma segunda copia
+// da lei envelhece sozinha e diverge em silencio.
 
 export const PROFILES = {
   "forward-only-live": {
-    descricao: "as tres fontes cuja evidencia DESAPARECE se nao for preservada no dia",
-    SOURCES: ["IT-T3-005", "IT-T2-002", "IT-T2-004"],
+    descricao: "coleta operacional diaria: quem entra e quem o portao do Curator admite hoje",
+    //: De onde sai a populacao. Ler este campo e OBRIGATORIO antes de colher:
+    //: um perfil sem ele nao diz de onde vem a populacao, e um coletor que
+    //: adivinhe volta a ter lista fixa — desta vez escondida no coletor.
+    POPULACAO: "COLLECTION_GATE",
     OPS_BRANCH: "ops/italy-forward-only-live",
     SCHEDULER_TIMEZONE: "Europe/Rome",
     OPERATIONAL_COLLECTION_HOUR: 20,

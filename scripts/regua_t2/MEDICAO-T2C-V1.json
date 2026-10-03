@@ -1,0 +1,96 @@
+{
+ "DATASET": "MEDICAO-T2C-V1",
+ "BASE": "2906ae74",
+ "VERSAO_DA_REGRA": "8",
+ "TEXTOS": 1309,
+ "JULGAMENTOS": 9163,
+ "T2_ANTES_DEPOIS": {
+  "NAO->NAO": 469,
+  "NAO_SEI->NAO_SEI": 765,
+  "SIM->NAO_SEI": 8,
+  "SIM->SIM": 67
+ },
+ "MUDANCAS": [
+  {
+   "TEXTO": "textos:1cde235e4334972a.txt",
+   "UNIVERSO": "T2",
+   "ANTES": "SIM",
+   "DEPOIS": "NAO_SEI",
+   "LEITURA_T2B": "ERRADO: pagina de site (menu/servico)"
+  },
+  {
+   "TEXTO": "textos:2c7cc2f8689d1646.txt",
+   "UNIVERSO": "T2",
+   "ANTES": "SIM",
+   "DEPOIS": "NAO_SEI",
+   "LEITURA_T2B": "ERRADO: pagina de site (menu/servico)"
+  },
+  {
+   "TEXTO": "textos:329f4a17ed0a8888.txt",
+   "UNIVERSO": "T2",
+   "ANTES": "SIM",
+   "DEPOIS": "NAO_SEI",
+   "LEITURA_T2B": "ERRADO: pagina de site (menu/servico)"
+  },
+  {
+   "TEXTO": "textos:33bde7f65099e9dd.txt",
+   "UNIVERSO": "T2",
+   "ANTES": "SIM",
+   "DEPOIS": "NAO_SEI",
+   "LEITURA_T2B": "ERRADO: pagina de site (menu/servico)"
+  },
+  {
+   "TEXTO": "textos:46126e827da9de95.txt",
+   "UNIVERSO": "T2",
+   "ANTES": "SIM",
+   "DEPOIS": "NAO_SEI",
+   "LEITURA_T2B": "ERRADO: pagina de site (menu/servico)"
+  },
+  {
+   "TEXTO": "textos:b662ee180a543ce1.txt",
+   "UNIVERSO": "T2",
+   "ANTES": "SIM",
+   "DEPOIS": "NAO_SEI",
+   "LEITURA_T2B": "ERRADO: pagina de site (menu/servico)"
+  },
+  {
+   "TEXTO": "textos:d89beec6225962a5.txt",
+   "UNIVERSO": "T2",
+   "ANTES": "SIM",
+   "DEPOIS": "NAO_SEI",
+   "LEITURA_T2B": "ERRADO: pagina de site (menu/servico)"
+  },
+  {
+   "TEXTO": "textos:e4a33710dde15b99.txt",
+   "UNIVERSO": "T2",
+   "ANTES": "SIM",
+   "DEPOIS": "NAO_SEI",
+   "LEITURA_T2B": "ERRADO: pagina de site (menu/servico)"
+  }
+ ],
+ "OS_8_CERTOS_DEPOIS": {
+  "28d46da9430796a6": "SIM",
+  "65f0479ab9f42cf4": "SIM",
+  "6c4f3aa1a99f4d6c": "SIM",
+  "7f5856128d014f9a": "SIM",
+  "9d7c9f8ffdcacca7": "SIM",
+  "eb29c67d6f83ba78": "SIM",
+  "eba83c16cf8dab32": "SIM",
+  "ece748ebe0e8678a": "SIM"
+ },
+ "OS_8_ERRADOS_DEPOIS": {
+  "1cde235e4334972a": "NAO_SEI",
+  "2c7cc2f8689d1646": "NAO_SEI",
+  "329f4a17ed0a8888": "NAO_SEI",
+  "33bde7f65099e9dd": "NAO_SEI",
+  "46126e827da9de95": "NAO_SEI",
+  "b662ee180a543ce1": "NAO_SEI",
+  "d89beec6225962a5": "NAO_SEI",
+  "e4a33710dde15b99": "NAO_SEI"
+ },
+ "CRITERIO": {
+  "CERTOS_CONTINUAM_SIM": true,
+  "ERRADOS_DEIXAM_DE_SER_SIM": true,
+  "NADA_MAIS_MUDA": true
+ }
+}

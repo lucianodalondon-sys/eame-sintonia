@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>SINTONIA EAME · Mapa fiel ao repositório</title>
+<title>SINTONIA EAME — ITÁLIA · Mapa fiel ao repositório</title>
 
 <!-- Tokens oficiais do ADAMA Design System. Extrato versionado no repositório;
      a fonte continua a ser o Claude Design (ver CLAUDE.md). Caminho relativo
@@ -32,16 +32,36 @@
   <div class="brand">
     <div class="brandMark"></div>
     <div>
-      <div class="brandTitle">SINTONIA EAME</div>
-      <div class="brandSub">Mapa vivo · arquitetura factual do repositório</div>
+      <!-- EAME é o guarda-chuva regional; ITÁLIA é o que está construído.
+           Enquanto o título dizia só «SINTONIA EAME», este mapa apresentava-se
+           como a região inteira — e quem o abrisse contava as peças de um país
+           e concluía que eram as de todos. Espanha e França terão casa própria
+           (ES ·  FR); «EAME» fica reservado ao que for comprovadamente
+           partilhado entre elas. -->
+      <div class="brandTitle">SINTONIA EAME — ITÁLIA</div>
+      <div class="brandSub">Mapa vivo · arquitetura factual do repositório ·
+        país: IT</div>
     </div>
   </div>
   <div class="search">
     <input id="search" placeholder="Buscar peça, arquivo, régua, função…"
            aria-label="buscar no mapa">
   </div>
-  <div class="snapshotTop" id="snapshotTop"></div>
+  <!-- SYSTEM MAP STATUS. Quatro factos que nunca podem colapsar num so:
+       de que arvore o mapa foi GERADO, que commit esta IMPLANTADO, qual e a
+       cabeca ACTUAL da linha, e o que o validador disse. O botao mostra o
+       veredito; o painel mostra as medicoes que o sustentam. -->
+  <div class="snapshotTop" id="snapshotTop">
+    <button id="syncBadge" class="syncBadge sync-unknown" aria-expanded="false"
+            aria-controls="statusPanel">⚪ A MEDIR…</button>
+  </div>
 </header>
+
+<!-- STALE E BROKEN TEM DE GRITAR. Esta barra nao se fecha, e ocupa a largura
+     toda: um aviso que se pode ignorar com um clique nao e um aviso. -->
+<div class="staleBar" id="staleBar" hidden></div>
+
+<div class="statusPanel" id="statusPanel" hidden></div>
 
 <div class="workspace" id="workspace">
   <aside class="sidebar">
@@ -52,16 +72,83 @@
       <div id="views"></div>
     </div>
     <div class="filter">
-      <div class="sideTitle">Que setas mostrar</div>
-      <label class="check"><input type="checkbox" name="nat" value="FLUXO" checked>
-        <b>o caminho do dado</b></label>
-      <label class="check"><input type="checkbox" name="nat" value="MONTAGEM" checked>
-        esta peça é feita com aquela</label>
-      <label class="check"><input type="checkbox" name="nat" value="DISPARO" checked>
-        aquela manda esta correr</label>
-      <p class="hint">Desligue as duas de baixo para ver a corrente da coleta
-        sozinha: fontes → ferramentas → ações → veículos → porta.</p>
+      <div class="sideTitle">Conexões</div>
+      <label class="check"><input type="checkbox" name="cat" value="DATA" checked>
+        <b>DADO</b> — um item passa mesmo daqui para ali</label>
+      <label class="check"><input type="checkbox" name="cat" value="CONTROL" checked>
+        <b>COMANDO</b> — uma peça manda a outra executar</label>
+      <label class="check"><input type="checkbox" name="cat" value="WRITE">
+        ESCRITA — guarda o resultado num lugar</label>
+      <label class="check"><input type="checkbox" name="cat" value="READ">
+        LEITURA — lê um arquivo que a outra escreveu</label>
+      <label class="check"><input type="checkbox" name="cat" value="RULE">
+        REGRA — consulta uma lei para decidir</label>
+      <label class="check"><input type="checkbox" name="cat" value="PROOF">
+        PROVA — um teste ou medição observa</label>
+      <label class="check"><input type="checkbox" name="cat" value="CODE">
+        CÓDIGO — só dependência técnica, nenhum dado passa</label>
+      <label class="check"><input type="checkbox" name="cat" value="UNKNOWN">
+        NÃO SEI — não foi possível classificar</label>
+      <p class="hint">Começa com DADO e COMANDO ligados: é o caminho que a coleta
+        percorre. Ligue as outras para auditar — nada é escondido, só recolhido.
+        Nenhum cartão desaparece; só as setas.</p>
+    <!-- ══ G8 · A PROVA DE UMA LIGACAO NAO E A NATUREZA DELA ═══════════════
+         «Conexões», acima, responde O QUE ATRAVESSA a seta. Isto responde SE
+         ELA ESTA PROVADA — e são dois eixos, não dois nomes para o mesmo.
+
+             MODULE EXISTS != EDGE EXISTS != FLOW EXISTS
+             DECLARED EDGE != OBSERVED EDGE
+
+         As quatro começam LIGADAS, e isso não é um default qualquer: desligar
+         NÃO SEI por omissão seria esconder o buraco de quem nunca mexe num
+         filtro — que é toda a gente que abre isto pela primeira vez.
+
+             UM FILTRO QUE ESCONDE NÃO SEI POR OMISSÃO MENTE POR OMISSÃO. -->
+    <div class="filter">
+      <div class="sideTitle">Prova da ligação</div>
+      <label class="check"><input type="checkbox" name="prova" value="observada" checked>
+        <span class="provaChip prova-observada">OBSERVADA</span> uma corrida atravessou</label>
+      <label class="check"><input type="checkbox" name="prova" value="provada" checked>
+        <span class="provaChip prova-provada">PROVADA</span> há ficheiro e linha</label>
+      <label class="check"><input type="checkbox" name="prova" value="declarada" checked>
+        <span class="provaChip prova-declarada">DECLARADA</span> alguém disse, ninguém provou</label>
+      <label class="check"><input type="checkbox" name="prova" value="naosei" checked>
+        <span class="provaChip prova-naosei">NÃO SEI</span> nenhum plano a sustenta</label>
+      <p class="hint">A seta sem prova é <b>cinzenta, tracejada e leva um anel no
+        meio</b> — três sinais, para o estado não depender só da cor. Hoje são
+        <b id="contaSemProva">…</b>, e o «mostrar caminho completo» não atravessa
+        nenhuma delas: seguir uma ligação não provada transformaria «talvez» em
+        «portanto».</p>
     </div>
+
+    <!-- ══ A LÍNGUA DAS SETAS ═══════════════════════════════════════════════
+         A espessura e o tracejado já separavam as sete categorias desde o G8, e
+         não havia em lado nenhum quem as traduzisse. Uma linguagem visual sem
+         legenda é uma linguagem que só o autor fala.
+
+             UMA SETA DE COMANDO E UMA SETA DE DADO RESPONDEM A PERGUNTAS
+             DIFERENTES: «QUEM MANDA» E «O QUE ATRAVESSA».
+
+         Trocar uma pela outra apaga a pergunta «quem ativa» — e foi exactamente
+         por ela que esta faixa existe. -->
+    <div class="filter">
+      <div class="sideTitle">A língua das setas</div>
+      <div class="legendaArestas">
+        <div><b>DADO</b> <i>linha grossa</i> — um item sai mesmo daqui e entra ali</div>
+        <div><b>COMANDO</b> <i>tracejado largo</i> — esta peça manda a outra executar</div>
+        <div><b>ESCRITA</b> <i>linha média</i> — guarda o resultado num lugar</div>
+        <div><b>LEITURA</b> <i>pontilhado</i> — lê um ficheiro que a outra escreveu</div>
+        <div><b>REGRA</b> <i>traço-ponto</i> — consulta uma lei para decidir</div>
+        <div><b>PROVA</b> <i>pontilhado fino</i> — um teste observa a outra peça</div>
+        <div><b>CÓDIGO</b> <i>pontilhado mínimo</i> — só dependência; nada passa aqui</div>
+      </div>
+      <p class="hint">A <b>categoria</b> diz sobre <i>o quê</i> é a ligação; a
+        <b>prova</b>, acima, diz se ela aconteceu. São eixos diferentes: uma seta
+        de comando pode estar por provar, e uma de dado pode estar observada.
+        Uma travessia <b>OBSERVADA</b> é a única linha <b>cheia e escura</b> do
+        mapa — <i>análise estática prova CAN DO; só a corrida prova DID DO</i>.</p>
+    </div>
+
     <div class="filter">
       <div class="sideTitle">País da fonte</div>
       <div id="paises"></div>
@@ -89,8 +176,11 @@
       <b>COLETA → <i>a espera</i> → INTELIGÊNCIA → ENTREGA</b>
       <span>Entre a coleta e a inteligência há uma faixa cinzenta: é onde o que já
         foi colhido dorme até entrar no processo seguinte. Cinzenta porque ali nada
-        é transformado — só guardado. Arraste · zoom · passe o mouse · clique ·
-        “mostrar caminho completo”</span>
+        é transformado — só guardado. <b>No fim, separada da esteira, fica a
+        GOVERNANÇA</b>: o que mede e o que regula os outros, sem ser um passo de
+        nenhum deles. Ela ficava dentro da INTELIGÊNCIA, e por isso 143 ligações de
+        prova e de regra pareciam a coleta a falar com o motor. Arraste · zoom ·
+        passe o mouse · clique · “mostrar caminho completo”</span>
     </div>
     <div class="warning" id="warning"></div>
 
@@ -98,7 +188,13 @@
       <svg id="edges">
         <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3"
               orient="auto" markerUnits="strokeWidth">
-          <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker></defs>
+          <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker>
+          <!-- A PONTA VAZADA É DE QUEM NÃO PROVA. Cor é um canal só, e quem não
+               distingue dois cinzentos parecidos fica sem a informação toda. -->
+          <marker id="arrowNaoSei" markerWidth="10" markerHeight="10" refX="8" refY="3"
+              orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L8,3 z" fill="none" stroke="#a8afac" stroke-width="1.2"/>
+          </marker></defs>
         <g id="edgeLayer"></g>
       </svg>
       <div id="families"></div>
@@ -112,11 +208,17 @@
         <g id="miniNodes"></g><rect id="miniView"/>
       </svg>
     </div>
+    <!-- «7 NÃO SEI» ERA DE PEÇAS, E ESTAVA AO LADO DE «656 LIGAÇÕES».
+         Quem lia somava as duas na cabeça e concluía que 649 setas estavam
+         provadas. Não estavam: 47 não têm prova nenhuma, e esse número não
+         existia na tela. Cada mostrador diz agora de que universo fala. -->
     <div class="kpis">
       <div class="kpi"><b id="kNodes">—</b>peças</div>
+      <div class="kpi"><b id="kUnknown">—</b>peças NÃO SEI</div>
+      <div class="kpi semprova"><b id="kSemProva">—</b>setas sem prova</div>
+      <div class="kpi"><b id="kPapelNaoSei">—</b>papel NÃO SEI</div>
       <div class="kpi"><b id="kEdges">—</b>ligações</div>
-      <div class="kpi"><b id="kProven">—</b>provadas</div>
-      <div class="kpi"><b id="kUnknown">—</b>não sei</div>
+      <div class="kpi"><b id="kProven">—</b>peças provadas</div>
     </div>
     <div class="controls">
       <button class="ctrl" id="fit"   title="Enquadrar">□</button>
@@ -152,9 +254,17 @@
   font:12px/1.5 Arial,sans-serif">
   O mapa precisa de JavaScript para ser navegado. O mesmo conteúdo, em formato de
   máquina, está em <a href="state.generated.json">state.generated.json</a> —
-  peças, ligações, estados e a evidência de cada uma.
+  peças, ligações, estados e a evidência de cada uma. O commit que está
+  <b>implantado</b> está em
+  <a href="deployment.generated.json">deployment.generated.json</a>, e sem JS
+  <b>não é possível confirmar</b> se ele é a cabeça atual da linha: sem essa
+  confirmação, o estado é UNKNOWN, nunca CURRENT.
 </div></noscript>
 
+<!-- A LEI DA FRESCURA vem antes da tela, e e um ficheiro so. A tela mede; este
+     decide. Separados porque a decisao tem de ser testavel sem um browser, e
+     porque uma regra escondida no meio de mil linhas de desenho nao se audita. -->
+<script src="freshness.js"></script>
 <script src="map.js"></script>
 </body>
 </html>

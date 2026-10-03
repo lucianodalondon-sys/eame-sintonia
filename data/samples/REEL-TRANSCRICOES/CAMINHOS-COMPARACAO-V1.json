@@ -1,0 +1,156 @@
+{
+ "SOURCE_ID": "REEL-TRANSCRICOES/CAMINHOS-COMPARACAO-V1",
+ "source": "comparacao observada dos tres caminhos possiveis para ouvir um Reel. Preco lido da API publica da Apify; tempo e qualidade medidos aqui.",
+ "SOURCE_LOCATION": "medido no runner desta missao + API publica da Apify",
+ "FACT_LOCATION": "NAO_SE_APLICA",
+ "MEASURED_AT": "2026-09-10",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "AVISO_DE_CUSTO": "nenhuma execucao paga foi feita nesta missao: o pool de chaves nao existe neste ambiente (APIFY_TOKEN_POOL ausente; ele e secret do GitHub e chega aos workflows do runner local). Os valores da Apify sao PRECO DE TABELA lido agora, projetado sobre o corpus REAL medido aqui — nao sao fatura.",
+ "HARDWARE_MEDIDO": {
+  "CPU": "Intel Xeon 2.80GHz",
+  "CORES": 4,
+  "GPU": "NENHUMA",
+  "RAM_GB": 15,
+  "OS": "Ubuntu 24.04.4 LTS",
+  "FFMPEG": "6.1.1",
+  "FASTER_WHISPER": "1.2.1",
+  "YT_DLP": "2026.08.19"
+ },
+ "CORPUS_MEDIDO": {
+  "REELS_COM_MIDIA": 8,
+  "AUDIO_SEGUNDOS": 467.9,
+  "MAQUINA_SEGUNDOS": 210.3,
+  "REALTIME_FACTOR": 2.22,
+  "MINUTOS_INICIADOS": 12,
+  "MB_INICIADOS": 40
+ },
+ "PRECO_APIFY_LIDO_AGORA": {
+  "FONTE": "GET https://api.apify.com/v2/acts/apify~instagram-reel-scraper · pricingInfos[-1] · vigente desde 2026-03-11T14:56:04.494Z",
+  "MODELO": "PAY_PER_EVENT",
+  "EVENTOS_USD_POR_TIER": {
+   "actor-start": {
+    "FREE": 0.001,
+    "BRONZE": 0.001,
+    "DIAMOND": 0.001,
+    "UNIDADE": "uma vez por run"
+   },
+   "reel": {
+    "FREE": 0.0026,
+    "BRONZE": 0.0023,
+    "DIAMOND": 0.0004,
+    "UNIDADE": "por reel gravado no dataset"
+   },
+   "transcript": {
+    "FREE": 0.048,
+    "BRONZE": 0.041,
+    "DIAMOND": 0.01,
+    "UNIDADE": "por MINUTO INICIADO por reel"
+   },
+   "video-download": {
+    "FREE": 0.02,
+    "BRONZE": 0.015,
+    "DIAMOND": 0.007,
+    "UNIDADE": "por 1 MB INICIADO por reel"
+   },
+   "shares-count": {
+    "FREE": 0.007,
+    "BRONZE": 0.006,
+    "DIAMOND": 0.002,
+    "UNIDADE": "por reel"
+   }
+  },
+  "A_ARMADILHA": "«por minuto INICIADO» e «por MB INICIADO» nao sao detalhes: um reel de 61 s paga DOIS minutos, e um de 4,1 MB paga CINCO MB. O corpus medido aqui tem 7,8 minutos de audio e pagaria 12."
+ },
+ "CONTRATO_LIDO_AGORA": {
+  "apify~instagram-reel-scraper": {
+   "BUILD": "0.0.566",
+   "ENTRADA": [
+    "username (OBRIGATORIO — aceita username, URL de perfil, ID ou URL DIRETA de reel)",
+    "resultsLimit",
+    "onlyPostsNewerThan",
+    "includeTranscript",
+    "includeDownloadedVideo",
+    "includeSharesCount",
+    "skipPinnedPosts",
+    "skipTrialReels"
+   ],
+   "NAO_EXISTE": [
+    "directUrls"
+   ],
+   "SAIDA_RELEVANTE": [
+    "caption",
+    "videoUrl",
+    "videoPlayCount",
+    "transcript"
+   ],
+   "COMO_FOI_LIDO": "ferramentas/contrato_ator.py portao() — GET publico, sem chave, custo zero"
+  },
+  "apify~instagram-scraper (o que o SINTONIA usa hoje)": {
+   "BUILD": "0.0.779",
+   "ENTRADA": [
+    "directUrls",
+    "resultsType",
+    "resultsLimit",
+    "onlyPostsNewerThan",
+    "search",
+    "searchType",
+    "searchLimit",
+    "addParentData"
+   ],
+   "NAO_EXISTE": [
+    "includeTranscript",
+    "includeDownloadedVideo",
+    "username"
+   ],
+   "CONSEQUENCIA": "o ator que a casa ja usa NAO devolve transcript a preco nenhum"
+  }
+ },
+ "MATRIZ": [
+  {
+   "CAMINHO": "1 · APIFY TRANSCRIPT",
+   "CAPTURA_REAL": "NOT_TESTED",
+   "TRANSCRICAO_REAL": "NOT_TESTED",
+   "IT": "NOT_TESTED",
+   "ES": "NOT_TESTED",
+   "FR": "NOT_TESTED",
+   "EN": "NOT_TESTED",
+   "CUSTO": "$0.60 pelo corpus medido, tier FREE (tabela, nao fatura)",
+   "TEMPO": "NAO SEI",
+   "DEPENDENCIA_EXTERNA": "TOTAL — ator, preco e disponibilidade sao de terceiro",
+   "VEREDITO": "NOT_TESTED. Motivo reproduzivel: APIFY_TOKEN_POOL nao existe neste ambiente. O contrato E o preco foram lidos (rota publica, custo zero) e o ator TEM includeTranscript — mas ATOR EXISTIR NAO E ATOR TER RODADO."
+  },
+  {
+   "CAMINHO": "2 · APIFY CAPTURA + ASR LOCAL",
+   "CAPTURA_REAL": "NOT_TESTED",
+   "TRANSCRICAO_REAL": "PASS (o ASR local esta provado)",
+   "IT": "NOT_TESTED (a captura)",
+   "ES": "NOT_TESTED (a captura)",
+   "FR": "NOT_TESTED (a captura)",
+   "EN": "NOT_TESTED (a captura)",
+   "CUSTO": "$0.82 pelo corpus medido, tier FREE — so reel + video-download",
+   "TEMPO": "210 s de maquina para 468 s de audio",
+   "DEPENDENCIA_EXTERNA": "PARCIAL — so a captura",
+   "VEREDITO": "a metade cara (transcript) sai da fatura, e a metade fragil (captura) fica com quem tem IP e escala. A cadeia ja aceita esta combinacao: CAPTURE_PROVIDER e TRANSCRIPT_PROVIDER sao campos separados, de proposito."
+  },
+  {
+   "CAMINHO": "3 · CAPTURA LOCAL + ASR LOCAL",
+   "CAPTURA_REAL": "PASS — 8 Reels publicos baixados por yt-dlp, endereco direto",
+   "TRANSCRICAO_REAL": "PASS — 4 com fala, 4 sem, todos com estado explicito",
+   "IT": "PARTIAL (2/3 termos — a marca sai «di singenta»)",
+   "ES": "PASS (3/3)",
+   "FR": "PASS (2/2)",
+   "EN": "PASS (2/2)",
+   "CUSTO": "$0,00",
+   "TEMPO": "210 s de maquina para 468 s de audio (2.22x o tempo real)",
+   "DEPENDENCIA_EXTERNA": "MEDIA — yt-dlp depende de um GraphQL interno nao documentado da Meta, que ja se degrada (Instaloader #2738, aberta 2026-09-05). Nao ha API publica oficial que devolva o mp4.",
+   "VEREDITO": "VENCEDOR MEDIDO para o que esta missao tinha de provar."
+  }
+ ],
+ "O_QUE_A_CAPTURA_LOCAL_NAO_FAZ": [
+  "NAO descobre. Listar os Reels de um perfil devolve 302 para /accounts/login/ e HTTP 429 no extractor de perfil, deste IP de datacenter. Da para baixar um Reel cujo endereco ja se tem; nao da para varrer uma conta.",
+  "NAO e deterministico: ~1 em cada 6 chamadas devolve «Instagram sent an empty media response» sem sinal de limite. Por isso ha retry declarado, e por isso uma falha nunca sai como «nao ha video».",
+  "NAO usa navegador: neste ambiente o Chromium nao alcanca rede nenhuma (ERR_CONNECTION_RESET ate em example.com). A rota CDP que a casa ja tem em instagram_janela.py continua a ser a do PC local, nao a deste contentor."
+ ],
+ "PORTANTO": "a escolha nao e «local porque e gratis»: e local porque foi o unico caminho que ATRAVESSOU de ponta a ponta com prova, e porque a parte cara da rota paga (transcript por minuto iniciado) e justamente a que a maquina faz de graca. A rota paga fica registada, com contrato e preco lidos, para o dia em que a captura local partir."
+}

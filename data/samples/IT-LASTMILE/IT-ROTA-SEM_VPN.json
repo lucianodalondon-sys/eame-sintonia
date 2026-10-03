@@ -1,7 +1,7 @@
 {
  "DATASET": "IT-TESTE-DE-ROTA",
  "RODADA": "SEM_VPN",
- "QUANDO": "2026-09-02T12:04:09",
+ "QUANDO": "2026-09-08T00:51:19",
  "LEI": "FONTE BLOQUEADA POR IP NAO E FONTE INEXISTENTE. E PROBLEMA DE ROTA.",
  "O_QUE_A_VPN_NAO_MUDA": [
   "deteccao de robo (Akamai/bm-verify) — le o navegador, nao o IP",
@@ -28,7 +28,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "publicacoes e series",
    "ESTADO": "HTTP 404",
    "DETALHE": "Not Found",
-   "SEGUNDOS": 0.7,
+   "SEGUNDOS": 1.3,
    "CAUSA": "RESPONDE_MAS_RECUSA",
    "VPN_RESOLVE": "TALVEZ — depende do motivo"
   },
@@ -37,11 +37,11 @@
    "URL": "https://esploradati.istat.it/",
    "FAMILIA_DA_MISSAO": "3 · PESO ECONOMICO",
    "O_QUE_TRAZ_SE_ABRIR": "area e producao por cultura e por regiao — o REAL_GAP inteiro",
-   "ESTADO": "URLError",
-   "DETALHE": "<urlopen error [WinError 10060] Uma tentativa de conexão falhou porque o componente conectado não respondeu\r\nc",
-   "SEGUNDOS": 21.0,
-   "CAUSA": "TCP_NAO_ABRE",
-   "VPN_RESOLVE": "PROVAVEL — compativel com filtro geografico"
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 2.2,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
   },
   {
    "FONTE": "ISTAT dati (legado)",
@@ -50,7 +50,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "mesma coisa, interface antiga",
    "ESTADO": "URLError",
    "DETALHE": "<urlopen error [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1010)>",
-   "SEGUNDOS": 1.2,
+   "SEGUNDOS": 2.2,
    "CAUSA": "TLS_OU_WAF",
    "VPN_RESOLVE": "TALVEZ — pode ser servidor velho, nao geografia"
   },
@@ -61,7 +61,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "clima e agrometeorologia do Veneto — o outro REAL_GAP",
    "ESTADO": "URLError",
    "DETALHE": "<urlopen error [WinError 10060] Uma tentativa de conexão falhou porque o componente conectado não respondeu\r\nc",
-   "SEGUNDOS": 21.0,
+   "SEGUNDOS": 21.7,
    "CAUSA": "TCP_NAO_ABRE",
    "VPN_RESOLVE": "PROVAVEL — compativel com filtro geografico"
   },
@@ -72,7 +72,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "clima",
    "ESTADO": "HTTP 200",
    "DETALHE": "4000 bytes",
-   "SEGUNDOS": 15.9,
+   "SEGUNDOS": 1.7,
    "CAUSA": "ABERTO",
    "VPN_RESOLVE": "desnecessario"
   },
@@ -83,7 +83,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "clima",
    "ESTADO": "HTTP 200",
    "DETALHE": "4000 bytes",
-   "SEGUNDOS": 1.7,
+   "SEGUNDOS": 2.0,
    "CAUSA": "ABERTO",
    "VPN_RESOLVE": "desnecessario"
   },
@@ -92,11 +92,11 @@
    "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
    "FAMILIA_DA_MISSAO": "1 · FENOLOGIA",
    "O_QUE_TRAZ_SE_ABRIR": "boletins do Veneto — 3 casos do demo estao la e nao ha nenhum boletim",
-   "ESTADO": "URLError",
-   "DETALHE": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get issuer certificate (_",
-   "SEGUNDOS": 0.7,
-   "CAUSA": "NAO_SEI",
-   "VPN_RESOLVE": "NAO SEI"
+   "ESTADO": "HTTP 500",
+   "DETALHE": "Internal Server Error",
+   "SEGUNDOS": 1.4,
+   "CAUSA": "RESPONDE_MAS_RECUSA",
+   "VPN_RESOLVE": "TALVEZ — depende do motivo"
   },
   {
    "FONTE": "Regione Sicilia · agricoltura",
@@ -105,7 +105,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "boletins da Sicilia — o caso da mosca da oliveira",
    "ESTADO": "HTTP 200",
    "DETALHE": "4000 bytes",
-   "SEGUNDOS": 1.3,
+   "SEGUNDOS": 1.8,
    "CAUSA": "ABERTO",
    "VPN_RESOLVE": "desnecessario"
   },
@@ -116,7 +116,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "maca do Trentino-Alto Adige",
    "ESTADO": "HTTP 200",
    "DETALHE": "2423 bytes",
-   "SEGUNDOS": 1.7,
+   "SEGUNDOS": 1.8,
    "CAUSA": "ABERTO",
    "VPN_RESOLVE": "desnecessario"
   },
@@ -127,7 +127,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "diserbo do arroz — ⚠️ falha por DH fraco, nao por geografia",
    "ESTADO": "URLError",
    "DETALHE": "<urlopen error [SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1010)>",
-   "SEGUNDOS": 0.5,
+   "SEGUNDOS": 1.8,
    "CAUSA": "TLS_DO_SERVIDOR",
    "VPN_RESOLVE": "NAO — chave fraca do servidor, igual em qualquer pais"
   },
@@ -138,7 +138,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "ja funciona",
    "ESTADO": "HTTP 200",
    "DETALHE": "4000 bytes",
-   "SEGUNDOS": 1.2,
+   "SEGUNDOS": 1.5,
    "CAUSA": "ABERTO",
    "VPN_RESOLVE": "desnecessario"
   },
@@ -149,7 +149,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "ja funciona",
    "ESTADO": "HTTP 200",
    "DETALHE": "4000 bytes",
-   "SEGUNDOS": 0.7,
+   "SEGUNDOS": 0.8,
    "CAUSA": "ABERTO",
    "VPN_RESOLVE": "desnecessario"
   },
@@ -160,7 +160,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "ja funciona",
    "ESTADO": "HTTP 200",
    "DETALHE": "1987 bytes",
-   "SEGUNDOS": 1.3,
+   "SEGUNDOS": 1.4,
    "CAUSA": "ABERTO",
    "VPN_RESOLVE": "desnecessario"
   },
@@ -171,7 +171,7 @@
    "O_QUE_TRAZ_SE_ABRIR": "indice de seca por regiao",
    "ESTADO": "HTTP 200",
    "DETALHE": "4000 bytes",
-   "SEGUNDOS": 1.6,
+   "SEGUNDOS": 2.0,
    "CAUSA": "ABERTO",
    "VPN_RESOLVE": "desnecessario"
   },

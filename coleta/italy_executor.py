@@ -1,0 +1,724 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""O ADAPTER DA ITALIA — quatro traducoes, e nenhuma quinta.
+
+POR QUE ISTO EXISTE
+-------------------
+A Italia colhe desde 2026-09. O livro tem 144 observacoes, 6 corridas, e
+documentos preservados em `data/collection-store/italy/`. E `raw_asset` tem
+ZERO linhas italianas, porque a coleta italiana nunca passou por
+`coleta/ingresso.py`.
+
+Nao foi por falta de porta: a porta existe, esta provada e tem um dono do RAW.
+Foi porque entre o coletor italiano e a porta havia tres desencontros medidos,
+e nenhum deles e uma questao de opiniao:
+
+    o coletor e NODE           e a rota canonica corre executores com `sys.executable`
+    o livro e NDJSON           e a colheita le `glob("*.json")` + `json.loads`
+    o livro e APPEND-ONLY      e traria as 144 observacoes, nao as desta corrida
+
+Este ficheiro e a peca que faltava, e ele NAO e um segundo coletor. Ele nao vai
+a fonte, nao decide o que colher, nao julga nada e nao guarda nada. Ele traduz.
+
+    AS QUATRO TRADUCOES
+
+      1  corre o coletor em Node, com o RUN_ID que o T-04 cunhou
+      2  le do livro APENAS as observacoes dessa corrida
+      3  converte NDJSON  ->  uma lista JSON na pasta de colheita
+      4  renomeia RAW_PATH  ->  STORAGE_LOCATION
+
+    E O QUE ELE NAO PODE FAZER
+
+      inventar SOURCE_ID · DOCUMENT_ID · DOCUMENT_VERSION_ID · RUN_ID
+              sha256 · captured_at — nem nenhum outro campo que a observacao
+              nao trouxe.
+
+Traduzir nome e forma e o trabalho de um adapter. **Preencher um campo que a
+observacao nao trouxe e outra coisa, e esta proibido.** O que o coletor nao
+disse chega a porta em falta, e a porta escreve `NAO SEI` — que e a resposta
+honesta, e nao um buraco.
+
+O QUE ELE DEVOLVE A QUEM O CHAMA
+--------------------------------
+Um ficheiro so, sempre no mesmo sitio, sempre reescrito:
+
+    data/colheita/italia/colheita.json
+
+Reescrito, e nao acumulado, de proposito. Esta pasta e o BALCAO entre o
+executor e a porta — nao e arquivo. O arquivo e o livro append-only, que
+continua intacto e que ninguem aqui toca. Se esta pasta acumulasse um ficheiro
+por corrida, a corrida seguinte tornaria a entregar a colheita da anterior, e o
+`I3` que este adapter existe para resolver voltava a entrar pela porta ao lado.
+
+    UM BALCAO QUE GUARDA O QUE JA ENTREGOU
+    NAO E UM BALCAO: E UM SEGUNDO ARQUIVO, E MENTE.
+
+Uso:
+    python3 coleta/italy_executor.py --run-id=<RUN_ID> [FONTE]
+
+O `--run-id` e OBRIGATORIO e vem de quem coordena. Este adapter nao cunha
+corrida — se o cunhasse, a corrida do orquestrador e a corrida do coletor eram
+duas, e o `raw_asset` ficaria ligado a uma corrida que o manifesto nao conhece.
+"""
+from __future__ import annotations
+
+import json
+import os
+import re
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, RAIZ)
+import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
+
+import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno, COL-LAW-505
+# O dono unico da regra «isto e uma afirmacao ou uma confissao de
+# ignorancia?». Reescreve-la aqui criaria um segundo dono, e dois donos
+# de uma regra divergem em silencio.
+from coleta import ingresso as ing  # noqa: E402
+
+# ONDE O COLETOR ESCREVE O LIVRO. Nao e configuracao nova: `ITALY_OPS_ROOT` ja
+# e a raiz que o coletor italiano le ha muito, e ler o livro noutro sitio que
+# nao aquele onde ele foi escrito daria sempre zero observacoes — com cara de
+# «a fonte nao tinha nada».
+OPS_ROOT = os.environ.get("ITALY_OPS_ROOT") or RAIZ
+
+COLETOR = os.path.join("coleta", "italy_pilot_collect.mjs")
+LIVRO = os.path.join("data", "collection-ledger", "italy", "observations.ndjson")
+BALCAO = os.path.join("data", "colheita", "italia")
+COLHEITA = os.path.join(BALCAO, "colheita.json")
+# ONDE A CORRIDA DECLARA O QUE PRODUZIU (COL-LAW-505). Nao substitui o
+# `colheita.json`: aquele carrega as unidades, este diz O QUE ELAS SAO.
+RETORNO = os.path.join(BALCAO, "RETORNO.json")
+
+EXECUTOR_ID = "italia-recorrente"
+EXECUTOR_VERSION = "adapter-v1"
+
+# ── O QUE A OBSERVACAO TRAZ E A PORTA TRANSPORTA ────────────────────────────
+# `coleta/ingresso.py::DO_COLETOR` tem treze campos. A observacao italiana
+# responde a tres deles, e responde-lhes com o mesmo nome. Os outros dez nao se
+# preenchem: `DOCUMENT_ID` e `DOCUMENT_VERSION_ID`, que a observacao TEM, nao
+# cabem em nenhum — isso esta medido e registado, e e pergunta do B4, nao desta.
+# ⚠️ O NOME DESTA CONSTANTE MENTE, e a trava do tradutor apanhou-o em
+# 2026-09-11. Ela nao leva «a porta»: leva ao CONTRATO COMUM, e por isso
+# mapeia MAIUSCULA para MAIUSCULA. Quem traduz para a lingua de quem julga e
+# `coleta/ingresso.py::para_a_porta`, e so ele.
+#
+#     UM NOME QUE DIZ O DESTINO ERRADO FAZ O PROXIMO LEITOR PROCURAR
+#     A TRADUCAO NO SITIO ERRADO.
+#
+# O nome fica registado como divida e nao se renomeia aqui: renomear uma
+# constante publica no meio de uma missao de fronteira e mexer no que nao se
+# veio medir.
+DA_OBSERVACAO_PARA_O_CONTRATO = DA_OBSERVACAO_PARA_A_PORTA = {
+    "SOURCE_ID": "SOURCE_ID",
+    "SOURCE_URL": "SOURCE_URL",
+    "FACT_TIME": "FACT_TIME",
+    # ⚠️ QUANDO OS BYTES CHEGARAM — E O LIVRO SEMPRE SOUBE.
+    # Cada observacao do livro italiano traz `CAPTURED_AT` com o instante real
+    # da captura. Esta traducao nao o levava, e a ficha enchia o campo com o
+    # `STARTED_AT` da corrida. Numa colheita nova as duas datas coincidem e o
+    # defeito nao aparece; num REPROCESSAMENTO ficam a uma semana de distancia
+    # — medido: capturado a 2026-09-07, a Sala dizia 2026-09-14.
+    #
+    #     COLLECTED_AT E DA OBSERVACAO. STARTED_AT E DA CORRIDA.
+    #     SAO IGUAIS SO ENQUANTO FOREM A MESMA VIAGEM.
+    "CAPTURED_AT": "COLLECTED_AT",
+}
+
+
+def _relativo(caminho: str) -> str:
+    """`./data/collection-store/...` -> `data/collection-store/...`.
+
+    A porta junta o que receber a raiz do repositorio, e por isso o caminho tem
+    de ser relativo a ela. O coletor escreve-o com o prefixo da raiz DELE
+    (`ITALY_OPS_ROOT`, que por omissao e `.`). Normalizar um caminho e
+    traducao; e a unica coisa que se faz ao valor.
+    """
+    if not caminho:
+        return ""
+    p = os.path.normpath(caminho)
+    if os.path.isabs(p):
+        try:
+            p = os.path.relpath(p, RAIZ)
+        except ValueError:
+            return ""
+    return p.replace("\\", "/")
+
+
+def _tempo_do_fato(v) -> str:
+    """`"UNKNOWN — o boletim nao data a observacao de campo"` NAO e um tempo.
+
+    O coletor escreve a confissao dentro do proprio campo. Passa-la adiante
+    como se fosse valor poria uma frase onde a porta espera um instante, e um
+    campo preenchido com prosa parece medido. Esta casa ja tem sitio para nao
+    saber: o campo fica por dizer, e a porta escreve `NAO SEI`.
+    """
+    s = str(v or "").strip()
+    if not s or s.upper().startswith(("UNKNOWN", "NAO SEI", "NÃO SEI")):
+        return ""
+    return s
+
+
+def _afirma(v) -> bool:
+    return v not in ing.NAO_E_AFIRMACAO and str(v).strip() != ""
+
+
+#: DA-9: duas datas de publicacao que distam mais do que isto discordam.
+DIAS_DE_DISCORDANCIA = 1
+
+
+def _dia(valor):
+    import datetime                                       # noqa: PLC0415
+    try:
+        return datetime.date.fromisoformat(str(valor)[:10])
+    except ValueError:
+        return None
+
+
+def publicacao_escolhida(contrato: dict, pagina: dict) -> dict:
+    """DA-9 (coordenacao, 25/09): PUBLICATION_TIME tem DUAS fontes, e o
+    encanamento escolhe UMA por ORDEM FIXA — nunca pela que «parece melhor»:
+
+        1.o  a data que o CONTRATO declara como publicacao (livro do coletor)
+        2.o  o leitor da PAGINA (nuvem tempo-publicacao: JSON-LD > meta > <time>)
+
+    A que nao ganha fica como EVIDENCIA, com a base dela. Se as duas distam
+    mais de `DIAS_DE_DISCORDANCIA`, ficam as duas e o item e marcado
+    `PUBLISHED_AT_CONFLITO` com precisao `CONFLITO` — sem adivinhar qual esta
+    certa. Uma publicacao em conflito NAO ancora data relativa (D63).
+
+    `contrato` e `pagina` sao `{PUBLISHED_AT, PUBLISHED_AT_BASIS,
+    PUBLISHED_AT_PRECISION}` (so afirmacoes) ou `{}`.
+    """
+    candidatos = [c for c in (contrato, pagina) if _afirma(c.get("PUBLISHED_AT"))]
+    if not candidatos:
+        # a ausencia diz porque — o porque do contrato primeiro, depois o da pagina
+        porques = [c.get("PUBLISHED_AT_BASIS") for c in (contrato, pagina)
+                   if _afirma(c.get("PUBLISHED_AT_BASIS"))]
+        return ({"PUBLISHED_AT_BASIS": " · ".join(porques),
+                 "PUBLISHED_AT_PRECISION": ing.NAO_SEI_ID} if porques else {})
+    escolhida, outra = candidatos[0], (candidatos[1] if len(candidatos) > 1 else None)
+    fora = {"PUBLISHED_AT": escolhida["PUBLISHED_AT"],
+            "PUBLISHED_AT_BASIS": escolhida["PUBLISHED_AT_BASIS"],
+            "PUBLISHED_AT_PRECISION": escolhida.get("PUBLISHED_AT_PRECISION")
+                                      or ing.NAO_SEI_ID}
+    if outra is not None:
+        fora["PUBLISHED_AT_OUTRA"] = outra["PUBLISHED_AT"]
+        fora["PUBLISHED_AT_OUTRA_BASIS"] = outra["PUBLISHED_AT_BASIS"]
+        a, b = _dia(escolhida["PUBLISHED_AT"]), _dia(outra["PUBLISHED_AT"])
+        if a is None or b is None or abs((a - b).days) > DIAS_DE_DISCORDANCIA:
+            fora["PUBLISHED_AT_CONFLITO"] = (
+                "SIM — %s (%s) contra %s (%s); ficou a 1.a pela ordem fixa DA-9, "
+                "sem adivinhar qual esta certa"
+                % (escolhida["PUBLISHED_AT"], escolhida["PUBLISHED_AT_BASIS"],
+                   outra["PUBLISHED_AT"], outra["PUBLISHED_AT_BASIS"]))
+            fora["PUBLISHED_AT_PRECISION"] = "CONFLITO"
+    return fora
+
+
+def bytes_da_pagina(obs: dict, raiz: str = None):
+    """Os bytes HTML da observacao, SO se o sha256 bater com o do livro.
+
+    Sem bytes, sem sha, ou sha diferente: `None` — e a pagina nao e lida. Ler
+    um ficheiro que nao e o que o livro guardou seria medir outra coisa.
+    """
+    import hashlib                                        # noqa: PLC0415
+    caminho = obs.get("RAW_PATH") or ""
+    sha = str(obs.get("RAW_SHA256") or "").strip()
+    if not caminho or not sha or not caminho.lower().endswith((".html", ".htm")):
+        return None
+    if not os.path.isabs(caminho):
+        caminho = os.path.join(raiz or OPS_ROOT, caminho)
+    try:
+        dados = open(caminho, "rb").read()
+    except OSError:
+        return None
+    return dados if hashlib.sha256(dados).hexdigest() == sha else None
+
+
+def publicacao_da_pagina(dados) -> dict:
+    """O leitor de pagina da nuvem tempo-publicacao, nos nomes do contrato."""
+    import executor_texto_de_html as H                    # noqa: PLC0415
+    return H.publicacao_para_o_contrato(H.tempo_de_publicacao(dados))
+
+
+def tempo_e_lugar(obs: dict, dados_da_pagina=None) -> dict:
+    """O que a observacao PROVA sobre tempo e lugar, cada valor com a BASE.
+
+    ⚠️ TEMPO-E-LUGAR (25/09): as 78 da Sala real chegaram com os cinco campos
+    em `NAO SEI` e o livro sabia parte deles — a data da edicao dos boletins
+    (`SOURCE_DATE_ISO`), a sede declarada no contrato, e o PORQUE de cada
+    `UNKNOWN` do tempo do facto. Nada disto atravessava.
+
+        FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT
+        SOURCE_LOCATION != FACT_LOCATION
+
+    Regras (nenhuma infere):
+      · PUBLISHED_AT — o que o coletor declarar COM base (`PUBLISHED_AT` +
+        `PUBLISHED_AT_BASIS`, o extractor da pagina); senao `SOURCE_DATE_ISO`,
+        SO se o contrato declarar que a data do documento e a da EDICAO.
+        Validade e geracao NAO sao publicacao.
+      · FACT_TIME — so o que o coletor declarar como valor; a confissao
+        («UNKNOWN — ...») vira `FACT_TIME_BASIS`. NUNCA a data de publicacao.
+      · SOURCE_LOCATION — o contrato (`lugar_declarado_pela_fonte`, conferido
+        no gazetteer). NUNCA o `REGION` do Atlas, que e o que a AMOSTRA viu.
+      · FACT_LOCATION — so o que o coletor declarar COM base. NUNCA a sede.
+      · OBSERVED_AT — so o que o coletor declarar.
+    """
+    import contratos_de_fonte as cf                         # noqa: PLC0415
+    sid = obs.get("SOURCE_ID") or ""
+    fora = {}
+
+    # PUBLICACAO — as duas fontes, e a escolha pela ordem fixa (DA-9)
+    contrato = {}
+    pub, base = obs.get("PUBLISHED_AT"), obs.get("PUBLISHED_AT_BASIS")
+    if _afirma(pub) and _afirma(base):
+        contrato = {"PUBLISHED_AT": pub, "PUBLISHED_AT_BASIS": base,
+                    "PUBLISHED_AT_PRECISION": obs.get("PUBLISHED_AT_PRECISION")
+                                              or ing.NAO_SEI_ID}
+    elif _afirma(obs.get("SOURCE_DATE_ISO")):
+        especie = cf.data_do_documento_e_publicacao(sid)
+        if especie["E_PUBLICACAO"]:
+            contrato["PUBLISHED_AT"] = obs["SOURCE_DATE_ISO"]
+            contrato["PUBLISHED_AT_PRECISION"] = "DIA"
+            contrato["PUBLISHED_AT_BASIS"] = (
+                "SOURCE_DATE_ISO do livro do coletor (impresso: «%s»); o "
+                "contrato de %s declara DOCUMENT_DATE_KIND «%s»"
+                % (obs.get("SOURCE_DATE") or obs["SOURCE_DATE_ISO"], sid,
+                   especie["ESPECIE"]))
+        elif especie["ESPECIE"] == cf.NAO_SEI:
+            contrato["PUBLISHED_AT_BASIS"] = (
+                "a data do documento (%s) existe e NAO se sabe se e de "
+                "publicacao: o contrato de %s nao declara DOCUMENT_DATE_KIND"
+                % (obs["SOURCE_DATE_ISO"], sid))
+        else:
+            contrato["PUBLISHED_AT_BASIS"] = (
+                "a data do documento (%s) NAO e de publicacao: o contrato de %s "
+                "declara DOCUMENT_DATE_KIND «%s»"
+                % (obs["SOURCE_DATE_ISO"], sid, especie["ESPECIE"]))
+    pagina = publicacao_da_pagina(dados_da_pagina) if dados_da_pagina else {}
+    fora.update(publicacao_escolhida(contrato, pagina))
+
+    # TEMPO DO FACTO
+    declarado = str(obs.get("FACT_TIME") or "").strip()
+    valor = _tempo_do_fato(declarado)
+    # «por linha — cada celula tem a sua data» e «por ponto — ...» sao
+    # INSTRUCOES do coletor, nao instantes: prosa num campo de tempo parece
+    # medida. So um valor que comeca por um ano e um tempo.
+    if valor and not re.match(r"^\d{4}", valor):
+        valor = ""
+    if valor and _afirma(obs.get("FACT_TIME_BASIS")):
+        fora["FACT_TIME"] = valor
+        fora["FACT_TIME_BASIS"] = obs["FACT_TIME_BASIS"]
+    elif valor:
+        fora["FACT_TIME"] = valor
+        fora["FACT_TIME_BASIS"] = "declarado pelo coletor no livro (FACT_TIME)"
+    elif declarado:
+        fora["FACT_TIME_BASIS"] = "o coletor declarou: «%s»" % declarado
+
+    # LUGAR DA FONTE — pelo dono da nuvem tempo-publicacao (so o CONTRATO;
+    # nunca o REGION do Atlas), com a precisao (D62)
+    if sid:
+        fora.update(cf.lugar_para_o_contrato(cf.lugar_da_fonte(sid)))
+
+    # LUGAR DO FACTO
+    lf, lf_base = obs.get("FACT_LOCATION"), obs.get("FACT_LOCATION_BASIS")
+    if _afirma(lf) and _afirma(lf_base):
+        fora["FACT_LOCATION"], fora["FACT_LOCATION_BASIS"] = lf, lf_base
+
+    if _afirma(obs.get("OBSERVED_AT")):
+        fora["OBSERVED_AT"] = obs["OBSERVED_AT"]
+    return fora
+
+
+def traduzir(obs: dict) -> dict:
+    """Uma observacao do livro, na lingua da porta. Traducao 4 (e so ela)."""
+    # A OBSERVACAO VAI INTEIRA, e nao mutilada: a porta so LE os treze campos
+    # que conhece, e o que sobra viaja como conteudo da observacao — que e o
+    # que ela e. Deitar fora aqui o `DOCUMENT_ID` seria esta peca a decidir o
+    # que a casa pode vir a saber.
+    fora = {k: v for k, v in obs.items() if k != "RAW_PATH"}
+
+    # E SO DEPOIS A TRADUCAO, que manda sobre o que copiou. `FACT_TIME` vinha
+    # do coletor com uma confissao dentro (`UNKNOWN — ...`); deixa-la passar
+    # poria prosa onde a porta espera um instante.
+    for de, para in DA_OBSERVACAO_PARA_A_PORTA.items():
+        v = obs.get(de)
+        if para == "FACT_TIME":
+            v = _tempo_do_fato(v)
+        if v:
+            fora[para] = v
+        else:
+            fora.pop(para, None)
+    # ── TEMPO E LUGAR, CADA UM COM A SUA BASE (TEMPO-E-LUGAR, 25/09) ───────
+    # Os campos que a observacao nao prova saem daqui AUSENTES — a porta
+    # escreve `NAO SEI`. O que se prova sai com a BASE ao lado.
+    for campo in ing.TEMPO_E_LUGAR:
+        fora.pop(campo, None)
+    fora.update(tempo_e_lugar(obs, bytes_da_pagina(obs)))
+    # O EXECUTOR PODE DIZER QUEM E: isto nao e um campo da observacao, e quem o
+    # declara e quem corre. `DO_COLETOR` transporta-o de proposito.
+    fora["EXECUTOR_ID"] = EXECUTOR_ID
+    fora["EXECUTOR_VERSION"] = EXECUTOR_VERSION
+
+    # ── TRADUCAO 4 · RAW_PATH -> STORAGE_LOCATION ──────────────────────────
+    # ⚠️ SE ISTO FICAR VAZIO, A PORTA PRESERVA O JSON DA OBSERVACAO, e nao o
+    # documento. Sao as duas respostas certas para duas perguntas diferentes —
+    # uma observacao sem bytes E o proprio item — e por isso nao se inventa um
+    # caminho: quando o coletor nao disse onde os bytes estao, nao se diz.
+    caminho = _relativo(obs.get("RAW_PATH") or "")
+    if caminho:
+        fora["STORAGE_LOCATION"] = caminho
+
+    return fora
+
+
+def observacoes_da_corrida(run_id: str, raiz: str = None) -> list:
+    """Traducao 2 e 3: do livro NDJSON, so esta corrida, como lista.
+
+    O livro e append-only e guarda TODAS as corridas. Ler o ficheiro inteiro
+    entregaria a porta as 144 observacoes de sempre — e cada corrida
+    reapresentaria as anteriores como se fossem colheita sua.
+
+        RELER O ARQUIVO NAO E COLHER.
+    """
+    p = os.path.join(raiz or OPS_ROOT, LIVRO)
+    if not os.path.isfile(p):
+        return []
+    fora = []
+    with open(p, encoding="utf-8") as fh:
+        for linha in fh:
+            linha = linha.strip()
+            if not linha:
+                continue
+            try:
+                o = json.loads(linha)
+            except json.JSONDecodeError:
+                # UMA LINHA PARTIDA NAO APAGA AS OUTRAS. O livro e append-only:
+                # uma escrita interrompida deixa lixo no fim, e perder a colheita
+                # inteira por causa dele seria trocar um estrago por outro maior.
+                continue
+            if isinstance(o, dict) and o.get("RUN_ID") == run_id:
+                fora.append(o)
+    return fora
+
+
+def fonte_do_conteudo(sha256: str, raiz: str = None) -> dict:
+    """Que fonte o LIVRO registou para ESTE conteudo. Nada mais.
+
+    O livro e o dono da resposta, e por isso a pergunta faz-se aqui. Nao ha um
+    segundo livro, nao ha indice paralelo de identidade, e esta funcao nao
+    deduz coisa nenhuma: ela LE o que o coletor escreveu.
+
+    PORQUE A CHAVE E O CONTEUDO, E NAO O CAMINHO
+    ---------------------------------------------
+    MEDIDO no livro de hoje, 144 observacoes:
+
+        RAW_SHA256 presente .... 144 de 144
+        RAW_PATH presente ......  35 de 144
+        e um dos RAW_PATH e `C:/ea...` — absoluto, de outra maquina
+
+    Juntar por caminho responderia «nao sei» a tres quartos do livro e mentiria
+    no resto. O sha256 identifica os BYTES que se tem na mao, e os bytes sao a
+    unica coisa que quem refaz o bruto tem com certeza.
+
+        ⚠️ ISTO NAO E DERIVAR A FONTE DO SHA.
+        O sha e a CHAVE para achar a linha; a fonte vem do CAMPO `SOURCE_ID`
+        que o coletor escreveu nessa linha. Se o livro nao tiver a linha, a
+        resposta e «nao sei» — nunca o sha, nunca o caminho, nunca o nome.
+
+    DUAS FONTES PARA O MESMO CONTEUDO NAO SE DESEMPATAM AQUI
+    --------------------------------------------------------
+    Se o livro registou o mesmo conteudo sob fontes DIFERENTES, esta funcao
+    NAO escolhe: devolve o conflito e nenhuma fonte.
+
+        ESCOLHER EM SILENCIO ENTRE DUAS VERDADES
+        E FABRICAR UMA TERCEIRA.
+
+    Devolve sempre um dicionario, e `SOURCE_ID` e `None` quando nao ha
+    resposta provada.
+    """
+    vazio = {"SOURCE_ID": None, "OBSERVACOES": 0, "CONFLITO": [],
+             "PORQUE": "o livro nao tem observacao deste conteudo"}
+    if not sha256 or not isinstance(sha256, str):
+        return dict(vazio, PORQUE="sem sha256 nao ha o que procurar")
+    p = os.path.join(raiz or OPS_ROOT, LIVRO)
+    if not os.path.isfile(p):
+        return dict(vazio, PORQUE="o livro nao existe neste sitio")
+
+    fontes, quantas = set(), 0
+    with open(p, encoding="utf-8") as fh:
+        for linha in fh:
+            linha = linha.strip()
+            if not linha:
+                continue
+            try:
+                o = json.loads(linha)
+            except json.JSONDecodeError:
+                continue          # uma linha partida nao apaga as outras
+            if not isinstance(o, dict) or o.get("RAW_SHA256") != sha256:
+                continue
+            quantas += 1
+            v = o.get("SOURCE_ID")
+            # ⚠️ UMA SENTINELA NAO E UMA FONTE. `'NAO SEI'` e uma string
+            # VERDADEIRA em Python, e um `if v:` ingenuo promove-a a
+            # identidade. O dono desta regra e `ingresso.NAO_E_AFIRMACAO`.
+            if v not in ing.NAO_E_AFIRMACAO and v != "NÃO SEI":
+                fontes.add(v)
+
+    if not fontes:
+        return dict(vazio, OBSERVACOES=quantas,
+                    PORQUE=("o livro viu este conteudo %d vez(es) e nao "
+                            "declarou fonte provada em nenhuma" % quantas
+                            if quantas else vazio["PORQUE"]))
+    if len(fontes) > 1:
+        return {"SOURCE_ID": None, "OBSERVACOES": quantas,
+                "CONFLITO": sorted(fontes),
+                "PORQUE": ("o livro registou este mesmo conteudo sob %d "
+                           "fontes diferentes; desempatar aqui seria "
+                           "inventar" % len(fontes))}
+    return {"SOURCE_ID": fontes.pop(), "OBSERVACOES": quantas, "CONFLITO": [],
+            "PORQUE": "campo SOURCE_ID do livro, em %d observacao(oes) "
+                      "concordantes" % quantas}
+
+
+def largar(itens: list, raiz: str = RAIZ) -> str:
+    """Escreve a colheita no balcao. Devolve o caminho relativo."""
+    destino = os.path.join(raiz, COLHEITA)
+    os.makedirs(os.path.dirname(destino), exist_ok=True)
+    with open(destino, "w", encoding="utf-8") as fh:
+        json.dump(itens, fh, ensure_ascii=False, indent=1)
+    return COLHEITA.replace("\\", "/")
+
+
+def erros_do_coletor(coletor: dict = None) -> list:
+    """O que a ida a fonte deixou escrito sobre si propria, como ERROS.
+
+    ⚠️ DEFEITO MEDIDO NA 2.a ONDA (2026-09-25, IT-T2-050). O coletor rebentou
+    (`mkdir ENOENT`, um `?` no nome da pasta), saiu com codigo 1 — e o
+    RETORNO.json desta corrida dizia `ESTADO = SUCCESS`, `ERROS = []`. O
+    `declarar()` nunca soube do coletor: escrevia SUCCESS sempre.
+
+        ZERO LEGITIMO NAO E FALHA. E UMA FALHA NAO E ZERO LEGITIMO.
+
+    `None` quer dizer «ninguem correu o coletor nesta chamada» (a traducao
+    offline, `colher()` sozinho) — e ai nao ha nada a declarar. Um dicionario
+    com `CODIGO != 0` e uma falha, e tem de aparecer no envelope.
+    """
+    if not coletor or coletor.get("CODIGO", 0) == 0:
+        return []
+    bloqueio = coletor.get("BLOQUEADA_PELO_CURATOR")
+    if bloqueio:
+        return [{"ONDE": "PORTAO_DE_ADMISSAO", "CODIGO": coletor.get("CODIGO"),
+                 "MOTIVO": "BLOQUEADA_PELO_CURATOR",
+                 "ERRO": "%s: %s" % (bloqueio.get("MOTIVO", rdc.NAO_SEI),
+                                     bloqueio.get("PORQUE", rdc.NAO_SEI))}]
+    return [{"ONDE": "COLETOR", "CODIGO": coletor.get("CODIGO"),
+             "MOTIVO": "COLETOR_FALHOU",
+             "ERRO": str(coletor.get("ERRO") or "").strip()
+                     or "o coletor saiu com codigo %s e nao escreveu porque"
+                        % coletor.get("CODIGO")}]
+
+
+def estado_da_corrida(unidades: list, erros: list) -> str:
+    """SUCCESS so sem erros; com erros, PARTIAL se algo chegou, FAILED se nada.
+
+    E a regra de `leis/retorno_da_coleta.py::conferir` dita pelo lado de quem
+    escreve: `SUCCESS com erros escritos: use PARTIAL`, e FAILED sem erro e
+    um rotulo.
+    """
+    if not erros:
+        return rdc.SUCCESS
+    return rdc.PARTIAL if unidades else rdc.FAILED
+
+
+def declarar(itens: list, run_id: str, raiz: str = RAIZ,
+             erros: list = None) -> str:
+    """O ENVELOPE — a corrida diz o que produziu, em vez de deixar adivinhar.
+
+        DECLARADO, NAO ADIVINHADO.  (COL-LAW-505)
+
+    Antes, o orquestrador abria o `colheita.json` e escolhia uma lista por
+    heuristica. A lista deste adapter estava certa POR SORTE: e uma lista de
+    topo, e a heuristica gostava dela. Os outros executores nao tiveram a mesma
+    sorte — 253 linhas de indice e de catalogo entraram como material colhido.
+
+        ESTAR CERTO POR SORTE NAO E ESTAR CERTO.
+        E ESTAR ERRADO AINDA SEM CONSEQUENCIA.
+    """
+    unidades = []
+    for x in itens:
+        onde = x.get("STORAGE_LOCATION") or ""
+        # ⚠️ A UNIDADE VAI INTEIRA, e nao mutilada. A primeira versao desta
+        # funcao construia um dicionario NOVO com seis campos do contrato — e
+        # deitava fora o `texto`, o `SOURCE_URL`, o `STORAGE_LOCATION` e tudo o
+        # mais que `traduzir()` tinha acabado de preparar. A prova apanhou-o:
+        # a admissao devolvia `NAO_SEI — o item veio sem texto nenhum`, e a
+        # culpa era desta funcao, nao do dado.
+        #
+        #     DECLARAR O QUE UMA COISA E NAO E SUBSTITUI-LA PELA ETIQUETA.
+        #
+        # O contrato acrescenta-se POR CIMA do item; nunca no lugar dele.
+        unidades.append({
+            **x,
+            "ESPECIE": rdc.COLHEITA,
+            "SOURCE_ID": x.get("SOURCE_ID") or "",
+            # `NAO SEI` ESCRITO E LEGITIMO; calado nao e. E nunca se deriva o
+            # DOCUMENT_ID do sha nem do caminho — a lei recusa, e com razao.
+            "DOCUMENT_ID": x.get("DOCUMENT_ID") or rdc.NAO_SEI,
+            "SHA256": x.get("RAW_SHA256") or "",
+            "RUN_ID": run_id,
+            "PAYLOAD": {"ONDE": onde,
+                        "ESTADO": rdc.estado_do_payload(onde, raiz)},
+        })
+    erros = list(erros or [])
+    envelope = {
+        "RUN_ID": run_id,
+        "EXECUTOR_ID": EXECUTOR_ID,
+        "EXECUTOR_VERSION": EXECUTOR_VERSION,
+        # ZERO OBSERVACOES NAO E FALHA. Uma corrida que foi a fonte e nao
+        # encontrou nada correu bem — `EMPTY_SUCCESS != ERROR`.
+        # ⚠️ MAS UM COLETOR QUE REBENTOU NAO «ENCONTROU NADA». O estado vem
+        # dos erros declarados, e nao de uma constante (FECHAR-ONDA2-B).
+        "ESTADO": estado_da_corrida(unidades, erros),
+        "COLHEITA": unidades,
+        "SUPORTE": [],
+        "ERROS": erros,
+    }
+    # ⚠️ O ENDERECO E DA CORRIDA — ver `leis/retorno_da_coleta.py`.
+    # Este adapter tinha a MESMA colisao que o regulatorio: um caminho fixo
+    # por executor, e a segunda corrida a apagar a primeira. Corrigir so um
+    # dos dois deixaria a propriedade meia verdadeira, que e pior do que
+    # falsa: passaria a depender de qual executor correu.
+    onde = rdc.endereco_do_envelope(RETORNO.replace(os.sep, "/"), run_id)
+    destino = os.path.join(raiz, onde)
+    os.makedirs(os.path.dirname(destino), exist_ok=True)
+    with open(destino, "w", encoding="utf-8") as fh:
+        json.dump(envelope, fh, ensure_ascii=False, indent=1)
+    return onde
+
+
+def colher(run_id: str, ops_root: str = None, raiz: str = RAIZ,
+           coletor: dict = None) -> dict:
+    """Traducoes 2, 3 e 4 — sem correr o coletor.
+
+    Esta funcao esta separada de `main` porque as duas metades respondem a
+    perguntas diferentes: uma vai a fonte, a outra traduz o que a fonte deixou.
+    Sem a separacao, provar a traducao obrigaria a haver rede.
+    """
+    brutas = observacoes_da_corrida(run_id, ops_root or OPS_ROOT)
+    itens = [traduzir(o) for o in brutas]
+    onde = largar(itens, raiz)
+    envelope = declarar(itens, run_id, raiz, erros_do_coletor(coletor))
+    return {
+        "RUN_ID": run_id,
+        "OBSERVACOES_DESTA_CORRIDA": len(itens),
+        "COM_BYTES_NO_ARMAZEM": sum(1 for x in itens if x.get("STORAGE_LOCATION")),
+        "LARGOU_EM": onde,
+        "DECLAROU_EM": envelope,
+    }
+
+
+def admissao_do_curator(fonte: str, raiz: str = RAIZ) -> dict:
+    """O PORTAO DE ADMISSAO, perguntado ao dono unico da regra.
+
+    ⚠️ DEFEITO MEDIDO EM 2026-09-21. O pedido nomeia a fonte
+    (`pedido/receitas.py`, `argumentos_de_filtros: ["fonte"]`), e a receita de
+    T3 chega a ter `filtros_por_omissao: {"fonte": "IT-T3-010"}`. Nenhum desses
+    caminhos falava com o livro do Curator: um pedido de T3 sem filtros abria
+    uma fonte que, medida no livro canonico desse dia, era READY_LEGACY —
+    promovida por «a rota resolve e traz HTML», antes de existir gate de
+    detalhe.
+
+        O PEDIDO NOMEIA UMA FONTE. NOMEAR NAO E ADMITIR.
+
+    A regra nao e reescrita aqui. Pergunta-se a `curadoria/collection_gate.py`.
+    Portao que nao responde = NAO SEI = nao se colhe: nao saber quem pode ser
+    colhido e motivo para parar, nunca para prosseguir.
+    """
+    r = subprocess.run([sys.executable, os.path.join("curadoria", "collection_gate.py"),
+                        "--ids=%s" % fonte, "--json"],
+                       cwd=raiz, capture_output=True, text=True,
+                       encoding="utf-8", errors="replace", timeout=300,
+                       env={**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"})
+    if r.returncode != 0 or "{" not in r.stdout:
+        return {"ADMITIDA": False, "MOTIVO": "GATE_NAO_RESPONDEU",
+                "PORQUE": (r.stderr or r.stdout)[-300:].strip() or "sem saida"}
+    d = json.loads(r.stdout[r.stdout.index("{"):])
+    linha = (d["LINHAS"] or [{}])[0]
+    return {"ADMITIDA": bool(linha.get("COLLECTION_ELIGIBLE")),
+            "MOTIVO": linha.get("MOTIVO", "NAO SEI"),
+            "PORQUE": linha.get("PORQUE", "NAO SEI"),
+            "GATE": d.get("CONTRATO", "NAO SEI")}
+
+
+def correr_coletor(run_id: str, fonte: str = "", raiz: str = RAIZ,
+                   lancar=None) -> dict:
+    """Traducao 1: o Node corre, e recebe a corrida — nao a cunha.
+
+    Antes de correr, pergunta ao portao de admissao se a fonte nomeada pode ser
+    colhida. NAO CORREU NAO E CORREU E FALHOU: um `BLOQUEADA_PELO_CURATOR` diz
+    que ninguem foi a fonte nenhuma.
+
+    `lancar` e a peca que vai a rede, e e injectavel DE PROPOSITO. Medido em
+    2026-09-21, por acidente desta missao: um teste que chamava esta funcao a
+    serio colheu tres vezes o boletim da APOL, com o RUN_ID «RUN-TESTE-SEM-REDE»
+    e egresso no Brasil, porque as mutacoes do red team desligavam o portao —
+    e, sem portao, a funcao faz o que sempre fez: vai a fonte.
+
+        UM TESTE QUE SO E SEGURO ENQUANTO O CODIGO ESTIVER CERTO
+        NAO E UM TESTE SEGURO.
+
+    Com `lancar` injectado, a prova de que o portao morde corre sem que a rede
+    seja sequer alcancavel.
+    """
+    if fonte:
+        a = admissao_do_curator(fonte, raiz)
+        if not a["ADMITIDA"]:
+            return {"CODIGO": 1, "ERRO": "", "CORREU": False,
+                    "BLOQUEADA_PELO_CURATOR": {"SOURCE_ID": fonte, **a},
+                    "LEI": "READY_LEGACY != READY_CURRENT; nomear nao e admitir"}
+    comando = ["node", COLETOR, "--run-id=%s" % run_id]
+    if fonte:
+        comando.append("--fonte=%s" % fonte)
+    if lancar is not None:
+        return lancar(comando)
+    try:
+        r = subprocess.run(comando, cwd=raiz, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=1800)
+        return {"CODIGO": r.returncode, "ERRO": r.stderr[-1500:].strip()}
+    except Exception as ex:                                    # noqa: BLE001
+        # NAO CORREU NAO E CORREU E FALHOU, e nenhum dos dois e «zero itens».
+        return {"CODIGO": 1, "ERRO": "%s: %s" % (type(ex).__name__, ex)}
+
+
+def main() -> int:
+    args = sys.argv[1:]
+    run_id = ""
+    for a in args:
+        if a.startswith("--run-id="):
+            run_id = a.split("=", 1)[1].strip()
+    if not run_id:
+        print("uso: python3 coleta/italy_executor.py --run-id=<RUN_ID> [FONTE]",
+              file=sys.stderr)
+        print("     este adapter NAO cunha corrida: o RUN_ID vem do T-04.",
+              file=sys.stderr)
+        return 2
+    fonte = next((a for a in args if not a.startswith("--")), "")
+
+    r = correr_coletor(run_id, fonte)
+    # O RESULTADO DO COLETOR ENTRA NO ENVELOPE. Antes, `colher(run_id)` nao o
+    # recebia, e o RETORNO.json dizia SUCCESS com o coletor a falhar.
+    c = colher(run_id, coletor=r)
+    c["COLETOR"] = r
+    print(json.dumps(c, ensure_ascii=False, indent=1))
+    # O coletor ter falhado NAO apaga o que ele conseguiu deixar no livro: a
+    # colheita vai a porta na mesma, e o codigo de saida conta a verdade sobre
+    # a ida a fonte.
+    return 0 if r["CODIGO"] == 0 else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

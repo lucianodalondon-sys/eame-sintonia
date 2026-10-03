@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T10-013",
+ "SOURCE": "Consorzio di Tutela Arancia Rossa di Sicilia IGP",
+ "OWNER": "Consorzio Arancia Rossa di Sicilia",
+ "URL": "https://www.tutelaaranciarossa.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:40Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 81643 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.tutelaaranciarossa.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Home - Tutela Arancia Rossa di Sicilia IGP",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-09-14",
+  "BYTES_LIDOS": 143212
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.tutelaaranciarossa.it/rassegna-stampa/",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Rassegna stampa",
+  "TITULO": "Rassegna stampa - Tutela Arancia Rossa di Sicilia IGP",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 81643,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "ec591a94bccb882fd51e63337112a6205bdcb996dd1373c66c695d40d727bf88",
+  "DATA_VISIVEL": "2026-09-14",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

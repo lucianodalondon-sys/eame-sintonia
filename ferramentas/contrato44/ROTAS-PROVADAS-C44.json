@@ -1,0 +1,1032 @@
+{
+ "DATASET": "ROTAS-ELEGIVEIS-V1 (so as linhas desta missao)",
+ "INSTRUMENTO": "medidas/canario_rotas_elegiveis.py --juntar",
+ "COPIA": "C:/c44 (livros do vivo 7cdb7ea4; contratos do Curator do DISCO do vivo)",
+ "RONDAS": [
+  [
+   "IT-T3-023",
+   "IT-T5-056",
+   "IT-T5-080",
+   "IT-T7-019",
+   "IT-T7-048",
+   "IT-T7-049",
+   "IT-T7-103",
+   "IT-T7-125",
+   "IT-T7-139",
+   "IT-T7-163",
+   "IT-T8-041",
+   "IT-T5-101",
+   "IT-T7-053",
+   "IT-T7-058"
+  ],
+  [
+   "IT-T8-022",
+   "IT-T5-111"
+  ],
+  [
+   "IT-T8-024",
+   "IT-T5-113"
+  ],
+  [
+   "IT-T8-042"
+  ]
+ ],
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T3-023",
+   "OWNER": "Difesa fitosanitaria",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/agrofarmaci\\-difesa/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 263,
+    "NON_WHITESPACE_CHARACTERS": 10109,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 18,
+   "AMOSTRA_LINKS": [
+    "https://terraevita.edagricole.it/agrofarmaci-difesa/ruggine-delle-drupacee-a-fine-estate-arriva-il-conto/",
+    "https://terraevita.edagricole.it/agrofarmaci-difesa/xylella-multiplex-matera-cicala-rafforziamo-i-controlli/",
+    "https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/",
+    "https://terraevita.edagricole.it/agrofarmaci-difesa/percoche-tardive-e-agrumi-la-mosca-e-linsetto-chiave/",
+    "https://terraevita.edagricole.it/agrofarmaci-difesa/droni-agricoli-enac-apre-ai-maxi-uas/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/ruggine-delle-drupacee-a-fine-estate-arriva-il-conto/",
+     "HTTP": 200,
+     "BYTES": 268831,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 235,
+     "NON_WHITESPACE_CHARACTERS": 7691,
+     "PARAGRAPH_CHARACTERS": 3701,
+     "TEXT_SHA256": "ce04b55df6ba12f32d2be2c2430209c752ce61127aa27c63a46825994e565bb7",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/ruggine-delle-drupacee-a-fine-estate-arriva-il-conto/",
+    "HTTP": 200,
+    "BYTES": 268831,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 235,
+    "NON_WHITESPACE_CHARACTERS": 7691,
+    "PARAGRAPH_CHARACTERS": 3701,
+    "TEXT_SHA256": "ce04b55df6ba12f32d2be2c2430209c752ce61127aa27c63a46825994e565bb7",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 18 links pelo motor -> https://terraevita.edagricole.it/agrofarmaci-difesa/ruggine-delle-drupacee-a-fine-estate-arriva-il-conto/ com 3701 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "b3a61cfb9a29ba863f5fdfdc43688362aeaf4c1d7eb1d96a3aa193538113d422",
+   "PROVADO_EM": "2026-09-25T09:46:07.077578+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-056",
+   "OWNER": "CREA",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.crea.gov.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.crea.gov.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 145,
+    "NON_WHITESPACE_CHARACTERS": 6953,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 9,
+   "AMOSTRA_LINKS": [
+    "https://www.crea.gov.it/-/ricerca-agroalimentare-crea-e-inrae-rafforzano-l-asse-scientifico-tra-italia-e-francia",
+    "https://www.crea.gov.it/-/il-crea-protagonista-della-notte-europea-dei-ricercatori-anche-a-bari-1",
+    "https://www.crea.gov.it/-/soil-date-il-futuro-del-suolo-incontra-il-futuro-dell-agricoltura-1",
+    "https://www.crea.gov.it/-/pubblicazione-asta-pubblica-per-la-vendita-di-11-immobili-del-crea",
+    "https://www.crea.gov.it/-/ricerca-crea-premiata-al-convegno-sidea-siea-ceset-2026"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.crea.gov.it/-/ricerca-agroalimentare-crea-e-inrae-rafforzano-l-asse-scientifico-tra-italia-e-francia",
+     "HTTP": 200,
+     "BYTES": 79342,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 94,
+     "NON_WHITESPACE_CHARACTERS": 5890,
+     "PARAGRAPH_CHARACTERS": 3809,
+     "TEXT_SHA256": "b2ff33e1a25d4e2f028923e967a993ebd8a6bd496e4e942ed691fe3f4bd7c0af",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.crea.gov.it/-/ricerca-agroalimentare-crea-e-inrae-rafforzano-l-asse-scientifico-tra-italia-e-francia",
+    "HTTP": 200,
+    "BYTES": 79342,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 94,
+    "NON_WHITESPACE_CHARACTERS": 5890,
+    "PARAGRAPH_CHARACTERS": 3809,
+    "TEXT_SHA256": "b2ff33e1a25d4e2f028923e967a993ebd8a6bd496e4e942ed691fe3f4bd7c0af",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 9 links pelo motor -> https://www.crea.gov.it/-/ricerca-agroalimentare-crea-e-inrae-rafforzano-l-asse-scientifico-tra-italia-e-francia com 3809 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "5ff23625b995b1959cc9f7c1270ec64a2358025a923310517cb5fb0b44e7e53d",
+   "PROVADO_EM": "2026-09-25T09:46:16.860060+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-080",
+   "OWNER": "creafuturo.crea.gov.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://creafuturo.crea.gov.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?creafuturo\\.crea\\.gov\\.it/\\d+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://creafuturo.crea.gov.it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 217,
+    "NON_WHITESPACE_CHARACTERS": 15473,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 41,
+   "AMOSTRA_LINKS": [
+    "https://creafuturo.crea.gov.it/351/",
+    "https://creafuturo.crea.gov.it/17244/",
+    "https://creafuturo.crea.gov.it/14577/",
+    "https://creafuturo.crea.gov.it/14579/",
+    "https://creafuturo.crea.gov.it/14581/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://creafuturo.crea.gov.it/351/",
+     "HTTP": 200,
+     "BYTES": 375456,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 113,
+     "NON_WHITESPACE_CHARACTERS": 8414,
+     "PARAGRAPH_CHARACTERS": 3939,
+     "TEXT_SHA256": "6b29b44a0420942126b304ad9b53afb8e62b8b6f9a794cee24ab89a1d5888d03",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://creafuturo.crea.gov.it/351/",
+    "HTTP": 200,
+    "BYTES": 375456,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 113,
+    "NON_WHITESPACE_CHARACTERS": 8414,
+    "PARAGRAPH_CHARACTERS": 3939,
+    "TEXT_SHA256": "6b29b44a0420942126b304ad9b53afb8e62b8b6f9a794cee24ab89a1d5888d03",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 41 links pelo motor -> https://creafuturo.crea.gov.it/351/ com 3939 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "2c1ef8c7d36de0ab31d90111e452c52cb8fe9a299714c5ba918419179a88016a",
+   "PROVADO_EM": "2026-09-25T09:46:28.743960+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-111",
+   "OWNER": "Comunicati Stampa",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/comunicati-stampa",
+   "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/web/guest/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.crea.gov.it/web/difesa-e-certificazione/comunicati-stampa",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 121,
+    "NON_WHITESPACE_CHARACTERS": 4601,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 8,
+   "AMOSTRA_LINKS": [
+    "https://www.crea.gov.it/web/guest/-/notte-europea-dei-ricercatori-gli-appuntamenti-del-crea-dal-21-al-26-settembre-per-vivere-un-giorno-da-scienziati",
+    "https://www.crea.gov.it/web/guest/-/pini-dal-crea-un-alleato-strategico-contro-la-cocciniglia-tartaruga",
+    "https://www.crea.gov.it/web/guest/-/xylella-fastidiosa-dalla-ricerca-crea-nuove-strategie-per-l-olivicoltura",
+    "https://www.crea.gov.it/web/guest/-/fascination-of-plants-2026-tutti-gli-appuntamenti-crea",
+    "https://www.crea.gov.it/web/guest/-/cooperazione-celebrata-in-egitto-la-consegna-dei-macchinari-agricoli-di-eu-kafi"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.crea.gov.it/web/guest/-/notte-europea-dei-ricercatori-gli-appuntamenti-del-crea-dal-21-al-26-settembre-per-vivere-un-giorno-da-scienziati",
+     "HTTP": 200,
+     "BYTES": 80648,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 95,
+     "NON_WHITESPACE_CHARACTERS": 5610,
+     "PARAGRAPH_CHARACTERS": 3395,
+     "TEXT_SHA256": "0dd77845310e666c01578cef2b7ff6eb04d5031f8dbed2dfbb89cba1a88e9174",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.crea.gov.it/web/guest/-/notte-europea-dei-ricercatori-gli-appuntamenti-del-crea-dal-21-al-26-settembre-per-vivere-un-giorno-da-scienziati",
+    "HTTP": 200,
+    "BYTES": 80648,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 95,
+    "NON_WHITESPACE_CHARACTERS": 5610,
+    "PARAGRAPH_CHARACTERS": 3395,
+    "TEXT_SHA256": "0dd77845310e666c01578cef2b7ff6eb04d5031f8dbed2dfbb89cba1a88e9174",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 8 links pelo motor -> https://www.crea.gov.it/web/guest/-/notte-europea-dei-ricercatori-gli-appuntamenti-del-crea-dal-21-al-26-settembre-per-vivere-un-giorno-da-scienziati com 3395 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "0c0402006e571fd4dbf8023efdb38b93b9a4e336fa57880a561b165b849a9364",
+   "PROVADO_EM": "2026-09-25T09:49:39.570154+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-113",
+   "OWNER": "Notizie",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/web/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.crea.gov.it/web/difesa-e-certificazione/notizie",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 136,
+    "NON_WHITESPACE_CHARACTERS": 4588,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/cardo-mariano-il-18-settembre-un-simposio-dedicato-via-biosintetica-della-silimarina",
+    "https://www.crea.gov.it/web/difesa-e-certificazione/-/horizon-europe-planthealth4all",
+    "https://www.crea.gov.it/web/difesa-e-certificazione/-/il-crea-protagonista-all-international-congress-of-acarology-2026-ricerca-innovazione-e-valorizzazione-dell-acarologia-italiana",
+    "https://www.crea.gov.it/web/difesa-e-certificazione/-/crea-dc-ospita-una-delegazione-egiziana-per-una-training-visit-nell-ambito-del-progetto-eu-kafi"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/cardo-mariano-il-18-settembre-un-simposio-dedicato-via-biosintetica-della-silimarina",
+     "HTTP": 200,
+     "BYTES": 80263,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 97,
+     "NON_WHITESPACE_CHARACTERS": 4469,
+     "PARAGRAPH_CHARACTERS": 2149,
+     "TEXT_SHA256": "9e210bced3f629ade2aa1adb13dbc63d4a234cc5b83e7736ebdc47c73d20b929",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/cardo-mariano-il-18-settembre-un-simposio-dedicato-via-biosintetica-della-silimarina",
+    "HTTP": 200,
+    "BYTES": 80263,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 97,
+    "NON_WHITESPACE_CHARACTERS": 4469,
+    "PARAGRAPH_CHARACTERS": 2149,
+    "TEXT_SHA256": "9e210bced3f629ade2aa1adb13dbc63d4a234cc5b83e7736ebdc47c73d20b929",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/cardo-mariano-il-18-settembre-un-simposio-dedicato-via-biosintetica-della-silimarina com 2149 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "5878e15f0c07b1fcffb06560dda4de2179d91c3cae4948d81a4c0d87c67f837e",
+   "PROVADO_EM": "2026-09-25T09:50:01.427809+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "OWNER": "Confagricoltura Lombardia",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://lombardia.confagricoltura.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?lombardia\\.confagricoltura\\.it/news/home/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://lombardia.confagricoltura.it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 207,
+    "NON_WHITESPACE_CHARACTERS": 8893,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 20,
+   "AMOSTRA_LINKS": [
+    "https://lombardia.confagricoltura.it/news/home/103580/addio-ad-antonio-biancardi.html",
+    "https://lombardia.confagricoltura.it/news/home/103573/progetto-per-il-riso-aromatico-italiano-in-accordo-con-i-produttori-piemontesi.html",
+    "https://lombardia.confagricoltura.it/news/home/103596/regolamento-europeo-sui-pagamenti-nazionali-per-la-distillazione-del-vino-la-vendemmia-verde-e-lestirpazione-di-vigneti.html",
+    "https://lombardia.confagricoltura.it/news/home/103579/agricoltura-e-societa-una-cattiva-conoscenza-genera-una-brutta-reputazione.html",
+    "https://lombardia.confagricoltura.it/news/home/103558/aiuti-contro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://lombardia.confagricoltura.it/news/home/103580/addio-ad-antonio-biancardi.html",
+     "HTTP": 200,
+     "BYTES": 127880,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 60,
+     "NON_WHITESPACE_CHARACTERS": 5484,
+     "PARAGRAPH_CHARACTERS": 4675,
+     "TEXT_SHA256": "69a8ec3ca45ecb52b04d44865b2bf4d21c62424c0e32457cb573bfa45e53f661",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://lombardia.confagricoltura.it/news/home/103580/addio-ad-antonio-biancardi.html",
+    "HTTP": 200,
+    "BYTES": 127880,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 60,
+    "NON_WHITESPACE_CHARACTERS": 5484,
+    "PARAGRAPH_CHARACTERS": 4675,
+    "TEXT_SHA256": "69a8ec3ca45ecb52b04d44865b2bf4d21c62424c0e32457cb573bfa45e53f661",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 20 links pelo motor -> https://lombardia.confagricoltura.it/news/home/103580/addio-ad-antonio-biancardi.html com 4675 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "e24ca12cb056b1db18fa3c8db26e914566cfd2fda033a85c098058322d0766ca",
+   "PROVADO_EM": "2026-09-25T09:46:39.441348+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-048",
+   "OWNER": "CONFAI",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "http://www.caiagromec.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?caiagromec\\.it/node/\\d+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "http://www.caiagromec.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 119,
+    "NON_WHITESPACE_CHARACTERS": 3902,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 37,
+   "AMOSTRA_LINKS": [
+    "http://www.caiagromec.it/node/8",
+    "http://www.caiagromec.it/node/3",
+    "http://www.caiagromec.it/node/4",
+    "http://www.caiagromec.it/node/5",
+    "http://www.caiagromec.it/node/6"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "http://www.caiagromec.it/node/8",
+     "HTTP": 200,
+     "BYTES": 40800,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 93,
+     "NON_WHITESPACE_CHARACTERS": 1736,
+     "PARAGRAPH_CHARACTERS": 309,
+     "TEXT_SHA256": "bfac4cf584e7979af9f5fe1eac474d1068b974046b26afe8047e3062933b70c6",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (93 ligacoes para 1736 caracteres, 309 em paragrafos)"
+    },
+    {
+     "URL": "http://www.caiagromec.it/node/3",
+     "HTTP": 200,
+     "BYTES": 41922,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 88,
+     "NON_WHITESPACE_CHARACTERS": 2421,
+     "PARAGRAPH_CHARACTERS": 1081,
+     "TEXT_SHA256": "ccc0ef2d12cfffe534d9cdb2adabe56e0acd34951b432eba8e1dddc4a70bc05e",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "http://www.caiagromec.it/node/3",
+    "HTTP": 200,
+    "BYTES": 41922,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 88,
+    "NON_WHITESPACE_CHARACTERS": 2421,
+    "PARAGRAPH_CHARACTERS": 1081,
+    "TEXT_SHA256": "ccc0ef2d12cfffe534d9cdb2adabe56e0acd34951b432eba8e1dddc4a70bc05e",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 37 links pelo motor -> http://www.caiagromec.it/node/3 com 1081 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "78821f495e19af6f302f6075b61039b124fcb5d1b26c41df6916809ea4dce92a",
+   "PROVADO_EM": "2026-09-25T09:46:49.013938+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "OWNER": "COPAGRI",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://copagri.org/",
+   "LINK_PATTERN": "^https?://(www\\.)?copagri\\.org/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://copagri.org/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 181,
+    "NON_WHITESPACE_CHARACTERS": 5786,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 24,
+   "AMOSTRA_LINKS": [
+    "https://copagri.org/2026/09/23/giornata-europea-biologico/",
+    "https://copagri.org/2026/09/22/campania-pisacane-presidente/",
+    "https://copagri.org/2026/09/16/aree-interne-cnel-brunetta/",
+    "https://copagri.org/2026/09/16/olio-proroga-sei-ore/",
+    "https://copagri.org/2026/09/11/festival-riso-meloni/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://copagri.org/2026/09/23/giornata-europea-biologico/",
+     "HTTP": 200,
+     "BYTES": 142655,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 135,
+     "NON_WHITESPACE_CHARACTERS": 8387,
+     "PARAGRAPH_CHARACTERS": 4692,
+     "TEXT_SHA256": "64899966aa99786fab0659fc39421fb1292ef6bac073a3b8515932090e1877c3",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://copagri.org/2026/09/23/giornata-europea-biologico/",
+    "HTTP": 200,
+    "BYTES": 142655,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 135,
+    "NON_WHITESPACE_CHARACTERS": 8387,
+    "PARAGRAPH_CHARACTERS": 4692,
+    "TEXT_SHA256": "64899966aa99786fab0659fc39421fb1292ef6bac073a3b8515932090e1877c3",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 24 links pelo motor -> https://copagri.org/2026/09/23/giornata-europea-biologico/ com 4692 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "9c9686273f2da2e100b774b050b88492e1fb4be2c3134fd91aca3f5ebb20547a",
+   "PROVADO_EM": "2026-09-25T09:46:58.811023+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-103",
+   "OWNER": "confcooperative.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.confcooperative.it/LInformazione/Le-notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?confcooperative\\.it/LInformazione/Le\\-notizie/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.confcooperative.it/LInformazione/Le-notizie",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 170,
+    "NON_WHITESPACE_CHARACTERS": 3917,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 11,
+   "AMOSTRA_LINKS": [
+    "https://www.confcooperative.it/LInformazione/Le-notizie/bce-gardini-171rialzo-dei-tassi-232-scelta-obbligata-ma-pesa-su-imprese-e-pmi187",
+    "https://www.confcooperative.it/LInformazione/Le-notizie/author/laura-viviani-1",
+    "https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento",
+    "https://www.confcooperative.it/LInformazione/Le-notizie/ferragosto-17-milioni-di-italiani-in-viaggio-per-una-spesa-di-185-miliardi",
+    "https://www.confcooperative.it/LInformazione/Le-notizie/cooperazione-e-imprenditoria-sociale-al-via-un-ciclo-di-10-seminari"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.confcooperative.it/LInformazione/Le-notizie/bce-gardini-171rialzo-dei-tassi-232-scelta-obbligata-ma-pesa-su-imprese-e-pmi187",
+     "HTTP": 200,
+     "BYTES": 84838,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 126,
+     "NON_WHITESPACE_CHARACTERS": 3369,
+     "PARAGRAPH_CHARACTERS": 1546,
+     "TEXT_SHA256": "dd682f7bc9bfbe75e318098ee12ead4da5fc16ec9687b6d85f8fae4f745275cd",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.confcooperative.it/LInformazione/Le-notizie/bce-gardini-171rialzo-dei-tassi-232-scelta-obbligata-ma-pesa-su-imprese-e-pmi187",
+    "HTTP": 200,
+    "BYTES": 84838,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 126,
+    "NON_WHITESPACE_CHARACTERS": 3369,
+    "PARAGRAPH_CHARACTERS": 1546,
+    "TEXT_SHA256": "dd682f7bc9bfbe75e318098ee12ead4da5fc16ec9687b6d85f8fae4f745275cd",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 11 links pelo motor -> https://www.confcooperative.it/LInformazione/Le-notizie/bce-gardini-171rialzo-dei-tassi-232-scelta-obbligata-ma-pesa-su-imprese-e-pmi187 com 1546 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "dbc615c47f0d2bb4c1b92c467e6537c520e104a07659eba307ba2eba443a80b6",
+   "PROVADO_EM": "2026-09-25T09:47:06.689920+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-125",
+   "OWNER": "Puglia",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://cia-puglia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\-puglia\\.it/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://cia-puglia.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 165,
+    "NON_WHITESPACE_CHARACTERS": 8339,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 5,
+   "AMOSTRA_LINKS": [
+    "https://cia-puglia.it/2026/07/30/politica-parita-di-genere-cia-puglia/",
+    "https://cia-puglia.it/2026/09/22/cia-e-universita-del-salento-ricerca-e-cooperazione-il-futuro-dellagricoltura/",
+    "https://cia-puglia.it/2026/09/17/cattiva-gestione-diga-san-giuliano-a-palagianello-canali-a-secco-e-uva-a-rischio-la-cia-perde-le-staffe/",
+    "https://cia-puglia.it/2026/09/09/cia-puglia-lacqua-a-uso-irriguo-non-puo-costare-come-la-benzina/",
+    "https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://cia-puglia.it/2026/07/30/politica-parita-di-genere-cia-puglia/",
+     "HTTP": 200,
+     "BYTES": 112310,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 74,
+     "NON_WHITESPACE_CHARACTERS": 17493,
+     "PARAGRAPH_CHARACTERS": 12997,
+     "TEXT_SHA256": "10b8365e5ba5d13f9493f4927de2c128843bcc4f5c8613552fd2823df937c5b8",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://cia-puglia.it/2026/07/30/politica-parita-di-genere-cia-puglia/",
+    "HTTP": 200,
+    "BYTES": 112310,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 74,
+    "NON_WHITESPACE_CHARACTERS": 17493,
+    "PARAGRAPH_CHARACTERS": 12997,
+    "TEXT_SHA256": "10b8365e5ba5d13f9493f4927de2c128843bcc4f5c8613552fd2823df937c5b8",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 5 links pelo motor -> https://cia-puglia.it/2026/07/30/politica-parita-di-genere-cia-puglia/ com 12997 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "d83900f86d26c7f9df22c240a888edb89fb198c6373619e6592781cd5dbedffe",
+   "PROVADO_EM": "2026-09-25T09:47:17.079662+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-139",
+   "OWNER": "Florovivaisti Italiani",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.florovivaistiitaliani.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?florovivaistiitaliani\\.it/inevidenza/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.florovivaistiitaliani.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 96,
+    "NON_WHITESPACE_CHARACTERS": 3054,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 3,
+   "AMOSTRA_LINKS": [
+    "https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/",
+    "https://www.florovivaistiitaliani.it/inevidenza/credito-dimposta-carburanti-penalizzate-le-serre-florovivaistiche/",
+    "https://www.florovivaistiitaliani.it/inevidenza/citta-bollenti-e-campagne-a-secco-perche-il-florovivaismo-e-la-vera-infrastruttura-per-il-futuro/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/",
+     "HTTP": 200,
+     "BYTES": 189454,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 42,
+     "NON_WHITESPACE_CHARACTERS": 2899,
+     "PARAGRAPH_CHARACTERS": 2073,
+     "TEXT_SHA256": "898965e0f59391e768f024de6e07e1892c2e1304b8048f86c34e9d14a8704caa",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/",
+    "HTTP": 200,
+    "BYTES": 189454,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 42,
+    "NON_WHITESPACE_CHARACTERS": 2899,
+    "PARAGRAPH_CHARACTERS": 2073,
+    "TEXT_SHA256": "898965e0f59391e768f024de6e07e1892c2e1304b8048f86c34e9d14a8704caa",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 3 links pelo motor -> https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/ com 2073 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "40bbe30a4f1e59cbfe4c107d1d8ac78437bcc77faf8c9ab4c99629189eb22735",
+   "PROVADO_EM": "2026-09-25T09:47:26.988894+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-163",
+   "OWNER": "Consorzio Casalasco del Pomodoro",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.casalasco.com/it/news",
+   "LINK_PATTERN": "^https?://(www\\.)?casalasco\\.com/it/news/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.casalasco.com/it/news",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 52,
+    "NON_WHITESPACE_CHARACTERS": 3871,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 12,
+   "AMOSTRA_LINKS": [
+    "https://www.casalasco.com/it/news/consorzio-casalasco-del-pomodoro-cresce-ancora-e-si-rafforza",
+    "https://www.casalasco.com/it/news/a-tuttofood-2026-con-filiera-integrata-e-nuove-referenze",
+    "https://www.casalasco.com/it/news/wellbeing-casalasco-continuano-gli-screening-preve",
+    "https://www.casalasco.com/it/news/gli-agricoltori-di-casalasco-seminario-su-agricolt",
+    "https://www.casalasco.com/it/news/andrea-devicenzi-e-pomi-insieme-verso-nuovi-tragua"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.casalasco.com/it/news/consorzio-casalasco-del-pomodoro-cresce-ancora-e-si-rafforza",
+     "HTTP": 200,
+     "BYTES": 51343,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 46,
+     "NON_WHITESPACE_CHARACTERS": 5035,
+     "PARAGRAPH_CHARACTERS": 3804,
+     "TEXT_SHA256": "d8ef2c14a5dc2212fca0f6d9d4b46ac503c756e8c12b8d09775cb44d261e353e",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.casalasco.com/it/news/consorzio-casalasco-del-pomodoro-cresce-ancora-e-si-rafforza",
+    "HTTP": 200,
+    "BYTES": 51343,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 46,
+    "NON_WHITESPACE_CHARACTERS": 5035,
+    "PARAGRAPH_CHARACTERS": 3804,
+    "TEXT_SHA256": "d8ef2c14a5dc2212fca0f6d9d4b46ac503c756e8c12b8d09775cb44d261e353e",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 12 links pelo motor -> https://www.casalasco.com/it/news/consorzio-casalasco-del-pomodoro-cresce-ancora-e-si-rafforza com 3804 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "f9fb65f4059bdcad9a236201921938f7d212c9380722d114aa04757278bff43d",
+   "PROVADO_EM": "2026-09-25T09:47:34.050497+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T8-022",
+   "OWNER": "Colture",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://terraevita.edagricole.it/colture/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/frutticoltura/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://terraevita.edagricole.it/colture/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 225,
+    "NON_WHITESPACE_CHARACTERS": 7932,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 2,
+   "AMOSTRA_LINKS": [
+    "https://terraevita.edagricole.it/frutticoltura/pera-dellemilia-romagna-igp-dalla-regione-13-milioni-per-rinforzare-la-filiera/",
+    "https://terraevita.edagricole.it/frutticoltura/vento-e-pioggia-devastano-le-campagne-nel-metapontino/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://terraevita.edagricole.it/frutticoltura/pera-dellemilia-romagna-igp-dalla-regione-13-milioni-per-rinforzare-la-filiera/",
+     "HTTP": 200,
+     "BYTES": 278977,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 243,
+     "NON_WHITESPACE_CHARACTERS": 11016,
+     "PARAGRAPH_CHARACTERS": 6611,
+     "TEXT_SHA256": "197c80323800acff716b1e132fc33a496fb89bbba216f3d9af89b541e6c6321e",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://terraevita.edagricole.it/frutticoltura/pera-dellemilia-romagna-igp-dalla-regione-13-milioni-per-rinforzare-la-filiera/",
+    "HTTP": 200,
+    "BYTES": 278977,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 243,
+    "NON_WHITESPACE_CHARACTERS": 11016,
+    "PARAGRAPH_CHARACTERS": 6611,
+    "TEXT_SHA256": "197c80323800acff716b1e132fc33a496fb89bbba216f3d9af89b541e6c6321e",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 2 links pelo motor -> https://terraevita.edagricole.it/frutticoltura/pera-dellemilia-romagna-igp-dalla-regione-13-milioni-per-rinforzare-la-filiera/ com 6611 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "f286e3ea4da4d7b7ec600b0b382e66873dc9e6fc35ad0a6802626dba537d5b40",
+   "PROVADO_EM": "2026-09-25T09:49:31.071756+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T8-024",
+   "OWNER": "Colture estensive",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://terraevita.edagricole.it/seminativi/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/seminativi/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://terraevita.edagricole.it/seminativi/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 261,
+    "NON_WHITESPACE_CHARACTERS": 9991,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 19,
+   "AMOSTRA_LINKS": [
+    "https://terraevita.edagricole.it/seminativi/frumento-post-emergenza-sempre-piu-in-balia-dellandamento-stagionale/",
+    "https://terraevita.edagricole.it/seminativi/frumento-senza-pre-e-post-precoce-necessario-assumere-dei-rischi/",
+    "https://terraevita.edagricole.it/seminativi/orzo-unaltra-stagione-da-incorniciare/",
+    "https://terraevita.edagricole.it/seminativi/superfici-riso-crescono-tondi-e-varieta-da-interno/",
+    "https://terraevita.edagricole.it/seminativi/piani-colturali-aziendali-perche-inserire-il-colza/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://terraevita.edagricole.it/seminativi/frumento-post-emergenza-sempre-piu-in-balia-dellandamento-stagionale/",
+     "HTTP": 200,
+     "BYTES": 276364,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 244,
+     "NON_WHITESPACE_CHARACTERS": 7978,
+     "PARAGRAPH_CHARACTERS": 3566,
+     "TEXT_SHA256": "fcadc3ee113bd6d917b10bed82b9001de3f6116056c78292dd4de7c7975f8427",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://terraevita.edagricole.it/seminativi/frumento-post-emergenza-sempre-piu-in-balia-dellandamento-stagionale/",
+    "HTTP": 200,
+    "BYTES": 276364,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 244,
+    "NON_WHITESPACE_CHARACTERS": 7978,
+    "PARAGRAPH_CHARACTERS": 3566,
+    "TEXT_SHA256": "fcadc3ee113bd6d917b10bed82b9001de3f6116056c78292dd4de7c7975f8427",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 19 links pelo motor -> https://terraevita.edagricole.it/seminativi/frumento-post-emergenza-sempre-piu-in-balia-dellandamento-stagionale/ com 3566 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "b104ba017a11b8507b0d33caca254432b4141555a3e3cd07584e1ca04fefd3f3",
+   "PROVADO_EM": "2026-09-25T09:49:52.354031+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T8-041",
+   "OWNER": "VVQ – Vigne, Vini e Qualità",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://vigneviniequalita.edagricole.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?vigneviniequalita\\.edagricole\\.it/attualita\\-news/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://vigneviniequalita.edagricole.it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 295,
+    "NON_WHITESPACE_CHARACTERS": 14229,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 6,
+   "AMOSTRA_LINKS": [
+    "https://vigneviniequalita.edagricole.it/attualita-news/al-via-il-decreto-per-la-promozione-del-turismo-enologico/",
+    "https://vigneviniequalita.edagricole.it/attualita-news/italia-cina-un-ponte-per-la-ricerca-vitivinicola/",
+    "https://vigneviniequalita.edagricole.it/attualita-news/tecnico-agritech-le-nuove-competenze-per-il-futuro-della-viticoltura-del-prosecco-unesco/",
+    "https://vigneviniequalita.edagricole.it/attualita-news/doc-delle-venezie-nasce-il-premio-di-laurea-giuseppe-catarin/",
+    "https://vigneviniequalita.edagricole.it/attualita-news/inaugurata-la-prima-vigna-terapeutica-in-un-ospedale-pubblico-italiano/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://vigneviniequalita.edagricole.it/attualita-news/al-via-il-decreto-per-la-promozione-del-turismo-enologico/",
+     "HTTP": 200,
+     "BYTES": 250434,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 184,
+     "NON_WHITESPACE_CHARACTERS": 8269,
+     "PARAGRAPH_CHARACTERS": 3495,
+     "TEXT_SHA256": "acb28ae5c518f72bed6785a44b4d1a96bd2eda39661f754af42cfb5b33ae0b75",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://vigneviniequalita.edagricole.it/attualita-news/al-via-il-decreto-per-la-promozione-del-turismo-enologico/",
+    "HTTP": 200,
+    "BYTES": 250434,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 184,
+    "NON_WHITESPACE_CHARACTERS": 8269,
+    "PARAGRAPH_CHARACTERS": 3495,
+    "TEXT_SHA256": "acb28ae5c518f72bed6785a44b4d1a96bd2eda39661f754af42cfb5b33ae0b75",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 6 links pelo motor -> https://vigneviniequalita.edagricole.it/attualita-news/al-via-il-decreto-per-la-promozione-del-turismo-enologico/ com 3495 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "f1dcdfaef291ca5c176704706ac083c2092fab9a53ed51736dddef93cbeace22",
+   "PROVADO_EM": "2026-09-25T09:47:43.050208+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T8-042",
+   "OWNER": "Viticoltura",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://terraevita.edagricole.it/viticoltura/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/viticoltura/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://terraevita.edagricole.it/viticoltura/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 262,
+    "NON_WHITESPACE_CHARACTERS": 10240,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 15,
+   "AMOSTRA_LINKS": [
+    "https://terraevita.edagricole.it/viticoltura/in-puglia-cantine-piene-i-piani-di-confagricoltura-e-coldiretti/",
+    "https://terraevita.edagricole.it/viticoltura/puglia-vendemmia-abbondante-mercato-fiato-corto/",
+    "https://terraevita.edagricole.it/viticoltura/uva-da-tavola-puglia-conferma-qualita-prezzi-bassi/",
+    "https://terraevita.edagricole.it/viticoltura/viticoltura-perche-siamo-e-restiamo-bio/",
+    "https://terraevita.edagricole.it/viticoltura/vigneto-non-solo-diserbo-chimico/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://terraevita.edagricole.it/viticoltura/in-puglia-cantine-piene-i-piani-di-confagricoltura-e-coldiretti/",
+     "HTTP": 200,
+     "BYTES": 281290,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 242,
+     "NON_WHITESPACE_CHARACTERS": 14946,
+     "PARAGRAPH_CHARACTERS": 9481,
+     "TEXT_SHA256": "c7a478e850bbfc76ea4b8fccef0d149db297e1f0fc86901c2710229d66be458d",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://terraevita.edagricole.it/viticoltura/in-puglia-cantine-piene-i-piani-di-confagricoltura-e-coldiretti/",
+    "HTTP": 200,
+    "BYTES": 281290,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 242,
+    "NON_WHITESPACE_CHARACTERS": 14946,
+    "PARAGRAPH_CHARACTERS": 9481,
+    "TEXT_SHA256": "c7a478e850bbfc76ea4b8fccef0d149db297e1f0fc86901c2710229d66be458d",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 15 links pelo motor -> https://terraevita.edagricole.it/viticoltura/in-puglia-cantine-piene-i-piani-di-confagricoltura-e-coldiretti/ com 9481 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "4dd0b716d717d9d6f55360a490f682f3189a63e26add8bf9fdbb956f613d56fb",
+   "PROVADO_EM": "2026-09-25T09:50:13.167654+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T5-101",
+   "OWNER": "CNR - Consiglio Nazionale delle Ricerche",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.cnr.it/it",
+   "LINK_PATTERN": "^https?://(www\\.)?cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "9ad282514239d257e8713ae43c1e4d610af9795769864e6dd447f9a3f1bd1d59",
+   "PROVADO_EM": "2026-09-25T09:47:49.277379+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-053",
+   "OWNER": "Coldiretti Veneto",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://veneto.coldiretti.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?veneto\\.coldiretti\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "f999094ddee25973b79aefcf689c1e4c4ada26d816439877c185eb2967962434",
+   "PROVADO_EM": "2026-09-25T09:48:34.310570+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-058",
+   "OWNER": "Unione Nazionale Associazioni Produttori Olivicoli",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.unaprol.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?unaprol\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "f25b648d3c3fbcd9f8d345d4ec419d9716011edefdc9651e57a42d7296c4dcb9",
+   "PROVADO_EM": "2026-09-25T09:49:19.884204+00:00"
+  }
+ ]
+}

@@ -1,0 +1,607 @@
+{
+ "DATASET": "COORTE-BIG-COLLECTION-V1",
+ "DECISAO": "D25 (dono real, 23/09 ~15:20)",
+ "ESTADO": "CONGELADA",
+ "CONGELAMENTO": {
+  "INSTALACAO": "ENSAIO-onda2-g3-v1",
+  "DEMOTION_B5": "ENSAIO-sem-B5",
+  "EM": "2026-09-25T06:14:20+00:00"
+ },
+ "NAO_E": "a contagem de READY do livro (READY_TOTAL do painel); a coorte e so a lista COORTE",
+ "MEDIDO_EM": "2026-09-25T06:14:20+00:00",
+ "ARVORE": "1ce58195",
+ "PLANO": {
+  "GERADO_EM": "2026-09-25T06:13:27Z",
+  "PAINEL_DO_GATE": {
+   "READY_TOTAL": 167,
+   "READY_CURRENT_TOTAL": 67,
+   "READY_LEGACY_TOTAL": 100,
+   "HUMAN_REVIEW_REQUIRED": 9,
+   "COLLECTION_ELIGIBLE": 57
+  },
+  "PRONTAS": 18,
+  "BLOQUEADAS": 39
+ },
+ "LIVROS_SHA256": {
+  "curadoria/LIFECYCLE-LEDGER-V1.json": "f29fb9e847cf5eb8e2045234a99c2b45a1655b919e056f0e12c59be7cce57a32",
+  "curadoria/LIFECYCLE-EVIDENCE-V1.json": "d0194ba34e18dd9ed8b7893bfb9d680f1c3aa9db55fdfdd9c6d698d395401c74",
+  "curadoria/italy_contracts_curator.json": "bb98c7a321b6ff13d4eb432bee46e4b991a75866d187264957fe7c130cba12fa",
+  "regras/italy_contracts_onboarded.json": "856f833f08043024a50d295b0d46d548ccbd54dab69f6312fc352b061f6b3272"
+ },
+ "REGRA": "PRONTA no micro_coleta plano E contrato executavel no coletor E rota validada (portao ELIGIBLE, DETAIL/v1) E canario com prova <= 7 dias",
+ "COORTE_BIG_COLLECTION": 18,
+ "COORTE": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T10-018-CANARY-3172",
+    "OBSERVED_AT": "2026-09-23T12:37:16.745190+00:00",
+    "IDADE_DIAS": 1.73,
+    "ITEM_ABERTO": "https://www.myfruit.it/news/annamaria-medici-in-ortofrutta-vince-il-valore-percepito"
+   },
+   "INDEX_URL": "https://www.myfruit.it/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "UNIVERSO": "T10",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T10-021-CANARY-1334",
+    "OBSERVED_AT": "2026-09-22T18:37:08.901143+00:00",
+    "IDADE_DIAS": 2.48,
+    "ITEM_ABERTO": "https://plantgest.imagelinenetwork.com/it/eventi/giornate-tecniche-sul-noce-da-frutto/63565"
+   },
+   "INDEX_URL": "https://plantgest.imagelinenetwork.com/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T10-022-CANARY-3174",
+    "OBSERVED_AT": "2026-09-23T12:37:27.941110+00:00",
+    "IDADE_DIAS": 1.73,
+    "ITEM_ABERTO": "https://zootecnicainternational.com/news/bob-buresh-2026-psa-poultry-industry-award/"
+   },
+   "INDEX_URL": "https://zootecnicainternational.com/news/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "UNIVERSO": "T2",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-034-CANARY-1340",
+    "OBSERVED_AT": "2026-09-22T18:37:52.815887+00:00",
+    "IDADE_DIAS": 2.48,
+    "ITEM_ABERTO": "https://www.arpa.marche.it/notizie-2026/1688-rrqa-migrazione-al-sistema-informativo-opas"
+   },
+   "INDEX_URL": "https://www.arpa.marche.it/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "UNIVERSO": "T2",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-051-CANARY-1342",
+    "OBSERVED_AT": "2026-09-22T18:38:02.187328+00:00",
+    "IDADE_DIAS": 2.48,
+    "ITEM_ABERTO": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente"
+   },
+   "INDEX_URL": "https://www.arpae.it/it",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-090",
+   "UNIVERSO": "T5",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T5-090-CANARY-1844",
+    "OBSERVED_AT": "2026-09-23T04:36:42.336805+00:00",
+    "IDADE_DIAS": 2.07,
+    "ITEM_ABERTO": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/"
+   },
+   "INDEX_URL": "https://www.istat.it/it/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-017-CANARY-3178",
+    "OBSERVED_AT": "2026-09-23T12:37:47.473974+00:00",
+    "IDADE_DIAS": 1.73,
+    "ITEM_ABERTO": "https://www.riuniteciv.com/news-e-eventi/beer-food-attraction-rimini-presentazione-prodotti/"
+   },
+   "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T7-021-CANARY-1346",
+    "OBSERVED_AT": "2026-09-22T18:38:31.396132+00:00",
+    "IDADE_DIAS": 2.48,
+    "ITEM_ABERTO": "https://etvilloresi.it/attivita/progetti/progetto-la-via-del-marmo/"
+   },
+   "INDEX_URL": "https://www.etvilloresi.it/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-033-CANARY-3180",
+    "OBSERVED_AT": "2026-09-23T12:37:56.015474+00:00",
+    "IDADE_DIAS": 1.73,
+    "ITEM_ABERTO": "https://www.chianticlassico.com/news/27-ottobre-2025-milano-degustazione-chianticlassicodocg/"
+   },
+   "INDEX_URL": "https://www.chianticlassico.com/news/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-042-CANARY-3182",
+    "OBSERVED_AT": "2026-09-23T12:38:06.526809+00:00",
+    "IDADE_DIAS": 1.73,
+    "ITEM_ABERTO": "https://www.consorziobalsamico.it/news-blog/a-sostegno-della-filiera-del-vino-italiano/"
+   },
+   "INDEX_URL": "https://www.consorziobalsamico.it/news-blog/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-043-CANARY-3184",
+    "OBSERVED_AT": "2026-09-23T12:38:14.268437+00:00",
+    "IDADE_DIAS": 1.73,
+    "ITEM_ABERTO": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana"
+   },
+   "INDEX_URL": "https://agrofarma.federchimica.it/news-ed-eventi",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-112",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-112-CANARY-1930",
+    "OBSERVED_AT": "2026-09-23T04:40:10.768399+00:00",
+    "IDADE_DIAS": 2.07,
+    "ITEM_ABERTO": "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/"
+   },
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/agia/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-117",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-117-CANARY-1975",
+    "OBSERVED_AT": "2026-09-23T04:42:24.291566+00:00",
+    "IDADE_DIAS": 2.06,
+    "ITEM_ABERTO": "https://www.caf-cia.it/news/notizie/730-2025-provvedimento-agenzia-delle-entrate/"
+   },
+   "INDEX_URL": "https://www.caf-cia.it/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-118",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-118-CANARY-2008",
+    "OBSERVED_AT": "2026-09-23T04:43:44.340590+00:00",
+    "IDADE_DIAS": 2.06,
+    "ITEM_ABERTO": "https://www.cia.it/news/notizie/a-firenze-la-presentazione-del-libro-il-mondo-delle-donne/"
+   },
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/donne-in-campo/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-121",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-121-CANARY-2081",
+    "OBSERVED_AT": "2026-09-23T04:47:09.407543+00:00",
+    "IDADE_DIAS": 2.06,
+    "ITEM_ABERTO": "https://www.cia.it/news/notizie/aree-interne-cia-parte-il-roadshow-territori-che-rigenerano-da-nord-a-sud-italia/"
+   },
+   "INDEX_URL": "https://www.cia.it/news/news/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-123",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-123-CANARY-2089",
+    "OBSERVED_AT": "2026-09-23T04:47:38.650566+00:00",
+    "IDADE_DIAS": 2.06,
+    "ITEM_ABERTO": "https://www.cia.it/news/notizie/cia-cuneo-fruitlab-2026-tecnologia-al-servizio-degli-agricoltori/"
+   },
+   "INDEX_URL": "https://www.cia.it/news/dal-territorio/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-135",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-135-CANARY-2214",
+    "OBSERVED_AT": "2026-09-23T04:53:14.297878+00:00",
+    "IDADE_DIAS": 2.06,
+    "ITEM_ABERTO": "https://cia.it/news/notizie/agrichef-festival-la-campania-porta-alla-finale-gli-involtini-di-verza-e-provola-del-monaco/"
+   },
+   "INDEX_URL": "https://cia.it/agrichef-1/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-141",
+   "UNIVERSO": "T7",
+   "ULTIMO_CANARIO": {
+    "EVIDENCE_REF": "EV-IT-T7-141-CANARY-2576",
+    "OBSERVED_AT": "2026-09-23T07:05:57.088029+00:00",
+    "IDADE_DIAS": 1.96,
+    "ITEM_ABERTO": "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2016/"
+   },
+   "INDEX_URL": "https://www.ciatoscana.eu/home/",
+   "PROVAS": {
+    "CONTRATO_EXECUTAVEL": true,
+    "ROTA_VALIDADA": true,
+    "CANARIO_7D": true
+   }
+  }
+ ],
+ "FORA": [
+  {
+   "SOURCE_ID": "IT-T12-024",
+   "UNIVERSO": "T12",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-104",
+   "UNIVERSO": "T12",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-117",
+   "UNIVERSO": "T12",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-129",
+   "UNIVERSO": "T12",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-130",
+   "UNIVERSO": "T12",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-131",
+   "UNIVERSO": "T12",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-137",
+   "UNIVERSO": "T12",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-032",
+   "UNIVERSO": "T2",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-037",
+   "UNIVERSO": "T2",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-050",
+   "UNIVERSO": "T2",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-056",
+   "UNIVERSO": "T2",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-106",
+   "UNIVERSO": "T2",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-145",
+   "UNIVERSO": "T2",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-146",
+   "UNIVERSO": "T2",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T3-045",
+   "UNIVERSO": "T3",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "UNIVERSO": "T5",
+   "FALTA": [
+    "ROTA:CAPABILITY_BLOCK"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-101",
+   "UNIVERSO": "T5",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-160",
+   "UNIVERSO": "T5",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-167",
+   "UNIVERSO": "T5",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-185",
+   "UNIVERSO": "T5",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-186",
+   "UNIVERSO": "T5",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-187",
+   "UNIVERSO": "T5",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-053",
+   "UNIVERSO": "T7",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-058",
+   "UNIVERSO": "T7",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-100",
+   "UNIVERSO": "T7",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-115",
+   "UNIVERSO": "T7",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-120",
+   "UNIVERSO": "T7",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-172",
+   "UNIVERSO": "T7",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-021",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-028",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-029",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-030",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-034",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-039",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-040",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-051",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-062",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-068",
+   "UNIVERSO": "T8",
+   "FALTA": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-021",
+   "UNIVERSO": "T9",
+   "FALTA": [
+    "SEM_RECEITA_WEB_PARA_T9"
+   ]
+  }
+ ],
+ "DUPLICADAS_NA_COORTE": {}
+}

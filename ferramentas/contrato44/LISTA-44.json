@@ -1,0 +1,728 @@
+{
+ "DATASET": "CONTRATO-44",
+ "MEDIDO_EM": "2026-09-25T09:51:17Z",
+ "VIVO": "source-curator-service-v1 @ 7cdb7ea4 (livros sujos copiados, so leitura)",
+ "RAMO": "contrato-44-v1 (de integra-onda2-v1 @ e2f47ed3)",
+ "ANTES": {
+  "PRONTAS": 18,
+  "BLOQUEADAS": 55,
+  "SEM_CONTRATO_DE_COLETA": 44
+ },
+ "DEPOIS_NA_COPIA": {
+  "PRONTAS": 41,
+  "BLOQUEADAS": 32,
+  "SEM_CONTRATO_DE_COLETA": 11
+ },
+ "RESOLVIDAS": {
+  "PACOTE_INTEGRADO": 17,
+  "CONTRATO_44": 16,
+  "POR_RESOLVER": 11
+ },
+ "NOTA_JANELA_D29": "JANELA_D29 = universo T1 (janela de cultura na Admissao), T2 (agrometeo) ou T3 (fitossanitario) — leitura desta missao, declarada",
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T12-024",
+   "UNIVERSO": "T12",
+   "DOMINIO": "www.regione.veneto.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:30:01.388779+00:00",
+    "CONTRATO_SHA256": "dd6f21400eb31131ea0d5496662845bcb8bcc83b17507b436b7943bc2853e0bc"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-104",
+   "UNIVERSO": "T12",
+   "DOMINIO": "www.geoportale.regione.lombardia.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "canario nao provou a rota: CAPABILITY_BLOCK — https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "CAPABILITY_BLOCK",
+    "PROVADO_EM": "2026-09-25T06:30:14.978826+00:00",
+    "CONTRATO_SHA256": "d3870d3defdbfa24885c8026bee69b211534fd07a4f30bfe5599ea84161507b7"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-117",
+   "UNIVERSO": "T12",
+   "DOMINIO": "energia.calabriaimpresa.eu",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:30:24.704896+00:00",
+    "CONTRATO_SHA256": "85db9ee38d0bdf21f56529ef50e661582e398e396a8fa9bdab848b9209c780cc"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-129",
+   "UNIVERSO": "T12",
+   "DOMINIO": "www.regione.sicilia.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:30:34.524089+00:00",
+    "CONTRATO_SHA256": "ca07b2487a0ba3e32d126823990706ba2f66d7ebe9238cbfb5c023e2ffa53df7"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-130",
+   "UNIVERSO": "T12",
+   "DOMINIO": "terraevita.edagricole.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:30:43.250063+00:00",
+    "CONTRATO_SHA256": "b826c30e35f065f4ce3aa2a877cf536235938e4f5edb2a789143a22597533a32"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-131",
+   "UNIVERSO": "T12",
+   "DOMINIO": "terraevita.edagricole.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:36:20.333846+00:00",
+    "CONTRATO_SHA256": "394ab97d13af50975daac1283cf29990738e5fc709746778a9d5900d745e9b34"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T12"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-032",
+   "UNIVERSO": "T2",
+   "DOMINIO": "www.arpal.liguria.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:30:50.668745+00:00",
+    "CONTRATO_SHA256": "6eed46d253494f28d09a41908568bd9dfec6a451cf9286216c0778c5b9e29a86"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-037",
+   "UNIVERSO": "T2",
+   "DOMINIO": "www.arpat.toscana.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:31:05.511071+00:00",
+    "CONTRATO_SHA256": "73876bd100e3bf69d5f01a9b870ea9fca72394eedc73ab79b191bd5ae4466a4c"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-050",
+   "UNIVERSO": "T2",
+   "DOMINIO": "www.arpacampania.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:31:13.985230+00:00",
+    "CONTRATO_SHA256": "7f5224bed5c92ac264fe2526b0fa7e0410fc96fa1d8281ba4ad163df56bb4d72"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-056",
+   "UNIVERSO": "T2",
+   "DOMINIO": "www.arpae.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "DUPLICADA de fonte ja contratada: IT-T2-051 — mesmo site e mesmo padrao de materias; decisao de identidade, nao de rota",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:31:23.695928+00:00",
+    "CONTRATO_SHA256": "c11b10589d7f19493f2e4089d6077cbb2a85ad50531015ffebcad75b640ab8c8"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-106",
+   "UNIVERSO": "T2",
+   "DOMINIO": "www.arpae.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "DUPLICADA: a rota chega ao mesmo documento que IT-T2-056 — duas fichas, uma fonte; decisao de identidade, nao de rota",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:36:29.236009+00:00",
+    "CONTRATO_SHA256": "eb22920183c6edd9f9fa66ab234351e593f6c0889995cd4f44c561aa38a7d362"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-145",
+   "UNIVERSO": "T2",
+   "DOMINIO": "www.arpa.veneto.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:36:11.974896+00:00",
+    "CONTRATO_SHA256": "246b4a24af49913df703e06b6a3e366c53020ee766cf2408527f8bcfa72ce848"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-146",
+   "UNIVERSO": "T2",
+   "DOMINIO": "www.arpa.veneto.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:38:36.426019+00:00",
+    "CONTRATO_SHA256": "8b533e29ff165550f5c0eb6ccb3c92e99b8e4d8dd403efb06360f73550cd88c1"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T3-023",
+   "UNIVERSO": "T3",
+   "DOMINIO": "terraevita.edagricole.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:46:07.077578+00:00",
+    "CONTRATO_SHA256": "b3a61cfb9a29ba863f5fdfdc43688362aeaf4c1d7eb1d96a3aa193538113d422"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T3-045",
+   "UNIVERSO": "T3",
+   "DOMINIO": "www.amap.marche.it",
+   "JANELA_D29": true,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "canario nao provou a rota: CAPABILITY_BLOCK — https://www.amap.marche.it/progetti/progetti-misura-16-1-psr-marche: CAPA_NAO_E_MATERIA: o con",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "CAPABILITY_BLOCK",
+    "PROVADO_EM": "2026-09-25T06:31:36.662185+00:00",
+    "CONTRATO_SHA256": "49c73c40da41c5cf8e02a10a77c248abd122bb9204a8be020deffb52568215f0"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-056",
+   "UNIVERSO": "T5",
+   "DOMINIO": "www.crea.gov.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:46:16.860060+00:00",
+    "CONTRATO_SHA256": "5ff23625b995b1959cc9f7c1270ec64a2358025a923310517cb5fb0b44e7e53d"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T5-080",
+   "UNIVERSO": "T5",
+   "DOMINIO": "creafuturo.crea.gov.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:46:28.743960+00:00",
+    "CONTRATO_SHA256": "2c1ef8c7d36de0ab31d90111e452c52cb8fe9a299714c5ba918419179a88016a"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T5-101",
+   "UNIVERSO": "T5",
+   "DOMINIO": "www.cnr.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "canario nao provou a rota: UNKNOWN — robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como ",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "UNKNOWN",
+    "PROVADO_EM": "2026-09-25T09:47:49.277379+00:00",
+    "CONTRATO_SHA256": "9ad282514239d257e8713ae43c1e4d610af9795769864e6dd447f9a3f1bd1d59"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-111",
+   "UNIVERSO": "T5",
+   "DOMINIO": "www.crea.gov.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:49:39.570154+00:00",
+    "CONTRATO_SHA256": "0c0402006e571fd4dbf8023efdb38b93b9a4e336fa57880a561b165b849a9364"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T5-113",
+   "UNIVERSO": "T5",
+   "DOMINIO": "www.crea.gov.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:50:01.427809+00:00",
+    "CONTRATO_SHA256": "5878e15f0c07b1fcffb06560dda4de2179d91c3cae4948d81a4c0d87c67f837e"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T5-160",
+   "UNIVERSO": "T5",
+   "DOMINIO": "www.ibba.cnr.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:36:44.511931+00:00",
+    "CONTRATO_SHA256": "4c86a07176369354c75eeaa8ffa6e1805c555fc81e9035781eb29a1a1d1a596a"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T5-167",
+   "UNIVERSO": "T5",
+   "DOMINIO": "www.crea.gov.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:31:55.185355+00:00",
+    "CONTRATO_SHA256": "5ddc65e39fac2071f225fd3609188f38a95b991286b83b7a6e5706b7348f3008"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T5-185",
+   "UNIVERSO": "T5",
+   "DOMINIO": "sostenibilita.enea.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:32:03.510360+00:00",
+    "CONTRATO_SHA256": "29392a1165ba347d5e194fe3d854be2d2957908e6f7b4a26afae2d4db7171141"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T5-186",
+   "UNIVERSO": "T5",
+   "DOMINIO": "sostenibilita.enea.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:36:53.558766+00:00",
+    "CONTRATO_SHA256": "38169f29ce77e39a31fee3f7e8cb111f63efb79214fbc5c3223ebc20c4ca4442"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T5-187",
+   "UNIVERSO": "T5",
+   "DOMINIO": "sostenibilita.enea.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:38:57.515944+00:00",
+    "CONTRATO_SHA256": "5f315fe9059b5063ab05429d553023f6f3dc213c4f912b08a2b50923a8d76ee3"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "UNIVERSO": "T7",
+   "DOMINIO": "lombardia.confagricoltura.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:46:39.441348+00:00",
+    "CONTRATO_SHA256": "e24ca12cb056b1db18fa3c8db26e914566cfd2fda033a85c098058322d0766ca"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T7-048",
+   "UNIVERSO": "T7",
+   "DOMINIO": "www.caiagromec.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:46:49.013938+00:00",
+    "CONTRATO_SHA256": "78821f495e19af6f302f6075b61039b124fcb5d1b26c41df6916809ea4dce92a"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "UNIVERSO": "T7",
+   "DOMINIO": "copagri.org",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:46:58.811023+00:00",
+    "CONTRATO_SHA256": "9c9686273f2da2e100b774b050b88492e1fb4be2c3134fd91aca3f5ebb20547a"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T7-053",
+   "UNIVERSO": "T7",
+   "DOMINIO": "veneto.coldiretti.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "canario nao provou a rota: UNKNOWN — robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como ",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "UNKNOWN",
+    "PROVADO_EM": "2026-09-25T09:48:34.310570+00:00",
+    "CONTRATO_SHA256": "f999094ddee25973b79aefcf689c1e4c4ada26d816439877c185eb2967962434"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-058",
+   "UNIVERSO": "T7",
+   "DOMINIO": "www.unaprol.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "canario nao provou a rota: UNKNOWN — robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como ",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "UNKNOWN",
+    "PROVADO_EM": "2026-09-25T09:49:19.884204+00:00",
+    "CONTRATO_SHA256": "f25b648d3c3fbcd9f8d345d4ec419d9716011edefdc9651e57a42d7296c4dcb9"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-100",
+   "UNIVERSO": "T7",
+   "DOMINIO": "agrofarma.federchimica.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "DUPLICADA: a rota chega ao mesmo documento que IT-T7-043 — duas fichas, uma fonte; decisao de identidade, nao de rota",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:33:41.758725+00:00",
+    "CONTRATO_SHA256": "cc0f45345c69d5e8cb601580ffbc56c746ce2a0614df44568893848f0ae4717f"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-103",
+   "UNIVERSO": "T7",
+   "DOMINIO": "www.confcooperative.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:47:06.689920+00:00",
+    "CONTRATO_SHA256": "dbc615c47f0d2bb4c1b92c467e6537c520e104a07659eba307ba2eba443a80b6"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T7-115",
+   "UNIVERSO": "T7",
+   "DOMINIO": "www.cia.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "canario nao provou a rota: CAPABILITY_BLOCK — https://www.cia.it/news/settore-comunicazione-contatti/: CAPA_NAO_E_MATERIA: o contrato declar",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "CAPABILITY_BLOCK",
+    "PROVADO_EM": "2026-09-25T06:33:53.792099+00:00",
+    "CONTRATO_SHA256": "57c04b8f6db1a30d2687d848bcdf13a9abbce67d19df23bb8bb51e6888d31c44"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-120",
+   "UNIVERSO": "T7",
+   "DOMINIO": "inac-cia.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "canario nao provou a rota: CAPABILITY_BLOCK — https://inac-cia.it/news/notizie/sei-un-pensionato/: alvo sem corpo util: HTML_KIND=MIXED; htt",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "CAPABILITY_BLOCK",
+    "PROVADO_EM": "2026-09-25T06:34:05.890001+00:00",
+    "CONTRATO_SHA256": "8e2d6f8dcfb89d1fd5632c7d89bf604aef1d2699863bcf2302f867c88b108690"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-125",
+   "UNIVERSO": "T7",
+   "DOMINIO": "cia-puglia.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:47:17.079662+00:00",
+    "CONTRATO_SHA256": "d83900f86d26c7f9df22c240a888edb89fb198c6373619e6592781cd5dbedffe"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T7-139",
+   "UNIVERSO": "T7",
+   "DOMINIO": "www.florovivaistiitaliani.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:47:26.988894+00:00",
+    "CONTRATO_SHA256": "40bbe30a4f1e59cbfe4c107d1d8ac78437bcc77faf8c9ab4c99629189eb22735"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T7-163",
+   "UNIVERSO": "T7",
+   "DOMINIO": "www.casalasco.com",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:47:34.050497+00:00",
+    "CONTRATO_SHA256": "f9fb65f4059bdcad9a236201921938f7d212c9380722d114aa04757278bff43d"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T7-172",
+   "UNIVERSO": "T7",
+   "DOMINIO": "www.georgofili.info",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:34:21.095591+00:00",
+    "CONTRATO_SHA256": "e490f6557bb9c918849ba56f76222a31ad76d59287b8856c56bcd46dd147739b"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "PRONTA",
+   "FALTA_DEPOIS": []
+  },
+  {
+   "SOURCE_ID": "IT-T8-022",
+   "UNIVERSO": "T8",
+   "DOMINIO": "terraevita.edagricole.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:49:31.071756+00:00",
+    "CONTRATO_SHA256": "f286e3ea4da4d7b7ec600b0b382e66873dc9e6fc35ad0a6802626dba537d5b40"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-024",
+   "UNIVERSO": "T8",
+   "DOMINIO": "terraevita.edagricole.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:49:52.354031+00:00",
+    "CONTRATO_SHA256": "b104ba017a11b8507b0d33caca254432b4141555a3e3cd07584e1ca04fefd3f3"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-041",
+   "UNIVERSO": "T8",
+   "DOMINIO": "vigneviniequalita.edagricole.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:47:43.050208+00:00",
+    "CONTRATO_SHA256": "f1dcdfaef291ca5c176704706ac083c2092fab9a53ed51736dddef93cbeace22"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-042",
+   "UNIVERSO": "T8",
+   "DOMINIO": "terraevita.edagricole.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "CONTRATO-44 (prova de rota nova 25/09 ~09:50Z, disco do vivo)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T09:50:13.167654+00:00",
+    "CONTRATO_SHA256": "4dd0b716d717d9d6f55360a490f682f3189a63e26add8bf9fdbb956f613d56fb"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-062",
+   "UNIVERSO": "T8",
+   "DOMINIO": "agrariaweb.uniss.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "PACOTE_INTEGRADO (PONTE-ONBOARD: prova de rota 25/09 06:38Z)",
+   "PORQUE_FICA": null,
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:34:29.348501+00:00",
+    "CONTRATO_SHA256": "f5d000846a54b6ba6a9cdaafa202b61ceb809f891479631e42aa3ca70729c6d0"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-068",
+   "UNIVERSO": "T8",
+   "DOMINIO": "www.terraevita.edagricole.it",
+   "JANELA_D29": false,
+   "RESOLVIDA_POR": "POR_RESOLVER",
+   "PORQUE_FICA": "DUPLICADA de fonte ja contratada: IT-T8-021 — mesmo site e mesmo padrao de materias; decisao de identidade, nao de rota",
+   "PROVA_DE_ROTA": {
+    "VEREDITO": "ROUTE_PROVEN",
+    "PROVADO_EM": "2026-09-25T06:38:47.147932+00:00",
+    "CONTRATO_SHA256": "33363f77aea4a6e9f1b514064904e3a947bf40e6a5643797585613efdb427314"
+   },
+   "ESTADO_NO_PLANO_DEPOIS": "BLOQUEADA",
+   "FALTA_DEPOIS": [
+    "SEM_CONTRATO_DE_COLETA",
+    "SEM_RECEITA_WEB_PARA_T8"
+   ]
+  }
+ ]
+}

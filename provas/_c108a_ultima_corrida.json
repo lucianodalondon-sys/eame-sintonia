@@ -1,0 +1,111 @@
+{
+ "QUANDO": "2026-09-12T12:49:55Z",
+ "ALVO": "caasrl.bsky.social",
+ "ALVO_ORIGEM": "cf3aec60:data/samples/SOCIAL-IT/raw-free/BLUESKY/searchActors-agricoltura__7ab1f4d86783235e.txt",
+ "MODO_DA_PROVA": "AO_VIVO",
+ "TETO_DE_PEDIDOS": 2,
+ "PEDIDOS": [
+  {
+   "URL": "https://public.api.bsky.app/robots.txt",
+   "STATUS": 200,
+   "BYTES": 203,
+   "MS": 643,
+   "ERRO": null
+  },
+  {
+   "URL": "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=caasrl.bsky.social&limit=1",
+   "STATUS": 200,
+   "BYTES": 2555,
+   "MS": 354,
+   "ERRO": null
+  }
+ ],
+ "OBJETOS": 1,
+ "TRACE": {
+  "CAPABILITY": "bluesky.author.incremental",
+  "PROVIDER_REQUESTED": "LOCAL_HTTP",
+  "PROVIDER_USED": "LOCAL_HTTP",
+  "WHY_FALLBACK": null,
+  "RESULT": "OK",
+  "PROVIDER_STEPS": [
+   {
+    "PROVIDER": "LOCAL_HTTP",
+    "RESULT": "OK",
+    "WHY": "bsky:app.bsky.feed.getAuthorFeed"
+   }
+  ],
+  "PAID_PROVIDER_USED": false,
+  "ROUTE": "bsky:app.bsky.feed.getAuthorFeed",
+  "ROUTE_CLASS": "PUBLIC_NATIVE",
+  "AUTH_MODE": "PUBLIC",
+  "COST_USD": 0.0,
+  "NATIVE_REASON": null,
+  "RECOVERY_ACTION": "NO_RETRY",
+  "FAILURE_LAYER": "NENHUMA",
+  "ROUTER_RECORD": {
+   "PLATFORM": "BLUESKY",
+   "CAPABILITY": "INCREMENTAL",
+   "RUN_ID": "C108A-TRIAL",
+   "COUNTRY_SCOPE": "IT",
+   "QUANDO": "2026-09-12T12:49:55+00:00",
+   "ROTA_ESCOLHIDA": "bsky:app.bsky.feed.getAuthorFeed",
+   "CLASSE_DA_ROTA": "PUBLIC_NATIVE",
+   "AUTH_MODE": "PUBLIC",
+   "ESTADO": "OK",
+   "OBJETOS": 1,
+   "COST_USD": 0.0,
+   "ERRO": null,
+   "MOTIVO_PAGO": null,
+   "MEDIDA": {},
+   "FAILURE_LAYER": "NENHUMA",
+   "EXPECTED": true,
+   "DEGRADES_SOURCE": false,
+   "RECOVERY_ACTION": "NO_RETRY",
+   "SOURCE_HEALTH": "HEALTHY",
+   "ROUTE_HEALTH": "HEALTHY",
+   "EXECUTOR_HEALTH": "HEALTHY"
+  },
+  "EXECUTOR_ID": "SINTONIA_SCRAP",
+  "EXECUTOR_VERSION": "1.0.0",
+  "RUN_ID": "C108A-TRIAL",
+  "SCOPE": "PONTUAL",
+  "EXECUTION_MODE": "TRIAL",
+  "CAPABILITY_STATE_BEFORE": "NOT_EXECUTED",
+  "CAPABILITY_STATE_AFTER": "NOT_EXECUTED"
+ },
+ "ENVELOPE": {
+  "PLATFORM": "BLUESKY",
+  "SOURCE_ACCOUNT": "caasrl.bsky.social",
+  "NATIVE_ID": "at://did:plc:apqwmvnb7qft2nbcyjlslrez/app.bsky.feed.post/3muvpmxkb3k2c",
+  "URL": "https://bsky.app/profile/caasrl.bsky.social/post/3muvpmxkb3k2c",
+  "CONTENT_TYPE": "POST",
+  "TITLE": null,
+  "TEXT": "#Aedes #wolbachia #mosquitocontrol\n👇👇👇👇\nwww.ecologgi.it/il-batterio-...",
+  "PUBLISHED_AT": "2026-09-07T04:53:23.197Z",
+  "COLLECTED_AT": "2026-09-12T12:49:57+00:00",
+  "LANGUAGE": "it",
+  "SOURCE_LOCATION": "UNKNOWN",
+  "COUNTRY_SCOPE": "IT",
+  "ROUTE": "bsky:app.bsky.feed.getAuthorFeed",
+  "EXECUTOR": "social_rotas.bluesky_feed_autor",
+  "COST_USD": 0.0,
+  "RUN_ID": "C108A-TRIAL",
+  "RAW_REFERENCE": {
+   "PATH": "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
+   "SHA256": "07f7506618bbd2b62799bf6c51c0af8d7f7a8a7e542ee9530f366da6121f94d5",
+   "SHA256_16": "07f7506618bbd2b6",
+   "BYTES": 2555,
+   "PRESERVATION": "NOT_PRESERVED",
+   "PRESERVATION_OWNER": "G-42 forward: Supabase Storage + raw_asset",
+   "NOT_PRESERVED_REASON": "gravado no disco do runner; ainda não entregue ao dono forward"
+  },
+  "DISCOVERY_ROUTES": [
+   "bsky:app.bsky.feed.getAuthorFeed"
+  ],
+  "RAW": {
+   "likeCount": 0,
+   "repostCount": 0,
+   "replyCount": 0
+  }
+ }
+}

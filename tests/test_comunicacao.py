@@ -18,6 +18,7 @@ import io
 import os
 import re
 import sys
+import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -27,6 +28,25 @@ import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import comunicacao_classificar as cl      # noqa: E402
 import comunicacao_identidade as ident    # noqa: E402
 import comunicacao_universo as uni        # noqa: E402
+
+# ── O TABULEIRO DESTA PROVA VEM DE UMA FIXTURE, NUNCA DO ACERVO ────────────────
+# `data/samples/COMPETITOR-CROSSWALK.json` NUNCA esteve no Git (know-how §139). Ate
+# 2026-09-17 este ficheiro chamava `uni.montar()` sem caminho: sem o crosswalk o
+# universo vinha vazio, a verificacao «nenhuma casa nasce autorizada» comparava um
+# conjunto vazio com {'NO'}, e o `raise SystemExit(1)` do fim rebentava DENTRO DO
+# IMPORT — o unittest contava este modulo como um erro de descoberta, e a contagem
+# de testes da casa ficava NOT_MEASURABLE por um dado que nao existe em clone nenhum.
+#
+#     UMA PROVA QUE DEPENDE DE UM FICHEIRO QUE NAO ESTA NO GIT NAO E UMA PROVA:
+#     E UM RETRATO DA MAQUINA DE QUEM A ESCREVEU.
+#
+# A fixture e sintetica e diz-se sintetica (grupos `GRUPO-FIXTURE-*`, contagens
+# inventadas). Ela exercita a REGRA — ordem, empate, corte, complemento — e nao o
+# dado. O `montar()` sem caminho continua a apontar ao crosswalk canonico e a
+# RECUSAR quando ele falta: e isso que `test_comunicacao_universo_falha_fechado.py`
+# prova.
+FIXTURE_CROSSWALK = os.path.join(HERE, 'fixtures', 'comunicacao',
+                                 'COMPETITOR-CROSSWALK.fixture.json')
 
 FALHAS = []
 
@@ -158,9 +178,24 @@ checa('nao existe "prova mais forte" no codigo',
 
 # ── nenhuma empresa nos dois lados da lista ─────────────────────────────────────
 print('\nuniverso — "vou coletar" e "não tentei" não podem se sobrepor:')
-u = uni.montar()
+checa('a fixture nao e o caminho canonico do crosswalk',
+      os.path.normcase(os.path.abspath(FIXTURE_CROSSWALK))
+      == os.path.normcase(os.path.abspath(uni.CROSSWALK)), False)
+u = uni.montar(FIXTURE_CROSSWALK)
+# Um tabuleiro vazio faria as duas verificacoes «nenhuma empresa nos dois lados» e
+# «nenhuma casa autorizada» passarem por vazio (∅ ∩ ∅ = [] · {} != {'NO'} so por
+# sorte). O denominador declara-se antes de se comparar o que ha dentro dele.
+checa('o tabuleiro tem casas (5 empresas x 3 paises x 4 plataformas)',
+      u['ACCOUNT_CELLS'],
+      uni.TAMANHO_DO_PRIMEIRO_LOTE * len(uni.PAISES) * len(uni.PLATAFORMAS))
+checa('o lote sao os 5 grupos com mais pares, empate desfeito pelo nome',
+      u['FIRST_BATCH_COMPANIES'],
+      ['GRUPO-FIXTURE-A', 'GRUPO-FIXTURE-B', 'GRUPO-FIXTURE-C', 'GRUPO-FIXTURE-D',
+       'GRUPO-FIXTURE-E'])
 checa('nenhuma empresa no lote E fora do lote',
       sorted(set(u['FIRST_BATCH_COMPANIES']) & set(u['OUT_OF_FIRST_BATCH'])), [])
+checa('quem a missao nomeia e o crosswalk nao provou fica FORA, calculado',
+      all(n in u['OUT_OF_FIRST_BATCH'] for n in uni.NOMEADOS_PELA_MISSAO), True)
 checa('nenhuma casa nasce autorizada',
       {c['COLLECTION_AUTHORIZED'] for c in u['CELLS']}, {'NO'})
 
@@ -215,10 +250,26 @@ checa('esta camada nunca cria ID de produto',
       post_es['FORESIGHT_PRODUCT_ID'], cl.NAO_SEI)
 
 
-print('\n' + '=' * 60)
-if FALHAS:
-    print('%d FALHA(S):' % len(FALHAS))
-    for f in FALHAS:
-        print('  · %s' % f)
-    raise SystemExit(1)
-print('todas as regressoes passaram')
+
+class TestAsRegressoesDaComunicacao(unittest.TestCase):
+    """Sob a descoberta do unittest, o veredito do guiao acima e UM teste.
+
+    Ate 2026-09-17 o `raise SystemExit(1)` vivia no corpo do modulo: uma regressao
+    qualquer nao aparecia como teste vermelho — aparecia como MODULO QUE NAO CARREGA,
+    e isso derruba a contagem inteira da suite (TEST_COUNT_CURRENT = NOT_MEASURABLE).
+    Uma regua que reprova tem de reprovar como teste, com o nome da verificacao.
+    """
+
+    def test_todas_as_regressoes_do_guiao_passaram(self):
+        self.assertEqual([], FALHAS, '%d falha(s):\n  · %s'
+                         % (len(FALHAS), '\n  · '.join(FALHAS)))
+
+
+if __name__ == '__main__':
+    print('\n' + '=' * 60)
+    if FALHAS:
+        print('%d FALHA(S):' % len(FALHAS))
+        for f in FALHAS:
+            print('  · %s' % f)
+        raise SystemExit(1)
+    print('todas as regressoes passaram')

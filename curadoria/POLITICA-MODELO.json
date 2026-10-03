@@ -1,0 +1,25 @@
+{
+ "DATASET": "POLITICA-MODELO-V1",
+ "GERADO_EM": "2026-09-21",
+ "MISSAO": "SOURCE-CURATOR-SUPERVISOR-V1",
+
+ "CURATOR_ENGINE_USES_MODEL": "NO",
+ "CURATOR_ENGINE_USES_MODEL_PROVA": "git grep -inE 'anthropic|openai|claude|gpt|llm|model' -- 'curadoria/*.py' devolve apenas duas strings com nome de branch (correr_lote.py e emparelhar_com_atlas.py, ambas uma constante COORDINATOR='claude/...'). Nenhuma chamada a modelo. O worker e deterministico: HTTP + robots + regex.",
+
+ "AGENT_WORKER_DEFAULT_MODEL": "SONNET",
+ "AGENT_WORKER_DEFAULT_MODEL_NOTA": "Para o agente que OPERA ou ESTENDE o servico continuo. Capacidade suficiente para raciocinar sobre falhas, interpretar logs e decidir intervencoes.",
+
+ "AGENT_ESCALATION_MODEL": "OPUS",
+ "AGENT_ESCALATION_NOTA": "So por caso dificil. ESCALATION_REASON deve ser registado antes de usar.",
+
+ "ESCALATION_TRIGGERS": [
+  "SUPERVISOR_STATE=BLOCKED e a causa nao e deterministica (ex: SO instavel, disco cheio, colisao de locks)",
+  "worker morre sem erro legivel (rc=null, sem ultima linha no run log)",
+  "fila cresce sem fim apos 3 ciclos de relancamento (possivel loop semantico no lifecycle)",
+  "canario devolve HTTP 200 mas EVIDENCE_REF vazio em mais de 5 fontes seguidas (possivel bug no parser)",
+  "estado do livro contradiz o estado da fila (fonte READY_FOR_COLLECTION com CANARY PENDING na fila)"
+ ],
+
+ "MODELO_REAL_DESTA_MISSAO": "claude-sonnet-4-6",
+ "MODELO_REAL_DESTA_MISSAO_FONTE": "system-reminder injetado pelo harness no arranque da sessao: 'You are powered by the model named Sonnet 4.6. The exact model ID is claude-sonnet-4-6.'"
+}

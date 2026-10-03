@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T2-022",
+ "SOURCE": "ARPA Valle d'Aosta",
+ "OWNER": "ARPA Valle d'Aosta",
+ "URL": "https://www.arpa.vda.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:05Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 108827 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.arpa.vda.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Agenzia Regionale della Protezione dell'Ambiente - Valle D'Aosta",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 137036
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.arpa.vda.it/component/tags/tag/bollettini",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Bollettini",
+  "TITULO": "Agenzia Regionale della Protezione dell'Ambiente - Valle D'Aosta",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 108827,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "ee0f026fdb8aec4c4cb0cbf49e11777263162a5c37a382a3b905cae779633442",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

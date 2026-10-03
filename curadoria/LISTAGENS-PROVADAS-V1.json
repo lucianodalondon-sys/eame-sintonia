@@ -1,0 +1,1401 @@
+{
+ "DATASET": "LISTAGENS-PROVADAS-V1",
+ "LEI": "descer do indice ao item, por fonte, contra a rede: 2+ itens debaixo de uma seccao e o primeiro item aberto sem capa. NAO SEI e resultado; 403 e resposta; o controlo positivo corre antes e, se falhar, ninguem e julgado.",
+ "CORRIDO_EM": "2026-09-21T04:05:11.730752+00:00",
+ "EGRESSO": "205.147.30.6 Milano IT (Proton)",
+ "CADENCIA": {
+  "PAUSA_S": 1.0,
+  "MAX_PEDIDOS_POR_FONTE": 4,
+  "PEDIDOS_TOTAL": 99
+ },
+ "CONTROLO_POSITIVO": {
+  "URL": "https://www.chianticlassico.com/news/",
+  "ESTADO": "PROVADA",
+  "PEDIDOS": 2,
+  "ROBOTS": "User-agent: *\nDisallow: /download/",
+  "ENTRADA_HTTP": 200,
+  "SECCOES_TENTADAS": [
+   {
+    "URL": "https://www.chianticlassico.com/news/",
+    "HTTP": 200,
+    "COMO": "a propria entrada"
+   }
+  ],
+  "LISTAGEM": "https://www.chianticlassico.com/news/",
+  "ITENS": 15,
+  "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/news/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+  "MAX_TARGETS": 15,
+  "ITEM_ABERTO": {
+   "URL": "https://www.chianticlassico.com/news/27-ottobre-2025-milano-degustazione-chianticlassicodocg/",
+   "HTTP": 200,
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 89,
+   "NON_WHITESPACE_CHARACTERS": 3135
+  },
+  "PORQUE": "listagem com 15 itens; primeiro item aberto e MATERIA_PROVAVEL"
+ },
+ "FONTES_JULGADAS": 47,
+ "POR_ESTADO": {
+  "PROVADA": 12,
+  "NAO_SEI": 25,
+  "ROBOTS_BLOCK": 4,
+  "ROBOTS_UNREADABLE": 5,
+  "UNREACHABLE": 1
+ },
+ "POR_BALDE_E_ESTADO": {
+  "COM_SOURCE_ID_SEM_CONTRATO | PROVADA": 4,
+  "COM_SOURCE_ID_SEM_CONTRATO | NAO_SEI": 3,
+  "NUNCA_CARACTERIZADAS_HTML | NAO_SEI": 22,
+  "NUNCA_CARACTERIZADAS_HTML | PROVADA": 8,
+  "NUNCA_CARACTERIZADAS_HTML | ROBOTS_BLOCK": 4,
+  "NUNCA_CARACTERIZADAS_HTML | ROBOTS_UNREADABLE": 5,
+  "NUNCA_CARACTERIZADAS_HTML | UNREACHABLE": 1
+ },
+ "RESULTADOS": [
+  {
+   "URL": "https://www.agraria.unirc.it/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "<!DOCTYPE html>\n<html lang=\"it\" dir=\"ltr\" prefix=\"og: https://ogp.me/ns#\">\n  <head>\n    <meta charse",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.agraria.unirc.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.agraria.unirc.it/",
+   "ITENS": 62,
+   "LINK_PATTERN": "^https?://(www\\.)?agraria\\.unirc\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 30,
+   "ITEM_ABERTO": {
+    "URL": "https://www.agraria.unirc.it/ateneo/bandi-e-concorsi",
+    "HTTP": 200,
+    "HTML_KIND": "MIXED",
+    "CAPA_OU_MATERIA": "NAO_SEI",
+    "LINKS": 337,
+    "NON_WHITESPACE_CHARACTERS": 16386
+   },
+   "PORQUE": "listagem com 62 itens; primeiro item aberto e NAO_SEI",
+   "CANDIDATE_ID": "CAND-0019",
+   "SOURCE_ID": "IT-T5-051",
+   "NOME": "UNIRC Dipartimento di Agraria",
+   "BALDE": "COM_SOURCE_ID_SEM_CONTRATO",
+   "PROVADO_EM": "2026-09-21T03:49:41.192603+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.crpv.it/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 3,
+   "ROBOTS": "\r\n<!doctype html>\r\n<html lang=\"it\">\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <meta name=\"viewport\" c",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.crpv.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    },
+    {
+     "URL": "https://www.crpv.it/it/news/",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    }
+   ],
+   "LISTAGEM": "https://www.crpv.it/it/news/",
+   "ITENS": 6,
+   "LINK_PATTERN": "^https?://(www\\.)?crpv\\.it/it/news/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 6,
+   "ITEM_ABERTO": {
+    "URL": "https://www.crpv.it/it/news/difesa-dalle-gelate-primaverili-2026/",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 116,
+    "NON_WHITESPACE_CHARACTERS": 8390
+   },
+   "PORQUE": "listagem com 6 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0022",
+   "SOURCE_ID": "IT-T5-041",
+   "NOME": "CRPV — Centro Ricerche Produzioni Vegetali",
+   "BALDE": "COM_SOURCE_ID_SEM_CONTRATO",
+   "PROVADO_EM": "2026-09-21T03:49:31.031702+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.conserveitalia.it/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "# If the Joomla site is installed within a folder such as at\n# e.g. www.example.com/joomla/ the robo",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.conserveitalia.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.conserveitalia.it/",
+   "ITENS": 2,
+   "LINK_PATTERN": "^https?://(www\\.)?conserveitalia\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 2,
+   "ITEM_ABERTO": {
+    "URL": "https://www.conserveitalia.it/it/lavora-con-noi",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 52,
+    "NON_WHITESPACE_CHARACTERS": 2175
+   },
+   "PORQUE": "listagem com 2 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0140",
+   "SOURCE_ID": "IT-T9-015",
+   "NOME": "Conserve Italia",
+   "BALDE": "COM_SOURCE_ID_SEM_CONTRATO",
+   "PROVADO_EM": "2026-09-21T03:49:49.091801+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.scam.it/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\nDisallow: /wp-includes/\nDisallow:",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.scam.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.scam.it/",
+   "ITENS": 19,
+   "LINK_PATTERN": "^https?://(www\\.)?scam\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 19,
+   "ITEM_ABERTO": {
+    "URL": "https://www.scam.it/articoli-e-pubblicazioni/",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 204,
+    "NON_WHITESPACE_CHARACTERS": 5428
+   },
+   "PORQUE": "listagem com 19 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0150",
+   "SOURCE_ID": "IT-T9-019",
+   "NOME": "SCAM",
+   "BALDE": "COM_SOURCE_ID_SEM_CONTRATO",
+   "PROVADO_EM": "2026-09-21T03:50:08.206622+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.sipcamitalia.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "User-agent: *\r\nSitemap: https://www.sipcam.com/it/it/sitemap.xml\r\nSitemap: https://www.sipcam.com/bx",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.sipcamitalia.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0158",
+   "SOURCE_ID": "IT-T9-020",
+   "NOME": "Sipcam Italia",
+   "BALDE": "COM_SOURCE_ID_SEM_CONTRATO",
+   "PROVADO_EM": "2026-09-21T04:02:38.151622+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.legacoopagroalimentare.coop/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 3,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.legacoopagroalimentare.coop/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    },
+    {
+     "URL": "https://www.legacoopagroalimentare.coop/elenco17/eventi.html",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    },
+    {
+     "URL": "https://www.legacoopagroalimentare.coop/elenco8/notizie.html",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0167",
+   "SOURCE_ID": "IT-T5-054",
+   "NOME": "Legacoop Agroalimentare",
+   "BALDE": "COM_SOURCE_ID_SEM_CONTRATO",
+   "PROVADO_EM": "2026-09-21T04:02:32.068949+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.consorziovalpolicella.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "# If the Joomla site is installed within a folder such as at\n# e.g. www.example.com/joomla/ the robo",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.consorziovalpolicella.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0179",
+   "SOURCE_ID": "IT-T7-038",
+   "NOME": "Consorzio Tutela Vini Valpolicella",
+   "BALDE": "COM_SOURCE_ID_SEM_CONTRATO",
+   "PROVADO_EM": "2026-09-21T04:02:19.502523+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.arpacal.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "# If the Joomla site is installed within a folder such as at\n# e.g. www.example.com/joomla/ the robo",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.arpacal.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0001",
+   "SOURCE_ID": null,
+   "NOME": "ARPACAL Calabria",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:02:47.711322+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.regione.calabria.it/website/portaltemplates/view/view.cfm?21",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 2,
+   "ROBOTS": "\n# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow: /wp-json/\nDisallow: /?res",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.regione.calabria.it/website/portaltemplates/view/view.cfm?21",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    },
+    {
+     "URL": "https://www.regione.calabria.it/website/newsdipartimenti/",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0002",
+   "SOURCE_ID": null,
+   "NOME": "Calabria — Dipartimento Agricoltura",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:02:53.212606+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.regione.molise.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "User-agent: *\r\nAllow: /\r\n\r\n",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.regione.molise.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0008",
+   "SOURCE_ID": null,
+   "NOME": "Regione Molise — Agricoltura",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:03:03.830434+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.reterurale.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 2,
+   "ROBOTS": "User-agent: *\nVisit-time: 0100-0300           # Vista soltanto tra le 1:00 AM e le 3:00 AM\n",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.reterurale.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    },
+    {
+     "URL": "https://www.reterurale.it/eventi",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0009",
+   "SOURCE_ID": null,
+   "NOME": "Rete Rurale Nazionale",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:03:11.599301+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.sian.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "<!doctype html>\n<html lang=\"it\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <title>SIAN</title>\n    <",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.sian.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0010",
+   "SOURCE_ID": null,
+   "NOME": "SIAN — Sistema Informativo Agricolo Nazionale",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:03:17.847139+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.sardegnaagricoltura.it/index.php?xsl=443",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "# Allow all\r\nUser-agent:  *\r\nDisallow:\r\n\r\n",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.sardegnaagricoltura.it/index.php?xsl=443",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0013",
+   "SOURCE_ID": null,
+   "NOME": "AGRIS Sardegna — Agenzia per la ricerca in agricoltura",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:02:42.086833+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.arpa.sardegna.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.arpa.sardegna.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0014",
+   "SOURCE_ID": null,
+   "NOME": "ARPA Sardegna",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:02:44.544839+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.sardegnaagricoltura.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "# Allow all\r\nUser-agent:  *\r\nDisallow:\r\n\r\n",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.sardegnaagricoltura.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0015",
+   "SOURCE_ID": null,
+   "NOME": "Sardegna Agricoltura — Laore",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:03:21.631800+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.provincia.bz.it/agricoltura-foreste/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "# PM30042002\r\nUser-Agent: *\r\nDisallow: /proguest\r\nDisallow: /sozinfo\r\nDisallow: /download-zb\r\nDisall",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.provincia.bz.it/agricoltura-foreste/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0016",
+   "SOURCE_ID": null,
+   "NOME": "Provincia autonoma di Bolzano — Agricoltura",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:02:58.584767+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.venetoagricoltura.org/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "<!DOCTYPE html>\n<html lang=\"it\">\n\n<head>\n\t<title>myPortal</title>\n\t<meta charset=\"UTF-8\">\n\t<meta nam",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.venetoagricoltura.org/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0018",
+   "SOURCE_ID": null,
+   "NOME": "Veneto Agricoltura — Agenzia veneta per l'innovazione nel settore primario",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:03:25.970288+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.laimburg.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "User-agent: bingbot\nAllow : /\nCrawl-delay: 10\n\nUser-agent: Yandex\nAllow : /\nCrawl-delay: 10\n\nUser-ag",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.laimburg.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0026",
+   "SOURCE_ID": null,
+   "NOME": "Centro di Sperimentazione Laimburg",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:03:31.143777+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.unibz.it/it/faculties/agricultural-environmental-food-sciences/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "User-agent: *\nDisallow: /lld/\nDisallow: /admin\nDisallow: /Security/login\n# Timetable query-string UR",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.unibz.it/it/faculties/agricultural-environmental-food-sciences/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.unibz.it/it/faculties/agricultural-environmental-food-sciences/",
+   "ITENS": 11,
+   "LINK_PATTERN": "^https?://(www\\.)?unibz\\.it/it/faculties/agricultural\\-environmental\\-food\\-sciences/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 11,
+   "ITEM_ABERTO": {
+    "URL": "https://www.unibz.it/it/faculties/agricultural-environmental-food-sciences/bachelor-food-enogastronomy-sciences",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 228,
+    "NON_WHITESPACE_CHARACTERS": 31330
+   },
+   "PORQUE": "listagem com 11 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0027",
+   "SOURCE_ID": null,
+   "NOME": "Libera Universita di Bolzano — Facolta di Scienze agrarie ambientali e alimentari",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:51:18.090677+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.italiafruit.net/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "User-agent: AhrefsBot\nDisallow: /\n\nUser-agent: SemrushBot\nDisallow: /\n\nUser-agent: MJ12bot\nDisallow:",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.italiafruit.net/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.italiafruit.net/",
+   "ITENS": 16,
+   "LINK_PATTERN": "^https?://(www\\.)?italiafruit\\.net/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 16,
+   "ITEM_ABERTO": {
+    "URL": "https://www.italiafruit.net/arachidi-prezzi-ai-massimi-da-marzo-2025",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 153,
+    "NON_WHITESPACE_CHARACTERS": 4324
+   },
+   "PORQUE": "listagem com 16 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0048",
+   "SOURCE_ID": null,
+   "NOME": "Italiafruit News",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:52:07.763971+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://agricolturamoderna.it/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "#Simple Robots.txt 0.1\nUser-agent: MSNBot\nCrawl-delay: 5\nUser-agent: bingbot\nCrawl-delay: 5\n",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://agricolturamoderna.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://agricolturamoderna.it/",
+   "ITENS": 35,
+   "LINK_PATTERN": "^https?://(www\\.)?agricolturamoderna\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 30,
+   "ITEM_ABERTO": {
+    "URL": "https://agricolturamoderna.it/abruzzo-primo-protocollo-tra-gal-di-pesca-e-sviluppo-rurale/",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 47,
+    "NON_WHITESPACE_CHARACTERS": 3115
+   },
+   "PORQUE": "listagem com 35 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0050",
+   "SOURCE_ID": null,
+   "NOME": "Agricoltura Moderna",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:51:24.972914+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.agrifoodtoday.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 3,
+   "ROBOTS": "# COPYRIGHT NOTICE. The contents of this website are available only for personal, non-commercial \n# ",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.agrifoodtoday.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    },
+    {
+     "URL": "https://www.agrifoodtoday.it/attualita/",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    },
+    {
+     "URL": "https://www.agrifoodtoday.it/newsletter/",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0051",
+   "SOURCE_ID": null,
+   "NOME": "Agrifoodtoday",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:03:42.038563+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.corrierevinicolo.com/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 2,
+   "ROBOTS": "<!DOCTYPE html><html  data-capo=\"\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.corrierevinicolo.com/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.corrierevinicolo.com/",
+   "ITENS": 7,
+   "LINK_PATTERN": "^https?://(www\\.)?corrierevinicolo\\.com/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 7,
+   "ITEM_ABERTO": {
+    "URL": "https://www.corrierevinicolo.com/fiere/enovitis-in-campo",
+    "HTTP": 200,
+    "HTML_KIND": "NAVIGATION",
+    "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+    "LINKS": 208,
+    "NON_WHITESPACE_CHARACTERS": 4574
+   },
+   "PORQUE": "o primeiro item parece capa/navegacao (gate CAPA != MATERIA)",
+   "CANDIDATE_ID": "CAND-0056",
+   "SOURCE_ID": null,
+   "NOME": "Il Corriere Vinicolo",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:04:01.304722+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.ilfattoalimentare.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 4,
+   "ROBOTS": "User-agent: *\r\nDisallow: /wp-admin/\r\nAllow: /wp-admin/admin-ajax.php\r\n\r\nSitemap: https://ilfattoalim",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.ilfattoalimentare.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    },
+    {
+     "URL": "https://ilfattoalimentare.it/argomenti/notizie-video",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    },
+    {
+     "URL": "https://ilfattoalimentare.it/argomenti/recensioni-eventi",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    }
+   ],
+   "LISTAGEM": "https://www.ilfattoalimentare.it/",
+   "ITENS": 3,
+   "LINK_PATTERN": "^https?://(www\\.)?ilfattoalimentare\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 3,
+   "ITEM_ABERTO": {
+    "URL": "https://ilfattoalimentare.it/argomenti/richiami-e-ritiri",
+    "HTTP": 200,
+    "HTML_KIND": "NAVIGATION",
+    "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+    "LINKS": 129,
+    "NON_WHITESPACE_CHARACTERS": 2615
+   },
+   "PORQUE": "o primeiro item parece capa/navegacao (gate CAPA != MATERIA)",
+   "CANDIDATE_ID": "CAND-0057",
+   "SOURCE_ID": null,
+   "NOME": "Il Fatto Alimentare",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:04:13.978718+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.noisiamoagricoltura.com/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "User-agent: *\r\n\r\n\r\nAllow: /wp-admin/admin-ajax.php\r\n\r\nSitemap: https://www.noisiamoagricoltura.com/s",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.noisiamoagricoltura.com/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.noisiamoagricoltura.com/",
+   "ITENS": 7,
+   "LINK_PATTERN": "^https?://(www\\.)?noisiamoagricoltura\\.com/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 7,
+   "ITEM_ABERTO": {
+    "URL": "https://www.noisiamoagricoltura.com/allevamento-asine-da-latte/",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 56,
+    "NON_WHITESPACE_CHARACTERS": 2939
+   },
+   "PORQUE": "listagem com 7 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0060",
+   "SOURCE_ID": null,
+   "NOME": "Noi Siamo Agricoltura — sito",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:04:20.442649+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.pianetapsr.it/",
+   "ESTADO": "ROBOTS_BLOCK",
+   "PEDIDOS": 0,
+   "ROBOTS": "HTTP 403 no robots.txt — tratado como Disallow total",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "a entrada casa com Disallow no robots vivo",
+   "CANDIDATE_ID": "CAND-0062",
+   "SOURCE_ID": null,
+   "NOME": "Pianeta PSR",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:52:12.906593+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.teatronaturale.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 2,
+   "ROBOTS": "\r\nUser-agent: facebookexternalhit\r\nAllow: /\r\n\r\nUser-agent: Facebot\r\nAllow: /\r\n\r\nUser-agent: *\r\nDisal",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.teatronaturale.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    },
+    {
+     "URL": "https://www.teatronaturale.it/strettamente-tecnico/eventi.htm",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0063",
+   "SOURCE_ID": null,
+   "NOME": "Teatro Naturale",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:04:26.543577+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.agrisicilia.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "User-agent: *\n",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.agrisicilia.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0064",
+   "SOURCE_ID": null,
+   "NOME": "Agrisicilia",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:03:45.027442+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://biolchim.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "User-agent: *\nCrawl-delay: 10\nDisallow: /share-view\nDisallow: /search\nDisallow: /cms\n\nSitemap: https",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://biolchim.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0137",
+   "SOURCE_ID": null,
+   "NOME": "Biolchim",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:04:43.789452+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.caviro.com/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://www.cavi",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.caviro.com/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0139",
+   "SOURCE_ID": null,
+   "NOME": "Caviro",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:04:48.665360+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.fieravicola.com/",
+   "ESTADO": "ROBOTS_BLOCK",
+   "PEDIDOS": 0,
+   "ROBOTS": "HTTP 500 no robots.txt — tratado como Disallow total",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "a entrada casa com Disallow no robots vivo",
+   "CANDIDATE_ID": "CAND-0144",
+   "SOURCE_ID": null,
+   "NOME": "Fieravicola",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:56:08.904356+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.granarolo.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "User-agent: *\nDisallow:\n\nSitemap: https://www.granarolo.it/sitemap.xml",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.granarolo.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0145",
+   "SOURCE_ID": null,
+   "NOME": "Granarolo",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:04:52.555261+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.macfrut.com/",
+   "ESTADO": "ROBOTS_BLOCK",
+   "PEDIDOS": 0,
+   "ROBOTS": "HTTP 500 no robots.txt — tratado como Disallow total",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "a entrada casa com Disallow no robots vivo",
+   "CANDIDATE_ID": "CAND-0146",
+   "SOURCE_ID": null,
+   "NOME": "Macfrut",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:56:26.633166+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.alegra.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: https://alegra.it/sitem",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.alegra.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0148",
+   "SOURCE_ID": null,
+   "NOME": "OP Alegra",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:05:11.728747+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.unaprol.it/",
+   "ESTADO": "ROBOTS_UNREADABLE",
+   "PEDIDOS": 0,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "robots nao pode ser lido — nao se bate por prudencia",
+   "CANDIDATE_ID": "CAND-0152",
+   "SOURCE_ID": null,
+   "NOME": "Unione Nazionale Associazioni Produttori Olivicoli — UNAPROL",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:57:35.904163+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "http://www.anga.it/",
+   "ESTADO": "UNREACHABLE",
+   "PEDIDOS": 1,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "ENTRADA_HTTP": 0,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "transporte/DNS deste egresso: URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h — UNKNOWN, nao morta",
+   "CANDIDATE_ID": "CAND-0160",
+   "SOURCE_ID": null,
+   "NOME": "ANGA — Giovani di Confagricoltura",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:52:19.856510+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://assofertilizzanti.federchimica.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 2,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://assofertilizzanti.federchimica.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://assofertilizzanti.federchimica.it/",
+   "ITENS": 14,
+   "LINK_PATTERN": "^https?://(www\\.)?assofertilizzanti\\.federchimica\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 14,
+   "ITEM_ABERTO": {
+    "URL": "https://assofertilizzanti.federchimica.it/chi-siamo-group",
+    "HTTP": 200,
+    "HTML_KIND": "NAVIGATION",
+    "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+    "LINKS": 87,
+    "NON_WHITESPACE_CHARACTERS": 2770
+   },
+   "PORQUE": "o primeiro item parece capa/navegacao (gate CAPA != MATERIA)",
+   "CANDIDATE_ID": "CAND-0162",
+   "SOURCE_ID": null,
+   "NOME": "Assofertilizzanti — Federchimica",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:04:34.558884+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.coldiretti.it/",
+   "ESTADO": "ROBOTS_UNREADABLE",
+   "PEDIDOS": 0,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "robots nao pode ser lido — nao se bate por prudencia",
+   "CANDIDATE_ID": "CAND-0163",
+   "SOURCE_ID": null,
+   "NOME": "Coldiretti",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:53:26.047689+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.uiv.it/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "<!DOCTYPE html><html  data-capo=\"\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.uiv.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.uiv.it/",
+   "ITENS": 7,
+   "LINK_PATTERN": "^https?://(www\\.)?uiv\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 7,
+   "ITEM_ABERTO": {
+    "URL": "https://www.uiv.it/fiere/enovitis-in-campo",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 137,
+    "NON_WHITESPACE_CHARACTERS": 8003
+   },
+   "PORQUE": "listagem com 7 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0168",
+   "SOURCE_ID": null,
+   "NOME": "Unione Italiana Vini",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:56:51.709561+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.nocciolapiemonteigp.it/",
+   "ESTADO": "ROBOTS_BLOCK",
+   "PEDIDOS": 0,
+   "ROBOTS": "# Squarespace Robots Txt\n\nUser-agent: AI2Bot\nUser-agent: Ai2Bot-Dolma\nUser-agent: aiHitBot\nUser-agen",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "a entrada casa com Disallow no robots vivo",
+   "CANDIDATE_ID": "CAND-0169",
+   "SOURCE_ID": null,
+   "NOME": "Consorzio di Tutela Nocciola Piemonte IGP",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:56:07.481627+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://puglia.coldiretti.it/",
+   "ESTADO": "ROBOTS_UNREADABLE",
+   "PEDIDOS": 0,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "robots nao pode ser lido — nao se bate por prudencia",
+   "CANDIDATE_ID": "CAND-0171",
+   "SOURCE_ID": null,
+   "NOME": "Coldiretti Puglia",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:54:10.083733+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://sicilia.coldiretti.it/",
+   "ESTADO": "ROBOTS_UNREADABLE",
+   "PEDIDOS": 0,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "robots nao pode ser lido — nao se bate por prudencia",
+   "CANDIDATE_ID": "CAND-0173",
+   "SOURCE_ID": null,
+   "NOME": "Coldiretti Sicilia",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:54:54.115973+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.consorziobrunellodimontalcino.it/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 3,
+   "ROBOTS": "<!DOCTYPE html>\n\n\n<html class=\" \">\n<head>\n   \n   \n   \n        <title>Consorzio del vino Brunello di ",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.consorziobrunellodimontalcino.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    },
+    {
+     "URL": "https://www.consorziobrunellodimontalcino.it/news/",
+     "HTTP": 200,
+     "COMO": "seccao com vocabulario de noticia"
+    }
+   ],
+   "LISTAGEM": "https://www.consorziobrunellodimontalcino.it/",
+   "ITENS": 2,
+   "LINK_PATTERN": "^https?://(www\\.)?consorziobrunellodimontalcino\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 2,
+   "ITEM_ABERTO": {
+    "URL": "https://www.consorziobrunellodimontalcino.it/it/1993/red-montalcino",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 53,
+    "NON_WHITESPACE_CHARACTERS": 3372
+   },
+   "PORQUE": "listagem com 2 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0175",
+   "SOURCE_ID": null,
+   "NOME": "Consorzio del Vino Brunello di Montalcino",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:55:51.302573+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.interpoma.it/",
+   "ESTADO": "NAO_SEI",
+   "PEDIDOS": 1,
+   "ROBOTS": "<!DOCTYPE html>\n<html lang=\"it\">\n<head>\n    <meta charset=\"utf-8\">\n<meta http-equiv=\"X-UA-Compatible",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.interpoma.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "entrada e seccoes respondem mas nenhuma lista 2+ itens com cara de item",
+   "CANDIDATE_ID": "CAND-0176",
+   "SOURCE_ID": null,
+   "NOME": "Interpoma",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T04:05:06.248253+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://veneto.coldiretti.it/",
+   "ESTADO": "ROBOTS_UNREADABLE",
+   "PEDIDOS": 0,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "ENTRADA_HTTP": null,
+   "SECCOES_TENTADAS": [],
+   "LISTAGEM": null,
+   "ITENS": 0,
+   "LINK_PATTERN": null,
+   "MAX_TARGETS": null,
+   "ITEM_ABERTO": null,
+   "PORQUE": "robots nao pode ser lido — nao se bate por prudencia",
+   "CANDIDATE_ID": "CAND-0178",
+   "SOURCE_ID": null,
+   "NOME": "Coldiretti Veneto",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:55:38.148089+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.consorziopiave.it/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: https://consorziopiave.",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.consorziopiave.it/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.consorziopiave.it/",
+   "ITENS": 10,
+   "LINK_PATTERN": "^https?://(www\\.)?consorziopiave\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 10,
+   "ITEM_ABERTO": {
+    "URL": "https://consorziopiave.it/acqua-rischio-ed-insidia/",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 51,
+    "NON_WHITESPACE_CHARACTERS": 9728
+   },
+   "PORQUE": "listagem com 10 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0180",
+   "SOURCE_ID": null,
+   "NOME": "Consorzio di Bonifica Piave",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:56:05.841990+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  },
+  {
+   "URL": "https://www.vinitaly.com/",
+   "ESTADO": "PROVADA",
+   "PEDIDOS": 2,
+   "ROBOTS": "User-agent: *\r\nDisallow: /error.html\r\nDisallow: /app_data/\r\nDisallow: /app_plugins/\r\nDisallow: /bin/",
+   "ENTRADA_HTTP": 200,
+   "SECCOES_TENTADAS": [
+    {
+     "URL": "https://www.vinitaly.com/",
+     "HTTP": 200,
+     "COMO": "a propria entrada"
+    }
+   ],
+   "LISTAGEM": "https://www.vinitaly.com/",
+   "ITENS": 10,
+   "LINK_PATTERN": "^https?://(www\\.)?vinitaly\\.com/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 10,
+   "ITEM_ABERTO": {
+    "URL": "https://www.vinitaly.com/academy/vinitaly-international-academy/",
+    "HTTP": 200,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 149,
+    "NON_WHITESPACE_CHARACTERS": 4780
+   },
+   "PORQUE": "listagem com 10 itens; primeiro item aberto e MATERIA_PROVAVEL",
+   "CANDIDATE_ID": "CAND-0181",
+   "SOURCE_ID": null,
+   "NOME": "Vinitaly",
+   "BALDE": "NUNCA_CARACTERIZADAS_HTML",
+   "PROVADO_EM": "2026-09-21T03:57:42.302633+00:00",
+   "EGRESSO": "205.147.30.6 Milano IT (Proton)"
+  }
+ ],
+ "CONTRATADAS": [
+  {
+   "SOURCE_ID": "IT-T5-041",
+   "FEITO": true,
+   "TASK_ID": "T00120"
+  },
+  {
+   "SOURCE_ID": "IT-T5-051",
+   "FEITO": true,
+   "TASK_ID": "T00121"
+  },
+  {
+   "SOURCE_ID": "IT-T9-015",
+   "FEITO": true,
+   "TASK_ID": "T00122"
+  },
+  {
+   "SOURCE_ID": "IT-T9-019",
+   "FEITO": true,
+   "TASK_ID": "T00123"
+  }
+ ]
+}

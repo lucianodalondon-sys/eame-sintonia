@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T10-007",
+ "SOURCE": "ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare",
+ "OWNER": "ISMEA",
+ "URL": "https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:48:54Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 102783 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Ismea - Istituto di Servizi per il Mercato Agricolo Alimentare - Ismea",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": "2026-09-11",
+  "BYTES_LIDOS": 145227
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.ismea.it/Press-Area/Comunicati-Stampa",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Comunicati stampa e news",
+  "TITULO": "Comunicati stampa e news - Ismea",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 102783,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "6922b76d319e6d30b69aeb34b0d29aded869a3503867b2e6ce62b38ccc063d49",
+  "DATA_VISIVEL": "2026-09-11",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

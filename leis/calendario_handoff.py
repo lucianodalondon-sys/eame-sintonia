@@ -20,7 +20,7 @@ AS_OF = '2026-08-30'
 
 
 def consulta(dsn, sql):
-    r = subprocess.run(['psql', dsn, '-tAc', sql], capture_output=True, text=True)
+    r = subprocess.run(['psql', '-tAc', sql, dsn], capture_output=True, text=True)
     if r.returncode != 0:
         raise SystemExit('psql falhou: ' + r.stderr.strip()[:400])
     return r.stdout.strip()

@@ -1,0 +1,56 @@
+# -*- coding: utf-8 -*-
+# EXTRATORES-V2-JUNTOS · o que a Intelligence LE na copia da Sala (vista sala_de_espera_atual), SO LEITURA.
+#   PYTHONUTF8=1 python ler_vista.py.txt <SAIDA.json>
+# Corre-se antes e depois do reprocesso aplicado NA COPIA; conta as mesmas colunas e os pares cruzaveis.
+import importlib.machinery
+import importlib.util
+import json
+import os
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+spec = importlib.util.spec_from_loader("l", importlib.machinery.SourceFileLoader("l", os.path.join(AQUI, "ler_copia.py.txt")))
+L = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(L)
+AUS = ("", "NAO SEI", "NOT_KNOWN", None)
+CHAVES = ("CULTURA", "REGIAO_DO_FATO", "FASE", "JANELA")
+
+linhas = []
+for l in L.consultar("select a.run_id, a.ordem, a.source_id, a.universo, coalesce(r.sha256,''), coalesce(a.fact_time,''), "
+                     "coalesce(a.fact_location,''), a.janela_declarada::text from public.sala_de_espera_atual a "
+                     "left join public.raw_asset r on r.id = a.raw_observation_id order by a.run_id, a.ordem"):
+    run, ordem, sid, uni, sha, ft, fl, jan = l.split(L.SEP)
+    j = json.loads(jan)
+    v = lambda c: (j.get(c) or {}).get("VALOR", "NAO SEI")
+    linhas.append({"RUN_ID": run, "ORDEM": int(ordem), "SOURCE_ID": sid, "UNIVERSO": uni, "SHA256": sha.strip(),
+                   "FACT_TIME": ft not in AUS, "FACT_LOCATION": fl not in AUS,
+                   **{c: v(c) for c in CHAVES}, "PROBLEMA": v("PROBLEMA")})
+tem = lambda x, c: x[c] not in AUS
+conta = {"LINHAS": len(linhas), "FACT_TIME": sum(x["FACT_TIME"] for x in linhas),
+         "FACT_LOCATION": sum(x["FACT_LOCATION"] for x in linhas),
+         **{c: sum(tem(x, c) for x in linhas) for c in CHAVES},
+         "PRAGA": sum(tem(x, "PROBLEMA") for x in linhas),
+         "AS_4_CHAVES_JUNTAS": sum(all(tem(x, c) for c in CHAVES) for x in linhas),
+         "CULTURA+PRAGA+TEMPO+LUGAR": sum(tem(x, "CULTURA") and tem(x, "PROBLEMA") and x["FACT_TIME"]
+                                          and x["FACT_LOCATION"] for x in linhas)}
+# pares: documentos distintos (sha) com cultura + regiao + janela, que partilham cultura e regiao e a MESMA janela
+docs = {}
+for x in linhas:
+    if all(tem(x, c) for c in ("CULTURA", "REGIAO_DO_FATO", "JANELA")):
+        docs.setdefault(x["SHA256"], x)
+d = list(docs.values())
+pares = []
+for i in range(len(d)):
+    for k in range(i + 1, len(d)):
+        a, b = d[i], d[k]
+        cult = sorted(set(a["CULTURA"]) & set(b["CULTURA"])) if isinstance(a["CULTURA"], list) and isinstance(b["CULTURA"], list) else []
+        reg = sorted({r.strip() for r in str(a["REGIAO_DO_FATO"]).split(";")} & {r.strip() for r in str(b["REGIAO_DO_FATO"]).split(";")})
+        if cult and reg and a["JANELA"] == b["JANELA"]:
+            pares.append({"A": a["SOURCE_ID"], "B": b["SOURCE_ID"], "CULTURA": cult, "REGIAO": reg, "JANELA": a["JANELA"]})
+conta["DOCUMENTOS_COM_CULTURA_REGIAO_JANELA"] = len(d)
+conta["PARES_MESMA_CULTURA_REGIAO_JANELA"] = len(pares)
+conta["PARES_ENTRE_FONTES_DIFERENTES"] = sum(p["A"] != p["B"] for p in pares)
+fora = {"CONTA": conta, "PARES": pares,
+        "BOLETINS": [x for x in linhas if x["UNIVERSO"] in ("T2", "T3")]}
+json.dump(fora, open(sys.argv[1], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+print(json.dumps(conta, ensure_ascii=False, indent=1))

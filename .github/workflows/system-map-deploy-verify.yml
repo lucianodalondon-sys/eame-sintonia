@@ -1,0 +1,65 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# O COMMIT X ACABOU DE SER PUBLICADO?  —  a única pergunta que o CI não sabia
+#
+# `system-map.yml` prova que o mapa COMMITADO corresponde à árvore. Isso já
+# passava, e o URL público continuava a servir outro commit. Foi assim que o
+# mapa ficou a mostrar `105602f6` com `624/1321` enquanto a cabeça canónica já
+# ia em `8e1947d2`: quatro coisas diferentes, e nenhuma delas conferida contra
+# a seguinte.
+#
+#     GENERATED  !=  DEPLOYED  !=  LATEST REMOTE.
+#     MAP VALID  !=  MAP CURRENT.
+#
+# Este workflow é o único que fala com o mundo depois do deploy. Ele mede o que
+# está SERVIDO e compara com o commit que acabou de ser empurrado.
+#
+# ELE VERIFICA, NÃO PUBLICA — E ISSO É O PONTO
+# --------------------------------------------
+# A Vercel publica, via integração Git, desde sempre. Um segundo publicador
+# aqui dentro criaria dois donos do mesmo endereço, e dois donos de um endereço
+# é a forma mais barata de servir a versão errada sem ninguém perceber. Por
+# isso aqui não há token da Vercel, não há `vercel deploy`, não há alias.
+#
+#     UMA AUTORIDADE DE DEPLOY. ESTA É A SEGUNDA OPINIÃO, NÃO A SEGUNDA MÃO.
+#
+# O URL vem da API de Deployments do GitHub, que a própria integração da Vercel
+# escreve (`githubDeployment: 1` em cada deployment medido). Credencial usada:
+# só o `GITHUB_TOKEN` da corrida, com `deployments: read`. Nenhum segredo novo.
+#
+# CUIDADO COM A CORRIDA, E COM O CONTRÁRIO DELA
+# ---------------------------------------------
+# A Vercel demora. Reprovar por ter perguntado cinco segundos cedo seria um
+# portão que grita à toa, e um portão que grita à toa é desligado numa semana.
+# Por isso ele faz POLL com um tecto: dez minutos, e depois desiste com FAIL —
+# esperar para sempre é a outra maneira de nunca reprovar.
+# ═══════════════════════════════════════════════════════════════════════════
+name: system-map-deploy-verify
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: read
+
+concurrency:
+  # Um push novo torna a verificação do anterior irrelevante: o alias já andou.
+  group: system-map-deploy-verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: o commit desta corrida foi realmente publicado?
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+          REF: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: python3 system-map/scripts/verificar_deploy.py

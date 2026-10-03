@@ -1,0 +1,429 @@
+{
+ "IT-T12-104": {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://www.geoportale.regione.lombardia.it/news",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.geoportale.regione.lombardia.it/news",
+   "LINK_PATTERN": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/news/\\-/asset_publisher/80SRILUddraK/content/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=\\d+&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=[^&]+$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 54,
+   "PARAGRAPH_CHARACTERS": 3074,
+   "TEXT_SHA256": "4bfbd73548c5db85f689da7069edae27cc4bc5248181c736ec4cc1f7d74da89d"
+  },
+  "SECCAO_TENTADA": null,
+  "FAMILIAS_VISTAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/news/\\-/asset_publisher/80SRILUddraK/content/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=\\d+&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=[^&]+$",
+    "MEMBROS": 3,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+     "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/nuovo-sfondo-mondiale-nel-viewer?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707656&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707656",
+     "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore-agricolo-dei-suoli-2023?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3709160&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3709160"
+    ],
+    "FLUXO": "vocabulario de publicacao: news"
+   }
+  ],
+  "FAMILIAS_ESTATICAS": [],
+  "DESFECHO": "PADRAO_NOVO",
+  "INDEX_URL": "https://www.geoportale.regione.lombardia.it/news",
+  "LINK_PATTERN": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/news/\\-/asset_publisher/80SRILUddraK/content/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=\\d+&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=[^&]+$",
+  "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+  "ALVOS_NA_LISTAGEM": 3,
+  "ITEM_LIDO": {
+   "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+   "HTTP": 200,
+   "BYTES": 70367,
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 30,
+   "NON_WHITESPACE_CHARACTERS": 2427,
+   "PARAGRAPH_CHARACTERS": 1122,
+   "TEXT_SHA256": "766c65c2513c170cc0eb28f01bcb312191de96bf45cd82eb2b7dd6e1daad48c6"
+  },
+  "TENTADOS": [
+   {
+    "PADRAO": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/news/\\-/asset_publisher/80SRILUddraK/content/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=\\d+&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=[^&]+$",
+    "MEMBROS": 3,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+     "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/nuovo-sfondo-mondiale-nel-viewer?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707656&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707656",
+     "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore-agricolo-dei-suoli-2023?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3709160&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3709160"
+    ],
+    "FLUXO": "vocabulario de publicacao: news",
+    "ALVO": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+    "ITEM": {
+     "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+     "HTTP": 200,
+     "BYTES": 70367,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 30,
+     "NON_WHITESPACE_CHARACTERS": 2427,
+     "PARAGRAPH_CHARACTERS": 1122,
+     "TEXT_SHA256": "766c65c2513c170cc0eb28f01bcb312191de96bf45cd82eb2b7dd6e1daad48c6"
+    },
+    "VEREDITO": "MATERIA"
+   }
+  ],
+  "PORQUE": "FAMILIA_POR_ESQUELETO: 3 itens na listagem, o 1.o (o do canario) e materia com 1122 caracteres em paragrafos",
+  "PEDIDOS": 2,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://www.geoportale.regione.lombardia.it/news",
+    "HTTP": 200,
+    "BYTES": 78291
+   },
+   {
+    "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+    "HTTP": 200,
+    "BYTES": 70367
+   }
+  ]
+ },
+ "IT-T3-045": {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://www.amap.marche.it/progetti-europei/notizie",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.amap.marche.it/progetti-europei/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?amap\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "NAVIGATION",
+   "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+   "LINKS": 350,
+   "PARAGRAPH_CHARACTERS": 3539,
+   "TEXT_SHA256": "185866408dcdc55242203c3f3f8f21db10ce0ae560514e8a06cafbc7bb30c1af"
+  },
+  "SECCAO_TENTADA": null,
+  "FAMILIAS_VISTAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?amap\\.marche\\.it/agenzia/amministrazione\\-trasparente/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 27,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/accessibilita-e-catalogo-di-dati-metadati-e-banche-dati",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/accesso-civico",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/censimento-permanente-delle-autovetture-di-servizio"
+    ],
+    "FLUXO": "vocabulario de publicacao: notiz"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?amap\\.marche\\.it/agenzia/amministrazione\\-trasparente/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 15,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/bandi-di-concorso",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/bandi-di-gara-e-contratti"
+    ],
+    "FLUXO": "vocabulario de publicacao: notiz"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?amap\\.marche\\.it/agenzia/amministrazione\\-trasparente/personale/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 11,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/contrattazione-collettiva",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/contrattazione-integrativa",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/dirigenti-cessati"
+    ],
+    "FLUXO": "vocabulario de publicacao: notiz"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?amap\\.marche\\.it/progetti\\-europei/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 9,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.amap.marche.it/progetti-europei/notizie/3efishing-ad-ancona-il-confronto-transfrontaliero-sulla-transizione-energetica-della-pesca-e-dellacquacoltura",
+     "https://www.amap.marche.it/progetti-europei/notizie/amap-a-larissa-per-il-quinto-meeting-del-progetto-joinable",
+     "https://www.amap.marche.it/progetti-europei/notizie/amap-e-arpam-rafforzano-la-sinergia-istituzionale-per-il-progetto-europeo-ainature"
+    ],
+    "FLUXO": "vocabulario de publicacao: notiz"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?amap\\.marche\\.it/progetti\\-europei/notizie/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MEMBROS": 9,
+    "COMO": "LISTAGEM_E_ITENS_SOB_ELA (provar_listagem)",
+    "EXEMPLOS": [
+     "https://www.amap.marche.it/progetti-europei/notizie/3efishing-ad-ancona-il-confronto-transfrontaliero-sulla-transizione-energetica-della-pesca-e-dellacquacoltura",
+     "https://www.amap.marche.it/progetti-europei/notizie/amap-a-larissa-per-il-quinto-meeting-del-progetto-joinable",
+     "https://www.amap.marche.it/progetti-europei/notizie/amap-e-arpam-rafforzano-la-sinergia-istituzionale-per-il-progetto-europeo-ainature"
+    ],
+    "FLUXO": "vocabulario de publicacao: notiz"
+   }
+  ],
+  "FAMILIAS_ESTATICAS": [],
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "ITEM_NAO_E_MATERIA",
+  "TENTADOS": [
+   {
+    "PADRAO": "^https?://(www\\.)?amap\\.marche\\.it/agenzia/amministrazione\\-trasparente/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 27,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/accessibilita-e-catalogo-di-dati-metadati-e-banche-dati",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/accesso-civico",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/censimento-permanente-delle-autovetture-di-servizio"
+    ],
+    "FLUXO": "vocabulario de publicacao: notiz",
+    "ALVO": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/accessibilita-e-catalogo-di-dati-metadati-e-banche-dati",
+    "ITEM": {
+     "URL": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/accessibilita-e-catalogo-di-dati-metadati-e-banche-dati",
+     "HTTP": 200,
+     "BYTES": 198718,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 414,
+     "NON_WHITESPACE_CHARACTERS": 12525,
+     "PARAGRAPH_CHARACTERS": 1370,
+     "TEXT_SHA256": "6a6930f5e61c03627d3f317e2ea5a5e6e654cecd29f0fb908db9dbef17c4f5e1"
+    },
+    "VEREDITO": "FAMILIA_E_MENU: 27 dos 27 enderecos da familia repetem-se dentro do item — navegacao do site, nao lista de materias"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?amap\\.marche\\.it/agenzia/amministrazione\\-trasparente/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 15,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/bandi-di-concorso",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/bandi-di-gara-e-contratti"
+    ],
+    "FLUXO": "vocabulario de publicacao: notiz",
+    "ALVO": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti",
+    "ITEM": {
+     "URL": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti",
+     "HTTP": 200,
+     "BYTES": 195653,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 410,
+     "NON_WHITESPACE_CHARACTERS": 11365,
+     "PARAGRAPH_CHARACTERS": 428,
+     "TEXT_SHA256": "cf64d4de042e3755f44509e77e1ec4c6fdc9c866ecfe3f2216bb37ec007c8516"
+    },
+    "VEREDITO": "FAMILIA_E_MENU: 15 dos 15 enderecos da familia repetem-se dentro do item — navegacao do site, nao lista de materias"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?amap\\.marche\\.it/agenzia/amministrazione\\-trasparente/personale/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 11,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/contrattazione-collettiva",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/contrattazione-integrativa",
+     "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/dirigenti-cessati"
+    ],
+    "FLUXO": "vocabulario de publicacao: notiz",
+    "ALVO": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/contrattazione-collettiva",
+    "ITEM": {
+     "URL": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/contrattazione-collettiva",
+     "HTTP": 200,
+     "BYTES": 196640,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 413,
+     "NON_WHITESPACE_CHARACTERS": 11412,
+     "PARAGRAPH_CHARACTERS": 456,
+     "TEXT_SHA256": "be1d6a3b5721d9e9543739d8e3cf231846906a33fbbb056fcff763d941a30d53"
+    },
+    "VEREDITO": "FAMILIA_E_MENU: 11 dos 11 enderecos da familia repetem-se dentro do item — navegacao do site, nao lista de materias"
+   }
+  ],
+  "PORQUE": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-c -> FAMILIA_E_MENU: 27 dos 27 enderecos da familia repetem-se de; https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-c -> FAMILIA_E_MENU: 15 dos 15 enderecos da familia repetem-se de; https://www.amap.marche.it/a",
+  "PEDIDOS": 4,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://www.amap.marche.it/progetti-europei/notizie",
+    "HTTP": 200,
+    "BYTES": 174519
+   },
+   {
+    "URL": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti/accessibilita-e-catalogo-di-dati-metadati-e-banche-dati",
+    "HTTP": 200,
+    "BYTES": 198718
+   },
+   {
+    "URL": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-contenuti",
+    "HTTP": 200,
+    "BYTES": 195653
+   },
+   {
+    "URL": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale/contrattazione-collettiva",
+    "HTTP": 200,
+    "BYTES": 196640
+   }
+  ]
+ },
+ "IT-T7-120": {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://inac-cia.it/",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://inac-cia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?inac\\-cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "MIXED",
+   "CAPA_OU_MATERIA": "NAO_SEI",
+   "LINKS": 69,
+   "PARAGRAPH_CHARACTERS": 630,
+   "TEXT_SHA256": "0bbcea59ad35449bcc1bb3443897afd7c022950cfe7501628cf2bd2a33edc0d6"
+  },
+  "SECCAO_TENTADA": null,
+  "FAMILIAS_VISTAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?inac\\-cia\\.it/news/?\\?tag=\\d+$",
+    "MEMBROS": 9,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://inac-cia.it/news/?tag=12",
+     "https://inac-cia.it/news/?tag=137",
+     "https://inac-cia.it/news/?tag=14"
+    ],
+    "FLUXO": "vocabulario de publicacao: news"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?inac\\-cia\\.it/news/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 6,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://inac-cia.it/news/notizie/il-manuale-enciclopedico-diritti-sociali-nato-negli-uffici-inac-di-lucca-e-riferimento-nazionale-da-35-anni-in-tema-di-diritti-dei-lavoratori/",
+     "https://inac-cia.it/news/notizie/lavori-o-hai-lavorato-e-soffri-di-una-patologia/",
+     "https://inac-cia.it/news/notizie/riforma-disabilita-dal-1-marzo-sperimentazione-estesa-a-40-province-in-tutta-italia-rivolgiti-al-patronato-inac-per-tutti-gli-aggiornamenti/"
+    ],
+    "FLUXO": "vocabulario de publicacao: news"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?inac\\-cia\\.it/multimedia/video/\\d+/?$",
+    "MEMBROS": 3,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://inac-cia.it/multimedia/video/12/",
+     "https://inac-cia.it/multimedia/video/14/",
+     "https://inac-cia.it/multimedia/video/15/"
+    ],
+    "FLUXO": "numero ou ano no caminho: /multimedia/video/12/"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?inac\\-cia\\.it/le\\-convenzioni/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 2,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://inac-cia.it/le-convenzioni/le-convenzioni-copy-2-copy-2/",
+     "https://inac-cia.it/le-convenzioni/le-convenzioni-copy-2/"
+    ],
+    "FLUXO": "titulos longos (mediana 6 palavras)"
+   }
+  ],
+  "FAMILIAS_ESTATICAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?inac\\-cia\\.it/amministrazione\\-trasparente/?$",
+    "MEMBROS": 2,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://inac-cia.it/amministrazione-trasparente/",
+     "https://www.inac-cia.it/amministrazione-trasparente"
+    ],
+    "FLUXO": null
+   }
+  ],
+  "DESFECHO": "PADRAO_NOVO",
+  "INDEX_URL": "https://inac-cia.it/",
+  "LINK_PATTERN": "^https?://(www\\.)?inac\\-cia\\.it/news/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+  "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+  "ALVOS_NA_LISTAGEM": 6,
+  "ITEM_LIDO": {
+   "URL": "https://inac-cia.it/news/notizie/il-manuale-enciclopedico-diritti-sociali-nato-negli-uffici-inac-di-lucca-e-riferimento-nazionale-da-35-anni-in-tema-di-diritti-dei-lavoratori/",
+   "HTTP": 200,
+   "BYTES": 49089,
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 40,
+   "NON_WHITESPACE_CHARACTERS": 6250,
+   "PARAGRAPH_CHARACTERS": 4236,
+   "TEXT_SHA256": "a66c69a5bafb2cd4d3799281828b998245a14ae64270b29d8639abcced49173b"
+  },
+  "TENTADOS": [
+   {
+    "PADRAO": "^https?://(www\\.)?inac\\-cia\\.it/news/?\\?tag=\\d+$",
+    "MEMBROS": 9,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://inac-cia.it/news/?tag=12",
+     "https://inac-cia.it/news/?tag=137",
+     "https://inac-cia.it/news/?tag=14"
+    ],
+    "FLUXO": "vocabulario de publicacao: news",
+    "ALVO": "https://inac-cia.it/news/?tag=12",
+    "ITEM": {
+     "URL": "https://inac-cia.it/news/?tag=12",
+     "HTTP": 200,
+     "BYTES": 49834,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 57,
+     "NON_WHITESPACE_CHARACTERS": 2748,
+     "PARAGRAPH_CHARACTERS": 562,
+     "TEXT_SHA256": "d367d8edc51d9d64e196c525d218bf5cdc40b3b481496c75a3826e7895d0b325"
+    },
+    "VEREDITO": "MIXED/NAO_SEI, 562 em paragrafos (< 800 ou nao e materia)"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?inac\\-cia\\.it/news/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 6,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://inac-cia.it/news/notizie/il-manuale-enciclopedico-diritti-sociali-nato-negli-uffici-inac-di-lucca-e-riferimento-nazionale-da-35-anni-in-tema-di-diritti-dei-lavoratori/",
+     "https://inac-cia.it/news/notizie/lavori-o-hai-lavorato-e-soffri-di-una-patologia/",
+     "https://inac-cia.it/news/notizie/riforma-disabilita-dal-1-marzo-sperimentazione-estesa-a-40-province-in-tutta-italia-rivolgiti-al-patronato-inac-per-tutti-gli-aggiornamenti/"
+    ],
+    "FLUXO": "vocabulario de publicacao: news",
+    "ALVO": "https://inac-cia.it/news/notizie/il-manuale-enciclopedico-diritti-sociali-nato-negli-uffici-inac-di-lucca-e-riferimento-nazionale-da-35-anni-in-tema-di-diritti-dei-lavoratori/",
+    "ITEM": {
+     "URL": "https://inac-cia.it/news/notizie/il-manuale-enciclopedico-diritti-sociali-nato-negli-uffici-inac-di-lucca-e-riferimento-nazionale-da-35-anni-in-tema-di-diritti-dei-lavoratori/",
+     "HTTP": 200,
+     "BYTES": 49089,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 40,
+     "NON_WHITESPACE_CHARACTERS": 6250,
+     "PARAGRAPH_CHARACTERS": 4236,
+     "TEXT_SHA256": "a66c69a5bafb2cd4d3799281828b998245a14ae64270b29d8639abcced49173b"
+    },
+    "VEREDITO": "MATERIA"
+   }
+  ],
+  "PORQUE": "FAMILIA_POR_ESQUELETO: 6 itens na listagem, o 1.o (o do canario) e materia com 4236 caracteres em paragrafos",
+  "PEDIDOS": 3,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://inac-cia.it/",
+    "HTTP": 200,
+    "BYTES": 76860
+   },
+   {
+    "URL": "https://inac-cia.it/news/?tag=12",
+    "HTTP": 200,
+    "BYTES": 49834
+   },
+   {
+    "URL": "https://inac-cia.it/news/notizie/il-manuale-enciclopedico-diritti-sociali-nato-negli-uffici-inac-di-lucca-e-riferimento-nazionale-da-35-anni-in-tema-di-diritti-dei-lavoratori/",
+    "HTTP": 200,
+    "BYTES": 49089
+   }
+  ]
+ }
+}

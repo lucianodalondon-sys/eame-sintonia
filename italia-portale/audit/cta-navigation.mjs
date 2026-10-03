@@ -311,6 +311,25 @@ const strike = async (a, sig, ord) => {
    partenza: rientro dal menu · memoria svuotata + ricarica + rientro · resa. */
 const wipe = () => page.evaluate(() => { try { localStorage.clear(); sessionStorage.clear(); } catch (e) { /* origine opaca */ } }).catch(() => {});
 
+/* ══ UNA VOCE PUO PORTARE FUORI DAL GUSCIO, E LO SPAZZAMENTO DEVE TORNARE ═════
+   «Radar Futuro» non e una vista di questo guscio: e `casa.html`, una PAGINA, e
+   la barra lo dichiara portando li. Lo spazzamento pero continuava a misurare
+   dopo il salto, e da quel punto in poi misurava l'altra pagina: le voci
+   successive «non aprivano» e «atterravano tutte sulla stessa schermata».
+
+       DOPO UNA PORTA CHE ESCE, CHI MISURA TORNA. IL LETTORE ANCHE.
+
+   Il difetto era del banco di prova, non del menu: la rotta funziona, e la
+   pagina di destinazione ha il suo ritorno. Qui si torna al portale prima
+   della voce seguente, che e esattamente cio che fa chi legge. */
+async function tornaAlGuscio() {
+  const fuori = await page.evaluate(() => !/portale\.html$/.test(location.pathname)).catch(() => true);
+  if (!fuori) return false;
+  await page.goto(PORTAL, { waitUntil: 'networkidle' }).catch(() => {});
+  await page.waitForTimeout(550);
+  return true;
+}
+
 async function reboot() {
   /* Si svuota la memoria PRIMA di riaprire: stessa origine, quindi il wipe vale
      per il caricamento successivo. Una sola apertura basta — la seconda che
@@ -361,6 +380,7 @@ let linked = 0, linkProved = 0;
 const linkProofFailed = [];
 
 for (const label of SIDEBAR.slice(0, MAX_SCREENS).filter((x) => !ONLY.length || ONLY.includes(x))) {
+  await tornaAlGuscio();
   const reached = await clickTitle(page, label, 520);
   const base = await snap(page);
   const cl = await clickables(page);
@@ -587,10 +607,15 @@ for (const s of suspects) {
 await reboot();
 const navRows = [];
 for (const label of SIDEBAR.slice(0, MAX_SCREENS).filter((x) => !ONLY.length || ONLY.includes(x))) {
+  await tornaAlGuscio();
   const reached = await clickTitle(page, label, 520);
   const s = await snap(page);
   const cl = await clickables(page);
-  navRows.push({ label, reached, chars: s.chars, th: s.th, hh: s.hh, clickables: cl.length });
+  /* La voce che porta a un'altra PAGINA e raggiunta lo stesso: si dichiara
+     dove atterra, cosi «due voci sulla stessa schermata» non confonde una
+     destinazione vera con una collisione. */
+  const doc = await page.evaluate(() => location.pathname.split('/').pop()).catch(() => '');
+  navRows.push({ label, reached, chars: s.chars, th: doc + '|' + s.th, hh: s.hh, clickables: cl.length, doc });
 }
 /* due voci che atterrano sullo stesso testo sono la stessa schermata con due
    nomi: il lettore preme due cose e ne riceve una sola. */

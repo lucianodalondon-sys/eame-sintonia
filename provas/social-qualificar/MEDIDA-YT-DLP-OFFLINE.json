@@ -1,0 +1,270 @@
+{
+ "YT_DLP": "2026.08.19",
+ "DENO": false,
+ "CASOS": [
+  {
+   "TAMANHO_BYTES": 3145728,
+   "ARGS_EXTRA": [],
+   "SERVIDOR_RECEBEU": [
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "GET",
+     "CAMINHO": "/watch",
+     "RANGE": null,
+     "CORPO": ""
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "GET",
+     "CAMINHO": "/s/player/abcdef12/player_ias.vflset/en_US/base.js",
+     "RANGE": null,
+     "CORPO": ""
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "POST",
+     "CAMINHO": "/youtubei/v1/player",
+     "RANGE": null,
+     "CORPO": "{\"context\": {\"client\": {\"clientName\": \"VISIONOS\", \"clientVersion\": \"1.02\", \"deviceMake\": \"Apple\", \"deviceModel\": \"RealityDevice17,1\", \"userAgent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 15_7_3) Apple"
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=0-10188391",
+     "CORPO": ""
+    }
+   ],
+   "SERVIDOR_POR_HOST": {
+    "www.youtube.com": 3,
+    "rr1---sn-abc.googlevideo.com": 1
+   },
+   "PRINT_TRAFFIC_POR_HOST": {
+    "www.youtube.com": 3,
+    "rr1---sn-abc.googlevideo.com": 1
+   },
+   "INFO_JSON_ESCRITO": true,
+   "RC": 1,
+   "STDERR_FIM": "Could not find platform independent libraries <prefix>\nERROR: Postprocessing: Error opening input files: Invalid data found when processing input\n",
+   "CASO": "3 MiB (~3 min de audio)"
+  },
+  {
+   "TAMANHO_BYTES": 10485760,
+   "ARGS_EXTRA": [],
+   "SERVIDOR_RECEBEU": [
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "GET",
+     "CAMINHO": "/watch",
+     "RANGE": null,
+     "CORPO": ""
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "GET",
+     "CAMINHO": "/s/player/abcdef12/player_ias.vflset/en_US/base.js",
+     "RANGE": null,
+     "CORPO": ""
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "POST",
+     "CAMINHO": "/youtubei/v1/player",
+     "RANGE": null,
+     "CORPO": "{\"context\": {\"client\": {\"clientName\": \"VISIONOS\", \"clientVersion\": \"1.02\", \"deviceMake\": \"Apple\", \"deviceModel\": \"RealityDevice17,1\", \"userAgent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 15_7_3) Apple"
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=0-10088046",
+     "CORPO": ""
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=10088047-10485759",
+     "CORPO": ""
+    }
+   ],
+   "SERVIDOR_POR_HOST": {
+    "www.youtube.com": 3,
+    "rr1---sn-abc.googlevideo.com": 2
+   },
+   "PRINT_TRAFFIC_POR_HOST": {
+    "www.youtube.com": 3,
+    "rr1---sn-abc.googlevideo.com": 2
+   },
+   "INFO_JSON_ESCRITO": true,
+   "RC": 1,
+   "STDERR_FIM": "Could not find platform independent libraries <prefix>\nERROR: Postprocessing: Error opening input files: Invalid data found when processing input\n",
+   "CASO": "10 MiB exactos"
+  },
+  {
+   "TAMANHO_BYTES": 26214400,
+   "ARGS_EXTRA": [],
+   "SERVIDOR_RECEBEU": [
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "GET",
+     "CAMINHO": "/watch",
+     "RANGE": null,
+     "CORPO": ""
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "GET",
+     "CAMINHO": "/s/player/abcdef12/player_ias.vflset/en_US/base.js",
+     "RANGE": null,
+     "CORPO": ""
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "POST",
+     "CAMINHO": "/youtubei/v1/player",
+     "RANGE": null,
+     "CORPO": "{\"context\": {\"client\": {\"clientName\": \"VISIONOS\", \"clientVersion\": \"1.02\", \"deviceMake\": \"Apple\", \"deviceModel\": \"RealityDevice17,1\", \"userAgent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 15_7_3) Apple"
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=0-10317370",
+     "CORPO": ""
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=10317371-20392241",
+     "CORPO": ""
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=20392242-26214399",
+     "CORPO": ""
+    }
+   ],
+   "SERVIDOR_POR_HOST": {
+    "www.youtube.com": 3,
+    "rr1---sn-abc.googlevideo.com": 3
+   },
+   "PRINT_TRAFFIC_POR_HOST": {
+    "www.youtube.com": 3,
+    "rr1---sn-abc.googlevideo.com": 3
+   },
+   "INFO_JSON_ESCRITO": true,
+   "RC": 1,
+   "STDERR_FIM": "Could not find platform independent libraries <prefix>\nERROR: Postprocessing: Error opening input files: Invalid data found when processing input\n",
+   "CASO": "25 MiB (~25 min)"
+  },
+  {
+   "TAMANHO_BYTES": 26214400,
+   "ARGS_EXTRA": [
+    "--extractor-args",
+    "youtube:player_skip=webpage"
+   ],
+   "SERVIDOR_RECEBEU": [
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "POST",
+     "CAMINHO": "/youtubei/v1/next",
+     "RANGE": null,
+     "CORPO": "{\"context\": {\"client\": {\"clientName\": \"WEB\", \"clientVersion\": \"2.20260708.00.00\", \"hl\": \"en\", \"timeZone\": \"UTC\", \"utcOffsetMinutes\": 0}}, \"videoId\": \"AbCdEfGhIjK\", \"contentCheckOk\": true, \"racyCheckOk"
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "POST",
+     "CAMINHO": "/youtubei/v1/player",
+     "RANGE": null,
+     "CORPO": "{\"context\": {\"client\": {\"clientName\": \"VISIONOS\", \"clientVersion\": \"1.02\", \"deviceMake\": \"Apple\", \"deviceModel\": \"RealityDevice17,1\", \"userAgent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 15_7_3) Apple"
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=0-10411293",
+     "CORPO": ""
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=10411294-20503827",
+     "CORPO": ""
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=20503828-26214399",
+     "CORPO": ""
+    }
+   ],
+   "SERVIDOR_POR_HOST": {
+    "www.youtube.com": 2,
+    "rr1---sn-abc.googlevideo.com": 3
+   },
+   "PRINT_TRAFFIC_POR_HOST": {
+    "www.youtube.com": 2,
+    "rr1---sn-abc.googlevideo.com": 3
+   },
+   "INFO_JSON_ESCRITO": true,
+   "RC": 1,
+   "STDERR_FIM": "Could not find platform independent libraries <prefix>\nERROR: Postprocessing: Error opening input files: Invalid data found when processing input\n",
+   "CASO": "25 MiB sem pagina (player_skip=webpage)"
+  },
+  {
+   "TAMANHO_BYTES": 26214400,
+   "ARGS_EXTRA": [
+    "--http-chunk-size",
+    "50M"
+   ],
+   "SERVIDOR_RECEBEU": [
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "GET",
+     "CAMINHO": "/watch",
+     "RANGE": null,
+     "CORPO": ""
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "GET",
+     "CAMINHO": "/s/player/abcdef12/player_ias.vflset/en_US/base.js",
+     "RANGE": null,
+     "CORPO": ""
+    },
+    {
+     "HOST": "www.youtube.com",
+     "METODO": "POST",
+     "CAMINHO": "/youtubei/v1/player",
+     "RANGE": null,
+     "CORPO": "{\"context\": {\"client\": {\"clientName\": \"VISIONOS\", \"clientVersion\": \"1.02\", \"deviceMake\": \"Apple\", \"deviceModel\": \"RealityDevice17,1\", \"userAgent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 15_7_3) Apple"
+    },
+    {
+     "HOST": "rr1---sn-abc.googlevideo.com",
+     "METODO": "GET",
+     "CAMINHO": "/videoplayback",
+     "RANGE": "bytes=0-51913740",
+     "CORPO": ""
+    }
+   ],
+   "SERVIDOR_POR_HOST": {
+    "www.youtube.com": 3,
+    "rr1---sn-abc.googlevideo.com": 1
+   },
+   "PRINT_TRAFFIC_POR_HOST": {
+    "www.youtube.com": 3,
+    "rr1---sn-abc.googlevideo.com": 1
+   },
+   "INFO_JSON_ESCRITO": true,
+   "RC": 1,
+   "STDERR_FIM": "Could not find platform independent libraries <prefix>\nERROR: Postprocessing: Error opening input files: Invalid data found when processing input\n",
+   "CASO": "25 MiB, fatia de 50M"
+  }
+ ]
+}

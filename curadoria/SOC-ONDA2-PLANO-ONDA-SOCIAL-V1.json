@@ -1,0 +1,885 @@
+{
+ "DATASET": "SOC-ONDA2-PLANO-ONDA-SOCIAL-V1",
+ "SO_PLANO": true,
+ "FONTES_SOCIAIS_NO_LIVRO": 48,
+ "NA_ONDA": 9,
+ "NA_ONDA_POR_FASE": {
+  "video-linkedin": 9
+ },
+ "FORA_POR_MOTIVO": {
+  "PORTAO:ESTADO_NAO_READY": 39
+ },
+ "BURACOS": {
+  "CHAVE_YOUTUBE_SO_NO_GITHUB": {
+   "O_QUE": "a fase canal-youtube (API oficial) precisa de YOUTUBE_DATA_API_KEY, que so existe no GitHub Actions; sintonia-scrap.yml (fases canonicas) nao a injecta — a porta local responde CREDENTIAL_MISSING",
+   "DONO": "coordenador + engenheiro do Scrap (workflow)"
+  },
+  "DOCUMENT_ID_RULE_FORA_DA_TABELA": {
+   "O_QUE": "o Scrap le a regra do nome do documento em regras/italy_contracts.mjs (tabela do coletor); os contratos sociais do Curator nao estao la — o item entra com DOCUMENT_ID = NAO SEI (a identidade da plataforma, NATIVE_ID, vem inteira)",
+   "DONO": "CUR-PRONTA / coordenador (ponte livro do Curator -> tabela do coletor)"
+  },
+  "FRASE_DA_CLI_POLUI_O_ALVO": {
+   "O_QUE": "orquestrador.py junta os valores de --filtro a frase; um endereco com «agricultural» resolveu T1 em vez de T5. A onda monta o Pedido em processo",
+   "DONO": "dono do orquestrador (so documentado; esta onda contorna montando o Pedido)"
+  }
+ },
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T1-026",
+   "TERRITORY": "T1",
+   "FASE": "video-linkedin",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T1', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T1-026', 'pais': 'IT', 'universo': 'T1', 'pagina': 'https://www.linkedin.com/company/societ/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T10-045",
+   "TERRITORY": "T10",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T10', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T10-045', 'pais': 'IT', 'universo': 'T10', 'pagina': 'https://www.linkedin.com/company/698415/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T10-046",
+   "TERRITORY": "T10",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T10', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T10-046', 'pais': 'IT', 'universo': 'T10', 'pagina': 'https://www.linkedin.com/company/winenewsit/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T11-014",
+   "TERRITORY": "T11",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T11', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T11-014', 'pais': 'IT', 'universo': 'T11', 'pagina': 'https://www.linkedin.com/company/macfrut-fiera/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T11-015",
+   "TERRITORY": "T11",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T11', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T11-015', 'pais': 'IT', 'universo': 'T11', 'pagina': 'https://www.linkedin.com/company/sanafiera/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T11-016",
+   "TERRITORY": "T11",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T11', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T11-016', 'pais': 'IT', 'universo': 'T11', 'pagina': 'https://www.linkedin.com/company/simeiexhibition/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T12-151",
+   "TERRITORY": "T12",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T12', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T12-151', 'pais': 'IT', 'universo': 'T12', 'pagina': 'https://www.linkedin.com/company/provincia-autonoma-di-trento/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T12-152",
+   "TERRITORY": "T12",
+   "FASE": "video-linkedin",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T12', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T12-152', 'pais': 'IT', 'universo': 'T12', 'pagina': 'https://www.linkedin.com/company/amap-marche/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T12-153",
+   "TERRITORY": "T12",
+   "FASE": "video-linkedin",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T12', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T12-153', 'pais': 'IT', 'universo': 'T12', 'pagina': 'https://www.linkedin.com/company/regione-piemonte/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T12-154",
+   "TERRITORY": "T12",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T12', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T12-154', 'pais': 'IT', 'universo': 'T12', 'canal_id': 'UCk532NeXL1DMlQH3z50N0jg'})"
+  },
+  {
+   "SOURCE_ID": "IT-T12-155",
+   "TERRITORY": "T12",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T12', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T12-155', 'pais': 'IT', 'universo': 'T12', 'canal_id': 'UCNXmEqmby16fYsXOLP012tw'})"
+  },
+  {
+   "SOURCE_ID": "IT-T12-156",
+   "TERRITORY": "T12",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T12', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T12-156', 'pais': 'IT', 'universo': 'T12', 'canal_id': 'UCfhOFwAOCiAhiftm4ipqEHg'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-132",
+   "TERRITORY": "T2",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T2-132', 'pais': 'IT', 'universo': 'T2', 'pagina': 'https://www.linkedin.com/company/arpa-lazio/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-133",
+   "TERRITORY": "T2",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T2-133', 'pais': 'IT', 'universo': 'T2', 'pagina': 'https://www.linkedin.com/company/arpa-lombardia/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-134",
+   "TERRITORY": "T2",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T2-134', 'pais': 'IT', 'universo': 'T2', 'pagina': 'https://www.linkedin.com/company/arpa-marche/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-135",
+   "TERRITORY": "T2",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T2-135', 'pais': 'IT', 'universo': 'T2', 'pagina': 'https://www.linkedin.com/company/arpa-molise/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-136",
+   "TERRITORY": "T2",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T2-136', 'pais': 'IT', 'universo': 'T2', 'pagina': 'https://www.linkedin.com/company/arpa-piemonte/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-137",
+   "TERRITORY": "T2",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T2-137', 'pais': 'IT', 'universo': 'T2', 'pagina': 'https://www.linkedin.com/company/arpa-valle-d-aosta/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-138",
+   "TERRITORY": "T2",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T2-138', 'pais': 'IT', 'universo': 'T2', 'pagina': 'https://www.linkedin.com/company/arpatoscana/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-139",
+   "TERRITORY": "T2",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T2-139', 'pais': 'IT', 'universo': 'T2', 'canal_id': 'UCLgMADPaG6fhrykcnxOQgAg'})"
+  },
+  {
+   "SOURCE_ID": "IT-T2-140",
+   "TERRITORY": "T2",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T2', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T2-140', 'pais': 'IT', 'universo': 'T2', 'canal_id': 'UCCMlh614oidOkq-HNSa9RVA'})"
+  },
+  {
+   "SOURCE_ID": "IT-T3-025",
+   "TERRITORY": "T3",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T3', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T3-025', 'pais': 'IT', 'universo': 'T3', 'canal_id': 'UCnY1rs74L8pttWxtBiZwULQ'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-157",
+   "TERRITORY": "T5",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T5-157', 'pais': 'IT', 'universo': 'T5', 'pagina': 'https://www.linkedin.com/company/283032/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-158",
+   "TERRITORY": "T5",
+   "FASE": "video-linkedin",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T5-158', 'pais': 'IT', 'universo': 'T5', 'pagina': 'https://www.linkedin.com/company/rinovaricerca/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-159",
+   "TERRITORY": "T5",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T5-159', 'pais': 'IT', 'universo': 'T5', 'pagina': 'https://www.linkedin.com/company/fondazione-minoprio/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-160",
+   "TERRITORY": "T5",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T5-160', 'pais': 'IT', 'universo': 'T5', 'pagina': 'https://www.linkedin.com/company/ispra_2/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-161",
+   "TERRITORY": "T5",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T5-161', 'pais': 'IT', 'universo': 'T5', 'pagina': 'https://www.linkedin.com/company/833389/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-162",
+   "TERRITORY": "T5",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T5-162', 'pais': 'IT', 'universo': 'T5', 'pagina': 'https://www.linkedin.com/company/olioofficina/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-163",
+   "TERRITORY": "T5",
+   "FASE": "video-linkedin",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T5-163', 'pais': 'IT', 'universo': 'T5', 'pagina': 'https://www.linkedin.com/company/department-of-agricultural-and-food-sciences/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-164",
+   "TERRITORY": "T5",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T5-164', 'pais': 'IT', 'universo': 'T5', 'pagina': 'https://www.linkedin.com/company/dipartimento-di-scienze-agrarie-ambientali/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-165",
+   "TERRITORY": "T5",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T5-165', 'pais': 'IT', 'universo': 'T5', 'canal_id': 'UCXUG407gp3CnWnfS3ycijhA'})"
+  },
+  {
+   "SOURCE_ID": "IT-T5-166",
+   "TERRITORY": "T5",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T5', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T5-166', 'pais': 'IT', 'universo': 'T5', 'canal_id': 'UCJ8RdeFgPyGA8eyVHulEiOg'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-166",
+   "TERRITORY": "T7",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T7-166', 'pais': 'IT', 'universo': 'T7', 'pagina': 'https://www.linkedin.com/company/assosementi/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-167",
+   "TERRITORY": "T7",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T7-167', 'pais': 'IT', 'universo': 'T7', 'pagina': 'https://www.linkedin.com/company/cia-agricoltori-italiani/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-168",
+   "TERRITORY": "T7",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T7-168', 'pais': 'IT', 'universo': 'T7', 'pagina': 'https://www.linkedin.com/company/confederazione-nazionale-coldiretti/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-169",
+   "TERRITORY": "T7",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T7-169', 'pais': 'IT', 'universo': 'T7', 'pagina': 'https://www.linkedin.com/company/consorzio-per-la-tutela-dei-vini-della-valpolicella/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-170",
+   "TERRITORY": "T7",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T7-170', 'pais': 'IT', 'universo': 'T7', 'pagina': 'https://www.linkedin.com/company/15179878/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-171",
+   "TERRITORY": "T7",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T7-171', 'pais': 'IT', 'universo': 'T7', 'pagina': 'https://www.linkedin.com/company/consorzio-tutela-grana-padano/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-172",
+   "TERRITORY": "T7",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T7-172', 'pais': 'IT', 'universo': 'T7', 'pagina': 'https://www.linkedin.com/company/federunacoma/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-173",
+   "TERRITORY": "T7",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T7-173', 'pais': 'IT', 'universo': 'T7', 'pagina': 'https://www.linkedin.com/company/italmopa/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-174",
+   "TERRITORY": "T7",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T7-174', 'pais': 'IT', 'universo': 'T7', 'canal_id': 'UC5eILrioLv2z6RHTzwYO7cA'})"
+  },
+  {
+   "SOURCE_ID": "IT-T7-175",
+   "TERRITORY": "T7",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T7', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T7-175', 'pais': 'IT', 'universo': 'T7', 'canal_id': 'UCQWIF1XMefEjq2nj30TiPSQ'})"
+  },
+  {
+   "SOURCE_ID": "IT-T9-024",
+   "TERRITORY": "T9",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T9', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T9-024', 'pais': 'IT', 'universo': 'T9', 'pagina': 'https://www.linkedin.com/company/gruppocaviro/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T9-025",
+   "TERRITORY": "T9",
+   "FASE": "video-linkedin",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "READY_RULE": "SOCIAL/v1",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": true,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T9', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T9-025', 'pais': 'IT', 'universo': 'T9', 'pagina': 'https://www.linkedin.com/company/certisbelchim-italia/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T9-026",
+   "TERRITORY": "T9",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T9', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T9-026', 'pais': 'IT', 'universo': 'T9', 'pagina': 'https://www.linkedin.com/company/cifo-s.r.l./', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T9-027",
+   "TERRITORY": "T9",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T9', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T9-027', 'pais': 'IT', 'universo': 'T9', 'pagina': 'https://www.linkedin.com/company/1602695/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T9-028",
+   "TERRITORY": "T9",
+   "FASE": "video-linkedin",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T9', filtros={'fase': 'video-linkedin', 'fonte': 'IT-T9-028', 'pais': 'IT', 'universo': 'T9', 'pagina': 'https://www.linkedin.com/company/24658052/', 'teto': '2'})"
+  },
+  {
+   "SOURCE_ID": "IT-T9-029",
+   "TERRITORY": "T9",
+   "FASE": "canal-youtube",
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": "ESTADO_NAO_READY",
+   "READY_RULE": "NAO SEI",
+   "EXECUTOR": "scrap-colheita",
+   "PLANO": "PLANO",
+   "FALTA": [
+    "PORTAO:ESTADO_NAO_READY"
+   ],
+   "BURACOS": [
+    "CHAVE_YOUTUBE_SO_NO_GITHUB",
+    "DOCUMENT_ID_RULE_FORA_DA_TABELA"
+   ],
+   "NA_ONDA": false,
+   "PEDIDO_EM_PROCESSO": "Pedido(alvo='T9', filtros={'fase': 'canal-youtube', 'fonte': 'IT-T9-029', 'pais': 'IT', 'universo': 'T9', 'canal_id': 'UC4A5UdkaIvcbaA7z1mz-YdA'})"
+  }
+ ]
+}

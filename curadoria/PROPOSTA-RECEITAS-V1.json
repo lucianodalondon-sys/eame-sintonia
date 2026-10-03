@@ -1,0 +1,1981 @@
+{
+ "DATASET": "PROPOSTA-RECEITAS-V1",
+ "MISSAO": "6-PREP-d",
+ "ESTADO": "PROPOSTA — NAO APLICADA. Aplicacao depois da unificacao (M5), pelo coordenador, com o dono.",
+ "CONTRATOS_LIDOS_DE": "C:\\Users\\London1\\AppData\\Local\\Temp/curator-snap-20260923T025125Z/italy_contracts_curator.json",
+ "COORTE": 121,
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "DEFEITOS": [
+    "PADRAO_GENERICO"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?myfruit\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?myfruit\\.it/news/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.myfruit.it/news/despar-nord-wecity-riparte-il-progetto-mobilita-sostenibile"
+      ],
+      "MATERIAS_CASADAS_ANTES": "1/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "40/82",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "34/82",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.myfruit.it/news/annamaria-medici-in-ortofrutta-vince-il-valore-percepito",
+       "https://www.myfruit.it/news/apofruit-appuntamento-a-madrid-per-fruit-attraction",
+       "https://www.myfruit.it/news/arachidi-statunitensi-prezzi-in-forte-rialzo",
+       "https://www.myfruit.it/news/banane-eti-mette-sotto-esame-il-prezzo-della-gdo",
+       "https://www.myfruit.it/news/certificazioni-e-ppwr-il-settore-tedesco-lancia-lallarme"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#0"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.myfruit.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GENERICO_PORQUE": "casa um link de navegacao da entrada: https://www.myfruit.it/news/category/ecommerce-e-delivery",
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T10-020",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://winenews.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?winenews\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa um link de navegacao da entrada: https://winenews.it/it/cercasi-talenti-del-vino-di-domani-torna-il-wine-business-program-di-italia-del-vino_601874/",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://plantgest.imagelinenetwork.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?plantgest\\.imagelinenetwork\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?zootecnicainternational\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?zootecnicainternational\\.com/featured/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://zootecnicainternational.com/featured/aviagen-south-africa-expands-schikfontein-facilities/"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "12/128",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "75/128",
+      "EXEMPLOS_DEPOIS": [
+       "https://zootecnicainternational.com/featured/2026-environmental-management-seminar-to-address-regulatory-changes-sustainability-and-environmental-solutions/",
+       "https://zootecnicainternational.com/featured/2026-poultry-summit-keynotes-ipwa-student-award/",
+       "https://zootecnicainternational.com/featured/2026-weo-award-winners/",
+       "https://zootecnicainternational.com/featured/272-poultry-facilities-safety-awards-2026/",
+       "https://zootecnicainternational.com/featured/anaelle-le-teuff-technical-manager-france-hubbard/"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#39"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.zootecnicainternational.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T11-009",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.vinitaly.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?vinitaly\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T11-010",
+   "DEFEITOS": [
+    "INDEX_APONTA_MATERIA",
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/fiera/fiera-2026",
+   "LINK_PATTERN": "^https?://(www\\.)?svilupposostenibile\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 0 link(s) na entrada para https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/fiera/fiera-2026: < 2; familia com 1 link(s) na entrada para https://www.svilupposostenibile.regione.lombardia.it/it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit: < 2",
+   "SEM_PROPOSTA_INDEX": "NAO SEI: a candidata tem 3 links com forma de materia (< 10)",
+   "PROVA_INDEX_FRACA": {
+    "PAGINA_BUSCADA": "https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/eventi",
+    "SHA256": "98c67f907a1e5de201886b85481a2c2f94705f60660763f5e0b48bdb9676517a",
+    "EGRESSO": {
+     "PAIS": "IT",
+     "IP": "149.22.91.172",
+     "CIDADE": "Palermo"
+    },
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 62,
+    "LINKS_COM_FORMA_DE_MATERIA_CONFIRMADA": 3,
+    "MINIMO": 10
+   },
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-009",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.assam.marche.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?assam\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-018",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arsacweb.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arsacweb\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.ersaf.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?ersaf\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://www.ersaf.lombardia.it/progetti-ersaf/mrv4soc/: < 2",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-020",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.politicheagricole.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?politicheagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-022",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.molise.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.molise\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-023",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.puglia.it/web/agricoltura",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.puglia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: o padrao derivado nao casa a propria materia confirmada https://www.regione.puglia.it/web/feampa-21-27/-/pn-feampa-2021-2027-bando-per-gli-indennizzi-finanziari-a-copertura-dei-maggiori-costi-di-produzione-sostenuti-dalle-imprese-della-pesca-e-dell-acquacoltura-per-effetto-del-conflitto-bellico-in-medio-oriente-priorit%C3%A0-2-obiettivo-specifico-2.2-azione-?redirect=%2Fweb%2Fagricoltura (esqueleto nao reproduzivel)",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-024",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?regione\\.veneto\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?regione\\.veneto\\.it/web/agricoltura\\-e\\-foreste/dettaglio\\-news/?\\?articleId=\\d+$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14345663"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "3/50",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "6/50",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14345663",
+       "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14367217",
+       "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14367947",
+       "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14398414",
+       "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14407793"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#91"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-025",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.vda.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.vda\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-026",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.pianetapsr.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?pianetapsr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-027",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://acamir.regione.campania.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?acamir\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-028",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://agricoltura.regione.campania.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?agricoltura\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://agricoltura.regione.campania.it/tartufo/gestionale.html: < 2",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-029",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.allertalom.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?allertalom\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-030",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://trasparenza.regione.calabria.it/REGIONECALABRIA",
+   "LINK_PATTERN": "^https?://(www\\.)?trasparenza\\.regione\\.calabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-032",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://amministrazionetrasparente.regione.campania.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?amministrazionetrasparente\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-033",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://trasparenza.regione.abruzzo.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?trasparenza\\.regione\\.abruzzo\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-034",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.calabria.it/la-regione/anagrafe-pubblica/",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.calabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-035",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://regione.campania.it/area-riservata",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-037",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.sicilia.it/istituzioni/regione/assemblea-regionale-siciliana",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.sicilia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-039",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?bandi\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?bandi\\.regione\\.lombardia\\.it/servizi/servizio/comunicazioni/dettaglio/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.bandi.regione.lombardia.it/servizi/servizio/comunicazioni/dettaglio/bando-sostegno-manifestazioni-sportive-territorio-lombardo-periodo-1-luglio-2026-30-settembre-2027-approvate-graduatorie-secondo-periodo-iniziative-01-10-2026-31-01-2027-8a5aa37da0c634a001a0c933c3ce003b"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "0/34",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "3/34",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.bandi.regione.lombardia.it/servizi/servizio/comunicazioni/dettaglio/avviso-dil-assegnazione-seconda-tranche-budget-operatore-8a5aa37da0c634a001a0c7eacd9c0005",
+       "https://www.bandi.regione.lombardia.it/servizi/servizio/comunicazioni/dettaglio/avviso-gol-acquisizione-dichiarazione-rispetto-principi-trasversali-pnrr-situazione-occupazionale-obblighi-relativi-pari-opportunit-8a5aa37da0c634a001a0c88e0df7002e",
+       "https://www.bandi.regione.lombardia.it/servizi/servizio/comunicazioni/dettaglio/bando-sostegno-manifestazioni-sportive-territorio-lombardo-periodo-1-luglio-2026-30-settembre-2027-approvate-graduatorie-secondo-periodo-iniziative-01-10-2026-31-01-2027-8a5aa37da0c634a001a0c933c3ce003b"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#154"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.bandi.regione.lombardia.it/servizi/home",
+   "LINK_PATTERN": "^https?://(www\\.)?bandi\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-041",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://bura.regione.abruzzo.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?bura\\.regione\\.abruzzo\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-042",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "http://www.bollettino.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?bollettino\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-043",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-044",
+   "DEFEITOS": [
+    "INDEX_APONTA_MATERIA",
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.INDEX_URL",
+     "ANTES": "https://calabriaeuropa.regione.calabria.it/calabriambiente-la-nuova-app-regionale-che-coinvolge-i-cittadini/",
+     "DEPOIS": "https://calabriaeuropa.regione.calabria.it/news",
+     "PROVA": {
+      "PAGINA_BUSCADA": "https://calabriaeuropa.regione.calabria.it/news",
+      "SHA256": "a6f75cc3d3578c42e04222223117ce5bf27dafddb9cef64223a21679c460e7b0",
+      "EGRESSO": {
+       "PAIS": "IT",
+       "IP": "149.22.91.172",
+       "CIDADE": "Palermo"
+      },
+      "HTML_KIND": "MIXED",
+      "LINKS": 39,
+      "LINKS_COM_FORMA_DE_MATERIA_CONFIRMADA": 23,
+      "MINIMO": 10
+     }
+    }
+   ],
+   "INDEX_URL": "https://calabriaeuropa.regione.calabria.it/calabriambiente-la-nuova-app-regionale-che-coinvolge-i-cittadini/",
+   "LINK_PATTERN": "^https?://(www\\.)?calabriaeuropa\\.regione\\.calabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa o INDEX_URL; padrao derivado recusado pelo guarda: casa o INDEX_URL",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-048",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.abruzzo.it/argomenti/amministrazione/contatti-della-regione-abruzzo",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.abruzzo\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-049",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://cultura.regione.campania.it/home",
+   "LINK_PATTERN": "^https?://(www\\.)?cultura\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-054",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://europa.regione.campania.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?europa\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa navegacao sintetica /chi-siamo",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-057",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?giovani\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?giovani\\.regione\\.lombardia\\.it/announcements/announcements/view/?\\?id=\\d+$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.giovani.regione.lombardia.it/announcements/announcements/view?id=6"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "10/54",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "4/54",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.giovani.regione.lombardia.it/announcements/announcements/view?id=3",
+       "https://www.giovani.regione.lombardia.it/announcements/announcements/view?id=4",
+       "https://www.giovani.regione.lombardia.it/announcements/announcements/view?id=6",
+       "https://www.giovani.regione.lombardia.it/announcements/announcements/view?id=7"
+      ],
+      "PAGINA_DE_ENTRADA": "receitas#3"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.giovani.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?giovani\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "MICRO"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-069",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://experience.regione.lombardia.it/it/",
+   "LINK_PATTERN": "^https?://(www\\.)?experience\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-070",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://monitoraggiopnrr.regione.lombardia.it/homepage",
+   "LINK_PATTERN": "^https?://(www\\.)?monitoraggiopnrr\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-071",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.nonseidasola.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?nonseidasola\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-073",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.oltreigiochi2026.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?oltreigiochi2026\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-074",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?openinnovation\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?openinnovation\\.regione\\.lombardia\\.it/it/collaborations/collaboration\\-proposals/view/?\\?id=\\d+$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.openinnovation.regione.lombardia.it/it/collaborations/collaboration-proposals/view?id=2221"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "7/83",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "3/83",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.openinnovation.regione.lombardia.it/it/collaborations/collaboration-proposals/view?id=2176",
+       "https://www.openinnovation.regione.lombardia.it/it/collaborations/collaboration-proposals/view?id=2216",
+       "https://www.openinnovation.regione.lombardia.it/it/collaborations/collaboration-proposals/view?id=2221"
+      ],
+      "PAGINA_DE_ENTRADA": "receitas#9"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.openinnovation.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?openinnovation\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "MICRO"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-076",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://pnrr.regione.campania.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?pnrr\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa navegacao sintetica /chi-siamo",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-081",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://ue.regione.lombardia.it",
+   "LINK_PATTERN": "^https?://(www\\.)?ue\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-088",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/area-personale-tributi",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-098",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://entrate.regione.campania.it/tassa-automobilistica-info",
+   "LINK_PATTERN": "^https?://(www\\.)?entrate\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-103",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://sinfonia.regione.campania.it",
+   "LINK_PATTERN": "^https?://(www\\.)?sinfonia\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-104",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.geoportale.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-106",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.lombardia.it",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-107",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.sbbl.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?sbbl\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-117",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://energia.calabriaimpresa.eu/2024/03/07/contributi-per-la-creazione-delle-cer-nei-comuni-con-meno-di-5-000-abitanti/"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "0/24",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "2/24",
+      "EXEMPLOS_DEPOIS": [
+       "https://energia.calabriaimpresa.eu/2024/03/07/contributi-per-la-creazione-delle-cer-nei-comuni-con-meno-di-5-000-abitanti/",
+       "https://energia.calabriaimpresa.eu/2024/04/22/comunita-energetiche-al-via-le-domande-di-contributo-dall8-aprile-2024/"
+      ],
+      "PAGINA_DE_ENTRADA": "receitas#23"
+     }
+    }
+   ],
+   "INDEX_URL": "https://energia.calabriaimpresa.eu/",
+   "LINK_PATTERN": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-118",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.calabriaimpresa.eu/",
+   "LINK_PATTERN": "^https?://(www\\.)?calabriaimpresa\\.eu/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: o padrao derivado nao casa a propria materia confirmada https://www.calabriaimpresa.eu/index.php?option=com_content&view=article&id=617 (esqueleto nao reproduzivel)",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-029",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpa.puglia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpa\\.puglia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-030",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.nomisma.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?nomisma\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-031",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalazio.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalazio\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-032",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpal.liguria.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpal\\.liguria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-033",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa um link de navegacao da entrada: https://www.arpalombardia.it/temi-ambientali/frane-e-dissesti/archivio-webcam-cmg/",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpa.marche.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpa\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-037",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpat.toscana.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-038",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?meteotrentino\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?meteotrentino\\.it/previsioni/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.meteotrentino.it/previsioni/bollettino-meteorologico-ufficiale-per-il-trentino/"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "7/64",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "8/64",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.meteotrentino.it/previsioni/bollettino-eventi-intensi/",
+       "https://www.meteotrentino.it/previsioni/bollettino-meteorologico-ufficiale-per-il-trentino/",
+       "https://www.meteotrentino.it/previsioni/bollettino-valanghe/",
+       "https://www.meteotrentino.it/previsioni/indice-humidex/",
+       "https://www.meteotrentino.it/previsioni/indice-uv/"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#93"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.meteotrentino.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?meteotrentino\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-039",
+   "DEFEITOS": [
+    "INDEX_APONTA_MATERIA",
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.INDEX_URL",
+     "ANTES": "https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque",
+     "DEPOIS": "https://www.arpae.it/it/notizie",
+     "PROVA": {
+      "PAGINA_BUSCADA": "https://www.arpae.it/it/notizie",
+      "SHA256": "edc5117906f3093d0748cce09852ddc23be455bd73e0ab3612799442da143675",
+      "EGRESSO": {
+       "PAIS": "IT",
+       "IP": "149.22.91.172",
+       "CIDADE": "Palermo"
+      },
+      "HTML_KIND": "MIXED",
+      "LINKS": 55,
+      "LINKS_COM_FORMA_DE_MATERIA_CONFIRMADA": 30,
+      "MINIMO": 10
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 0 link(s) na entrada para https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque: < 2",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-043",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/temi-ambientali/acqua/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa um link de navegacao da entrada: https://www.arpalombardia.it/temi-ambientali/frane-e-dissesti/archivio-webcam-cmg/",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-044",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/temi-ambientali/acqua/acque-reflue/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-045",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/temi-ambientali/acqua/acque-sotterranee/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-046",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/temi-ambientali/acqua/acque-superficiali/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-047",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/temi-ambientali/aria/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-049",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpa.sicilia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpa\\.sicilia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa navegacao sintetica /chi-siamo",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-050",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?arpacampania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?arpacampania\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?redirect=[^&]+$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.arpacampania.it/-/asi-caivano-esiti-campionamenti-di-aria-non-rilevano-presenza-significativa-di-inquinanti?redirect=%2F"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "0/67",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "4/67",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.arpacampania.it/-/asi-caivano-esiti-campionamenti-di-aria-non-rilevano-presenza-significativa-di-inquinanti?redirect=%2F",
+       "https://www.arpacampania.it/-/incendio-giugliano-del-15-settembre-aggiornamenti-monitoraggio-diossine-disperse-in-aria?redirect=%2F",
+       "https://www.arpacampania.it/-/incendio-via-nuova-delle-brecce-a-napoli-in-corso-monitoraggio-diossine?redirect=%2F",
+       "https://www.arpacampania.it/-/nuovo-incendio-21-settembre-a-taverna-del-re-avviato-il-monitoraggio-diossine?redirect=%2F"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#112"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.arpacampania.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpae.it/it",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "MICRO"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-053",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/termini-duso/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-056",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/it?set_language=it",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "MICRO"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-058",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/temi-ambientali/aria/mappe-qualita-dellaria/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-065",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://sportelloimprese.arpalombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?sportelloimprese\\.arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-066",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/temi-ambientali/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-068",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/temi-ambientali/acqua/usi-delle-acque/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-070",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "http://issuu.com/arpatoscana",
+   "LINK_PATTERN": "^https?://(www\\.)?issuu\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T3-022",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.fitosanitario.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?fitosanitario\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-039",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.agraria.unina.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?agraria\\.unina\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-041",
+   "DEFEITOS": [
+    "SEM_CONTRATO"
+   ],
+   "PROPOSTAS": [],
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-046",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.olioofficina.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?olioofficina\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.di3a.unict.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: o padrao derivado nao casa a propria materia confirmada https://www.di3a.unict.it/it/notizie/pubblicazione-risultati-valutazione-titoli-i-concorrenti-del-ciclo-di-dottorato-42%C2%B0 (esqueleto nao reproduzivel)",
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-052",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?bulletinofinsectology\\.org/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?bulletinofinsectology\\.org/article/\\d+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "http://www.bulletinofinsectology.org/article/187568/"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "0/29",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "17/29",
+      "EXEMPLOS_DEPOIS": [
+       "http://www.bulletinofinsectology.org/article/149344/",
+       "http://www.bulletinofinsectology.org/article/149555/",
+       "http://www.bulletinofinsectology.org/article/152754/",
+       "http://www.bulletinofinsectology.org/article/154143/",
+       "http://www.bulletinofinsectology.org/article/155814/"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#62"
+     }
+    }
+   ],
+   "INDEX_URL": "http://www.bulletinofinsectology.org/",
+   "LINK_PATTERN": "^https?://(www\\.)?bulletinofinsectology\\.org/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-053",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?oajournals\\.fupress\\.net/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?oajournals\\.fupress\\.net/index\\.php/pm/article/view/\\d+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://oajournals.fupress.net/index.php/pm/article/view/17358"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "0/51",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "14/51",
+      "EXEMPLOS_DEPOIS": [
+       "https://oajournals.fupress.net/index.php/pm/article/view/16681",
+       "https://oajournals.fupress.net/index.php/pm/article/view/17061",
+       "https://oajournals.fupress.net/index.php/pm/article/view/17075",
+       "https://oajournals.fupress.net/index.php/pm/article/view/17132",
+       "https://oajournals.fupress.net/index.php/pm/article/view/17152"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#69"
+     }
+    }
+   ],
+   "INDEX_URL": "https://oajournals.fupress.net/index.php/pm",
+   "LINK_PATTERN": "^https?://(www\\.)?oajournals\\.fupress\\.net/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-056",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.crea.gov.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-061",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.disafa.unito.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?disafa\\.unito\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-062",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.unibz.it/it/faculties/agricultural-environmental-food-sciences/",
+   "LINK_PATTERN": "^https?://(www\\.)?unibz\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-063",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.agraria.unimi.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?agraria\\.unimi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-064",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.dafnae.unipd.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?dafnae\\.unipd\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-065",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Bandi",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-066",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Bollo+Auto",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-067",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Dote+Scuola",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-068",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Fascicolo+Sanitario",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-069",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "E45"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-080",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://creafuturo.crea.gov.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?creafuturo\\.crea\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-082",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.calabriafilmcommission.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?calabriafilmcommission\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-083",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.fondazionegrecanica.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?fondazionegrecanica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-084",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.fondazioneterina.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?fondazioneterina\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.riuniteciv.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.confagricolturalombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?confagricolturalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.etvilloresi.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?etvilloresi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://etvilloresi.it/attivita/progetti/csis/: < 2",
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-029",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.fedagripesca.confcooperative.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?fedagripesca\\.confcooperative\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-031",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://feder.bio/",
+   "LINK_PATTERN": "^https?://(www\\.)?feder\\.bio/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.chianticlassico.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.parmigianoreggiano.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?parmigianoreggiano\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.bonificaromagna.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.consorziobalsamico.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://agrofarma.federchimica.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "MICRO",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-044",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.anbi.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?anbi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-046",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://assofertilizzanti.federchimica.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?assofertilizzanti\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://assofertilizzanti.federchimica.it/progetto-qualita/progetto: < 2",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-047",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_GENERICO"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?cia\\.it/multimedia/video/\\d+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.cia.it/multimedia/video/673/"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "18/74",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "3/74",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.cia.it/multimedia/video/671/",
+       "https://www.cia.it/multimedia/video/672/",
+       "https://www.cia.it/multimedia/video/673/"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#123"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.cia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GENERICO_PORQUE": "casa um link de navegacao da entrada: https://www.cia.it/news/settore-comunicazione-contatti/",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-048",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.confai.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?confai\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.copagri.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?copagri\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-054",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.consorziobrunellodimontalcino.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?consorziobrunellodimontalcino\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-055",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.consorziopiave.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?consorziopiave\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://consorziopiave.it/riduzionelaghi-decarlo/: < 2",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-007",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.rivistafrutticoltura.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?rivistafrutticoltura\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-008",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.agroalimentarenews.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?agroalimentarenews\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa navegacao sintetica /chi-siamo",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-010",
+   "DEFEITOS": [
+    "SEM_DEFEITO_MEDIDO"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.corrierevinicolo.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?corrierevinicolo\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "o padrao actual nao mostrou defeito medido: nao se mexe no que funciona",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-011",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.italiafruit.net/",
+   "LINK_PATTERN": "^https?://(www\\.)?italiafruit\\.net/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-012",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.terraevita.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-015",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://tv.lombardianotizie.online/",
+   "LINK_PATTERN": "^https?://(www\\.)?tv\\.lombardianotizie\\.online/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: nenhuma materia confirmada desta fonte",
+   "GRUPOS": [
+    "E45",
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T8-016",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?protezionecivilecalabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?protezionecivilecalabria\\.it//?\\?p=\\d+$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.protezionecivilecalabria.it/?p=9079"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "0/58",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "30/58",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.protezionecivilecalabria.it/?p=10131",
+       "https://www.protezionecivilecalabria.it/?p=10137",
+       "https://www.protezionecivilecalabria.it/?p=10149",
+       "https://www.protezionecivilecalabria.it/?p=10195",
+       "https://www.protezionecivilecalabria.it/?p=10229"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#81"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.protezionecivilecalabria.it/?cat=4",
+   "LINK_PATTERN": "^https?://(www\\.)?protezionecivilecalabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-015",
+   "DEFEITOS": [
+    "SEM_CONTRATO"
+   ],
+   "PROPOSTAS": [],
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-018",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?freshplaza\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?freshplaza\\.it/article/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.freshplaza.it/article/9874675/oltre-ai-prodotti-ortofrutticoli-turchi-ora-possiamo-fornire-anche-le-nostre-verdure-coltivate-nei-paesi-bassi/"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "0/211",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "122/211",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.freshplaza.it/article/9862781/cetrioli-forte-crescita-in-italia-e-germania-calo-in-romania-e-polonia/",
+       "https://www.freshplaza.it/article/9863072/produzione-di-melanzane-e-zucchine-nell-ue-italia-e-spagna-dominano-ma-la-polonia-sorprende/",
+       "https://www.freshplaza.it/article/9863847/peperoni-crescita-spagnola-trainata-dalla-coltivazione-in-serra-forte-avanzata-polacca/",
+       "https://www.freshplaza.it/article/9864264/resa-per-ettaro-in-aumento-ovunque-tranne-che-per-le-zucchine/",
+       "https://www.freshplaza.it/article/9864692/dal-surplus-al-deficit-la-bilancia-commerciale-si-inverte/"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#24"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.freshplaza.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?freshplaza\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-019",
+   "DEFEITOS": [
+    "SEM_CONTRATO"
+   ],
+   "PROPOSTAS": [],
+   "GRUPOS": [
+    "GOLD"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T9-021",
+   "DEFEITOS": [
+    "NAO_SEI_SEM_PAGINA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
+   "LINK_PATTERN": "^https?://(www\\.)?fieradidacta\\.indire\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "GRUPOS": [
+    "MICRO"
+   ]
+  }
+ ]
+}

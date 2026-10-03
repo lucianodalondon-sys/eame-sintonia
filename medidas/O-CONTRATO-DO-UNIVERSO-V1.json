@@ -1,0 +1,1526 @@
+{
+ "MEDIDOR": "medidas/o_contrato_do_universo.py",
+ "ESCREVE_ALGUMA_COISA": false,
+ "REDE": "nenhuma — os bytes vem do disco e limpar() nao abre ligacao",
+ "AUTORIDADE_DA_TAXONOMIA": {
+  "T10_EXISTE_NO_ATLAS": true,
+  "T10_E_CANONICO": true,
+  "T10_NOME": "MARKET / TRADE / INDUSTRY",
+  "T10_APELIDOS": [
+   "comercio",
+   "commodities",
+   "commodity",
+   "exportacao",
+   "importacao",
+   "industria",
+   "mercado",
+   "preco",
+   "precos"
+  ]
+ },
+ "CRITERIOS": {
+  "UNIVERSAIS": {
+   "QUAIS": [
+    "legivel",
+    "origem",
+    "linhagem",
+    "identidade"
+   ],
+   "DONO": "admissao.perguntas_do_estagio(DOCUMENTO)",
+   "PORQUE": "nao dependem de universo nenhum: sao os mesmos para T3, T4, T5, T7, T9 e T10"
+  },
+  "ESPECIFICO": {
+   "QUAL": "pertence ao universo",
+   "DONO": "admissao.PERGUNTAS_DO_UNIVERSO[universo]",
+   "REGUA": "SINAIS_MINIMOS = 2 termos DISTINTOS",
+   "UNIVERSOS_COM_REGUA": [
+    "T10",
+    "T3",
+    "T4",
+    "T5",
+    "T7",
+    "T9"
+   ],
+   "TERMOS_POR_UNIVERSO": {
+    "T10": 17,
+    "T3": 30,
+    "T4": 11,
+    "T5": 22,
+    "T7": 11,
+    "T9": 12
+   }
+  }
+ },
+ "T10_REQUIRED_FIELDS": {
+  "QUAIS": [
+   "texto",
+   "title",
+   "nome",
+   "topics",
+   "crops",
+   "resumo"
+  ],
+  "PORQUE": "sao os campos que `_do_universo` junta antes de procurar as palavras. Nenhum e obrigatorio sozinho: o que a regua exige e que ALGUM deles traga texto",
+  "MAIS_OS_UNIVERSAIS": [
+   "legivel",
+   "origem",
+   "linhagem",
+   "identidade"
+  ]
+ },
+ "T10_AVAILABLE_FIELDS": [
+  "texto"
+ ],
+ "T10_MISSING_FIELDS": [
+  "title",
+  "nome",
+  "topics",
+  "crops",
+  "resumo"
+ ],
+ "T10_POPULACAO": 39,
+ "POR_UNIVERSO": [
+  {
+   "UNIVERSO": "T10",
+   "RESULTADO": "NAO",
+   "ITENS": 13
+  },
+  {
+   "UNIVERSO": "T10",
+   "RESULTADO": "NAO_SEI",
+   "ITENS": 19
+  },
+  {
+   "UNIVERSO": "T10",
+   "RESULTADO": "SIM",
+   "ITENS": 7
+  },
+  {
+   "UNIVERSO": "T5",
+   "RESULTADO": "SIM",
+   "ITENS": 4
+  },
+  {
+   "UNIVERSO": "T7",
+   "RESULTADO": "NAO",
+   "ITENS": 21
+  },
+  {
+   "UNIVERSO": "T7",
+   "RESULTADO": "NAO_SEI",
+   "ITENS": 21
+  }
+ ],
+ "TOTAL_POR_RESULTADO": {
+  "NAO_SEI": 40,
+  "NAO": 34,
+  "SIM": 11
+ },
+ "ITENS": [
+  {
+   "RAW_ASSET_ID": "1077",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10735,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1078",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 8649,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1079",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 7201,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1080",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 6767,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T9: novita). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "novita"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1081",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10017,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T4: ministero). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T4": [
+     "ministero"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1082",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 7813,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: ricerca, pubblicazione; T9: lancio). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "ricerca",
+     "pubblicazione"
+    ],
+    "T9": [
+     "lancio"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1083",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 15877,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T10» aparece (prezzo), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "prezzo"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1084",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 8883,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T9: annuncio). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "annuncio"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1085",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 9004,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de prezzo, prezzi, esportazion — que e do que «T10» trata",
+   "PALAVRAS": [
+    "prezzo",
+    "prezzi",
+    "esportazion"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1086",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10773,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: revista, tesi; T9: prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "revista",
+     "tesi"
+    ],
+    "T9": [
+     "prodotto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1087",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 14538,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: istituto; T9: lancio, campagna; T4: ministero). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "istituto"
+    ],
+    "T9": [
+     "lancio",
+     "campagna"
+    ],
+    "T4": [
+     "ministero"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1088",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 8185,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1089",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 8577,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de prezzo, prezzi, quotazion — que e do que «T10» trata",
+   "PALAVRAS": [
+    "prezzo",
+    "prezzi",
+    "quotazion"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1090",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10510,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de prezzo, prezzi, quotazion — que e do que «T10» trata",
+   "PALAVRAS": [
+    "prezzo",
+    "prezzi",
+    "quotazion"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1091",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 16998,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T10» aparece (prezzo), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "prezzo"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1092",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 12701,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de commodity, prezzo — que e do que «T10» trata",
+   "PALAVRAS": [
+    "commodity",
+    "prezzo"
+   ],
+   "SINAIS": 2,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1093",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 6976,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de prezzo, prezzi, esportazion — que e do que «T10» trata",
+   "PALAVRAS": [
+    "prezzo",
+    "prezzi",
+    "esportazion"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1094",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10347,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T10» aparece (esportazion), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "esportazion"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1095",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10252,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de prezzo, prezzi, quotazion, rincar — que e do que «T10» trata",
+   "PALAVRAS": [
+    "prezzo",
+    "prezzi",
+    "quotazion",
+    "rincar",
+    "domanda e offerta"
+   ],
+   "SINAIS": 5,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1096",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 9554,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: revista; T9: campagna, prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "revista"
+    ],
+    "T9": [
+     "campagna",
+     "prodotto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1097",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10347,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: universita; T9: campagna). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "universita"
+    ],
+    "T9": [
+     "campagna"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1098",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10755,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T9: evento, prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento",
+     "prodotto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1099",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10375,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de prezzo, prezzi, importazion — que e do que «T10» trata",
+   "PALAVRAS": [
+    "prezzo",
+    "prezzi",
+    "importazion"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1100",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10057,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T10» aparece (prezzi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "prezzi"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1101",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 9906,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T10» aparece (prezzo), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "prezzo"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1102",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10243,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T10» aparece (esportazion), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "esportazion"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1103",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 9807,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: tesi; T9: lancio, campagna, prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "tesi"
+    ],
+    "T9": [
+     "lancio",
+     "campagna",
+     "prodotto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1104",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 7747,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: istituto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "istituto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1105",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 8805,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: universita, tesi; T9: campagna, prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "universita",
+     "tesi"
+    ],
+    "T9": [
+     "campagna",
+     "prodotto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1106",
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 8564,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T5: ricerca, istituto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "ricerca",
+     "istituto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1107",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 5938,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1108",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 5872,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1109",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 9029,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1110",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 6500,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1111",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 7049,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1112",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 8164,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1113",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 6184,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1114",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 10489,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1115",
+   "SOURCE_ID": "IT-T10-022",
+   "UNIVERSO": "T10",
+   "TEM_REGUA": true,
+   "CARACTERES": 7223,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T10» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por iss",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1116",
+   "SOURCE_ID": "IT-T5-049",
+   "UNIVERSO": "T5",
+   "TEM_REGUA": true,
+   "CARACTERES": 3870,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de ricerca, universita, pubblicazione — que e do que «T5» trata",
+   "PALAVRAS": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1117",
+   "SOURCE_ID": "IT-T5-049",
+   "UNIVERSO": "T5",
+   "TEM_REGUA": true,
+   "CARACTERES": 3609,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de ricerca, universita, pubblicazione — que e do que «T5» trata",
+   "PALAVRAS": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1118",
+   "SOURCE_ID": "IT-T5-049",
+   "UNIVERSO": "T5",
+   "TEM_REGUA": true,
+   "CARACTERES": 3370,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de ricerca, universita, pubblicazione — que e do que «T5» trata",
+   "PALAVRAS": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1119",
+   "SOURCE_ID": "IT-T5-049",
+   "UNIVERSO": "T5",
+   "TEM_REGUA": true,
+   "CARACTERES": 5830,
+   "RESULTADO": "SIM",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "fala de ricerca, universita, pubblicazione — que e do que «T5» trata",
+   "PALAVRAS": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "SINAIS": 3,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1120",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 4439,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T5: ricerca; T9: prodotto; T10: prezzo). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "ricerca"
+    ],
+    "T9": [
+     "prodotto"
+    ],
+    "T10": [
+     "prezzo"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1121",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2666,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: lancio, campagna). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "lancio",
+     "campagna"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1122",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3758,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento; T4: etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento"
+    ],
+    "T4": [
+     "etichetta"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1123",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3011,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (cooperativa), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "cooperativa"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1124",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3546,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T5: ricerca; T9: prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "ricerca"
+    ],
+    "T9": [
+     "prodotto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1125",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2537,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1126",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3404,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento, lancio). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento",
+     "lancio"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1127",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 5402,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (cooperativa), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "cooperativa"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1128",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2286,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento, campagna; T4: etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento",
+     "campagna"
+    ],
+    "T4": [
+     "etichetta"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1129",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3098,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T5: ricerca; T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "ricerca"
+    ],
+    "T9": [
+     "evento"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1130",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2784,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1131",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2095,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1132",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 4171,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: lancio; T4: etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "lancio"
+    ],
+    "T4": [
+     "etichetta"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1133",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2253,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1134",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2978,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento; T4: etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento"
+    ],
+    "T4": [
+     "etichetta"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1135",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2699,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1136",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2237,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1137",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2524,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1138",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2522,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1139",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2993,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T4: ministero, etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T4": [
+     "ministero",
+     "etichetta"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1140",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3532,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T5: ricerca; T9: evento, prodotto, novita). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "ricerca"
+    ],
+    "T9": [
+     "evento",
+     "prodotto",
+     "novita"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1141",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2389,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1142",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2396,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento, novita). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento",
+     "novita"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1143",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3851,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "evento"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1144",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2060,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T5: rivista; T10: prezzo). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "rivista"
+    ],
+    "T10": [
+     "prezzo"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1145",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 1851,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T5: ricerca). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "ricerca"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1146",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 2830,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1147",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3365,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1148",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3118,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (cooperativa), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "cooperativa"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1149",
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3601,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T9": [
+     "prodotto"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1150",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 5392,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1151",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 4705,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1152",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 5581,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1153",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 8145,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1154",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 4489,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1155",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 6550,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1156",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 7638,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1157",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 5270,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1158",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 4163,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1159",
+   "SOURCE_ID": "IT-T7-042",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3479,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (consorzio), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "consorzio"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  },
+  {
+   "RAW_ASSET_ID": "1075",
+   "SOURCE_ID": "IT-T7-043",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 4511,
+   "RESULTADO": "NAO",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T5: ricerca; T9: evento; T4: etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+   "PALAVRAS": [],
+   "SINAIS": null,
+   "ACHADO_NOUTRO": {
+    "T5": [
+     "ricerca"
+    ],
+    "T9": [
+     "evento"
+    ],
+    "T4": [
+     "etichetta"
+    ]
+   }
+  },
+  {
+   "RAW_ASSET_ID": "1076",
+   "SOURCE_ID": "IT-T7-043",
+   "UNIVERSO": "T7",
+   "TEM_REGUA": true,
+   "CARACTERES": 3489,
+   "RESULTADO": "NAO_SEI",
+   "REGRA": "pertence ao universo",
+   "MOTIVO": "so uma palavra de «T7» aparece (agronomi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+   "PALAVRAS": [
+    "agronomi"
+   ],
+   "SINAIS": 1,
+   "ACHADO_NOUTRO": null
+  }
+ ]
+}

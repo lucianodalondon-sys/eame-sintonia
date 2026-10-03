@@ -1,0 +1,21 @@
+{
+ "O_QUE_ISTO_E": "DA-11: a entrada de reparo de contrato da ARSAC, com o diagnostico medido. A casa nao tem uma fila de reparo em ficheiro: o worker repara (reparar_contrato.aplicar) as fontes em CONTRACTED_CANARY_FAILED, e a IT-T2-148 JA esta nesse estado no livro vivo. Este ficheiro NAO escreve em livro vivo nenhum; e o que quem aplica o reparo precisa de saber.",
+ "DECISAO": "DA-11 (COORDENACAO 25/09)",
+ "ENTRADAS": [
+  {
+   "SOURCE_ID": "IT-T2-148",
+   "NOME": "ARSAC Calabria — Bollettino agrometeorologico e fitosanitario",
+   "ESTADO": "NAO_PRONTA",
+   "ESTADO_NO_LIVRO_VIVO": "CONTRACTED_CANARY_FAILED (ja entra no reparo do worker)",
+   "MOTIVO": "a pagina da edicao em arsac.calabria.it so ANUNCIA o boletim (corpo nao provado: regua LEGACY); o texto do boletim vive em arsacagrometeo.it/bollettino_cover.php, que em 25/09 respondeu com erro do servidor (mysqli: Access denied for user ''@'localhost').",
+   "REPARO_PEDIDO": "arsacweb.it NAO parou — so a pagina de lista do contrato atual (bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/, parada em «valido fino al 29 novembre 2022») parou. As edicoes vivas existem em arsacweb.it com o periodo no endereco (ex.: bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-22-29-settembre-2026/) e a emissao em article:published_time (2026-09-24T10:23:25+00:00). Falta uma LISTA viva dessas edicoes: a pagina inicial de arsacweb.it so mostra 1 (a de 1-8 settembre); candidata medida mas NAO aberta (D38 esgotado): arsacweb.it/bollettini-agrometereologici-colturali-agrumi-olivo-vite-limone-peperone/.",
+   "O_QUE_NAO_SE_SABE": "se a edicao em arsacweb.it tem corpo suficiente para a regua (a medida de 25/09 mostrou so o titulo + menu); se arsacagrometeo.it volta; se a lista candidata lista as edicoes.",
+   "PROVAS": {
+    "ANUNCIO_ARSAC_CALABRIA": "rede/bytes/00bde0ea5f95dab44d55.bin (sha256 00bde0ea5f95dab44d553dd5e3964713c6692f8f1403ceed8e160b8a54962ce4)",
+    "EDICAO_ARSACWEB": "rede/bytes/735fcc4eb2c76f0b716b.bin",
+    "ARSACAGROMETEO_ERRO": "rede/FASE1-ARSACAGROMETEO.json",
+    "LISTA_ANTIGA_PARADA_2022": "provas/janela_formas/CANARIO-PAGINA-BOLETIM.json (IT-T2-148: LISTA_PARADA)"
+   }
+  }
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "REF": "HEAD",
+ "SHA": "5881f7e9aa887d36e48d4e085384f765a04a05e2",
+ "PONTE_PROOF": {
+  "RC": 0,
+  "FIM": [
+   "BOT_HEAD_LIDO_AGORA        14f68f30 (descoberto: True)",
+   "POSITIVA IT-T99-001  None -> READY_FOR_COLLECTION | regua DETAIL/v1 | ELIGIVEL True | ATRAVESSOU True",
+   "NEGATIVA IT-T99-002  CAPABILITY_BLOCK       | ESTADO_NAO_READY       | NAO_ATRAVESSOU True",
+   "NEGATIVA IT-T99-003  UNKNOWN                | ESTADO_NAO_READY       | NAO_ATRAVESSOU True",
+   "DESPROMOCAO IT-T99-001  era ELIGIVEL True -> False | ESTADO_NAO_READY",
+   "   ELIGIBLE 20 -> 19 | SAIRAM ['IT-T99-001'] | ATRAVESSOU True",
+   "PORTAO  ANTES 19  APOS PROMOCAO 20  APOS DESPROMOCAO 19  ENTRARAM ['IT-T99-001']",
+   "INTEGRACAO  {\"ENTRA\": true, \"NUNCA_ENTROU\": true, \"SAI\": true}",
+   "PROVAS_IMPORTADAS          1",
+   "IDEMPOTENCIA_NO_OP         True",
+   "LEGACY_LEAK                0",
+   "PONTE_VIVA                 True"
+  ]
+ },
+ "RED_TEAM_PONTE": {
+  "RC": 0,
+  "FIM": [
+   "BASE suite=True vivo=True",
+   "  RT-A1_livro_do_bot_sobrescreve_o_canonico      MORTO=True  suite",
+   "  RT-A2_promocao_sem_prova_de_canario_passa      MORTO=True  suite",
+   "  RT-A3_legacy_lavada_para_current               MORTO=True  suite",
+   "  RT-A4_policy_block_some_por_omissao            MORTO=True  suite",
+   "  RT-A5_fonte_so_do_bot_desaparece               MORTO=True  suite",
+   "  RT-A6_fonte_so_da_collection_desaparece        MORTO=True  suite",
+   "  RT-A7_identidade_duplicada_passa               MORTO=True  suite",
+   "  RT-A8_ponte_apaga_em_vez_de_acrescentar        MORTO=True  suite",
+   "  RT-A9_reconciliacao_sem_proveniencia           MORTO=True  suite",
+   "  RT-A10_portao_deixa_de_morder                  MORTO=True  suite",
+   "  RT-A11_portao_ignora_revisao_humana            MORTO=True  suite",
+   "  RT-A12_regua_aceita_capa_como_item             MORTO=True  suite",
+   "  RT-A13_ponte_presa_a_um_commit_fixo            MORTO=True  suite",
+   "  RT-A14_prova_do_bot_nao_atravessa              MORTO=True  prova ao vivo",
+   "  RT-A15_colisao_de_prova_sobrepoe_a_local       MORTO=True  suite",
+   "  RT-A16_despromocao_do_bot_nao_atravessa        MORTO=True  suite",
+   "  RT-A17_regua_ignora_gate_reprovado             MORTO=True  suite",
+   "ATAQUES 17  MORTOS 17  SURVIVORS 0"
+  ]
+ },
+ "SUPERVISOR_ESTADO": {
+  "RC": 0,
+  "FIM": [
+   " \"SUPERVISOR_ALIVE\": false,",
+   " \"WORKER_STATE\": \"DOWN\",",
+   " \"WORKER_PID\": null,",
+   " \"WORKER_ALIVE\": false,",
+   " \"HEARTBEAT_AT\": null,",
+   " \"HEARTBEAT_AGE_S\": null,",
+   " \"HEARTBEAT_STALE\": false,",
+   " \"HEARTBEAT_TIMEOUT_S\": 300,",
+   " \"QUEUE_ELIGIBLE_NOW\": 0,",
+   " \"STOP_REQUESTED\": false,",
+   " \"LAST_PROGRESS_AT\": null,",
+   " \"RESTARTS_TOTAL\": 0,",
+   " \"LAST_RESTART_AT\": null,",
+   " \"LAST_RESTART_REASON\": null,",
+   " \"SERVICE_DIAGNOSIS\": \"UNKNOWN\",",
+   " \"SERVICE_STATE_IN_FILE\": \"UNKNOWN\",",
+   " \"SERVICE_STATE_MEASURED_VIA\": \"tasklist PID + nome de imagem python + batimento no run log\",",
+   " \"HEARTBEAT_FRESH\": null,",
+   " \"SUPERVISOR_BLOCKED_REASON\": null,",
+   " \"FEEDER_CHAMADAS_TOTAL\": 0,",
+   " \"FEEDER_NOOP_TOTAL\": 0,",
+   " \"FEEDER_NOOP_ULTIMO_AT\": null,",
+   " \"FEEDER_ULTIMA_CHAMADA_AT\": null,",
+   " \"LIVENESS_SOURCE\": \"DERIVED_FROM_OS_AT_READ_TIME\"",
+   "}"
+  ]
+ },
+ "PONTE_SAUDE": {
+  "RC": 1,
+  "FIM": [
+   "{",
+   " \"ULTIMO_SHA\": null,",
+   " \"VOLTAS\": 0,",
+   " \"NOOPS\": 0,",
+   " \"TRAVESSIAS\": 0,",
+   " \"FALHAS_CONSECUTIVAS\": 0,",
+   " \"ULTIMO_ERRO\": null,",
+   " \"SAUDE\": \"NUNCA_CORREU\",",
+   " \"VIVACIDADE\": \"NUNCA_DEU_UMA_VOLTA\",",
+   " \"IDADE_S\": null,",
+   " \"A_TRABALHAR\": false",
+   "}"
+  ]
+ },
+ "SUPERVISOR_VOLTA": {
+  "RC": 0,
+  "FIM": [
+   "{\"ACCAO_FILA_VAZIA\": \"IDLE\", \"HOOK_CHAMADO\": 1, \"WORKERS_LANCADOS\": 0, \"ACCAO_DEPOIS_DE_SAIDA_LIMPA\": \"IDLE\", \"CRASHES_DEPOIS_DE_SAIDA_LIMPA\": 0}"
+  ]
+ },
+ "COPIA_SUJA_DEPOIS": [
+  " M curadoria/LIFECYCLE-QUEUE-V1.json"
+ ],
+ "WORKTREE_REMOVIDA": true
+}

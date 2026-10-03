@@ -1,0 +1,41 @@
+# DONOS DO CODIGO — quem o GitHub chama quando estes caminhos mudam.
+#
+# Uma lei ja escrita, e que vale a pena repetir aqui porque este ficheiro e
+# facil de confundir com uma trava:
+#
+#     CODEOWNERS FILE != REQUIRED REVIEW.
+#
+# Este ficheiro PEDE revisao. Nao a EXIGE. Exigir e um ruleset de branch, que
+# vive nas definicoes do GitHub e nao no repositorio — e que, medido em
+# 2026-09-09, nao existe: 0 de 85 ramos protegidos, `/rulesets` devolve lista
+# vazia. Enquanto isso for verdade, este ficheiro e um aviso util e nada mais,
+# e o handoff da S1 diz exactamente que definicao falta ligar.
+#
+# O dono e a conta que o GitHub reconhece como dona do repositorio. Nao ha
+# @security-team nem @adama: uma equipa inventada aqui nao recebe pedido
+# nenhum, e um dono que nao existe e pior do que nenhum dono, porque parece
+# que alguem esta a olhar.
+#
+#     UM DONO INVENTADO NAO REVISTA NADA. SO ADIA A DESCOBERTA.
+
+# Por omissao, tudo.
+*                           @lucianodalondon-sys
+
+# ── Os caminhos onde um erro sai caro ───────────────────────────────────────
+# Cadeia de fornecimento: quem controla um workflow controla o que corre com os
+# segredos do repositorio, e cinco destes correm em runners self-hosted.
+/.github/workflows/         @lucianodalondon-sys
+/.github/CODEOWNERS         @lucianodalondon-sys
+
+# A fundacao de seguranca e os portoes que a fazem correr.
+/security/                  @lucianodalondon-sys
+/guarda/                    @lucianodalondon-sys
+
+# A fronteira publicada. Estes dois ficheiros decidem, sozinhos, o que o mundo
+# consegue descarregar — e apagar uma linha de um deles publica um directorio.
+/vercel.json                @lucianodalondon-sys
+/.vercelignore              @lucianodalondon-sys
+
+# O esquema e as politicas da base. A deriva entre isto e a base viva foi o
+# achado SEC-020.
+/supabase/                  @lucianodalondon-sys

@@ -2,7 +2,7 @@
    A LEI vive em leis/adama_relevance.py e decide-se LA. Este ficheiro
    transporta o veredito para o browser, que nunca o recalcula. */
 window.ADAMA_RELEVANCE = {
- "BUILD_ID": "V21-06c6421d001ea52a",
+ "BUILD_ID": "V21-ef6e7e5f37eaa6e6",
  "DONO_DA_LEI": "leis/adama_relevance.py",
  "GERADO_POR": "superficie/it_casa_dados.py + leis/adama_relevance.py",
  "LEGGE": {
@@ -41,19 +41,19 @@ window.ADAMA_RELEVANCE = {
   "SO_A_PUBLICA": true
  },
  "PER_CLASSE": {
-  "A": 13,
+  "A": 17,
   "B": 21,
-  "C": 8,
+  "C": 4,
   "D": 1,
   "E": 0
  },
  "PER_SUPERFICIE": {
   "ERRORE": 1,
-  "OPPORTUNITA": 13,
+  "OPPORTUNITA": 17,
   "RADAR": 21,
-  "SEGNALI": 8
+  "SEGNALI": 4
  },
- "SOURCE_HEAD": "5101073",
+ "SOURCE_HEAD": "fb96f49d",
  "TOTALE": 43,
  "VERDETTI": {
   "OPP_00C5B6E15185": {
@@ -69,10 +69,10 @@ window.ADAMA_RELEVANCE = {
    "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_195919127658": {
-   "CLASSE": "C",
-   "PERCHE": "RELEVANCE_C_NO_LINK",
-   "PROVA": null,
-   "SUPERFICIE": "SEGNALI"
+   "CLASSE": "A",
+   "PERCHE": "RELEVANCE_A_PROVEN",
+   "PROVA": "FOLPAN 80 WDG",
+   "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_2BDE8FC566CE": {
    "CLASSE": "B",
@@ -231,16 +231,16 @@ window.ADAMA_RELEVANCE = {
    "SUPERFICIE": "RADAR"
   },
   "OPP_C1735138E362": {
-   "CLASSE": "C",
-   "PERCHE": "RELEVANCE_C_NO_LINK",
-   "PROVA": null,
-   "SUPERFICIE": "SEGNALI"
+   "CLASSE": "A",
+   "PERCHE": "RELEVANCE_A_PROVEN",
+   "PROVA": "FOLPAN 80 WDG",
+   "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_C5F7888EC524": {
-   "CLASSE": "C",
-   "PERCHE": "RELEVANCE_C_NO_LINK",
-   "PROVA": null,
-   "SUPERFICIE": "SEGNALI"
+   "CLASSE": "A",
+   "PERCHE": "RELEVANCE_A_PROVEN",
+   "PROVA": "FOLPAN 80 WDG",
+   "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_D11664591168": {
    "CLASSE": "A",
@@ -279,10 +279,10 @@ window.ADAMA_RELEVANCE = {
    "SUPERFICIE": "RADAR"
   },
   "OPP_EA2AE1EFB775": {
-   "CLASSE": "C",
-   "PERCHE": "RELEVANCE_C_NO_LINK",
-   "PROVA": null,
-   "SUPERFICIE": "SEGNALI"
+   "CLASSE": "A",
+   "PERCHE": "RELEVANCE_A_PROVEN",
+   "PROVA": "FOLPAN 80 WDG",
+   "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_EE1E2A3869EE": {
    "CLASSE": "C",

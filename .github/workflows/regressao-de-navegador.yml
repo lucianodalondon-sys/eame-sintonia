@@ -1,0 +1,59 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# REGRESSAO DE NAVEGADOR — os cabecalhos de seguranca partem o portal?
+#
+#     UM CABECALHO QUE PARTE O PRODUTO E DESLIGADO NO DIA SEGUINTE.
+#     ENTAO PROVA-SE ANTES, NUM NAVEGADOR A SERIO.
+#
+# Nao corre em cada commit: instala um Chromium e demora minutos, e os
+# cabecalhos mudam raramente. Corre quando muda alguma coisa que os possa
+# partir — o vercel.json, o portal, ou a propria prova.
+#
+#     FAST CHECK EM CADA COMMIT. DEEP CHECK NA SUA HORA.
+#
+# Serve a superficie publicada localmente COM os cabecalhos lidos do proprio
+# vercel.json. Nao ha rede, nao ha deploy, nao ha promocao — e a prova testa o
+# cabecalho que estiver no ficheiro, e nao o que alguem escreveu nela um dia.
+#
+#     A PROVA QUE COPIA A CONFIGURACAO ENVELHECE. A QUE A LE, NAO.
+# ═══════════════════════════════════════════════════════════════════════════
+name: regressao-de-navegador
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'vercel.json'
+      - 'italia-portale/client/**'
+      - 'security/regressao_de_navegador.mjs'
+      - 'security/servir_como_a_vercel.py'
+      - '.github/workflows/regressao-de-navegador.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  navegador:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "1 · instalar o navegador"
+        run: |
+          npm init -y > /dev/null
+          npm i --silent playwright@1.49.1
+          npx playwright install --with-deps chromium
+
+      - name: "2 · servir a superficie publicada com os cabecalhos reais"
+        run: |
+          python3 security/servir_como_a_vercel.py 8799 &
+          for i in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:8799/accesso && break
+            sleep 1
+          done
+          # Se o servidor nao subiu, dizer isso AGORA. A prova seguinte leria a
+          # ausencia como «nada partiu», que e o contrario da verdade.
+          curl -sf -o /dev/null http://127.0.0.1:8799/accesso \
+            || { echo "o servidor de prova nao subiu: a prova seria inconclusiva"; exit 1; }
+
+      - name: "3 · as paginas renderizam, e o frame-ancestors recusa mesmo"
+        run: node security/regressao_de_navegador.mjs http://127.0.0.1:8799

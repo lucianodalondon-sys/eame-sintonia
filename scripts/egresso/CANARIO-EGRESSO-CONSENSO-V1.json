@@ -1,0 +1,71 @@
+{
+ "DATASET": "CANARIO-EGRESSO-CONSENSO-V1",
+ "QUANDO_UTC": "2026-09-24T18:12:29Z",
+ "BRANCH": "egresso-consenso-v1 @ 05ff52cb",
+ "CACHE_DO_CANARIO": "~/egr-canario-cache.json (pasta propria; apagada antes da 1.a medicao)",
+ "1_CLI_SEM_CACHE": {
+  "EGRESS_GATE": "PASS",
+  "EGRESS_VERDICT": "PASS",
+  "EGRESS_COUNTRY_CODE": "IT",
+  "VOTOS": [
+   {
+    "VERIFICADOR": "ipwho.is",
+    "PAIS": "IT",
+    "PORQUE": "voto valido"
+   },
+   {
+    "VERIFICADOR": "ip-api.com",
+    "PAIS": "IT",
+    "PORQUE": "voto valido"
+   },
+   {
+    "VERIFICADOR": "ifconfig.co",
+    "PAIS": "US",
+    "PORQUE": "voto valido"
+   }
+  ],
+  "VOTOS_VALIDOS": 3,
+  "DISCORDANCIA": [
+   {
+    "VERIFICADOR": "ifconfig.co",
+    "DISSE": "US"
+   }
+  ],
+  "TELEMETRIA_SEM_VOTO": [
+   {
+    "VERIFICADOR": "ipinfo.io",
+    "PAIS": "UNKNOWN",
+    "PORQUE": "HTTP 429 (limite de pedidos)"
+   }
+  ],
+  "DA_CACHE": false
+ },
+ "2_CLI_LOGO_A_SEGUIR": {
+  "EGRESS_GATE": "PASS",
+  "EGRESS_COUNTRY_CODE": "IT",
+  "DA_CACHE": true
+ },
+ "3_MICRO_COLETA_medir_egresso": {
+  "PAIS": "IT",
+  "VOTOS": [
+   [
+    "ipwho.is",
+    "IT"
+   ],
+   [
+    "ip-api.com",
+    "IT"
+   ],
+   [
+    "ifconfig.co",
+    "US"
+   ]
+  ]
+ },
+ "4_NODE_COMO_O_COLETOR": {
+  "EGRESS_GATE": "PASS",
+  "DA_CACHE": true,
+  "PAIS": "IT"
+ },
+ "LEITURA": "2 x IT (ipwho.is, ip-api.com) + 1 x US (ifconfig.co) = PASS; o discordante fica registado sem veto; ipinfo.io em 429 fica so como telemetria; a 2.a leitura e os consumidores leem a cache (sem ir a rede)."
+}

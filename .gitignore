@@ -47,3 +47,108 @@ italia-portale/tmp_*/
 #
 #     O ARTEFATO QUE SE RECONSTROI SOZINHO NAO PRECISA DE DUAS CASAS.
 build/ITALY-REALITY-HANDOFF-V2.1/
+
+
+# ── SESSÃO DE NAVEGADOR NUNCA ENTRA NO GIT ───────────────────────────────────
+# O perfil dedicado vive FORA do repositório (~/.sintonia-browser, ou onde
+# SINTONIA_BROWSER_PROFILE_DIR apontar). Estas linhas são a segunda tranca: se
+# alguém criar um perfil aqui dentro por engano, o `git add -A` não o leva.
+# A primeira tranca é `guarda/social_guarda.py`, que FALHA o commit — porque
+# .gitignore só protege o que ainda não entrou.
+#
+#     O GITHUB NAO E COFRE DE SENHA HUMANA.
+.sintonia-browser/
+**/chrome-profile/
+**/browser-profile/
+**/firefox-profile/
+**/Default/Cookies
+**/Default/Login Data
+**/Default/Web Data
+**/Local Storage/
+**/Session Storage/
+cookies.txt
+cookies.sqlite
+cookiejar
+
+
+# ── O COMMIT NAO PODE CONHECER O SEU PROPRIO SHA ─────────────────────────────
+# `deployment.generated.json` diz QUE COMMIT ESTA IMPLANTADO. Essa resposta
+# nasce no build, dentro do contentor, onde a Vercel a sabe. Commita-lo seria
+# repetir o defeito que ele veio fechar: gera-se com o HEAD A, commita-se, o
+# commit passa a ser B, e o ficheiro nasce um commit atras de si mesmo.
+#
+#     GENERATED != DEPLOYED. UM FICHEIRO COMMITADO SO CONSEGUE DIZER O PRIMEIRO.
+#
+# Se ele nao existir no que e servido, a tela nao fica verde: diz UNKNOWN, que e
+# a verdade — nada provou qual commit esta la.
+italia-portale/client/system-map/deployment.generated.json
+
+# O BALCAO entre o executor e a porta NAO E ARQUIVO: ele e reescrito a cada
+# corrida, e o arquivo e o livro append-only da coleta. Versiona-lo faria cada
+# corrida propor um commit com a colheita da anterior.
+data/colheita/
+
+
+# ⚠️ RESIDUO DE MEDICAO, E NAO ACERVO.
+# `ing.ArmazemLocal` escreve o bruto preservado numa raiz `XX/` quando a
+# medicao corre sem armazem proprio. Em C-PROVE-CANONICAL-E2E-FROM-REQUEST-V1
+# quatro PDFs dessa pasta chegaram a ser commitados.
+#
+#     UMA MEDICAO QUE DEIXA ACERVO NA ARVORE
+#     FAZ A MEDICAO SEGUINTE MEDIR O RESIDUO DESTA.
+XX/
+# E O MESMO, DO OUTRO LADO DA PONTE. Desde que a rota do pedido passou a
+# derivar, `guarda/preservar_derivado.py` escreve o texto extraido em
+# `<PAIS>/derivados/...` — e o pais sai `NAO_SEI` porque `raw_asset` nao tem
+# coluna de pais para o provar. O dono do derivado esta certo em nao inferir;
+# o efeito e que toda medicao canonica deixa uma pasta `NAO_SEI/` na arvore.
+NAO_SEI/
+# ⚠️ E `EU/
+
+# ⚠️ AS TRAVAS SAO ESTADO DE EXECUCAO, E NAO ACERVO.
+# `admissao/admissao.py` e `admissao/sala_de_espera.py` prendem um ficheiro
+# `.lock` ao lado do que escrevem, para que duas escritas concorrentes nao se
+# atropelem. Ele nasce vazio, nao carrega informacao nenhuma, e commita-lo
+# poria um ficheiro de trava a viajar entre maquinas — onde nao trava nada e
+# so confunde quem o encontra.
+#
+#     UMA TRAVA DIZ «ALGUEM ESTA A ESCREVER AGORA, AQUI».
+#     LEVADA PARA OUTRA MAQUINA, ELA JA NAO DIZ NADA.
+*.lock` APARECE PELA RAZAO CONTRARIA A `XX/`, o que e facil de ler ao
+# contrario. `XX/` nasce quando o pais e DESCONHECIDO. `EU/` nasce porque a
+# observacao regulatoria DECLARA o pais dela (`COUNTRY_SCOPE = EU`), e o
+# armazem local usa a raiz que a observacao provou.
+#
+#     UMA PASTA NOVA NA ARVORE NAO E SEMPRE UM DEFEITO NOVO:
+#     ESTA E A MESMA MEDICAO A SABER MAIS DO QUE SABIA.
+#
+# Continua a ser residuo de medicao, e nao acervo — pela mesma regra das duas
+# de cima.
+EU/
+# ── MÍDIA PESADA E MODELO DE RECONHECIMENTO NUNCA ENTRAM NO GIT ──────────────
+# Medido em 2026-09-10: quatro Reels reais pesam 10,7 MB, e o WAV de trabalho
+# pesa mais do que o MP4 que o gerou (16 kHz PCM não comprime). Mil Reels seriam
+# ~2,7 GB de bytes que entram no pack pelo tamanho integral, PARA SEMPRE — a
+# mesma conta que tirou o bruto pesado daqui em 2026-08-29 (D-003).
+#
+# `data/raw/` já estava coberto, e `ferramentas/reel_transcricao.py` grava lá de
+# propósito. Estas linhas são a SEGUNDA TRANCA, para o caso de alguém apontar um
+# cache de mídia para dentro de `data/samples/`, que É versionado — foi para lá
+# que `ferramentas/instagram_transcrever.py` sempre apontou o `audio-cache/`.
+#
+#     O GIT NÃO É DEPÓSITO DE VÍDEO.
+data/samples/**/audio-cache/
+data/samples/**/*.mp4
+data/samples/**/*.wav
+data/samples/**/*.m4a
+data/samples/**/*.webm
+data/samples/**/*.mkv
+data/samples/**/*.mp3
+data/samples/**/*.ogg
+
+# O modelo de reconhecimento vive FORA do repositório, como as outras bibliotecas
+# pesadas (`~/.sintonia-libs`, ou onde SINTONIA_LIBS apontar). `small` em
+# CTranslate2/int8 pesa ~500 MB; `large-v3` passa de 3 GB.
+.sintonia-libs/
+**/whisper-models/
+**/.cache/huggingface/

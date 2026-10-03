@@ -1,0 +1,58 @@
+{
+ "DATASET": "GATILHO-OCIOSO-ENSAIO-V1",
+ "EXECUTADO_EM": "2026-09-23T01:18:30.407538+00:00",
+ "ONDE": "copia (tar) da worktree gatilho-ocioso-v1 em TEMP; processos reais",
+ "SEQUENCIA_ACCOES_SUPERVISOR": [
+  "IDLE",
+  "RELANCADO",
+  "IDLE"
+ ],
+ "SEQUENCIA_EVENTOS_DIARIO": [
+  "REALIMENTACAO",
+  "WORKER_RELANCADO",
+  "ARRANQUE",
+  "VOLTA",
+  "WORKER_OCIOSO_SAIU",
+  "WORKER_MORTO",
+  "WORKER_SAIU_LIMPO",
+  "REALIMENTACAO"
+ ],
+ "REALIMENTACOES_ACCOES": [
+  [
+   "FEEDER"
+  ],
+  [
+   "FEEDER"
+  ]
+ ],
+ "FILA_NO_FIM": {
+  "T90001": [
+   "DONE",
+   null
+  ],
+  "T90002": [
+   "BLOCKED",
+   "sem contrato nesta arvore"
+  ]
+ },
+ "CRASHES_SEM_PROGRESSO": [],
+ "JANELA_IDLE": {
+  "SEGUNDOS": 180,
+  "VOLTAS_DO_SUPERVISOR": 12,
+  "EVENTOS_ESCRITOS": 0,
+  "EVENTOS_POR_HORA_EXTRAPOLADO": 0.0,
+  "FEEDER_NOOP_TOTAL": 18
+ },
+ "ASSERCOES": {
+  "IDLE_ANTES_DO_RELOGIO": true,
+  "RELANCADO_QUANDO_VENCE": true,
+  "WORKER_PROCESSOU": true,
+  "WORKER_OCIOSO_SAIU": true,
+  "SUPERVISOR_VIU_SAIDA_LIMPA": true,
+  "IDLE_DEPOIS": true,
+  "GATILHO_CORREU_DEPOIS_DA_SAIDA": true,
+  "NAO_BLOQUEOU": true,
+  "SEM_ECO_NA_JANELA": true
+ },
+ "PASS": true
+}

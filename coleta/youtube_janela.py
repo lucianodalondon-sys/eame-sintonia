@@ -212,6 +212,27 @@ def _json_embutido(html, marcador):
     return None
 
 
+def titulo_e_descricao_do_video(html):
+    """{'TITULO': ..., 'DESCRICAO': ...} de uma pagina de video JA GUARDADA; {} se nao for uma. Zero rede.
+
+    EXTRATOR-EVENTO-V2 (26/09): o texto guardado de um video do acervo e so o <title> da pagina
+    («… - YouTube»), e o leitor do facto nao via a descricao — que ESTA nos bytes, no
+    `videoDetails.shortDescription` do player. Le-se com o mesmo `_json_embutido` desta janela: um leitor
+    so para a mesma pagina. Sem descricao, o YouTube poe no <meta> uma frase dele («Divertiti con i video…»);
+    essa NAO e do video, e por isso so se le o `shortDescription`, que vem vazio quando nao ha.
+    """
+    if isinstance(html, (bytes, bytearray)):
+        html = bytes(html).decode('utf-8', 'replace')
+    pr = _json_embutido(html or '', 'ytInitialPlayerResponse')
+    det = (pr or {}).get('videoDetails') or {}
+    fora = {}
+    if str(det.get('title') or '').strip():
+        fora['TITULO'] = det['title'].strip()
+    if str(det.get('shortDescription') or '').strip():
+        fora['DESCRICAO'] = det['shortDescription'].strip()
+    return fora
+
+
 def _colher(o, chave, acc):
     if isinstance(o, dict):
         if chave in o:

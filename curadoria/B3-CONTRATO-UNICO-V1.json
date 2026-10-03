@@ -1,0 +1,54 @@
+{
+ "DATASET": "B3-CONTRATO-UNICO-V1",
+ "D10": "OPCAO A (DECISOES-DONO-2026-09-23 linha 72), com as 4 condicoes",
+ "FOTOGRAFIA": "~/sintonia-gabarito/B3-SNAPSHOT-20260923T061509Z (SHA256SUMS dentro)",
+ "PORTA_CONTRATOS": {
+  "PECA": "scripts/desbloqueio/aplicar_desbloqueio.py — BLOCO 3 CONTRATO UNICO (pacote G1 ESTENDIDO; enxertado de origin/unificacao-v1 @ 5a16d077, ficheiro a ficheiro)",
+  "USO": "--livro-bot=<contratos do bot> --d10=A [--escrever]",
+  "REGRAS": [
+   "so as 7 da D10 (D10_FONTES)",
+   "so com canario ROUTE_PROVEN (M3/G1) da aquisicao que fica",
+   "um documento = uma fonte",
+   "muda so ACQUISITION + CONTRATO_UNICO (ORIGEM, PROVA, ACQUISITION_ANTERIOR, PRECISA_DE_REMEDIR)",
+   "nunca acrescenta nem retira fonte",
+   "sem prova: SALTA — vale C",
+   "ledger DECISAO=D10",
+   "cada livro so e reescrito se tem alteracao sua"
+  ],
+  "ENSAIO_EM_COPIA": {
+   "PASSAGEM_1": "bot: 6 APLICA (IT-T10-018, IT-T10-022, IT-T7-017, IT-T7-033, IT-T7-042, IT-T7-043), IT-T5-049 SALTA (sem prova)",
+   "PASSAGEM_2": "0 escritas (6 JA_APLICADA)",
+   "DONO_DO_CONTRATO_DEPOIS": "None para as 6; IT-T5-049 e IT-T5-041 continuam sem dono -> saem do portao (regra B2)"
+  }
+ },
+ "ENSAIO_4_PASSOS_DAS_7": {
+  "FICHEIRO": "curadoria/B3-ENSAIO-4-PASSOS-DAS-7.json",
+  "RESULTADO": "6/7 DETAIL/v1 — IT-T5-049 falha ITEM_ABERTO e BODY_UTIL",
+  "RESSALVA": "reproducao SEM REDE dos dados do canario M3 (22/09, egresso BR) pela regua real; NAO substitui a re-medicao do bot (D10 condicao 2). E READY != relevante: T7-017/033/042 sao comunicacao de marca (missao 4)"
+ },
+ "REVALIDACAO": {
+  "PECA": "curadoria/gatilho_discovery.py — nivel 0b REVALIDAR em talvez_alimentar",
+  "N_DIAS": 7,
+  "N_PORQUE": "nao ha idade maxima de prova na Biblia nem no know-how (procurado); 7 dias limita a uma semana uma fonte que mudou de casa no portao, a ~30 x 4 pedidos por semana",
+  "GATILHOS": {
+   "PROVA_VELHA": "ELIGIBLE com promocao > 7 dias",
+   "CONTRATO_NOVO": "CONTRATO_UNICO.APLICADO_EM > ultima promocao — re-medir logo, uma vez (D10 cond. 2)"
+  },
+  "ANTI_ECO": "nao repete fonte cuja VALIDATE_ROUTE mexeu ha < 7 dias, seja qual for o desfecho (T02077: BLOCK sem linha no livro)",
+  "POR_VOLTA": 5,
+  "CADEIA": "VALIDATE_ROUTE -> CANARY_PENDING -> CANARY -> READY (4 passos) ou CONTRACTED_CANARY_FAILED; durante a re-medicao a fonte sai do portao",
+  "LIMITE": "so corre quando a fila elegivel esta abaixo de QUEUE_LOW_WATERMARK (10), como o resto do gatilho"
+ },
+ "TESTES": {
+  "NOVOS": "curadoria/test_contrato_unico.py 20/20 (inclui 2 passagens na fotografia)",
+  "VIZINHOS": "test_aplicar_desbloqueio 23/23; ponte/reconciliacao/gatilho 109/109",
+  "MUTACAO": "12/12"
+ },
+ "DEPLOY": [
+  "1. D10 ja decidida (A)",
+  "2. correr o G1 com --livro-bot no cutover: 1.a passagem 6 APLICA, 2.a 0",
+  "3. reiniciar bot (linha unificada + este gatilho) e observador da ponte (B2)",
+  "4. o gatilho enfileira VALIDATE_ROUTE das 6 (CONTRATO_NOVO); o bot re-mede; passa = elegivel, falha = sai",
+  "5. IT-T5-041 sai; so volta como candidata nova pelo Curator (D10 cond. 4)"
+ ]
+}
