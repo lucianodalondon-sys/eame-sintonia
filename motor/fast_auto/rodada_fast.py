@@ -112,7 +112,30 @@ def ler_pedido(caminho):
         raise PedidoInvalido("RAW_ASSET_IDS com id invalido: %r" % (raws,))
     if len(set(raws)) != len(raws):
         raise PedidoInvalido("RAW_ASSET_IDS com id repetido: %r" % (raws,))
+    # linhagem da BUSCA_ATIVA (ordem do dono 02/10): SOURCE_CONTRACT_ID e SOURCE_ID vem COPIADOS do
+    # Source Contract do Bot de Fontes; aqui so se confere a forma, nunca se calcula nem se inventa.
+    for k in ("SOURCE_CONTRACT_ID", "SOURCE_ID"):
+        v = d.get(k)
+        if not isinstance(v, str) or not v.strip() or v.strip().upper() in ("NAO_SEI", "UNKNOWN", "NONE"):
+            raise PedidoInvalido("%s ausente no PEDIDO.json (copiar do Source Contract): %r" % (k, v))
     return d
+
+
+def conferir_contrato(ped, caminho):
+    """`--contrato SOURCE_CONTRACT.json`: o PEDIDO tem de dizer o MESMO que o Source Contract do Bot de Fontes
+    (SOURCE_CONTRACT_ID, CASE_ID, EVIDENCE_REQUEST_ID, SOURCE_ID) e a fonte tem de estar aprovada para captura.
+    Divergencia recusa a rodada: nao se escolhe um dos dois."""
+    p = Path(caminho)
+    try:
+        sc = json.loads(p.read_text(encoding="utf-8"))
+    except Exception as e:
+        raise PedidoInvalido("Source Contract ilegivel ou inexistente (%s: %r)" % (p, e))
+    for k in ("SOURCE_CONTRACT_ID", "CASE_ID", "EVIDENCE_REQUEST_ID", "SOURCE_ID"):
+        if sc.get(k) != ped.get(k):
+            raise PedidoInvalido("%s do PEDIDO (%r) diverge do Source Contract (%r)" % (k, ped.get(k), sc.get(k)))
+    if str(sc.get("APROVADA_PARA_CAPTURA")).upper() not in ("SIM", "TRUE"):
+        raise PedidoInvalido("Source Contract sem APROVADA_PARA_CAPTURA=SIM: %r" % (sc.get("APROVADA_PARA_CAPTURA"),))
+    return sc
 
 
 def carimbar_pedido(pasta, pedido, run_id):
@@ -138,6 +161,10 @@ def raws_do_pedido(ped):
         # a rodada pedida nao pode trazer RAW que o pedido nao nomeia: se o banco devolve
         # mais do que se pediu, recusa-se a rodada em vez de a estreitar em silencio.
         raise PedidoInvalido("raw_asset devolveu RAW fora do pedido: %s" % sobram)
+    # o SOURCE_ID do contrato tem de ser o da captura: RAW de outra fonte nao responde a este pedido
+    outra = sorted(r["id"] for r in rows if r["source_id"] != ped["SOURCE_ID"])
+    if outra:
+        raise PedidoInvalido("RAW de outra fonte que nao o SOURCE_ID do pedido (%s): %s" % (ped["SOURCE_ID"], outra))
     # ordem fixada aqui, e nao pela clausula do banco: a rodada pedida entra sempre por id crescente
     # (e o mesmo `order by id` que o passo1 usa ao reler)
     return [{"id": r["id"], "source_id": r["source_id"]} for r in sorted(rows, key=lambda r: r["id"])]
@@ -191,6 +218,8 @@ def main():
             sys.exit(2)
         try:
             pedido = ler_pedido(sys.argv[sys.argv.index("--pedido") + 1])
+            if "--contrato" in sys.argv:
+                conferir_contrato(pedido, sys.argv[sys.argv.index("--contrato") + 1])
             novos = raws_do_pedido(pedido)
         except PedidoInvalido as e:
             log("ERRO --pedido recusado: %s (ULTIMA.txt inalterado)" % e)
@@ -232,7 +261,9 @@ def main():
         fontes[r["source_id"]] = fontes.get(r["source_id"], 0) + 1
     log("%s %s CODIGO_HEAD=%s RAW=%s FONTES=%d MAX_POR_FONTE=%d%s" % (
         "RETOMA" if retomar else "INICIO", run_id, head, ",".join(map(str, ids)), len(fontes), max(fontes.values()),
-        " MODO=PEDIDO CASE=%s ER=%s" % (pedido["CASE_ID"], pedido["EVIDENCE_REQUEST_ID"]) if pedido else ""))
+        " MODO=PEDIDO CASE=%s ER=%s SC=%s SOURCE_ID=%s" % (pedido["CASE_ID"], pedido["EVIDENCE_REQUEST_ID"],
+                                                           pedido["SOURCE_CONTRACT_ID"], pedido["SOURCE_ID"])
+        if pedido else ""))
     passos = [(s, [sys.executable, os.path.join(CODIGO, s), pasta]) for s in PASSOS][primeiro:]
     passos.append(("fast_cruzamento_comercial.py", [sys.executable, COMERCIAL, pasta]))
     for nome, cmd in passos:
@@ -260,6 +291,7 @@ def main():
                           ("TEXTO_ENTREGUE", texto_entregue(F)),
                           ("MODO", "PEDIDO" if pedido else "CICLO"),
                           ("PEDIDO", ({"CASE_ID": pedido["CASE_ID"], "EVIDENCE_REQUEST_ID": pedido["EVIDENCE_REQUEST_ID"],
+                                       "SOURCE_CONTRACT_ID": pedido["SOURCE_CONTRACT_ID"], "SOURCE_ID": pedido["SOURCE_ID"],
                                        "RAW_ASSET_IDS": pedido["RAW_ASSET_IDS"]} if pedido else None)),
                           ("SELECAO", {"MAX": maximo, "MAX_POR_FONTE": POR_FONTE, "FONTES": fontes})])
     json.dump(codigo, open(os.path.join(pasta, "CODIGO.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)

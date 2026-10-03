@@ -32,7 +32,8 @@ def _escrever(tmp, obj):
 
 
 def _pedido(**kw):
-    d = {"CASE_ID": "CASE-001", "EVIDENCE_REQUEST_ID": "ER-CASE-001-FONTE_OFICIAL", "RAW_ASSET_IDS": [7, 3]}
+    d = {"CASE_ID": "CASE-001", "EVIDENCE_REQUEST_ID": "ER-CASE-001-FONTE_OFICIAL", "RAW_ASSET_IDS": [7, 3],
+         "SOURCE_CONTRACT_ID": "SC-CASE-001-0001", "SOURCE_ID": "S-A"}
     d.update(kw)
     return d
 
@@ -142,6 +143,54 @@ class RodadaEscopada(unittest.TestCase):
             # nada de rodada criada: so o proprio PEDIDO.json do teste e o log da recusa
             self.assertEqual({x for x in os.listdir(t) if not x.startswith("FAST-")} - antes,
                              {"PEDIDO.json", "RODADAS.log"})
+
+
+class LinhagemDoContrato(unittest.TestCase):
+    """Ordem do dono 02/10: SOURCE_CONTRACT_ID e SOURCE_ID copiados do Source Contract, conferidos, nunca inventados."""
+
+    def setUp(self):
+        self._orig = RF.linhas_banco
+
+    def tearDown(self):
+        RF.linhas_banco = self._orig
+
+    def test_sem_contrato_ou_sem_source_id_recusa(self):
+        with tempfile.TemporaryDirectory() as t:
+            for k in ("SOURCE_CONTRACT_ID", "SOURCE_ID"):
+                for v in (None, "", "NAO_SEI"):
+                    with self.assertRaises(RF.PedidoInvalido, msg="%s=%r" % (k, v)):
+                        RF.ler_pedido(_escrever(t, _pedido(**{k: v})))
+
+    def test_raw_de_outra_fonte_recusa(self):
+        RF.linhas_banco = lambda sql: [{"id": 3, "source_id": "S-A", "captured_at": "x"},
+                                       {"id": 7, "source_id": "S-B", "captured_at": "x"}]
+        with self.assertRaises(RF.PedidoInvalido):
+            RF.raws_do_pedido(_pedido())
+
+    def contrato(self, t, **kw):
+        sc = {"SOURCE_CONTRACT_ID": "SC-CASE-001-0001", "CASE_ID": "CASE-001",
+              "EVIDENCE_REQUEST_ID": "ER-CASE-001-FONTE_OFICIAL", "SOURCE_ID": "S-A", "APROVADA_PARA_CAPTURA": "SIM"}
+        sc.update(kw)
+        p = os.path.join(t, "SOURCE_CONTRACT.json")
+        Path(p).write_text(json.dumps(sc), encoding="utf-8")
+        return p
+
+    def test_contraprova_contrato_igual_ao_pedido_passa(self):
+        with tempfile.TemporaryDirectory() as t:
+            self.assertEqual(RF.conferir_contrato(_pedido(), self.contrato(t))["SOURCE_ID"], "S-A")
+
+    def test_contrato_divergente_ou_nao_aprovado_recusa(self):
+        with tempfile.TemporaryDirectory() as t:
+            for kw in ({"SOURCE_CONTRACT_ID": "SC-OUTRO"}, {"CASE_ID": "CASE-002"},
+                       {"EVIDENCE_REQUEST_ID": "ER-OUTRO"}, {"SOURCE_ID": "S-B"}, {"APROVADA_PARA_CAPTURA": "NAO"}):
+                with self.assertRaises(RF.PedidoInvalido, msg=str(kw)):
+                    RF.conferir_contrato(_pedido(), self.contrato(t, **kw))
+
+    def test_carimbo_leva_contrato_e_fonte(self):
+        with tempfile.TemporaryDirectory() as t:
+            RF.carimbar_pedido(t, _pedido(), "FAST-X")
+            p = json.loads(Path(os.path.join(t, "PEDIDO.json")).read_text(encoding="utf-8"))
+            self.assertEqual((p["SOURCE_CONTRACT_ID"], p["SOURCE_ID"]), ("SC-CASE-001-0001", "S-A"))
 
 
 class Carimbo(unittest.TestCase):

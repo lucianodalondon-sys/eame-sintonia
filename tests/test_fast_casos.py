@@ -354,6 +354,56 @@ class IncorporarCadeia(unittest.TestCase):
         c = self.montar(ped_kw={"SOURCE_CONTRACT_ID": None})
         self.assertEqual((c["ORIGEM"], c["FALTAM_NA_CADEIA"]), (K.ORIGEM_NAO_PROVADA, ["SOURCE_CONTRACT_ID"]))
 
+    def test_lineage_completa_so_com_cadeia_inteira(self):
+        c = self.montar()
+        self.assertEqual((c["BUSCA_ATIVA"], c["LINEAGE"]), ("SIM", "COMPLETA"))
+
+    def test_falta_ou_diverge_contrato_ou_fonte_busca_nao_lineage_parcial(self):
+        for kw in ({"ped_kw": {"SOURCE_CONTRACT_ID": None}}, {"ped_kw": {"SOURCE_ID": None}},
+                   {"ped_kw": {"SOURCE_ID": "IT-OUTRA-999"}}):
+            c = self.montar(**kw)
+            # o documento NAO e rejeitado: continua incorporado como evidencia historica
+            self.assertEqual((c["ORIGEM"], c["BUSCA_ATIVA"], c["LINEAGE"]),
+                             (K.ORIGEM_NAO_PROVADA, "NAO", "PARCIAL"), str(kw))
+            self.assertEqual(c["RAW_DOCUMENT_ID"], "RAW-9001")
+
+
+class TimelineLevaCadeia(unittest.TestCase):
+    """Ordem do dono 02/10 (3): o evento da TIMELINE leva CASE_ID, ER, SOURCE_CONTRACT_ID, SOURCE_ID, DOCUMENT_ID,
+    ORIGEM (+ BUSCA_ATIVA/LINEAGE) para o Casco nao deduzir nada."""
+    ER = "ER-CASE-001-CAMPO_COOPERATIVA"
+
+    def caso(self, **kw):
+        t = {"data": "2026-09-13", "document_id": "RAW-9001", "document_id_ledger": "LIBERACR:103526",
+             "raw_asset_id": 9001, "source_id": "IT-NOVA-001", "url": "u", "origem": K.ORIGEM_BUSCA,
+             "evidence_request_id": self.ER, "fact_ids": ["F1"], "source_contract_id": "SC-CASE001-ER02-001",
+             "evidence_request_criado_em": "2026-10-02T22:49:10+00:00", "captured_at": "2026-10-03T01:37:00+00:00",
+             "ja_estava_no_atlas": "NAO", "source_date_iso": "NAO_SEI", "fact_time": None}
+        t.update(kw)
+        return {"case_id": "CASE-001", "titolo_it": "t", "classificacao": "SINAL", "acao_atual_it": "a",
+                "atualizado_em": "x", "CODIGO_HEAD": "h", "timeline": [t], "elos_encontrados": [], "elos_faltantes": [],
+                "evidence_requests": [{"id": self.ER, "pergunta_pt": "?", "elos_que_destrava": ["PROBLEMA"],
+                                       "tipos_de_fonte": ["COOPERATIVA"], "estado": "ABERTO"}]}
+
+    def test_evento_busca_ativa_carrega_a_cadeia_inteira(self):
+        t = K.caso_para_cases(self.caso(), {"OBJETOS": []})["TIMELINE"][0]
+        self.assertEqual({k: t[k] for k in ("CASE_ID", "EVIDENCE_REQUEST_ID", "SOURCE_CONTRACT_ID", "SOURCE_ID",
+                                            "DOCUMENT_ID", "DOCUMENT_ID_LEDGER", "RAW_ASSET_ID", "ORIGEM",
+                                            "BUSCA_ATIVA", "LINEAGE")},
+                         {"CASE_ID": "CASE-001", "EVIDENCE_REQUEST_ID": self.ER, "SOURCE_CONTRACT_ID": "SC-CASE001-ER02-001",
+                          "SOURCE_ID": "IT-NOVA-001", "DOCUMENT_ID": "RAW-9001", "DOCUMENT_ID_LEDGER": "LIBERACR:103526",
+                          "RAW_ASSET_ID": 9001, "ORIGEM": K.ORIGEM_BUSCA, "BUSCA_ATIVA": "SIM", "LINEAGE": "COMPLETA"})
+
+    def test_evento_nao_provado_diz_busca_nao_e_lineage_parcial(self):
+        t = K.caso_para_cases(self.caso(origem=K.ORIGEM_NAO_PROVADA, source_contract_id=None,
+                                        document_id_ledger=None), {"OBJETOS": []})["TIMELINE"][0]
+        self.assertEqual((t["BUSCA_ATIVA"], t["LINEAGE"], t["DOCUMENT_ID_LEDGER"]), ("NAO", "PARCIAL", "NAO_SEI"))
+
+    def test_evento_por_acaso_nao_e_busca_ativa(self):
+        t = K.caso_para_cases(self.caso(origem=K.ORIGEM_ACASO, evidence_request_id=None, source_contract_id=None),
+                              {"OBJETOS": []})["TIMELINE"][0]
+        self.assertEqual((t["BUSCA_ATIVA"], t["LINEAGE"]), ("NAO", "NAO_APLICAVEL_ACHADO_POR_ACASO"))
+
 
 if __name__ == "__main__":
     unittest.main()

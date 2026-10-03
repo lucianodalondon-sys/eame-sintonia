@@ -251,7 +251,8 @@ def pool_do_caso(caso, objs):
                 c = (cadeia or {}).get(did)
                 if c:
                     docs[did].update({k: c.get(k) for k in ("ORIGEM", "SOURCE_CONTRACT_ID", "EVIDENCE_REQUEST_CRIADO_EM",
-                                                            "JA_ESTAVA_NO_ATLAS", "FALTAM_NA_CADEIA")})
+                                                            "JA_ESTAVA_NO_ATLAS", "FALTAM_NA_CADEIA", "LINEAGE")})
+                    docs[did]["DOCUMENT_ID_LEDGER"] = c.get("DOCUMENT_ID")
                     for k, vazio in (("SOURCE_DATE_ISO", "NAO_SEI"), ("FACT_TIME", "UNKNOWN")):
                         docs[did][k] = c.get(k) or vazio
     porrun = OrderedDict()
@@ -347,6 +348,7 @@ def conferir_dossie(saida, caso, docs, fatos, label, fen, ctx, objs):
             ("captured_at", d.get("CAPTURED_AT")), ("ja_estava_no_atlas", d.get("JA_ESTAVA_NO_ATLAS")),
             ("source_date_iso", d.get("SOURCE_DATE_ISO") or "NAO_SEI"), ("fact_time", d.get("FACT_TIME") or "UNKNOWN"),
             ("faltam_na_cadeia", d.get("FALTAM_NA_CADEIA") or []),
+            ("document_id_ledger", d.get("DOCUMENT_ID_LEDGER")), ("lineage", d.get("LINEAGE")),
             ("rodada", d["RODADA"])]))
     timeline.sort(key=lambda e: (e["data"] or "9999", e["document_id"]))
     sem_evento = [d for d in docs if d not in cobertos]
@@ -576,6 +578,8 @@ def cmd_incorporar(cid, er_id, run_dir):
             ("SOURCE_DATE_ISO", ped.get("SOURCE_DATE_ISO") or "NAO_SEI"),
             ("FACT_TIME", ped.get("FACT_TIME") or "UNKNOWN")])
         c["ORIGEM"], c["FALTAM_NA_CADEIA"] = origem_da_captura(c)
+        # o documento continua evidencia historica; so nao se chama BUSCA_ATIVA sem a cadeia inteira
+        c["BUSCA_ATIVA"], c["LINEAGE"] = ("SIM", "COMPLETA") if c["ORIGEM"] == ORIGEM_BUSCA else ("NAO", "PARCIAL")
         cadeia_por_doc[did] = c
     caso["INCORPORADOS"].append({"CASE_ID": cid, "EVIDENCE_REQUEST_ID": er_id, "RUN_DIR": str(run_dir),
                                  "DOCUMENT_IDs": list(cadeia_por_doc), "CADEIA": cadeia_por_doc, "EM": agora()})
@@ -631,6 +635,10 @@ def caso_para_cases(C, reg_caso):
             ("CAPTURED_AT", t.get("captured_at")), ("JA_ESTAVA_NO_ATLAS", t.get("ja_estava_no_atlas")),
             ("SOURCE_DATE_ISO", t.get("source_date_iso") or "NAO_SEI"), ("FACT_TIME", t.get("fact_time") or "UNKNOWN"),
             ("FALTAM_NA_CADEIA", t.get("faltam_na_cadeia") or []),
+            ("RAW_ASSET_ID", t.get("raw_asset_id")), ("DOCUMENT_ID_LEDGER", t.get("document_id_ledger") or "NAO_SEI"),
+            ("BUSCA_ATIVA", "SIM" if t.get("origem") == ORIGEM_BUSCA else "NAO"),
+            ("LINEAGE", "COMPLETA" if t.get("origem") == ORIGEM_BUSCA else
+             "NAO_APLICAVEL_ACHADO_POR_ACASO" if t.get("origem") == ORIGEM_ACASO else "PARCIAL"),
             ("FACT_IDS", t.get("fact_ids") or []), ("RAW_SHA256", t.get("raw_sha256")), ("RODADA", t.get("rodada"))]))
     falt = []
     for f in C["elos_faltantes"]:
