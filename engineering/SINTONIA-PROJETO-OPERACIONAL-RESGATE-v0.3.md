@@ -493,9 +493,85 @@ Não precisamos esperar um agente autônomo investigar.
 
 ---
 
-## 12. Casco: É O CASCO ORIGINAL
+## 12. Casco: É O CASCO ORIGINAL — MAS O PREVIEW VISUAL ATUAL NÃO ESTÁ APROVADO
 
 **Não criar uma nova interface simplificada para substituir o produto.**
+
+**Também não interpretar "Casco original" como autorização para congelar o visual atual do preview.**
+
+As telas escuras/genéricas atualmente servidas no preview de resgate NÃO são autoridade visual e NÃO estão aprovadas para cliente. Preservar o Casco significa preservar a arquitetura de produto, as ferramentas, a navegação e os contratos de dados — não preservar um styling ruim ou uma tela de diagnóstico.
+
+### Autoridade visual
+
+Usar como referência obrigatória:
+
+```text
+docs/design/CONTRATO-DE-DESIGN-SINTONIA.md
+CASCO-CLIENT-DEMO.md
+italia-portale/BASELINE/_ds/adama-brandwell/
+ADAMA Design System já incorporado ao repositório
+```
+
+O contrato visual já determina:
+
+```text
+ADAMA corporate green
+LL Brown / Aleo
+A Shape
+ícones ADAMA
+espaço em branco generoso
+hierarquia editorial
+categorias com semântica visual correta
+fato ≠ interpretação ≠ ação
+NÃO SEI visível sem parecer erro técnico
+```
+
+### O que está REPROVADO no preview atual
+
+```text
+tela quase toda preta/marrom
+cards genéricos iguais
+paredes de texto
+microtipografia cinza
+falta de ícones/categorias ADAMA
+falta de hierarquia visual
+títulos em português dentro do produto italiano
+"testo in italiano non ancora fornito"
+"non noto" repetido como linguagem de sistema
+selo SPERIMENTALE com peso de debug
+listas cruas de evidência dominando o detalhe
+campos vazios ocupando grandes blocos
+aparência de console/auditoria em vez de produto comercial
+```
+
+Esses elementos podem existir em debug interno, mas não na superfície de demonstração.
+
+### Regra de implementação
+
+```text
+MANTER:
+arquitetura do Casco
+ferramentas existentes
+rotas
+potes/gavetas
+dados reais
+links de evidência
+
+REFAZER/RESTAURAR:
+apresentação visual
+cards
+hierarquia
+tipografia
+espaçamento
+ícones
+uso das cores ADAMA
+detalhe do caso
+timeline
+blocos visuais
+idioma italiano
+```
+
+**Não redesenhar o produto do zero. Reaplicar o Design System e a linguagem visual já definidos ao conteúdo real.**
 
 O Casco da demonstração é o mesmo produto que já existia antes, com a identidade visual ADAMA, navegação, ferramentas, hierarquia e linguagem visual já construídas.
 
@@ -689,11 +765,15 @@ gera saída do Casco
 
 ### Casco Owner
 
-Mantém o **Casco original** e o Design System já existente.
+Mantém a **arquitetura do Casco original**, mas é responsável por restaurar/aplicar o Design System ADAMA aprovado.
 
-Só conecta/renderiza o que a Intelligence entregar nas ferramentas corretas.
+O preview visual atual não é aceito como baseline só porque usa as rotas e componentes antigos.
 
-Não cria um produto paralelo, não troca o Casco por feed genérico e não reclassifica.
+Só conecta/renderiza o que a Intelligence entregar nas ferramentas corretas, porém deve apresentar isso com qualidade de produto para cliente: hierarquia, tipografia, espaçamento, ícones, categorias, cores e idioma corretos.
+
+Não cria produto paralelo, não troca o Casco por feed genérico e não reclassifica.
+
+**DONE do Casco não é "dados apareceram". DONE é "dados reais apareceram no Casco original com apresentação visual aprovada".**
 
 ### LAB
 
