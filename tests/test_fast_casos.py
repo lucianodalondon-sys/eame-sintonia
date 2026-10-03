@@ -208,6 +208,30 @@ class Cases(unittest.TestCase):
         with self.assertRaises(AssertionError):
             K.conferir_case(c)
 
+    def test_busca_ativa_explicita(self):
+        self.assertEqual(K.caso_para_cases(self.caso(), {"OBJETOS": []})["BUSCA_ATIVA"], "NAO")
+        c = K.caso_para_cases(self.caso(origem=K.ORIGEM_BUSCA, er="ER-CASE-001-ADAMA_LABEL"), {"OBJETOS": []})
+        self.assertEqual(c["BUSCA_ATIVA"], "SIM")
+
+    def test_fonte_concorrente_sai_da_prova_do_elo_fica_na_timeline(self):
+        x = self.caso()
+        x["timeline"].append({"data": "2026-09-02", "document_id": "RAW-2", "tipo_fonte": "CONCORRENCIA",
+                              "origem": K.ORIGEM_ACASO, "fact_ids": ["F-RAW-2-01"]})
+        x["elos_encontrados"][0]["document_ids"] = ["RAW-1", "RAW-2"]
+        x["elos_encontrados"][0]["fact_ids"] = ["F1", "F-RAW-2-01"]
+        c = K.caso_para_cases(x, {"OBJETOS": []})
+        p = c["ELOS_ENCONTRADOS"][0]
+        self.assertEqual((p["DOCUMENT_IDS"], p["DOCUMENTOS_FORA_POR_REGRA"], p["FACT_IDS"]), (["RAW-1"], ["RAW-2"], ["F1"]))
+        papel = {t["DOCUMENT_ID"]: t["PAPEL"] for t in c["TIMELINE"]}
+        self.assertEqual(papel, {"RAW-1": "PROVA", "RAW-2": "FONTE_PROMOCIONAL"})
+
+    def test_elo_so_com_fonte_concorrente_vira_nao_sei(self):
+        x = self.caso()
+        x["timeline"][0]["tipo_fonte"] = "CONCORRENCIA"
+        c = K.caso_para_cases(x, {"OBJETOS": []})
+        self.assertEqual(c["ELOS_ENCONTRADOS"], [])
+        self.assertIn(("PROBLEMA", "NAO_SEI"), [(f["ELO"], f["ESTADO"]) for f in c["ELOS_FALTANTES"]])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -500,6 +500,20 @@ def cmd_incorporar(cid, er_id, run_dir):
 # CASE = verdade; DESTINO = apresentacao (vem da classe pela regra unica FC.DESTINO_DA_CLASSE, nunca recalculada).
 #: elos que o dono manda mostrar como NAO_SEI ate haver evidencia (nunca GAP, nunca A_CONFIRMAR no ecra)
 ELOS_NAO_SEI_ATE_EVIDENCIA = ("PRODUTO_ADAMA", "LABEL", "JANELA")
+TIPOS_FONTE_NAO_PROVA = ("CONCORRENCIA",)
+NATUREZAS_NAO_PROVA = ("PUBLICIDADE_PATROCINADO",)
+
+
+def quando_dos_fatos(t):
+    """QUANDO de cada facto citado pelo evento, como o passo2 o conferiu no RAW (trecho). Sem ficheiro -> NAO_SEI.
+    E a data do FACTO, distinta da data do evento (publicacao/captura)."""
+    run = t.get("RODADA")
+    p = DADOS / run / "FACTS_FAST.json" if run else None
+    if not p or not p.exists():
+        return "NAO_SEI"
+    F = {f["FACT_ID"]: f for f in json.loads(p.read_text(encoding="utf-8"))["FATOS"]}
+    return [OrderedDict([("FACT_ID", i), ("QUANDO", _vf(F[i], "QUANDO") if i in F else "NAO_SEI")])
+            for i in t.get("FACT_IDS") or []]
 
 
 def caso_para_cases(C, reg_caso):
@@ -530,9 +544,32 @@ def caso_para_cases(C, reg_caso):
             detalhe, est = est, "NAO_SEI"
         falt.append(OrderedDict([("ELO", f["elo"]), ("ESTADO", est), ("ESTADO_DETALHE", detalhe),
                                  ("POR_QUE_IT", f.get("por_que")), ("EVIDENCE_REQUEST_ID", f.get("evidence_request_id"))]))
-    enc = [OrderedDict([("ELO", e["elo"]), ("VALOR", e.get("valor")), ("FACT_IDS", e.get("fact_ids") or []),
-                        ("DOCUMENT_IDS", e.get("document_ids") or []), ("CONTEXTO_IDS", e.get("contexto_ids") or []),
-                        ("USE_IDS", e.get("use_ids") or [])]) for e in C["elos_encontrados"]]
+    # regra do dono (01a955ca9): alegacao de quem vende a solucao nao e acontecimento -> documento fica na timeline,
+    # sai das provas do elo (fica registado em DOCUMENTOS_FORA_POR_REGRA). Sem documento restante -> elo NAO_SEI.
+    nao_prova = {t.get("document_id") for t in C["timeline"]
+                 if t.get("tipo_fonte") in TIPOS_FONTE_NAO_PROVA or t.get("natureza") in NATUREZAS_NAO_PROVA}
+    enc = []
+    for e in C["elos_encontrados"]:
+        fora = [d for d in e.get("document_ids") or [] if d in nao_prova]
+        dids = [d for d in e.get("document_ids") or [] if d not in nao_prova]
+        fids = [f for f in e.get("fact_ids") or [] if not any(f.startswith("F-%s-" % d) for d in fora)]
+        if (e.get("document_ids") and not dids):
+            falt.append(OrderedDict([("ELO", e["elo"]), ("ESTADO", "NAO_SEI"), ("ESTADO_DETALHE", "SO_FONTE_PROMOCIONAL"),
+                                     ("POR_QUE_IT", "Solo fonti di chi vende la soluzione: non è una prova."),
+                                     ("EVIDENCE_REQUEST_ID", None)]))
+            continue
+        enc.append(OrderedDict([("ELO", e["elo"]), ("VALOR", e.get("valor")), ("FACT_IDS", fids),
+                                ("DOCUMENT_IDS", dids), ("DOCUMENTOS_FORA_POR_REGRA", fora),
+                                ("CONTEXTO_IDS", e.get("contexto_ids") or []), ("USE_IDS", e.get("use_ids") or [])]))
+    sustenta = {}
+    for e in enc:
+        for d in e["DOCUMENT_IDS"]:
+            sustenta.setdefault(d, []).append(e["ELO"])
+    for t in tl:
+        t["SUSTENTA_ELOS"] = sustenta.get(t["DOCUMENT_ID"], [])
+        t["PAPEL"] = "PROVA" if t["SUSTENTA_ELOS"] else (
+            "FONTE_PROMOCIONAL" if t["DOCUMENT_ID"] in nao_prova else "CONTEXTO")
+        t["QUANDO_DOS_FATOS"] = quando_dos_fatos(t)
     classe = C["classificacao"]
     caso = OrderedDict([
         ("CASE_ID", cid), ("TITULO_IT", C.get("titolo_it")), ("CLASSIFICACAO", classe),
@@ -542,6 +579,7 @@ def caso_para_cases(C, reg_caso):
         ("ATUALIZADO_EM", C.get("atualizado_em")),
         ("TIMELINE", tl), ("ELOS_ENCONTRADOS", enc), ("ELOS_FALTANTES", falt), ("EVIDENCE_REQUESTS", ers),
         ("OBJETOS_ABSORVIDOS", list(reg_caso["OBJETOS"])),
+        ("BUSCA_ATIVA", "SIM" if any(t["ORIGEM"] == ORIGEM_BUSCA for t in tl) else "NAO"),
         ("CONTAGEM", OrderedDict([("DOCUMENTOS", len({t["DOCUMENT_ID"] for t in tl})), ("EVENTOS_TIMELINE", len(tl)),
                                   ("BUSCA_ATIVA", sum(1 for t in tl if t["ORIGEM"] == ORIGEM_BUSCA)),
                                   ("ACHADO_POR_ACASO", sum(1 for t in tl if t["ORIGEM"] == ORIGEM_ACASO))])),
