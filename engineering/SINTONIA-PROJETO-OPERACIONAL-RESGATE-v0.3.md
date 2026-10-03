@@ -493,70 +493,146 @@ Não precisamos esperar um agente autônomo investigar.
 
 ---
 
-## 12. Casco: mostrar, não explicar engenharia
+## 12. Casco: É O CASCO ORIGINAL
 
-O Casco precisa parecer um produto cheio de inteligência.
+**Não criar uma nova interface simplificada para substituir o produto.**
 
-Primeira camada:
+O Casco da demonstração é o mesmo produto que já existia antes, com a identidade visual ADAMA, navegação, ferramentas, hierarquia e linguagem visual já construídas.
+
+O resgate simplifica **a alimentação de dados**, não o produto.
 
 ```text
-AGORA
-CAMPO
-FITOSSANITÁRIO
-MERCADO
-CLIMA
-CONCORRÊNCIA
-CIÊNCIA
-SINAIS
-OPORTUNIDADES
+CAPTURA SIMPLES
+→ OPUS
+→ SAÍDA SIMPLES
+→ CASCO ORIGINAL
 ```
 
-Cada card mostra:
+O Casco deve continuar com as ferramentas e áreas já existentes, incluindo quando houver dados:
 
 ```text
-TÍTULO
-O QUE ACONTECEU
-POR QUE IMPORTA
-CULTURA · LOCAL
-DATA
-ORIGEM: Site / PDF / Instagram / LinkedIn / YouTube
+Opportunity Radar
+Future Radar
+Crop Windows
+Market Pulse
+Competition
+Research / Science / Researchers
+Portafoglio
+Label Intelligence
+Archive / Sources / Field
+demais áreas já existentes no produto
+```
+
+Não transformar o Sintonia em um feed genérico de notícias.
+
+### Cards e casos
+
+Opportunity, Lead e Signal continuam usando a família visual forte já definida no Casco/ADAMA:
+
+```text
+ÍCONE / CATEGORIA
+PROBLEMA
+CULTURA · REGIÃO
 STATUS
+JANELA, quando existir
+PRODUTO, quando comprovado
 ESPLORA →
 ```
 
-No detalhe:
+Pouco texto na primeira camada.
 
 ```text
-resumo
-fontes
-timeline, se houver
-evidências
-cruzamentos
-produto ADAMA, quando comprovado
-ação, quando defensável
+PRIMEIRA CAMADA = VER
+CLIQUE = ENTENDER
+DETALHE = PROVAR
 ```
+
+No detalhe, usar os blocos existentes e só mostrar os que tiverem informação útil:
+
+```text
+O QUE SIGNIFICA
+AÇÃO
+TIMELINE
+CLIMA
+FENOLOGIA
+CROP WINDOW
+MERCADO
+PORTFÓLIO
+LABEL
+CONCORRÊNCIA
+FONTES
+```
+
+Conteúdo vindo de Instagram, LinkedIn e YouTube aparece como **mais uma origem de evidência dentro do Casco original**, com plataforma/fonte visível. Não ganha uma interface paralela.
 
 Nenhum SHA, commit, branch, run id, gate ou código técnico na camada do cliente.
 
+### feed.html
+
+Se existir `feed.html`, ele é apenas:
+
+```text
+DEBUG / DIAGNÓSTICO / VALIDAÇÃO DE DADOS
+```
+
+Não é o produto da demonstração e não substitui `/portale` nem o Casco original.
+
 ---
 
-## 13. Arquivo de saída para o Casco
+## 13. Saída do resgate para o Casco original
 
-Usar o caminho que o Casco já consome.
+A Intelligence pode gerar um arquivo simples intermediário para acelerar o fim de semana, inclusive `CASCO_FEED.json`, **mas ele é apenas um adaptador de dados**.
 
-Preferência:
+O destino final é alimentar as estruturas que o Casco original já entende.
+
+Preferir reaproveitar:
 
 ```text
 CRUZAMENTO-COMERCIAL.json
++
+estruturas existentes das ferramentas do Casco
 ```
 
-A saída do RESGATE pode ser gravada manualmente nesse formato.
+Mapeamento conceitual:
+
+```text
+conteúdo útil de domínio
+→ ferramenta correspondente do Casco
+
+SINAL / LEAD
+→ Future Radar
+
+OPORTUNIDADE
+→ Opportunity Radar
+
+GAP
+→ Portafoglio
+
+mercado
+→ Market Pulse
+
+janela/fenologia
+→ Crop Windows
+
+regulatório/label
+→ Label Intelligence
+
+concorrência
+→ Competition
+
+ciência/pesquisadores
+→ Research / Science / Researchers
+```
+
+Se o caminho mais rápido for gerar `CASCO_FEED.json` e convertê-lo manualmente para os arquivos que o Casco já consome, fazer assim.
 
 Não criar banco novo.
 
-Não criar ponte nova.
+Não criar uma segunda interface.
 
-Não criar pipeline novo se copiar um JSON resolve para segunda-feira.
+Não criar uma segunda arquitetura de produto.
+
+**Simplificar a tubulação; preservar o Casco.**
 
 ---
 
@@ -613,9 +689,11 @@ gera saída do Casco
 
 ### Casco Owner
 
-Só renderiza o que a Intelligence entregar.
+Mantém o **Casco original** e o Design System já existente.
 
-Não reclassifica.
+Só conecta/renderiza o que a Intelligence entregar nas ferramentas corretas.
+
+Não cria um produto paralelo, não troca o Casco por feed genérico e não reclassifica.
 
 ### LAB
 
@@ -715,8 +793,9 @@ Opus termina leitura
 → agrupa temas
 → cruza referências ADAMA
 → seleciona melhores sinais/leads/oportunidades
-→ gera CRUZAMENTO-COMERCIAL.json
-→ Casco recebe
+→ gera saída simples
+→ adapta para as estruturas existentes
+→ Casco original recebe
 ```
 
 Rodar novas capturas direcionadas para fortalecer os casos comercialmente mais promissores.
