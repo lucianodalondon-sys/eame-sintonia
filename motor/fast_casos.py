@@ -43,6 +43,11 @@ CLASSES = ("SINAL", "LEAD", "GAP", "OPORTUNIDADE", "NAO_SEI")
 ESTADOS_FALTA = ("NAO_SEI", "A_CONFIRMAR")
 ORIGEM_ACASO = "ACHADO_POR_ACASO_ANTES_DO_CASE_ID"
 ORIGEM_BUSCA = "BUSCA_ATIVA"
+#: CORRECAO 1 do dono (02/10): BUSCA_ATIVA so com a cadeia inteira provada; senao ORIGEM_NAO_PROVADA
+ORIGEM_NAO_PROVADA = "ORIGEM_NAO_PROVADA"
+ORIGENS = (ORIGEM_ACASO, ORIGEM_BUSCA, ORIGEM_NAO_PROVADA)
+CADEIA_BUSCA_ATIVA = ("CASE_ID", "EVIDENCE_REQUEST_ID", "SOURCE_CONTRACT_ID", "SOURCE_ID", "DOCUMENT_ID",
+                      "EVIDENCE_REQUEST_CRIADO_EM", "CAPTURED_AT")
 PROIBIDO_NO_PEDIDO = re.compile(r"https?://|www\.|\.it\b|\.com\b|scraper|coletor|collector|apify", re.I)
 PROMPT_AGRUPAR = Path(__file__).with_name("fast_casos_agrupar.prompt.md")
 PROMPT_DOSSIE = Path(__file__).with_name("fast_casos_dossie.prompt.md")
@@ -224,7 +229,7 @@ def pool_do_caso(caso, objs):
     """Documentos e fatos do caso: os fatos COMPLETOS dos documentos citados pelos objetos membros + os
     incorporados por busca ativa. Chave do documento = RUN#DOCUMENT_ID (o mesmo RAW pode voltar noutra rodada)."""
     docs, fatos = OrderedDict(), OrderedDict()
-    def add_rodada(run_dir, doc_ids, origem, er_id=None):
+    def add_rodada(run_dir, doc_ids, origem, er_id=None, cadeia=None):
         F = json.loads((run_dir / "FACTS_FAST.json").read_text(encoding="utf-8"))
         D = {x["DOCUMENT_ID"]: x for x in json.loads((run_dir / "DOCUMENTOS_FAST.json").read_text(encoding="utf-8"))}
         for f in F["FATOS"]:
@@ -239,7 +244,16 @@ def pool_do_caso(caso, objs):
                              "RAW_SHA256": f.get("RAW_SHA256"), "CAPTURED_AT": f.get("CAPTURED_AT"),
                              "DATA_PUBLICACAO": _vf(f, "DATA_PUBLICACAO"),
                              "NATUREZA": _vf(f, "NATUREZA_DO_DOCUMENTO"), "RODADA": run_dir.name,
-                             "ORIGEM": origem, "EVIDENCE_REQUEST_ID": er_id, "SHA_CONFERE": x.get("SHA_CONFERE")}
+                             "ORIGEM": origem, "EVIDENCE_REQUEST_ID": er_id, "SHA_CONFERE": x.get("SHA_CONFERE"),
+                             "SOURCE_CONTRACT_ID": None, "EVIDENCE_REQUEST_CRIADO_EM": None,
+                             "JA_ESTAVA_NO_ATLAS": None, "SOURCE_DATE_ISO": f.get("SOURCE_DATE_ISO") or "NAO_SEI",
+                             "FACT_TIME": f.get("FACT_TIME") or "UNKNOWN", "FALTAM_NA_CADEIA": []}
+                c = (cadeia or {}).get(did)
+                if c:
+                    docs[did].update({k: c.get(k) for k in ("ORIGEM", "SOURCE_CONTRACT_ID", "EVIDENCE_REQUEST_CRIADO_EM",
+                                                            "JA_ESTAVA_NO_ATLAS", "FALTAM_NA_CADEIA")})
+                    for k, vazio in (("SOURCE_DATE_ISO", "NAO_SEI"), ("FACT_TIME", "UNKNOWN")):
+                        docs[did][k] = c.get(k) or vazio
     porrun = OrderedDict()
     for ob in caso["OBJETOS"]:
         o = objs[ob]
@@ -247,7 +261,9 @@ def pool_do_caso(caso, objs):
     for run, dids in porrun.items():
         add_rodada(DADOS / run, dids, ORIGEM_ACASO)
     for inc in caso.get("INCORPORADOS", []):
-        add_rodada(Path(inc["RUN_DIR"]), set(inc["DOCUMENT_IDs"]), ORIGEM_BUSCA, inc["EVIDENCE_REQUEST_ID"])
+        # incorporacoes antigas (sem CADEIA por documento) nunca viram BUSCA_ATIVA por defeito
+        add_rodada(Path(inc["RUN_DIR"]), set(inc["DOCUMENT_IDs"]), ORIGEM_NAO_PROVADA, inc["EVIDENCE_REQUEST_ID"],
+                   inc.get("CADEIA"))
     return docs, fatos
 
 
@@ -326,6 +342,11 @@ def conferir_dossie(saida, caso, docs, fatos, label, fen, ctx, objs):
             ("url", d["URL"]), ("source_id", d["SOURCE_ID"]), ("document_id", did), ("raw_asset_id", d["RAW_ASSET_ID"]),
             ("raw_sha256", d["RAW_SHA256"]), ("natureza", d["NATUREZA"]), ("fact_ids", fids),
             ("origem", d["ORIGEM"]), ("evidence_request_id", d["EVIDENCE_REQUEST_ID"]),
+            ("source_contract_id", d.get("SOURCE_CONTRACT_ID")),
+            ("evidence_request_criado_em", d.get("EVIDENCE_REQUEST_CRIADO_EM")),
+            ("captured_at", d.get("CAPTURED_AT")), ("ja_estava_no_atlas", d.get("JA_ESTAVA_NO_ATLAS")),
+            ("source_date_iso", d.get("SOURCE_DATE_ISO") or "NAO_SEI"), ("fact_time", d.get("FACT_TIME") or "UNKNOWN"),
+            ("faltam_na_cadeia", d.get("FALTAM_NA_CADEIA") or []),
             ("rodada", d["RODADA"])]))
     timeline.sort(key=lambda e: (e["data"] or "9999", e["document_id"]))
     sem_evento = [d for d in docs if d not in cobertos]
@@ -476,9 +497,50 @@ def cmd_dossie(cid):
 
 
 # ---------------------------------------------------------------- 3. incorporar captura pedida (busca ativa)
+def er_criado_em(er_id):
+    """Hora OBSERVADA em que o pedido nasceu: primeiro evento DOSSIE do historico append-only que o lista.
+    Nao vem do PEDIDO.json (declarado). Sem evento -> None (a cadeia fica NAO_PROVADA)."""
+    if not HISTORICO.exists():
+        return None
+    for l in HISTORICO.read_text(encoding="utf-8").splitlines():
+        try:
+            ev = json.loads(l)
+        except ValueError:
+            continue
+        if ev.get("EVENTO") == "DOSSIE" and er_id in (ev.get("ER") or []):
+            return ev.get("EM")
+    return None
+
+
+def _instante(x):
+    try:
+        t = datetime.fromisoformat(str(x).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+    return t if t.tzinfo else None  # hora sem fuso nao se compara
+
+
+def origem_da_captura(cadeia):
+    """CORRECAO 1 do dono. Devolve (ORIGEM, FALTAM). BUSCA_ATIVA so com os 7 elos + JA_ESTAVA_NO_ATLAS=NAO +
+    captura posterior ao pedido. Fonte ja no acervo -> ACHADO_POR_ACASO_ANTES_DO_CASE_ID. Resto -> NAO_PROVADA."""
+    faltam = [k for k in CADEIA_BUSCA_ATIVA if not cadeia.get(k) or cadeia.get(k) in ("NAO_SEI", "UNKNOWN")]
+    atlas = cadeia.get("JA_ESTAVA_NO_ATLAS")
+    if atlas == "SIM":
+        return ORIGEM_ACASO, faltam + ["JA_ESTAVA_NO_ATLAS=SIM"]
+    if atlas != "NAO":
+        faltam.append("JA_ESTAVA_NO_ATLAS")
+    a, b = _instante(cadeia.get("EVIDENCE_REQUEST_CRIADO_EM")), _instante(cadeia.get("CAPTURED_AT"))
+    if a is None or b is None:
+        faltam.append("ORDEM_TEMPORAL_NAO_COMPARAVEL")
+    elif not b > a:
+        faltam.append("CAPTURA_ANTES_DO_PEDIDO")
+    return (ORIGEM_BUSCA if not faltam else ORIGEM_NAO_PROVADA), faltam
+
+
 def cmd_incorporar(cid, er_id, run_dir):
-    """Liga documentos de uma rodada de captura PEDIDA ao caso. O programa recusa sem o elo pedido->captura:
-    o ER tem de existir no CASO.json do caso e a pasta tem de ter PEDIDO.json com o mesmo ER_ID."""
+    """Liga documentos de uma rodada de captura PEDIDA ao caso. O pedido tem de existir no CASO.json do caso e o
+    PEDIDO.json tem de ter o mesmo CASE_ID/ER_ID. A ORIGEM de cada documento vem de origem_da_captura (7 elos +
+    atlas + ordem temporal): falha de elo NAO derruba o comando — o documento entra como ORIGEM_NAO_PROVADA."""
     reg = ler_registro()
     caso = reg["CASOS"][cid]
     C = json.loads((CASOS / cid / "CASO.json").read_text(encoding="utf-8"))
@@ -487,11 +549,33 @@ def cmd_incorporar(cid, er_id, run_dir):
     ped = json.loads((run_dir / "PEDIDO.json").read_text(encoding="utf-8"))
     assert ped.get("EVIDENCE_REQUEST_ID") == er_id and ped.get("CASE_ID") == cid, "captura sem ligacao ao pedido"
     F = json.loads((run_dir / "FACTS_FAST.json").read_text(encoding="utf-8"))
-    dids = sorted({f["DOCUMENT_ID"] for f in F["FATOS"] if f.get("ESTADO") != "REJEITADO"})
+    por_doc = OrderedDict()
+    for f in F["FATOS"]:
+        if f.get("ESTADO") != "REJEITADO":
+            por_doc.setdefault(f["DOCUMENT_ID"], f)
+    criado = er_criado_em(er_id)
+    cadeia_por_doc = OrderedDict()
+    for did, f in por_doc.items():
+        c = OrderedDict([
+            ("CASE_ID", cid), ("EVIDENCE_REQUEST_ID", er_id),
+            ("SOURCE_CONTRACT_ID", ped.get("SOURCE_CONTRACT_ID")),
+            # SOURCE_ID e DOCUMENT_ID: do PEDIDO e iguais ao que a captura gravou; divergencia = elo em falta
+            ("SOURCE_ID", ped.get("SOURCE_ID") if ped.get("SOURCE_ID") == f.get("SOURCE_ID") else None),
+            ("DOCUMENT_ID", did if ped.get("DOCUMENT_ID") == did else None),
+            ("EVIDENCE_REQUEST_CRIADO_EM", criado),
+            ("CAPTURED_AT", f.get("CAPTURED_AT")),
+            ("JA_ESTAVA_NO_ATLAS", ped.get("JA_ESTAVA_NO_ATLAS")),
+            # datas do ledger, nunca uma pela outra
+            ("SOURCE_DATE_ISO", ped.get("SOURCE_DATE_ISO") or "NAO_SEI"),
+            ("FACT_TIME", ped.get("FACT_TIME") or "UNKNOWN")])
+        c["ORIGEM"], c["FALTAM_NA_CADEIA"] = origem_da_captura(c)
+        cadeia_por_doc[did] = c
     caso["INCORPORADOS"].append({"CASE_ID": cid, "EVIDENCE_REQUEST_ID": er_id, "RUN_DIR": str(run_dir),
-                                 "DOCUMENT_IDs": dids, "EM": agora()})
-    gravar_registro(reg, {"EVENTO": "INCORPORAR", "CASE_ID": cid, "ER": er_id, "DOCUMENT_IDs": dids})
-    print("INCORPORADOS", dids)
+                                 "DOCUMENT_IDs": list(cadeia_por_doc), "CADEIA": cadeia_por_doc, "EM": agora()})
+    gravar_registro(reg, {"EVENTO": "INCORPORAR", "CASE_ID": cid, "ER": er_id,
+                          "ORIGENS": {d: c["ORIGEM"] for d, c in cadeia_por_doc.items()}})
+    print(json.dumps({d: {"ORIGEM": c["ORIGEM"], "FALTAM": c["FALTAM_NA_CADEIA"]} for d, c in cadeia_por_doc.items()},
+                     ensure_ascii=False, indent=1))
     return 0
 
 
@@ -535,6 +619,11 @@ def caso_para_cases(C, reg_caso):
             ("O_QUE_ACRESCENTOU_IT", t.get("o_que_acrescentou_it")), ("TIPO_FONTE", t.get("tipo_fonte")),
             ("URL", t.get("url")), ("SOURCE_ID", t.get("source_id")), ("DOCUMENT_ID", t.get("document_id")),
             ("ORIGEM", t.get("origem")), ("EVIDENCE_REQUEST_ID", t.get("evidence_request_id")),
+            ("CASE_ID", cid), ("SOURCE_CONTRACT_ID", t.get("source_contract_id")),
+            ("EVIDENCE_REQUEST_CRIADO_EM", t.get("evidence_request_criado_em")),
+            ("CAPTURED_AT", t.get("captured_at")), ("JA_ESTAVA_NO_ATLAS", t.get("ja_estava_no_atlas")),
+            ("SOURCE_DATE_ISO", t.get("source_date_iso") or "NAO_SEI"), ("FACT_TIME", t.get("fact_time") or "UNKNOWN"),
+            ("FALTAM_NA_CADEIA", t.get("faltam_na_cadeia") or []),
             ("FACT_IDS", t.get("fact_ids") or []), ("RAW_SHA256", t.get("raw_sha256")), ("RODADA", t.get("rodada"))]))
     falt = []
     for f in C["elos_faltantes"]:
@@ -582,7 +671,8 @@ def caso_para_cases(C, reg_caso):
         ("BUSCA_ATIVA", "SIM" if any(t["ORIGEM"] == ORIGEM_BUSCA for t in tl) else "NAO"),
         ("CONTAGEM", OrderedDict([("DOCUMENTOS", len({t["DOCUMENT_ID"] for t in tl})), ("EVENTOS_TIMELINE", len(tl)),
                                   ("BUSCA_ATIVA", sum(1 for t in tl if t["ORIGEM"] == ORIGEM_BUSCA)),
-                                  ("ACHADO_POR_ACASO", sum(1 for t in tl if t["ORIGEM"] == ORIGEM_ACASO))])),
+                                  ("ACHADO_POR_ACASO", sum(1 for t in tl if t["ORIGEM"] == ORIGEM_ACASO)),
+                                  ("ORIGEM_NAO_PROVADA", sum(1 for t in tl if t["ORIGEM"] == ORIGEM_NAO_PROVADA))])),
         ("ESTADO", "EXPERIMENTAL / NAO_PARA_CLIENTE"), ("CODIGO_HEAD_DO_DOSSIE", C.get("CODIGO_HEAD"))])
     conferir_case(caso, er_ids)
     return caso
@@ -600,9 +690,12 @@ def conferir_case(caso, er_ids=None):
         assert t["DOCUMENT_ID"], "evento sem DOCUMENT_ID"
         assert t["DOCUMENT_ID"] not in vistos, "documento repetido na timeline: %s" % t["DOCUMENT_ID"]
         vistos.add(t["DOCUMENT_ID"])
-        assert t["ORIGEM"] in (ORIGEM_ACASO, ORIGEM_BUSCA), "ORIGEM fora da lista: %r" % t["ORIGEM"]
+        assert t["ORIGEM"] in ORIGENS, "ORIGEM fora da lista: %r" % t["ORIGEM"]
         if t["ORIGEM"] == ORIGEM_BUSCA:
             assert t["EVIDENCE_REQUEST_ID"] in er_ids, "BUSCA_ATIVA sem EVIDENCE_REQUEST_ID do caso (%s)" % t["DOCUMENT_ID"]
+            assert t.get("CASE_ID") == caso["CASE_ID"], "BUSCA_ATIVA de outro caso (%s)" % t["DOCUMENT_ID"]
+            origem, faltam = origem_da_captura(t)
+            assert origem == ORIGEM_BUSCA, "BUSCA_ATIVA sem cadeia provada (%s): %s" % (t["DOCUMENT_ID"], faltam)
         elif t["EVIDENCE_REQUEST_ID"]:
             assert t["EVIDENCE_REQUEST_ID"] in er_ids, "EVIDENCE_REQUEST_ID inexistente (%s)" % t["DOCUMENT_ID"]
     for f in caso["ELOS_FALTANTES"]:

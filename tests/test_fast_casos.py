@@ -160,7 +160,10 @@ class Cases(unittest.TestCase):
         return {"case_id": "CASE-001", "titolo_it": "t", "classificacao": classe, "acao_atual_it": "a",
                 "atualizado_em": "x", "CODIGO_HEAD": "h",
                 "timeline": [{"data": "2026-09-01", "document_id": "RAW-1", "source_id": "S1", "url": "u",
-                              "origem": origem, "evidence_request_id": er, "fact_ids": ["F1"]}],
+                              "origem": origem, "evidence_request_id": er, "fact_ids": ["F1"],
+                              # cadeia completa (CORRECAO 1): so o ER deixou de bastar para BUSCA_ATIVA
+                              "source_contract_id": "SC-1", "evidence_request_criado_em": "2026-10-02T22:49:10+00:00",
+                              "captured_at": "2026-10-03T01:37:00+00:00", "ja_estava_no_atlas": "NAO"}],
                 "elos_encontrados": [{"elo": "PROBLEMA", "valor": "v", "fact_ids": ["F1"], "document_ids": ["RAW-1"]}],
                 "elos_faltantes": [{"elo": "PRODUTO_ADAMA", "estado": prod, "por_que": "p",
                                     "evidence_request_id": "ER-CASE-001-ADAMA_LABEL"},
@@ -231,6 +234,73 @@ class Cases(unittest.TestCase):
         c = K.caso_para_cases(x, {"OBJETOS": []})
         self.assertEqual(c["ELOS_ENCONTRADOS"], [])
         self.assertIn(("PROBLEMA", "NAO_SEI"), [(f["ELO"], f["ESTADO"]) for f in c["ELOS_FALTANTES"]])
+
+
+class CadeiaBuscaAtiva(unittest.TestCase):
+    """CORRECAO 1 do dono (02/10): BUSCA_ATIVA = CASE_ID + ER + SOURCE_CONTRACT_ID + SOURCE_ID + DOCUMENT_ID +
+    fonte ausente do acervo antes do pedido + captura posterior ao pedido. Senao ACASO ou ORIGEM_NAO_PROVADA."""
+    ER = "ER-CASE-001-CAMPO_COOPERATIVA"
+
+    def cadeia(self, **kw):
+        c = {"CASE_ID": "CASE-001", "EVIDENCE_REQUEST_ID": self.ER, "SOURCE_CONTRACT_ID": "SC-CASE001-ER02-001",
+             "SOURCE_ID": "IT-NOVA-001", "DOCUMENT_ID": "LIBERACR:103526",
+             "EVIDENCE_REQUEST_CRIADO_EM": "2026-10-02T22:49:10+00:00", "CAPTURED_AT": "2026-10-03T01:37:00+00:00",
+             "JA_ESTAVA_NO_ATLAS": "NAO"}
+        c.update(kw)
+        return c
+
+    def test_contraprova_cadeia_completa_e_busca_ativa(self):
+        self.assertEqual(K.origem_da_captura(self.cadeia()), (K.ORIGEM_BUSCA, []))
+
+    def test_so_er_nao_basta(self):
+        for k in ("SOURCE_CONTRACT_ID", "SOURCE_ID", "DOCUMENT_ID", "EVIDENCE_REQUEST_CRIADO_EM", "CAPTURED_AT"):
+            o, f = K.origem_da_captura(self.cadeia(**{k: None}))
+            self.assertEqual(o, K.ORIGEM_NAO_PROVADA, k)
+            self.assertIn(k, f)
+
+    def test_fonte_ja_no_acervo_e_acaso(self):
+        self.assertEqual(K.origem_da_captura(self.cadeia(JA_ESTAVA_NO_ATLAS="SIM"))[0], K.ORIGEM_ACASO)
+
+    def test_atlas_ausente_nao_prova(self):
+        self.assertEqual(K.origem_da_captura(self.cadeia(JA_ESTAVA_NO_ATLAS=None))[0], K.ORIGEM_NAO_PROVADA)
+
+    def test_captura_antes_do_pedido_nao_prova(self):
+        o, f = K.origem_da_captura(self.cadeia(CAPTURED_AT="2026-10-02T20:00:00+00:00"))
+        self.assertEqual((o, f), (K.ORIGEM_NAO_PROVADA, ["CAPTURA_ANTES_DO_PEDIDO"]))
+
+    def test_hora_sem_fuso_nao_compara(self):
+        o, f = K.origem_da_captura(self.cadeia(CAPTURED_AT="2026-10-03T01:37:00"))
+        self.assertEqual((o, f), (K.ORIGEM_NAO_PROVADA, ["ORDEM_TEMPORAL_NAO_COMPARAVEL"]))
+
+    def caso(self, **kw):
+        t = {"data": "2026-09-13", "document_id": "LIBERACR:103526", "source_id": "IT-NOVA-001", "url": "u",
+             "origem": K.ORIGEM_BUSCA, "evidence_request_id": self.ER, "fact_ids": ["F1"],
+             "source_contract_id": "SC-CASE001-ER02-001", "evidence_request_criado_em": "2026-10-02T22:49:10+00:00",
+             "captured_at": "2026-10-03T01:37:00+00:00", "ja_estava_no_atlas": "NAO",
+             "source_date_iso": "2026-09-13T08:15:00+02:00", "fact_time": None}
+        t.update(kw)
+        return {"case_id": "CASE-001", "titolo_it": "t", "classificacao": "SINAL", "acao_atual_it": "a",
+                "atualizado_em": "x", "CODIGO_HEAD": "h", "timeline": [t], "elos_encontrados": [], "elos_faltantes": [],
+                "evidence_requests": [{"id": self.ER, "pergunta_pt": "?", "elos_que_destrava": ["PROBLEMA"],
+                                       "tipos_de_fonte": ["COOPERATIVA"], "estado": "ABERTO"}]}
+
+    def test_cases_busca_ativa_completa_passa_e_leva_campos_do_casco(self):
+        c = K.caso_para_cases(self.caso(), {"OBJETOS": []})
+        t = c["TIMELINE"][0]
+        for k in K.CADEIA_BUSCA_ATIVA + ("JA_ESTAVA_NO_ATLAS", "SOURCE_DATE_ISO", "FACT_TIME"):
+            self.assertIn(k, t)
+        self.assertEqual(t["FACT_TIME"], "UNKNOWN")  # UNKNOWN continua UNKNOWN; nao vira data da fonte
+        self.assertEqual(c["CONTAGEM"]["BUSCA_ATIVA"], 1)
+
+    def test_cases_busca_ativa_so_com_er_recusada(self):
+        with self.assertRaises(AssertionError):
+            K.caso_para_cases(self.caso(source_contract_id=None), {"OBJETOS": []})
+        with self.assertRaises(AssertionError):
+            K.caso_para_cases(self.caso(ja_estava_no_atlas="SIM"), {"OBJETOS": []})
+
+    def test_cases_origem_nao_provada_e_aceita_e_contada(self):
+        c = K.caso_para_cases(self.caso(origem=K.ORIGEM_NAO_PROVADA, source_contract_id=None), {"OBJETOS": []})
+        self.assertEqual((c["BUSCA_ATIVA"], c["CONTAGEM"]["ORIGEM_NAO_PROVADA"]), ("NAO", 1))
 
 
 if __name__ == "__main__":
