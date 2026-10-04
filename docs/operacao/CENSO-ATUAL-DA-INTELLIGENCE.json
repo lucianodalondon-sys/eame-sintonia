@@ -1,0 +1,774 @@
+{
+  "DATASET": "SINTONIA-CENSO-ATUAL-DA-INTELLIGENCE-V1",
+  "AVISO": "EVIDENCIA DE AUDITORIA. Nao e arquitetura, nao e contrato, nao governa nada.",
+  "MEDIDO_EM": "84186dfaf6be8a52866efc4a440609985f7f4401",
+  "SYSTEM_MAP_SOURCE_BRANCH": "claude/raw-observation-identity-3jbwco",
+  "MECANISMO_DA_FAMILIA": "componente.territory -> territory.family",
+  "TERRITORIOS_DA_FAMILIA": [
+    "Z-LINEAGE",
+    "Z-MOTOR"
+  ],
+  "TOTAL_DE_PECAS_NO_MAPA": 181,
+  "INTELLIGENCE_MAP_COUNT": 12,
+  "CENSUSED": "12/12",
+  "PECAS": [
+    {
+      "MAP_NODE_ID": "C-CADEIA-V21",
+      "NOME": "Cadeia canonica V2.1",
+      "KIND": "chain",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "motor/cadeia_canonica.sh",
+        "motor/v21_cadeia.sh"
+      ],
+      "FILE_EXISTS": {
+        "motor/cadeia_canonica.sh": true,
+        "motor/v21_cadeia.sh": true
+      },
+      "MAP_STATUS": "PENDING",
+      "WHAT": "O roteiro que roda os trinta passos do motor na ordem certa, do dado bruto ate o pacote fechado.",
+      "DECLARED_INBOUND": [
+        "C-CI-PERSIST",
+        "C-CI-REGRESSAO",
+        "C-PROVA-COLETA",
+        "C-SUPABASE"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-AUDIT-GERAL",
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-PROVA-COLETA",
+        "C-PROVENIENCIA",
+        "C-REGRA-COLETA",
+        "C-SUPABASE",
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CI-PERSIST",
+        "C-CI-REGRESSAO",
+        "C-PROVA-COLETA",
+        "C-SUPABASE"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-AUDIT-GERAL",
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-PROVA-COLETA",
+        "C-PROVENIENCIA",
+        "C-REGRA-COLETA",
+        "C-SUPABASE",
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "REFS_CONTAGEM": {
+        "DOC": 10,
+        "SYSTEM_MAP": 8,
+        "RUNTIME": 4,
+        "WORKFLOW": 3,
+        "TEST": 3,
+        "PROVA": 6,
+        "PORTAL": 4
+      },
+      "RUNTIME_REFS": [
+        ".github/workflows/banco-descartavel.yml(PATH)",
+        ".github/workflows/calendario-regressoes.yml(PATH)",
+        ".github/workflows/supabase-migrate.yml(PATH)",
+        "HANDOFF-V2-PAUSE.json(PATH)",
+        "pacote/v21_handoff_json.py(PATH)",
+        "portoes/site_v21_ingest.py(PATH)",
+        "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql(PATH)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": true,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "architecture.declared.json",
+      "VEREDITO_ESTADO": "PARTIAL",
+      "DUPLICIDADE": "NOT_DUPLICATE",
+      "OWNER_COLLISION": "YES",
+      "PORQUE": "Duas coisas diferentes na MESMA peca: `motor/cadeia_canonica.sh` aplica MIGRATIONS e importacoes de banco (nada de Intelligence) e `motor/v21_cadeia.sh` e a cadeia de 16 passos do pacote. A descricao no mapa fala so da segunda.",
+      "RUNTIME": "PROVEN_REFUSES · a cadeia V2.1 sai com exit 2 nesta linhagem (trava SINTONIA_CADEIA_HISTORICA); o cadeia_canonica.sh e corrido por 2 workflows",
+      "DEVE_CONTINUAR": "SIM, mas separada em duas pecas"
+    },
+    {
+      "MAP_NODE_ID": "C-V2-LEGADO",
+      "NOME": "Cadeia V2 (legado)",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "legacy",
+      "LEGACY": true,
+      "FILES": [
+        "motor/v2_conflitos.py",
+        "motor/v2_cruzamentos.py",
+        "motor/v2_dedup_e_familias.py",
+        "motor/v2_fechar.py",
+        "motor/v2_montar_handoff.py",
+        "motor/v2_qa_atribuir.py",
+        "motor/v2_relatorio.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v2_conflitos.py": true,
+        "motor/v2_cruzamentos.py": true,
+        "motor/v2_dedup_e_familias.py": true,
+        "motor/v2_fechar.py": true,
+        "motor/v2_montar_handoff.py": true,
+        "motor/v2_qa_atribuir.py": true,
+        "motor/v2_relatorio.py": true
+      },
+      "MAP_STATUS": "PENDING",
+      "WHAT": "A geracao anterior do motor, antes da V2.1.",
+      "DECLARED_INBOUND": [
+        "C-V21-FONTES"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-V21-FONTES",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-V21-FONTES"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-V21-FONTES",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 32
+      },
+      "RUNTIME_REFS": [],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "ORPHAN_SO_O_MAPA_A_CONHECE",
+      "DECLARACAO_ORIGEM": "architecture.declared.json",
+      "VEREDITO_ESTADO": "ORPHAN_LEGACY",
+      "DUPLICIDADE": "LEGACY_STILL_REFERENCED",
+      "OWNER_COLLISION": "NO",
+      "PORQUE": "7 ficheiros. Zero referencias fora do proprio System Map: nenhum runtime, nenhum teste, nenhum documento, nenhum workflow.",
+      "RUNTIME": "NAO_CORRE · sem chamador",
+      "DEVE_CONTINUAR": "NAO na Intelligence canonica — decisao de arquivo, nao desta missao"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-COMERCIAL",
+      "NOME": "Leitura comercial e completude",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "motor/v21_adama_registro_validar.py",
+        "motor/v21_antes_e_depois.py",
+        "motor/v21_campos_de_lingua.py",
+        "motor/v21_comercial.py",
+        "motor/v21_completude_oportunidade.py",
+        "motor/v21_necessidade.py",
+        "motor/v21_reavaliar_35.py",
+        "motor/v21_reverificacao_ledger.py",
+        "motor/v21_tm_colher.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v21_adama_registro_validar.py": true,
+        "motor/v21_antes_e_depois.py": true,
+        "motor/v21_campos_de_lingua.py": true,
+        "motor/v21_comercial.py": true,
+        "motor/v21_completude_oportunidade.py": true,
+        "motor/v21_necessidade.py": true,
+        "motor/v21_reavaliar_35.py": true,
+        "motor/v21_reverificacao_ledger.py": true,
+        "motor/v21_tm_colher.py": true
+      },
+      "MAP_STATUS": "PENDING",
+      "WHAT": "Mede se o caso esta completo o bastante para virar conversa comercial, e reavalia quando muda.",
+      "DECLARED_INBOUND": [
+        "C-ARTEFACTO-V21",
+        "C-LASTMILE",
+        "C-PORTAL-MODELO",
+        "C-V21-CONTRATO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-PACOTE-CAMADAS",
+        "C-SCRAP-GUARDA",
+        "C-TESTES",
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-CONTRATO",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-ARTEFACTO-V21",
+        "C-LASTMILE",
+        "C-PORTAL-MODELO",
+        "C-V21-CONTRATO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-PACOTE-CAMADAS",
+        "C-SCRAP-GUARDA",
+        "C-TESTES",
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-CONTRATO",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 42,
+        "DOC": 10,
+        "RUNTIME": 5,
+        "TEST": 3
+      },
+      "RUNTIME_REFS": [
+        "motor/v21_aceitacao.py(IMPORT)",
+        "motor/v21_oportunidades.py(IMPORT)",
+        "motor/v21_oportunidades.py(IMPORT)",
+        "motor/v21_oportunidades.py(PATH)",
+        "motor/v21_traducao_trava.py(IMPORT)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "architecture.declared.json",
+      "VEREDITO_ESTADO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DUPLICIDADE": "NOT_DUPLICATE",
+      "OWNER_COLLISION": "NO",
+      "PORQUE": "9 ficheiros do motor comercial/completude.",
+      "RUNTIME": "NAO_PROVADO · pacote ausente do disco",
+      "DEVE_CONTINUAR": "SIM"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-CONTRATO",
+      "NOME": "Contrato do pacote",
+      "KIND": "contract",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "motor/v21_aceitacao.py",
+        "motor/v21_contrato_do_pacote.py",
+        "motor/v21_traducao_trava.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v21_aceitacao.py": true,
+        "motor/v21_contrato_do_pacote.py": true,
+        "motor/v21_traducao_trava.py": true
+      },
+      "MAP_STATUS": "PROVEN",
+      "WHAT": "Confere se o pacote fechado obedece as contagens e as regras antes de existir.",
+      "DECLARED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-V21-COMERCIAL",
+        "C-V21-COMERCIAL",
+        "C-V21-FONTES"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-TESTES",
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-V21-COMERCIAL",
+        "C-V21-COMERCIAL",
+        "C-V21-FONTES"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-TESTES",
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "REFS_CONTAGEM": {
+        "RUNTIME": 6,
+        "DOC": 5,
+        "SYSTEM_MAP": 12,
+        "TEST": 2
+      },
+      "RUNTIME_REFS": [
+        "HANDOFF-V2-PAUSE.json(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_tm_colher.py(IMPORT)",
+        "pacote/v21_handoff_json.py(PATH)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "architecture.declared.json",
+      "VEREDITO_ESTADO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DUPLICIDADE": "NOT_DUPLICATE",
+      "OWNER_COLLISION": "NO",
+      "PORQUE": "O contrato do pacote em Python. O dono declarado do contrato e o JSON em italia-portale/audit/.",
+      "RUNTIME": "PARCIAL · o portao JS do mesmo contrato corre e passa; o lado Python nao foi executado",
+      "DEVE_CONTINUAR": "SIM"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-CRUZAMENTO",
+      "NOME": "Cruzamentos e convergencia",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "motor/consolidar_leque.py",
+        "motor/matriz_recorte.py",
+        "motor/pacote_convergencia.py",
+        "motor/v21_crossings.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/consolidar_leque.py": true,
+        "motor/matriz_recorte.py": true,
+        "motor/pacote_convergencia.py": true,
+        "motor/v21_crossings.py": true
+      },
+      "MAP_STATUS": "PROVEN",
+      "WHAT": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
+      "DECLARED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-PALAVRAS",
+        "C-RELEVANCIA",
+        "C-ROTULOS",
+        "C-V21-FONTES",
+        "C-V21-INGEST"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-PACOTE-CAMADAS"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-PALAVRAS",
+        "C-RELEVANCIA",
+        "C-ROTULOS",
+        "C-V21-FONTES",
+        "C-V21-INGEST"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-PACOTE-CAMADAS"
+      ],
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 18,
+        "RUNTIME": 2,
+        "DOC": 1
+      },
+      "RUNTIME_REFS": [
+        "motor/v21_cadeia.sh(PATH)",
+        "pacote/pacote.py(IMPORT)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "architecture.declared.json",
+      "VEREDITO_ESTADO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DUPLICIDADE": "NOT_DUPLICATE",
+      "OWNER_COLLISION": "NO",
+      "PORQUE": "CROSSING/CONVERGENCE vivem aqui e tambem em italia-portale e data.",
+      "RUNTIME": "NAO_PROVADO",
+      "DEVE_CONTINUAR": "SIM"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-FONTES",
+      "NOME": "Religacao de fontes do pacote",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "motor/v21_fontes_faltantes.py",
+        "motor/v21_fontes_rechavear.py",
+        "motor/v21_vozes_reconciliar.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v21_fontes_faltantes.py": true,
+        "motor/v21_fontes_rechavear.py": true,
+        "motor/v21_vozes_reconciliar.py": true
+      },
+      "MAP_STATUS": "PROVEN",
+      "WHAT": "Garante que cada caso do pacote continua ligado a fonte que o provou.",
+      "DECLARED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-V2-LEGADO"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-AUDIT-GERAL",
+        "C-PORTAL-MODELO",
+        "C-PROVENIENCIA",
+        "C-SITE-INGEST",
+        "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-V2-LEGADO"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-AUDIT-GERAL",
+        "C-PORTAL-MODELO",
+        "C-PROVENIENCIA",
+        "C-SITE-INGEST",
+        "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 12,
+        "RUNTIME": 3
+      },
+      "RUNTIME_REFS": [
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "architecture.declared.json",
+      "VEREDITO_ESTADO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DUPLICIDADE": "NOT_DUPLICATE",
+      "OWNER_COLLISION": "NO",
+      "PORQUE": "Religacao de fontes do pacote.",
+      "RUNTIME": "NAO_PROVADO",
+      "DEVE_CONTINUAR": "SIM"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-INGEST",
+      "NOME": "Ingestao V2.1",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "motor/normalize_agro.py",
+        "motor/normalize_substance.py",
+        "motor/pacote_normalizar.py",
+        "motor/v21_ingest.py",
+        "motor/v21_ingest_b.py",
+        "motor/v21_ingest_c.py",
+        "motor/v21_normalizar.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/normalize_agro.py": true,
+        "motor/normalize_substance.py": true,
+        "motor/pacote_normalizar.py": true,
+        "motor/v21_ingest.py": true,
+        "motor/v21_ingest_b.py": true,
+        "motor/v21_ingest_c.py": true,
+        "motor/v21_normalizar.py": true
+      },
+      "MAP_STATUS": "PROVEN",
+      "WHAT": "Entrada do motor: le o dado bruto e o coloca no formato que o resto da cadeia entende.",
+      "DECLARED_INBOUND": [
+        "C-ADAMA-IT",
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-FONTES-EU",
+        "C-V21-FONTES"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-PACOTE-CAMADAS",
+        "C-TESTES",
+        "C-V21-COMERCIAL",
+        "C-V21-CRUZAMENTO"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-ADAMA-IT",
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-FONTES-EU",
+        "C-V21-FONTES"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-PACOTE-CAMADAS",
+        "C-TESTES",
+        "C-V21-COMERCIAL",
+        "C-V21-CRUZAMENTO"
+      ],
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 32,
+        "DOC": 7,
+        "PORTAL": 2,
+        "RUNTIME": 13,
+        "TEST": 2
+      },
+      "RUNTIME_REFS": [
+        "leis/v21_geografia_contrato.py(IMPORT)",
+        "motor/pacote_convergencia.py(IMPORT)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_comercial.py(IMPORT)",
+        "motor/v21_necessidade.py(IMPORT)",
+        "pacote/pacote.py(IMPORT)",
+        "pacote/pacote_camadas.py(IMPORT)",
+        "pacote/pacote_camadas2.py(IMPORT)",
+        "pacote/pacote_camadas3.py(IMPORT)",
+        "pacote/pacote_fenologia.py(IMPORT)",
+        "pacote/pacote_mercado.py(IMPORT)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "architecture.declared.json",
+      "VEREDITO_ESTADO": "PARTIAL_COM_CAMINHO_DIRETO",
+      "DUPLICIDADE": "NOT_DUPLICATE",
+      "OWNER_COLLISION": "NO",
+      "PORQUE": "7 ficheiros. `motor/normalize_agro.py` IMPORTA `coleta/eppo_gd.py`, que faz HTTP a gd.eppo.int — o unico caminho INTELLIGENCE -> COLETOR DIRETO medido. E um CLI sem chamador: o caminho existe, nenhuma rota o anda.",
+      "RUNTIME": "NAO_PROVADO · e o caminho direto nao e exercido por rota nenhuma",
+      "DEVE_CONTINUAR": "SIM, com o caminho direto resolvido"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-OPORTUNIDADE",
+      "NOME": "Motor de Oportunidade",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "motor/v21_dominio_da_alegacao.py",
+        "motor/v21_fechar.py",
+        "motor/v21_oportunidades.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v21_dominio_da_alegacao.py": true,
+        "motor/v21_fechar.py": true,
+        "motor/v21_oportunidades.py": true
+      },
+      "MAP_STATUS": "PROVEN",
+      "WHAT": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
+      "DECLARED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
+        "C-V21-FONTES"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
+        "C-V21-FONTES"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 15,
+        "RUNTIME": 5,
+        "PORTAL": 2,
+        "TEST": 3,
+        "DOC": 5
+      },
+      "RUNTIME_REFS": [
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_completude_oportunidade.py(PATH)",
+        "pacote/meeting_snapshot.py(PATH)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "architecture.declared.json",
+      "VEREDITO_ESTADO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DUPLICIDADE": "NOT_DUPLICATE",
+      "OWNER_COLLISION": "YES",
+      "PORQUE": "OPPORTUNITY aparece em 186 ficheiros, com a maior massa em italia-portale (50) e build (29) — fora desta peca.",
+      "RUNTIME": "NAO_PROVADO",
+      "DEVE_CONTINUAR": "SIM"
+    },
+    {
+      "MAP_NODE_ID": "lineage_consumer",
+      "NOME": "Linha que consome (esta arvore)",
+      "KIND": "branch consumidora",
+      "TERRITORY": "Z-LINEAGE",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [],
+      "FILE_EXISTS": {},
+      "MAP_STATUS": "PROVEN",
+      "WHAT": "E a branch onde este mapa foi medido. Ela consome inteligencia; nao e dona do gerador.",
+      "DECLARED_INBOUND": [],
+      "DECLARED_OUTBOUND": [],
+      "OBSERVED_INBOUND": [],
+      "OBSERVED_OUTBOUND": [],
+      "REFS_CONTAGEM": {},
+      "RUNTIME_REFS": [],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "SEM_FICHEIRO_DECLARADO",
+      "DECLARACAO_ORIGEM": "GERADA_PELO_SCANNER",
+      "VEREDITO_ESTADO": "ASSERCAO_SEM_FICHEIRO",
+      "DUPLICIDADE": "NOT_DUPLICATE",
+      "OWNER_COLLISION": "NO",
+      "PORQUE": "Zero ficheiros declarados, e mesmo assim o mapa apresenta-a como PROVEN. Uma peca sem ficheiro nao tem o que provar.",
+      "RUNTIME": "N/A",
+      "DEVE_CONTINUAR": "SIM como facto de linhagem, nao como peca de codigo"
+    },
+    {
+      "MAP_NODE_ID": "lineage_generator",
+      "NOME": "Linha geradora canonica",
+      "KIND": "branch geradora",
+      "TERRITORY": "Z-LINEAGE",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "FILE_EXISTS": {
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json": true
+      },
+      "MAP_STATUS": "PROVEN",
+      "WHAT": "E o dono do pacote canonico: claude/acervo-to-package-intelligence-v1.",
+      "DECLARED_INBOUND": [],
+      "DECLARED_OUTBOUND": [],
+      "OBSERVED_INBOUND": [],
+      "OBSERVED_OUTBOUND": [],
+      "REFS_CONTAGEM": {
+        "RUNTIME": 3,
+        "SYSTEM_MAP": 5
+      },
+      "RUNTIME_REFS": [
+        ".vercelignore(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "portoes/site_v21_ingest.py(PATH)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "GERADA_PELO_SCANNER",
+      "VEREDITO_ESTADO": "PROVEN_OPERATIONAL",
+      "DUPLICIDADE": "POSSIBLE_DUPLICATE",
+      "OWNER_COLLISION": "YES",
+      "PORQUE": "Partilha UM unico ficheiro com lineage_package e lineage_stale. E o contrato nomeia `claude/acervo-to-package-intelligence-v1 @ 51010733` como gerador, enquanto `motor/v21_cadeia.sh:35,47` nomeia `claude/opportunity-commercial-priority-v1 @ 55c2674` — cuja safra o proprio contrato lista como VELHA.",
+      "RUNTIME": "PROVADO · build-gate.mjs 2/2 PASS e stale-generator-gate.mjs 9/9 PASS, com controlos negativos",
+      "DEVE_CONTINUAR": "SIM"
+    },
+    {
+      "MAP_NODE_ID": "lineage_package",
+      "NOME": "Pacote canonico esperado",
+      "KIND": "artefato",
+      "TERRITORY": "Z-LINEAGE",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "FILE_EXISTS": {
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json": true
+      },
+      "MAP_STATUS": "PROVEN",
+      "WHAT": "O unico BUILD_ID que pode atravessar para o site: V21-06c6421d001ea52a.",
+      "DECLARED_INBOUND": [],
+      "DECLARED_OUTBOUND": [],
+      "OBSERVED_INBOUND": [],
+      "OBSERVED_OUTBOUND": [],
+      "REFS_CONTAGEM": {
+        "RUNTIME": 3,
+        "SYSTEM_MAP": 5
+      },
+      "RUNTIME_REFS": [
+        ".vercelignore(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "portoes/site_v21_ingest.py(PATH)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "GERADA_PELO_SCANNER",
+      "VEREDITO_ESTADO": "PROVEN_OPERATIONAL",
+      "DUPLICIDADE": "POSSIBLE_DUPLICATE",
+      "OWNER_COLLISION": "YES",
+      "PORQUE": "Mesmo ficheiro que lineage_generator e lineage_stale.",
+      "RUNTIME": "PROVADO · EXPECTED_BUILD_ID V21-06c6421d001ea52a confere com o artefacto servido",
+      "DEVE_CONTINUAR": "SIM"
+    },
+    {
+      "MAP_NODE_ID": "lineage_stale",
+      "NOME": "Safras atrasadas conhecidas (4)",
+      "KIND": "artefato vencido",
+      "TERRITORY": "Z-LINEAGE",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "FILES": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "FILE_EXISTS": {
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json": true
+      },
+      "MAP_STATUS": "PENDING",
+      "WHAT": "Pacotes que ja existiram e que o portao reconhece para RECUSAR.",
+      "DECLARED_INBOUND": [],
+      "DECLARED_OUTBOUND": [
+        "C-AUDIT-HARNESS",
+        "C-MAPA-GERADOR",
+        "C-PORTAO-BUILD",
+        "C-SITE-INGEST"
+      ],
+      "OBSERVED_INBOUND": [],
+      "OBSERVED_OUTBOUND": [
+        "C-AUDIT-HARNESS",
+        "C-MAPA-GERADOR",
+        "C-PORTAO-BUILD",
+        "C-SITE-INGEST"
+      ],
+      "REFS_CONTAGEM": {
+        "RUNTIME": 3,
+        "SYSTEM_MAP": 5
+      },
+      "RUNTIME_REFS": [
+        ".vercelignore(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "portoes/site_v21_ingest.py(PATH)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "DECLARACAO_ORIGEM": "GERADA_PELO_SCANNER",
+      "VEREDITO_ESTADO": "PROVEN_OPERATIONAL",
+      "DUPLICIDADE": "POSSIBLE_DUPLICATE",
+      "OWNER_COLLISION": "YES",
+      "PORQUE": "Mesmo ficheiro que as outras duas. Lista 4 safras velhas conhecidas.",
+      "RUNTIME": "PROVADO · o portao recusa safra velha, medido por mutacao",
+      "DEVE_CONTINUAR": "SIM"
+    }
+  ]
+}

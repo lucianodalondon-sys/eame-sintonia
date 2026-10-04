@@ -1,0 +1,791 @@
+{
+ "DATASET": "MEDICAO-VIA-AGROMETEO-V1",
+ "VERSAO_DA_REGRA": "8",
+ "TEXTOS_NO_CORPUS": 1309,
+ "TRANSICOES_SEM_PARA_COM": {
+  "NAO->NAO": 469,
+  "NAO->NAO_SEI": 16,
+  "NAO_SEI->NAO_SEI": 749,
+  "NAO_SEI->SIM": 16,
+  "SIM->SIM": 59
+ },
+ "MUDARAM": 32,
+ "SIM_COM_A_VIA": 75,
+ "SIM_SEM_A_VIA": 59,
+ "AMOSTRA_20_PARA_LER": [
+  {
+   "TEXTO": "textos:fca5cbf5f4c83b9d.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\fca5cbf5f4c83b9d.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:65f0479ab9f42cf4.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\65f0479ab9f42cf4.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "temporalesco"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:6326b0d36587fc87.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\6326b0d36587fc87.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:ebe18250c31d236d.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\ebe18250c31d236d.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "TEXT_EXTRACTION:texto-de-html-1-45329072b396defbd8beb77d6af75edef62f1357fd28d827b7fe33f16dc66b53.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\NAO_SEI\\derivados\\TEXT_EXTRACTION\\texto-de-html-1-45329072b396defbd8beb77d6af75edef62f1357fd28d827b7fe33f16dc66b53.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:0e481567d7d5feec.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\0e481567d7d5feec.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:ece748ebe0e8678a.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\ece748ebe0e8678a.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "stress idrico",
+    "temporalesco"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:d89beec6225962a5.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\d89beec6225962a5.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "gelata",
+    "grandine",
+    "irrigazione"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:44ad9a0cbfd5cd64.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\44ad9a0cbfd5cd64.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:ba3401cbf9bd0dca.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\ba3401cbf9bd0dca.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:eb29c67d6f83ba78.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\eb29c67d6f83ba78.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "stress idrico",
+    "perturbazione"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:290dd720d1f4a23e.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\290dd720d1f4a23e.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:33bde7f65099e9dd.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\33bde7f65099e9dd.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "nuvolosita"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:6c4f3aa1a99f4d6c.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\6c4f3aa1a99f4d6c.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "grandine",
+    "ondata di calore",
+    "stress idrico",
+    "evapotraspirazione",
+    "risorsa idrica"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:e4a33710dde15b99.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\e4a33710dde15b99.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "siccita",
+    "nuvolosita"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:28d46da9430796a6.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\28d46da9430796a6.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "evapotraspirazione",
+    "anticiclone",
+    "nuvolosita"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:712ae395e5761b4f.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\712ae395e5761b4f.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:1cde235e4334972a.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\1cde235e4334972a.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:7a0d47529cd1081b.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\7a0d47529cd1081b.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:80c28cd685e301e8.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\80c28cd685e301e8.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  }
+ ],
+ "TODOS_OS_QUE_MUDARAM": [
+  {
+   "TEXTO": "textos:0e481567d7d5feec.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\0e481567d7d5feec.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:1cde235e4334972a.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\1cde235e4334972a.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:28d46da9430796a6.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\28d46da9430796a6.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "evapotraspirazione",
+    "anticiclone",
+    "nuvolosita"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:290dd720d1f4a23e.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\290dd720d1f4a23e.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:2c7cc2f8689d1646.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\2c7cc2f8689d1646.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "nuvolosita"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:329f4a17ed0a8888.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\329f4a17ed0a8888.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:33bde7f65099e9dd.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\33bde7f65099e9dd.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "nuvolosita"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:3f0524a50ba4ea3b.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\3f0524a50ba4ea3b.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:44ad9a0cbfd5cd64.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\44ad9a0cbfd5cd64.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:46126e827da9de95.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\46126e827da9de95.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "temperatura",
+    "gelata"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:6326b0d36587fc87.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\6326b0d36587fc87.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:65f0479ab9f42cf4.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\65f0479ab9f42cf4.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "temporalesco"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:6c4f3aa1a99f4d6c.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\6c4f3aa1a99f4d6c.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "grandine",
+    "ondata di calore",
+    "stress idrico",
+    "evapotraspirazione",
+    "risorsa idrica"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:712ae395e5761b4f.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\712ae395e5761b4f.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:7a0d47529cd1081b.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\7a0d47529cd1081b.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:7f5856128d014f9a.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\7f5856128d014f9a.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "grandine",
+    "perturbazione"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:80c28cd685e301e8.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\80c28cd685e301e8.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:9d7c9f8ffdcacca7.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\9d7c9f8ffdcacca7.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "anticiclone",
+    "saccatura",
+    "nuvolosita"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:b662ee180a543ce1.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\b662ee180a543ce1.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "siccita",
+    "gelata",
+    "grandine"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:ba3401cbf9bd0dca.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\ba3401cbf9bd0dca.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:d89beec6225962a5.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\d89beec6225962a5.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "gelata",
+    "grandine",
+    "irrigazione"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:e4a33710dde15b99.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\e4a33710dde15b99.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "siccita",
+    "nuvolosita"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:e5a48878bffd6013.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\e5a48878bffd6013.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:eb29c67d6f83ba78.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\eb29c67d6f83ba78.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "stress idrico",
+    "perturbazione"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:eba83c16cf8dab32.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\eba83c16cf8dab32.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "grandine"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:ebe18250c31d236d.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\ebe18250c31d236d.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:ece748ebe0e8678a.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\ece748ebe0e8678a.txt",
+   "SEM_A_VIA": "NAO_SEI",
+   "COM_A_VIA": "SIM",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "siccita",
+    "stress idrico",
+    "temporalesco"
+   ],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:f7ea1bb82a1668db.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\f7ea1bb82a1668db.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:fca5cbf5f4c83b9d.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\fca5cbf5f4c83b9d.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "textos:ffd74e301b08b8a3.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\textos\\ffd74e301b08b8a3.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "TEXT_EXTRACTION:texto-de-html-1-45329072b396defbd8beb77d6af75edef62f1357fd28d827b7fe33f16dc66b53.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\NAO_SEI\\derivados\\TEXT_EXTRACTION\\texto-de-html-1-45329072b396defbd8beb77d6af75edef62f1357fd28d827b7fe33f16dc66b53.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  },
+  {
+   "TEXTO": "TEXT_EXTRACTION:texto-de-html-1-7fa4b04be78713239d2e369894202f401b134dedb8315220cf42daf18265673a.txt",
+   "CAMINHO": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\NAO_SEI\\derivados\\TEXT_EXTRACTION\\texto-de-html-1-7fa4b04be78713239d2e369894202f401b134dedb8315220cf42daf18265673a.txt",
+   "SEM_A_VIA": "NAO",
+   "COM_A_VIA": "NAO_SEI",
+   "PALAVRAS": [],
+   "ANCORAS": [
+    "agrometeo"
+   ]
+  }
+ ],
+ "LEITURA_DOS_16_NAO_SEI_PARA_SIM": [
+  {
+   "TEXTO_ID": "1cde235e4334972a",
+   "URL": "https://www.agrometeopuglia.it/osservazioni/mappa-dati-rilevati",
+   "JANELA_NO_GABARITO": "NO",
+   "LIDO": "ERRADO: pagina de site (menu/servico)",
+   "DETECTOR_DE_CAPA": "NAO_SEI"
+  },
+  {
+   "TEXTO_ID": "28d46da9430796a6",
+   "URL": "C:\\regua-t2-v1\\data\\derivados\\texto\\RAW-9a01cc17889e1f40.txt",
+   "JANELA_NO_GABARITO": "YES",
+   "LIDO": "CERTO: boletim agrometeorologico",
+   "DETECTOR_DE_CAPA": "NAO SEI"
+  },
+  {
+   "TEXTO_ID": "2c7cc2f8689d1646",
+   "URL": "https://www.lamma.toscana.it/meteo/bollettini-meteo/toscana",
+   "JANELA_NO_GABARITO": "NAO_SEI",
+   "LIDO": "ERRADO: pagina de site (menu/servico)",
+   "DETECTOR_DE_CAPA": "CAPA_PROVAVEL"
+  },
+  {
+   "TEXTO_ID": "329f4a17ed0a8888",
+   "URL": "https://agricoltura.regione.campania.it/meteo/agrometeo.htm",
+   "JANELA_NO_GABARITO": "NO",
+   "LIDO": "ERRADO: pagina de site (menu/servico)",
+   "DETECTOR_DE_CAPA": "MATERIA_PROVAVEL"
+  },
+  {
+   "TEXTO_ID": "33bde7f65099e9dd",
+   "URL": "https://www.lamma.toscana.it/meteo/bollettini-meteo/montagna",
+   "JANELA_NO_GABARITO": "NAO_SEI",
+   "LIDO": "ERRADO: pagina de site (menu/servico)",
+   "DETECTOR_DE_CAPA": "NAO_SEI"
+  },
+  {
+   "TEXTO_ID": "46126e827da9de95",
+   "URL": "https://www.arpa.veneto.it/servizi/iscrizione-bollettini-e-servizi",
+   "JANELA_NO_GABARITO": "NO",
+   "LIDO": "ERRADO: pagina de site (menu/servico)",
+   "DETECTOR_DE_CAPA": "MATERIA_PROVAVEL"
+  },
+  {
+   "TEXTO_ID": "65f0479ab9f42cf4",
+   "URL": "C:\\regua-t2-v1\\data\\derivados\\texto\\RAW-445e41701f737d73.txt",
+   "JANELA_NO_GABARITO": "YES",
+   "LIDO": "CERTO: boletim agrometeorologico",
+   "DETECTOR_DE_CAPA": "NAO SEI"
+  },
+  {
+   "TEXTO_ID": "6c4f3aa1a99f4d6c",
+   "URL": "C:\\regua-t2-v1\\data\\derivados\\texto\\RAW-699a073ace4361ea.txt",
+   "JANELA_NO_GABARITO": "YES",
+   "LIDO": "CERTO: boletim agrometeorologico",
+   "DETECTOR_DE_CAPA": "NAO SEI"
+  },
+  {
+   "TEXTO_ID": "7f5856128d014f9a",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/36_boll_agro_20260907.pdf",
+   "JANELA_NO_GABARITO": "YES",
+   "LIDO": "CERTO: boletim agrometeorologico",
+   "DETECTOR_DE_CAPA": "PDF"
+  },
+  {
+   "TEXTO_ID": "9d7c9f8ffdcacca7",
+   "URL": "C:\\regua-t2-v1\\data\\derivados\\texto\\RAW-178ebe9e0ea7dd83.txt",
+   "JANELA_NO_GABARITO": "YES",
+   "LIDO": "CERTO: boletim agrometeorologico",
+   "DETECTOR_DE_CAPA": "NAO SEI"
+  },
+  {
+   "TEXTO_ID": "b662ee180a543ce1",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo",
+   "JANELA_NO_GABARITO": "NO",
+   "LIDO": "ERRADO: pagina de site (menu/servico)",
+   "DETECTOR_DE_CAPA": "CAPA_PROVAVEL"
+  },
+  {
+   "TEXTO_ID": "d89beec6225962a5",
+   "URL": "https://www.arpa.veneto.it/temi-ambientali/agrometeo",
+   "JANELA_NO_GABARITO": "NO",
+   "LIDO": "ERRADO: pagina de site (menu/servico)",
+   "DETECTOR_DE_CAPA": "CAPA_PROVAVEL"
+  },
+  {
+   "TEXTO_ID": "e4a33710dde15b99",
+   "URL": "https://www.lamma.toscana.it/bollettino-mare",
+   "JANELA_NO_GABARITO": "NO",
+   "LIDO": "ERRADO: pagina de site (menu/servico)",
+   "DETECTOR_DE_CAPA": "CAPA_PROVAVEL"
+  },
+  {
+   "TEXTO_ID": "eb29c67d6f83ba78",
+   "URL": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t2-001\\DOCUMENT\\a869a9a9813dfc6f-u37f049dd6f162c7a-37_boll_agro_20260914.pdf",
+   "JANELA_NO_GABARITO": "YES",
+   "LIDO": "CERTO: boletim agrometeorologico",
+   "DETECTOR_DE_CAPA": "PDF"
+  },
+  {
+   "TEXTO_ID": "eba83c16cf8dab32",
+   "URL": "C:\\regua-t2-v1\\data\\derivados\\texto\\RAW-144fdb152b1a6ae4.txt",
+   "JANELA_NO_GABARITO": "YES",
+   "LIDO": "CERTO: boletim agrometeorologico",
+   "DETECTOR_DE_CAPA": "NAO SEI"
+  },
+  {
+   "TEXTO_ID": "ece748ebe0e8678a",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/38_boll_agro_20260921.pdf",
+   "JANELA_NO_GABARITO": "YES",
+   "LIDO": "CERTO: boletim agrometeorologico",
+   "DETECTOR_DE_CAPA": "PDF"
+  }
+ ],
+ "RESUMO": {
+  "NAO_SEI_PARA_SIM": 16,
+  "NAO_PARA_SIM": 0,
+  "NAO_PARA_NAO_SEI": 16,
+  "DOS_16_CERTOS": 8,
+  "DOS_16_ERRADOS": 8,
+  "ERRADOS_QUE_O_DETECTOR_DE_CAPA_BARRA": 4,
+  "ERRADOS_EM_QUARENTENA": 2,
+  "NOTA": "lidos os 16 (nao uma amostra de 20: so ha 16). Rotulos do gabarito T2-V3 ao lado (JANELA)."
+ }
+}

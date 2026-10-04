@@ -1,0 +1,111 @@
+{
+ "DATASET": "LEGACY-99-REVALIDAR-EM-COPIA",
+ "MEDIDO_EM": "2026-09-25T10:08:57+00:00",
+ "COPIA": "C:\\rend\\copia-legacy",
+ "REDE": "ABERTA",
+ "MODO": "REVALIDAR",
+ "REMEDIR": [
+  {
+   "SOURCE_ID": "IT-T1-025",
+   "FEITO": false,
+   "PORQUE": "nao esta READY: RETRY_AFTER"
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "FEITO": false,
+   "PORQUE": "nao esta READY: RETRY_AFTER"
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "FEITO": false,
+   "PORQUE": "nao esta READY: RETRY_AFTER"
+  },
+  {
+   "SOURCE_ID": "IT-T8-023",
+   "FEITO": false,
+   "PORQUE": "nao esta READY: RETRY_AFTER"
+  }
+ ],
+ "RONDAS": [
+  {
+   "RONDA": 1,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T1-025",
+    "IT-T12-019",
+    "IT-T7-040",
+    "IT-T8-023"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "teatronaturale.it": 2,
+    "parmigianoreggiano.com": 2,
+    "edagricole.it": 2,
+    "ersaf.lombardia.it": 2
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T1-025",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_RETIDO_PELA_REVISAO"
+    },
+    {
+     "SOURCE_ID": "IT-T7-040",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_RETIDO_PELA_REVISAO"
+    },
+    {
+     "SOURCE_ID": "IT-T8-023",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_RETIDO_PELA_REVISAO"
+    },
+    {
+     "SOURCE_ID": "IT-T12-019",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "RETRY"
+    }
+   ]
+  }
+ ],
+ "RECUSADOS_PELO_TRANSPORTE": {},
+ "RESUMO": {
+  "FALHOU": 4
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T1-025",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REVISAO_PENDENTE: contrato reparado pela R1 passou a regua, mas ninguem leu o item deste contrato"
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "RETRY_AFTER",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "adiada: excecao na etapa REPAIR_CONTRACT: ValueError: Invalid IPv6 URL"
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REVISAO_PENDENTE: contrato reparado pela R1 passou a regua, mas ninguem leu o item deste contrato"
+  },
+  {
+   "SOURCE_ID": "IT-T8-023",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REVISAO_PENDENTE: contrato reparado pela R1 passou a regua, mas ninguem leu o item deste contrato"
+  }
+ ]
+}

@@ -59,8 +59,20 @@ import sys
 from datetime import date
 from pathlib import Path
 
-RAIZ = Path(__file__).resolve().parents[1]
-FILA = RAIZ / "data" / "samples" / "FONTES-CANDIDATAS.json"
+# A PORTA E A FILA VIVEM NA MESMA GAVETA.
+#
+# O caminho ancora-se no proprio ficheiro, nao no diretorio de trabalho nem na
+# raiz do repositorio: a porta escreve ao lado de si mesma. Se a gaveta
+# `candidatas/` for movida inteira, a porta continua a escrever na sua fila.
+#
+# Ja foi de outra maneira, e custou: o script nasceu em `scripts/` e apontava
+# para `data/samples/FONTES-CANDIDATAS.json`. Quando foi movido para
+# `candidatas/`, a constante nao veio junto — e passou a escrever numa fila que
+# nao existia e que nenhuma autoridade lia (AGENTS.md, a Biblia COL-LAW-053,
+# `system-map/scripts/scan_sources.py` e `docs/fontes/INDICE-DE-FONTES.md`
+# apontam todos para o ficheiro ao lado deste). Uma candidata registada assim
+# desaparecia em silencio. Nao voltar a derivar este caminho da raiz.
+FILA = Path(__file__).resolve().parent / "FONTES-CANDIDATAS.json"
 
 # Os tipos sao os que esta casa ja usa, nao uma taxonomia nova. Inventar uma
 # gaveta nova para cada fonte que chega e como nao ter gaveta nenhuma.
@@ -75,7 +87,10 @@ TIPOS = {
     "IMPRENSA": "Veiculo de imprensa, boletim, newsletter setorial.",
     "OUTRO": "Nao encaixa em nenhuma das anteriores. Explique em PARA_QUE.",
 }
-PAISES = {"EU", "FR", "ES", "IT", "PT", "DE", "PL", "OUTRO"}
+# «NAO SEI» (23/09): o discovery escrevia PAIS=IT em tudo o que via num site
+# italiano — FAO, INRAE, CropLife. O lugar nunca se presume: quem nao tem prova
+# de pais regista NAO SEI, e o motivo vai na NOTA (PAIS_PROVA=...).
+PAISES = {"EU", "FR", "ES", "IT", "PT", "DE", "PL", "OUTRO", "NAO SEI"}
 
 
 def normalizar(url: str) -> str:
@@ -84,6 +99,33 @@ def normalizar(url: str) -> str:
     u = re.sub(r"^https?://", "", u)
     u = re.sub(r"^www\.", "", u)
     return u.rstrip("/")
+
+
+# D13 (23/09): uma fonte que a casa nao consegue colher nao foi recusada.
+ESTADO_CAPABILITY_BLOCK = ("fonte boa; a casa ainda nao tem capacidade de a colher. "
+                           "Nao e recusa: volta quando houver capacidade (D13).")
+# D15 (23/09): LinkedIn e Instagram — os termos da plataforma proibem a recolha
+# automatizada. Nem pronta, nem recusada, nem em analise: e a proxima expansao
+# People/Social, e so sai daqui com acesso autorizado pelo dono.
+ESTADO_POLICY_BLOCK = ("os termos da plataforma proibem a recolha automatizada (prova: o trecho, "
+                       "com endereco e data). Proxima expansao People/Social; so sai com acesso "
+                       "autorizado pelo dono, nunca por scraping improvisado (D15).")
+PROVA_TERMOS = Path(__file__).resolve().parent / "PROVA-TERMOS-REDES-SOCIAIS-V1.json"
+
+
+def evidencia_da_politica(tipo: str) -> dict | None:
+    """A prova da D15 para LINKEDIN / INSTAGRAM: trecho, endereco e datas. None = nao ha."""
+    if not PROVA_TERMOS.exists():
+        return None
+    p = json.loads(PROVA_TERMOS.read_text(encoding="utf-8"))["POLITICAS"].get(tipo)
+    if not p:
+        return None
+    return {k: p[k] for k in ("URL", "EM_VIGOR", "LIDO_EM", "TRECHO", "FICHEIRO", "SHA256")}
+
+
+def texto_da_evidencia(ev: dict) -> str:
+    return "TERMOS %s (em vigor: %s; lido %s): «%s»" % (
+        ev["URL"], ev["EM_VIGOR"], ev["LIDO_EM"], ev["TRECHO"])
 
 
 def carregar() -> dict:
@@ -100,6 +142,8 @@ def carregar() -> dict:
             "EM_ANALISE": "alguem esta a olhar agora.",
             "PROMOVIDA": "virou ficha no atlas. O campo SOURCE_ID diz qual.",
             "RECUSADA": "olhou-se e nao serve. O motivo fica escrito, e a linha fica.",
+            "CAPABILITY_BLOCK": ESTADO_CAPABILITY_BLOCK,
+            "POLICY_BLOCK": ESTADO_POLICY_BLOCK,
         },
         "CANDIDATAS": [],
     }
@@ -148,6 +192,26 @@ def registar(tipo: str, pais: str, nome: str, url: str, para_que: str,
     return linha
 
 
+def recusar(url: str, motivo: str):
+    """Marca uma candidata existente como RECUSADA.
+
+    Devolve a linha marcada, ou None se a URL nao existe na fila.
+    NAO apaga a linha — preservar historico e lei da casa.
+    """
+    if not (motivo or "").strip():
+        raise ValueError("motivo_da_recusa e obrigatorio")
+    d = carregar()
+    chave = normalizar(url)
+    for c in d["CANDIDATAS"]:
+        if normalizar(c["URL"]) == chave:
+            if c["ESTADO"] != "RECUSADA":
+                c["ESTADO"] = "RECUSADA"
+                c["MOTIVO_DA_RECUSA"] = motivo.strip()
+                gravar(d)
+            return c
+    return None
+
+
 def gravar(d: dict) -> None:
     FILA.parent.mkdir(parents=True, exist_ok=True)
     d["CANDIDATAS"].sort(key=lambda c: (c["TIPO"], c["PAIS"], c["NOME"]))
@@ -171,7 +235,10 @@ def listar() -> int:
             print(f"               para que: {c['PARA_QUE_SERVE'][:80]}")
     print(f"\nTOTAL={len(d['CANDIDATAS'])} · "
           + " · ".join(f"{e}={sum(1 for c in d['CANDIDATAS'] if c['ESTADO'] == e)}"
-                       for e in ("CANDIDATA", "EM_ANALISE", "PROMOVIDA", "RECUSADA")))
+                       for e in ("CANDIDATA", "EM_ANALISE", "PROMOVIDA", "RECUSADA",
+                                 "CAPABILITY_BLOCK", "POLICY_BLOCK"))
+          + " · PROXIMA_EXPANSAO_PEOPLE_SOCIAL=%d" % sum(
+              1 for c in d["CANDIDATAS"] if c["ESTADO"] == "POLICY_BLOCK"))
     return 0
 
 

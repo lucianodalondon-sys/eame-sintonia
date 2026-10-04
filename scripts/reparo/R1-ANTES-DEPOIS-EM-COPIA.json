@@ -1,0 +1,308 @@
+{
+ "DATASET": "R1-ANTES-DEPOIS-EM-COPIA",
+ "FOTO": "C:\\Users\\London1\\AppData\\Local\\Temp\\r1-snap-20260923T182146Z",
+ "BANCAS": [
+  "C:/Users/London1/AppData/Local/Temp/r1-banca-0",
+  "C:/Users/London1/AppData/Local/Temp/r1-banca-1",
+  "C:/Users/London1/AppData/Local/Temp/r1-banca-2",
+  "C:/Users/London1/AppData/Local/Temp/r1-banca-3"
+ ],
+ "READY_ANTES": 143,
+ "READY_DEPOIS": 179,
+ "ESTADOS_ANTES": {
+  "READY_FOR_COLLECTION": 143,
+  "CANARY_PENDING": 102,
+  "RETRY_AFTER": 14,
+  "CONTRACTED_CANARY_FAILED": 400,
+  "CAPABILITY_BLOCK": 39,
+  "UNKNOWN": 34,
+  "POLICY_BLOCK": 69,
+  "CONTRACT_PENDING": 5,
+  "DEGRADED": 18,
+  "SEMANTIC_REVIEW": 198,
+  "CONTRACT_READY_ROUTE_BLOCKED": 13,
+  "AUTH_BLOCK": 5
+ },
+ "ESTADOS_DEPOIS": {
+  "READY_FOR_COLLECTION": 179,
+  "CONTRACTED_CANARY_FAILED": 406,
+  "RETRY_AFTER": 21,
+  "CAPABILITY_BLOCK": 39,
+  "UNKNOWN": 34,
+  "CANARY_PENDING": 54,
+  "POLICY_BLOCK": 69,
+  "CONTRACT_PENDING": 5,
+  "DEGRADED": 18,
+  "SEMANTIC_REVIEW": 198,
+  "CONTRACT_READY_ROUTE_BLOCKED": 15,
+  "AUTH_BLOCK": 7
+ },
+ "FONTES_QUE_MUDARAM": 459,
+ "DUPLAS": [
+  "IT-T8-058"
+ ],
+ "POR_CAUSA": {
+  "A_REPARO": {
+   "RETRY_AFTER -> READY_FOR_COLLECTION": 1,
+   "CANARY_PENDING -> READY_FOR_COLLECTION": 3,
+   "CANARY_PENDING -> CONTRACTED_CANARY_FAILED": 46,
+   "CONTRACTED_CANARY_FAILED -> CONTRACTED_CANARY_FAILED": 360,
+   "CONTRACTED_CANARY_FAILED -> RETRY_AFTER": 7,
+   "CONTRACTED_CANARY_FAILED -> READY_FOR_COLLECTION": 29,
+   "CONTRACTED_CANARY_FAILED -> CONTRACT_READY_ROUTE_BLOCKED": 2,
+   "CONTRACTED_CANARY_FAILED -> AUTH_BLOCK": 2
+  },
+  "B_RECANARIO": {
+   "CANARY_PENDING -> READY_FOR_COLLECTION": 3,
+   "CANARY_PENDING -> RETRY_AFTER": 1
+  },
+  "OUTRA": {
+   "None -> CANARY_PENDING": 5
+  }
+ },
+ "MOTIVO_FINAL_POR_CAUSA": {
+  "A_REPARO": {
+   "REPARO_RECUSADO:ITEM_NAO_E_MATERIA": 132,
+   "REPARO_RECUSADO:SEM_FAMILIA_DE_ITENS": 107,
+   "REPARO_RECUSADO:ENTRADA_E_MATERIA": 76,
+   "REPARO_RECUSADO:ENTRADA_INSTITUCIONAL": 37,
+   "CAPA_NAO_E_MATERIA": 33,
+   "REPARO_RECUSADO:SEM_IDENTIDADE": 29,
+   "REPARO_RECUSADO:FAMILIA_ESTATICA": 14,
+   "REPARO_RECUSADO:DUPLICADA": 10,
+   "adiada: robots nao pode ser lido — UNKNOWN, nao proibicao": 3,
+   "adiada: entrada sem resposta util (URLError: <urlopen error ": 2,
+   "HTTP N na entrada: a fonte respondeu que nao a esta identida": 2,
+   "destino https://authra.regione.abruzzo.it/if/flow/default-au": 1,
+   "adiada: URLError: <urlopen error [WinError N] Uma tentativa ": 1,
+   "adiada: entrada sem resposta util (TimeoutError: The read op": 1,
+   "bytes nao sao HTML — BYTE_VALIDATION_FAILED": 1,
+   "destino https://cas.unimi.it/login?service=https%NA%NF%NFpro": 1
+  },
+  "B_RECANARIO": {
+   "CAPA_NAO_E_MATERIA": 3,
+   "adiada: HTTP N": 1
+  },
+  "OUTRA": {
+   "contrato escrito e validado; falta provar a rota": 5
+  }
+ },
+ "READY_NOVAS": [
+  {
+   "SOURCE_ID": "IT-T12-023",
+   "CAUSA": "A_REPARO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-024",
+   "CAUSA": "B_RECANARIO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-044",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-075",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-102",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-129",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-130",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-131",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-134",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-032",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-037",
+   "CAUSA": "A_REPARO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-050",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-063",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-070",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-116",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T3-023",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-056",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-080",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-104",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-111",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-113",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-031",
+   "CAUSA": "B_RECANARIO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-103",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-105",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-125",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-139",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-163",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-010",
+   "CAUSA": "A_REPARO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-022",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-024",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-041",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-042",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-058",
+   "CAUSA": "A_REPARO",
+   "DE": "RETRY_AFTER",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T9-015",
+   "CAUSA": "B_RECANARIO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  }
+ ]
+}

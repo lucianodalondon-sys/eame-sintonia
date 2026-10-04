@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-022",
+ "SOURCE": "Advances in Horticultural Science",
+ "OWNER": "Firenze University Press",
+ "URL": "https://oaj.fupress.net/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:13Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 327650 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://oaj.fupress.net/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "FUP Open Access Journals",
+  "IDIOMA": "en-us",
+  "DATA_VISIVEL": "2025-05-07",
+  "BYTES_LIDOS": 92140
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://journals.fupress.net/wp-content/uploads/2025/10/Call-N31.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "PDF",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 327650,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "713a96bdd2e85374fce18d57b0c4ae195a885c59b93f7bc1dfb863b22ae7418c",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

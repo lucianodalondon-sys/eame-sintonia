@@ -1,0 +1,727 @@
+{
+  "SCHEMA": "sintonia.out-of-flow-legacy-decision/1",
+  "O_QUE_ISTO_E": "O tratamento canonico dos treze corpos historicos de T3 que tem bytes e nao tem observacao que prove a sua aquisicao.",
+  "DECIDE_NOT_IMPLEMENT": "Nada foi recolhido, reingerido nem corrigido. Sem backfill, sem migration, sem escrita em banco, sem alterar runtime.",
+  "COHORT": {
+    "OUT_OF_FLOW_TOTAL": 13,
+    "FONTE_DA_COORTE": "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
+    "NAO_RECONSTRUIDA": "lida do artefato, e conferida contra o numero que ele declara"
+  },
+  "HIERARQUIA_DE_EVIDENCIA": {
+    "A_PROVA_CANONICA": "campo que a arquitectura reconhece",
+    "B_PROVA_EXTERNA_INDEPENDENTE": "a fonte oficial, hoje, verificavel",
+    "C_O_DOCUMENTO_SE_IDENTIFICA": "o proprio conteudo identifica quem publica",
+    "D_PISTA_HISTORICA": "caminho, pasta, nome — NUNCA promove sozinho",
+    "E_AUSENCIA": "nada prova"
+  },
+  "A_DISTINCAO_QUE_DECIDE": "CONTENT_PROVES_PUBLISHER != ACQUISITION_PROVENANCE_PROVEN",
+  "SOURCE_PROOF": {
+    "PROVEN": 0,
+    "UNPROVEN": 13
+  },
+  "ACQUISITION_PROVENANCE": {
+    "PROVEN": 0,
+    "UNPROVEN": 13
+  },
+  "CANONICAL_EQUIVALENTS": 0,
+  "RECOLLECTION": {
+    "NAO SEI": 13
+  },
+  "DISPOSITIONS": {
+    "LEGACY_KEEP_OUT_OF_FLOW": {
+      "QUANTOS": 13,
+      "ITENS": [
+        "46622",
+        "46647",
+        "91515",
+        "NHEOWL0500_00.html",
+        "RAW-144fdb152b1a6ae4.txt",
+        "RAW-178ebe9e0ea7dd83.txt",
+        "RAW-2a12cb316622a9a5.txt",
+        "RAW-3e941738599367d7.txt",
+        "RAW-3ef48aaa830edf3b.txt",
+        "RAW-445e41701f737d73.txt",
+        "RAW-924aabd94168c53a.txt",
+        "RAW-a927e846ba8e78b0.txt",
+        "RAW-e5176df66216dfd0.txt"
+      ]
+    }
+  },
+  "EXTERNAL_STUDY": {
+    "PERGUNTA": "Quando existe um corpo historico mas a actividade que o adquiriu nao pode ser provada, sistemas maduros preservam, promovem, reingerem, recolhem ou isolam?",
+    "SISTEMAS": [
+      {
+        "NOME": "W3C PROV-DM",
+        "FAMILIA": "modelo de proveniencia",
+        "FONTE": "https://www.w3.org/TR/prov-dm/",
+        "ACHADO": "uma entidade pode ser afirmada SEM `wasGeneratedBy`. A atribuicao a um agente aplica-se «quando a actividade nao e conhecida, ou e irrelevante». Ha marcador explicito para actividade desconhecida, e proveniencia parcial e valida."
+      },
+      {
+        "NOME": "Archivematica / pratica arquivistica",
+        "FAMILIA": "preservacao digital",
+        "FONTE": "https://www.archivematica.org/en/docs/archivematica-1.16/user-manual/transfer/transfer/",
+        "ACHADO": "material transferido pode ficar em BACKLOG: guardado, sujeito a avaliacao, e EXPLICITAMENTE ainda nao um AIP. Na descricao arquivistica, «immediate source of acquisition» e obrigatorio e «custodial history» e separado e opcional."
+      },
+      {
+        "NOME": "Apache Beam",
+        "FAMILIA": "processamento de dados / streaming",
+        "FONTE": "https://beam.apache.org/documentation/programming-guide/",
+        "ACHADO": "quando a fonte nao da tempo do evento, atribui-se um sentinela (`Long.MIN_VALUE`) — nunca um valor inventado. So se atribui tempo quando ele e extraivel do proprio elemento."
+      }
+    ],
+    "CONVERGENCIA": [
+      "preservar o corpo — nenhum manda apagar;",
+      "registar honestamente o evento de custodia ACTUAL;",
+      "nunca fabricar a aquisicao original;",
+      "manter o desconhecido marcado como desconhecido, com campo proprio em vez de um valor plausivel."
+    ],
+    "DIVERGENCIA": [
+      "o arquivo ADMITE o objecto na coleccao com historia custodial desconhecida, porque a funcao dele E a custodia;",
+      "o sistema de dados MANTEM-NO fora da semantica operacional, porque as contas a jusante dependem da proveniencia."
+    ],
+    "O_QUE_ISTO_DECIDE_PARA_ESTA_CASA": "A Collection nao e um arquivo de custodia: e uma cadeia de evidencia onde a decisao a jusante depende da origem. Por isso vale a postura dos dois lados — guardar o corpo como o arquivo guarda, e mante-lo fora da operacao como o sistema de dados mantem."
+  },
+  "CONTRATO": {
+    "EXISTING_CONTRACT_SUFFICIENT": "PARTIAL",
+    "O_QUE_JA_TEM_DONO": [
+      {
+        "LEI": "COL-LAW-044",
+        "RESPONDE": "onde esta != em que estado. O corpo pode viver em `data/samples/` versionado e ter estado logico proprio; QUARANTINED ja existe no vocabulario."
+      },
+      {
+        "LEI": "COL-LAW-045",
+        "RESPONDE": "coleta manual/assistida entra pelo MESMO contrato de evidencia, preservando ACTOR_TYPE, ACTOR, METHOD, SOURCE, RUN, ARTIFACT, PROVENANCE."
+      },
+      {
+        "LEI": "COL-LAW-008",
+        "RESPONDE": "copia orfa NAO DEVE existir: um derivado sem pai e indistinguivel de um texto digitado."
+      },
+      {
+        "LEI": "COL-LAW-006",
+        "RESPONDE": "RAW primeiro, e o RAW nao se sobrescreve — o corpo historico nao se apaga para arrumar o numero."
+      }
+    ],
+    "A_PERGUNTA_QUE_NAO_TEM_DONO_HOJE": "Qual e o estado canonico de um CORPO QUE EXISTE e cuja AQUISICAO nunca foi registada — isto e, que nunca teve observacao nenhuma?",
+    "PORQUE_O_VOCABULARIO_ACTUAL_NAO_CHEGA": "`raw_asset.identity_state` (migration 026) tem tres estados e os TRES pressupoem uma LINHA em `raw_asset`. LEGACY_PRE_IDEMPOTENCY e para observacoes que ja la estavam no corte; estes treze nao estao no corte, estao antes da porta. Um estado para linhas nao classifica quem nao tem linha.",
+    "BIBLE_CHANGE_REQUIRED": "NO",
+    "PORQUE_A_BIBLIA_NAO_MUDA": "Nenhuma lei existente esta errada. COL-LAW-045 ja obriga a coleta manual a entrar pelo contrato; ela nao autoriza nem proibe o corpo que entrou ANTES dela existir. Falta um estado, e nao uma lei nova — e um estado que so se escreve depois de haver um dono para ele.",
+    "CONTRACT_CHANGE_REQUIRED": "YES",
+    "QUAL_CONTRATO": "O contrato de estado do acervo precisa de um estado explicito para «corpo preservado, aquisicao nao provada, fora da Collection operacional». Hoje esse corpo nao e nada: nao e RAW admitido, nao e QUARANTINED por regra escrita, e nao e legado de idempotencia. Ele existe no disco e nao existe no vocabulario.",
+    "O_QUE_ESTA_MISSAO_NAO_FAZ": "Escrever esse estado. DECIDE != IMPLEMENT: quem o escreve decide onde ele vive, e isso e migration e contrato, nao uma prova de medicao."
+  },
+  "RED_TEAM": [
+    {
+      "PROVA": "1 · o caminho diz uma fonte e o conteudo nao a prova",
+      "ACHADO": "13 de 13 tem pista de caminho; NENHUM recebeu SOURCE_ID_PROVEN.",
+      "VEREDITO": "A PISTA NAO PROMOVE"
+    },
+    {
+      "PROVA": "2 · o conteudo prova o publicador e a aquisicao nao",
+      "ACHADO": "7 documentos identificam quem publica. Em TODOS, ACQUISITION_PROVENANCE_PROVEN = False.",
+      "VEREDITO": "OS DOIS FACTOS FICAM SEPARADOS"
+    },
+    {
+      "PROVA": "3-4 · sha igual a item canonico / duas observacoes legitimas",
+      "ACHADO": "0 dos 13 tem bytes iguais a uma observacao canonica. A disposicao EQUIVALENTE nunca copia identidade: o corpo historico continua historico.",
+      "VEREDITO": "CONTENT_EQUIVALENCE != SAME_OBSERVATION"
+    },
+    {
+      "PROVA": "5-6 · URL num comentario / logotipo no documento",
+      "ACHADO": "ORIGINAL_URL_PROVEN e None em 13 de 13. Um logotipo e classe C e prova publicador, nunca aquisicao.",
+      "VEREDITO": "NAO DERRUBA"
+    },
+    {
+      "PROVA": "7 · a fonte oferece hoje um documento diferente com o mesmo titulo",
+      "ACHADO": "por isso RECOLLECTION_POSSIBLE exige ORIGINAL_URL_PROVEN e nao o titulo. Sem endpoint provado fica NAO SEI.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "8 · o documento ja nao esta na origem",
+      "ACHADO": "a sonda mede o SITIO da fonte e di-lo por escrito. Nenhuma disposicao usa «o site responde» como prova sobre o ficheiro.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "9-10 · a importacao de hoje tenta herdar COLLECTED_AT ou RUN antigos",
+      "ACHADO": "nenhuma ficha escreve COLLECTED_AT, RUN_ID ou ACTOR. Os cinco campos de aquisicao sao False em 13 de 13.",
+      "VEREDITO": "NAO HA O QUE HERDAR"
+    },
+    {
+      "PROVA": "11 · fonte legitima mas METHOD/ACTOR ausentes",
+      "ACHADO": "ORIGINAL_METHOD_PROVEN e ORIGINAL_ACTOR_PROVEN sao medidos a parte de SOURCE_ID, exactamente para nao se cobrirem um ao outro.",
+      "VEREDITO": "SEPARADOS"
+    },
+    {
+      "PROVA": "12 · a fonte e provavel, mas nao demonstravel",
+      "ACHADO": "e este o caso dos 13. «Provavel» nao tem campo nesta casa: ou ha prova, ou fica UNKNOWN.",
+      "VEREDITO": "ACEITE — E E A RAZAO DA DISPOSICAO"
+    }
+  ],
+  "PRESERVAR_NAO_E_ADMITIR": "Nenhuma disposicao manda apagar corpo nenhum. Um objecto pode ser preservado e nao ser admissivel — sao duas perguntas.",
+  "ITEMS": [
+    {
+      "ITEM": "46622",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622",
+      "SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "SEM_EXTENSAO",
+      "BODY_BYTES": 96573,
+      "PATH_HINT": "IT-T10-002",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": true,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+      "CONTENT_MARKS_FOUND": [
+        "bmti",
+        "bmti.it"
+      ],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "SIM",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.bmti.it",
+        "HTTP": "202",
+        "VEREDITO": "SIM",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "46647",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46647",
+      "SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "SEM_EXTENSAO",
+      "BODY_BYTES": 95347,
+      "PATH_HINT": "IT-T10-002",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": true,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+      "CONTENT_MARKS_FOUND": [
+        "bmti",
+        "bmti.it"
+      ],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "SIM",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.bmti.it",
+        "HTTP": "202",
+        "VEREDITO": "SIM",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "91515",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515",
+      "SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "SEM_EXTENSAO",
+      "BODY_BYTES": 60778,
+      "PATH_HINT": "IT-T5-002",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": false,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_MARKS_FOUND": [],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "NAO SEI",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://publications.fmach.it",
+        "HTTP": "000",
+        "VEREDITO": "NAO SEI",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "D_PISTA_HISTORICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "NHEOWL0500_00.html",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html",
+      "SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "HTML",
+      "BODY_BYTES": 67232,
+      "PATH_HINT": "IT-T2-004",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": false,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_MARKS_FOUND": [],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "NAO SEI",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "http://www.sias.regione.sicilia.it",
+        "HTTP": "503",
+        "VEREDITO": "NAO SEI",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "D_PISTA_HISTORICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-144fdb152b1a6ae4.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/35_boll_agro_20260831.pdf",
+      "SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 1787024,
+      "PATH_HINT": "IT-T2-001",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": true,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+      "CONTENT_MARKS_FOUND": [
+        "arpae",
+        "arpae.it"
+      ],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "NAO SEI",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo",
+        "HTTP": "404",
+        "VEREDITO": "NAO SEI",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-178ebe9e0ea7dd83.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Giornaliero_Meteorologico_N136_07-09-2026.pdf",
+      "SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 1446423,
+      "PATH_HINT": "IT-T3-008",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": true,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+      "CONTENT_MARKS_FOUND": [
+        "agenzia regionale per le attività irrigue e forestali"
+      ],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "SIM",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.arifpuglia.it",
+        "HTTP": "200",
+        "VEREDITO": "SIM",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-2a12cb316622a9a5.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/11_Altieri_Bilancio-Fitosanitario-Olivo-2024-25-Basilicata.pdf",
+      "SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 3991102,
+      "PATH_HINT": "IT-T5-003",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": false,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_MARKS_FOUND": [],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "NAO SEI",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.giornatefitopatologiche.it",
+        "HTTP": "403",
+        "VEREDITO": "NAO SEI",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "D_PISTA_HISTORICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-3e941738599367d7.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_8_del_31_08_2026.pdf",
+      "SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 1633428,
+      "PATH_HINT": "IT-T3-010",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": false,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_MARKS_FOUND": [],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "NAO SEI",
+      "OFFICIAL_SOURCE_PROBE": {
+        "VEREDITO": "NAO SEI",
+        "PORQUE": "o catalogo nao tem morada desta fonte"
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "D_PISTA_HISTORICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-3ef48aaa830edf3b.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N35_26-08-2026.pdf",
+      "SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 2723072,
+      "PATH_HINT": "IT-T3-008",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": true,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+      "CONTENT_MARKS_FOUND": [
+        "agenzia regionale per le attività irrigue e forestali"
+      ],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "SIM",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.arifpuglia.it",
+        "HTTP": "200",
+        "VEREDITO": "SIM",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-445e41701f737d73.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/34_boll_agro_20260824.pdf",
+      "SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 1401464,
+      "PATH_HINT": "IT-T2-001",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": true,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+      "CONTENT_MARKS_FOUND": [
+        "arpae",
+        "arpae.it",
+        "romagna"
+      ],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "NAO SEI",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo",
+        "HTTP": "404",
+        "VEREDITO": "NAO SEI",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-924aabd94168c53a.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf",
+      "SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 6585313,
+      "PATH_HINT": "IT-T5-003",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": false,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_MARKS_FOUND": [],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "NAO SEI",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.giornatefitopatologiche.it",
+        "HTTP": "403",
+        "VEREDITO": "NAO SEI",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "D_PISTA_HISTORICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-a927e846ba8e78b0.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf",
+      "SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 110500,
+      "PATH_HINT": "IT-T4-001",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": false,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_MARKS_FOUND": [],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "SIM",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+        "HTTP": "200",
+        "VEREDITO": "SIM",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "D_PISTA_HISTORICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    },
+    {
+      "ITEM": "RAW-e5176df66216dfd0.txt",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/0286_26_Agrios_Broschuere_Richtlinien_integrierte_Kernobstbau_IT_WEB.pdf",
+      "SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+      "BODY_EXISTS": true,
+      "BODY_FORMAT": "PDF",
+      "BODY_BYTES": 5705903,
+      "PATH_HINT": "IT-T3-011",
+      "PATH_HINT_CLASSE": "D_PISTA_HISTORICA",
+      "O_QUE_A_PISTA_NAO_E": "nao e SOURCE_ID provado; e o nome de um diretorio",
+      "SOURCE_ID_PROVEN": null,
+      "SOURCE_ID_EVIDENCE": "E_AUSENCIA",
+      "DOCUMENT_ID_PROVEN": null,
+      "DOCUMENT_ID_EVIDENCE": "E_AUSENCIA",
+      "ORIGINAL_URL_PROVEN": null,
+      "ORIGINAL_URL_EVIDENCE": "E_AUSENCIA",
+      "CONTENT_PROVES_PUBLISHER": true,
+      "CONTENT_PROVES_PUBLISHER_EVIDENCE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+      "CONTENT_MARKS_FOUND": [
+        "agrios",
+        "direttive"
+      ],
+      "ACQUISITION_PROVENANCE_PROVEN": false,
+      "ORIGINAL_ACQUISITION_EVENT_PROVEN": false,
+      "ORIGINAL_RUN_PROVEN": false,
+      "ORIGINAL_COLLECTED_AT_PROVEN": false,
+      "ORIGINAL_ACTOR_PROVEN": false,
+      "ORIGINAL_METHOD_PROVEN": false,
+      "SAME_BYTES_EXIST_IN_CANONICAL_FLOW": false,
+      "CANONICAL_RAW_OBSERVATION_ID": null,
+      "OFFICIAL_SOURCE_STILL_AVAILABLE": "SIM",
+      "OFFICIAL_SOURCE_PROBE": {
+        "URL": "https://www.agrios.it",
+        "HTTP": "200",
+        "VEREDITO": "SIM",
+        "O_QUE_ISTO_NAO_PROVA": "que ESTE documento continua buscavel. A sonda toca o sitio da fonte, e o documento tinha o seu proprio endereco — que viveria na observacao que falta."
+      },
+      "RECOLLECTION_POSSIBLE": "NAO SEI",
+      "DISPOSITION": "LEGACY_KEEP_OUT_OF_FLOW",
+      "WHY": "o corpo existe e a aquisicao nao se prova. Preserva-se como evidencia historica e nao entra na Collection operacional. PRESERVAR != ADMITIR.",
+      "PROOF": {
+        "EVIDENCIA_MAIS_FORTE": "C_O_DOCUMENTO_SE_IDENTIFICA",
+        "AQUISICAO": "NAO PROVADA"
+      }
+    }
+  ],
+  "GENERATED_BY": "provas/o_legado_fora_do_fluxo.py"
+}

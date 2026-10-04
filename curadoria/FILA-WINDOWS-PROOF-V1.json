@@ -1,0 +1,78 @@
+{
+ "DATASET": "FILA-WINDOWS-PROOF-V1",
+ "MISSAO": "M2e, 23/09/2026",
+ "LEI": "um leitor a olhar nao e um escritor a mais: espera-se por ele; nao consegui perguntar != nao existe",
+ "DEFEITO_1_OS_REPLACE": {
+  "VISTO_AO_VIVO": "worker 129352 RC=1 as 04:37:33Z em F.concluir -> fila._gravar -> os.replace: PermissionError [WinError 5]; tarefa executada e fila com IN_PROGRESS",
+  "CAUSA": "CONFIRMADA — no Windows os.replace falha enquanto outro processo tem o destino aberto",
+  "REPRO": {
+   "LEITOR_A_SEGURAR": "PermissionError 5",
+   "LEITOR_EM_CICLO_SEM_PAUSA_500_TROCAS": {
+    "PRODUCAO": "371 falham",
+    "NOVO": "~1-17 falham, erro sobe (leitor patologico, sem pausa)"
+   },
+   "5_LEITORES_A_100MS_2000_TROCAS_60KB": {
+    "PRODUCAO": "287 falham",
+    "NOVO": "0 falham, 123 esperas absorvidas"
+   }
+  },
+  "FIX": "fila._com_paciencia: esperas 0,02/0,05/0,1/0,2/0,4/0,8/1,6 s em PermissionError, na escrita e na leitura; esgotado o teto o erro sobe (nada perdido em silencio; o .tmp e apagado)",
+  "DESCARTADO_POR_MEDICAO": "leitura com FILE_SHARE_DELETE (CreateFileW): 5000 leituras contra escritor em ciclo — 0 vs 1 erro, 5 vs 6 esperas. Sem efeito; o mutante sobreviveu por o codigo ser redundante -> removido",
+  "RESIDUO": "telemetria.py le a fila por conta propria (fora do writeset); os leitores de fora continuam a poder atrasar o escritor, agora sem o matar"
+ },
+ "DEFEITO_2_TASKLIST": {
+  "VISTO_AO_VIVO": "WORKER_PENDURADO_TERMINADO PID 79896 as 04:44:00Z com HB_ANTES 04:43:44 (16 s)",
+  "CAUSA": "CONFIRMADA por eliminacao: com heartbeat de 16 s, o unico caminho para a morte com poll() None e _pid_no_so -> False, que acontecia em QUALQUER excepcao do tasklist. Qual excepcao, NAO SEI (nao era registada); timeout de 5 s e o mais provavel — tasklist leva ~1 s em repouso nesta maquina. Segundo caminho visto no ensaio: UnicodeDecodeError do tasklist em cp850 com PYTHONUTF8.",
+  "REPRO": "processo vivo + tasklist em timeout -> _pid_no_so False com proc.poll() None",
+  "FIX": "_pid_no_so -> True/False/None (NAO SEI); _worker_vivo(estado, proc): filho proprio -> proc.poll(), sem tasklist; sem Popen, NAO SEI nao e morte (decide o heartbeat); _lock_e_orfao e _proc_e_python com NAO SEI -> lock valido; painel mostra PID_CHECK_NAO_SEI"
+ },
+ "ENSAIO": {
+  "PRODUCAO": {
+   "DATASET": "FILA-WINDOWS-ENSAIO-V1",
+   "CODIGO": "producao 5b8f400c",
+   "TAREFAS": 150,
+   "SEGUNDOS": 240,
+   "LEITORES": "2 processos a cada 100 ms (read_text de fora + fila._ler da casa)",
+   "FECHADAS": 149,
+   "IN_PROGRESS_NO_FIM": 1,
+   "PENDING_NO_FIM": 0,
+   "WORKERS_LANCADOS": 2,
+   "MAX_WORKERS_VIVOS": 1,
+   "MORTES_POR_RC": {
+    "0": 1,
+    "1": 1
+   },
+   "PERMISSION_ERROR_NO_STDOUT_DO_WORKER": 1,
+   "WORKER_PENDURADO_TERMINADO": 0
+  },
+  "NOVO": {
+   "DATASET": "FILA-WINDOWS-ENSAIO-V1",
+   "CODIGO": "novo (fila com paciencia, pid tri-estado)",
+   "TAREFAS": 150,
+   "SEGUNDOS": 20,
+   "LEITORES": "2 processos a cada 100 ms (read_text de fora + fila._ler da casa)",
+   "FECHADAS": 150,
+   "IN_PROGRESS_NO_FIM": 0,
+   "PENDING_NO_FIM": 0,
+   "WORKERS_LANCADOS": 1,
+   "MAX_WORKERS_VIVOS": 1,
+   "MORTES_POR_RC": {
+    "0": 1
+   },
+   "PERMISSION_ERROR_NO_STDOUT_DO_WORKER": 0,
+   "WORKER_PENDURADO_TERMINADO": 0
+  }
+ },
+ "MUTACOES": {
+  "SEM_ESPERA_ESCRITA_E_LEITURA": "4 reprovam",
+  "SEM_ESPERA_SO_ESCRITA": "3",
+  "SEM_ESPERA_SO_LEITURA": "1",
+  "TIMEOUT_TASKLIST_VOLTA_A_MORTO": "3",
+  "FILHO_PROPRIO_PELO_TASKLIST": "1",
+  "LOCK_NAO_SEI_ORFAO": "1",
+  "SOBREVIVENTES": 0,
+  "EXECUCAO_PROVADA": "__pycache__ apagado, py -B e PYTHONDONTWRITEBYTECODE, import do modulo mutado sem erro, diff de cada ataque",
+  "NOTA": "a 1a versao do mutante da leitura partia a sintaxe e nao contou; refeito"
+ },
+ "TESTES": "249 -> 262 verdes (copias; suites supervisor, worker_pendurado, gatilho_ocioso, discovery, discovery_sementes, gatilho_discovery, abastecimento, status_liveness, telemetria, lifecycle, worker_qualify, interface_collection, ponte_candidatas + fila_windows)"
+}

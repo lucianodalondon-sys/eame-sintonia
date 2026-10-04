@@ -1,0 +1,713 @@
+{
+ "DATASET": "LEGACY-99-REVALIDAR-EM-COPIA",
+ "MEDIDO_EM": "2026-09-25T09:57:03+00:00",
+ "COPIA": "C:\\rend\\copia-legacy",
+ "REDE": "ABERTA",
+ "REMEDIR": [
+  {
+   "SOURCE_ID": "IT-T1-025",
+   "FEITO": true,
+   "TASK_ID": "T04499"
+  },
+  {
+   "SOURCE_ID": "IT-T10-026",
+   "FEITO": true,
+   "TASK_ID": "T04500"
+  },
+  {
+   "SOURCE_ID": "IT-T10-030",
+   "FEITO": true,
+   "TASK_ID": "T04501"
+  },
+  {
+   "SOURCE_ID": "IT-T10-035",
+   "FEITO": true,
+   "TASK_ID": "T04502"
+  },
+  {
+   "SOURCE_ID": "IT-T11-010",
+   "FEITO": true,
+   "TASK_ID": "T04503"
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "FEITO": true,
+   "TASK_ID": "T04504"
+  },
+  {
+   "SOURCE_ID": "IT-T12-089",
+   "FEITO": true,
+   "TASK_ID": "T04505"
+  },
+  {
+   "SOURCE_ID": "IT-T2-049",
+   "FEITO": true,
+   "TASK_ID": "T04506"
+  },
+  {
+   "SOURCE_ID": "IT-T2-107",
+   "FEITO": true,
+   "TASK_ID": "T04507"
+  },
+  {
+   "SOURCE_ID": "IT-T2-113",
+   "FEITO": true,
+   "TASK_ID": "T04508"
+  },
+  {
+   "SOURCE_ID": "IT-T2-114",
+   "FEITO": true,
+   "TASK_ID": "T04509"
+  },
+  {
+   "SOURCE_ID": "IT-T2-115",
+   "FEITO": true,
+   "TASK_ID": "T04510"
+  },
+  {
+   "SOURCE_ID": "IT-T5-051",
+   "FEITO": true,
+   "TASK_ID": "T04511"
+  },
+  {
+   "SOURCE_ID": "IT-T5-082",
+   "FEITO": true,
+   "TASK_ID": "T04512"
+  },
+  {
+   "SOURCE_ID": "IT-T5-089",
+   "FEITO": true,
+   "TASK_ID": "T04513"
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "FEITO": true,
+   "TASK_ID": "T04514"
+  },
+  {
+   "SOURCE_ID": "IT-T7-050",
+   "FEITO": true,
+   "TASK_ID": "T04515"
+  },
+  {
+   "SOURCE_ID": "IT-T7-051",
+   "FEITO": true,
+   "TASK_ID": "T04516"
+  },
+  {
+   "SOURCE_ID": "IT-T7-052",
+   "FEITO": true,
+   "TASK_ID": "T04517"
+  },
+  {
+   "SOURCE_ID": "IT-T7-130",
+   "FEITO": true,
+   "TASK_ID": "T04518"
+  },
+  {
+   "SOURCE_ID": "IT-T7-137",
+   "FEITO": true,
+   "TASK_ID": "T04519"
+  },
+  {
+   "SOURCE_ID": "IT-T7-142",
+   "FEITO": true,
+   "TASK_ID": "T04520"
+  },
+  {
+   "SOURCE_ID": "IT-T8-023",
+   "FEITO": true,
+   "TASK_ID": "T04521"
+  },
+  {
+   "SOURCE_ID": "IT-T8-032",
+   "FEITO": true,
+   "TASK_ID": "T04522"
+  },
+  {
+   "SOURCE_ID": "IT-T8-037",
+   "FEITO": true,
+   "TASK_ID": "T04523"
+  },
+  {
+   "SOURCE_ID": "IT-T8-048",
+   "FEITO": true,
+   "TASK_ID": "T04524"
+  }
+ ],
+ "RONDAS": [
+  {
+   "RONDA": 1,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T1-025",
+    "IT-T10-026",
+    "IT-T11-010",
+    "IT-T12-019",
+    "IT-T2-049",
+    "IT-T2-107",
+    "IT-T5-051",
+    "IT-T5-082",
+    "IT-T5-089",
+    "IT-T7-040",
+    "IT-T7-050",
+    "IT-T7-130",
+    "IT-T7-137",
+    "IT-T7-142",
+    "IT-T8-023"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "teatronaturale.it": 3,
+    "granariamilano.it": 3,
+    "regione.lombardia.it": 3,
+    "ersaf.lombardia.it": 3,
+    "arpa.sicilia.it": 3,
+    "arpae.it": 3,
+    "unirc.it": 3,
+    "calabriafilmcommission.it": 1,
+    "isprambiente.gov.it": 3,
+    "parmigianoreggiano.it": 3,
+    "coldiretti.it": 2,
+    "cia.it": 3,
+    "georgofili.it": 3,
+    "ciaumbria.it": 3,
+    "edagricole.it": 3
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T1-025",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T1-025",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T10-026",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T10-026",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T11-010",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T11-010",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T12-019",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T12-019",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T2-049",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T2-049",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T2-107",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T2-107",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T5-051",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T5-051",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T5-082",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "BLOCK"
+    },
+    {
+     "SOURCE_ID": "IT-T5-089",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T5-089",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T7-040",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T7-040",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T7-050",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "RETRY"
+    },
+    {
+     "SOURCE_ID": "IT-T7-130",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T7-130",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T7-137",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T7-137",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T7-142",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T7-142",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T8-023",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T8-023",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    }
+   ]
+  },
+  {
+   "RONDA": 2,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T10-030",
+    "IT-T12-089",
+    "IT-T2-113",
+    "IT-T7-051",
+    "IT-T8-032"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "granariamilano.it": 3,
+    "regione.lombardia.it": 3,
+    "arpae.it": 3,
+    "coldiretti.it": 2,
+    "edagricole.it": 3
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T10-030",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T10-030",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T12-089",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T12-089",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T2-113",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T2-113",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T7-051",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "RETRY"
+    },
+    {
+     "SOURCE_ID": "IT-T8-032",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T8-032",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    }
+   ]
+  },
+  {
+   "RONDA": 3,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T10-035",
+    "IT-T2-114",
+    "IT-T7-052",
+    "IT-T8-037"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "granariamilano.it": 3,
+    "arpae.it": 3,
+    "coldiretti.it": 2,
+    "edagricole.it": 2
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T10-035",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T10-035",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T2-114",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T2-114",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T7-052",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "RETRY"
+    },
+    {
+     "SOURCE_ID": "IT-T8-037",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T8-037",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "BLOCK"
+    }
+   ]
+  },
+  {
+   "RONDA": 4,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T2-115",
+    "IT-T8-048"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "arpae.it": 3,
+    "edagricole.it": 3
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T2-115",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T2-115",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    },
+    {
+     "SOURCE_ID": "IT-T8-048",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T8-048",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    }
+   ]
+  }
+ ],
+ "RECUSADOS_PELO_TRANSPORTE": {},
+ "RESUMO": {
+  "FALHOU": 25,
+  "READY_CURRENT_E_ELEGIVEL": 1
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T1-025",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "SOURCE_ID": "IT-T10-026",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T10-030",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T10-035",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T11-010",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T12-089",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (194 ligacoes para 7715 caracteres, 948 em paragrafos)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-049",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T2-107",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T2-113",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "SOURCE_ID": "IT-T2-114",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "SOURCE_ID": "IT-T2-115",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T5-051",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T5-082",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACT_READY_ROUTE_BLOCKED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "SOURCE_ID": "IT-T5-089",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T7-050",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "RETRY_AFTER",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "adiada: robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "SOURCE_ID": "IT-T7-051",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "RETRY_AFTER",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "adiada: robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "SOURCE_ID": "IT-T7-052",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "RETRY_AFTER",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "adiada: robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "SOURCE_ID": "IT-T7-130",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "SOURCE_ID": "IT-T7-137",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "READY_CURRENT_E_ELEGIVEL",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "REGUA": "DETAIL/v1",
+   "MOTIVO_DO_PORTAO": "ELIGIBLE",
+   "ULTIMA_RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-142",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "SOURCE_ID": "IT-T8-023",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "SOURCE_ID": "IT-T8-032",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "SOURCE_ID": "IT-T8-037",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "AUTH_BLOCK",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "HTTP 403"
+  },
+  {
+   "SOURCE_ID": "IT-T8-048",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta DETAIL_LINKS"
+  }
+ ]
+}

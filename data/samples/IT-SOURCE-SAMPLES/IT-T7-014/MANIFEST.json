@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T7-014",
+ "SOURCE": "Consorzi Agrari d'Italia — CAI",
+ "OWNER": "Consorzi Agrari d'Italia",
+ "URL": "https://www.consorziagrariditalia.it/chi-siamo/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:39Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 704512 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.consorziagrariditalia.it/chi-siamo/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "CAI",
+  "IDIOMA": "en",
+  "DATA_VISIVEL": "2026-06-30",
+  "BYTES_LIDOS": 118030
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.consorziagrariditalia.it/wp-content/uploads/2023/12/CAI_Codice-Etico-Gruppo-BF.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Codice Etico",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 704512,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "46bf8a2fe56277973751be9fef2e71e853e9d913104698a903c5c3f007261128",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

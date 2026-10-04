@@ -1,0 +1,1639 @@
+{
+  "SCHEMA": "sintonia.t3-ground-truth-eval/1",
+  "UNIVERSE": "T3",
+  "DESCRIPTION": "Praga e doença",
+  "O_QUE_ISTO_E": "O gabarito de T3 para AVALIACAO. Cada item aqui foi rotulado por uma PESSOA e fechou em duas leituras. Nao ha rotulo de maquina, nao ha rotulo derivado das palavras da Admission, e nao ha item cujas duas leituras tenham divergido.",
+  "REGRA": "A != A2 -> UNRESOLVED, e nada mais. EVIDENCIA_INSUFICIENTE nunca vira NAO. AMBIGUO nunca vira SIM.",
+  "QUEM_ROTULOU": "Uma pessoa, em duas passagens. A segunda foi cega nos 21 itens da fila de releitura. NAO houve segundo revisor independente.",
+  "AUTO_LABELS_ASSIGNED": 0,
+  "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+  "EVALUATION_SCOPE": "ITALIAN_AGRO_INSTITUTIONAL_CORPUS",
+  "O_LIMITE_DO_ESCOPO": "Todo o corpus vem de instituicoes italianas (COUNTRY = IT em 36/36). O IDIOMA nao esta resolvido em todos os itens e ha pelo menos um em ingles — ver IDIOMA_MEDIDO. Este gabarito NAO autoriza afirmar generalizacao para Franca, Espanha ou EAME.",
+  "SOURCE_REVIEW_A": "data/review/t3/T3-HUMAN-REVIEW-A-V1.json",
+  "SOURCE_REVIEW_A_SHA256": "2177787189d1bd624cd8a1e832842a937f44be2ca817ca0837710ca98e311b1d",
+  "SOURCE_QUALITY_GATE": "data/review/inbox/T3-HUMAN-QUALITY-GATE-RESULTS-V1.json",
+  "SOURCE_QUALITY_GATE_SHA256": "886c3a2c2ef57a77486733d3f20adff8878ddea72f67c44daffecaa4dd357f7b",
+  "SOURCE_PACKET": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+  "GENERATED_AT": "2026-09-11T18:10:36.129Z",
+  "GENERATED_AT_PORQUE": "E a hora em que a ULTIMA decisao humana foi tomada, nao a hora em que este ficheiro foi escrito. Reescrever o gerador nao muda quando a pessoa decidiu, e o artefato tem de sair igual duas vezes seguidas.",
+  "GENERATOR": "provas/fechar_ground_truth_t3.py",
+  "TOTAL_REVIEWED": 53,
+  "COUNTS": {
+    "EVAL_ELIGIBLE": 36,
+    "CONFIRMED_SIM": 14,
+    "CONFIRMED_NAO": 22,
+    "CONFIRMED": 32,
+    "CONFIRMED_BY_BLIND_REREVIEW": 4,
+    "UNRESOLVED": 11,
+    "EVIDENCE_GAP": 6,
+    "AMBIGUOUS": 0
+  },
+  "DIVERSITY": {
+    "POSITIVE_PUBLISHERS": [
+      "APOL LECCE",
+      "ARPAV",
+      "ISMEA",
+      "REGIONE LAZIO",
+      "REGIONE PIEMONTE",
+      "TERRE DELL'ETRURIA"
+    ],
+    "NEGATIVE_PUBLISHERS": [
+      "AGEA",
+      "AGRIOS",
+      "ARIF PUGLIA",
+      "ARPAE",
+      "ARPAV",
+      "GIORNATE FITOPATOLOGICHE",
+      "MINISTERO DELLA SALUTE",
+      "REGIONE MOLISE",
+      "SIAS"
+    ],
+    "POSITIVE_SOURCE_IDS": [
+      "IT-T3-005",
+      "IT-T3-010",
+      "IT-T5-002"
+    ],
+    "NEGATIVE_SOURCE_IDS": [
+      "IT-T10-002",
+      "IT-T2-001",
+      "IT-T2-002",
+      "IT-T2-004",
+      "IT-T3-008",
+      "IT-T3-011",
+      "IT-T4-001",
+      "IT-T5-003"
+    ],
+    "PUBLICATION_SERIES": [
+      "AGEA · (sem nome)",
+      "AGRIOS · agrios-broschuere-richtlinien-integrierte-kernobstbau-it-web",
+      "APOL LECCE · bollettino-mosca-dellolivo-n-del",
+      "ARIF PUGLIA · giornaliero-meteorologico-n",
+      "ARIF PUGLIA · notiziario-agrometeorologico-n",
+      "ARPAE · boll-agro",
+      "ARPAV · agro",
+      "ARPAV · boll-agro-settimanale",
+      "ARPAV · fineestate",
+      "ARPAV · frutticolo",
+      "ARPAV · lug",
+      "ARPAV · olivicolo",
+      "ARPAV · vite",
+      "GIORNATE FITOPATOLOGICHE · alesi-olivo-bilancio-fitosanitario-marche",
+      "GIORNATE FITOPATOLOGICHE · altieri-bilancio-fitosanitario-olivo-basilicata",
+      "ISMEA · (sem nome)",
+      "MINISTERO DELLA SALUTE · id-dataset-fitosanitari-v",
+      "REGIONE LAZIO · lazio-bolsena",
+      "REGIONE LAZIO · lazio-entroterra-tuscia",
+      "REGIONE LAZIO · lazio-litorale-viterbese",
+      "REGIONE LAZIO · lazio-pianura-interna-viterbese",
+      "REGIONE LAZIO · lazio-sabina",
+      "REGIONE MOLISE · molise-comunicato",
+      "REGIONE PIEMONTE · pagina",
+      "REGIONE PIEMONTE · piano-operativo",
+      "SIAS · nheowl",
+      "TERRE DELL'ETRURIA · monitoraggio"
+    ],
+    "POSITIVE_PUBLICATION_SERIES": [
+      "APOL LECCE · bollettino-mosca-dellolivo-n-del",
+      "ARPAV · frutticolo",
+      "ARPAV · olivicolo",
+      "ISMEA · (sem nome)",
+      "REGIONE LAZIO · lazio-bolsena",
+      "REGIONE LAZIO · lazio-entroterra-tuscia",
+      "REGIONE LAZIO · lazio-litorale-viterbese",
+      "REGIONE LAZIO · lazio-pianura-interna-viterbese",
+      "REGIONE LAZIO · lazio-sabina",
+      "REGIONE PIEMONTE · pagina",
+      "REGIONE PIEMONTE · piano-operativo",
+      "TERRE DELL'ETRURIA · monitoraggio"
+    ],
+    "DOCUMENT_FAMILIES": [
+      "HTML",
+      "OUTRO",
+      "TEXTO-DERIVADO-DE-PDF"
+    ],
+    "LANGUAGES": [
+      "NAO SEI",
+      "en",
+      "it",
+      "it (o mesmo documento existe em de)"
+    ],
+    "COUNTRIES": [
+      "IT"
+    ],
+    "SOURCE_ID_AUSENTE": 16
+  },
+  "HOLDOUT": {
+    "PUBLISHER_HOLDOUT_WITH_BOTH_CLASSES_POSSIBLE": "YES",
+    "PUBLISHERS_CONSIDERADOS": [
+      "AGEA",
+      "AGRIOS",
+      "APOL LECCE",
+      "ARIF PUGLIA",
+      "ARPAE",
+      "ARPAV",
+      "GIORNATE FITOPATOLOGICHE",
+      "ISMEA",
+      "MINISTERO DELLA SALUTE",
+      "REGIONE LAZIO",
+      "REGIONE MOLISE",
+      "REGIONE PIEMONTE",
+      "SIAS",
+      "TERRE DELL'ETRURIA"
+    ],
+    "SOURCE_HOLDOUT_WITH_BOTH_CLASSES_POSSIBLE": "YES",
+    "SOURCES_CONSIDERADAS": [
+      "IT-T10-002",
+      "IT-T2-001",
+      "IT-T2-002",
+      "IT-T2-004",
+      "IT-T3-005",
+      "IT-T3-008",
+      "IT-T3-010",
+      "IT-T3-011",
+      "IT-T4-001",
+      "IT-T5-002",
+      "IT-T5-003"
+    ],
+    "COUNTRY_HOLDOUT_POSSIBLE": "NO",
+    "LANGUAGE_HOLDOUT_POSSIBLE": "NO",
+    "O_QUE_HOLDOUT_EXIGE": "Tirar QUALQUER valor tem de deixar positivo E negativo do outro lado. ESTRUTURA NAO E COBERTURA."
+  },
+  "NEAR_DUPLICATES": {
+    "MEDIDO_SOBRE": "a evidencia que a pessoa viu (titulo, abertura, auto-descricao, titulos de seccao)",
+    "METODO": "Jaccard de 5-gramas de palavras",
+    "LIMIAR": 0.6,
+    "PARES": [
+      {
+        "A": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+        "B": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+        "JACCARD": 0.765
+      },
+      {
+        "A": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+        "B": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+        "JACCARD": 0.783
+      },
+      {
+        "A": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+        "B": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+        "JACCARD": 0.667
+      },
+      {
+        "A": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+        "B": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+        "JACCARD": 0.736
+      },
+      {
+        "A": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+        "B": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+        "JACCARD": 0.77
+      },
+      {
+        "A": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+        "B": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+        "JACCARD": 0.645
+      },
+      {
+        "A": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+        "B": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+        "JACCARD": 0.735
+      },
+      {
+        "A": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+        "B": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+        "JACCARD": 0.661
+      }
+    ],
+    "TOTAL_PARES": 8
+  },
+  "INDEPENDENCIA": {
+    "PORQUE": "Quatro edicoes seguidas do mesmo boletim regional sao quatro ficheiros e uma observacao. O portao conta GRUPOS, nao ficheiros — os limiares nao mudaram, mudou o que conta como um.",
+    "DOCUMENTS": 36,
+    "GRUPOS_INDEPENDENTES": 31,
+    "POSITIVOS_DOCUMENTOS": 14,
+    "POSITIVOS_INDEPENDENTES": 11,
+    "NEGATIVOS_DOCUMENTOS": 22,
+    "NEGATIVOS_INDEPENDENTES": 20,
+    "PUBLISHER_HOLDOUT_APOS_FUNDIR": "YES",
+    "SOURCE_HOLDOUT_APOS_FUNDIR": "YES"
+  },
+  "EVALUATION_GATE": {
+    "LINHAS": [
+      {
+        "CRITERIO": "POSITIVOS >= 10",
+        "MEDIDO": 11,
+        "PASSA": true
+      },
+      {
+        "CRITERIO": "NEGATIVOS >= 10",
+        "MEDIDO": 20,
+        "PASSA": true
+      },
+      {
+        "CRITERIO": "PUBLICADORES NO LADO POSITIVO >= 3",
+        "MEDIDO": 6,
+        "PASSA": true
+      },
+      {
+        "CRITERIO": "HOLDOUT DE PUBLICADOR COM AS DUAS CLASSES",
+        "MEDIDO": "YES",
+        "PASSA": true
+      },
+      {
+        "CRITERIO": "CORPO RECUPERAVEL EM TODOS",
+        "MEDIDO": "31/31",
+        "PASSA": true
+      },
+      {
+        "CRITERIO": "RAZAO ESTRUTURADA EM TODOS",
+        "MEDIDO": "31/31",
+        "PASSA": true
+      },
+      {
+        "CRITERIO": "EVIDENCIA ATESTADA EM TODOS",
+        "MEDIDO": "31/31",
+        "PASSA": true
+      }
+    ],
+    "PASSA": true
+  },
+  "IDIOMA_MEDIDO": {
+    "PORQUE": "O campo LANGUAGE do pacote nao esta resolvido em todos. Declarar «tudo italiano» sem o ter medido seria afirmar o que nao foi visto.",
+    "CONTAGEM": {
+      "it": 17,
+      "NAO SEI": 17,
+      "it (o mesmo documento existe em de)": 1,
+      "en": 1
+    },
+    "RESOLVIDO_COMO_IT": 18,
+    "NAO_RESOLVIDO": 17,
+    "NAO_ITALIANO": [
+      "91515"
+    ]
+  },
+  "CORPO_NO_DISCO": 36,
+  "GROUND_TRUTH": [
+    {
+      "DOC_SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+      "ITEM_ID": "46622",
+      "SOURCE_ID": "IT-T10-002",
+      "PUBLISHER": "AGEA",
+      "PUBLICATION_SERIES": "AGEA · (sem nome)",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "REGISTO_OU_ESTATISTICA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Mercato cerealicolo, mais e grano tenero in rialzo tra clima avverso e tensioni nel Mar Nero - BMTI",
+        "OPENING": "Mercato cerealicolo, mais e grano tenero in rialzo tra clima avverso e tensioni nel Mar Nero - BMTI Il mercato cerealicolo arriva alla pausa estiva in un contesto caratterizzato dalle incognite causate dalle condizioni climatiche avverse e dal riacutizzarsi delle tensioni nel Mar Nero. A luglio, i prezzi del mais sono aumentati dell’1,7% su base mensile nei listini delle principali Borse Merci nazionali. Il rialzo è stato sostenuto dall’ondata di calore che ha interessato i principali areali produttivi europei e dalle conseguenti attese di una riduzione delle rese medie per ettaro. Lo stress idrico desta preoccupazione anche in Italia: l’International Grains Council stima una produzione di circa 5 milioni di tonnellate, in calo di 500 mila tonnellate rispetto al 2025. Le quotazioni restano tuttavia inferiori a quelle dello scorso anno, con una flessione del 6,6%. Le rinnovate tensioni ne",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:52:38.516Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:00:18.079Z"
+    },
+    {
+      "DOC_SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+      "ITEM_ID": "46647",
+      "SOURCE_ID": "IT-T10-002",
+      "PUBLISHER": "AGEA",
+      "PUBLICATION_SERIES": "AGEA · (sem nome)",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46647",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46647",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "REGISTO_OU_ESTATISTICA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Olio di Oliva: Prezzi ancora in calo a giugno. - BMTI",
+        "OPENING": "Olio di Oliva: Prezzi ancora in calo a giugno. - BMTI Sempre in calo i prezzi dell'extravergine nazionale. Stabile il sansa di oliva raffinato. Olio di oliva giugno 2026 Vai all'archivio",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:30:26.213Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:52:06.281Z"
+    },
+    {
+      "DOC_SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+      "ITEM_ID": "91515",
+      "SOURCE_ID": "IT-T5-002",
+      "PUBLISHER": "ISMEA",
+      "PUBLICATION_SERIES": "ISMEA · (sem nome)",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "en",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "NOMEIA_PRAGA_OU_DOENCA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program",
+        "OPENING": "Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program Attenzione: i dati modificati non sono ancora stati salvati. Per confermare inserimenti o cancellazioni di voci è necessario confermare con il tasto SALVA/INSERISCI in fondo alla pagina CINECA IRIS Institutional Research Information System The management of the invasive fruit fly Drosophila suzukii (Diptera: Drosophilidae) still relies on chemical control, despite concerns about pesticide resistance and environmental impact. Integrated pest management strategies are being explored, but current options remain limited and often insufficient. In invaded regions, local natural enemies are mostly generalist pupal parasitoids, which have proven inadequate for controlling this rapidly spreading pest. Conversely, in its native range, D. suzukii is host to more",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:43:50.036Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:53:25.886Z"
+    },
+    {
+      "DOC_SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+      "ITEM_ID": "NHEOWL0500_00.html",
+      "SOURCE_ID": "IT-T2-004",
+      "PUBLISHER": "SIAS",
+      "PUBLICATION_SERIES": "SIAS · nheowl",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html",
+      "BODY_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "grandezze",
+        "OPENING": "grandezze Home > Dati > Consultazione per grandezza > Tutta la regione > Temperatura aria minima giornaliera (°C) Temperatura aria minima giornaliera (°C) dal 26/08/2026 al 05/09/2026 Le ore di rilevazione sono espresse secondo l'orario di Greenwich (U.T.C.) L'ora italiana solare (o legale) è l'ora di Greenwich +1 (o +2) Temperatura inferiore ai valori normali del periodo Temperatura superiore ai valori normali del periodo (*) Intervallo 25° - 75° percentile Stazioni Valori normali (*) 26 ago 2026 27 ago 2026 28 ago 2026 29 ago 2026 30 ago 2026 31 ago 2026 01 set 2026 02 set 2026 03 set 2026 04 set 2026 05 set 2026 Calatafimi 17.7 - 23.5 24.2 25.7 22.7 20.6 23.9 21.5 22.7 19.9 20.4 21.6 -- Castellammare del Golfo 19.9 - 24.6 27 27.2 27 24.5 26.2 25.8 26 21.8 20 23.2 -- Castelvetrano 19.2 - 21.2 25.3 23.9 22.7 22.9 22.5 22.7 22.9 21.8 19.6 19.2 -- Erice 16.4 - 21.1 24.3 25.4 22.7 25.7 23.",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:54:54.954Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:02:00.111Z"
+    },
+    {
+      "DOC_SHA256": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+      "ITEM_ID": "RAW-024abdb692be926a.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "REGIONE MOLISE",
+      "PUBLICATION_SERIES": "REGIONE MOLISE · molise-comunicato",
+      "CONTENT_PATH": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/MOLISE_comunicato_5_2026.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-024abdb692be926a.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED_BY_BLIND_REREVIEW",
+      "HUMAN_REASON_CODE": "REGISTO_OU_ESTATISTICA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "REGIONE MOLISE",
+        "OPENING": "REGIONE MOLISE PRESIDENZA DELLA GIUNTA REGIONALE COORDINAMENTO AREA II SERVIZIO FITOSANITARIO REGIONALE - TUTELA E VALORIZZAZIONE DELLA MONTAGNA E DELLE FORESTE, BIODIVERSITA’ AGRICOLA E GESTIONE FITO-SANITARIA Ufficio Vigilanza Produzioni Biologiche ed Ecosostenibili Prodotti Fitosanitari, Certificazione Materiale Forestale, Ricerca e Sperimentazione in materia di Tartufi Via G. Vico,4- 86100 Campobasso-tel.0874-4291 Via Morrone, 48 Larino (CB) Tel. 0874-824617 regionemolise@cert.regione.molise.it Oggetto: Comunicato fitosanitario 5 Con D.D. 1951/26 e successiva integrazione degli aggiornamenti approvati per l’anno 2026 di cui alla DD n. 2546 del 5 Maggio 2026, si è provveduto alla formale approvazione dei Disciplinari di Produzione Integrata 2026 – Difesa e Tecniche Agronomiche. Per ogni esigenza operativa dei produttori interessati si comunica che, la Regione Molise, aderisce integral",
+        "SELF_DESCRIPTION": [
+          "GIUNTA REGIONALE COORDINAMENTO AREA II SERVIZIO FITOSANITARIO REGIONALE - TUTELA E VALORIZZAZIONE DELLA MONTAGNA E DELLE",
+          "e agricole convenzionali, soggette alla Difesa Integrata obbligatoria e che non aderiscono ad alcun Sistema Qualita’"
+        ],
+        "SECTION_HEADERS": [
+          "REGIONE MOLISE",
+          "PRESIDENZA DELLA GIUNTA REGIONALE COORDINAMENTO AREA II",
+          "FORESTE, BIODIVERSITA’ AGRICOLA E GESTIONE FITO-SANITARIA"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:51:03.024Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:04:46.555Z"
+    },
+    {
+      "DOC_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+      "ITEM_ID": "RAW-0be2d204c98ad1b1.txt",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "CONTENT_PATH": "data/collection-store/italy/IT-T2-002/ARPAV_Z24_20260902152048/v1_0be2d204c98a/agro_24.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Agrometeo… Informa",
+        "OPENING": "Agrometeo… Informa Zona 24 Alto Polesine N° 54 02/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale Torna ad espandersi un promontorio anticiclonico con aria calda; per il Veneto le condizioni sono generalmente stabili con parecchi spazi di sereno, a fronte di temporanei annuvolamenti più che altro in montagna, ove è possibile qualche locale precipitazione mercoledì dal pomeriggio e a tratti nel fine settimana; temperature in genere ben superiori alla norma. https://meteo.arpa.veneto.it/?page=MV Probabilita' Precipitazioni Venti Temperatura giovedì 3 Mattina Pomeriggio Nulla 0% Deboli Orientali Min = Max  venerdì 4 Mattina Pomeriggio sabato 5 Mattina Pomeriggio Nulla 0% Deboli Variabili Min  Max  Nulla 0% Deboli Variabili Min  Max = Informazioni agroclimatiche e territoriali Temperatura aria 2m (°C) ultimi 4 g. 34 32 30 28 26 24 22 20 18 SAB DOM LUN MAR Bagnolo di Po Ca",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "SAB",
+          "DOM",
+          "LUN",
+          "MAR",
+          "RIEPILOGO DATI MESE DI AGOSTO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:52:29.320Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:00:04.521Z"
+    },
+    {
+      "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+      "ITEM_ID": "RAW-144fdb152b1a6ae4.txt",
+      "SOURCE_ID": "IT-T2-001",
+      "PUBLISHER": "ARPAE",
+      "PUBLICATION_SERIES": "ARPAE · boll-agro",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/35_boll_agro_20260831.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bollettino AgroMeteorologico Settimanale n. 35/2026 del 31 agosto 2026",
+        "OPENING": "Bollettino AgroMeteorologico Settimanale n. 35/2026 del 31 agosto 2026 24 agosto 2026 - 30 agosto 2026 Diario meteorologico: Temporali con cumulati modesti e temperatura media regionale record. La settimana è stata caratterizzata da temporali avvenuti nelle giornate di Lunedì 24, Martedì 25 e Venerdì 28. Lunedì 24 agosto le precipitazioni sono iniziate in serata e hanno interessato le province di Piacenza, Parma e il crinale centrale della regione, con cumulati massimi di 10 mm. Le precipitazioni di martedi 25 agosto in realtà sono il prosieguo dell’impulso perturbato del giorno 24, che ha attraversato la regione da ovest verso est, con cumulati massimi di 17 mm localizzati nel ferrarese. Il giorno venerdì 28 i temporali si sono manifestati in serata e hanno attraversato la regione da sud ovest verso nord est, con cumulati massimi di 15 mm localizzati lungo l'asta del Po. L’evento è stat",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:50:06.043Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:58:09.617Z"
+    },
+    {
+      "DOC_SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+      "ITEM_ID": "RAW-178ebe9e0ea7dd83.txt",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLISHER": "ARIF PUGLIA",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · giornaliero-meteorologico-n",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Giornaliero_Meteorologico_N136_07-09-2026.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "N. 136 Anno XL",
+        "OPENING": "N. 136 Anno XL Del 07-09-2026 ore 10:00 VVaalliiddiittàà:: 55 ggiioorrnnii Agenzia regionale per le attività irrigue e forestali Situazione Attuale Attualmente la situazione euro atlantica rimane caratterizzata dal ﬂusso principale che scorre sopra il 45°N delimitando due saccature: la prima ad ovest che discende dalla Groenlandia ﬁno al medio Atlantico con il suo minimo posizionato tra le isole britanniche e l'Islanda; la seconda verso est che da Circolo Polare Artico attraversa la Scandinavia e poi si spinge sui Paesi dell'Est sino al Mar Nero. Alle basse latitudini si riscontra la presenza dell'alta pressione dell'anticiclone atlantico ancora caratterizzato da masse di aria calda nei bassi strati che dall'entroterra algerino e tunisino del nord Africa risalgono sul Mediterraneo e su gran parte dell'Italia con conseguenti temperature ben al di sopra della media del periodo e tempo stab",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "DATA",
+          "CIELO",
+          "ORE 00:00",
+          "ORE 12:00",
+          "FOGGIA",
+          "SAN NICANDRO GARGANICO",
+          "ANDRIA",
+          "BARI"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:54:21.994Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:01:37.556Z"
+    },
+    {
+      "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+      "ITEM_ID": "RAW-223510588786a4de.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · vite",
+      "CONTENT_PATH": "data/samples/IT-ARPAV-VENETO/vite_19_130826.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-223510588786a4de.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "U.O. Fitosanitario",
+        "OPENING": "U.O. Fitosanitario Bollettino n. 19 del 13 agosto 2026 VITE Andamento meteo (in collaborazione col Servizio Meteorologia e Climatologia di Arpav): Settimana tipicamente estiva con giornate calde e afose con qualche episodio temporalesco sparso sul territorio veneto. Le temperature massime e minime medie rispettivamente sono risultate comprese tra 34-38°C e tra 22-26°C. Le precipitazioni hanno interessato parte del territorio veneto ma mediamente di scarsa entità (< 10 mm), solo localmente in maniera più importante (30-50 mm). Le medie settimanali delle temperature massime e minime rispetto alla media del periodo storico, fanno registrare valori superiori alla norma rispettivamente di 3-5°C e 2-4°C a seconda delle zone. PRECIPITAZIONI E GIORNI PIOVOSI DAL 05/08 AL 11/08 – ARPAV MEDIA DELLE TEMPERATURE MASSIME E MINIME DAL 05/08 al 11/08 - ARPAV SCARTO TEMPERATURE MAX E MIN RISPETTO ALLA N",
+        "SELF_DESCRIPTION": [
+          "U.O. Fitosanitario Bollettino n. 19 del 13 agosto 2026 VITE Andamento meteo (i"
+        ],
+        "SECTION_HEADERS": [
+          "VITE",
+          "PRECIPITAZIONI E GIORNI PIOVOSI DAL 05/08 AL 11/08 – ARPAV"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:49:56.031Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:57:55.419Z"
+    },
+    {
+      "DOC_SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+      "ITEM_ID": "RAW-2a12cb316622a9a5.txt",
+      "SOURCE_ID": "IT-T5-003",
+      "PUBLISHER": "GIORNATE FITOPATOLOGICHE",
+      "PUBLICATION_SERIES": "GIORNATE FITOPATOLOGICHE · altieri-bilancio-fitosanitario-olivo-basilicata",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/11_Altieri_Bilancio-Fitosanitario-Olivo-2024-25-Basilicata.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED_BY_BLIND_REREVIEW",
+      "HUMAN_REASON_CODE": "REGISTO_OU_ESTATISTICA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bilancio Fitosanitario",
+        "OPENING": "Bilancio Fitosanitario Olivo 2024 - 2025 Regione Basilicata Relatrice Antonietta Altieri antonietta.altieri@regione.Basilicata.it a cura di ▪ Ufficio Fitosanitario, Regione Basilicata ▪ Servizi Difesa Integrata, ALSIA ▪ Servizio Agrometereologico Lucano, ALSIA ▪ Laboratorio Fitopatologico, ALSIA ▪ Centro di saggio, ALSIA ▪ Tecnici di Organizzazioni di Produttori ▪ Consulenti fitosanitari 27 novembre 2025 Principali areali olivicoli lucani Superfice coltivata (ettari) Dati ISTAT Regione 2010 2020 Trend Basilicata 28.002 20.997 In calo Matera Potenza 16.129 11.874 12.972 8.025 In calo In calo In provincia di Matera il 62% Numero di aziende Dati ISTAT Regione Basilicata Matera Potenza 2010 32.830 16.459 16.371 2020 23.497 12.460 11.037 La superficie media aziendale < 1,00 ettato 2 Olivo Principali areali olivicoli lucani Su 131 Comuni lucani, 30 aderiscono all’associazione «Città dell’olio»",
+        "SELF_DESCRIPTION": [
+          "sanitario, Regione Basilicata ▪ Servizi Difesa Integrata, ALSIA ▪ Servizio Agrometereologico Lucano, ALSIA ▪ Laborat"
+        ],
+        "SECTION_HEADERS": [
+          "OGLIAROLA SALENTINA",
+          "MAJATICA DI FERRANDINA",
+          "DRITTA 3%",
+          "MORAIOLO 3%",
+          "JUSTA 5%",
+          "CORATINA 5%",
+          "FRANTOIO 34%",
+          "LECCINO 6%"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:49:32.068Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:06:31.933Z"
+    },
+    {
+      "DOC_SHA256": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+      "ITEM_ID": "RAW-392840d3e13d1b15.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "REGIONE LAZIO",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-bolsena",
+      "CONTENT_PATH": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_BOLSENA.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "NOMEIA_PRAGA_OU_DOENCA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bollettino Fitosanitario",
+        "OPENING": "Bollettino Fitosanitario ZONA PROGETTUALE Lago di Bolsena AVVERSITA’ Mosca dell’olivo dal Bactrocera oleae al n. 08/2026 31/08/2026 06/09/2026 Fase fenologica: Condizioni meteo: Metodologia: Soglia di intervento: Rilievo infestazione: SVILUPPO DEI FRUTTI (Scala BBCH Olio 79) “Le drupe hanno raggiunto circa il 90% delle dimensioni finali.” NON FAVOREVOLI Temperature comprese tra 20 e 35°C; elevata percentuale di umidità relativa; Schiusa uova: T min 17° C – T max 30°. Voli notte di 16-17 ° C / giorno fino a 35° C Si esaminano 20 olive a pianta su 10 piante scelte a caso per cultivar per ettaro, un totale di 200 olive. Metodo Adulticida Olive da olio: 4-5% di punture fertili o 2 femmine ovigere/trappola/settimana Olive da mensa 1-2% di punture fertili (uova, larve, pupari) Attacco rilevato: 0-1% PRESCRIZIONE NON EFFETTUARE TRATTAMENTO Fonte dati climatici ARSIAL (SIARL) OP LATIUM Soc. Coop",
+        "SELF_DESCRIPTION": [
+          "Bollettino Fitosanitario ZONA PROGETTUALE Lago di Bolsena AVVERSITA’ Mosca dell’oliv"
+        ],
+        "SECTION_HEADERS": [
+          "AVVERSITA’",
+          "SVILUPPO DEI FRUTTI",
+          "NON FAVOREVOLI",
+          "PRESCRIZIONE",
+          "NON EFFETTUARE TRATTAMENTO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:42:32.241Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:51:53.882Z"
+    },
+    {
+      "DOC_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+      "ITEM_ID": "RAW-3d3c1bc0e96332e8.txt",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "CONTENT_PATH": "data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Agrometeo… Informa",
+        "OPENING": "Agrometeo… Informa Zona 9 Medio Polesine N° 54 02/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale Torna ad espandersi un promontorio anticiclonico con aria calda; per il Veneto le condizioni sono generalmente stabili con parecchi spazi di sereno, a fronte di temporanei annuvolamenti più che altro in montagna, ove è possibile qualche locale precipitazione mercoledì dal pomeriggio e a tratti nel fine settimana; temperature in genere ben superiori alla norma. https://meteo.arpa.veneto.it/?page=MV Probabilita' Precipitazioni Venti Temperatura giovedì 3 Mattina Pomeriggio Nulla 0% Deboli Orientali Min = Max  venerdì 4 Mattina Pomeriggio Nulla 0% Deboli Variabili Min  Max  sabato 5 Mattina Pomeriggio Nulla 0% Deboli Variabili Min  Max = Informazioni agroclimatiche e territoriali Temperatura aria 2m (°C) ultimi 4 g. 34 32 30 28 26 24 22 20 18 SAB DOM LUN MAR Villadose Concad",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "SAB",
+          "DOM",
+          "LUN",
+          "MAR",
+          "RIEPILOGO DATI MESE DI AGOSTO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:44:17.921Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:54:25.850Z"
+    },
+    {
+      "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+      "ITEM_ID": "RAW-3e941738599367d7.txt",
+      "SOURCE_ID": "IT-T3-010",
+      "PUBLISHER": "APOL LECCE",
+      "PUBLICATION_SERIES": "APOL LECCE · bollettino-mosca-dellolivo-n-del",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_8_del_31_08_2026.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-3e941738599367d7.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "INGROSSAMENTO FRUTTI",
+        "OPENING": "INGROSSAMENTO FRUTTI 11 8 MOSCA DELLE OLIVE 31/08/2026 - 06/09/2026 COMPRENSORIO - BR - COLLINA LITORANEA BRINDISI CAROVIGNO CEGLIE MESSAPICA CELLINO SAN MARCO FASANO FRANCAVILLA FONTANA MESAGNE ORIA OSTUNI SAN DONACI SAN VITO DEI NORMANNI TORCHIAROLO TORRE SANTA SUSANNA VILLA CASTELLI SAN GIORGIO IONICO 2 5% STAZIONARIO MEDIO 31/08/2026 01/09/2026 02/09/2026 03/09/2026 04/09/2026 05/09/2026 06/09/2026 Sulla base dei dati osservati dal monitoraggio settimanale sul grado d’infestazione della mosca dell’olivo (bractocera oleae) rileviamo un piccolo aumento delle punture fertili e ancora un basso numero di individui riscontrati sulle trappole a feromoni installate. L’imperversare dell’anticiclone subtropicale causa gravi periodi di siccità con deficit idrico che alterano la consistenza e i componenti chimici della polpa dell'oliva, rendendo la drupa disidratata, dura e priva dei succhi nece",
+        "SELF_DESCRIPTION": [
+          "/2026 Sulla base dei dati osservati dal monitoraggio settimanale sul grado d’infestazione della mosca dell’olivo"
+        ],
+        "SECTION_HEADERS": [
+          "INGROSSAMENTO FRUTTI",
+          "MOSCA DELLE OLIVE",
+          "COMPRENSORIO - BR - COLLINA LITORANEA",
+          "STAZIONARIO",
+          "MEDIO",
+          "COMPRENSORIO - LE - PIANURA SALENTINA NORD",
+          "NARDO' NOVOLI",
+          "SALICE SALENTINO SURBO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:54:09.184Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:01:24.987Z"
+    },
+    {
+      "DOC_SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLISHER": "ARIF PUGLIA",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · notiziario-agrometeorologico-n",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N35_26-08-2026.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Settimanale N. 35 Anno XL",
+        "OPENING": "Settimanale N. 35 Anno XL 26 - 01 settembre 2026 Agenzia regionale per le attività irrigue e forestali Situazione Attuale La situazione euro atlantica mostra alle latitudini nordiche il ﬂusso perturbato principale delimitato da due saccature di origine polare: la prima discende, in senso meridiano, dal mar del Labrador e la Groenlandia nel medio Atlantico sino al Portogallo, la seconda più ad est interessa invece l'area tra il mare di Barents e la pianura russa. Fra le due aree depressionarie si inserisce un vasto promontorio con il suo massimo posizionato sulla penisola scandinava. Sul resto dello scenario, sul Mediterraneo occidentale è presente il ﬂusso sub-tropicale delimitato da un esteso promontorio nord africano che risale dall'entroterra libico sull'Italia meridionale apportando masse d'aria particolarmente calde con conseguente aumento della temperatura su valori termici molto a",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "DATA",
+          "CIELO",
+          "VENTO",
+          "TEMP. UMID.",
+          "ORE 00:00 ORE 12:00",
+          "ORE 00:00",
+          "FOGGIA",
+          "SAN NICANDRO GARGANICO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:53:52.707Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:01:10.890Z"
+    },
+    {
+      "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+      "ITEM_ID": "RAW-445e41701f737d73.txt",
+      "SOURCE_ID": "IT-T2-001",
+      "PUBLISHER": "ARPAE",
+      "PUBLICATION_SERIES": "ARPAE · boll-agro",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/34_boll_agro_20260824.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-445e41701f737d73.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bollettino AgroMeteorologico Settimanale n. 34/2026 del 24 agosto 2026",
+        "OPENING": "Bollettino AgroMeteorologico Settimanale n. 34/2026 del 24 agosto 2026 17 agosto 2026 - 23 agosto 2026 Diario meteorologico: intense precipitazioni e temperature prossime alla media climatica. La settimana è stata caratterizzata da precipitazioni, anche molto intense, soprattutto nelle giornate di lunedì 17, giovedì 20 e venerdì 21. Il 17 agosto si sono verificate precipitazioni localizzate in Romagna e sui rilievi da Piacenza a Reggio Emilia, a carattere fortemente temporalesco e valori localmente superiori ai 50 mm. Giovedì 20 piogge diffuse hanno interessato tutta la regione, con massimi sull’Appennino occidentale, fino a oltre 100 mm, e intensità orarie particolarmente alte sul crinale parmense. Venerdì 21 si sono verificate precipitazioni che a più riprese hanno interessato tutta la regione, molto intense e abbondanti sul crinale centro-occidentale, con cumulate giornaliere che loca",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:47:55.696Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:57:15.633Z"
+    },
+    {
+      "DOC_SHA256": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+      "ITEM_ID": "RAW-4e12affad7fedd91.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · olivicolo",
+      "CONTENT_PATH": "data/samples/IT-ARPAV-VENETO/olivicolo_28_260826.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Pag. 1 di 2",
+        "OPENING": "Pag. 1 di 2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA OLIVO Bollettino n. 28 del 26/08/2026 FENOLOGIA E STATO PRODUTTIVO Ingrossamento/inolizione, le olive hanno ormai raggiunto la pezzatura finale e si avviano verso la fase di indurimento dei tessuti e accumulo oleoso. SITUAZIONE FITOSANITARIA Mosca dell’olivo (Bactrocera oleae): il controllo settimanale evidenzia una pressione sostanzialmente stabile rispetto alla settimana precedente. Il calo termico degli ultimi giorni, accompagnato da un incremento dell’umidità relativa, sta creando una finestra favorevole alla ripresa dell’ovideposizione. Distribuzione regionale della pressione (rilievi + modelli previsionali) • Alto lago di Garda: 3 – 4% • Medio e basso lago di Garda: 3 – 4% • Entroterra gardesano: 3 – 4% • Colline veronesi Nord: 3 – 4% • Colline veronesi Centrali: 3 – 4% • C",
+        "SELF_DESCRIPTION": [
+          "Pag. 1 di 2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI D",
+          "2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA OLIVO Bollettino n",
+          ". Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA OLIVO Bollettino n. 28 del 26/08/2026 FENOLOGIA E STATO PRO"
+        ],
+        "SECTION_HEADERS": [
+          "SERVIZIO FITOSANITARIO REGIONE VENETO",
+          "BOLLETTINI FITOSANITARI DIFESA INTEGRATA",
+          "OLIVO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:46:14.158Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:56:34.744Z"
+    },
+    {
+      "DOC_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+      "ITEM_ID": "RAW-59da05274359eff6.txt",
+      "SOURCE_ID": "IT-T3-010",
+      "PUBLISHER": "APOL LECCE",
+      "PUBLICATION_SERIES": "APOL LECCE · bollettino-mosca-dellolivo-n-del",
+      "CONTENT_PATH": "data/collection-store/italy/IT-T3-010/APOL_2026_N9_BR-COLLINA/v1_59da05274359/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-59da05274359eff6.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "INGROSSAMENTO FRUTTI",
+        "OPENING": "INGROSSAMENTO FRUTTI 7 9 MOSCA DELLE OLIVE 07/09/2026 - 13/09/2026 COMPRENSORIO - BR - COLLINA LITORANEA BRINDISI CAROVIGNO CEGLIE MESSAPICA CELLINO SAN MARCO FASANO FRANCAVILLA FONTANA MESAGNE ORIA OSTUNI SAN DONACI SAN VITO DEI NORMANNI TORCHIAROLO TORRE SANTA SUSANNA VILLA CASTELLI SAN GIORGIO IONICO 1 5% STAZIONARIO BASSO 07/09/2026 08/09/2026 09/09/2026 10/09/2026 11/09/2026 12/09/2026 13/09/2026 I monitoraggi territoriali settimanali indicano una situazione complessivamente sotto controllo; non si sono rilevate raggiungimenti o superamenti della soglia di intervento con pochissime punture fertili e ancora un basso numero di individui riscontrati sulle trappole a feromoni installate. Da metà della prossima settimana si verificherà un cambio meteo a causa di una perturbazione nord-europea che porterà una diminuzione delle temperature sotto i 27-28°C con possibili brevi piogge. Questo",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "INGROSSAMENTO FRUTTI",
+          "MOSCA DELLE OLIVE",
+          "COMPRENSORIO - BR - COLLINA LITORANEA",
+          "STAZIONARIO",
+          "BASSO",
+          "COMPRENSORIO - LE - PIANURA SALENTINA NORD",
+          "NARDO' NOVOLI",
+          "SALICE SALENTINO SURBO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:53:30.321Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:00:44.516Z"
+    },
+    {
+      "DOC_SHA256": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+      "ITEM_ID": "RAW-5dcfb75ac38390c3.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "REGIONE PIEMONTE",
+      "PUBLICATION_SERIES": "REGIONE PIEMONTE · piano-operativo",
+      "CONTENT_PATH": "data/samples/PIEMONTE-FD/piano_operativo_2026.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "RECOMENDA_DEFESA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "D.D. n. 280 del 16 marzo 2026 - Misure fitosanitarie di emergenza e aggiornamento prescrizioni per il contrasto della Flavescenza Dorata della vite nella Regione Piemonte – Piano operativo Anno 2026",
+        "OPENING": "D.D. n. 280 del 16 marzo 2026 - Misure fitosanitarie di emergenza e aggiornamento prescrizioni per il contrasto della Flavescenza Dorata della vite nella Regione Piemonte – Piano operativo Anno 2026 PIANO OPERATIVO FLAVESCENZA DORATA DELLA VITE - ANNO 2026 PREMESSA L’applicazione dell’Ordinanza n. 4 del Direttore del Servizio Fitosanitario Centrale del 22 giugno 2023 recante “Misure fitosanitarie d'emergenza per il contrasto di Grapevine flavescence dorée phytoplasma atte ad impedirne la diffusione nel territorio della Repubblica italiana”, ha lo scopo di tutelare la viticoltura in tutto il territorio regionale, interessando una superficie che supera i 40 mila ettari. L’accertamento della malattia può svolgersi solo in un periodo limitato di tempo nel corso della stagione vegetativa e pertanto le indagini e i controlli devono essere concentrati in soli quattro mesi. Di conseguenza, vista",
+        "SELF_DESCRIPTION": [
+          "e dell’Ordinanza n. 4 del Direttore del Servizio Fitosanitario Centrale del 22 giugno 2023 recante “Misure fitosanitarie d"
+        ],
+        "SECTION_HEADERS": [
+          "PIANO OPERATIVO FLAVESCENZA DORATA DELLA VITE - ANNO 2026",
+          "PREMESSA",
+          "A) VIGILANZA FITOSANITARIA DI CARATTERE ISPETTIVO SUL TERRITORIO",
+          "B) PROGETTI PILOTA TERRITORIALI",
+          "C) CAMPAGNA INFORMATIVA",
+          "D) SPERIMENTAZIONI E RICERCA",
+          "ALLEGATO 3.B",
+          "ALLEGATO 3.C"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:50:29.008Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:59:04.427Z"
+    },
+    {
+      "DOC_SHA256": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+      "ITEM_ID": "RAW-6377ac2f8419d905.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · fineestate",
+      "CONTENT_PATH": "data/samples/IT-ARPAV-VENETO/fineestate_310826.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Meteo Veneto. Fine estate tra eventi intensi e ritorno del caldo",
+        "OPENING": "Meteo Veneto. Fine estate tra eventi intensi e ritorno del caldo La scorsa settimana abbiamo osservato un breve ma intenso ritorno del caldo afoso nei giorni centrali, in particolare da mercoledì 26 e fino agli episodi temporaleschi di venerdì 28 agosto che hanno interessato il Veneto e in generale il Nord Italia. Nel corso di venerdì 28 sulla regione si è registrata una significativa intensificazione dei venti dai quadranti meridionali sulle zone montane, specie in quota, e poi una fase di marcata instabilità specie dal pomeriggio con frequenti passaggi temporaleschi anche intensi e organizzati, compatibili con forti grandinate, forti raffiche di vento e forti rovesci che hanno coinvolto soprattutto la pianura (specie centro-occidentale, tra Veronese, Vicentino e Padovano) e parte della fascia pedemontana/prealpina. La rete di stazioni Arpav in occasione dell’evento di venerdì 28, rilev",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:54:42.665Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:01:46.997Z"
+    },
+    {
+      "DOC_SHA256": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+      "ITEM_ID": "RAW-699a073ace4361ea.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · lug",
+      "CONTENT_PATH": "data/samples/IT-ARPAV-VENETO/lug2026.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-699a073ace4361ea.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Meteo Veneto: luglio 2026 molto caldo, poche piogge ma con grandi differenze territoriali",
+        "OPENING": "Meteo Veneto: luglio 2026 molto caldo, poche piogge ma con grandi differenze territoriali Sintesi Il mese centrale dell’estate meteorologica in Veneto, è risultato molto più caldo e con una piovosità di poco inferiore rispetto alla norma; salvo alcune fasi caratterizzate da condizioni di instabilità atmosferica soprattutto nella seconda decade del mese e in modo più sporadico nella prima e nell’ultima, sono prevalse infatti correnti anticicloniche che hanno portato giornate con tempo in prevalenza stabile, sotto la spinta di espansioni verso il Mediterraneo, da un lato dell’Anticiclone delle Azzorre ma dall’altro, e in modo sempre più frequente nel corso di questa stagione estiva, anche del promontorio di origine nord-africana. In questo mese si registrano altre due ondate di caldo e forte disagio fisico, la prima dal 7 al 18 luglio soprattutto su pianura e costa anche se meno intensa e ",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "REPORT METEOCLIMATICO MENSILE VENETO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:51:47.933Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:59:34.063Z"
+    },
+    {
+      "DOC_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+      "ITEM_ID": "RAW-6d12bcb5fa2b0905.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · vite",
+      "CONTENT_PATH": "data/samples/IT-ARPAV-VENETO/vite_20_270826.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "U.O. Fitosanitario",
+        "OPENING": "U.O. Fitosanitario Bollettino n. 20 del 27 agosto 2026 VITE Andamento meteo (in collaborazione col Servizio Meteorologia e Climatologia di Arpav): La settimana è stata interessata da alcune perturbazioni che hanno alternato giornate soleggiate ad eventi piovosi diffusi, con qualche limitato episodio grandinigeno. L’attuale settimana è iniziata con giornate soleggiate e temperature in graduale aumento. Le temperature massime e minime medie rispettivamente sono risultate comprese tra 28-32°C e tra 18-22°C. Le precipitazioni hanno interessato tutto il territorio veneto con cumuli mediamente compresi tra 40-75 mm nella zona centro orientale e tra 20-50 mm nelle restanti zone. MEDIA DELLE TEMPERATURE MASSIME E MINIME DAL 19/08 al 25/08 - ARPAV PRECIPITAZIONI E GIORNI PIOVOSI DAL 19/08 AL 25/08 – ARPAV U.O. Fitosanitario Fase fenologica: Le varietà a media maturazione hanno raggiunto la loro p",
+        "SELF_DESCRIPTION": [
+          "U.O. Fitosanitario Bollettino n. 20 del 27 agosto 2026 VITE Andamento meteo (i"
+        ],
+        "SECTION_HEADERS": [
+          "PRECIPITAZIONI E GIORNI PIOVOSI DAL 19/08 AL 25/08 – ARPAV"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:50:12.631Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:58:22.472Z"
+    },
+    {
+      "DOC_SHA256": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+      "ITEM_ID": "RAW-823e18ebb232eb36.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "REGIONE LAZIO",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-entroterra-tuscia",
+      "CONTENT_PATH": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_ENTROTERRA_TUSCIA.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bollettino Fitosanitario",
+        "OPENING": "Bollettino Fitosanitario ZONA PROGETTUALE Entroterra Viterbese-Tuscia AVVERSITA’ Mosca dell’olivo dal Bactrocera oleae al n. 08/2026 31/08/2026 06/09/2026 Fase fenologica: Condizioni meteo: Metodologia: Soglia di intervento: Rilievo infestazione: SVILUPPO DEI FRUTTI (Scala BBCH Olio 79) “Le drupe hanno raggiunto circa il 90% delle dimensioni finali.” NON FAVOREVOLI Temperature comprese tra 20 e 35°C; elevata percentuale di umidità relativa; Schiusa uova: T min 17° C – T max 30°. Voli notte di 16-17 ° C / giorno fino a 35° C Si esaminano 20 olive a pianta su 10 piante scelte a caso per cultivar per ettaro, un totale di 200 olive. Metodo Adulticida Olive da olio: 4-5% di punture fertili o 2 femmine ovigere/trappola/settimana Olive da mensa 1-2% di punture fertili (uova, larve, pupari) Attacco rilevato: 0-1% PRESCRIZIONE NON EFFETTUARE TRATTAMENTO Fonte dati climatici ARSIAL (SIARL) OP LATI",
+        "SELF_DESCRIPTION": [
+          "Bollettino Fitosanitario ZONA PROGETTUALE Entroterra Viterbese-Tuscia AVVERSITA’ Mos"
+        ],
+        "SECTION_HEADERS": [
+          "AVVERSITA’",
+          "SVILUPPO DEI FRUTTI",
+          "NON FAVOREVOLI",
+          "PRESCRIZIONE",
+          "NON EFFETTUARE TRATTAMENTO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:47:11.119Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:57:01.634Z"
+    },
+    {
+      "DOC_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+      "ITEM_ID": "RAW-8c13500d43502e64.txt",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "CONTENT_PATH": "data/collection-store/italy/IT-T2-002/ARPAV_Z16_20260903160912/v1_8c13500d4350/agro_16.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-8c13500d43502e64.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Agrometeo… Informa",
+        "OPENING": "Agrometeo… Informa Zona 16 Val d'Illasi Alpone N° 54 03/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale L'estensione dell'Anticiclone Subtropicale Africano verso le nostre latitudini persisterà almeno fino a lunedì. Le temperature sopra la media anche di molto continueranno ad essere la caratteristica meteorologica saliente; in particolare saranno in aumento fino a domenica mattina e poi in calo. https://meteo.arpa.veneto.it/?page=MV Probabilita' Precipitazioni Venti Temperatura venerdì 4 Mattina Pomeriggio Nulla 0% Deboli/Moderati-Variabili Min  Max  sabato 5 Mattina Pomeriggio domenica 6 Mattina Pomeriggio Nulla 0% Deboli/Moderati-Variabili Min  Max  Nulla 0% Deboli/Moderati-Variabili Min  Max  Informazioni agroclimatiche e territoriali Temperatura aria 2m (°C) ultimi 4 g. 34 32 30 28 26 24 22 20 18 16 14 DOM LUN MAR MER Illasi Colognola ai Colli Umidità rel. aria",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "DOM",
+          "LUN",
+          "MAR",
+          "MER",
+          "RIEPILOGO DATI MESE DI AGOSTO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:48:58.752Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:57:40.674Z"
+    },
+    {
+      "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+      "ITEM_ID": "RAW-924aabd94168c53a.txt",
+      "SOURCE_ID": "IT-T5-003",
+      "PUBLISHER": "GIORNATE FITOPATOLOGICHE",
+      "PUBLICATION_SERIES": "GIORNATE FITOPATOLOGICHE · alesi-olivo-bilancio-fitosanitario-marche",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-924aabd94168c53a.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED_BY_BLIND_REREVIEW",
+      "HUMAN_REASON_CODE": "REGISTO_OU_ESTATISTICA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bilancio Fitosanitario",
+        "OPENING": "Bilancio Fitosanitario Olivo 2024 - 2025 Regione : MARCHE Servizio Agrometeorologico Regionale-AMAP Relatore: Alesi Alberto Superficie coltivata Regione: Marche ha 2024 2025 Olivo 9020 8985 di cui Olivo in Biologico 4520 In Corso di definizione Trend In leggero calo In leggero aumento Fonte Regione Marche Destinazione d’uso delle olive prodotte: Quasi totalmente Olio, con la nicchia delle olive Ascolane da mensa Presenti: olio DOP “Cartoceto”, DOP “Oliva Ascolana del Piceno” e olio IGP “Marche” 27 novembre2025 Olivo olio prodotto: il 2024 lo si può considerare un anno record per la produzione di olio nelle Marche, secondo i dati SIAN, le olive molite sono state 36.306 tonnellate con una produzione di 3.905 tonnellate di olio, con una resa piuttosto bassa, poco superiore al 10% Il 2025 invece, ad oggi, sempre secondo dati SIAN, vede una produzione ed una quantità di olive molite pari a 9.",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:51:28.084Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:07:45.698Z"
+    },
+    {
+      "DOC_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+      "ITEM_ID": "RAW-9488589cfc657b95.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · frutticolo",
+      "CONTENT_PATH": "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-9488589cfc657b95.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "NOMEIA_PRAGA_OU_DOENCA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Pag. 1 di 2",
+        "OPENING": "Pag. 1 di 2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA COLTURE FRUTTICOLE Bollettino n. 24 del 26/08/2026 Per i prossimi giorni sono previste temperature in aumento e assenza di fenomeni temporaleschi. PESCO Fase fenologica: terminata la raccolta Batteriosi: programmare una profilassi attenta, da iniziare in settembre, basata su trattamenti quindicinali, con prodotti rameici a basso dosaggio. SUSINO Fase fenologica: inizio raccolta per le varietà europee come Stanley e Grossa di Felisio. Buona la produzione e la pezzatura in generale, meno la colorazione. Cocciniglia: presenza sporadica. In caso di necessità si potrebbe ancora intervenire, facendo molta attenzione al rispetto dei tempi di carenza, con pyriproxifen. MELO Fase fenologica: terminata la raccolta delle varietà del gruppo Gala GLS/BR: al momento i sintomi in campo sono mol",
+        "SELF_DESCRIPTION": [
+          "Pag. 1 di 2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI D",
+          "2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA COLTURE FRUTTICOLE",
+          ". Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA COLTURE FRUTTICOLE Bollettino n. 24 del 26/08/2026 Per i pr"
+        ],
+        "SECTION_HEADERS": [
+          "SERVIZIO FITOSANITARIO REGIONE VENETO",
+          "BOLLETTINI FITOSANITARI DIFESA INTEGRATA",
+          "COLTURE FRUTTICOLE"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:31:06.392Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:53:00.594Z"
+    },
+    {
+      "DOC_SHA256": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+      "ITEM_ID": "RAW-9a01cc17889e1f40.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · boll-agro-settimanale",
+      "CONTENT_PATH": "data/samples/IT-ARPAV-VENETO/boll_agro_settimanale.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "BOLLETTINO AGROMETEOROLOGICO REGIONALE N. 21 del 01.09.2026 Aggiornamento del 02.09.",
+        "OPENING": "BOLLETTINO AGROMETEOROLOGICO REGIONALE N. 21 del 01.09.2026 Aggiornamento del 02.09. MAPPE DI TEMPERATURA E PRECIPITAZIONI - ULTIMA DECADE Temperatura minima - media decadale (°C) Temperatura massima - media decadale (°C) Precipitazione totale decadale (mm) Numero di giorni piovosi (>=1mm) Arpav, Dipartimento per la Sicurezza del Territorio – Unità Organizzativa Meteorologia e Climatologia EVAPOTRASPIRAZIONE POTENZIALE (ETP) Evapotraspirazione media giornaliera (mm) della pianura veneta calcolata con il metodo PenmanMonteith. Dati di evapotraspirazione di singole stazioni possono essere visualizzati sul bollettino Agrometeo Informa selezionando la zona di interesse. Agrometeoinforma SOMME TERMICHE Valori medi di somma termica della pianura veneta. Dati di somma termica di singole stazioni possono essere visualizzati sul bollettino Agrometeo Informa selezionando la zona di interesse. Agro",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "MAPPE DI TEMPERATURA E PRECIPITAZIONI - ULTIMA DECADE",
+          "EVAPOTRASPIRAZIONE POTENZIALE (ETP)",
+          "PREVISIONI METEOROLOGICHE",
+          "BOLLETTINI FITOSANITARI DELLE PRINCIPALI COLTURE AGRARIE"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:53:42.870Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:01:00.368Z"
+    },
+    {
+      "DOC_SHA256": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+      "ITEM_ID": "RAW-a6515948880d173a.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "REGIONE LAZIO",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-sabina",
+      "CONTENT_PATH": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_SABINA.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-a6515948880d173a.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bollettino Fitosanitario",
+        "OPENING": "Bollettino Fitosanitario ZONA PROGETTUALE SABINA AVVERSITA’ Mosca dell’olivo dal Bactrocera oleae al n. 09/2026 31/08/2026 06/08/2026 Fase fenologica: Condizioni meteo: Metodologia: Soglia di intervento: Rilievo infestazione: SVILUPPO DEI FRUTTI (Scala BBCH Olio 79) “Le drupe hanno raggiunto circa il 90% delle dimensioni finali.” Temperature comprese tra 20 e 35°C; elevata percentuale di NON FAVOREVOLI umidità relativa; Schiusa uova: T min 17° C – T max 30°. Voli notte di 16-17 ° C / giorno fino a 35° C Si esaminano 20 olive a pianta su 10 piante scelte a caso per cultivar per ettaro, un totale di 200 olive. Metodo Adulticida Olive da olio: 4-5% di punture fertili o 2 femmine ovigere/trappola/settimana Olive da mensa 1-2% di punture fertili (uova, larve, pupari) Attacco rilevato: 0-1% PRESCRIZIONE NON EFFETTUARE TRATTAMENTO Fonte dati climatici ARSIAL (SIARL) OP LATIUM Soc. Coop. Agr. Qu",
+        "SELF_DESCRIPTION": [
+          "Bollettino Fitosanitario ZONA PROGETTUALE SABINA AVVERSITA’ Mosca dell’olivo dal Bac"
+        ],
+        "SECTION_HEADERS": [
+          "ZONA PROGETTUALE SABINA",
+          "AVVERSITA’",
+          "SVILUPPO DEI FRUTTI",
+          "NON FAVOREVOLI",
+          "PRESCRIZIONE",
+          "NON EFFETTUARE TRATTAMENTO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:53:14.933Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:00:31.750Z"
+    },
+    {
+      "DOC_SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+      "ITEM_ID": "RAW-a927e846ba8e78b0.txt",
+      "SOURCE_ID": "IT-T4-001",
+      "PUBLISHER": "MINISTERO DELLA SALUTE",
+      "PUBLICATION_SERIES": "MINISTERO DELLA SALUTE · id-dataset-fitosanitari-v",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "REGISTO_OU_ESTATISTICA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Dataset Fitosanitari",
+        "OPENING": "Dataset Fitosanitari Ver. 2.0 Pagina 1 di 2 Intestazione num_registrazione denominazione_prodotto ragione_sociale indirizzo_sede_legale cap_sede_legale comune_sede_legale provincia_sede_legale indirizzo_sede_amministrativa cap_sede_amministrativa comune_sede_amministrativa provincia_sede_amministrativa data_registrazione data_scadenza_autorizzazione indicazioni_di_pericolo attivita codice_formulazione descrizione_formulazione sostanze_attive contenuto_per_100g_di_prodotto importazione_parallela prodotto_piante_ornamentali stato_amministrativo motivo_della revoca data_decreto_revoca data_decorrenza_revoca Descrizione Numero di registrazione del Prodotto Fitosanitario Denominazione commerciale del Prodotto Fitosanitario Ragione sociale dell’Impresa Titolare dell’autorizzazione Indirizzo della sede legale dell’Impresa Codice d’Avviamento Postale della sede legale dell’Impresa Denominazione ",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": []
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:45:10.220Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:55:57.091Z"
+    },
+    {
+      "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+      "ITEM_ID": "RAW-b631f6eecfbc1db0.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "REGIONE LAZIO",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-pianura-interna-viterbese",
+      "CONTENT_PATH": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_PIANURA_INTERNA_VITERBESE.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bollettino Fitosanitario",
+        "OPENING": "Bollettino Fitosanitario ZONA PROGETTUALE PIANURA INTERNA VITERBESE AVVERSITA’ Mosca dell’olivo dal Bactrocera oleae al n. 08/2026 01/09/2026 07/09/2026 Fase fenologica: Condizioni meteo: Metodologia: Soglia di intervento: Rilievo infestazione: SVILUPPO DEI FRUTTI (Scala BBCH Olio 75) “Le drupe hanno raggiunto circa il 70% delle dimensioni finali. Indurimento del nocciolo (nocciolo che lignifica mostrando resistenza al taglio)” Temperature superiori a 32°C; elevata percentuale di NON FAVOREVOLI umidità relativa; Schiusa uova: T min 17° C – T max 30°. Voli notte di 16-17 ° C / giorno fino a 35° C Si esaminano 20 olive a pianta su 10 piante scelte a caso per cultivar per ettaro, un totale di 200 olive. Metodo Adulticida Olive da olio: 4-5% di punture fertili o 2 femmine ovigere/trappola/settimana Olive da mensa 1-2% di punture fertili (uova, larve, pupari) Attacco rilevato: 0% PRESCRIZIONE",
+        "SELF_DESCRIPTION": [
+          "Bollettino Fitosanitario ZONA PROGETTUALE PIANURA INTERNA VITERBESE AVVERSITA’ Mosca"
+        ],
+        "SECTION_HEADERS": [
+          "ZONA PROGETTUALE PIANURA INTERNA VITERBESE",
+          "AVVERSITA’",
+          "SVILUPPO DEI FRUTTI",
+          "NON FAVOREVOLI",
+          "PRESCRIZIONE"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:51:36.410Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:59:20.446Z"
+    },
+    {
+      "DOC_SHA256": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+      "ITEM_ID": "RAW-c6377f6951bfeb2e.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · olivicolo",
+      "CONTENT_PATH": "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Pag. 1 di 2",
+        "OPENING": "Pag. 1 di 2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA Inolizione – inizio invaiatura. OLIVO Bollettino n. 29 del 02/09/2026 FENOLOGIA E STATO PRODUTTIVO SITUAZIONE FITOSANITARIA Mosca dell’olivo (Bactrocera oleae): il monitoraggio della settimana evidenzia una pressione stabile. Le temperature rimangono elevate, ma l’umidità non ha ancora determinato una ripresa significativa dell’ovideposizione. In molti areali non sono state rilevate nuove infestazioni attive. La riduzione della popolazione adulta è coerente con il fatto che numerosi olivicoltori hanno effettuato un trattamento negli ultimi 10 giorni, con esche adulticide o adulticidi, contribuendo a contenere ulteriormente la pressione del fitofago. I dati riportati derivano da osservazioni dirette e da analisi previsionali, tenendo conto della forte variabilità territoriale, i v",
+        "SELF_DESCRIPTION": [
+          "Pag. 1 di 2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI D",
+          "2 SERVIZIO FITOSANITARIO REGIONE VENETO U.O. Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA Inolizione – inizi",
+          ". Fitosanitario BOLLETTINI FITOSANITARI DIFESA INTEGRATA Inolizione – inizio invaiatura. OLIVO Bollettino n. 29 del",
+          "Mosca dell’olivo (Bactrocera oleae): il monitoraggio della settimana evidenzia una pressione stabile. Le tempera"
+        ],
+        "SECTION_HEADERS": [
+          "SERVIZIO FITOSANITARIO REGIONE VENETO",
+          "BOLLETTINI FITOSANITARI DIFESA INTEGRATA",
+          "OLIVO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:45:36.572Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:56:20.683Z"
+    },
+    {
+      "DOC_SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+      "ITEM_ID": "RAW-e5176df66216dfd0.txt",
+      "SOURCE_ID": "IT-T3-011",
+      "PUBLISHER": "AGRIOS",
+      "PUBLICATION_SERIES": "AGRIOS · agrios-broschuere-richtlinien-integrierte-kernobstbau-it-web",
+      "CONTENT_PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/0286_26_Agrios_Broschuere_Richtlinien_integrierte_Kernobstbau_IT_WEB.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it (o mesmo documento existe em de)",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED_BY_BLIND_REREVIEW",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Produzione integrata nell’azienda agricola",
+        "OPENING": "Produzione integrata nell’azienda agricola DIRETTIVE PER LA FRUTTICOLTURA INTEGRATA 2026 Produzione integrata nell’azienda agricola 2 DIRETTIVE PER LA FRUTTICOLTURA INTEGRATA 2026 36a edizione Editore: AGRIOS - Gruppo di lavoro per la frutticoltura integrata dell’Alto Adige Casa della mela, Via Jakobi 1A, I-39018 Terlano (BZ) INDICE Definizione ed obiettivi della frutticoltura integrata.............................................pag. 7 PRODUZIONE INTEGRATA NELL’AZIENDA AGRICOLA Agricoltori formati professionalmente e consci dal punto di vista ecologico......................................................................................... pag. 10 Aree di compensazione ecologica e cura dei dintorni del frutteto................. pag. 10 Considerazioni per l’allestimento di un nuovo frutteto..................................... pag. 11 Concimazione.........................................",
+        "SELF_DESCRIPTION": [
+          "............................ pag. 21 La difesa integrata.................................."
+        ],
+        "SECTION_HEADERS": [
+          "DIRETTIVE PER LA FRUTTICOLTURA INTEGRATA 2026",
+          "INDICE",
+          "DEFINIZIONE ED OBIETTIVI DELLA FRUTTICOLTURA INTEGRATA",
+          "PRODUZIONE INTEGRATA NELL’AZIENDA AGRICOLA",
+          "AREE DI COMPENSAZIONE ECOLOGICA E CURA DEI DINTORNI DEL FRUTTETO",
+          "CONSIDERAZIONI PER L’ALLESTIMENTO DI UN NUOVO FRUTTETO",
+          "CONCIMAZIONE",
+          "A+B"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:43:28.259Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T18:09:12.372Z"
+    },
+    {
+      "DOC_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLISHER": "ARIF PUGLIA",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · notiziario-agrometeorologico-n",
+      "CONTENT_PATH": "data/collection-store/italy/IT-T3-008/ARIF_SETTIMANALE_2026_N36/v1_e612807928b5/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-e612807928b5ada9.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Settimanale N. 36 Anno XL",
+        "OPENING": "Settimanale N. 36 Anno XL 02 - 08 settembre 2026 Agenzia regionale per le attività irrigue e forestali Situazione Attuale Il quadro sinottico euro atlantico mostra il ﬂusso perturbato che scorre intorno al 45°N delimitato da una saccatura estesa dalla Groenlandia meridionale, dove è posizionato un primo minimo, ﬁno al nord Atlantico, poi si dirige ondulato verso est sulla penisola scandinava e i paesi Baltici, mentre un secondo minimo è posizionato nel mare del Nord a sud della Norvegia. Scendendo di latitudine, sul Mediterraneo si rileva ancora la presenza del promontorio di matrice sub-tropicale che dall'entroterra del nord Africa si spinge ﬁno all'Anatolia. Sul resto dello scenario, ad ovest, si riscontra un promontorio sul medio Atlantico e un campo di alta pressione ad est sulla Russia centrale. L'Italia in questo contesto rimane interessata direttamente dal promontorio nord african",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "DATA",
+          "CIELO",
+          "ORE 00:00",
+          "ORE 12:00",
+          "FOGGIA",
+          "SAN NICANDRO GARGANICO",
+          "ANDRIA",
+          "BARI"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:43:04.882Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:50:11.636Z"
+    },
+    {
+      "DOC_SHA256": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+      "ITEM_ID": "RAW-e6ec962a8a730ee4.txt",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "REGIONE LAZIO",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-litorale-viterbese",
+      "CONTENT_PATH": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_LITORALE_VITERBESE.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Bollettino Fitosanitario",
+        "OPENING": "Bollettino Fitosanitario ZONA PROGETTUALE Litorale Viterbese AVVERSITA’ Mosca dell’olivo dal Bactrocera oleae al n. 08/2026 31/08/2026 06/09/2026 Fase fenologica: Condizioni meteo: Metodologia: Soglia di intervento: Rilievo infestazione: SVILUPPO DEI FRUTTI (Scala BBCH Olio 79) “Le drupe hanno raggiunto circa il 90% delle dimensioni finali.” NON FAVOREVOLI Temperature comprese tra 20 e 35°C; elevata percentuale di umidità relativa; Schiusa uova: T min 17° C – T max 30°. Voli notte di 16-17 ° C / giorno fino a 35° C Si esaminano 20 olive a pianta su 10 piante scelte a caso per cultivar per ettaro, un totale di 200 olive. Metodo Adulticida Olive da olio: 4-5% di punture fertili o 2 femmine ovigere/trappola/settimana Olive da mensa 1-2% di punture fertili (uova, larve, pupari) Attacco rilevato: 0-2% PRESCRIZIONE NON EFFETTUARE TRATTAMENTO Fonte dati climatici ARSIAL (SIARL) OP LATIUM Soc. C",
+        "SELF_DESCRIPTION": [
+          "Bollettino Fitosanitario ZONA PROGETTUALE Litorale Viterbese AVVERSITA’ Mosca dell’o"
+        ],
+        "SECTION_HEADERS": [
+          "AVVERSITA’",
+          "SVILUPPO DEI FRUTTI",
+          "NON FAVOREVOLI",
+          "PRESCRIZIONE",
+          "NON EFFETTUARE TRATTAMENTO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:52:16.104Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:59:49.096Z"
+    },
+    {
+      "DOC_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+      "ITEM_ID": "RAW-f88c89d73d6a132a.txt",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLISHER": "ARPAV",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "CONTENT_PATH": "data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf",
+      "BODY_PATH": "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "COUNTRY": "IT",
+      "LABEL": "T3_NAO",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "ASSUNTO_DIFERENTE",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Agrometeo… Informa",
+        "OPENING": "Agrometeo… Informa Zona 1 Vittorio Veneto-Conegliano N° 54 03/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale L'estensione dell'Anticiclone Subtropicale Africano verso le nostre latitudini persisterà almeno fino a lunedì. Le temperature sopra la media anche di molto continueranno ad essere la caratteristica meteorologica saliente; in particolare saranno in aumento fino a domenica mattina e poi in calo. https://meteo.arpa.veneto.it/?page=MV Probabilita' Precipitazioni Venti Temperatura venerdì 4 Mattina Pomeriggio Nulla 0% Deboli/Moderati-Variabili Min  Max  sabato 5 Mattina Pomeriggio domenica 6 Mattina Pomeriggio Nulla 0% Deboli/Moderati-Variabili Min  Max  Nulla 0% Deboli/Moderati-Variabili Min  Max  Informazioni agroclimatiche e territoriali Temperatura aria 2m (°C) ultimi 4 g. 34 32 30 28 26 24 22 20 18 16 DOM LUN MAR MER Conegliano Gaiarine Umidità rel. aria 2m",
+        "SELF_DESCRIPTION": [],
+        "SECTION_HEADERS": [
+          "DOM",
+          "LUN",
+          "MAR",
+          "MER",
+          "RIEPILOGO DATI MESE DI AGOSTO"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:48:27.957Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:57:27.112Z"
+    },
+    {
+      "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+      "ITEM_ID": "monitoraggio.html",
+      "SOURCE_ID": "IT-T3-005",
+      "PUBLISHER": "TERRE DELL'ETRURIA",
+      "PUBLICATION_SERIES": "TERRE DELL'ETRURIA · monitoraggio",
+      "CONTENT_PATH": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "BODY_PATH": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "DESCREVE_PRESENCA_OU_DANO",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Monitoraggio mosca dell'olivo toscana",
+        "OPENING": "Monitoraggio mosca dell'olivo toscana Navigazione Veloce Chiudi Navigazione Home Negozio Online Contatti News Comunicazioni Riunioni pre-campagna con olivicoltori Orario estivo 2026 Monitoraggio della mosca dell'olivo a cura del Servizio Agronomico Bollettino del periodo dal 31-08-2026 al 06-09-2026 Per visualizzare la mappa occorre accettare i Cookie di questo sito Cookie Policy ACCETTA TUTTI I COOKIE FASE FENOLOGICA: accrescimento frutto fase II CLIMA: Le elevate temperature che si sono verificate in modo continuativo hanno contribuito a mantenere sotto controllo i voli e l'infestazione attiva in molti dei punti monitorati, ma hanno comportanto anche fenomeni di cascola importanti dove non è stato fatto caolino e/o adacquamenti. Raccomandiamo, per chi ancora non lo avesse fatto, di effettuare un intervento con prodotti corroboranti quali caolino, successivamente alla perturbazione prev",
+        "SELF_DESCRIPTION": [
+          "Monitoraggio mosca dell'olivo toscana Navigazione Veloce Chiudi Navigazi"
+        ],
+        "SECTION_HEADERS": [
+          "ACCETTA TUTTI I COOKIE"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:46:33.530Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:56:47.173Z"
+    },
+    {
+      "DOC_SHA256": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+      "ITEM_ID": "pagina.html",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLISHER": "REGIONE PIEMONTE",
+      "PUBLICATION_SERIES": "REGIONE PIEMONTE · pagina",
+      "CONTENT_PATH": "data/samples/PIEMONTE-FD/pagina.html",
+      "BODY_PATH": "data/samples/PIEMONTE-FD/pagina.html",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "NAO SEI",
+      "COUNTRY": "IT",
+      "LABEL": "T3_SIM",
+      "LABEL_AUTHORITY": "HUMAN_VERIFIED",
+      "REVIEW_PATH": "A_CONFIRMED",
+      "HUMAN_REASON_CODE": "NOMEIA_PRAGA_OU_DOENCA",
+      "HUMAN_REASON_TEXT": null,
+      "EVIDENCE_ATTESTED": true,
+      "ORIGINAL_EVIDENCE": {
+        "TITLE": "Lotte obbligatorie - Flavescenza dorata | Regione Piemonte",
+        "OPENING": "Lotte obbligatorie - Flavescenza dorata | Regione Piemonte Salta al contenuto principale Tema: Agricoltura Tipologia di contenuto Scheda informativa Lotte obbligatorie - Flavescenza dorata Rivolto a Cittadini Imprese e liberi professionisti NEWS Campagna 2026: massima attenzione! La bacheca dei bollettini Eliminare la fonte principale della malattia! Il Servizio Fitosanitario Nazionale ha pubblicato il documento tecnico “Linee guida per i viticoltori ai fini del contrasto della flavescenza dorata sul territorio nazionale” Speciale flavescenza dorata sulla RIVISTA \"AGRICOLTURA\" Il Ministero dell'agricoltura, della sovranità alimentare e delle foreste ha ridefinito le misure fitosanitarie di emergenza e ha emanato la nuova Ordinanza Ministeriale 22/06/2023, n. 4 , “Misure fitosanitarie d'emergenza per il contrasto di Grapevine flavescence doree phytoplasma atte ad impedirne la diffusione n",
+        "SELF_DESCRIPTION": [
+          "la fonte principale della malattia! Il Servizio Fitosanitario Nazionale ha pubblicato il documento tecnico “Linee guida p"
+        ],
+        "SECTION_HEADERS": [
+          "NEWS"
+        ]
+      },
+      "REVIEW_A_DECIDED_AT": "2026-09-11T16:44:55.092Z",
+      "QUALITY_GATE_DECIDED_AT": "2026-09-11T17:55:30.670Z"
+    }
+  ],
+  "EXCLUDED_FROM_EVALUATION": [
+    {
+      "DOC_SHA256": "b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec",
+      "ITEM_ID": "ISTAT_101_1015_COLTIVAZIONI_2_2025.csv",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "T3_NAO",
+      "REASON_CODE_A2": "REGISTO_OU_ESTATISTICA",
+      "PUBLISHER": "ISTAT",
+      "SOURCE_ID": "IT-T1-001"
+    },
+    {
+      "DOC_SHA256": "6c71cc19127283da8ffc3b45ae50956a6c8ab383e20fd247689825f5c3345635",
+      "ITEM_ID": "NHEOWL0530_00.html",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "T3_NAO",
+      "REASON_CODE_A2": "ASSUNTO_DIFERENTE",
+      "PUBLISHER": "SIAS",
+      "SOURCE_ID": "IT-T2-004"
+    },
+    {
+      "DOC_SHA256": "9cd4d156369facf186b40727d96ef5253b3aef93e9e08deae8ac8082c1de5a48",
+      "ITEM_ID": "PROD_FTS_6_20260907.csv",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "T3_NAO",
+      "REASON_CODE_A2": "REGISTO_OU_ESTATISTICA",
+      "PUBLISHER": "MINISTERO DELLA SALUTE",
+      "SOURCE_ID": "IT-T4-001"
+    },
+    {
+      "DOC_SHA256": "0c2723e66201f9668d0c2493f9c85d6f0b4843c2a5059fe9a4f9dc2acecb70c5",
+      "ITEM_ID": "RAW-0c2723e66201f966.txt",
+      "STATUS": "EVIDENCE_GAP",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "REGIONE CAMPANIA",
+      "SOURCE_ID": "IT-T3-002"
+    },
+    {
+      "DOC_SHA256": "221ab4a8d6ebec3042d43512583385425d555c085b9a13a3ca8b5d107a5d4240",
+      "ITEM_ID": "RAW-221ab4a8d6ebec30.txt",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "T3_NAO",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "FONDAZIONE EDMUND MACH",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "420e08ef15bec6e4a9a5aa8fd822cd0067b597e7648e3260708dc2d176c7a2c7",
+      "ITEM_ID": "RAW-420e08ef15bec6e4.txt",
+      "STATUS": "EVIDENCE_GAP",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "REGIONE CAMPANIA",
+      "SOURCE_ID": "IT-T3-002"
+    },
+    {
+      "DOC_SHA256": "48e76a696be6831daaf547214f1c90d744e66694b1a085811a6173ba9467607b",
+      "ITEM_ID": "RAW-48e76a696be6831d.txt",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "T3_NAO",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "REGIONE CAMPANIA",
+      "SOURCE_ID": "IT-T3-002"
+    },
+    {
+      "DOC_SHA256": "7a51732e87f0f319b2ec02e973a704599edd22af74956093b19b93c99c4f6e09",
+      "ITEM_ID": "RAW-7a51732e87f0f319.txt",
+      "STATUS": "EVIDENCE_GAP",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "REGIONE CAMPANIA",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "99cb44a67f6b4e9aed7bb616eb73aeb26a063fb8f6c41a39f32bf8a9a2c76e2a",
+      "ITEM_ID": "RAW-99cb44a67f6b4e9a.txt",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "T3_NAO",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "REGIONE CAMPANIA",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "ccd8ea9c8e9c4cafb76f2a66b595ad347a8655dd39c86edaf13e6be290daf393",
+      "ITEM_ID": "RAW-ccd8ea9c8e9c4caf.txt",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "T3_NAO",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "FONDAZIONE EDMUND MACH",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "ded546686d61dc91107ea84e00ae067f081b835cd85bb257382e38ff212a8888",
+      "ITEM_ID": "RAW-ded546686d61dc91.txt",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "T3_AMBIGUO",
+      "LABEL_A2": "T3_SIM",
+      "REASON_CODE_A2": "RECOMENDA_DEFESA",
+      "PUBLISHER": "REGIONE PIEMONTE",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "df4adcb5d78929e16d7d337d072e849beaca6380bd97e9c3858166024134b19b",
+      "ITEM_ID": "RAW-df4adcb5d78929e1.txt",
+      "STATUS": "EVIDENCE_GAP",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "REGIONE CAMPANIA",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "e9395a7ea894c1d2a26453346c1655b4b90757907ccf4454fe20854855537209",
+      "ITEM_ID": "RAW-e9395a7ea894c1d2.txt",
+      "STATUS": "EVIDENCE_GAP",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "REGIONE CAMPANIA",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "ec3108a2ed424702261ed458ba4906e8729c5bd3096ec616015a9a234d01de46",
+      "ITEM_ID": "RAW-ec3108a2ed424702.txt",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "T3_NAO",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "FONDAZIONE EDMUND MACH",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "fd5b5e465457e4d6e76ae77f8fa81fe5faf910227eaacabc5f83c571f0137a1a",
+      "ITEM_ID": "RAW-fd5b5e465457e4d6.txt",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "T3_NAO",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "FONDAZIONE EDMUND MACH",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "fe3c922bfdfd7999242617962b8add2471dd26d8c908bc403e5f34c21dc635ee",
+      "ITEM_ID": "RAW-fe3c922bfdfd7999.txt",
+      "STATUS": "UNRESOLVED",
+      "LABEL_A": "T3_AMBIGUO",
+      "LABEL_A2": "T3_SIM",
+      "REASON_CODE_A2": "DESCREVE_PRESENCA_OU_DANO",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI"
+    },
+    {
+      "DOC_SHA256": "b83591df56c5dbfca3b8fdd2e808a6dd136b48075d03d017341a27d78a01ccbe",
+      "ITEM_ID": "bacheca.html",
+      "STATUS": "EVIDENCE_GAP",
+      "LABEL_A": "EVIDENCIA_INSUFICIENTE",
+      "LABEL_A2": "EVIDENCIA_INSUFICIENTE",
+      "REASON_CODE_A2": "TRECHO_CURTO",
+      "PUBLISHER": "REGIONE PIEMONTE",
+      "SOURCE_ID": "NAO SEI"
+    }
+  ],
+  "O_QUE_EXCLUDED_NAO_E": "Isto NAO e ground truth. Fica registado para nao se perder o trabalho humano e para se saber onde a evidencia falhou.",
+  "RED_TEAM": [
+    {
+      "SONDA": "1 · positivos concentrados numa unica serie",
+      "MEDIDO": "2 de 14 positivos na maior serie; 12 series positivas",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "2 · documentos iguais contados como independentes",
+      "MEDIDO": "8 pares quase-duplicados; 36 ficheiros -> 31 grupos; positivos 14 -> 11",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "3 · copia do mesmo boletim atravessa o holdout de publicador",
+      "MEDIDO": "0 pares quase-duplicados atravessam publicadores",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "4 · razao existe mas evidencia nao foi atestada",
+      "MEDIDO": "36/36 com razao · 36/36 atestados",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "5 · item divergente entrou por engano",
+      "MEDIDO": "11 divergentes; 0 deles no gabarito",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "6 · «nao deu para saber» virou negativo",
+      "MEDIDO": "6 buracos de evidencia; 0 deles no gabarito",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "7 · A2 substituiu A em silencio",
+      "MEDIDO": "0 confirmacoes com rotulo diferente de A",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "8 · «NAO SEI» contado como fonte distinta",
+      "MEDIDO": "16 dos 36 sem SOURCE_ID; excluidos de toda a contagem",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "9 · pais e idioma unicos ignorados",
+      "MEDIDO": "paises ['IT'] · idioma resolvido em 18/36 · nao italiano: ['91515']",
+      "AGUENTA": true
+    },
+    {
+      "SONDA": "10 · gabarito italiano a afirmar EAME",
+      "MEDIDO": "EVALUATION_SCOPE = ITALIAN_AGRO_INSTITUTIONAL_CORPUS · ressalva escrita: SIM",
+      "AGUENTA": true
+    }
+  ]
+}

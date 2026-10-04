@@ -1,0 +1,240 @@
+{
+ "CANARIO": {
+  "PASS": true,
+  "CLASSE": "OK",
+  "PORQUE": null,
+  "DETAIL_ENUMERATED": 30,
+  "ALVO": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/09_boll_agro_20260302.pdf",
+  "ITEM_ABERTO": {
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/09_boll_agro_20260302.pdf",
+   "HTTP": 200,
+   "BYTES": 1069706,
+   "DOC_KIND": "PDF",
+   "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+   "TEXT_CHARACTERS": 2679,
+   "TEXT_SHA256": "485d327e758f8818ca66e1f4190ef892d2ae39b0d0b48c59740de9f8a3236764"
+  },
+  "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:2026-09",
+  "TEMPOS": {
+   "PUBLICATION_TIME": "2026-03-02",
+   "FACT_TIME": "UNKNOWN — o periodo do boletim (a semana que ele descreve e preve) esta no texto do PDF; o coletor nao injecta PDF_TEXT",
+   "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros dois)"
+  },
+  "DETAIL_GATE": "PDF_TEXT_LAYER/v1"
+ },
+ "REDE_AUTORIZADA_POR": "D47 T2-BOLETINS (COORDENACAO 25/09)",
+ "EM": "2026-09-25T09:49:53.338618+00:00",
+ "SOURCE_ID": "IT-T2-051",
+ "ROBOTS": {
+  "ESTADO": "LIDO",
+  "CRAWL_DELAY": 10.0,
+  "LEITOR": "ROBOTS/RFC9309-v2 (D39)"
+ },
+ "LISTAGEM_GUARDADA": {
+  "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+  "SHA256": "ae6395590f25cd3397f8bf2b35d6309d38a663caf3a1c7d3c1a9c8f3ed1c40b9",
+  "LIDO_EM": "2026-09-25T09:29:33.078647+00:00"
+ },
+ "CONTRATO_PROPOSTO": {
+  "SOURCE_ID": "IT-T2-051",
+  "OWNER": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+  "NAME": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+  "TERRITORY": "T2",
+  "BATCH_ID": "LOTE-HTML-ARTIGO",
+  "OUTPUT_TYPE": "PDF",
+  "CANONICAL_ENTRY_URL": "https://www.arpae.it/it",
+  "ACQUISITION": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/\\d{2}_boll_agro_\\d{8}(-\\d+)?\\.pdf$",
+   "MAX_TARGETS": 1,
+   "STRIP_SUFFIX": "/view"
+  },
+  "ROUTE_TYPE": "DISCOVERED_ROUTE",
+  "ACCESS_INSTRUMENT": "HTTP",
+  "AUTH_REQUIRED": false,
+  "BROWSER_REQUIRED": false,
+  "JS_REQUIRED": false,
+  "IDENTITY": {
+   "STRATEGY": "CONTENT_CAPTURE",
+   "CAPTURES": {
+    "b": {
+     "FROM": "URL",
+     "PATTERN": "/(\\d{2})_boll_agro_(\\d{4})(\\d{2})(\\d{2})(?:-\\d+)?\\.pdf$"
+    }
+   },
+   "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:{b.2}-{b.1}",
+   "SOURCE_DATE_ISO": "{b.2}-{b.3}-{b.4}",
+   "FACT_TIME": "UNKNOWN — o periodo do boletim (a semana que ele descreve e preve) esta no texto do PDF; o coletor nao injecta PDF_TEXT"
+  },
+  "IDENTITY_KEYS": [
+   "url_path"
+  ],
+  "IDENTITY_KIND": "URL_PATH",
+  "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+  "EXPECTED_FAILURES": [
+   "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+   "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+   "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+  ],
+  "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+  "FALLBACK": "nenhum",
+  "NEGATIVE_CONTROL": {
+   "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+   "esperado": "EMPTY_LIST -> FAILED"
+  },
+  "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+  "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+  "IMPORTADO_DE": {
+   "LIVRO": "C",
+   "BRANCH": "source-curator-service-v1",
+   "COMMIT": "d23a44cc",
+   "MISSAO": "MATERIA-PRIMA-V1"
+  },
+  "REPARO_DE_CONTRATO": {
+   "DECISAO": "R1",
+   "MISSAO": "REPARO-FONTES-V1",
+   "METODO": "REPARO-DE-CONTRATO/v1",
+   "APLICADO_EM": "2026-09-25T09:49:53.402469+00:00",
+   "COMO": "T2-BOLETINS D47 (bancada, agente)",
+   "ACQUISITION_ANTERIOR": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpae.it/it",
+    "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "OUTPUT_TYPE": "PDF",
+   "OUTPUT_TYPE_ANTERIOR": "HTML",
+   "STRIP_SUFFIX": "/view",
+   "IDENTITY_ANTERIOR": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "doc": {
+      "FROM": "URL",
+      "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+     }
+    },
+    "DOCUMENT_ID": "IT-T2-051:URL:{doc.1}",
+    "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+   },
+   "PROVA": {
+    "ENTRADA": null,
+    "ENTRADA_RETRATO": null,
+    "SECCAO_TENTADA": null,
+    "ALVOS_NA_LISTAGEM": null,
+    "ITEM_LIDO": null,
+    "PAGINAS_LIDAS": null
+   },
+   "PRECISA_DE_REMEDIR": true,
+   "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+  },
+  "ROUTE_PROVENANCE": {
+   "MISSAO": "REPARO-FONTES-V1",
+   "FERRAMENTA": "curadoria/reparar_contrato.py",
+   "INTEGRADO_EM": "2026-09-25T09:49:53.402469+00:00",
+   "PROVADO_EM": "2026-09-25T09:49:53.402469+00:00",
+   "LISTAGEM": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+   "OUTPUT_TYPE": "PDF",
+   "OUTPUT_TYPE_ANTERIOR": "HTML"
+  },
+  "SOURCE_CONTRACT_HASH": "1bb4b6047b54c536"
+ },
+ "CONTRATO_ANTERIOR_HASH": "e3eccc21823e1dd2",
+ "REGUA": {
+  "REGUA": "DETAIL/v1",
+  "PASSOS": {
+   "INDEX_URL": true,
+   "DETAIL_LINKS": true,
+   "ITEM_ABERTO": true,
+   "BODY_UTIL": true,
+   "CONTRATO_ATUAL": true
+  },
+  "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+ },
+ "ALVOS_NA_LISTA": 30,
+ "MAIS_RECENTE": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/38_boll_agro_20260921.pdf",
+ "ADMISSAO_T2": [
+  {
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/09_boll_agro_20260302.pdf",
+   "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+   "CARACTERES": 2679,
+   "DECIDIR": {
+    "RESULTADO": "SIM",
+    "REGRA": "pertence ao universo",
+    "MOTIVO": "fala de pioggia, temperatura, siccita e de agrometeo — condicao do campo com ligacao agricola escrita, que e o que «T2» (janela de cultura, D29) pede. A janela em si nao e decidida aqui: e da Intelligence (CAP-WIN)"
+   },
+   "TEMA_T2": {
+    "RESULTADO": "SIM",
+    "MOTIVO": "fala de pioggia, temperatura, siccita e de agrometeo — condicao do campo com ligacao agricola escrita, que e o que «T2» (janela de cultura, D29) pede. A janela em si nao e decidida aqui: e da Intelligence (CAP-WIN)",
+    "PALAVRAS": [
+     "pioggia",
+     "temperatura",
+     "siccita"
+    ]
+   },
+   "TEXTO_INICIO": "Bollettino AgroMeteorologico Settimanale n. 09/2026 del 2 marzo 2026\r\n23 febbraio 2026 - 1 marzo 2026\r\nDiario meteorologico: temperature sopra la media in assenza di precipitazioni.\r\nLa settimana è stata caratterizzata da sostanziale assenza di precipitazioni.\r\nLe temperature medie regionali si sono mantenute per tutta la settimana al di sopra del normale intervallo di variabilità (2001-2020) raggiungendo i valori massimi tra il 26 e il 27 febbraio, quando a Diga di Ridracoli è stata registrata una temperatura massima di 20,7 °C, per poi calare leggermente nei giorni successivi. Le anomalie di"
+  },
+  {
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/38_boll_agro_20260921.pdf",
+   "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+   "CARACTERES": 2596,
+   "DECIDIR": {
+    "RESULTADO": "SIM",
+    "REGRA": "pertence ao universo",
+    "MOTIVO": "fala de pioggia, temperatura, siccita e de agrometeo — condicao do campo com ligacao agricola escrita, que e o que «T2» (janela de cultura, D29) pede. A janela em si nao e decidida aqui: e da Intelligence (CAP-WIN)"
+   },
+   "TEMA_T2": {
+    "RESULTADO": "SIM",
+    "MOTIVO": "fala de pioggia, temperatura, siccita e de agrometeo — condicao do campo com ligacao agricola escrita, que e o que «T2» (janela de cultura, D29) pede. A janela em si nao e decidida aqui: e da Intelligence (CAP-WIN)",
+    "PALAVRAS": [
+     "pioggia",
+     "temperatura",
+     "siccita",
+     "stress idrico",
+     "temporalesco"
+    ]
+   },
+   "TEXTO_INICIO": "Bollettino AgroMeteorologico Settimanale n. 38/2026 del 21 settembre 2026\r\n14 settembre 2026 - 20 settembre 2026\r\nDiario meteorologico: temperature sopra la media e temporali\r\nDopo i primi tre giorni della settimana, prevalentemente sereni, si registrano condizioni di instabilità che portano precipitazioni a carattere temporalesco, localmente intense, nei giorni tra il 17 e il 19. Giovedì 17 le piogge hanno interessato prevalentemente i rilievi tra Parma e Piacenza e la Romagna, con cumulate giornaliere localmente superiori a 30 mm; precipitazioni abbondanti si sono verificate anche venerdì 18"
+  }
+ ],
+ "ADMISSAO_VERSAO_DA_REGRA": "9",
+ "PEDIDOS_A_REDE": [
+  {
+   "URL": "https://www.arpae.it/robots.txt",
+   "HTTP": 200,
+   "ERRO": "",
+   "BYTES": 777,
+   "SHA256": "a4bfbf4123a628fd6a8d1328d76f72085432425057c47e85bb9e4dba9cc689eb",
+   "EM": "C:\\cur\\t2b\\bytes\\a4bfbf4123a628fd6a8d.bin",
+   "LIDO_EM": "2026-09-25T09:49:53.337621+00:00"
+  },
+  {
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/09_boll_agro_20260302.pdf",
+   "HTTP": 200,
+   "ERRO": "",
+   "BYTES": 1069706,
+   "SHA256": "3d669b144010fd837fce8025c497fa7630819b53d3985e73d2506f1e8d5e6c78",
+   "EM": "C:\\cur\\t2b\\bytes\\3d669b144010fd837fce.bin",
+   "LIDO_EM": "2026-09-25T09:50:05.767087+00:00"
+  },
+  {
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/38_boll_agro_20260921.pdf",
+   "HTTP": 200,
+   "ERRO": "",
+   "BYTES": 950270,
+   "SHA256": "e0a8f255b3091dc32eedbf8684e5c25dff41bea9cc54bc8509a25d1af19b1daa",
+   "EM": "C:\\cur\\t2b\\bytes\\e0a8f255b3091dc32eed.bin",
+   "LIDO_EM": "2026-09-25T09:50:18.175337+00:00"
+  }
+ ],
+ "PEDIDOS_POR_DOMINIO": {
+  "liguria.it": 2,
+  "marche.it": 2,
+  "toscana.it": 2,
+  "arpacampania.it": 2,
+  "arpae.it": 5,
+  "veneto.it": 5
+ }
+}

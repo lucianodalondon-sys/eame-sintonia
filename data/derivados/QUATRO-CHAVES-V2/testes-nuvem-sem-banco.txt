@@ -1,0 +1,23 @@
+Could not find platform independent libraries <prefix>
+...................F.................
+======================================================================
+FAIL: test_da6_so_o_extrator_do_fato_escreve_fact_time (tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_da6_so_o_extrator_do_fato_escreve_fact_time)
+Prova ESTRUTURAL: no contrato, FACT_TIME e FACT_TIME_BASIS so vem do
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_quatro_chaves_na_sala.py", line 306, in test_da6_so_o_extrator_do_fato_escreve_fact_time
+    self.assertEqual([], escritas, "%s escreve fact_time" % rel)
+AssertionError: Lists differ: [] != ["{'run_id': _lit(run_id), 'ordem': str(i)[77 chars]lit"]
+
+Second list contains 1 additional elements.
+First extra element 0:
+"{'run_id': _lit(run_id), 'ordem': str(i), 'item_id': _lit(u['ITEM_ID']), 'raw_observation_id': obs_sql, 'universo': _lit"
+
+- []
++ ["{'run_id': _lit(run_id), 'ordem': str(i), 'item_id': _lit(u['ITEM_ID']), "
++  "'raw_observation_id': obs_sql, 'universo': _lit"] : admissao/sala_de_espera.py escreve fact_time
+
+----------------------------------------------------------------------
+Ran 37 tests in 0.419s
+
+FAILED (failures=1)

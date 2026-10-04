@@ -1,0 +1,101 @@
+{
+ "CANARIO": "JANELA-FORMAS A — receita PDF",
+ "REDE_AUTORIZADA_POR": "JANELA-FORMAS A (missao-janela-formas.txt, D42)",
+ "EM": "2026-09-25T07:59:40.015829+00:00",
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T3-014",
+   "PORTA": "RECUSOU: contrato reparado reprovado: {'SOURCE_ID': 'IT-T3-014', 'FALHAS': ['CONTRACT_SCHEMA_VALID: campos em falta: SOURCE_CONTRACT_VERSION']}"
+  },
+  {
+   "SOURCE_ID": "IT-T3-027",
+   "PORTA": "ACEITOU",
+   "OUTPUT_TYPE": "PDF",
+   "PROVENIENCIA": {
+    "OUTPUT_TYPE": "PDF",
+    "OUTPUT_TYPE_ANTERIOR": "HTML",
+    "LISTAGEM": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html"
+   },
+   "CANARIO": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "documento inacessivel: HTTP 404",
+    "DETAIL_ENUMERATED": null,
+    "ALVO": "http://www.ersa.fvg.it/aziende/bollettini-integrata/Patata/Bollettino-di-difesa-integrata-PATATA-12-giugno-2026.pdf",
+    "ITEM_ABERTO": null
+   },
+   "REGUA": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-025",
+   "PORTA": "ACEITOU",
+   "OUTPUT_TYPE": "PDF",
+   "PROVENIENCIA": {
+    "OUTPUT_TYPE": "PDF",
+    "OUTPUT_TYPE_ANTERIOR": "HTML",
+    "LISTAGEM": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/NA_2026.html"
+   },
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 27,
+    "ALVO": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
+    "ITEM_ABERTO": {
+     "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
+     "HTTP": 200,
+     "BYTES": 686877,
+     "DOC_KIND": "PDF",
+     "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+     "TEXT_CHARACTERS": 14365,
+     "TEXT_SHA256": "de3b7a8d52c3e9336bc9b464a15f01fd28b9f707389bf82e416ca334080f3d8e"
+    }
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   }
+  }
+ ],
+ "PEDIDOS_A_REDE": [
+  {
+   "URL": "http://www.ersa.fvg.it/aziende/bollettini-integrata/Patata/Bollettino-di-difesa-integrata-PATATA-12-giugno-2026.pdf",
+   "HTTP": 404,
+   "BYTES": 0,
+   "SHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "ROBOTS_TXT": false,
+   "LIDO_EM": "2026-09-25T07:59:40.670910+00:00"
+  },
+  {
+   "URL": "http://www.agricoltura.regione.campania.it/robots.txt",
+   "HTTP": 404,
+   "BYTES": 0,
+   "SHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "ROBOTS_TXT": true,
+   "LIDO_EM": "2026-09-25T07:59:42.724497+00:00"
+  },
+  {
+   "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
+   "HTTP": 200,
+   "BYTES": 686877,
+   "SHA256": "4246e8c63bfccedbb3497e38ab79d58d972a00c818d588bad82bc325ae5675d3",
+   "ROBOTS_TXT": false,
+   "LIDO_EM": "2026-09-25T07:59:45.584751+00:00"
+  }
+ ],
+ "PEDIDOS_POR_DOMINIO": {
+  "ersa.fvg.it": 1,
+  "agricoltura.regione.campania.it": 2
+ },
+ "ROBOTS": {
+  "www.ersa.fvg.it": "COPIA C:\\cur\\rfc\\rede\\robots\\www.ersa.fvg.it.txt",
+  "www.agricoltura.regione.campania.it": "LIDO HTTP 404"
+ }
+}

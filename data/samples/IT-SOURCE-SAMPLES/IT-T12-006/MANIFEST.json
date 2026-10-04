@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T12-006",
+ "SOURCE": "CIA Toscana",
+ "OWNER": "CIA Agricoltori Italiani",
+ "URL": "https://www.ciatoscana.eu/home/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:46Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 704512 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.ciatoscana.eu/home/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Cia Toscana | Agricoltori italiani, agricoltura toscana | 2026",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-09-14",
+  "BYTES_LIDOS": 394233
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.ciatoscana.eu/home/wp-content/uploads/2026/02/inn-pratica_volume_il-futuro-dell-agricoltura_IT_web.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": null,
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 704512,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "25e9ad25319626f1e63b7ebc1220fb8c6e202ad3e38182c331d742d3a94de483",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

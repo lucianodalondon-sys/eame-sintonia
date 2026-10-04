@@ -1,0 +1,379 @@
+{
+ "DATASET": "TTL-MUTABLE-SIMULACAO-T1",
+ "ENTRADA": "TTL-MUTABLE-DATAS-T1.json",
+ "MODELO": "Uma corrida a cada C horas. Cada materia entra no indice quando e\n   publicada, e sai quando MAX_TARGETS materias mais novas a empurram para fora\n   (so se ve o que o indice anuncia). A edicao e a `modified_time`: e apanhada\n   na primeira revisita a partir dela. Politicas:\n\n     ATUAL          revisita todas as conhecidas em todas as corridas (hoje)\n     TTL_<X>d       revisita quando a ultima visita tem mais de X dias\n     CURVA          o intervalo cresce com a idade da materia (desde a 1.a visita):\n                    max(C, min(14 d, idade / 6)) — nova todas as corridas, antiga menos\n\n   Mede-se, em regime (os ultimos 90 dias simulados), os pedidos de revisita por\n   corrida; e, para cada edicao que acontece DEPOIS da primeira captura (antes\n   dela, a primeira captura ja traz o texto final), o atraso ate ser vista.\n   Uma edicao cuja materia sai do indice antes da revisita e PERDIDA — e conta-se\n   separada, porque a politica ATUAL tambem a perde.",
+ "LINHAS": [
+  {
+   "CADENCIA_H": 24,
+   "POLITICA": "ATUAL",
+   "PEDIDOS_POR_CORRIDA": 46.72,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 0.52,
+   "ATRASO_MAX_DIAS": 0.73,
+   "DIAS_DE_EDICAO_NAO_VISTA": 13.45,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 29.84,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.73
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 7.39,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.58
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 9.49,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.61
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 0.0
+  },
+  {
+   "CADENCIA_H": 24,
+   "POLITICA": "TTL_1d",
+   "PEDIDOS_POR_CORRIDA": 46.72,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 0.52,
+   "ATRASO_MAX_DIAS": 0.73,
+   "DIAS_DE_EDICAO_NAO_VISTA": 13.45,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 29.84,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.73
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 7.39,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.58
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 9.49,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.61
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 0.0
+  },
+  {
+   "CADENCIA_H": 24,
+   "POLITICA": "TTL_3d",
+   "PEDIDOS_POR_CORRIDA": 15.51,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 1.75,
+   "ATRASO_MAX_DIAS": 2.73,
+   "DIAS_DE_EDICAO_NAO_VISTA": 45.45,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 9.94,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 2.73
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 2.43,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 2.58
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 3.13,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 2.33
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 31.21
+  },
+  {
+   "CADENCIA_H": 24,
+   "POLITICA": "TTL_7d",
+   "PEDIDOS_POR_CORRIDA": 6.57,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 4.33,
+   "ATRASO_MAX_DIAS": 6.69,
+   "DIAS_DE_EDICAO_NAO_VISTA": 112.45,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 4.23,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 6.69
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 1.02,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 6.56
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 1.31,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 1.61
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 40.15
+  },
+  {
+   "CADENCIA_H": 24,
+   "POLITICA": "TTL_14d",
+   "PEDIDOS_POR_CORRIDA": 3.27,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 9.98,
+   "ATRASO_MAX_DIAS": 13.69,
+   "DIAS_DE_EDICAO_NAO_VISTA": 259.45,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 2.12,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 13.69
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 0.5,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 13.56
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 0.64,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 8.61
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 43.45
+  },
+  {
+   "CADENCIA_H": 24,
+   "POLITICA": "CURVA",
+   "PEDIDOS_POR_CORRIDA": 5.73,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 1.94,
+   "ATRASO_MAX_DIAS": 12.51,
+   "DIAS_DE_EDICAO_NAO_VISTA": 50.45,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 2.31,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 12.51
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 1.74,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 1.58
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 1.68,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 1.33
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 40.99
+  },
+  {
+   "CADENCIA_H": 6,
+   "POLITICA": "ATUAL",
+   "PEDIDOS_POR_CORRIDA": 46.9,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 0.13,
+   "ATRASO_MAX_DIAS": 0.23,
+   "DIAS_DE_EDICAO_NAO_VISTA": 3.45,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 29.86,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.23
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 7.48,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.18
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 9.56,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.11
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 0.0
+  },
+  {
+   "CADENCIA_H": 6,
+   "POLITICA": "TTL_1d",
+   "PEDIDOS_POR_CORRIDA": 11.72,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 0.24,
+   "ATRASO_MAX_DIAS": 0.87,
+   "DIAS_DE_EDICAO_NAO_VISTA": 6.2,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 7.46,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.87
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 1.87,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.86
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 2.39,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 0.83
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 35.18
+  },
+  {
+   "CADENCIA_H": 6,
+   "POLITICA": "TTL_3d",
+   "PEDIDOS_POR_CORRIDA": 3.89,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 1.35,
+   "ATRASO_MAX_DIAS": 2.31,
+   "DIAS_DE_EDICAO_NAO_VISTA": 35.2,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 2.49,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 2.23
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 0.61,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 2.31
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 0.79,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 1.83
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 43.01
+  },
+  {
+   "CADENCIA_H": 6,
+   "POLITICA": "TTL_7d",
+   "PEDIDOS_POR_CORRIDA": 1.67,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 4.2,
+   "ATRASO_MAX_DIAS": 6.83,
+   "DIAS_DE_EDICAO_NAO_VISTA": 109.2,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 1.07,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 6.2
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 0.26,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 6.31
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 0.34,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 6.83
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 45.23
+  },
+  {
+   "CADENCIA_H": 6,
+   "POLITICA": "TTL_14d",
+   "PEDIDOS_POR_CORRIDA": 0.83,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 9.58,
+   "ATRASO_MAX_DIAS": 13.31,
+   "DIAS_DE_EDICAO_NAO_VISTA": 249.2,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 0.54,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 13.2
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 0.13,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 13.31
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 0.17,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 8.11
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 46.07
+  },
+  {
+   "CADENCIA_H": 6,
+   "POLITICA": "CURVA",
+   "PEDIDOS_POR_CORRIDA": 1.74,
+   "EDICOES": 26,
+   "PERDIDAS": 0,
+   "ATRASO_MEDIO_DIAS": 1.37,
+   "ATRASO_MAX_DIAS": 7.48,
+   "DIAS_DE_EDICAO_NAO_VISTA": 35.7,
+   "POR_FONTE": {
+    "IT-T7-017": {
+     "PEDIDOS_POR_CORRIDA": 0.61,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 19,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 7.48
+    },
+    "IT-T10-022": {
+     "PEDIDOS_POR_CORRIDA": 0.59,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 4,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 1.33
+    },
+    "IT-T7-042": {
+     "PEDIDOS_POR_CORRIDA": 0.54,
+     "EDICOES_DEPOIS_DA_1A_CAPTURA": 3,
+     "PERDIDAS": 0,
+     "ATRASO_MAX_DIAS": 3.54
+    }
+   },
+   "PEDIDOS_POUPADOS_POR_CORRIDA": 45.16
+  }
+ ]
+}

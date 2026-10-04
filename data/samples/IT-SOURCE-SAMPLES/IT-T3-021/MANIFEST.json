@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T3-021",
+ "SOURCE": "SIPaV — Societa Italiana di Patologia Vegetale",
+ "OWNER": "SIPaV",
+ "URL": "https://www.sipav.org/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:42Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 22197 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.sipav.org/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "SIPaV",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 19570
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.sipav.org/it/12/News/",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "News",
+  "TITULO": "SIPaV News",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 22197,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "54f55d1042dc5eb680c3684676fbb6e306c044b48fcb6aef9d622707bba645ac",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

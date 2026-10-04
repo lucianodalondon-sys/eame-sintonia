@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-006",
+ "SOURCE": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese",
+ "OWNER": "Regione Calabria",
+ "URL": "https://www.arsac.calabria.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:42Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 183249 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://arsac.calabria.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "ARSAC &#8211; Agricoltura in Calabria",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-09-14",
+  "BYTES_LIDOS": 270100
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-al-4-agosto-2026/",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": null,
+  "TITULO": "BOLLETTINO agrometeorologico e fitosanitario – agrumi, olivo, vite e kiwi &#8211; valido fino al 4 agosto 2026 &#8211; ARSAC",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 183249,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "2679ab621ba3505a78ae9998b6675be92dbc182bdca68c55c50d2e75ef7787bd",
+  "DATA_VISIVEL": "2026-09-14",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

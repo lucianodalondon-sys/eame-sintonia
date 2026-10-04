@@ -1,0 +1,262 @@
+# -*- coding: utf-8 -*-
+# EXTRATOR-EVENTO-V2 · a medida dos 1.252 (copia de PERIODO-E-CHAVES/medir.py.txt), SO LEITURA. Registo do ensaio (.txt).
+#   SAIDA=MEDIDA-ANTES.json PYTHONUTF8=1 py data/derivados/EXTRATOR-EVENTO-V2/medir.py.txt
+# Mudancas: o ler_sala da PERIODO-E-CHAVES; o nome da saida (SAIDA); cada item guarda o VALOR e a BASE
+# da data do fato; o titulo e a descricao do video vao na estrada quando o reprocesso os sabe ler.
+# Le: a Sala real (so leitura, ler_sala.py.txt), o armazem (~/sintonia-sala-italia/armazem, so leitura),
+# a copia do livro do coletor (auditoria-madrugada/tempo-lugar/livro-vivo-copia.ndjson).
+# Corre, para cada documento, a MESMA estrada do reprocesso (admissao/reprocessar_tempo_lugar.py):
+#   tempo_e_lugar -> orquestrador.item_documental_para_a_porta (LUGAR-FATO do texto)
+# mais a decisao REAL da porta (admissao.decidir) — e o dono das chaves (admissao.janela_para_o_ready).
+# Nao escreve na Sala, no armazem nem no livro. Escreve so MEDIDA.json (sem texto, so um trecho curto
+# dos 20 lidos a mao).
+import collections
+import datetime
+import json
+import os
+import random
+import re
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(AQUI)))
+sys.path[:0] = [os.path.join(RAIZ, "admissao"), RAIZ]
+os.environ.setdefault("HTTP_PROXY", "http://127.0.0.1:9")
+os.environ.setdefault("HTTPS_PROXY", "http://127.0.0.1:9")
+import importlib.machinery  # noqa: E402
+import importlib.util  # noqa: E402
+
+LER_SALA = os.path.join(os.path.dirname(AQUI), "PERIODO-E-CHAVES", "ler_sala.py.txt")
+spec = importlib.util.spec_from_file_location("ler_sala", LER_SALA,
+                                              loader=importlib.machinery.SourceFileLoader("ler_sala", LER_SALA))
+LS = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(LS)
+
+import admissao as adm  # noqa: E402
+import reprocessar_tempo_lugar as RP  # noqa: E402
+
+ARMAZEM = os.path.expanduser("~/sintonia-sala-italia/armazem")
+LIVRO = "C:/Users/London1/auditoria-madrugada/tempo-lugar/livro-vivo-copia.ndjson"
+AUS = adm.AUSENCIA
+CHAVES = adm.QUATRO_CHAVES
+SEP = LS.SEP
+
+
+def universo_de(source_id):
+    m = re.search(r"-(T\d+)-", source_id or "")
+    return m.group(1) if m else AUS
+
+
+def ler_texto(storage_path):
+    p = os.path.join(ARMAZEM, storage_path)
+    try:
+        return open(p, encoding="utf-8", errors="replace").read()
+    except OSError:
+        return None
+
+
+def medir_item(sid, universo, texto, raw_id, sha, captured_at, obs, dados, item_id):
+    tl = RP.ex.tempo_e_lugar(obs or {"SOURCE_ID": sid}, dados)
+    est = {"SOURCE_ID": sid, "TEXTO": texto, "DERIVED_ARTIFACT_ID": str(item_id).split(":", 1)[-1],
+           "RAW_ASSET_ID": raw_id, "PARENT_SHA256": sha or None, "CAPTURED_AT": captured_at,
+           "TEMPO_E_LUGAR": tl}
+    # EXTRATOR-EVENTO-V2: titulo e descricao do video, se o reprocesso ja os sabe ler (antes: nao sabe)
+    ler = getattr(RP, "titulo_e_descricao", None)
+    if ler and dados:
+        est.update(ler(dados))
+    item = RP.ORQ.item_documental_para_a_porta(est, source_id=sid)
+    d = adm.decidir(item, universo, corrida="PERIODO-E-CHAVES")
+    j = adm.janela_para_o_ready(item, d)
+    fora = {"DECISAO": d.resultado, "FACT_TIME": "SIM" if item.get("fact_time") not in (None, "", AUS) else AUS,
+            "FACT_TIME_VALOR": item.get("fact_time"), "FACT_TIME_BASE": str(item.get("fact_time_basis") or "")[:400]}
+    for c in CHAVES:
+        k = j[c]
+        provada = k["VALOR"] != AUS and k["BASE"] != AUS
+        fora[c] = {"VALOR": k["VALOR"], "BASE": k["BASE"] if provada else AUS, "PROVADA": provada}
+        if c == "JANELA":
+            fora[c]["PRECISAO"] = k.get("PRECISAO", AUS)
+    # D84: a 5.a informacao (a praga/doenca dos boletins T2/T3), quando a porta ja a sabe ler (antes: nao)
+    p = j.get("PROBLEMA") or {}
+    fora["PROBLEMA"] = {"VALOR": p.get("VALOR", AUS), "PROVADA": p.get("VALOR", AUS) != AUS,
+                        "AUSENTES": p.get("AUSENTES", []), "SECOES": len(p.get("SECOES", []))}
+    fora["FACT_TIME_PRECISAO"] = str(item.get("fact_time_precision") or AUS)
+    return fora
+
+
+def main():
+    livros = RP.livros_por_sha([LIVRO])
+    gerado = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    itens = []
+
+    # ---- 1) a Sala: 94 linhas, pela vista (valores revistos), com o bruto
+    nomes = ("RUN_ID", "ORDEM", "ITEM_ID", "RAW_ID", "UNIVERSO", "SOURCE_ID", "CAPTURED_AT",
+             "SHA256", "STORAGE_PATH", "MEDIA_TYPE", "JANELA_GUARDADA", "TEXTO")
+    sql = ("select a.run_id, a.ordem, a.item_id, coalesce(a.raw_observation_id::text, ''), a.universo, "
+           "a.source_id, a.captured_at, coalesce(r.sha256, ''), coalesce(r.storage_path, ''), "
+           "coalesce(r.media_type, ''), a.janela_declarada::text, "
+           "to_json(a.texto)::text "   # o texto INTEIRO, com as quebras de linha (o LUGAR-FATO le frases)
+           "from public.sala_de_espera_atual a left join public.raw_asset r on r.id = a.raw_observation_id "
+           "order by a.pousado_em, a.run_id, a.ordem")
+    padrao = json.loads(json.dumps(adm.JANELA_NAO_MEDIDA, sort_keys=True, ensure_ascii=False))
+    for l in LS.consultar(sql):
+        partes = l.split(SEP)
+        if len(partes) != len(nomes):
+            raise SystemExit("sala: %d valores para %d colunas" % (len(partes), len(nomes)))
+        u = dict(zip(nomes, partes))
+        u["SHA256"] = u["SHA256"].strip()
+        u["TEXTO"] = json.loads(u["TEXTO"])
+        linha = {"STORAGE_PATH": u["STORAGE_PATH"], "MEDIA_TYPE": u["MEDIA_TYPE"], "SHA256": u["SHA256"]}
+        dados = RP.bytes_guardados(linha, [ARMAZEM])
+        guardada = json.loads(u["JANELA_GUARDADA"])
+        m = medir_item(u["SOURCE_ID"], u["UNIVERSO"], u["TEXTO"],
+                       int(u["RAW_ID"]) if u["RAW_ID"] else None, u["SHA256"], u["CAPTURED_AT"],
+                       livros.get(u["SHA256"]), dados, u["ITEM_ID"])
+        guardadas = {c: (guardada.get(c) or {}).get("VALOR", AUS) != AUS for c in CHAVES}
+        itens.append({"GRUPO": "SALA", "RUN_ID": u["RUN_ID"], "ORDEM": int(u["ORDEM"]),
+                      "SOURCE_ID": u["SOURCE_ID"], "UNIVERSO": u["UNIVERSO"], "SHA256": u["SHA256"],
+                      "TEM_TEXTO": bool(u["TEXTO"].strip()), "LIVRO": u["SHA256"] in livros,
+                      "PAGINA": dados is not None,
+                      "JANELA_GUARDADA_E_O_DEFAULT": guardada == padrao,
+                      "CHAVES_GUARDADAS_COM_VALOR": sum(guardadas.values()),
+                      "TRECHO": re.sub(r"\s+", " ", u["TEXTO"])[:220], **m})
+
+    # ---- 2) o acervo fora da Sala: sha256 distintos do bruto que nenhuma linha da Sala usa
+    na_sala = {i["SHA256"] for i in itens}
+    raws = collections.OrderedDict()
+    for l in LS.consultar("select r.sha256, min(r.id), min(r.source_id), min(r.media_type), "
+                          "min(r.storage_path), min(r.captured_at)::text from public.raw_asset r "
+                          "group by r.sha256 order by 1"):
+        sha, rid, sid, mt, sp, cap = l.split(SEP)
+        raws[sha.strip()] = {"RAW_ID": int(rid), "SOURCE_ID": sid, "MEDIA_TYPE": mt,
+                             "STORAGE_PATH": sp, "CAPTURED_AT": cap}
+    textos = {}
+    for l in LS.consultar("select parent_sha256, kind, storage_path, id from public.derived_artifact "
+                          "where kind in ('TEXT_EXTRACTION', 'TRANSCRIPTION') order by id"):
+        psha, kind, sp, did = l.split(SEP)
+        textos.setdefault(psha.strip(), (kind, sp, did))
+    for sha, r in raws.items():
+        if sha in na_sala:
+            continue
+        universo = universo_de(r["SOURCE_ID"])
+        base = {"GRUPO": "ACERVO", "SOURCE_ID": r["SOURCE_ID"], "UNIVERSO": universo, "SHA256": sha,
+                "MEDIA_TYPE": r["MEDIA_TYPE"], "LIVRO": sha in livros}
+        t = textos.get(sha)
+        texto = ler_texto(t[1]) if t else None
+        if not texto or not texto.strip():
+            base.update({"TEM_TEXTO": False, "PORQUE_SEM_TEXTO": (
+                "nenhum derivado de texto no registo" if not t else "derivado registado, ficheiro nao lido"),
+                "DECISAO": AUS, "FACT_TIME": AUS, "TRECHO": ""})
+            for c in CHAVES:
+                base[c] = {"VALOR": AUS, "BASE": AUS, "PROVADA": False}
+            itens.append(base)
+            continue
+        linha = {"STORAGE_PATH": r["STORAGE_PATH"], "MEDIA_TYPE": r["MEDIA_TYPE"], "SHA256": sha}
+        dados = RP.bytes_guardados(linha, [ARMAZEM])
+        m = medir_item(r["SOURCE_ID"], universo, texto, r["RAW_ID"], sha, r["CAPTURED_AT"],
+                       livros.get(sha), dados, "derived:%s" % t[2])
+        base.update({"TEM_TEXTO": True, "PAGINA": dados is not None, "DERIVADO": t[0],
+                     "TRECHO": re.sub(r"\s+", " ", texto)[:220], **m})
+        itens.append(base)
+
+    # ---- 3) contas
+    def conta(grupo):
+        g = [i for i in itens if i["GRUPO"] == grupo]
+        out = {"ITENS": len(g), "COM_TEXTO": sum(i["TEM_TEXTO"] for i in g),
+               "DECISAO": dict(collections.Counter(i["DECISAO"] for i in g)),
+               "CHAVES": {c: {"PROVADA": sum(i[c]["PROVADA"] for i in g),
+                              "NAO_SEI": sum(not i[c]["PROVADA"] for i in g)} for c in CHAVES},
+               "FACT_TIME_NO_ITEM": sum(i["FACT_TIME"] == "SIM" for i in g)}
+        for eixo in ("UNIVERSO", "SOURCE_ID"):
+            por = collections.defaultdict(lambda: {"ITENS": 0, **{c: 0 for c in CHAVES}})
+            for i in g:
+                p = por[i[eixo]]
+                p["ITENS"] += 1
+                for c in CHAVES:
+                    p[c] += i[c]["PROVADA"]
+            out["POR_" + eixo] = dict(sorted(por.items()))
+        return out
+
+    contas = {"SALA": conta("SALA"), "ACERVO": conta("ACERVO")}
+    contas["SALA"]["GUARDADO_NA_COLUNA"] = {
+        "JANELA_E_O_DEFAULT": sum(i["JANELA_GUARDADA_E_O_DEFAULT"] for i in itens if i["GRUPO"] == "SALA"),
+        "LINHAS_COM_ALGUMA_CHAVE_GUARDADA": sum(i["CHAVES_GUARDADAS_COM_VALOR"] > 0
+                                                for i in itens if i["GRUPO"] == "SALA")}
+
+    # ---- 4) cruzamentos possiveis (NAO executados): mesma cultura + regiao + periodo
+    # Um DOCUMENTO e o sha256 do bruto: a mesma pagina em duas linhas da Sala, ou em duas versoes com o
+    # mesmo texto, nao e um par. Duas versoes com sha diferente e o mesmo TEXTO contam-se a parte.
+    def intervalo(v):
+        import calendar
+        a, _, b = str(v).partition("/")
+        def ini(x):
+            p = x.split("-")
+            return (int(p[0]), int(p[1]) if len(p) > 1 else 1, int(p[2]) if len(p) > 2 else 1)
+        def fim(x):
+            p = x.split("-")
+            y = int(p[0]); m = int(p[1]) if len(p) > 1 else 12
+            d = int(p[2]) if len(p) > 2 else calendar.monthrange(y, m)[1]
+            return (y, m, d)
+        return ini(a), fim(b or a)
+
+    docs = {}
+    for i in itens:
+        if all(i[c]["PROVADA"] for c in ("CULTURA", "REGIAO_DO_FATO", "JANELA")):
+            docs.setdefault(i["SHA256"], i)
+    lista = list(docs.values())
+    pares = []
+    for x in range(len(lista)):
+        for y in range(x + 1, len(lista)):
+            a, b = lista[x], lista[y]
+            cult = sorted(set(a["CULTURA"]["VALOR"]) & set(b["CULTURA"]["VALOR"]))
+            reg = sorted({r.strip() for r in str(a["REGIAO_DO_FATO"]["VALOR"]).split(";")} &
+                         {r.strip() for r in str(b["REGIAO_DO_FATO"]["VALOR"]).split(";")})
+            if not (cult and reg):
+                continue
+            ia, ib = intervalo(a["JANELA"]["VALOR"]), intervalo(b["JANELA"]["VALOR"])
+            igual = a["JANELA"]["VALOR"] == b["JANELA"]["VALOR"]
+            sobrepoe = ia[0] <= ib[1] and ib[0] <= ia[1]
+            if not sobrepoe:
+                continue
+            pares.append({"A": {"SOURCE_ID": a["SOURCE_ID"], "SHA256": a["SHA256"][:16], "GRUPO": a["GRUPO"],
+                                "JANELA": a["JANELA"]["VALOR"]},
+                          "B": {"SOURCE_ID": b["SOURCE_ID"], "SHA256": b["SHA256"][:16], "GRUPO": b["GRUPO"],
+                                "JANELA": b["JANELA"]["VALOR"]},
+                          "CULTURA": cult, "REGIAO": reg, "PERIODO_IGUAL": igual,
+                          "MESMA_FONTE": a["SOURCE_ID"] == b["SOURCE_ID"]})
+    cruzamentos = {
+        "DOCUMENTOS_COM_AS_TRES_CHAVES_DO_CRUZAMENTO": len(lista),
+        "PARES_PERIODO_IGUAL": sum(p["PERIODO_IGUAL"] for p in pares),
+        "PARES_PERIODO_SOBREPOSTO": len(pares),
+        "DOS_QUAIS_ENTRE_FONTES_DIFERENTES": sum(not p["MESMA_FONTE"] for p in pares),
+        "PARES": pares,
+        "DOCUMENTOS": [{"SOURCE_ID": i["SOURCE_ID"], "SHA256": i["SHA256"][:16], "GRUPO": i["GRUPO"],
+                        "CULTURA": i["CULTURA"]["VALOR"], "REGIAO": i["REGIAO_DO_FATO"]["VALOR"],
+                        "JANELA": i["JANELA"]["VALOR"], "PRECISAO": i["JANELA"].get("PRECISAO")} for i in lista],
+    }
+
+    # ---- 5) 20 para ler a mao: todos os que tem alguma chave provada primeiro, depois ao acaso (semente fixa)
+    rnd = random.Random(20260926)
+    com = [n for n, i in enumerate(itens) if any(i[c]["PROVADA"] for c in CHAVES)]
+    sem = [n for n, i in enumerate(itens) if i["TEM_TEXTO"] and n not in com]
+    escolha = rnd.sample(com, min(12, len(com)))
+    escolha += rnd.sample(sem, 20 - len(escolha))
+    amostra = [{"N": k + 1, "GRUPO": itens[n]["GRUPO"], "SOURCE_ID": itens[n]["SOURCE_ID"],
+                "UNIVERSO": itens[n]["UNIVERSO"], "SHA256": itens[n]["SHA256"][:16],
+                "DECISAO": itens[n]["DECISAO"],
+                **{c: itens[n][c]["VALOR"] for c in CHAVES},
+                "TRECHO": itens[n]["TRECHO"]} for k, n in enumerate(escolha)]
+
+    fora = {"GERADO": gerado, "LIVRO": LIVRO, "ARMAZEM": ARMAZEM, "REDE": 0, "ESCRITA_NA_SALA": 0,
+            "CONTAS": contas, "CRUZAMENTOS_POSSIVEIS_NAO_EXECUTADOS": cruzamentos,
+            "AMOSTRA_20": amostra,
+            "ITENS": [{k: v for k, v in i.items() if k != "TRECHO"} for i in itens]}
+    with open(os.path.join(AQUI, os.environ.get("SAIDA", "MEDIDA.json")), "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(fora, fh, ensure_ascii=False, indent=1, default=str)
+    print(json.dumps({"CONTAS": {g: {k: v for k, v in c.items() if not k.startswith("POR_")}
+                                 for g, c in contas.items()},
+                      "CRUZAMENTOS": {k: v for k, v in cruzamentos.items() if k not in ("PARES", "DOCUMENTOS")}},
+                     ensure_ascii=False, indent=1))
+
+
+if __name__ == "__main__":
+    main()

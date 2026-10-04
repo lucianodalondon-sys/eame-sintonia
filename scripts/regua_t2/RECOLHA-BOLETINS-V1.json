@@ -1,0 +1,887 @@
+{
+ "DATASET": "RECOLHA-BOLETINS-V1",
+ "PROTOCOLO": "PROTOCOLO-GABARITO-T2.md#adenda-2",
+ "REGRA": "egresso por consenso antes de cada site; robots; teto 6/anfitriao; 2 s; alvos por regra fixa",
+ "BYTES_EM": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha",
+ "SITES": [
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE Emilia-Romagna · agrometeo",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+   "ORIGEM_DO_ENDERECO": "contrato regras/italy_contracts.mjs",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV Veneto · Agrometeo Informa",
+   "ENTRADA": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo/agrometeoinforma",
+   "ORIGEM_DO_ENDERECO": "contrato regras/italy_contracts.mjs",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · Servizio Fitosanitario Regionale",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "ORIGEM_DO_ENDERECO": "contrato regras/italy_contracts.mjs",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo regionale",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "ORIGEM_DO_ENDERECO": "contrato regras/italy_contracts.mjs",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL mosca delle olive",
+   "ENTRADA": "http://www.apol.it",
+   "ORIGEM_DO_ENDERECO": "contrato regras/italy_contracts.mjs",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "IT-T3-022",
+   "SERVICO": "Lombardia · Servizio Fitosanitario",
+   "ENTRADA": "https://www.fitosanitario.regione.lombardia.it/",
+   "ORIGEM_DO_ENDERECO": "catalogo curadoria",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 2,
+   "PARADO": "nenhum link pela regra na entrada"
+  },
+  {
+   "SOURCE_ID": "IT-T2-004",
+   "SERVICO": "Sicilia · SIAS agrometeo",
+   "ENTRADA": "http://www.sias.regione.sicilia.it/",
+   "ORIGEM_DO_ENDERECO": "pagina inicial do anfitriao do contrato",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 1,
+   "PARADO": "robots: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia"
+  },
+  {
+   "SOURCE_ID": "IT-T12-009",
+   "SERVICO": "Marche · ASSAM (servizio agrometeo)",
+   "ENTRADA": "https://www.assam.marche.it/",
+   "ORIGEM_DO_ENDERECO": "catalogo curadoria",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 2,
+   "PARADO": "nenhum link pela regra na entrada"
+  },
+  {
+   "SOURCE_ID": "IT-T12-017",
+   "SERVICO": "Friuli Venezia Giulia · ERSA",
+   "ENTRADA": "https://www.ersa.fvg.it/",
+   "ORIGEM_DO_ENDERECO": "catalogo curadoria",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Toscana · LaMMA",
+   "ENTRADA": "https://www.lamma.toscana.it/",
+   "ORIGEM_DO_ENDERECO": "pagina inicial",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Lazio · ARSIAL",
+   "ENTRADA": "https://www.arsial.it/",
+   "ORIGEM_DO_ENDERECO": "pagina inicial",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 2,
+   "PARADO": "nenhum link pela regra na entrada"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Basilicata · ALSIA",
+   "ENTRADA": "https://www.alsia.it/",
+   "ORIGEM_DO_ENDERECO": "pagina inicial",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 2,
+   "PARADO": "nenhum link pela regra na entrada"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · Agriligurianet",
+   "ENTRADA": "https://www.agriligurianet.it/",
+   "ORIGEM_DO_ENDERECO": "pagina inicial",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Trentino · Fondazione Edmund Mach",
+   "ENTRADA": "https://www.fmach.it/",
+   "ORIGEM_DO_ENDERECO": "pagina inicial",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 5
+  },
+  {
+   "SOURCE_ID": "IT-T2-035",
+   "SERVICO": "Sardegna · ARPAS",
+   "ENTRADA": "https://www.arpa.sardegna.it/",
+   "ORIGEM_DO_ENDERECO": "catalogo curadoria",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 2,
+   "PARADO": "nenhum link pela regra na entrada"
+  }
+ ],
+ "ITENS": [
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE Emilia-Romagna · agrometeo",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+   "HTTP": 200,
+   "BYTES": 30496,
+   "SHA256": "026c79d8cd8923a37f5da16b13e1d683b6f03f2c8fc52522d4543f69304350a2",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\026c79d8cd8923a3.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "ba3401cbf9bd0dcad5a3985c8fbeff54d13117d51c5f24e85511eb0a1879cb3c",
+   "NON_WHITESPACE_CHARACTERS": 1719,
+   "OBTIDO_EM": "2026-09-24T18:50:21.995390+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE Emilia-Romagna · agrometeo",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+   "HTTP": 200,
+   "BYTES": 33128,
+   "SHA256": "79925abf4b97cac413952303f780f297570da4b75c84be2bf374803f35bc5e30",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\79925abf4b97cac4.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "b662ee180a543ce16dff3b9c49a2139e6005527d523a26264fdfdb5e0d5be86f",
+   "NON_WHITESPACE_CHARACTERS": 2030,
+   "OBTIDO_EM": "2026-09-24T18:50:26.092186+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE Emilia-Romagna · agrometeo",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-mensili",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+   "HTTP": 200,
+   "BYTES": 45486,
+   "SHA256": "436aae3eb3928fa7a57221bc3cac6fba7bdb669857113807b62fb2f1107424be",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\436aae3eb3928fa7.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "12fab6cefbedd96ba019638d9c8ccd55f58f7cfcc6b3e2b3b9543f5dc7f6ee08",
+   "NON_WHITESPACE_CHARACTERS": 2446,
+   "OBTIDO_EM": "2026-09-24T18:50:30.068380+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE Emilia-Romagna · agrometeo",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-innevamento",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+   "HTTP": 200,
+   "BYTES": 41539,
+   "SHA256": "06b6fd23a83b20e3ea16859831464ab1e0cb3acabc73ec193882da2ca6bf247a",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\06b6fd23a83b20e3.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "ffd74e301b08b8a35d9a4fd78afa427f12a01d3ef179c5b9c51782a870c14a43",
+   "NON_WHITESPACE_CHARACTERS": 2397,
+   "OBTIDO_EM": "2026-09-24T18:50:34.508656+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV Veneto · Agrometeo Informa",
+   "URL": "https://www.arpa.veneto.it/temi-ambientali/agrometeo",
+   "ENTRADA": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo/agrometeoinforma",
+   "HTTP": 200,
+   "BYTES": 254212,
+   "SHA256": "702486b5c6cff9cc09011acaaed68940ec6d3203a4ce4ffa52e4f67cfc718480",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\702486b5c6cff9cc.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "d89beec6225962a5d0bd6464cc4aa19a2004bfd3effa8e8229a5ac03ded081c1",
+   "NON_WHITESPACE_CHARACTERS": 2026,
+   "OBTIDO_EM": "2026-09-24T18:50:50.864990+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV Veneto · Agrometeo Informa",
+   "URL": "https://www.arpa.veneto.it/servizi/iscrizione-bollettini-e-servizi",
+   "ENTRADA": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo/agrometeoinforma",
+   "HTTP": 200,
+   "BYTES": 291527,
+   "SHA256": "d829ee0851d56895021359d510c5e9927f11bc380f0962969a22a0e8d3473bad",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\d829ee0851d56895.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "46126e827da9de95da8e2342954ebed66c26ab3c4ff9badeb73d0e92ef206079",
+   "NON_WHITESPACE_CHARACTERS": 7262,
+   "OBTIDO_EM": "2026-09-24T18:50:55.124510+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV Veneto · Agrometeo Informa",
+   "URL": "https://www.arpa.veneto.it/dati-ambientali/bollettini",
+   "ENTRADA": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo/agrometeoinforma",
+   "HTTP": 200,
+   "BYTES": 262906,
+   "SHA256": "44aa57096eb724cfcfe2a29dd0361e6c176cd89419080564ad66b5f489e720aa",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\44aa57096eb724cf.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "8757abbbe1195ac49f5f7c3a305cad299eaea24df54e6888d27644b5c72ca8fa",
+   "NON_WHITESPACE_CHARACTERS": 1756,
+   "OBTIDO_EM": "2026-09-24T18:50:59.045488+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV Veneto · Agrometeo Informa",
+   "URL": "https://www.arpa.veneto.it/servizi/iscrizione-bollettini-e-servizi",
+   "ENTRADA": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo/agrometeoinforma",
+   "HTTP": 200,
+   "BYTES": 291527,
+   "SHA256": "d829ee0851d56895021359d510c5e9927f11bc380f0962969a22a0e8d3473bad",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\d829ee0851d56895.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "46126e827da9de95da8e2342954ebed66c26ab3c4ff9badeb73d0e92ef206079",
+   "NON_WHITESPACE_CHARACTERS": 7262,
+   "OBTIDO_EM": "2026-09-24T18:51:03.028515+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · Servizio Fitosanitario Regionale",
+   "URL": "https://agricoltura.regione.campania.it/difesa/difesa.html",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HTTP": 200,
+   "BYTES": 28281,
+   "SHA256": "f49eeddd2a27dc7d16db5dd460759ba0587b09c3352516c2e8549a24a102ff8f",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\f49eeddd2a27dc7d.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "6c95ce37313920f022c02e4e9f774e61e78d318a3fdbd75fa923d0bd5a889d23",
+   "NON_WHITESPACE_CHARACTERS": 3946,
+   "OBTIDO_EM": "2026-09-24T18:51:12.969313+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · Servizio Fitosanitario Regionale",
+   "URL": "https://agricoltura.regione.campania.it/difesa/disciplinari.html",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HTTP": 200,
+   "BYTES": 26583,
+   "SHA256": "535356f486454fb47c719195f588e5570251102c429223ef94d72aae80adf730",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\535356f486454fb4.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "d837b05cb8a886e9be2753b6676282d9dc8491f2d4ed7025594d253cf9e33c6c",
+   "NON_WHITESPACE_CHARACTERS": 5848,
+   "OBTIDO_EM": "2026-09-24T18:51:16.511060+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · Servizio Fitosanitario Regionale",
+   "URL": "https://agricoltura.regione.campania.it/formazione/formazione_index.html",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HTTP": 200,
+   "BYTES": 12908,
+   "SHA256": "817cbb6d570bfc5b316689f0ebe6991bc57b43fdd6847b7ef81e590e7903be92",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\817cbb6d570bfc5b.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "89db8970f864fdd017dee3db1e92702ec205f96a3e58dbc0402141f710282153",
+   "NON_WHITESPACE_CHARACTERS": 2131,
+   "OBTIDO_EM": "2026-09-24T18:51:19.785050+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · Servizio Fitosanitario Regionale",
+   "URL": "https://agricoltura.regione.campania.it/meteo/agrometeo.htm",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HTTP": 200,
+   "BYTES": 9690,
+   "SHA256": "27c59d4c6078bb15343a9238a79042df571133201ebdc26269e1f3b7a362bf03",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\27c59d4c6078bb15.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "329f4a17ed0a8888e27672f5392ba041bffa51a1f0b1b48d35705e2f246b0100",
+   "NON_WHITESPACE_CHARACTERS": 1520,
+   "OBTIDO_EM": "2026-09-24T18:51:22.795978+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo regionale",
+   "URL": "https://www.agrometeopuglia.it/",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HTTP": 200,
+   "BYTES": 36522,
+   "SHA256": "93f43dcf7964f65f303a34f36ea45a9a92d7e242194a323cc585d248d1671c06",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\93f43dcf7964f65f.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "48b40aa9509b1c9ebddbae429dc8a8297ae01ae100e041241bc9c1043df1e3b9",
+   "NON_WHITESPACE_CHARACTERS": 2816,
+   "OBTIDO_EM": "2026-09-24T18:51:32.728736+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo regionale",
+   "URL": "https://www.agrometeopuglia.it/osservazioni/mappa-stazioni-meteo",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HTTP": 200,
+   "BYTES": 38435,
+   "SHA256": "14aee3c1a1ad47f0cea80ac2b2696c44982533637fc4ecfb92ffaf58a3d0ee80",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\14aee3c1a1ad47f0.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "6326b0d36587fc87cb5176d829a11d44417037b7f039026ce00a2569753c0e16",
+   "NON_WHITESPACE_CHARACTERS": 1338,
+   "OBTIDO_EM": "2026-09-24T18:51:36.163758+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo regionale",
+   "URL": "https://www.agrometeopuglia.it/osservazioni/mappa-dati-rilevati",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HTTP": 200,
+   "BYTES": 37547,
+   "SHA256": "8841481be915630a2bf3cc61fa7bc30a0ee1356a7c27d3b73b3b26b317e81b88",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\8841481be915630a.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "1cde235e4334972adbfe65707a162a4f3a64cbef36cfc174bc4c733dd824a9e2",
+   "NON_WHITESPACE_CHARACTERS": 923,
+   "OBTIDO_EM": "2026-09-24T18:51:39.610584+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo regionale",
+   "URL": "https://www.agrometeopuglia.it/osservazioni/mappe-dati-stazione",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HTTP": 200,
+   "BYTES": 23274,
+   "SHA256": "9116034b87215f6c563ae37e4b8562ae9e06378af3a389ea248e556a5fa59bc1",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\9116034b87215f6c.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "5597c40b2916bf33a50d55acae96128c42a96aa22696dc8722591afe3794f6d6",
+   "NON_WHITESPACE_CHARACTERS": 741,
+   "OBTIDO_EM": "2026-09-24T18:51:42.845369+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL mosca delle olive",
+   "URL": "http://www.apol.it/press/item/bollettini-fitosanitari-mosca-dell-olivo-2026",
+   "ENTRADA": "http://www.apol.it",
+   "HTTP": 200,
+   "BYTES": 19612,
+   "SHA256": "df13098ee8d3d316ffe9c73a705c396ed956111c67109af6fdb950da19118285",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\df13098ee8d3d316.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "4c7bb338bd9f8ff2aafb3b5e31ffdafa9e38236a26ee3912ebf94a734bf04ae3",
+   "NON_WHITESPACE_CHARACTERS": 2014,
+   "OBTIDO_EM": "2026-09-24T18:51:52.526492+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL mosca delle olive",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_11_del_21_09_2026.pdf",
+   "ENTRADA": "http://www.apol.it",
+   "HTTP": 200,
+   "BYTES": 1641358,
+   "SHA256": "3d698b3a0068efa8616b185bece8c7d50b340f4002ab4663e2ea920cd1f42b33",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\3d698b3a0068efa8.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "d880146d6344a770d860c541661ecb9de9d3de694e884c46168392e2b2fe0430",
+   "NON_WHITESPACE_CHARACTERS": 21374,
+   "OBTIDO_EM": "2026-09-24T18:51:57.453084+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL mosca delle olive",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
+   "ENTRADA": "http://www.apol.it",
+   "HTTP": 200,
+   "BYTES": 1652152,
+   "SHA256": "2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\2ba23d223429131e.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "63430c6290ceed39003c57832146a82cfaf09472cb7e060db9f855d1f68f56d2",
+   "NON_WHITESPACE_CHARACTERS": 20915,
+   "OBTIDO_EM": "2026-09-24T18:52:01.971136+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL mosca delle olive",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+   "ENTRADA": "http://www.apol.it",
+   "HTTP": 200,
+   "BYTES": 1653200,
+   "SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\59da05274359eff6.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "1480770a83a634322cd6ec86ca5edf895bcf92affb295ae3af189c4a2b2b6003",
+   "NON_WHITESPACE_CHARACTERS": 21454,
+   "OBTIDO_EM": "2026-09-24T18:52:06.486430+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T12-017",
+   "SERVICO": "Friuli Venezia Giulia · ERSA",
+   "URL": "https://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/13_08_Aggiornamento-scheda-vite-da-vino.html",
+   "ENTRADA": "https://www.ersa.fvg.it/",
+   "HTTP": 200,
+   "BYTES": 144642,
+   "SHA256": "c9bbe282c74a996a7ca885ffa467d114455920a89070ecedd6963ec53565ab24",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\c9bbe282c74a996a.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "b0bc8688c56a47dd98a19af06b5a052b454fcff8468cd33439e2d916bb73273c",
+   "NON_WHITESPACE_CHARACTERS": 29484,
+   "OBTIDO_EM": "2026-09-24T18:52:43.654518+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T12-017",
+   "SERVICO": "Friuli Venezia Giulia · ERSA",
+   "URL": "https://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/27-05-26_Sissar-insetti-invasivi-difesa-integrata-Staranzano.html",
+   "ENTRADA": "https://www.ersa.fvg.it/",
+   "HTTP": 200,
+   "BYTES": 149679,
+   "SHA256": "30712589b10eb00ad68d01a434832c39098e21b87b91814f517860a43f7e5307",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\30712589b10eb00a.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "0acb952d9bd5bb6a830c1be782f576da3d32edb89903a72f5c51d9b1edd8a5ab",
+   "NON_WHITESPACE_CHARACTERS": 29896,
+   "OBTIDO_EM": "2026-09-24T18:52:47.692512+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T12-017",
+   "SERVICO": "Friuli Venezia Giulia · ERSA",
+   "URL": "https://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/19-11-2025_Sissar-Vite-e-Cocciniglie.html",
+   "ENTRADA": "https://www.ersa.fvg.it/",
+   "HTTP": 200,
+   "BYTES": 143701,
+   "SHA256": "d1e2f7b491afd9dee19fc1c93f4799c42022d6c3ecc4de93fa4369eada8348aa",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\d1e2f7b491afd9de.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "433a3f5deb502e02211128bbb83075fc2fe011d5ba1cb817c7cc5d722a1020d2",
+   "NON_WHITESPACE_CHARACTERS": 29631,
+   "OBTIDO_EM": "2026-09-24T18:52:51.697061+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T12-017",
+   "SERVICO": "Friuli Venezia Giulia · ERSA",
+   "URL": "https://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/05-08-2025_ALEUROCANTHUS-SPINIFERUS-QUAINTANCE-ALEURODIDE-SPINOSO-.html",
+   "ENTRADA": "https://www.ersa.fvg.it/",
+   "HTTP": 200,
+   "BYTES": 151517,
+   "SHA256": "4ea5403766f5e82e8f2069dd185334b2044772bf87d7ad576d66b6f23277ff10",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\4ea5403766f5e82e.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "0208a0b213527df6d94f6d8159bc50587ef8fa80b18bcba7533a1259bbbbf125",
+   "NON_WHITESPACE_CHARACTERS": 30316,
+   "OBTIDO_EM": "2026-09-24T18:52:55.724535+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Toscana · LaMMA",
+   "URL": "https://www.lamma.toscana.it/meteo/bollettini-meteo/toscana",
+   "ENTRADA": "https://www.lamma.toscana.it/",
+   "HTTP": 200,
+   "BYTES": 287978,
+   "SHA256": "51684b83904e7e7286f543cbc5d4e4136bc379db45539ecd4828c0b674b6f75a",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\51684b83904e7e72.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "2c7cc2f8689d1646aea56c37c5790b9e8e09bfd86c18f39af872c6fd0431e3c8",
+   "NON_WHITESPACE_CHARACTERS": 9900,
+   "OBTIDO_EM": "2026-09-24T18:53:06.648708+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Toscana · LaMMA",
+   "URL": "https://www.lamma.toscana.it/bollettino-mare",
+   "ENTRADA": "https://www.lamma.toscana.it/",
+   "HTTP": 200,
+   "BYTES": 220019,
+   "SHA256": "8c357427cb4c87ceaf089eff8d488d8b2ffcbf3a59d6af3ac1606558e98f54b9",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\8c357427cb4c87ce.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "e4a33710dde15b99f415046f699cff0b409a44b89239a3bbbc947055251b1870",
+   "NON_WHITESPACE_CHARACTERS": 8090,
+   "OBTIDO_EM": "2026-09-24T18:53:10.531010+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Toscana · LaMMA",
+   "URL": "https://www.lamma.toscana.it/meteo/bollettini-meteo/mare-costa",
+   "ENTRADA": "https://www.lamma.toscana.it/",
+   "HTTP": 200,
+   "BYTES": 228498,
+   "SHA256": "6f0e24b9b97b2f389df070e1dabe43183b05a7b3df9b9abf621474c9ccfe93e9",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\6f0e24b9b97b2f38.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "b8f8922e3c8a06dc19aa21f8a24d55c8359d6c008622aef08e863db5e93a9cc5",
+   "NON_WHITESPACE_CHARACTERS": 5629,
+   "OBTIDO_EM": "2026-09-24T18:53:14.589310+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Toscana · LaMMA",
+   "URL": "https://www.lamma.toscana.it/meteo/bollettini-meteo/montagna",
+   "ENTRADA": "https://www.lamma.toscana.it/",
+   "HTTP": 200,
+   "BYTES": 354402,
+   "SHA256": "e57d45c4a37e3434f74edd51f280e5d09ec08d4fb809d84ed3f65107ade2406a",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\e57d45c4a37e3434.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "33bde7f65099e9ddb0893310b4ced448cedc19450394f77ee1d887d86d1bf98f",
+   "NON_WHITESPACE_CHARACTERS": 17995,
+   "OBTIDO_EM": "2026-09-24T18:53:18.628608+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · Agriligurianet",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+   "ENTRADA": "https://www.agriligurianet.it/",
+   "HTTP": 200,
+   "BYTES": 59215,
+   "SHA256": "5ce21947bdc4a49a7a590bbae59fb451441f87b9ce8a293b070c3278874ba22b",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\5ce21947bdc4a49a.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "290dd720d1f4a23e3bbcfd6f3230eb674714d1d851e27994e468a396ab50ce5e",
+   "NON_WHITESPACE_CHARACTERS": 7376,
+   "OBTIDO_EM": "2026-09-24T18:53:45.223249+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · Agriligurianet",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+   "ENTRADA": "https://www.agriligurianet.it/",
+   "HTTP": 200,
+   "BYTES": 55618,
+   "SHA256": "c0fc65cb5cc4d6be020673fbf55a951894849ade443338f6d4951995c2d48dd9",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\c0fc65cb5cc4d6be.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "371aa673910520bccbeda1dc60269da36962164e218618bb2b1faf8d85813565",
+   "NON_WHITESPACE_CHARACTERS": 6267,
+   "OBTIDO_EM": "2026-09-24T18:53:48.797718+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · Agriligurianet",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/registro-operatori-professionali-ruop.html",
+   "ENTRADA": "https://www.agriligurianet.it/",
+   "HTTP": 200,
+   "BYTES": 40166,
+   "SHA256": "58767b04c843606546b0f8130ddcfbad7a7e0615fa6ce6695dedddfcf6f704e5",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\58767b04c8436065.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "7a0d47529cd1081bcba39329e17bf69a24e139a7d76116c7c7d97064fd1e2636",
+   "NON_WHITESPACE_CHARACTERS": 5645,
+   "OBTIDO_EM": "2026-09-24T18:53:52.208134+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · Agriligurianet",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/passaporto-piante/autorizzazione-all-uso-del-passaporto-delle-piante-richiesta-aggiornamento-recesso.html",
+   "ENTRADA": "https://www.agriligurianet.it/",
+   "HTTP": 200,
+   "BYTES": 39791,
+   "SHA256": "bcca25b674e2186bd7d71da680cc1a395af8d31a8406e46c5676b5035f34f0fc",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\bcca25b674e2186b.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "44ad9a0cbfd5cd649574313d1d012260882c4987713994ac6f9815ae0b45242c",
+   "NON_WHITESPACE_CHARACTERS": 4816,
+   "OBTIDO_EM": "2026-09-24T18:53:55.611524+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Trentino · Fondazione Edmund Mach",
+   "URL": "https://www.fmach.it/Servizi/Bollettini-tecnici",
+   "ENTRADA": "https://www.fmach.it/",
+   "HTTP": 200,
+   "BYTES": 78409,
+   "SHA256": "775bfb0656240753b7dd5a6aee74b8b3bab4914f4aed7c836633ba5bf41938c2",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\775bfb0656240753.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "8beae9dd3bcdd151464dc5760486d32b93f1ba5fa2b76dc3bdd6727f1f58c87d",
+   "NON_WHITESPACE_CHARACTERS": 3698,
+   "OBTIDO_EM": "2026-09-24T18:54:08.835768+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Trentino · Fondazione Edmund Mach",
+   "URL": "https://fmach.it/Comunicazione/Notizie/A-come-Alpi-_-Rubrica-FEM-_Difesa-sostenibile-il-vigneto-vibrazionale-oggi-e-ancora-piu-hi-tech_-il-punto-orto",
+   "ENTRADA": "https://www.fmach.it/",
+   "HTTP": 200,
+   "BYTES": 75431,
+   "SHA256": "adf8dff8b9d0d920b4336d92ca7d23b2eb0d55e496e0bb722c680551a94f3380",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\adf8dff8b9d0d920.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "4a4b9119ffd9fad9899803afef1a23621a5c9fe9acb8dd4f54d30a8432b17808",
+   "NON_WHITESPACE_CHARACTERS": 5002,
+   "OBTIDO_EM": "2026-09-24T18:54:12.323688+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Trentino · Fondazione Edmund Mach",
+   "URL": "https://fmach.it/Comunicazione/Notizie/A-come-Alpi-_-Rubrica-FEM-_Difesa-sostenibile-il-vigneto-vibrazionale-oggi-e-ancora-piu-hi-tech_-il-punto-orto",
+   "ENTRADA": "https://www.fmach.it/",
+   "HTTP": 200,
+   "BYTES": 75431,
+   "SHA256": "adf8dff8b9d0d920b4336d92ca7d23b2eb0d55e496e0bb722c680551a94f3380",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\adf8dff8b9d0d920.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "4a4b9119ffd9fad9899803afef1a23621a5c9fe9acb8dd4f54d30a8432b17808",
+   "NON_WHITESPACE_CHARACTERS": 5002,
+   "OBTIDO_EM": "2026-09-24T18:54:15.983605+00:00"
+  }
+ ],
+ "CONTAGEM": {
+  "SITES": 15,
+  "ITENS": 35,
+  "TEXTOS_DISTINTOS": 33,
+  "PEDIDOS": 64
+ }
+}

@@ -1,0 +1,165 @@
+{
+ "DATASET": "CANARIO-DESBLOQUEIO-V1",
+ "GERADO_EM": "2026-09-23T04:31:15.803246+00:00",
+ "PECA": "medidas/canario_rotas_elegiveis.provar (origin/rotas-elegiveis-v1), MAX_ALVOS=1",
+ "CONTRATOS_LIDOS_DE": "C:\\Users\\London1\\AppData\\Local\\Temp\\curator-snap-20260923T033656Z\\italy_contracts_curator.json",
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T10-026",
+   "OWNER": "English",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.granariamilano.it/en/",
+   "LINK_PATTERN": "^https?://(www\\.)?granariamilano\\.it/comunicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "EGRESSO": {
+    "PAIS": "IT",
+    "IP": "149.22.91.171",
+    "CIDADE": "Palermo"
+   },
+   "ACQUISITION_PROVADA": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.granariamilano.it/en/",
+    "LINK_PATTERN": "^https?://(www\\.)?granariamilano\\.it/comunicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-100",
+   "OWNER": "agrofarma.federchimica.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://agrofarma.federchimica.it/home-page",
+   "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://agrofarma.federchimica.it/home-page",
+    "HTML_KIND": "MIXED",
+    "LINKS": 81,
+    "NON_WHITESPACE_CHARACTERS": 4036,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 2,
+   "AMOSTRA_LINKS": [
+    "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+    "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+     "HTTP": 200,
+     "BYTES": 64740,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 66,
+     "NON_WHITESPACE_CHARACTERS": 3899,
+     "PARAGRAPH_CHARACTERS": 2344,
+     "TEXT_SHA256": "821917fb72ea247dacce6e4433da725769765d4f49397288b4706c2bf5b4a0dc",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+    "HTTP": 200,
+    "BYTES": 64740,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 66,
+    "NON_WHITESPACE_CHARACTERS": 3899,
+    "PARAGRAPH_CHARACTERS": 2344,
+    "TEXT_SHA256": "821917fb72ea247dacce6e4433da725769765d4f49397288b4706c2bf5b4a0dc",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 2 links pelo motor -> https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo com 2344 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "EGRESSO": {
+    "PAIS": "IT",
+    "IP": "149.22.91.171",
+    "CIDADE": "Palermo"
+   },
+   "ACQUISITION_PROVADA": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://agrofarma.federchimica.it/home-page",
+    "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "OWNER": "Zootecnica International",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.zootecnicainternational.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/featured/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.zootecnicainternational.com/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 204,
+    "NON_WHITESPACE_CHARACTERS": 5324,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 19,
+   "AMOSTRA_LINKS": [
+    "https://zootecnicainternational.com/featured/eurotier-2026-poultry-innovation-focuses-on-automation-artificial-intelligence-and-monitoring/",
+    "https://zootecnicainternational.com/featured/poultry-gut-health-biosecurity-microbiota-feeding/",
+    "https://zootecnicainternational.com/featured/cage-free-laying-hens-welfare-challenges-research/",
+    "https://zootecnicainternational.com/featured/cleaning-and-disinfection-of-poultry-house-a-key-step-in-poultry-farm-biosecurity/",
+    "https://zootecnicainternational.com/featured/broiler-genotype-breast-meat-quality-consumer-liking/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://zootecnicainternational.com/featured/eurotier-2026-poultry-innovation-focuses-on-automation-artificial-intelligence-and-monitoring/",
+     "HTTP": 200,
+     "BYTES": 174233,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 135,
+     "NON_WHITESPACE_CHARACTERS": 8476,
+     "PARAGRAPH_CHARACTERS": 6596,
+     "TEXT_SHA256": "ed6d80e8591e92b424d61c281955916e8d244604927bd43cfb71af850a34794b",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://zootecnicainternational.com/featured/eurotier-2026-poultry-innovation-focuses-on-automation-artificial-intelligence-and-monitoring/",
+    "HTTP": 200,
+    "BYTES": 174233,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 135,
+    "NON_WHITESPACE_CHARACTERS": 8476,
+    "PARAGRAPH_CHARACTERS": 6596,
+    "TEXT_SHA256": "ed6d80e8591e92b424d61c281955916e8d244604927bd43cfb71af850a34794b",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 19 links pelo motor -> https://zootecnicainternational.com/featured/eurotier-2026-poultry-innovation-focuses-on-automation-artificial-intelligence-and-monitoring/ com 6596 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "EGRESSO": {
+    "PAIS": "IT",
+    "IP": "149.22.91.171",
+    "CIDADE": "Palermo"
+   },
+   "ACQUISITION_PROVADA": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.zootecnicainternational.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/featured/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  }
+ ]
+}

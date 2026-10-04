@@ -1,0 +1,63 @@
+# -*- coding: utf-8 -*-
+# QUATRO-CHAVES-V2 · mutacao da leitura/escrita POR NOME. Registo do ensaio (.txt).
+#   PYTHONDONTWRITEBYTECODE=1 PYTHONUTF8=1 py data/derivados/QUATRO-CHAVES-V2/mutacao.py.txt
+import hashlib
+import os
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__)))))
+F = "admissao/sala_de_espera.py"
+T = "tests.test_sala_por_nome"
+
+MUTANTES = [
+    ("M1 tabela: a base da publicacao aponta a coluna vizinha",
+     '("published_at_basis", "PUBLISHED_AT_BASIS"),',
+     '("published_at_basis", "SOURCE_LOCATION_BASIS"),'),
+    ("M2 leitura: sem conferir o numero de colunas",
+     '            if len(partes) != len(COLUNAS_LIDAS):',
+     '            if False:'),
+    ("M3 escrita: os JSON gravam todos o FATO",
+     'por_nome.update({coluna: _lit(json.dumps(u[campo], ensure_ascii=False,',
+     'por_nome.update({coluna: _lit(json.dumps(u["FATO"], ensure_ascii=False,'),
+    ("M4 leitura: os JSON leem todos a coluna do fato",
+     '                u[campo] = json.loads(c[coluna])',
+     '                u[campo] = json.loads(c["fato"])'),
+    ("M5 escrita: uma lista de colunas volta a ser escrita a mao",
+     '    select {colunas}\n      from _entrada e',
+     '    select run_id, ordem, item_id\n      from _entrada e'),
+]
+
+
+def sha(p):
+    with open(p, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+mortos = 0
+caminho = os.path.join(RAIZ, F)
+for nome, de, para in MUTANTES:
+    with open(caminho, "rb") as f:
+        original = f.read()
+    antes = sha(caminho)
+    texto = original.decode("utf-8").replace("\r\n", "\n")
+    assert texto.count(de) == 1, "%s: o alvo da troca nao e unico (%d)" % (nome, texto.count(de))
+    try:
+        with open(caminho, "wb") as f:
+            f.write(texto.replace(de, para).encode("utf-8"))
+        r = subprocess.run([sys.executable, "-m", "unittest", T], cwd=RAIZ, capture_output=True,
+                           text=True, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1"))
+        morto = r.returncode != 0
+    finally:
+        with open(caminho, "wb") as f:
+            f.write(original)
+    reposto = sha(caminho) == antes
+    mortos += morto
+    print("%-52s %s · reposto=%s" % (nome, "MORTO (o teste apanhou)" if morto
+                                     else "SOBREVIVEU  <-- o teste nao morde",
+                                     "SIM" if reposto else "NAO <-- GRAVE"))
+    if not reposto:
+        sys.exit(2)
+print("MUTANTES %d · MORTOS %d" % (len(MUTANTES), mortos))
+sys.exit(0 if mortos == len(MUTANTES) else 1)

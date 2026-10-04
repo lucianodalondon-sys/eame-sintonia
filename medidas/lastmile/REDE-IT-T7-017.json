@@ -1,0 +1,509 @@
+{
+ "ARGUMENTOS": [
+  "--so-a-porta",
+  "--colheita-da-corrida=IT-T7-2026-09-21-193015-aae482dfd4ef8cbe",
+  "--filtro",
+  "fonte=IT-T7-017",
+  "--filtro",
+  "universo=T7",
+  "colete rede tecnica"
+ ],
+ "CODIGO_DE_SAIDA": 0,
+ "ERRO": null,
+ "NETWORK_ALLOWED": false,
+ "NETWORK_REQUESTS": 0,
+ "EGRESS_ATTEMPTS": [],
+ "DNS_LOOKUPS_FORA": 0,
+ "DNS_DETALHE": [],
+ "LOOPBACK_CONNECTS": 0,
+ "LOOPBACK_PORTOS": [],
+ "SUBPROCESSOS": 61,
+ "SUBPROCESSOS_DETALHE": [
+  {
+   "ARGV": [
+    "git",
+    "-C",
+    "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1",
+    "log",
+    "-1",
+    "--format=%h",
+    "--",
+    "coleta/italy_executor.py"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 1134, in main recibo = correr(p, so_plano=so_plano, seco=seco, so_a_porta=so_a_porta,",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 912, in correr \"ACTOR_VERSION\": versao_do_executor(caminho),",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 712, in versao_do_executor r = subprocess.run([\"git\", \"-C\", str(RAIZ), \"log\", \"-1\", \"--format=%h\",",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "git",
+    "-C",
+    "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1",
+    "log",
+    "-1",
+    "--format=%h",
+    "--",
+    "coleta/italy_executor.py"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 1134, in main recibo = correr(p, so_plano=so_plano, seco=seco, so_a_porta=so_a_porta,",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 939, in correr envelope, notas = o_envelope(e, run_id)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 106, in o_envelope versao = versao_do_executor((e.get(\"roda\") or [\"\"])[0])",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 712, in versao_do_executor r = subprocess.run([\"git\", \"-C\", str(RAIZ), \"log\", \"-1\", \"--format=%h\",",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "git",
+    "-C",
+    "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1",
+    "log",
+    "-1",
+    "--format=%h",
+    "--",
+    "coleta/italy_executor.py"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 1134, in main recibo = correr(p, so_plano=so_plano, seco=seco, so_a_porta=so_a_porta,",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 953, in correr itens, notas = a_colheita(e, de_quem)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 200, in a_colheita envelope, notas = o_envelope(e, run_id)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 106, in o_envelope versao = versao_do_executor((e.get(\"roda\") or [\"\"])[0])",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\orquestrador\\orquestrador.py\", line 712, in versao_do_executor r = subprocess.run([\"git\", \"-C\", str(RAIZ), \"log\", \"-1\", \"--format=%h\",",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 678, in conferir_o_que_ja_existe copia = memoria.copia_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 205, in copia_em linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 691, in conferir_o_que_ja_existe existente = _procurar_a_observacao(run[\"RUN_ID\"], obj, copia, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 639, in _procurar_a_observacao return memoria.observacao_identificada(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 212, in observacao_identificada linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 732, in conferir_o_que_ja_existe ocupantes = memoria.observacoes_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 235, in observacoes_em return self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 678, in conferir_o_que_ja_existe copia = memoria.copia_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 205, in copia_em linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 691, in conferir_o_que_ja_existe existente = _procurar_a_observacao(run[\"RUN_ID\"], obj, copia, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 639, in _procurar_a_observacao return memoria.observacao_identificada(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 212, in observacao_identificada linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 732, in conferir_o_que_ja_existe ocupantes = memoria.observacoes_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 235, in observacoes_em return self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 678, in conferir_o_que_ja_existe copia = memoria.copia_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 205, in copia_em linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 691, in conferir_o_que_ja_existe existente = _procurar_a_observacao(run[\"RUN_ID\"], obj, copia, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 639, in _procurar_a_observacao return memoria.observacao_identificada(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 212, in observacao_identificada linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 732, in conferir_o_que_ja_existe ocupantes = memoria.observacoes_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 235, in observacoes_em return self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 678, in conferir_o_que_ja_existe copia = memoria.copia_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 205, in copia_em linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 691, in conferir_o_que_ja_existe existente = _procurar_a_observacao(run[\"RUN_ID\"], obj, copia, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 639, in _procurar_a_observacao return memoria.observacao_identificada(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 212, in observacao_identificada linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 732, in conferir_o_que_ja_existe ocupantes = memoria.observacoes_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 235, in observacoes_em return self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 678, in conferir_o_que_ja_existe copia = memoria.copia_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 205, in copia_em linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 691, in conferir_o_que_ja_existe existente = _procurar_a_observacao(run[\"RUN_ID\"], obj, copia, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 639, in _procurar_a_observacao return memoria.observacao_identificada(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 212, in observacao_identificada linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 732, in conferir_o_que_ja_existe ocupantes = memoria.observacoes_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 235, in observacoes_em return self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 1303, in preservar ja_la = conferir_o_que_ja_existe(run, plano, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 678, in conferir_o_que_ja_existe copia = memoria.copia_em(caminho)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 205, in copia_em linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  },
+  {
+   "ARGV": [
+    "C:\\Users\\London1\\orca\\pgtmp\\pgsql\\bin\\psql.exe",
+    "-X",
+    "-q",
+    "-A",
+    "-t",
+    "-F",
+    "\u001f",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-f",
+    "-",
+    "postgresql://postgres:2pO3uIgZ0xtFT3ffsx5C8Sp2atPTQQoT@127.0.0.1:54330/sala_italia"
+   ],
+   "HERDA_O_REMENDO": false,
+   "PILHA": [
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 691, in conferir_o_que_ja_existe existente = _procurar_a_observacao(run[\"RUN_ID\"], obj, copia, memoria)",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\preservar_coleta.py\", line 639, in _procurar_a_observacao return memoria.observacao_identificada(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 212, in observacao_identificada linhas = self._linhas(",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 159, in _linhas for linha in self._psql(sql).splitlines():",
+    "File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\last-mile-v1\\guarda\\memoria_postgres.py\", line 125, in _psql r = subprocess.run(cmd, input=sql, capture_output=True, text=True,",
+    "File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 548, in run with Popen(*popenargs, **kwargs) as process:"
+   ]
+  }
+ ],
+ "AVISO_DOS_FILHOS": "um subprocesso nasce com interpretador limpo e NAO herda estes remendos; por isso sao contados, e a corrida so e seca se esta lista estiver vazia ou se cada filho for justificado por escrito"
+}

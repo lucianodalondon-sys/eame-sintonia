@@ -1,4 +1,4 @@
-// FASE D — preserva uma amostra real com MIME / BYTES / SHA256, do IP italiano.
+// FASE D — preserva uma amostra real com MIME / BYTES / SHA256, e MEDE de onde saiu.
 //
 // Uso:
 //   node guarda/italy_preserve.mjs <SOURCE_ID> <url> [url2] [url3]
@@ -10,13 +10,42 @@
 // O manifesto sai com os campos de julgamento (WHAT_IT_PROVES etc.) marcados
 // PREENCHER_A_MAO de proposito: maquina nao decide o que uma evidencia prova.
 
-import { execFile } from "node:child_process";
+import { execFile, execFileSync } from "node:child_process";
 import { promisify } from "node:util";
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { basename } from "node:path";
 
 const run = promisify(execFile);
+
+// ── A PROCEDENCIA DE SAIDA E MEDIDA, NUNCA ESCRITA A MAO ────────────────────
+// Ate esta missao, tres linhas deste manifesto eram LITERAIS no codigo: toda
+// captura saia a declarar «Milano, Lombardia, IT — Proton AG», mesmo quando
+// corria de outro pais. Medido na prova de fogo da Collection: a corrida saiu
+// por US e o manifesto continuou a jurar Italia.
+//
+//     ORIGEM DECLARADA != ORIGEM MEDIDA. SEM MEDICAO, NAO SEI.
+//
+// ⚠️ E O MEDIDOR NAO NASCE AQUI. `superficie/rede.py` ja e o dono desta
+// pergunta nesta casa — foi tirado de dentro de uma rota de aquisicao
+// exactamente para poder ser perguntado antes dela. Escrever um segundo
+// medidor em JavaScript daria dois donos ao mesmo facto, livres para divergir
+// no dia em que um deles mudasse de servico.
+//
+//     UMA PERGUNTA, UM DONO — MESMO QUANDO ATRAVESSA DUAS LINGUAGENS.
+//
+// E ele devolve o PAIS e nao o IP, de proposito: a pergunta era o pais, e
+// guardar mais do que a pergunta e guardar o que ninguem pediu.
+function egressoMedido() {
+  try {
+    const out = execFileSync("python3", ["superficie/rede.py", "--egresso"],
+                             { encoding: "utf8", timeout: 30000 });
+    const d = JSON.parse(out);
+    if (!d || typeof d.EGRESS_COUNTRY_CODE !== "string") return null;
+    return d;
+  } catch { return null; }
+}
+
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
 
 const [sourceId, ...urls] = process.argv.slice(2);
@@ -61,6 +90,7 @@ for (const url of urls) {
   if (mentiu) console.log("   ^^ ALERTA: extensao .pdf mas bytes nao sao PDF");
 }
 
+const EGRESSO = egressoMedido();
 const manifestPath = `${dir}/MANIFEST.json`;
 const doc = {
   MANIFEST_VERSION: "1",
@@ -68,10 +98,12 @@ const doc = {
   OWNER_ID: "PREENCHER_A_MAO",
   CAPTURE: {
     CAPTURED_AT_UTC: new Date().toISOString(),
-    METODO: "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
-    EGRESS_IP: "205.147.30.20",
-    EGRESS_GEO: "Milano, Lombardia, IT — AS208172 Proton AG",
-    EGRESS_KIND: "VPN_COMERCIAL — nao e ISP residencial italiano",
+    METODO: "curl HTTP GET com User-Agent de navegador. O pais de saida NAO se assume: vai medido em EGRESS_COUNTRY_CODE.",
+    EGRESS_COUNTRY_CODE: EGRESSO ? EGRESSO.EGRESS_COUNTRY_CODE : "UNKNOWN",
+    EGRESS_MEDIDO_POR: EGRESSO ? EGRESSO.CHECKER : "superficie/rede.py --egresso",
+    EGRESS_PORQUE: EGRESSO ? EGRESSO.PORQUE
+                           : "a medicao de saida falhou nesta captura, e ausencia de medicao nao autoriza declarar uma origem",
+    EGRESS_O_QUE_NAO_PROVA: "VPN_LOCATION != SOURCE_LOCATION e VPN_LOCATION != FACT_LOCATION. Isto e o ambiente de rede da execucao, nunca a geografia do dado.",
     AUTH_USED: "NENHUMA. Nao se tentou contornar autenticacao."
   },
   FILES: files,

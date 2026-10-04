@@ -1,0 +1,123 @@
+// Switch Puglia - Province		
+jQuery().ready( function() {		
+	jQuery("#ProvinciaID").hide();
+	// chiamo la funzione per il prelievo dei bollettini regionali
+	
+	getBollRegione();
+	
+	jQuery('#tabTypeBollettinoID a').click(function (e) {
+	  var sigla=jQuery(this).attr('sigla');
+	  var provincia=jQuery(this).attr('prov');
+	  if (sigla=="PUGLIA"){	
+	  	jQuery("#ProvinciaID").hide();
+	  	jQuery("#PugliaID").show();
+	  }	
+	  else{	
+	  	jQuery("#ProvinciaID").show();
+	  	jQuery("#PugliaID").hide();
+	  	
+	  	// modifico le diciture nella grafica
+	  	jQuery('#ProvinciaID span.provincia').html(provincia);
+	  	
+	  	// chiamo la funzione per il prolievo dei bollettini provinciali
+	  	getBollProvincia(sigla);
+	  }	
+	});	
+		
+});
+
+
+	// Chiamata bollettini provinciali
+	function getBollRegione() {
+		// Chiamata ultimi bollettini quotidiani
+		
+		jQuery.getJSON('/api/bollettini?api='+drupalSettings.api+'&tipologia=Quotidiano')
+		.done(function(data){
+			jQuery('#PugliaUltimoQuotidiano').html('');
+			jQuery('#PugliaQuattroQuotidiano').html('');
+			if (data.length > 0) {
+				for(var i = 0; i < data.length; i++) {	
+					var pathBoll=data[i].PATH_COMP;
+					pathBoll=(pathBoll.indexOf("bollettino-elettronico")!=-1) ? "../"+pathBoll : "http://wwwold.agrometeopuglia.it/opencms/Documenti/" + pathBoll;
+					if (i == 0) {
+						//jQuery('#PugliaUltimoQuotidiano').append('Bollettino n. ' + data[i].NUMBER + '<br>Emesso giorno ' + data[i].DATA_EMISSIONE_FORMAT + ' alle ore 08<br>Valido fino giorno ' + data[i].DATA_VALIDITA_FORMAT + ' alle ore 23');
+						jQuery('#PugliaUltimoQuotidiano').append('Bollettino n. ' + data[i].NUMBER +  ' del giorno ' + data[i].DATA_EMISSIONE_FORMAT + '<br>');
+						
+						//var path="http://wwwold.agrometeopuglia.it/opencms/Documenti/" + data[i].PATH_COMP;
+						jQuery('#PugliaUltimoQuotidianoPDF').attr("href", pathBoll);
+					} else {
+						jQuery('#PugliaQuattroQuotidiano').append('<h4><a href="' + pathBoll + '" target="_blank">Bollettino n. ' + data[i].NUMBER + '</a> Emesso ' + data[i].DATA_EMISSIONE_FORMAT + ' Valido ' + data[i].DATA_VALIDITA_FORMAT + '</h4>');
+					}
+				}
+			}
+			// inserisco l'icona di bollettino a posto dell'icona loader
+			jQuery('#iconBollettino').attr('class', 'fa fa-newspaper-o');
+		})
+		.fail(function(jqxhr, textStatus, error) {
+			var err = textStatus + ", " + error;
+			console.log( "Request Failed: " + err );
+		});	
+		
+		// Chiamata ultimi bollettini settimanali
+		jQuery.getJSON('/api/bollettini?api='+drupalSettings.api+'&tipologia=Settimanale')
+		.done(function(data){
+			jQuery('#PugliaUltimoSettimale').html('');
+			jQuery('#PugliaQuattroSettimanale').html('');
+			if (data.length > 0) {
+				for(var i = 0; i < data.length; i++) {	
+					var pathBoll=data[i].PATH_COMP;
+					pathBoll=(pathBoll.indexOf("bollettino-elettronico")!=-1) ? "../"+pathBoll : "http://wwwold.agrometeopuglia.it/opencms/Documenti/" + pathBoll;
+					if (i == 0) {
+						//jQuery('#PugliaUltimoSettimale').append('Notiziario n. ' + data[i].NUMBER + '<br>Emesso giorno ' + data[i].DATA_EMISSIONE_FORMAT + ' alle ore 08<br>Valido fino giorno ' + data[i].DATA_VALIDITA_FORMAT + ' alle ore 23');
+						jQuery('#PugliaUltimoSettimale').append('Notiziario n. ' + data[i].NUMBER + ' del giorno ' + data[i].DATA_EMISSIONE_FORMAT + ' valido fino al ' + data[i].DATA_VALIDITA_FORMAT);
+						
+						//var path="http://wwwold.agrometeopuglia.it/opencms/Documenti/" + data[i].PATH_COMP;
+						jQuery('#PugliaUltimoSettimalePDF').attr("href", pathBoll);
+					} else {
+						jQuery('#PugliaQuattroSettimanale').append('<h4> <a href="' + pathBoll + '" target="_blank">Notiziario n. ' + data[i].NUMBER + '</a> Emesso ' + data[i].DATA_EMISSIONE_FORMAT + ' Valido ' + data[i].DATA_VALIDITA_FORMAT + '</h4>');
+					}
+				}
+			}
+			// inserisco l'icona di bollettino a posto dell'icona loader
+			jQuery('#iconNotiziario').attr('class', 'fa fa-newspaper-o');
+		})
+		.fail(function(jqxhr, textStatus, error) {
+			var err = textStatus + ", " + error;
+			console.log( "Request Failed: " + err );
+		});	
+	}
+	
+	// Chiamata bollettini provinciali
+	function getBollProvincia(siglaProv) {
+		jQuery('#ProvinciaSettimale').html('');
+		jQuery('#ProvinciaFitosanitario').html('');
+		jQuery('#ProvinciaAggiornamento').html('');		
+		
+		// inserisco l'icona di loading
+		jQuery('#iconPROV').attr('class', 'fa fa-refresh fa-spin');
+		
+		jQuery.getJSON('/api/bollettini?api='+drupalSettings.api+'&provincia=' + siglaProv)
+		.done(function( data ) {			
+			if (data.settimanale.length > 0) {
+				jQuery('#ProvinciaSettimale').html('<h4> <a href="http://wwwold.agrometeopuglia.it/opencms/Documenti/' + data.settimanale[0].PATH_COMP + '" target="_blank">Bollettino Meteo Provinciale: settimanale </a> </h4> Emesso giorno ' + data.settimanale[0].DATA_EMISSIONE_FORMAT + ' alle ore 05 <br> Valido fino giorno ' + data.settimanale[0].DATA_VALIDITA_FORMAT + ' alle ore 20 <hr>');
+			} else {
+				jQuery('#ProvinciaSettimale').html('<h4> Bollettino Meteo Provinciale: settimanale </h4> Nessun Bollettino inserito valido <hr>');	
+			}
+			if (data.fitosanitario.length > 0) {
+				jQuery('#ProvinciaFitosanitario').html('<h4> <a href="http://wwwold.agrometeopuglia.it/opencms/Documenti/' + data.fitosanitario[0].PATH_COMP + '" target="_blank">Bollettino Meteo Provinciale: fitosanitario </a> </h4> Emesso giorno ' + data.fitosanitario[0].DATA_EMISSIONE_FORMAT + ' alle ore 05 <br> Valido fino giorno ' + data.fitosanitario[0].DATA_VALIDITA_FORMAT + ' alle ore 20 <hr>');
+			} else {
+				jQuery('#ProvinciaFitosanitario').html('<h4> Bollettino Meteo Provinciale: fitosanitario </h4> Nessun Bollettino inserito valido <hr>');	
+			}
+			if (data.aggiornamento.length > 0) {
+				jQuery('#ProvinciaAggiornamento').html('<h4> <a href="http://wwwold.agrometeopuglia.it/opencms/Documenti/' + data.aggiornamento[0].PATH_COMP + '" target="_blank">Bollettino Meteo Provinciale: aggiornamento </a> </h4> Emesso giorno ' + data.aggiornamento[0].DATA_EMISSIONE_FORMAT + ' alle ore 05 <br> Valido fino giorno ' + data.aggiornamento[0].DATA_VALIDITA_FORMAT + ' alle ore 20 <hr>');
+			} else {
+				jQuery('#ProvinciaAggiornamento').html('<h4> Bollettino Meteo Provinciale: aggiornamento </h4> Nessun Bollettino inserito valido <hr>');	
+			}
+			// inserisco l'icona di bollettino a posto dell'icona loader
+			jQuery('#iconPROV').attr('class', 'fa fa-newspaper-o');
+		})
+		.fail(function(jqxhr, textStatus, error) {		
+			var err = textStatus + ", " + error;
+			console.log( "Request Failed: " + err );
+		});			
+	}

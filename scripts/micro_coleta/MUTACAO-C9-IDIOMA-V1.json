@@ -1,0 +1,61 @@
+{
+ "DATASET": "MUTACAO-C9-IDIOMA-V1",
+ "COPIA": "C:/capa-base",
+ "MUTANTES": {
+  "banda_curta_desligada": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_as_amostras_sao_as_do_armazem (tests.test_c9_idioma.TestDetector.test_as_amostras_sao_as_do_armazem)",
+    "FAIL: test_as_duas_noticias_da_arpae_sao_italiano (tests.test_c9_idioma.TestDetector.test_as_duas_noticias_da_arpae_sao_italiano)",
+    "FAIL: test_banda_curta_so_conta_com_dominio_claro (tests.test_c9_idioma.TestDetector.test_banda_curta_so_conta_com_dominio_claro)",
+    "FAIL: test_a_regra_c9_nao_mudou_estrangeiro_sem_sinal_continua_a_contar (tests.test_c9_idioma.TestRelatorio.test_a_regra_c9_nao_mudou_estrangeiro_sem_sinal_continua_a_contar)",
+    "FAIL: test_c9_ja_nao_conta_as_duas_noticias_italianas (tests.test_c9_idioma.TestRelatorio.test_c9_ja_nao_conta_as_duas_noticias_italianas)"
+   ]
+  },
+  "sem_exigir_dominio": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_as_amostras_sao_as_do_armazem (tests.test_c9_idioma.TestDetector.test_as_amostras_sao_as_do_armazem)",
+    "FAIL: test_banda_curta_so_conta_com_dominio_claro (tests.test_c9_idioma.TestDetector.test_banda_curta_so_conta_com_dominio_claro)"
+   ]
+  },
+  "minimo_curto_4": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_as_amostras_sao_as_do_armazem (tests.test_c9_idioma.TestDetector.test_as_amostras_sao_as_do_armazem)",
+    "FAIL: test_banda_curta_so_conta_com_dominio_claro (tests.test_c9_idioma.TestDetector.test_banda_curta_so_conta_com_dominio_claro)"
+   ]
+  },
+  "cli_ignora_o_estado": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "ERROR: test_a_linha_de_comando_passa_as_corridas_do_estado (tests.test_c9_idioma.TestRelatorio.test_a_linha_de_comando_passa_as_corridas_do_estado)",
+    "FAIL: test_as_amostras_sao_as_do_armazem (tests.test_c9_idioma.TestDetector.test_as_amostras_sao_as_do_armazem)"
+   ]
+  },
+  "inventa_egresso_it": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_as_amostras_sao_as_do_armazem (tests.test_c9_idioma.TestDetector.test_as_amostras_sao_as_do_armazem)",
+    "FAIL: test_o_criterio_nao_afrouxou (tests.test_c9_idioma.TestRelatorio.test_o_criterio_nao_afrouxou)"
+   ]
+  },
+  "fonte_que_nao_correu_entra": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_as_amostras_sao_as_do_armazem (tests.test_c9_idioma.TestDetector.test_as_amostras_sao_as_do_armazem)",
+    "FAIL: test_a_linha_de_comando_passa_as_corridas_do_estado (tests.test_c9_idioma.TestRelatorio.test_a_linha_de_comando_passa_as_corridas_do_estado)",
+    "FAIL: test_c1_e_c3_leem_o_que_o_onda_web_grava (tests.test_c9_idioma.TestRelatorio.test_c1_e_c3_leem_o_que_o_onda_web_grava)"
+   ]
+  },
+  "gate_fixo": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_as_amostras_sao_as_do_armazem (tests.test_c9_idioma.TestDetector.test_as_amostras_sao_as_do_armazem)",
+    "FAIL: test_o_criterio_nao_afrouxou (tests.test_c9_idioma.TestRelatorio.test_o_criterio_nao_afrouxou)"
+   ]
+  }
+ },
+ "MORTOS": 7,
+ "TOTAL": 7
+}

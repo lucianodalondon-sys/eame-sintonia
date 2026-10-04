@@ -1,0 +1,78 @@
+{
+ "GERADO_EM": "2026-09-21T21:22:04.422790+00:00",
+ "TOTAL": 10,
+ "SURVIVORS": 0,
+ "NAO_APLICADOS": [],
+ "RESULTADOS": [
+  {
+   "MUTANTE": "M1_QUALIFY_PROMOVE_READY",
+   "DESCRICAO": "QUALIFY passa a cair no ramo de promocao READY",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_worker_qualify.py TestQualify.test_qualify_nunca_promove_ready"
+  },
+  {
+   "MUTANTE": "M2_GUARD_REBLOQUEIA_QUALIFY",
+   "DESCRICAO": "o guard 'sem contrato' volta a barrar QUALIFY",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_worker_qualify.py TestQualify.test_html_aloca_e_enfileira_build_contract"
+  },
+  {
+   "MUTANTE": "M3_FABRICA_SOURCE_ID",
+   "DESCRICAO": "QUALIFY fabrica SOURCE_ID mesmo com territorio NAO SEI",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_worker_qualify.py TestQualify.test_territorio_naosei_vira_semantic_sem_fabricar"
+  },
+  {
+   "MUTANTE": "M4_PAINEL_CONFIA_NO_JSON",
+   "DESCRICAO": "liveness do supervisor confia no ficheiro em vez do SO",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_status_liveness.py TestLiveness.test_pid_morto_com_json_running_nao_e_running"
+  },
+  {
+   "MUTANTE": "M5_IGNORA_HEARTBEAT_STALE",
+   "DESCRICAO": "worker com PID vivo mas heartbeat velho conta como vivo",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_status_liveness.py TestLiveness.test_heartbeat_velho_e_stale_com_delta_a_vista"
+  },
+  {
+   "MUTANTE": "M6_HOOK_LOW_WATERMARK_MORTO",
+   "DESCRICAO": "o gatilho nunca realimenta (fila vazia = paragem de facto)",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_gatilho_discovery.py TestGatilho.test_fila_e_acervo_baixos_aciona_discovery"
+  },
+  {
+   "MUTANTE": "M7_DISCOVERY_SEM_INTERVALO",
+   "DESCRICAO": "discovery crawla em rajada, ignorando o intervalo",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_gatilho_discovery.py TestGatilho.test_discovery_respeita_intervalo"
+  },
+  {
+   "MUTANTE": "M8_DESBLOQUEIA_TUDO",
+   "DESCRICAO": "o desbloqueio deixa de filtrar por assinatura (apanha policy)",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_worker_qualify.py TestDesbloqueio.test_desbloqueia_qualify_mas_nao_canary_nem_policy"
+  },
+  {
+   "MUTANTE": "M9_NAO_RELANCA_WORKER",
+   "DESCRICAO": "o supervisor fica IDLE mesmo havendo trabalho (nao recupera worker)",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_supervisor.py TestUmaVoltaSup.test_relanca_com_trabalho"
+  },
+  {
+   "MUTANTE": "M10_IDLE_VIRA_STOPPED",
+   "DESCRICAO": "servico com worker ocioso passa a reportar-se parado",
+   "MUTANT_APPLIED": "YES",
+   "MUTANT_KILLED": "YES",
+   "TESTE_ASSASSINO": "test_status_liveness.py TestLiveness.test_idle_nao_se_chama_stopped"
+  }
+ ]
+}

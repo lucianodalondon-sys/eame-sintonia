@@ -1,0 +1,50 @@
+{
+ "DATASET": "PROVA-TERMOS-SOC1-V1",
+ "LEI": "SOC1 (D16/D17). Registo do TEXTO das regras das rotas OFICIAIS que o Scrap declara ou que se propoem ao dono. NAO reabre a analise de risco do YouTube (D17 item 4): as rotas do YouTube usam-se tal como o Scrap as declara. Isto e so o texto que acompanha essas rotas, com endereco, data e sha256. NAO e lido por candidatas/fonte_nova.py (a prova D15 continua a ser PROVA-TERMOS-REDES-SOCIAIS-V1.json).",
+ "TEXTOS": {
+  "YOUTUBE_TERMS": {
+   "URL": "https://www.youtube.com/t/terms?hl=en&gl=US",
+   "EM_VIGOR": "December 15, 2023",
+   "LIDO_EM": "2026-09-23T10:28Z",
+   "COMO": "curl (HTTP 200)",
+   "FICHEIRO": "candidatas/prova-termos/youtube-terms-20260923T1028Z.html",
+   "SHA256": "63b187d33d0ab4b94a7a4ba6a490c014b66f0cf465472b2447cf71843153cd52",
+   "TRECHO": "access the Service using any automated means (such as robots, botnets or scrapers) except (a) in the case of public search engines, in accordance with YouTube’s robots.txt file; or (b) with YouTube’s prior written permission; collect or harvest any information"
+  },
+  "YOUTUBE_API_DEVELOPER_POLICIES_III_E_4": {
+   "URL": "https://developers.google.com/youtube/terms/developer-policies?hl=en",
+   "LIDO_EM": "2026-09-23T10:28Z",
+   "COMO": "curl (HTTP 200)",
+   "FICHEIRO": "candidatas/prova-termos/youtube-developer-policies-20260923T1028Z.html",
+   "SHA256": "3cf9549c3f25b506d1c2e6cf5ed8fcae558320ea69a3cac14ce9ae975b1a1449",
+   "TRECHO": "API Clients may temporarily store limited amounts of Non-Authorized Data for as long as is necessary for the purposes of the API Client but not longer than 30 calendar days. As in section (I",
+   "TRECHO_2": "an API Client must not store the subscriber count for a YouTube channel for more than 30 days without authorization from the channel owner. ",
+   "PORQUE_IMPORTA": "A rota oficial (Data API v3) e a unica GRATIS_OFICIAL do YouTube. O que ela devolve (metadados, descricoes, comentarios) so pode ficar guardado ate 30 dias sem ser apagado ou refrescado. A Big Collection guarda RAW para sempre: isto e uma regra de RETENCAO que a rota traz, e nao existe no codigo (grep '30 calendar days' = 0 fora deste ficheiro)."
+  },
+  "YOUTUBE_API_DEVELOPER_POLICIES_SCRAPING": {
+   "URL": "https://developers.google.com/youtube/terms/developer-policies?hl=en",
+   "LIDO_EM": "2026-09-23T10:28Z",
+   "SHA256": "3cf9549c3f25b506d1c2e6cf5ed8fcae558320ea69a3cac14ce9ae975b1a1449",
+   "TRECHO": "You and your API Clients must not, and must not encourage, enable, or require others to, directly or indirectly, scrape YouTube Applications or Google Applications , or obtain scraped YouTube data or content. Public search engines may scrape data only in accordance with YouTube's robots.txt file or "
+  },
+  "LINKEDIN_API_TERMS": {
+   "URL": "https://www.linkedin.com/legal/l/api-terms-of-use",
+   "LIDO_EM": "2026-09-23T10:28Z",
+   "COMO": "curl (HTTP 200)",
+   "FICHEIRO": "candidatas/prova-termos/linkedin-api-terms-20260923T1028Z.html",
+   "SHA256": "bf4135982c5566e98328af271e4fbd6a5f67f099de30d20bf47adb66ca2159ff",
+   "TRECHO": "2.4 API License If you agree to and follow these Terms, you are permitted to use our APIs in connection with your Application. Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-sublicensable (except to independent contractors so they may host, develop, test, operate, modify or support your A"
+  },
+  "INSTAGRAM_BUSINESS_DISCOVERY": {
+   "URL": "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/business_discovery/",
+   "LIDO_EM": "2026-09-23T10:40Z",
+   "COMO": "Chrome headless --dump-dom (a pagina so traz o texto depois do JavaScript; curl devolveu so a casca). A pagina veio em portugues.",
+   "FICHEIRO": "candidatas/prova-termos/instagram-business-discovery-texto-20260923T1040Z.txt",
+   "SHA256_DO_DOM_INTEIRO": "bce5c04cdb39ae7ee3dec49d5d55bd7cfe9ebfb0a9f9419ccbde3de3eaa8905d",
+   "SHA256_DO_TEXTO_GUARDADO": "6297512115d854e6a4df7a2622ce59aaf5cb0aff5d78ea0f54a299860eca9e1c",
+   "TRECHO": "business_discovery.username(<USERNAME>) Retorna dados sobre outros usuários do Instagram com uma conta empresarial ou de criador de conteúdo do Instagram. IG User . Execute es",
+   "TRECHO_2": "Um token de acesso de um usuário do Facebook com as seguintes permissões: instagram_basic instagram_manage_insights pages_read_engagement Se",
+   "PORQUE_IMPORTA": "E a rota OFICIAL e GRATIS que a matriz ja declara (graph:business_discovery, CONDICIONAL, CREDENTIAL_MISSING). Pede uma conta Instagram Business/Creator DO PROJETO ligada a uma Pagina do Facebook e um app Meta. Nao e cookie nem conta pessoal — mas alguem tem de criar e ser dono dessa conta: decisao do dono."
+  }
+ }
+}

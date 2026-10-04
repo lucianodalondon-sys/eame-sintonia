@@ -1,0 +1,60 @@
+{
+ "DUMP_SHA256": "edea009fa25d64dca5fb3dfad81136859f0ffaa56e3bed6f8a32e971ef674a41",
+ "MIGRATION_034": "034_o_acervo_guarda_tempo_e_lugar_como_derivado.sql",
+ "MIGRATION_034_SHA256": "f2179e12bfcb2a65232936d3818cb801a724e5e31d6d1c406d0250a4b075d56a",
+ "DESFAZER_034_SHA256": "420ea02f6bdd9498222e61572904638dc4aa6ddfe189dcbd19e565f85b47290a",
+ "PASSOS": {
+  "1_RESTAURO": {
+   "CODIGO": 0,
+   "ERRO": "",
+   "RAW": "1562",
+   "DERIVADOS": "1063",
+   "ULTIMA_MIGRACAO": "033"
+  },
+  "2_UP": {
+   "CODIGO": 0,
+   "MATCH": 32,
+   "034": [
+    "MIGRATION_034=PASS"
+   ],
+   "OUTRAS_QUE_NAO_SKIP": [],
+   "ERRO": "psql:<stdin>:5: NOTA:  relação \"schema_migracao\" já existe, ignorando\n"
+  },
+  "3_VALIDACAO": {
+   "VOCABULARIO": "CHECK ((kind = ANY (ARRAY['TEXT_EXTRACTION'::text, 'OCR'::text, 'TRANSCRIPTION'::text, 'TRANSLATION'::text, 'THUMBNAIL'::text, 'FRAME'::text, 'TABLE_EXTRACTION'::text, 'TEMPO_LUGAR'::text])))",
+   "LIVRO_034": "APLICADA f2179e12bfcb2a65232936d3818cb801a724e5e31d6d1c406d0250a4b075d56a",
+   "DERIVADOS_QUE_EXISTIAM_IGUAIS": true
+  },
+  "4_TEMPO_LUGAR_ENTRA": [
+   0,
+   ""
+  ],
+  "4_MESMA_REGUA_DUAS_VEZES_RECUSADA": [
+   1,
+   "acao_e_unica_por_regua\"\nDETALHE:  Chave (parent_sha256, kind, producer, producer_version, parameters_hash, serie_posicao)=(2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a, TEMPO_LUGAR, ensaio-034, v0, 0000000000000000000000000000000000000000000000000000000000000000, null) já existe."
+  ],
+  "4_ESPECIE_INVENTADA_RECUSADA": [
+   1,
+   "18a6b74711e9a, INVENTADA, ensaio-034, v0, ensaio, {}, 0000000000000000000000000000000000000000000000000000000000000000, null, 050f1de08218b7318bf35376c8b20f7b326182884b6ebdadc4b84d04ece250a9, 2, application/json, ENSAIO/034/b.json, 2026-09-26 06:10:03.443937+00, 2026-09-26 06:10:03.443937+00, null)."
+  ],
+  "5_DESFAZER_COM_TEMPO_LUGAR_RECUSA": {
+   "CODIGO": 3,
+   "ERRO": "psql:C:/capa-v1/supabase/desfazer/034_desfazer.sql:22: ERRO:  DESFAZER_034_RECUSADO: 1 derivado(s) TEMPO_LUGAR existem; desfazer apagaria evidencia. Restaure o backup.\nCONTEXTO:  função PL/pgSQL inline_code_block linha 6 em RAISE"
+  },
+  "6_DESFAZER_SEM_TEMPO_LUGAR": {
+   "CODIGO": 0,
+   "ERRO": "",
+   "ESQUEMA_IGUAL_AO_DA_COPIA": true,
+   "DERIVADOS_IGUAIS": true
+  },
+  "7_UP_DE_NOVO": {
+   "CODIGO": 0,
+   "MATCH": 32,
+   "034": [
+    "MIGRATION_034=PASS"
+   ],
+   "OUTRAS_QUE_NAO_SKIP": [],
+   "ERRO": "psql:<stdin>:5: NOTA:  relação \"schema_migracao\" já existe, ignorando\n"
+  }
+ }
+}

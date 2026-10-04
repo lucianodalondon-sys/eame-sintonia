@@ -35,6 +35,8 @@ export const HEALTH_STATES = ["HEALTHY", "DEGRADED", "FAILED", "UNKNOWN"];
 export const CONTRACTS = {
 
   "IT-T3-002": {
+    // UPDATE_BEHAVIOR: «ADITIVO — cada edicao ganha arquivo proprio». O endereco traz a data (SA-DD-MM.pdf): edicao nova = endereco novo.
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-007", OWNER: "Regione Campania — Servizio Fitosanitario Regionale",
     TERRITORY: "T3", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_<ANO>.html",
@@ -49,6 +51,9 @@ export const CONTRACTS = {
     IDENTITY_KEYS: ["provincia", "data_do_boletim"],
     DOCUMENT_ID_RULE: "CAMPANIA:{PROV}:{DD-MM-ANO}",
     DOCUMENT_DATE_FIELD: "a data esta no NOME do arquivo (DD-MM); o ano vem do caminho",
+    // TEMPO-E-LUGAR: que ESPECIE de tempo e a data do documento. So EDICAO vira
+    // PUBLISHED_AT; nenhuma delas vira FACT_TIME (COL-LAW-031).
+    DOCUMENT_DATE_KIND: "EDICAO — uma data = uma edicao do boletim",
     VERSION_FIELD: "nao ha versao explicita; uma data = uma edicao",
     EXPECTED_CONTENT_MARKERS: ["Monitoraggio", "Chimico", "Soglia"],
     EXPECTED_STRUCTURE: "blocos por avversita com Agronomico / Chimico / Soglia e substancia ativa nomeada",
@@ -67,6 +72,8 @@ export const CONTRACTS = {
   },
 
   "IT-T3-010": {
+    // UPDATE_BEHAVIOR: «ADITIVO». Cada boletim tem ficheiro proprio; o indice e que anuncia o seguinte, e o indice revisita-se sempre.
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-012", OWNER: "A.P.OL. — Associazione tra Produttori Olivicoli, Lecce",
     TERRITORY: "T3", VALUE: "P0",
     CANONICAL_ENTRY_URL: "http://www.apol.it",
@@ -81,6 +88,7 @@ export const CONTRACTS = {
     IDENTITY_KEYS: ["ano", "numero_da_edicao", "comprensorio"],
     DOCUMENT_ID_RULE: "APOL:{ANO}:N{NUMERO}:{COMPRENSORIO}",
     DOCUMENT_DATE_FIELD: "VALID_FROM e VALID_TO impressos no cabecalho: 'MOSCA DELLE OLIVE dd/mm/aaaa - dd/mm/aaaa'",
+    DOCUMENT_DATE_KIND: "VALIDADE — o periodo impresso e de validade do boletim, nao a data em que foi publicado",
     VERSION_FIELD: "numero da edicao (n. 1..N por temporada)",
     EXPECTED_CONTENT_MARKERS: ["MOSCA DELLE OLIVE", "COMPRENSORIO"],
     EXPECTED_STRUCTURE: "cabecalho com periodo · comprensorio + lista de comuni · fase fenologica · capturas · % de infestacao · rotulo de tendencia · previsao diaria de 7 dias · texto tecnico com soglia",
@@ -100,6 +108,8 @@ export const CONTRACTS = {
   },
 
   "IT-T3-008": {
+    // UPDATE_BEHAVIOR: «ADITIVO». O nome carrega numero e data (Notiziario_N36_02-09-2026.pdf).
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-ARIF", OWNER: "ARIF Puglia — Agenzia regionale per le attivita irrigue e forestali",
     TERRITORY: "T3", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.agrometeopuglia.it/bollettini",
@@ -115,6 +125,7 @@ export const CONTRACTS = {
     IDENTITY_KEYS: ["ano", "numero_do_notiziario"],
     DOCUMENT_ID_RULE: "ARIF:SETTIMANALE:{ANO}:N{NUMERO}",
     DOCUMENT_DATE_FIELD: "no nome do arquivo E no cabecalho de cada pagina: 'n. 36 del 02 settembre 2026'",
+    DOCUMENT_DATE_KIND: "EDICAO — 'n. NN del DD mese AAAA' e a data da edicao do notiziario",
     VERSION_FIELD: "numero sequencial + 'Anno XL' (ano da serie)",
     EXPECTED_CONTENT_MARKERS: ["Notiziario Agrometeorologico & Fitosanitario Regionale", "Situazione Fitosanitaria", "Programma di Difesa"],
     EXPECTED_STRUCTURE: "por cultura: Situazione Fenologica / Situazione Fitosanitaria / Programma di Difesa. 32 blocos de Situazione Fitosanitaria na edicao n.36.",
@@ -134,6 +145,31 @@ export const CONTRACTS = {
   },
 
   "IT-T3-005": {
+    // ── RECOLLECTION · O BLOCO EXECUTAVEL DA REVISITA ──────────────────────
+    // ⚠️ ISTO NAO DUPLICA `UPDATE_BEHAVIOR`, E A DIFERENCA E TODA.
+    // `UPDATE_BEHAVIOR` e PROSA, escrita para gente ler: tem 172 «NAO SEI» nos
+    // 186 contratos e frases como «SOBRESCRITA — janela movel de 11 dias na
+    // mesma URL». Uma frase DESCREVE; nao EXECUTA. `regras/incrementalidade.mjs`
+    // recusa-se a le-la, e tem razao — ler prosa para decidir e o defeito que o
+    // motor de rota ja nomeou («"DD": "dia com 2 digitos" DESCREVE, NAO EXECUTA»).
+    //
+    // `RECOLLECTION` e o bloco de vocabulario fechado que a regra LE.
+    // Medido em 2026-09-22, ANTES desta declaracao: 0 dos 186 contratos o
+    // tinham. Depois dela e das da mesma leva, 7; depois da RECOLLECTION-V1,
+    // 12. Quem ficar sem ele cai em `UNKNOWN` — e uma fonte como a ARPAV, que
+    // reescreve o MESMO endereco a cada edicao, deixaria de ser revisitada.
+    //
+    // ⚠️ E O QUE `UNKNOWN` FAZ MUDOU EM 2026-09-22 (RECOLLECTION-V1).
+    // Ate ai `UNKNOWN` era SKIP, calado e indistinguivel de `IMMUTABLE`.
+    // Continua a saltar — mas agora diz o nome, e a fonte fica
+    // `BLOCKED_FOR_BIG_COLLECTION` ate alguem a classificar.
+    //
+    //     SALTAR E POUPAR REDE. SALTAR O QUE MUDA E CEGAR A CASA.
+    //
+    // Quem declara aqui esta a afirmar que CONHECE a fonte. A prova de cada
+    // declaracao esta no proprio contrato, no campo citado a seguir a ela.
+    // UPDATE_BEHAVIOR: «SOBRESCRITA — uma edicao por vez, a anterior desaparece». O boletim vive em CANONICAL_ENTRY_URL fixa.
+    RECOLLECTION: { DETAIL_CONTENT: "MUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-008", OWNER: "Terre dell'Etruria — Societa Cooperativa Agricola",
     TERRITORY: "T3", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.terretruria.it/monitoraggio",
@@ -165,6 +201,8 @@ export const CONTRACTS = {
   },
 
   "IT-T4-001": {
+    // UPDATE_BEHAVIOR: «ADITIVO por data de arquivo». O CSV traz a versao no nome (PROD_FTS_6_AAAAMMDD.csv).
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-MINSALUTE", OWNER: "Ministero della Salute — Open Data",
     TERRITORY: "T4", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
@@ -219,6 +257,8 @@ export const CONTRACTS = {
   },
 
   "IT-T2-004": {
+    // UPDATE_BEHAVIOR: «SOBRESCRITA — janela movel de 11 dias na mesma URL». A janela anda e o endereco nao.
+    RECOLLECTION: { DETAIL_CONTENT: "MUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-SIAS", OWNER: "SIAS — Servizio Informativo Agrometeorologico Siciliano",
     TERRITORY: "T2", VALUE: "P1",
     CANONICAL_ENTRY_URL: "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html",
@@ -251,6 +291,9 @@ export const CONTRACTS = {
   },
 
   "IT-T2-001": {
+    // UPDATE_BEHAVIOR: «ADITIVO», e a entrega e PDF — o ficheiro publicado E a
+    // edicao. Sustentado por OBSERVED_FREQUENCY: 7 edicoes seguidas na listagem.
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-ARPAE", OWNER: "ARPAE Emilia-Romagna", TERRITORY: "T2", VALUE: "P1",
     CANONICAL_ENTRY_URL: "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-{ANO}",
     OLD_ROUTE: "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo — 404",
@@ -278,6 +321,8 @@ export const CONTRACTS = {
   },
 
   "IT-T2-002": {
+    // LEI_CRITICA do proprio contrato: «o nome do arquivo e FIXO e o conteudo e sobrescrito. Nunca deduplicar por URL».
+    RECOLLECTION: { DETAIL_CONTENT: "MUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-ARPAV", OWNER: "ARPAV Veneto", TERRITORY: "T2", VALUE: "P1",
     CANONICAL_ENTRY_URL: "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo/agrometeoinforma",
     DISCOVERY_METHOD: "a pagina lista 32 links de zona; a leitura simples do HTML nao os mostrou — foram revelados pelo navegador",
@@ -306,6 +351,10 @@ export const CONTRACTS = {
   },
 
   "IT-T7-002": {
+    // UPDATE_BEHAVIOR: «ADITIVO», entrega ODS — ficheiro fechado por edicao.
+    // Sustentado por tres edicoes anuais distintas (31/12/2023, 31/12/2024
+    // REV.3, 31/12/2025): a revisao ganhou nome proprio em vez de substituir.
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-MASAF", OWNER: "MASAF", TERRITORY: "T7", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/6063",
     DISCOVERY_METHOD: "navegar Politiche nazionali > Filiere > Organizzazioni di Produttori > Elenco nazionale; o anexo tem hash opaco na URL e MUDA a cada edicao",
@@ -359,6 +408,45 @@ export const CONTRACTS = {
     EVIDENCE_CLASS: "TECHNICAL_GUIDELINE",
     LEI: "TECHNICAL_GUIDELINE != CURRENT_FIELD_SIGNAL e != DEROGA. Se aparecer uma deroga, ela e OUTRO documento e provavelmente OUTRO canal.",
     AUTOMATION_FEASIBILITY: "MEDIUM",
+    // ── O BLOCO EXECUTÁVEL (contrato v2) ──────────────────────────────────
+    // ⚠️ ESTA FONTE FALHOU NA BIG COLLECTION E A CULPA NÃO ERA DELA.
+    // Medido: o site respondeu HTTP 200 com 39.340 bytes e QUATRO links PDF.
+    // O que devolveu zero foi `italy_pilot_collect.mjs`, com a frase
+    // «fonte sem alvo definido no piloto» — ela não tinha `case` no switch.
+    // Eu próprio classifiquei isso como falha de fonte; era falha nossa.
+    //
+    //     UM SITE QUE RESPONDE E UMA COLETA QUE NÃO PERGUNTA
+    //     PRODUZEM O MESMO ZERO, E NÃO SÃO A MESMA COISA.
+    //
+    // Nada aqui foi inventado: `INDEX_URL` é o `CANONICAL_ENTRY_URL` que já
+    // estava escrito, e `LINK_PATTERN` foi medido contra o HTML real. Os
+    // campos em prosa acima — `DISCOVERY_METHOD`, `aviso_de_idioma` — ficam
+    // onde estão, para quem lê; o runtime não os abre.
+    ACQUISITION: {
+      STRATEGY: "HTML_LINK_DISCOVERY",
+      INDEX_URL: "https://www.agrios.it/it/per-i-frutticoltori/documenti-e-disciplinari/",
+      // Dado, não código: uma string compilada com `new RegExp`. Sem `eval`,
+      // sem função serializada. O grupo 1 é o endereço a seguir.
+      LINK_PATTERN: 'href="([^"]*\\.pdf)"',
+      MAX_TARGETS: 4,
+    },
+    // A identidade tambem declarada — para nao deixar metade do problema
+    // resolvido. `ano_da_edicao` ja era a `IDENTITY_KEY` escrita acima; aqui
+    // ela ganha forma executavel.
+    //
+    // ⚠️ `FACT_TIME` FICA `UNKNOWN`, E ISSO E A RESPOSTA CERTA.
+    // Uma diretriz tecnica anual diz quando FOI PUBLICADA, nao quando um
+    // facto aconteceu no campo. Usar o ano da edicao como tempo do facto
+    // seria fabricar evidencia.
+    //
+    //     FACT_TIME != PUBLISHED_AT.
+    IDENTITY: {
+      STRATEGY: "FILENAME_CAPTURE",
+      PATTERN: "(20\\d{2})",
+      DOCUMENT_ID: "AGRIOS:DIRETTIVE:$1",
+      SOURCE_DATE: "$1",
+      FACT_TIME: "UNKNOWN — uma diretriz anual nao data o facto de campo",
+    },
     NEGATIVE_CONTROL: { descricao: "PDF de outro documento do mesmo site", esperado: "FAILED por marcador de titulo ausente" }
   },
 
@@ -386,7 +474,12 @@ export const CONTRACTS = {
   },
 
   "IT-T9-008": {
-    OWNER_ID: "IT-OWN-ADAMA-IT", OWNER: "ADAMA Italia", TERRITORY: "T9", VALUE: "P2",
+    // OWNER_ID e a CHAVE do catalogo candidato ITALY-SOURCE-MASTER-V1, nao
+    // identidade canonica de dono (know-how §127-5b.2). Ate 2026-09-16 este
+    // contrato de ACESSO usava a chave IT-OWN-ADAMA-IT para a mesma entidade
+    // (ADAMA Italia S.r.l., a que a ficha IT-T9-008 do Atlas nomeia); passou a
+    // usar a chave do MASTER. A chave anterior fica aqui como historia.
+    OWNER_ID: "IT-OWN-040", OWNER: "ADAMA Italia S.r.l.", TERRITORY: "T9", VALUE: "P2",
     CANONICAL_ENTRY_URL: "https://www.adama.com/italia/it/articoli-news-ed-eventi-main",
     DISCOVERY_METHOD: "listagem de artigos no site", RETRIEVAL_METHOD: "navegador com janela",
     ROUTE_TYPE: "BROWSER_DISCOVERED_ROUTE",
@@ -408,7 +501,218 @@ export const CONTRACTS = {
     EVIDENCE_CLASS: "COMPANY_CLAIM", LEI: "COMPANY_CLAIM != REGULATORY_FACT — vale inclusive para a ADAMA",
     AUTOMATION_FEASIBILITY: "MEDIUM — exige navegador. BROWSER_REQUIRED != SOURCE_UNAUTOMATABLE.",
     NEGATIVE_CONTROL: { descricao: "extrato sem published_time", esperado: "FAILED por falta de identidade" }
+    },
+
+    "IT-T8-001": {
+    // Este contrato NAO constroi rota nova. Ele DECLARA como esta fonte usa
+    // capacidades YouTube que ja existem e ja foram provadas no repositorio:
+    //   youtube.channel.discovery  ·  youtube.video.metadata  ·  youtube.public_audio
+    // Nao ha aqui yt-dlp, nao ha chamada a YouTube Data API, nao ha ASR e nao
+    // ha RSS proprio: quem faz isso sao os donos acima. Duplicar qualquer um
+    // deles criaria um segundo downloader, e um segundo downloader diverge.
+    OWNER_ID: "IT-OWN-IMAGE-LINE", OWNER: "Image Line Network S.r.l.",
+    TERRITORY: "T8", VALUE: "P1",
+    CANONICAL_ENTRY_URL: "https://www.youtube.com/@AgroNotizie",
+    SOURCE_NATIVE_ID: "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+    SOURCE_NATIVE_ID_KIND: "YOUTUBE_CHANNEL_ID",
+    LEI_DA_IDENTIDADE: "SOURCE_ID != CHANNEL_ID. IT-T8-001 e a identidade do projeto; UCUs2... e a identidade da plataforma. O contrato liga as duas AQUI, e este e o unico sitio onde essa ligacao esta escrita. Derivar SOURCE_ID do handle, da URL, do slug ou do proprio channel_id e proibido.",
+    DISCOVERY_METHOD: "listagem de videos do canal pela capacidade ja provada youtube.channel.discovery",
+    RETRIEVAL_METHOD: "metadata por youtube.video.metadata; audio publico por youtube.public_audio",
+    ROUTE_TYPE: "APPLICATION_ROUTE",
+    CAPABILITIES_REUTILIZADAS: ["youtube.channel.discovery", "youtube.video.metadata", "youtube.public_audio"],
+    ACCESS_INSTRUMENT: "SCRAP", AUTH_REQUIRED: false, BROWSER_REQUIRED: false, JS_REQUIRED: false,
+    SESSION_FORBIDDEN: "rota publica: sem cookie, sem login, sem sessao. Ver C13.",
+    OUTPUT_TYPE: "VIDEO_METADATA + PUBLIC_AUDIO",
+    IDENTITY_KEYS: ["video_id", "published_at"],
+    DOCUMENT_ID_RULE: "AGRONOTIZIE:YT:{VIDEO_ID}  —  o video_id nativo do YouTube e a identidade do ITEM, nao da FONTE. A fonte continua a ser IT-T8-001.",
+    DOCUMENT_DATE_FIELD: "published_at do video",
+    VERSION_FIELD: "nenhum — o YouTube nao versiona o video publicado",
+    DECLARED_FREQUENCY: "nao declarada pelo canal",
+    OBSERVED_FREQUENCY: "NÃO SEI — nao medido por captura repetida",
+    UPDATE_BEHAVIOR: "ADITIVO", HISTORICAL_OR_FORWARD: "HISTORICAL", ARCHIVE_REQUIREMENT: "NORMAL",
+    EXPECTED_FAILURES: [
+    "video sem video_id = FAILED por falta de identidade",
+    "video privado/removido = FAILED, nao DEGRADED",
+    "audio indisponivel = DEGRADED: a metadata continua valida sem ele"
+    ],
+    FAIL_CLOSED_RULE: "item sem video_id ou sem published_at nao tem identidade — FAILED",
+    FALLBACK: "nenhum. Nao cair para scraping de pagina nem para rota paga.",
+    SOURCE_LOCATION_RULE: "ITALIA — o canal e italiano e publica em italiano",
+    FACT_LOCATION_RULE: "UNKNOWN — canal italiano NAO prova fato ocorrido em Italia. Cada item tem de dizer de si. NUNCA inferir a partir do canal.",
+    TIME_RULE: "published_at e PUBLICATION_TIME. NAO e FACT_TIME.",
+    EVIDENCE_CLASS: "EDITORIAL_AGRONOMIC_MEDIA",
+    LEI: "MEDIA_EDITORIAL != REGULATORY_FACT — o canal noticia e comenta, nao autoriza nada.",
+    AUTOMATION_FEASIBILITY: "HIGH — capacidades ja provadas, rota publica, sem credencial de sessao",
+    NEGATIVE_CONTROL: { descricao: "item sem video_id", esperado: "FAILED por falta de identidade" }
+    }
+    };
+
+// ── OS CONTRATOS ONBOARDED, EM LOTE (ADDENDUM-01 · FAST TRACK) ─────────────
+// 105 fontes que a missao SOURCE-COLLECTION-READINESS-V1 sondou em 2026-09-18,
+// mais 18 que o SOURCE CURATOR (missao 04/04A) caracterizou, canarizou e passou
+// pelo gate de robots em 2026-09-20 — integradas na INTEGRACAO-04A, SOMENTE as
+// READY_FOR_COLLECTION (HTML). As 50 do YouTube ficaram de fora na 04A (a rota
+// feeds/videos.xml esta em Disallow) e entraram no BIG-COLLECTION-RELEASE
+// (2026-09-20) pela rota que o MESMO portao aprova: a pagina publica do canal,
+// /channel/<CHANNEL_ID>/videos, lida pelo adapter CANAL_PUBLICO_YOUTUBE_V1 do
+// registry canonico — STRATEGY CUSTOM_ADAPTER, OUTPUT_TYPE HTML (a pagina
+// /watch e o que se traz), identidade generica pelo endereco. Fontes
+// (HTTP 200, documento observado, assinatura conferida) e deixou numa tabela
+// declarativa com vocabulario proprio (SHAPE). Aqui entram TRADUZIDAS para o
+// vocabulario do motor de rota — STRATEGY / MATCH / INDEX_URL / LINK_PATTERN —
+// para que exista UM motor e nao dois. Uma linha por fonte, em
+// `italy_contracts_onboarded.json`; o contrato completo nasce de
+// `contratoGenerico()`.
+//
+// O DONO DO CONTRATO CONTINUA A SER ESTE FICHEIRO (o export `CONTRACTS`).
+// A tabela e configuracao, nao uma segunda autoridade.
+//
+//     UMA FONTE CONFIGURADA NAO E UMA FONTE APROVADA.
+//     A tabela diz COMO se chega; o Livro de Relevancia diz SE se vai.
+//
+// O QUE ESTE CONTRATO NAO INVENTA. A identidade SEMANTICA do documento (numero
+// de edicao, data no cabecalho) exige regra medida por fonte, e nenhuma destas
+// linhas a tem. O que existe de honesto e o ENDERECO do documento — e e isso
+// que o DOCUMENT_ID carrega, dito com esse nome (`IDENTITY_KIND = URL_PATH`).
+// Bytes novos no mesmo endereco sao DOCUMENT_CHANGED_IN_PLACE, e o ledger
+// guarda as duas versoes: SAME_URL != SAME_DOCUMENT continua a valer.
+//
+//     FACT_TIME = UNKNOWN. Nenhuma destas fontes data o facto por regra
+//     generica, e o endereco nao e uma data.
+import { readFileSync } from "node:fs";
+const TABELA_ONBOARDED = JSON.parse(
+  readFileSync(new URL("./italy_contracts_onboarded.json", import.meta.url), "utf8"));
+
+const ASSINATURA_POR_TIPO = { PDF: "%PDF", HTML: "<" };
+const MIME_POR_TIPO = { PDF: /^application\/pdf/, HTML: /^text\/html/ };
+
+export function contratoGenerico(linha) {
+  const tipo = String(linha.OUTPUT_TYPE || "").toUpperCase();
+  if (!ASSINATURA_POR_TIPO[tipo]) throw new Error(`OUTPUT_TYPE desconhecido na tabela onboarded: ${linha.SOURCE_ID} -> ${tipo}`);
+  const aq = linha.ACQUISITION;
+  if (!aq || !aq.STRATEGY) throw new Error(`linha sem ACQUISITION na tabela onboarded: ${linha.SOURCE_ID}`);
+  const fixo = aq.STRATEGY === "STATIC_ENDPOINT";
+  // CUSTOM_ADAPTER nao tem INDEX_URL: a rota nasce dentro do adapter, a partir
+  // do bloco. A entrada canonica e a que a linha declara (a pagina publica da
+  // fonte), e a descoberta diz o nome do adapter — nunca um SOURCE_ID.
+  const adapter = aq.STRATEGY === "CUSTOM_ADAPTER";
+  const entrada = fixo ? aq.URL : adapter ? (linha.CANONICAL_ENTRY_URL || aq.INDEX_URL || "NAO SEI") : aq.INDEX_URL;
+  return {
+    OWNER_ID: "NAO SEI", OWNER: linha.OWNER || linha.NAME || "NAO SEI",
+    TERRITORY: linha.TERRITORY, VALUE: "NAO SEI",
+    CANONICAL_ENTRY_URL: entrada,
+    DISCOVERY_METHOD: fixo
+      ? "GET direto no documento observado (documento fixo; descoberta de edicoes novas NAO configurada)"
+      : adapter
+        ? `ADAPTER ${aq.ADAPTER_ID} do registry canonico (coleta/adaptadores_de_aquisicao.mjs): os parametros vivem no bloco ACQUISITION da linha; o despachador nao conhece SOURCE_ID`
+        : "GENERICO: abrir INDEX_URL, resolver todos os href e ficar com os que casam com LINK_PATTERN (MATCH=URL)",
+    RETRIEVAL_METHOD: "GET direto no documento",
+    ROUTE_TYPE: fixo ? "STATIC_ROUTE" : adapter ? "APPLICATION_ROUTE" : "DISCOVERED_ROUTE",
+    ACCESS_INSTRUMENT: "HTTP", AUTH_REQUIRED: false, BROWSER_REQUIRED: false, JS_REQUIRED: false,
+    OUTPUT_TYPE: tipo, EXPECTED_MIME: MIME_POR_TIPO[tipo], EXPECTED_SIGNATURE: ASSINATURA_POR_TIPO[tipo], MIN_BYTES: 1000,
+    ACQUISITION: aq,
+    // A linha PODE declarar a identidade executavel (mesmo vocabulario do motor,
+    // conferida por conferirIdentidade no arranque). Sem isso vale a generica
+    // pelo endereco. Medido no BIG-COLLECTION-RELEASE: o alvo YouTube e
+    // /watch?v=<videoId>; o endereco inteiro como DOCUMENT_ID carrega `?`, e o
+    // colector faz do DOCUMENT_ID o nome da pasta — no Windows, mkdir ENOENT.
+    // O videoId nativo e a identidade que o curator declarou; e o `?` fica fora.
+    IDENTITY_KEYS: linha.IDENTITY ? (linha.IDENTITY_KEYS || Object.keys(linha.IDENTITY.CAPTURES || {})) : ["url_path"],
+    IDENTITY_KIND: linha.IDENTITY ? (linha.IDENTITY_KIND || "NAO SEI") : "URL_PATH",
+    DOCUMENT_ID_RULE: linha.IDENTITY
+      ? (linha.DOCUMENT_ID_RULE || `${linha.IDENTITY.DOCUMENT_ID} — identidade declarada na linha (${linha.IDENTITY_KIND || "NAO SEI"})`)
+      : `${linha.SOURCE_ID}:URL:{caminho do endereco} — identidade pelo ENDERECO, nao semantica; a fonte nao expoe identificador proprio por regra generica`,
+    IDENTITY: linha.IDENTITY || {
+      STRATEGY: "CONTENT_CAPTURE",
+      CAPTURES: { doc: { FROM: "URL", PATTERN: "^https?://[^/]+/?(.*?)/?$" } },
+      DOCUMENT_ID: `${linha.SOURCE_ID}:URL:{doc.1}`,
+      FACT_TIME: "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica",
+    },
+    DOCUMENT_DATE_FIELD: "NAO SEI", VERSION_FIELD: "NAO SEI",
+    EXPECTED_CONTENT_MARKERS: null,
+    DECLARED_FREQUENCY: "NAO SEI", OBSERVED_FREQUENCY: "NAO SEI — uma captura so",
+    UPDATE_BEHAVIOR: "NAO SEI", HISTORICAL_OR_FORWARD: "NAO SEI", ARCHIVE_REQUIREMENT: "NAO SEI",
+    EXPECTED_FAILURES: [
+      "entrada inacessivel (transporte, 403, 404) = FAILED, nunca zero documentos",
+      "entrada sem nenhum endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+      `documento cuja assinatura de bytes nao e ${tipo} = BYTE_VALIDATION_FAILED (HTTP 200 nao salva)`,
+    ],
+    FAIL_CLOSED_RULE: `sem endereco descoberto ou com bytes que nao sao ${tipo}, e FAILED — nunca se regista a pagina de entrada como documento`,
+    FALLBACK: "nenhum",
+    // D61: a LINHA pode declarar onde esta quem publica (a sede da
+    // instituicao, com a mesma forma dos 13 contratos a mao — «Napoli (sede)»).
+    // Quem nao declara continua NAO SEI. Nunca vem do REGION do Atlas: esse e
+    // a regiao de que a fonte FALA, medido (IT-T7-017, sede em Reggio Emilia,
+    // Atlas diz LAZIO) — seria lugar do fato a entrar pela porta da fonte.
+    SOURCE_LOCATION_RULE: linha.SOURCE_LOCATION_RULE || "NAO SEI",
+    FACT_LOCATION_RULE: "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    EVIDENCE_CLASS: "NAO SEI",
+    AUTOMATION_FEASIBILITY: "MEDIUM — rota generica; identidade semantica por medir",
+    NEGATIVE_CONTROL: { descricao: "entrada que nao lista nenhum endereco que case com LINK_PATTERN", esperado: "EMPTY_LIST -> FAILED, nunca a pagina de entrada como documento" },
+    BATCH_ID: linha.BATCH_ID,
+    // A linha pode dizer de onde veio (INTEGRACAO-04A: as 18 do SOURCE CURATOR
+    // chegaram por outra sondagem, noutra data). Sem isso, o contrato expandido
+    // mentiria a proveniencia. A omissao continua a ser o fast track de 2026-09-18.
+    ONBOARDED_BY: linha.ONBOARDED_BY || "SOURCE-COLLECTION-READINESS-V1 (sondagem 2026-09-18) · traduzido no CUTOVER-RECUPERADO 2026-09-20",
+    EVIDENCE: linha.EVIDENCE || null,
+    SONDAGEM: linha.SONDAGEM || null,
+    // Caracterizacao medida pelo SOURCE CURATOR (cadencia, ritmo, NAO SEI incluidos).
+    // Passa inteira: o contrato nao a resume nem a corrige.
+    CARACTERIZACAO: linha.CARACTERIZACAO || null,
+    CURADORIA: linha.CURADORIA || null,
+    // ── RECOLLECTION · so quando a LINHA o declarar ──────────────────────
+    // ⚠️ AUSENTE E O VALOR CERTO POR OMISSAO, e tem de continuar a ser.
+    // A tentacao aqui seria dar um valor por defeito as 174 fontes que a
+    // tabela expande — e um valor por defeito seria exactamente o defeito que
+    // a RECOLLECTION-V1 veio fechar, so que carimbado. Quem nao mediu nao
+    // declara; e quem nao declara fica BLOCKED_FOR_BIG_COLLECTION, visivel.
+    //
+    // `undefined` NAO cria a chave no objecto, por isso `contrato.RECOLLECTION`
+    // continua a dar `undefined` e `recolheitaDoContrato()` continua a ler
+    // `UNKNOWN`/`DECLARADO: false`. E o caminho de sempre, intacto.
+    ...(linha.RECOLLECTION ? { RECOLLECTION: linha.RECOLLECTION } : {}),
+    // SOC2 (D17.4): uma linha com `COLETADO_POR` e colhida por OUTRO executor
+    // (a fase `canal-youtube` do Scrap), nao pelo motor. A marca passa inteira
+    // para o contrato para que o coletor a leia e nao tente a ACQUISITION —
+    // que, nestas linhas, nomeia um adapter que nao existe nesta arvore.
+    ...(linha.COLETADO_POR ? { COLETADO_POR: linha.COLETADO_POR } : {}),
+  };
+}
+
+// D9 (23/09, bot Luciano por delegacao do dono): o pacote G1 marca na tabela
+// `ESTADO_CATALOGO = RETIRADA_POR_DECISAO` quando retira uma fonte do universo.
+// Uma linha retirada NAO vira contrato — e se a fonte tiver contrato escrito a
+// mao, ele sai de CONTRACTS: sem contrato, o coletor nao a colhe. A marca nunca
+// apaga a linha (e reversivel pelo catalogo); o motivo fica em
+// RETIRADAS_POR_DECISAO, para quem perguntar porque a fonte nao foi colhida.
+const _retiradas = {};
+for (const linha of TABELA_ONBOARDED.FONTES) {
+  if (!/^IT-T\d+-\d{3}$/.test(String(linha.SOURCE_ID || "")))
+    throw new Error(`SOURCE_ID invalido na tabela onboarded: ${linha.SOURCE_ID}`);
+  if (linha.ESTADO_CATALOGO === "RETIRADA_POR_DECISAO") {
+    _retiradas[linha.SOURCE_ID] = {
+      MOTIVO: "RETIRADA_POR_DECISAO",
+      PORQUE: `retirada do universo por decisao (D9${linha.CATALOGO_D9?.PORQUE ? ": " + linha.CATALOGO_D9.PORQUE : ""}); reversivel pelo catalogo`,
+    };
+    delete CONTRACTS[linha.SOURCE_ID];
+    continue;
   }
-};
+  if (CONTRACTS[linha.SOURCE_ID]) {
+    // Uma fonte que JA tem contrato escrito a mao nao e reescrita: a tabela
+    // so lhe empresta a forma de aquisicao se ele ainda nao a tiver.
+    if (CONTRACTS[linha.SOURCE_ID].ACQUISITION)
+      throw new Error(`${linha.SOURCE_ID} tem contrato executavel a mao E linha na tabela onboarded — a tabela nao pode contradizer o contrato`);
+    CONTRACTS[linha.SOURCE_ID].ACQUISITION = linha.ACQUISITION;
+    CONTRACTS[linha.SOURCE_ID].IDENTITY = contratoGenerico(linha).IDENTITY;
+    CONTRACTS[linha.SOURCE_ID].IDENTITY_KIND = contratoGenerico(linha).IDENTITY_KIND;
+    CONTRACTS[linha.SOURCE_ID].BATCH_ID = linha.BATCH_ID;
+    CONTRACTS[linha.SOURCE_ID].ONBOARDED_BY = "SOURCE-COLLECTION-READINESS-V1 (so a forma de aquisicao e a identidade generica; o contrato a mao manda no resto)";
+    continue;
+  }
+  CONTRACTS[linha.SOURCE_ID] = contratoGenerico(linha);
+}
+export const RETIRADAS_POR_DECISAO = Object.freeze(_retiradas);
+export const ONBOARDED_IDS = Object.freeze(TABELA_ONBOARDED.FONTES
+  .filter((l) => l.ESTADO_CATALOGO !== "RETIRADA_POR_DECISAO").map((l) => l.SOURCE_ID));
 
 export const CONTRACT_IDS = Object.keys(CONTRACTS);

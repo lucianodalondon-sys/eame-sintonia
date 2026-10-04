@@ -1,0 +1,824 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+O PORTAO E A BUSCA — as primitivas de HTTP que todo adaptador atravessa.
+
+    import scrap_http as http
+    ok, motivo = http.permitido('https://exemplo.tld/caminho')
+    corpo = http.buscar(url)          # levanta se o portao recusar
+
+POR QUE ISTO SAIU DO ROTEADOR
+------------------------------
+Enquanto o portao vivia dentro de `social_rotas.py`, um adaptador so conseguia
+usa-lo importando o roteador — e o roteador precisa de conhecer os adaptadores
+para os despachar. Isso e um ciclo, e ciclos resolvem-se por ordem de import,
+que e exatamente o que esta casa ja mediu como perigoso.
+
+Com as primitivas aqui, ninguem importa o roteador para bater a uma porta.
+
+    O PORTAO NAO MUDOU DE REGRA AO MUDAR DE FICHEIRO. E o mesmo codigo, com o
+    mesmo `User-Agent`, a ler o mesmo robots.txt vivo.
+
+O QUE O PORTAO FAZ, E POR QUE ELE EXISTE
+-----------------------------------------
+`social_matriz.py` DECLARA que uma rota e permitida. Declaracao nao impede
+ninguem de nada. Entao toda rota de HTTP direto passa, antes da primeira
+requisicao, por `permitido()` — que busca o `robots.txt` REAL do host, com o
+`User-Agent` REAL desta coleta, e recusa o caminho barrado.
+
+    O ROBOTS E LIDO NA HORA, NAO DECORADO NO CODIGO.
+
+E o portao ja REPROVOU rota que funcionava: o `feeds/videos.xml` do YouTube
+devolveu 15 videos italianos com descricao inteira nesta maquina, e esta em
+`Disallow`. Ele nao entrou. E para isso que o portao serve — se ele so
+aprovasse, nao seria portao.
+
+O QUE ESTE FICHEIRO NAO FAZ
+----------------------------
+Nao faz login, nao manda cookie, nao resolve CAPTCHA, nao troca de IP para
+escapar de bloqueio, nao finge ser navegador de gente. Quando a plataforma diz
+nao, a resposta e `ROUTE_NOT_ALLOWED` ou `BLOCKED` no artefato — nunca uma
+tentativa mais esperta.
+"""
+import contextlib
+import threading
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+import urllib.robotparser
+
+# O agente se identifica. Nao ha ganho em mentir e ha perda: um host que quer
+# nos barrar tem direito de nos reconhecer, e um host que nos permite precisa
+# conseguir nos medir.
+AGENTE = 'SintoniaScrap/1.0 (+EAME; social capability census; contato via repositorio)'
+
+TIMEOUT = 25
+PAUSA_ENTRE_CHAMADAS = 1.0   # cortesia; nenhum host desta missao pede menos
+
+_ROBOTS = {}
+
+
+class RotaNaoPermitida(RuntimeError):
+    """A rota existe, responderia, e nós não vamos usá-la."""
+
+
+class RotaBloqueada(RuntimeError):
+    """A plataforma nos impediu. Diferente de não permitida."""
+
+
+class PortaoIndisponivel(RuntimeError):
+    """Não deu para LER o robots.txt — o transporte caiu antes da resposta.
+
+    ⚠️ ISTO NÃO É UMA RECUSA, E ATÉ A C10.8A ERA REPORTADO COMO UMA.
+
+    O portão tinha três respostas: `LIDO`, `AUSENTE` e `ILEGIVEL`. Um
+    `Connection reset by peer` a meio do túnel caía em `ILEGIVEL`, que
+    `permitido()` traduz para `False` — e o roteador, para `ROUTE_NOT_ALLOWED`.
+
+    Medido ao vivo: `public.api.bsky.app/robots.txt` responde `200` com
+    `Allow: /` e um comentário que diz, por escrito, «Crawling the public parts
+    of the API is allowed». O trilho canônico dizia `ROUTE_NOT_ALLOWED` sobre
+    uma rota que a plataforma autoriza em voz alta.
+
+        UM TRANSPORTE QUE CAIU NÃO É UMA POLÍTICA QUE RECUSOU.
+
+    A recusa continua a acontecer — não se afirma permissão que não se leu. O
+    que muda é o NOME dela: `TRANSIENT_NETWORK_ERROR` pede `WAIT`,
+    `ROUTE_NOT_ALLOWED` pede `NO_RETRY`. Chamar a primeira pela segunda ensina
+    a casa a desistir de uma porta que está aberta.
+    """
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O PORTÃO
+# ══════════════════════════════════════════════════════════════════════════
+def permitido(url):
+    """Lê o robots.txt vivo do host e responde (bool, motivo).
+
+    Host que não publica robots.txt é permissivo por omissão — é o caso
+    medido do t.me. Host que responde HTML em vez de robots (Instagram e
+    Threads, deste IP) é `UNKNOWN`: não afirmamos permissão que não lemos.
+    """
+    partes = urllib.parse.urlsplit(url)
+    base = '%s://%s' % (partes.scheme, partes.netloc)
+    if base not in _ROBOTS:
+        _ROBOTS[base] = _carregar_robots(base)
+    rp, estado = _ROBOTS[base]
+    if estado == 'AUSENTE':
+        return True, 'host não publica robots.txt (permissivo por omissão)'
+    if estado == 'INDISPONIVEL':
+        # Não esquecer o insucesso: uma tentativa seguinte pode ler o robots, e
+        # guardar «indisponível» para sempre transformaria um soluço de rede
+        # numa proibição permanente em memória.
+        _ROBOTS.pop(base, None)
+        raise PortaoIndisponivel(
+            'não deu para LER o robots.txt de %s: o transporte caiu antes da '
+            'resposta. Isto não é uma recusa do host.' % base)
+    if estado == 'ILEGIVEL':
+        return False, 'robots.txt ilegível deste host — não afirmamos permissão que não lemos'
+    ok = rp.can_fetch(AGENTE, url)
+    if not ok:
+        # ── A EXCECAO DO DONO, E ELA SO VALE COM A POLITICA MEDIDA ────────
+        # ⚠️ ESTE `if` NAO ALCANCA O `ILEGIVEL` ACIMA, E ISSO E DE PROPOSITO.
+        # La nao houve medicao nenhuma — ha um robots que nao se conseguiu ler —
+        # e uma autorizacao que atravessa uma politica NAO MEDIDA e o terceiro
+        # estado que a casa recusa por nome: `AUTORIZAR NAO E MEDIR`. Aqui, ao
+        # contrario, a politica FOI medida: o robots foi lido e este caminho
+        # esta barrado. E exactamente essa medicao que o `motivo` carrega.
+        autorizacao = autorizacao_actual()
+        if autorizacao is not None and autorizacao.alcanca(url):
+            autorizacao.pedidos += 1
+            return True, autorizacao.motivo(url)
+        return False, 'robots.txt do host barra este caminho para %s' % AGENTE.split('/')[0]
+    return True, 'robots.txt do host permite este caminho'
+
+
+def _carregar_robots(base):
+    rp = urllib.robotparser.RobotFileParser()
+    try:
+        req = urllib.request.Request(base + '/robots.txt', headers={'User-Agent': AGENTE})
+        # O pedido diz o que e. Um `UNCLASSIFIED` no rasto seria o portao a nao
+        # se reconhecer a si proprio.
+        req.tipo_de_pedido = PEDIDO_ROBOTS
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
+            corpo = f.read().decode('utf-8', 'replace')
+    except urllib.error.HTTPError as e:
+        # O host RESPONDEU. 404/410 é «não publico regra»; o resto é uma
+        # resposta que não sabemos ler. Nos dois casos houve conversa.
+        if e.code in (404, 410):
+            return rp, 'AUSENTE'
+        return rp, 'ILEGIVEL'
+    except (urllib.error.URLError, TimeoutError, ConnectionError, OSError):
+        # O host NÃO respondeu. Não há robots para julgar, e não há recusa
+        # nenhuma para registar.
+        return rp, 'INDISPONIVEL'
+    except Exception:
+        return rp, 'ILEGIVEL'
+    # Um host que devolve HTML no lugar do robots não está publicando regra:
+    # está nos mandando para uma página. Isso não é "pode".
+    if corpo.lstrip()[:9].lower().startswith('<!doctype') or corpo.lstrip()[:5].lower() == '<html':
+        return rp, 'ILEGIVEL'
+    rp.parse(corpo.splitlines())
+    return rp, 'LIDO'
+
+
+# ── O PORTAO TAMBEM VALE PARA O SALTO ─────────────────────────────────────────
+# Medido na LINKEDIN-OP-01: o portao julgava o endereco PEDIDO e o `urlopen`
+# seguia os 301/302 em silencio. Um site que redirecionasse para um host barrado
+# era buscado sem ninguem perguntar nada — e a rota de descoberta indireta do
+# LinkedIn morre exactamente assim, porque um `Location: linkedin.com` faz o
+# pedido acabar no host que a politica proibe.
+#
+#     UM PORTAO QUE JULGA SO O PRIMEIRO ENDERECO NAO JULGA O PEDIDO.
+#     UM REDIRECIONAMENTO E UM PEDIDO NOVO, E PEDE LICENCA OUTRA VEZ.
+#
+# Isto vive AQUI e nao no adaptador porque «o portao vale em cada salto» e uma
+# propriedade do TRANSPORTE, e o transporte tem dono. Uma copia da regra dentro
+# de um adaptador seria a regra a valer numa rota e a faltar em todas as outras.
+#: Hosts que a CHAMADA declarou como proibidos para ela. Vive num contexto de
+#: thread porque o `urlopen` nao leva argumentos ate ao handler de
+#: redireccionamento — e porque a lista e de UMA chamada, nao do processo.
+#:
+#: O transporte nao sabe o que e o LinkedIn, e nao tem de saber: ele recebe uma
+#: lista de hosts e recusa-a. Quem sabe POR QUE aqueles hosts sao proibidos e a
+#: rota que os declara.
+#:
+#:     O DONO DA REGRA E QUEM A DECLARA. O DONO DO PONTO DE COBRANCA E ESTE
+#:     FICHEIRO. SAO PAPEIS DIFERENTES DA MESMA TRAVA.
+_LOCAL_HOSTS = threading.local()
+
+
+def _hosts_proibidos_da_chamada():
+    return getattr(_LOCAL_HOSTS, 'hosts', ()) or ()
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A AUTORIZACAO DO DONO — a excecao que NAO se esconde
+# ══════════════════════════════════════════════════════════════════════════
+# O portao acima responde a uma pergunta so — «o robots.txt deste host deixa
+# este caminho?» — e enquanto ela bastou, ele RECUSOU rota que funcionava
+# (o `feeds/videos.xml` do YouTube, medido). Isso e o trabalho dele.
+#
+# Mas ha um caso que a pergunta sozinha nao cobre, e a casa ja o conhece pelo
+# nome: a plataforma PROIBE, o DONO DO PROJETO AUTORIZA, e o risco e dele. O
+# `yt-dlp:public_audio` (C13/D17.4) foi o primeiro; o video de organizacao do
+# LinkedIn (D23) e o segundo. `leis/social_matriz.py` ja sabe declarar os dois
+# eixos lado a lado (`OWNER_AUTHORIZED` + `PLATFORM_POLICY_STATUS`).
+#
+# Faltava o degrau de baixo: quem EXECUTA a rota nao conseguia atravessar o
+# portao, porque o portao le o robots e recusa. E as tres saidas faceis estao
+# todas erradas:
+#
+#   · enfraquecer o `permitido()` para todos ...... abriria a porta a todas as
+#                                                  rotas, para resolver uma;
+#   · abrir uma ligacao por fora do portao ........ e o caminho lateral que a
+#                                                  sentinela desta casa proibe;
+#   · marcar a rota como permitida e calar o
+#     robots ...................................... esconderia a politica da
+#                                                  plataforma, que e medicao.
+#
+# O que se faz e o que a casa faz sempre que dois donos precisam de coexistir:
+# a rota DECLARA os hosts que lhe pertencem, e o portao abre SO para eles,
+# SO enquanto ela corre, e SEMPRE ESCREVENDO as duas frases — a autorizacao do
+# dono E a proibicao da plataforma.
+#
+#     ABRIR SEM DECLARAR E UM BYPASS. ABRIR DECLARANDO E UMA DECISAO.
+#
+# E o robots CONTINUA A SER LIDO: e ele que transforma «a plataforma proibe»
+# numa medicao em vez de uma suposicao, e e por isso que uma rota autorizada
+# nao sai daqui com menos verdade do que uma rota barrada — sai com mais.
+_LOCAL_AUTORIZADA = threading.local()
+
+
+class AutorizacaoDoDono(object):
+    """A decisao do dono, com o nome dela, viva enquanto a rota corre.
+
+    Nao e uma permissao global: e da ROTA, e dos hosts que ELA declarou. Um
+    host que ela nao declarou continua a bater no robots.
+    """
+
+    def __init__(self, rota, hosts, *, decisao, plataforma=None):
+        self.rota = str(rota)
+        self.hosts = tuple(str(h).lower().lstrip('.').rstrip('.') for h in hosts)
+        self.decisao = str(decisao)
+        self.plataforma = plataforma
+        self.pedidos = 0
+
+    def alcanca(self, url):
+        """→ o host desta URL, se ele for um dos declarados por esta rota."""
+        return host_na_lista(url, self.hosts)
+
+    def motivo(self, url):
+        return ('AUTORIZADA PELO DONO: a rota «%s» declara OWNER_AUTHORIZED=SIM e '
+                'PLATFORM_POLICY_STATUS=DISALLOWED MEDIDO — o robots.txt do host '
+                'barra este caminho, e a decisao que o atravessa e do dono do '
+                'projeto (%s). PLATFORM_POLICY_STATUS nao se apaga: viaja no rasto. '
+                '· %s' % (self.rota, self.decisao, url))
+
+
+@contextlib.contextmanager
+def autorizacao_do_dono(rota, hosts, *, decisao, plataforma=None):
+    """Declara, para o bloco, a rota do dono e os hosts que ela pode alcancar.
+
+    Fail-closed em dois pontos, e os dois importam:
+
+        sem hosts declarados   ->  NADA e autorizado (uma lista vazia nao abre);
+        sem decisao escrita    ->  NADA e autorizado (autorizacao sem nome de
+                                   quem decidiu e uma autorizacao sem dono).
+    """
+    if not hosts or not str(decisao or '').strip():
+        raise ValueError(
+            'autorizacao_do_dono sem hosts declarados ou sem a decisao escrita. '
+            'Uma excecao que nao diz quem a autorizou nem ate onde vale nao e '
+            'uma excecao: e um bypass com outro nome.')
+    autorizacao = AutorizacaoDoDono(rota, hosts, decisao=decisao, plataforma=plataforma)
+    anterior = getattr(_LOCAL_AUTORIZADA, 'actual', None)
+    _LOCAL_AUTORIZADA.actual = autorizacao
+    try:
+        yield autorizacao
+    finally:
+        _LOCAL_AUTORIZADA.actual = anterior
+
+
+def autorizacao_actual():
+    """A autorizacao viva nesta chamada, ou None. Quem colhe le daqui.
+
+    Existe para que o rasto possa escrever `OWNER_AUTHORIZED` e
+    `PLATFORM_POLICY_STATUS` sem os adivinhar: quem os sabe e a autorizacao que
+    efectivamente atravessou o portao.
+    """
+    return getattr(_LOCAL_AUTORIZADA, 'actual', None)
+
+
+def host_de(url):
+    """→ o host desta URL em minusculas, ou '' quando ela nao tem host.
+
+    Publico pela mesma razao que `host_na_lista`: um adaptador que importe
+    `urllib` para responder a isto fica a um passo de abrir a sua propria
+    ligacao, e ha uma sentinela desta casa que o proibe.
+    """
+    return (urllib.parse.urlsplit(str(url or '')).hostname or '').lower().rstrip('.')
+
+
+def host_na_lista(url, lista):
+    """→ o host desta URL, se ele estiver na lista; senao None. Puro, zero rede.
+
+    Publico porque quem DECLARA a lista precisa de poder conferir o alvo antes de
+    pedir, e a alternativa era cada rota reimplementar «que host e este» com o
+    seu proprio `urlsplit`. Um adaptador que importa `urllib` esta a um passo de
+    abrir a sua propria ligacao — e ha uma sentinela desta casa que o proibe.
+
+        QUEM PERGUNTA «QUE HOST E ESTE?» ESTA A FAZER UMA PERGUNTA DE TRANSPORTE.
+    """
+    host = (urllib.parse.urlsplit(str(url or '')).hostname or '').lower().rstrip('.')
+    if not host:
+        return None
+    for mau in lista:
+        mau = str(mau).lower()
+        if host == mau or host.endswith('.' + mau):
+            return host
+    return None
+
+
+@contextlib.contextmanager
+def hosts_proibidos(*hosts):
+    """Declara, para o bloco, hosts que NENHUM salto desta chamada pode alcancar.
+
+    Recusa-se ANTES de `permitido()`, e isso e o ponto: `permitido()` le o
+    robots.txt do host, e ler o robots de um host proibido ja e um pedido a ele.
+
+        UMA PROIBICAO QUE PERGUNTA AO PROIBIDO NAO CHEGOU A ZERO PEDIDOS.
+    """
+    antes = getattr(_LOCAL_HOSTS, 'hosts', ())
+    _LOCAL_HOSTS.hosts = tuple(antes) + tuple(hosts)
+    try:
+        yield
+    finally:
+        _LOCAL_HOSTS.hosts = antes
+
+
+class _PortaoEmCadaSalto(urllib.request.HTTPRedirectHandler):
+    """Cada destino de redirecionamento passa pelo mesmo `permitido()`."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # A lista da chamada vem PRIMEIRO, e sem rede: ler o robots de um host
+        # que esta rota nunca visita seria um pedido a ele.
+        mau = host_na_lista(newurl, _hosts_proibidos_da_chamada())
+        if mau is not None:
+            raise RotaNaoPermitida(
+                'redirecionamento recusado sem sair da maquina · a chamada '
+                'declarou %s como host proibido · %s -> %s'
+                % (mau, req.full_url, newurl))
+        ok, motivo = permitido(newurl)
+        if not ok:
+            raise RotaNaoPermitida(
+                'redirecionamento recusado pelo portao · %s · %s -> %s'
+                % (motivo, req.full_url, newurl))
+        novo = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if novo is not None:
+            # O tipo de pedido viaja com o salto: uma retentativa de rota que
+            # perdesse a etiqueta seria cobrada ao teto com o nome errado.
+            novo.tipo_de_pedido = getattr(req, 'tipo_de_pedido', PEDIDO_ROTA)
+        return novo
+
+
+# ── O CONTADOR DE PEDIDOS POR HOST (PROVA-TETO-SOCIAL) ──────────────────────
+# ⚠️ A PROVA-TETO NAO VIA AS CORRIDAS DO SCRAP. Ela le, do livro de corridas
+# (`data/collection-ledger/italy/runs.ndjson`), `CORTESIA.PEDIDOS_POR_HOST` —
+# que o transporte web escreve e o Scrap nao escrevia. O `orcamento_de_rede`
+# conta o TOTAL, e so quando alguem o liga.
+#
+# Conta-se AQUI, num pre-processador do abridor instalado: o `urllib` chama-o
+# para CADA pedido que vai sair — o do robots.txt, o da rota, cada salto de
+# redireccionamento e cada retentativa. Um pedido que o teto recusa antes do
+# `urlopen` nao chega aqui, e nao conta: nao bateu a porta.
+#
+#     UM PEDIDO CONTA-SE ONDE ELE ACONTECE.
+#
+# O que sai por FORA desta porta (o `yt-dlp`, que e outro processo) entra por
+# `contar_de_fora()` com o que ele proprio mostrou, ou fica declarado em
+# `nao_contado()` — e a linha do livro deixa de ter PEDIDOS_POR_HOST, para a
+# prova dizer NAO_SEI em vez de contar zero.
+_CONTAGEM_LOCK = threading.Lock()
+_CONTAGEM = {'POR_HOST': {}, 'NAO_CONTADOS': []}
+
+
+def _site(host):
+    h = str(host or '').lower().rstrip('.')
+    return h[4:] if h.startswith('www.') else h
+
+
+def contar_pedido(host, n=1):
+    """Soma `n` pedidos a este host (sem `www.`), no contador do processo."""
+    h = _site(host) or 'NAO_SEI'
+    with _CONTAGEM_LOCK:
+        _CONTAGEM['POR_HOST'][h] = _CONTAGEM['POR_HOST'].get(h, 0) + int(n)
+
+
+def contar_de_fora(por_host, *, quem):
+    """Pedidos feitos por uma ferramenta de fora (ex.: `yt-dlp`), medidos por ela.
+
+    `por_host` None = a ferramenta correu e ninguem a conseguiu medir: isso
+    declara-se, nunca se conta como zero."""
+    if por_host is None:
+        nao_contado(quem)
+        return
+    for h, n in por_host.items():
+        contar_pedido(h, n)
+
+
+def nao_contado(quem):
+    with _CONTAGEM_LOCK:
+        if quem not in _CONTAGEM['NAO_CONTADOS']:
+            _CONTAGEM['NAO_CONTADOS'].append(quem)
+
+
+def pedidos_por_host():
+    """→ (copia de {host: pedidos}, [quem fez pedidos que ninguem contou])."""
+    with _CONTAGEM_LOCK:
+        return dict(_CONTAGEM['POR_HOST']), list(_CONTAGEM['NAO_CONTADOS'])
+
+
+def zerar_contagem():
+    with _CONTAGEM_LOCK:
+        _CONTAGEM['POR_HOST'].clear()
+        _CONTAGEM['NAO_CONTADOS'].clear()
+
+
+class TetoDoDominio(RotaNaoPermitida):
+    """O pedido NAO saiu: o orcamento do dominio nesta onda ja estava gasto (D38/D41).
+
+    E uma recusa da NOSSA politica, como as outras `RotaNaoPermitida` — nunca
+    `RotaBloqueada`, que quer dizer que a plataforma nos barrou."""
+
+
+class _ContaCadaPedido(urllib.request.BaseHandler):
+    """Pre-processador: corre uma vez por pedido que sai, saltos incluidos.
+
+    ⚠️ FREIO-SOCIAL (26/09): ANTES de contar, RESERVA o lugar no livro da onda
+    (`teto_da_onda.reservar`). Se o orcamento do dominio ja esta gasto, levanta
+    aqui — dentro do `urlopen`, antes de abrir a ligacao — e o pedido nao sai.
+    Por isso o contador continua a contar SO o que saiu.
+
+        CONTAR DEPOIS E SABER QUE SE PARTIU O VIDRO. O FREIO E ANTES.
+    """
+
+    def http_request(self, req):
+        import teto_da_onda as teto                                # noqa: PLC0415
+        host = urllib.parse.urlsplit(req.full_url).hostname
+        try:
+            teto.reservar(host, url=req.full_url, quem='scrap_http')
+        except teto.TetoDaOnda as e:
+            raise TetoDoDominio('%s · %s' % (e, req.full_url)) from e
+        contar_pedido(host)
+        return req
+
+    https_request = http_request
+
+
+# E INSTALA-SE, em vez de se abrir por fora.
+#
+# `_ABRIDOR.open(...)` funcionaria e estaria errado: o teto de rede da C10.8A-R
+# cobra em `urllib.request.urlopen`, e chamar o abridor por fora passava por
+# fora do teto. Instalar o abridor mantem `urlopen` como a unica porta — o teto
+# continua a contar, e o portao passa a ver os saltos.
+#
+#     UM CONSERTO QUE CONTORNA UM TETO NAO E UM CONSERTO.
+urllib.request.install_opener(urllib.request.build_opener(_PortaoEmCadaSalto(),
+                                                          _ContaCadaPedido()))
+
+
+def buscar(url, *, aceitar_json=True):
+    """GET com o portão na frente. Nenhuma rota escapa dele.
+
+    `PortaoIndisponivel` sobe, não é apanhada: ela é o único caso em que o
+    portão não conseguiu JULGAR. Transformá-la aqui numa recusa seria repetir
+    o defeito que a C10.8A mediu ao vivo.
+    """
+    mau = host_na_lista(url, _hosts_proibidos_da_chamada())
+    if mau is not None:
+        raise RotaNaoPermitida(
+            'a chamada declarou %s como host proibido para ela · %s' % (mau, url))
+    ok, motivo = permitido(url)
+    if not ok:
+        raise RotaNaoPermitida('%s · %s' % (motivo, url))
+    req = urllib.request.Request(url, headers={
+        'User-Agent': AGENTE,
+        'Accept': 'application/json' if aceitar_json else 'text/html',
+    })
+    req.tipo_de_pedido = PEDIDO_ROTA
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
+            corpo = f.read().decode('utf-8', 'replace')
+    except urllib.error.HTTPError as e:
+        raise RotaBloqueada('HTTP %s em %s' % (e.code, url))
+    except RotaNaoPermitida:
+        # ⚠️ PELA TERCEIRA VEZ NESTA CADEIA, e a ocasiao foi o portao passar a
+        # ver os saltos. Uma recusa de POLITICA nossa saia daqui como
+        # `RotaBloqueada`, que quer dizer «a plataforma nos impediu» — e um
+        # redireccionamento recusado pelo nosso portao nao e o host a barrar-nos.
+        #
+        #     QUEM DISSE NAO TEM NOME, E O NOME NAO SE TROCA A CAMINHO DE CIMA.
+        #
+        # A recusa do portao sobe inteira, como a do teto ao lado.
+        raise
+    except SemOrcamentoDeRede:
+        # ⚠️ PELA SEGUNDA VEZ NESTA CADEIA: o `except Exception` ia traduzir uma
+        # recusa NOSSA para `RotaBloqueada`, que quer dizer «a plataforma nos
+        # impediu». Foi assim que a queda do tunel saiu como `ROUTE_NOT_ALLOWED`
+        # na C10.8A, e seria assim que o teto sairia como `BLOCKED`.
+        #
+        #     ESGOTAR O ORCAMENTO NAO E A PLATAFORMA IMPEDIR.
+        #
+        # Um `except Exception` largo nao distingue quem disse nao. Por isso a
+        # recusa do teto passa por cima dele, inteira.
+        raise
+    except Exception as e:
+        raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
+    finally:
+        time.sleep(PAUSA_ENTRE_CHAMADAS)
+    return corpo
+
+
+def buscar_bytes(url, *, aceitar='*/*', cabecalhos=None):
+    """GET de BYTES com o portão na frente. → (bytes, meta).
+
+    ⚠️ PORQUE ISTO NAO E `buscar()`. O `buscar` decodifica o corpo com
+    `'replace'` e devolve TEXTO, e isso serve um JSON e um HTML. Sobre um MP4
+    ele produziria uma string cheia de `?` — bytes destruidos com a forma de
+    bytes lidos, que e o pior estado possivel: parece que correu.
+
+        UM FICHEIRO DE MIDIA QUE PASSA POR DECODIFICADOR DE TEXTO
+        JA NAO E O FICHEIRO. E nao da erro nenhum.
+
+    Tudo o resto e o mesmo portao, pelo mesmo caminho: a lista de hosts
+    proibidos da chamada, o robots vivo, a autorizacao do dono quando ela
+    existe, o orcamento de rede, a pausa de cortesia e o tipo de pedido que o
+    teto cobra. Abrir uma segunda ligacao por fora disto seria um caminho
+    lateral com outro nome.
+    """
+    mau = host_na_lista(url, _hosts_proibidos_da_chamada())
+    if mau is not None:
+        raise RotaNaoPermitida(
+            'a chamada declarou %s como host proibido para ela · %s' % (mau, url))
+    ok, motivo = permitido(url)
+    if not ok:
+        raise RotaNaoPermitida('%s · %s' % (motivo, url))
+    h = {'User-Agent': AGENTE, 'Accept': aceitar}
+    h.update(cabecalhos or {})
+    req = urllib.request.Request(url, headers=h)
+    req.tipo_de_pedido = PEDIDO_ROTA
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
+            corpo = f.read()
+            meta = {'STATUS': getattr(f, 'status', None),
+                    'CONTENT_TYPE': f.headers.get('Content-Type'),
+                    'CONTENT_LENGTH': f.headers.get('Content-Length')}
+    except urllib.error.HTTPError as e:
+        raise RotaBloqueada('HTTP %s em %s' % (e.code, url))
+    except (RotaNaoPermitida, SemOrcamentoDeRede):
+        # Pela mesma razão que no `buscar`: uma recusa NOSSA não se traduz para
+        # «a plataforma impediu-nos».
+        raise
+    except Exception as e:                                            # noqa: BLE001
+        raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
+    finally:
+        time.sleep(PAUSA_ENTRE_CHAMADAS)
+    meta['BYTES'] = len(corpo)
+    meta['URL'] = url
+    return corpo, meta
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# ADAPTADORES — um por rota permitida. Pequenos de propósito.
+# ══════════════════════════════════════════════════════════════════════════
+
+
+class EstadoDaApi(RuntimeError):
+    """Carrega o estado canonico que a propria API declarou, sem reinterpretar.
+
+    Vive aqui, e nao no adaptador, porque quem o levanta e um adaptador e quem
+    o apanha e o roteador. Se morasse num dos dois, o outro teria de o importar
+    — e um deles importar o outro e o ciclo que este ficheiro existe para
+    desfazer.
+
+    ⚠️ `DETALHE` EXISTE PORQUE A FRASE SE PERDIA. Medido na NIGHT-SHIFT-01:
+    `social_rotas` grava `registro['ERRO'] = redigir(str(e))`, e `str(e)` eram
+    so os dois NOMES. Quem levantava isto entregava o estado certo e apagava a
+    unica linha que dizia QUAL ferramenta faltava — «sem Chrome nesta maquina:
+    nenhum Chrome ou Chromium encontrado no PATH».
+
+        UM ESTADO SEM A FRASE MANDA A PESSOA CERTA PARA O SITIO ERRADO.
+
+    Os tres campos nao se colapsam, e e por isso que sao tres:
+
+        STATE          o estado canonico            EXECUTOR_UNAVAILABLE
+        NATIVE_REASON  o nome nativo, de maquina    BROWSER_NOT_REACHED
+        DETALHE        a frase, de gente            «sem Chrome nesta maquina»
+    """
+
+    def __init__(self, rel):
+        self.rel = rel
+        recado = '%s (razao nativa: %s)' % (rel.get('STATE'),
+                                            rel.get('NATIVE_REASON'))
+        if rel.get('DETALHE'):
+            recado = '%s: %s' % (recado, rel['DETALHE'])
+        super().__init__(recado)
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O ORÇAMENTO DE REDE — UM TETO QUE RECUSA, E NÃO UM CONTADOR QUE RELATA
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.8A declarou `MAX_REAL_HTTP_REQUESTS = 2` e fez sete. O teto existia —
+# num script de prova, do lado de fora do runtime. Quando a sonda rebentou e
+# foi preciso repetir, o teto repetiu-se com ela, zerado, porque era uma
+# variável de um processo que acabou.
+#
+#     UM TETO QUE VIVE NA PROVA MEDE A PROVA.
+#     DECLARED BUDGET != ENFORCED BUDGET.
+#
+# ONDE ISTO TEM DE VIVER, E POR QUE NÃO É ÓBVIO
+# -----------------------------------------------
+# O censo da C10.8A-R mediu por onde as catorze capacidades ligadas saem para a
+# rede, e são TRÊS portas diferentes:
+#
+#     scrap_http.buscar          5 capacidades (bluesky, mastodon, telegram)
+#     reel_transcricao.baixar    3 capacidades (os Reels) — não passa aqui
+#     cdp.abas / cdp._handshake  1 capacidade (a janela) — não passa aqui
+#
+# Ou seja: este ficheiro é o transporte NOMEADO da casa, e mesmo assim não vê
+# tudo. Um contador em `buscar()` deixaria de fora metade das capacidades, e um
+# teto que só cobre metade das portas não é um teto — é uma sugestão.
+#
+# O único ponto que TODAS atravessam é o transporte do próprio Python. Então o
+# orçamento é declarado aqui, que é o dono do conceito «rede» nesta casa, e é
+# cobrado lá, onde o socket nasce.
+#
+#     ONE CONCEPT → ONE OWNER. O dono é o transporte; o ponto de cobrança é
+#     onde a ligação abre — e as duas coisas não precisam de ser a mesma linha.
+#
+# E ELE É DA EXECUÇÃO, NÃO DO PROCESSO
+# --------------------------------------
+# Duas execuções têm orçamentos distintos. Um contador global de módulo faria a
+# segunda corrida herdar a dívida da primeira — e, pior, faria uma corrida
+# inocente ser recusada por causa de outra.
+# `contextlib` e `threading` sobem ao topo desde a LINKEDIN-OP-01: o portao dos
+# saltos precisa dos dois, e ele vive acima desta linha.
+import socket as _socket
+
+_LOCAL = threading.local()
+
+#: Os tipos de acesso, para o rasto dizer o que foi gasto em quê. Nenhum deles
+#: é de graça: `ROBOTS` custa uma ida à rede como qualquer outra.
+#:
+#:     GRÁTIS EM DÓLAR != GRÁTIS EM REQUESTS.
+PEDIDO_ROBOTS = 'ROBOTS'
+PEDIDO_ROTA = 'ROUTE'
+PEDIDO_RETENTATIVA = 'RETRY'
+PEDIDO_ALTERNATIVA = 'FALLBACK'
+PEDIDO_DIAGNOSTICO = 'DIAGNOSTIC'
+PEDIDO_DESCONHECIDO = 'UNCLASSIFIED'
+
+
+class SemOrcamentoDeRede(RuntimeError):
+    """A tentativa N+1. Ela NÃO chega ao socket.
+
+    Não é uma falha da fonte nem da rota: é esta casa a cumprir um limite que
+    ela própria declarou. Quem a apanhar não deve traduzi-la para
+    `ZERO_RESULTS` — não houve resultado nenhum, houve uma recusa nossa.
+    """
+
+
+class OrcamentoDeRede(object):
+    """Quantos acessos externos esta execução ainda pode fazer."""
+
+    def __init__(self, limite):
+        if limite is None or int(limite) < 0:
+            raise ValueError('limite de rede inválido: %r' % limite)
+        self.limite = int(limite)
+        self.usados = 0
+        self.recusados = 0
+        self.tentativas = []
+
+    @property
+    def restantes(self):
+        return max(0, self.limite - self.usados)
+
+    @property
+    def esgotado(self):
+        return self.usados >= self.limite
+
+    def reservar(self, tipo, destino):
+        """Pede UMA ida à rede. Levanta ANTES de qualquer socket existir.
+
+            O GATE VEM ANTES DA REDE. Cobrar depois é contar o prejuízo.
+        """
+        registo = {'TYPE': tipo, 'TARGET': _so_o_host(destino),
+                   'COUNTED': True, 'OUTCOME': None}
+        if self.esgotado:
+            self.recusados += 1
+            registo.update({'COUNTED': False, 'OUTCOME': 'REFUSED_BY_BUDGET'})
+            self.tentativas.append(registo)
+            raise SemOrcamentoDeRede(
+                'orçamento de rede esgotado: %d de %d já usados, e este pedido '
+                '(%s → %s) seria o %d.'
+                % (self.usados, self.limite, tipo, registo['TARGET'],
+                   self.usados + 1))
+        self.usados += 1
+        self.tentativas.append(registo)
+        return registo
+
+    def para_o_rasto(self):
+        return {
+            'NETWORK_BUDGET_LIMIT': self.limite,
+            'NETWORK_REQUESTS_USED': self.usados,
+            'NETWORK_REQUESTS_REMAINING': self.restantes,
+            'NETWORK_BUDGET_EXHAUSTED': self.esgotado,
+            'NETWORK_REQUESTS_REFUSED': self.recusados,
+            'NETWORK_ATTEMPTS': list(self.tentativas),
+        }
+
+
+def _so_o_host(destino):
+    """O host, sem caminho e sem query. Uma query pode carregar segredo."""
+    try:
+        texto = destino if isinstance(destino, str) else getattr(
+            destino, 'full_url', str(destino))
+        partes = urllib.parse.urlsplit(texto)
+        return partes.netloc or texto.split('/')[0]
+    except Exception:                                             # noqa: BLE001
+        return 'NAO_SEI'
+
+
+def orcamento_actual():
+    """O orçamento desta execução, ou None quando ninguém declarou um."""
+    return getattr(_LOCAL, 'orcamento', None)
+
+
+def _tipo_por_omissao(destino):
+    """Um pedido que ninguém classificou ainda tem de ser classificado.
+
+    O `robots.txt` reconhece-se pelo caminho, e é o único que se pode adivinhar
+    sem mentir. O resto é `UNCLASSIFIED` — e `UNCLASSIFIED` conta na mesma.
+
+        UM PEDIDO QUE NINGUÉM CLASSIFICOU NÃO É UM PEDIDO QUE NÃO ACONTECEU.
+    """
+    texto = destino if isinstance(destino, str) else getattr(
+        destino, 'full_url', str(destino))
+    return PEDIDO_ROBOTS if texto.endswith('/robots.txt') else PEDIDO_DESCONHECIDO
+
+
+@contextlib.contextmanager
+def orcamento_de_rede(limite, *, tipo_por_omissao=None):
+    """Instala um teto de acessos externos para o bloco inteiro.
+
+    O teto é cobrado no ponto onde a ligação abre — `urllib.request.urlopen` e
+    `socket.create_connection` — porque as três portas de rede desta casa não
+    passam todas por aqui. Cobrar em `buscar()` deixaria de fora os Reels e a
+    janela.
+
+    A re-entrância é contada: um `urlopen` abre um socket por dentro, e isso é
+    UM pedido, não dois.
+    """
+    anterior = getattr(_LOCAL, 'orcamento', None)
+    orcamento = limite if isinstance(limite, OrcamentoDeRede) else OrcamentoDeRede(limite)
+    _LOCAL.orcamento = orcamento
+    urlopen_real = urllib.request.urlopen
+    conectar_real = _socket.create_connection
+
+    def _dentro():
+        return getattr(_LOCAL, 'profundidade', 0) > 0
+
+    @contextlib.contextmanager
+    def _um_nivel():
+        _LOCAL.profundidade = getattr(_LOCAL, 'profundidade', 0) + 1
+        try:
+            yield
+        finally:
+            _LOCAL.profundidade -= 1
+
+    def urlopen_com_teto(req, *a, **k):
+        actual = orcamento_actual()
+        if actual is None or _dentro():
+            return urlopen_real(req, *a, **k)
+        registo = actual.reservar(
+            getattr(req, 'tipo_de_pedido', None)
+            or tipo_por_omissao or _tipo_por_omissao(req), req)
+        with _um_nivel():
+            try:
+                resposta = urlopen_real(req, *a, **k)
+            except Exception as e:                                # noqa: BLE001
+                registo['OUTCOME'] = type(e).__name__
+                raise
+        registo['OUTCOME'] = getattr(resposta, 'status', 'OK')
+        return resposta
+
+    def conectar_com_teto(endereco, *a, **k):
+        actual = orcamento_actual()
+        if actual is None or _dentro():
+            return conectar_real(endereco, *a, **k)
+        alvo = '%s:%s' % endereco if isinstance(endereco, tuple) else str(endereco)
+        registo = actual.reservar(tipo_por_omissao or PEDIDO_DESCONHECIDO, alvo)
+        with _um_nivel():
+            try:
+                ligacao = conectar_real(endereco, *a, **k)
+            except Exception as e:                                # noqa: BLE001
+                registo['OUTCOME'] = type(e).__name__
+                raise
+        registo['OUTCOME'] = 'OK'
+        return ligacao
+
+    urllib.request.urlopen = urlopen_com_teto
+    _socket.create_connection = conectar_com_teto
+    try:
+        yield orcamento
+    finally:
+        urllib.request.urlopen = urlopen_real
+        _socket.create_connection = conectar_real
+        _LOCAL.orcamento = anterior
+
+
+#: Nomes antigos, mantidos porque codigo vivo ja os chama assim.
+_get = buscar
+_EstadoDaApi = EstadoDaApi

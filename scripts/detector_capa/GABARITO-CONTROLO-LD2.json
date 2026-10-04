@@ -1,0 +1,720 @@
+{
+ "DATASET": "GABARITO-CONTROLO-LD2",
+ "MISSAO": "LD2, 23/09/2026",
+ "INDEPENDENCIA": "50 sites cujo dominio nao aparece em nenhuma recolha anterior (gabarito, receitas, coorte, LD2); recolhidos DEPOIS de as receitas V3 serem congeladas (commit 64c3beb7, 06:05:48Z); paginas escolhidas pelo colher_gabarito sem olhar ao LINK_PATTERN; rotulado ANTES de qualquer medicao",
+ "DEFINICOES": "as da 6-PREP-c: MATERIA = pagina individual com conteudo proprio (noticia, comunicado, aviso, artigo, boletim, evento, projecto descrito); CAPA = entrada/navegacao (inicio, listagem, contatti, chi siamo, institucional, arquivo, login, pagina de cortesia); VAZIA < 500 caracteres visiveis",
+ "ROTULADOR": "claude-opus-5-5 (este agente); humano-proposto, nao humano",
+ "CONTAGEM": {
+  "CAPA": 49,
+  "MATERIA": 20,
+  "VAZIA": 8,
+  "AMBIGUA": 1,
+  "DOMINIOS_NAS_QUE_CONTAM": 23,
+  "DOMINIOS_DAS_MATERIAS": 14
+ },
+ "RESSALVA": "8 das 20 materias sao do grupo Edagricole (subdominios do mesmo CMS)",
+ "PAGINAS": [
+  {
+   "ID": 0,
+   "SOURCE_ID": "IT-T11-011",
+   "URL": "https://www.eima.it",
+   "FICHEIRO": "bytes\\IT-T11-011-CAPA_INDICE-b44cb386e4fe.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 1,
+   "SOURCE_ID": "IT-T11-011",
+   "URL": "https://www.eima.it/it/EIMA-2026-in-primo-piano-all-ICE/n3002",
+   "FICHEIRO": "bytes\\IT-T11-011-MATERIA-fc998e969e25.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "noticia EIMA/ICE"
+  },
+  {
+   "ID": 2,
+   "SOURCE_ID": "IT-T12-050",
+   "URL": "https://prenota.regione.calabria.it/home",
+   "FICHEIRO": "bytes\\IT-T12-050-CAPA_INDICE-94bf9a486bc4.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "VAZIA",
+   "PORQUE": "31 caracteres"
+  },
+  {
+   "ID": 3,
+   "SOURCE_ID": "IT-T12-051",
+   "URL": "http://www2.regione.sicilia.it/deliberegiunta",
+   "FICHEIRO": "bytes\\IT-T12-051-CAPA_INDICE-340337895d4c.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 4,
+   "SOURCE_ID": "IT-T12-077",
+   "URL": "https://pagopa.regione.calabria.it/",
+   "FICHEIRO": "bytes\\IT-T12-077-CAPA_INDICE-347b9e8ea9dc.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "VAZIA",
+   "PORQUE": "17 caracteres"
+  },
+  {
+   "ID": 5,
+   "SOURCE_ID": "IT-T12-094",
+   "URL": "http://archivioportale.regione.campania.it/",
+   "FICHEIRO": "bytes\\IT-T12-094-CAPA_INDICE-eed876bbb0ba.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 6,
+   "SOURCE_ID": "IT-T12-128",
+   "URL": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/8",
+   "FICHEIRO": "bytes\\IT-T12-128-CAPA_INDICE-f4980a69a4b1.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 7,
+   "SOURCE_ID": "IT-T12-130",
+   "URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+   "FICHEIRO": "bytes\\IT-T12-130-CAPA_INDICE-9193277929c3.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 8,
+   "SOURCE_ID": "IT-T12-130",
+   "URL": "https://terraevita.edagricole.it/featured/in-puglia-concessione-di-carburante-agricolo-con-accisa-agevolata/",
+   "FICHEIRO": "bytes\\IT-T12-130-MATERIA-ebaf1c444ba1.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "artigo Terra e Vita (carburante agricolo)"
+  },
+  {
+   "ID": 9,
+   "SOURCE_ID": "IT-T2-074",
+   "URL": "https://form.agid.gov.it/p_TN/Meteotrentino/dichiarazione",
+   "FICHEIRO": "bytes\\IT-T2-074-CAPA_INDICE-3d9be6b87b46.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "VAZIA",
+   "PORQUE": "0 caracteres"
+  },
+  {
+   "ID": 10,
+   "SOURCE_ID": "IT-T2-077",
+   "URL": "https://albo.arpal.liguria.it/openweb/albo/albo_pretorio.php",
+   "FICHEIRO": "bytes\\IT-T2-077-CAPA_INDICE-b73f968af867.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 11,
+   "SOURCE_ID": "IT-T2-097",
+   "URL": "https://sira.arpalazio.it/",
+   "FICHEIRO": "bytes\\IT-T2-097-CAPA_INDICE-103a56520f23.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 12,
+   "SOURCE_ID": "IT-T2-099",
+   "URL": "https://webmail.arpalazio.it",
+   "FICHEIRO": "bytes\\IT-T2-099-CAPA_INDICE-af5595364669.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 13,
+   "SOURCE_ID": "IT-T2-101",
+   "URL": "https://digidoc.eng.it/alboarpalazio/#/albo/list",
+   "FICHEIRO": "bytes\\IT-T2-101-CAPA_INDICE-af94b61dfed1.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "VAZIA",
+   "PORQUE": "so o aviso de cookies (app em JavaScript)"
+  },
+  {
+   "ID": 14,
+   "SOURCE_ID": "IT-T5-085",
+   "URL": "http://www.confcooperative.it/LAssociazione/Creare-una-cooperativa",
+   "FICHEIRO": "bytes\\IT-T5-085-CAPA_INDICE-8f6fad193d2f.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 15,
+   "SOURCE_ID": "IT-T5-085",
+   "URL": "http://www.confcooperative.it/LAssociazione/Noi-sul-territorio",
+   "FICHEIRO": "bytes\\IT-T5-085-MATERIA-3cf60276622b.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 16,
+   "SOURCE_ID": "IT-T5-089",
+   "URL": "https://www.isprambiente.gov.it/it",
+   "FICHEIRO": "bytes\\IT-T5-089-CAPA_INDICE-baed625d715a.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 17,
+   "SOURCE_ID": "IT-T5-089",
+   "URL": "https://www.isprambiente.gov.it/it/news/ambiente-a-trieste-la-summer-school-di-ispra-su-ecosistemi-marino-costieri-e-cambiamenti-climatici",
+   "FICHEIRO": "bytes\\IT-T5-089-MATERIA-cb9629a196d5.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "noticia ISPRA summer school"
+  },
+  {
+   "ID": 18,
+   "SOURCE_ID": "IT-T5-090",
+   "URL": "https://www.istat.it/it/",
+   "FICHEIRO": "bytes\\IT-T5-090-CAPA_INDICE-9f2993c61f1f.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 19,
+   "SOURCE_ID": "IT-T5-090",
+   "URL": "https://www.istat.it/bando-di-gara/cig-bcdd7b2ead-servizio-di-verifica-con-prove-di-funzionalita-impianto-irai-e-impianto-evac-della-sede-istat-di-via-depretis-74/",
+   "FICHEIRO": "bytes\\IT-T5-090-MATERIA-ebafec84d912.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "aviso de gara (CIG) Istat"
+  },
+  {
+   "ID": 20,
+   "SOURCE_ID": "IT-T5-100",
+   "URL": "https://innovazioni.crea.gov.it",
+   "FICHEIRO": "bytes\\IT-T5-100-CAPA_INDICE-d401783105dd.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 21,
+   "SOURCE_ID": "IT-T5-101",
+   "URL": "https://www.cnr.it/it",
+   "FICHEIRO": "bytes\\IT-T5-101-CAPA_INDICE-d481d68d565b.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 22,
+   "SOURCE_ID": "IT-T5-101",
+   "URL": "https://www.cnr.it/it/nota-stampa/n-14634",
+   "FICHEIRO": "bytes\\IT-T5-101-MATERIA-5c21e865799a.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "nota stampa CNR"
+  },
+  {
+   "ID": 23,
+   "SOURCE_ID": "IT-T5-102",
+   "URL": "https://www.uniroma1.it/it/pagina-strutturale/home",
+   "FICHEIRO": "bytes\\IT-T5-102-CAPA_INDICE-ae98bc3ecbb4.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 24,
+   "SOURCE_ID": "IT-T5-103",
+   "URL": "https://www.uniba.it/it",
+   "FICHEIRO": "bytes\\IT-T5-103-CAPA_INDICE-a7fc60630126.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 25,
+   "SOURCE_ID": "IT-T5-103",
+   "URL": "https://www.uniba.it/it/sliders/anno-2026/notte-europea-delle-ricercatrici-e-dei-ricercatori",
+   "FICHEIRO": "bytes\\IT-T5-103-MATERIA-3728e690b188.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "pagina de evento (Notte dei Ricercatori)"
+  },
+  {
+   "ID": 26,
+   "SOURCE_ID": "IT-T5-104",
+   "URL": "https://web.uniroma2.it/",
+   "FICHEIRO": "bytes\\IT-T5-104-CAPA_INDICE-72970aec585e.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 27,
+   "SOURCE_ID": "IT-T5-104",
+   "URL": "https://web.uniroma2.it/en/contenuto/censis-20262027-rankings-tor-vergata-pharmacy-degree-confirmed-as-italys-best",
+   "FICHEIRO": "bytes\\IT-T5-104-MATERIA-ffc76bada9ac.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "noticia CENSIS Tor Vergata"
+  },
+  {
+   "ID": 28,
+   "SOURCE_ID": "IT-T5-105",
+   "URL": "https://www.unimore.it/it",
+   "FICHEIRO": "bytes\\IT-T5-105-CAPA_INDICE-999cc15d3d70.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 29,
+   "SOURCE_ID": "IT-T5-105",
+   "URL": "https://www.unimore.it/it/terza-missione/collaborazione-con-le-imprese-la-ricerca-commissionata",
+   "FICHEIRO": "bytes\\IT-T5-105-MATERIA-c917899fc8e0.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 30,
+   "SOURCE_ID": "IT-T7-059",
+   "URL": "https://www.federunacoma.it/it/chisiamo/adesione-enti-e-organismi.php",
+   "FICHEIRO": "bytes\\IT-T7-059-CAPA_INDICE-d1a03890a08a.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 31,
+   "SOURCE_ID": "IT-T7-059",
+   "URL": "https://www.federunacoma.it/it/informati/principali-macchine-e-attrezzature-meccanico-agricole.php",
+   "FICHEIRO": "bytes\\IT-T7-059-MATERIA-eaf0104ce660.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "publicacao (slides de mecanizacao) FederUnacoma"
+  },
+  {
+   "ID": 32,
+   "SOURCE_ID": "IT-T7-060",
+   "URL": "http://www.agroalimentarepesca.confcooperative.it/Agroalimentare",
+   "FICHEIRO": "bytes\\IT-T7-060-CAPA_INDICE-8448d2e32f18.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 33,
+   "SOURCE_ID": "IT-T7-060",
+   "URL": "http://www.agroalimentarepesca.confcooperative.it/Area-stampa/I-Doc-e-Pubblicazioni",
+   "FICHEIRO": "bytes\\IT-T7-060-MATERIA-c71c4d5cc3f3.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 34,
+   "SOURCE_ID": "IT-T7-106",
+   "URL": "http://www.fedagri.confcooperative.it/Area-stampa/I-Doc-e-Pubblicazioni/artmid/751/articleid/1259/Agrinsieme",
+   "FICHEIRO": "bytes\\IT-T7-106-CAPA_INDICE-9a5bbd413ade.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "artigo Agrinsieme (e o INDEX_URL do contrato)"
+  },
+  {
+   "ID": 35,
+   "SOURCE_ID": "IT-T7-106",
+   "URL": "http://www.fedagri.confcooperative.it/Temi-Orizzontali/Politiche-Comunitarie-e-Internazionali/Documenti-e-Pubblicazioni",
+   "FICHEIRO": "bytes\\IT-T7-106-MATERIA-9bc4baa84f0d.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 36,
+   "SOURCE_ID": "IT-T7-109",
+   "URL": "http://www.internazionalizzazione.confcooperative.it/",
+   "FICHEIRO": "bytes\\IT-T7-109-CAPA_INDICE-e64052ee0c1f.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 37,
+   "SOURCE_ID": "IT-T7-109",
+   "URL": "http://www.internazionalizzazione.confcooperative.it/Servizi-e-strumenti/Finanziamenti-e-Gare",
+   "FICHEIRO": "bytes\\IT-T7-109-MATERIA-c66c6500ed3e.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 38,
+   "SOURCE_ID": "IT-T7-110",
+   "URL": "https://osservatorioagrofarma.federchimica.it/",
+   "FICHEIRO": "bytes\\IT-T7-110-CAPA_INDICE-04152b7e5c75.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 39,
+   "SOURCE_ID": "IT-T7-110",
+   "URL": "https://osservatorioagrofarma.federchimica.it/agricoltura-e-innovazione/agricoltura-digitale-innovazione-tecnologica",
+   "FICHEIRO": "bytes\\IT-T7-110-MATERIA-7edd7c6adbf6.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "pagina de conteudo do Osservatorio (agricoltura digitale)"
+  },
+  {
+   "ID": 40,
+   "SOURCE_ID": "IT-T7-111",
+   "URL": "https://progettosicurezza.federunacoma.it/",
+   "FICHEIRO": "bytes\\IT-T7-111-CAPA_INDICE-bd8caf2b3d65.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 41,
+   "SOURCE_ID": "IT-T7-116",
+   "URL": "https://www.caa-cia.it/",
+   "FICHEIRO": "bytes\\IT-T7-116-CAPA_INDICE-bb514eee3633.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 42,
+   "SOURCE_ID": "IT-T7-117",
+   "URL": "https://www.caf-cia.it/",
+   "FICHEIRO": "bytes\\IT-T7-117-CAPA_INDICE-c3d3a08d1355.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 43,
+   "SOURCE_ID": "IT-T7-117",
+   "URL": "https://www.caf-cia.it/multimedia/video/3/",
+   "FICHEIRO": "bytes\\IT-T7-117-MATERIA-3bebfefb550a.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "VAZIA",
+   "PORQUE": "305 caracteres"
+  },
+  {
+   "ID": 44,
+   "SOURCE_ID": "IT-T7-119",
+   "URL": "https://emiliaromagna.cia.it/",
+   "FICHEIRO": "bytes\\IT-T7-119-CAPA_INDICE-8d5766c260d5.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 45,
+   "SOURCE_ID": "IT-T7-119",
+   "URL": "https://emiliaromagna.cia.it/energia-pulita-approvata-la-legge-sulle-aree-idonee-per-gli-impianti-da-fonti-rinnovabili-nelle-aree-agricole-la-quota-non-deve-superare-l15-della-sau/",
+   "FICHEIRO": "bytes\\IT-T7-119-MATERIA-f85cf54b63c8.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "comunicado CIA Emilia-Romagna"
+  },
+  {
+   "ID": 46,
+   "SOURCE_ID": "IT-T7-120",
+   "URL": "https://inac-cia.it/",
+   "FICHEIRO": "bytes\\IT-T7-120-CAPA_INDICE-006a7428a095.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 47,
+   "SOURCE_ID": "IT-T7-120",
+   "URL": "https://inac-cia.it/news/notizie/riforma-disabilita-dal-1-marzo-sperimentazione-estesa-a-40-province-in-tutta-italia-rivolgiti-al-patronato-inac-per-tutti-gli-aggiornamenti/",
+   "FICHEIRO": "bytes\\IT-T7-120-MATERIA-d7590935a2e1.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "noticia INAC (riforma disabilita)"
+  },
+  {
+   "ID": 48,
+   "SOURCE_ID": "IT-T7-124",
+   "URL": "https://prenotaservizi.cia.it/prenotazione/regione",
+   "FICHEIRO": "bytes\\IT-T7-124-CAPA_INDICE-4518d87ce8eb.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "VAZIA",
+   "PORQUE": "454 caracteres"
+  },
+  {
+   "ID": 49,
+   "SOURCE_ID": "IT-T7-125",
+   "URL": "https://cia-puglia.it/",
+   "FICHEIRO": "bytes\\IT-T7-125-CAPA_INDICE-bb6856908f2c.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 50,
+   "SOURCE_ID": "IT-T7-125",
+   "URL": "https://cia-puglia.it/2026/09/17/cattiva-gestione-diga-san-giuliano-a-palagianello-canali-a-secco-e-uva-a-rischio-la-cia-perde-le-staffe/",
+   "FICHEIRO": "bytes\\IT-T7-125-MATERIA-73ecb5b7a086.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "noticia CIA Puglia (diga)"
+  },
+  {
+   "ID": 51,
+   "SOURCE_ID": "IT-T7-127",
+   "URL": "https://www.cia.tn.it/",
+   "FICHEIRO": "bytes\\IT-T7-127-CAPA_INDICE-3d657c4e505d.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 52,
+   "SOURCE_ID": "IT-T7-127",
+   "URL": "https://www.cia.tn.it/virus-shamonda-shav-allerta-negli-allevamenti-bovini-di-trento-e-bolzano/",
+   "FICHEIRO": "bytes\\IT-T7-127-MATERIA-627bea0e18a6.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "noticia CIA Trentino (virus SHAV)"
+  },
+  {
+   "ID": 53,
+   "SOURCE_ID": "IT-T7-129",
+   "URL": "https://og.maggioli.cloud/OGWSegnalazioni/CIA/EntryPoint.aspx",
+   "FICHEIRO": "bytes\\IT-T7-129-CAPA_INDICE-6f4f3958cbf0.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "VAZIA",
+   "PORQUE": "191 caracteres"
+  },
+  {
+   "ID": 54,
+   "SOURCE_ID": "IT-T7-130",
+   "URL": "https://biocontrollo.cia.it/",
+   "FICHEIRO": "bytes\\IT-T7-130-CAPA_INDICE-174800bec08d.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 55,
+   "SOURCE_ID": "IT-T7-130",
+   "URL": "https://biocontrollo.cia.it/esperienze2/biocontrollo-su-vite-i-benefici-dellinduzione-di-resistenza-per-il-controllo-di-peronospora/",
+   "FICHEIRO": "bytes\\IT-T7-130-MATERIA-477be25fafea.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "VAZIA",
+   "PORQUE": "257 caracteres"
+  },
+  {
+   "ID": 56,
+   "SOURCE_ID": "IT-T8-020",
+   "URL": "https://agricommerciogardencenter.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-020-CAPA_INDICE-1b1c05408bbc.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 57,
+   "SOURCE_ID": "IT-T8-025",
+   "URL": "https://www.edagricole.it/comitato-tecnico-scientifico/",
+   "FICHEIRO": "bytes\\IT-T8-025-CAPA_INDICE-77d92a746255.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 58,
+   "SOURCE_ID": "IT-T8-028",
+   "URL": "https://rivistafrutticoltura.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-028-CAPA_INDICE-2d264e395e3e.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 59,
+   "SOURCE_ID": "IT-T8-028",
+   "URL": "https://rivistafrutticoltura.edagricole.it/economia-politica/ortofrutta-per-lexport-italiano-44-nel-primo-semestre-ma-crescono-costi-e-import/",
+   "FICHEIRO": "bytes\\IT-T8-028-MATERIA-be75dafa377f.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "artigo Rivista Frutticoltura (export)"
+  },
+  {
+   "ID": 60,
+   "SOURCE_ID": "IT-T8-029",
+   "URL": "https://contoterzista.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-029-CAPA_INDICE-c4102912df2d.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 61,
+   "SOURCE_ID": "IT-T8-029",
+   "URL": "https://contoterzista.edagricole.it/author/denis-bartolini/",
+   "FICHEIRO": "bytes\\IT-T8-029-MATERIA-8afc080830dc.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 62,
+   "SOURCE_ID": "IT-T8-030",
+   "URL": "https://informatorezootecnico.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-030-CAPA_INDICE-61fccf315ea6.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 63,
+   "SOURCE_ID": "IT-T8-030",
+   "URL": "https://informatorezootecnico.edagricole.it/featured/comincioli-coldiretti-lombardia-doppio-prezzo-latte-difende-produzione-storica/",
+   "FICHEIRO": "bytes\\IT-T8-030-MATERIA-654e139fa212.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "artigo Informatore Zootecnico"
+  },
+  {
+   "ID": 64,
+   "SOURCE_ID": "IT-T8-033",
+   "URL": "https://www.tecnichenuove.com/editore/edagricole-new-business-media/",
+   "FICHEIRO": "bytes\\IT-T8-033-CAPA_INDICE-dafd49fbd43c.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 65,
+   "SOURCE_ID": "IT-T8-033",
+   "URL": "https://www.tecnichenuove.com/riviste/argomenti/agricoltura-allevamento-e-tecnologie-alimentari",
+   "FICHEIRO": "bytes\\IT-T8-033-MATERIA-2dd64f297967.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 66,
+   "SOURCE_ID": "IT-T8-034",
+   "URL": "https://macchineagricolenews.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-034-CAPA_INDICE-e885881645c4.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 67,
+   "SOURCE_ID": "IT-T8-034",
+   "URL": "https://macchineagricolenews.edagricole.it/trattori-depoca/le-manifestazioni-sui-trattori-e-sulle-macchine-agricole-depoca-in-settembre/",
+   "FICHEIRO": "bytes\\IT-T8-034-MATERIA-4ae65b11e77b.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "artigo Macchine Agricole (manifestazioni)"
+  },
+  {
+   "ID": 68,
+   "SOURCE_ID": "IT-T8-037",
+   "URL": "https://olivoeolio.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-037-CAPA_INDICE-9a6eac448e7b.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 69,
+   "SOURCE_ID": "IT-T8-037",
+   "URL": "https://olivoeolio.edagricole.it/eventi/frantoi-aperti-in-umbria-2026-17-ottobre-15-novembre/",
+   "FICHEIRO": "bytes\\IT-T8-037-MATERIA-22808d55195c.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "pagina de evento Frantoi Aperti"
+  },
+  {
+   "ID": 70,
+   "SOURCE_ID": "IT-T8-038",
+   "URL": "https://passioneinverde.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-038-CAPA_INDICE-9cd3d0c965a5.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 71,
+   "SOURCE_ID": "IT-T8-038",
+   "URL": "https://passioneinverde.edagricole.it/come-creare-lilluminazione-di-percorsi-ingressi-gazebi-ecc-nel-giardino/",
+   "FICHEIRO": "bytes\\IT-T8-038-MATERIA-4687732c3484.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "artigo Passione in verde"
+  },
+  {
+   "ID": 72,
+   "SOURCE_ID": "IT-T8-039",
+   "URL": "https://rivistaorticoltura.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-039-CAPA_INDICE-d88e764dcf72.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 73,
+   "SOURCE_ID": "IT-T8-039",
+   "URL": "https://rivistaorticoltura.edagricole.it/orticoltura/sovescio-colture-servizio-salute-suolo/",
+   "FICHEIRO": "bytes\\IT-T8-039-MATERIA-2755ba43c4da.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "AMBIGUA",
+   "PORQUE": "artigo atras de muro de assinatura: titulo sem conteudo visivel"
+  },
+  {
+   "ID": 74,
+   "SOURCE_ID": "IT-T8-040",
+   "URL": "https://suinicoltura.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-040-CAPA_INDICE-4f89e924eca1.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 75,
+   "SOURCE_ID": "IT-T8-040",
+   "URL": "https://suinicoltura.edagricole.it/notizie-dalle-aziende/coliprotec-f4-f18-salute-intestinale-suinetto-elanco/",
+   "FICHEIRO": "bytes\\IT-T8-040-MATERIA-80033452b3a5.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "MATERIA",
+   "PORQUE": "artigo Suinicoltura"
+  },
+  {
+   "ID": 76,
+   "SOURCE_ID": "IT-T8-041",
+   "URL": "https://vigneviniequalita.edagricole.it/",
+   "FICHEIRO": "bytes\\IT-T8-041-CAPA_INDICE-b68c30bfbb46.html",
+   "PAPEL": "CAPA_INDICE",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  },
+  {
+   "ID": 77,
+   "SOURCE_ID": "IT-T8-041",
+   "URL": "https://vigneviniequalita.edagricole.it/author/massimiliano-nicolini-direttore-dipartimento-ricerca-e-sviluppo-sulle-intelligenze-artificiali-e-vro-di-fondazione-olitec/",
+   "FICHEIRO": "bytes\\IT-T8-041-MATERIA-484a4195ea26.html",
+   "PAPEL": "MATERIA",
+   "VEREDITO": "CAPA",
+   "PORQUE": "entrada/navegacao/institucional/listagem"
+  }
+ ]
+}

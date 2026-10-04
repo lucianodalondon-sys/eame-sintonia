@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T3-020",
+ "SOURCE": "Societa Entomologica Italiana",
+ "OWNER": "SEI",
+ "URL": "https://www.societaentomologicaitaliana.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:20Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 716081 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.societaentomologicaitaliana.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Società Entomologica Italiana",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-07-07",
+  "BYTES_LIDOS": 295933
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.societaentomologicaitaliana.it/wp-content/uploads/2024/11/Volantino_Esapodi.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Approfondisci",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 716081,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "26ec34d3620f1d664bce0a089db49c999c42d437387bcbf08ad4f0bcb185ca74",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

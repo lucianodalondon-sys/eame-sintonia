@@ -1,0 +1,172 @@
+{
+  "PROCEDENCIA_NO_GIT": {
+    "O_QUE_E": "O manifesto do acervo comercial italiano, versionado no Git. E ele que segura a procedencia enquanto raw_asset esta vazio.",
+    "ONDE_VIVE": "research/adama-italy-product-intelligence-deep/LABEL-MANIFEST.json",
+    "DOCUMENTOS_DECLARADOS": 141,
+    "CONTEUDOS_UNICOS": 138,
+    "REGISTOS_COM_CONTEUDO_REPETIDO": 3,
+    "PROCEDENCIA_RECUPERAVEL": 141,
+    "PROCEDENCIA_INCOMPLETA": 0,
+    "CAMPOS_EXIGIDOS": [
+      "SHA256",
+      "BYTES",
+      "CAPTURED_AT",
+      "SOURCE_URL",
+      "SOURCE_ID"
+    ],
+    "RUN_ID_NO_MANIFESTO": "NAO — nenhum registo declara corrida. A procedencia e do DOCUMENTO (quando, de que URL, que bytes); a da CORRIDA nunca foi escrita.",
+    "POR_TIPO": {
+      "BROCHURE": 23,
+      "COMUNICAZIONE": 13,
+      "ESTENSIONE_USO": 2,
+      "ETICHETTA": 51,
+      "LEAFLET": 1,
+      "SCHEDA_DI_SICUREZZA": 51
+    },
+    "POR_ESTADO": {
+      "DOWNLOADED": 141
+    },
+    "BYTES_DECLARADOS": 77146360,
+    "CAPTURADO_ENTRE": [
+      "2026-08-30T19:18:30+00:00",
+      "2026-08-30T19:21:36+00:00"
+    ]
+  },
+  "A_CONTA_FECHA": {
+    "O_QUE_E": "REGISTO nao e CONTEUDO e nao e OBJETO. Nenhuma das tres contagens e derivavel das outras, e as duas diferencas tem causas diferentes.",
+    "REGISTOS_DE_MANIFESTO": 141,
+    "CONTEUDOS_UNICOS": 138,
+    "OBJETOS_PREVISTOS_PELO_MANIFESTO": 139,
+    "OBJETOS_MEDIDOS_NO_ARMAZEM": 139,
+    "CONTEUDOS_MEDIDOS_NO_ARMAZEM": 138,
+    "AS_DUAS_DIFERENCAS": {
+      "REGISTOS_MENOS_CONTEUDOS": 3,
+      "PORQUE_ESSA": "documentos que servem a mais de um produto. E facto a preservar, nao erro — o proprio manifesto ja o dizia.",
+      "OBJETOS_MENOS_CONTEUDOS": 1,
+      "PORQUE_ESSA_OUTRA": "um conteudo publicado em DUAS URLs pela propria ADAMA. Duas publicacoes, dois objetos, um conteudo."
+    },
+    "GRUPOS_REPETIDOS": [
+      {
+        "SHA256": "227779fdd6be997502171b84f141b76f8c6b03a5b2792480b58232b71e23c949",
+        "REGISTOS": 2,
+        "URLS_DISTINTAS": 2,
+        "OBJETOS_PREVISTOS": 2,
+        "PRODUTOS": [
+          "Davai®",
+          "FullPage® Rice Cropping Solution"
+        ],
+        "PORQUE": "o MESMO byte publicado em 2 enderecos diferentes: sao 2 factos sobre o mundo e UM conteudo"
+      },
+      {
+        "SHA256": "308764028a955372f4ff8536197a656b852078386821be17bd0abf3b88c98a44",
+        "REGISTOS": 2,
+        "URLS_DISTINTAS": 1,
+        "OBJETOS_PREVISTOS": 1,
+        "PRODUTOS": [
+          "Highcard®",
+          "Max-Ace® Rice Cropping Solution"
+        ],
+        "PORQUE": "dois produtos que apontam para o MESMO endereco: e RELACAO LOGICA, e nao exige byte novo"
+      },
+      {
+        "SHA256": "ef688c782159549cc7c3e0c9511d6591a003d16452159d28d9c833b1bef04d48",
+        "REGISTOS": 2,
+        "URLS_DISTINTAS": 1,
+        "OBJETOS_PREVISTOS": 1,
+        "PRODUTOS": [
+          "Highcard®",
+          "Max-Ace® Rice Cropping Solution"
+        ],
+        "PORQUE": "dois produtos que apontam para o MESMO endereco: e RELACAO LOGICA, e nao exige byte novo"
+      }
+    ],
+    "BATE": true,
+    "ESTADO": "RECONCILIADO_POR_PREFIXO",
+    "FORCA_DA_PROVA": "PREFIX_MATCH",
+    "PORQUE_NAO_E_FULL_SHA256_MATCH": "a chave do armazem carrega 16 caracteres do hash, e prefixo curto e endereco, nao identidade. Fechar como FULL_SHA256_MATCH exigiria ler os 139 objetos de volta e bater o sha256 inteiro — esta sessao nao tem credencial para isso.",
+    "BYTE_PERDIDO": "NENHUM. Todo conteudo do manifesto tem objeto previsto, e a contagem de conteudos distintos no armazem e a mesma do manifesto."
+  },
+  "LACUNA_DO_ARMAZEM": {
+    "O_QUE_E": "BYTES PRESENTES != PROCEDENCIA OPERACIONAL COMPLETA. Os objetos estao no armazem; nenhuma linha de raw_asset ou collection_run os reclama.",
+    "ESTADO_DA_MEDICAO": "EXTERNAL_LIVE_MEASUREMENT",
+    "PORQUE_NAO_E_OBSERVED": "esta sessao nao tem credencial do banco e NAO reproduziu a leitura. Quem mediu foi o coordenador, e o nome dele fica ao lado do numero.",
+    "MEDIDO_POR": "COORDENADOR",
+    "MEDIDO_EM": "2026-09-08",
+    "ITALY_STORAGE_OBJETOS": 195,
+    "ITALY_STORAGE_BYTES": 80714570,
+    "ITALY_STORAGE_POR_PREFIXO": [
+      {
+        "PREFIXO": "IT/adama-website/CAPTURE",
+        "OBJETOS": 3
+      },
+      {
+        "PREFIXO": "IT/adama-website/DOCUMENT",
+        "OBJETOS": 139
+      },
+      {
+        "PREFIXO": "IT/adama-website/MANIFEST",
+        "OBJETOS": 2
+      },
+      {
+        "PREFIXO": "IT/adama-website/PRODUCT_DOM",
+        "OBJETOS": 51
+      }
+    ],
+    "ITALY_RAW_ASSET_LINHAS": 0,
+    "ITALY_COLLECTION_RUN_LINHAS": 0,
+    "LACUNA": "STORAGE_SEM_MEMORIA_OPERACIONAL",
+    "OBJETOS_SEM_DONO_DECLARADO": 195,
+    "TRES_CONTAGENS": {
+      "DOCUMENTOS_NO_MANIFESTO": 141,
+      "CONTEUDOS_UNICOS_NO_MANIFESTO": 138,
+      "OBJETOS_DOCUMENT_NO_ARMAZEM": 139,
+      "ESTADO": "RECONCILIADO_POR_PREFIXO",
+      "FORCA_DA_PROVA": "PREFIX_MATCH",
+      "COMO_SE_EXPLICAM": "141 - 138 = 3 documentos que servem a DOIS produtos cada um. 139 - 138 = 1 conteudo publicado pela ADAMA em DUAS URLs. As duas diferencas tem causas diferentes, e nenhuma e perda.",
+      "ONDE_ESTA_A_CONTA": "A_CONTA_FECHA"
+    },
+    "A_PROCEDENCIA_PERDEU_SE": "NAO. Ela nao esta no banco, mas esta no Git: 141 de 141 documentos declaram bytes, hora, URL e fonte. O que nao existe e a CORRIDA.",
+    "RUN_HISTORICA": "RUN_NOT_PROVABLE — nenhum registo declara run_id.",
+    "NAO_RETROCRIAR": "PROCEDENCIA RECUPERAVEL nao autoriza PROCEDENCIA INVENTADA. Inserir hoje uma corrida que nunca foi registada seria escrever no livro de historia um dia que ninguem viveu."
+  },
+  "QUEM_ESCREVEU": {
+    "O_QUE_E": "Os bytes e a memoria operacional sao escritos por DUAS maos diferentes, em dois passos que ninguem obriga a andar juntos.",
+    "PASSO_1_ENVIA_OS_BYTES": {
+      "FERRAMENTA": "scripts/storage_preservar.py --enviar",
+      "ONDE_VIVE": "FORA DESTE REPOSITORIO — maquina do operador",
+      "PROVA": "docs/adama/INTEGRACAO-CATALOGO-ADAMA-ES.md linha 69 lista-a como NAO INTEGRADA, e tests/es/test_adama_es_gate.py:366 reprova se ela aparecer aqui",
+      "CORREU_PARA_A_ITALIA": "SIM — e o que explica os 195 objetos"
+    },
+    "PASSO_2_ESCREVE_A_MEMORIA": {
+      "FERRAMENTA": "guarda/catalogo_importar.py",
+      "ONDE_VIVE": "AQUI",
+      "ESTA_PRESO_A_ESPANHA": true,
+      "PROVA": "as entradas e a saida sao ADAMA-ES-*; nao ha equivalente italiano em lado nenhum",
+      "CORREU_PARA_A_ITALIA": "NAO"
+    },
+    "IMPORTACOES_ITALIANAS_QUE_EXISTEM": [
+      "IT-CAMADAS-2026-09-02.sql",
+      "IT-LASTMILE-2026-09-02.sql"
+    ],
+    "DESSAS_QUE_FALAM_DO_BRUTO": [],
+    "O_QUE_ISSO_DIZ": "a Italia TEM SQL de importacao — e nenhum dos ficheiros menciona raw_asset ou collection_run. Ela importa camadas analiticas e nunca importou a procedencia.",
+    "CLASSIFICACAO": "STORAGE_ONLY_PIPELINE",
+    "PORQUE_NAO_E_AS_OUTRAS": {
+      "LEGACY_BEFORE_RAW_ASSET_OWNER": "NAO — raw_asset existe desde a migration 001, muito antes destes objetos (capturados em 30/08/2026).",
+      "FAILED_METADATA_WRITE": "NAO ha prova de tentativa falhada: nao existe ficheiro de importacao italiano do bruto para ter falhado.",
+      "INTENTIONAL_NOT_REGISTERED": "NAO ha decisao escrita em lado nenhum a dizer 'a Italia nao se regista'. Ausencia de decisao nao e decisao."
+    },
+    "RESSALVA": "o passo 1 nao pode ser lido por esta sessao — ele vive noutra maquina. Logo, nao se pode PROVAR que ele nao tentou escrever raw_asset e falhou. O que se prova e o lado de ca: aqui nao ha escritor italiano do bruto, e nunca houve."
+  },
+  "DOIS_ACERVOS": {
+    "O_QUE_E": "O acervo do armazem (catalogo comercial ADAMA) e o do Golden Path (boletins regionais) sao universos diferentes ate prova em contrario. A prova compara IMPRESSAO DIGITAL, nunca nome de ficheiro.",
+    "GOLDEN_PATH_CONTEUDOS": 43,
+    "ARMAZEM_CONTEUDOS_DECLARADOS": 138,
+    "JA_NO_ARMAZEM": 0,
+    "QUAIS": [],
+    "FORA_DO_ARMAZEM": 43,
+    "DESCONHECIDO": 0,
+    "PORQUE_ZERO_DESCONHECIDO": "todo conteudo do Golden Path tem sha256 calculado do disco, e todo documento do manifesto declara o seu. A comparacao e completa dos dois lados — nao ha caso por decidir.",
+    "RESSALVA": "isto compara com o MANIFESTO do armazem, nao com a lista de chaves do armazem. Se um objeto foi la parar sem passar pelo manifesto, este censo nao o ve."
+  }
+}

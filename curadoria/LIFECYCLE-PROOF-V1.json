@@ -1,0 +1,72 @@
+{
+ "DATASET": "LIFECYCLE-PROOF-V1",
+ "LEI": "nao se inventa PASS. Onde houve rede, diz-se REDE=true.",
+ "GERADO_EM": "2026-09-20T21:50:19.093265+00:00",
+ "CASOS": [
+  {
+   "CASO": "A",
+   "TITULO": "fonte ja READY",
+   "SOURCE_ID": "IT-T10-018",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "REDE": false,
+   "PASS": true,
+   "RECUSA": "TRANSICAO RECUSADA [IT-T10-018]: READY exige canario: so se promove a partir de ['CANARY_PENDING', 'REPAIRING'], e veio de READY_FOR_COLLECTION"
+  },
+  {
+   "CASO": "B",
+   "TITULO": "fonte que precisa de canario",
+   "SOURCE_ID": "IT-T10-020",
+   "REDE": true,
+   "ROTA": "OK",
+   "CANARIO": "OK",
+   "HTTP": 200,
+   "ALVO": "https://winenews.it/it/rassegna-stampa/dicono-di-noi/",
+   "PASS": true,
+   "PORQUE": "",
+   "TRANSICOES_NO_LIVRO": 2
+  },
+  {
+   "CASO": "C",
+   "TITULO": "429 nao bloqueia a fila",
+   "SOURCE_ID": "IT-PROVA-RETRY",
+   "REDE": false,
+   "ADIADA": "IT-PROVA-RETRY",
+   "CORRERAM_ENTRETANTO": [
+    "IT-PROVA-VIZ-0",
+    "IT-PROVA-VIZ-1",
+    "IT-PROVA-VIZ-2"
+   ],
+   "ELEGIVEL_APOS_A_HORA": [
+    "IT-PROVA-RETRY"
+   ],
+   "PASS": true,
+   "PORQUE": "a adiada saiu da elegibilidade e voltou sozinha"
+  },
+  {
+   "CASO": "D",
+   "TITULO": "fonte bloqueada pelo robots vivo",
+   "SOURCE_ID": "IT-T10-017",
+   "REDE": true,
+   "GATE": "BLOCK",
+   "ROTA": "https://www.youtube.com/feeds/videos.xml?channel_id=UCfdN2DQZBfZo-7VgBqotYuQ",
+   "ESTADO": "CONTRACT_READY_ROUTE_BLOCKED",
+   "PROMOVIVEL": false,
+   "PASS": true,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "CASO": "E",
+   "TITULO": "DEGRADED -> REPAIR -> READY",
+   "SOURCE_ID": "IT-T10-021",
+   "REDE": true,
+   "READY_APOS_DEGRADAR": 17,
+   "ATALHO_PERMITIDO": false,
+   "CANARIO_DO_REPARO": "OK",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "PASS": true,
+   "PORQUE": ""
+  }
+ ],
+ "PASS_TOTAL": 5,
+ "CASOS_TOTAL": 5
+}

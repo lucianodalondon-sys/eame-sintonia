@@ -1,0 +1,188 @@
+{
+ "REF": "5a16d077",
+ "SHA": "5a16d07746c9f88f0003b37cc9a85e351d1f22c1",
+ "PONTE_PROOF": {
+  "RC": 0,
+  "FIM": [
+   "BOT_HEAD_LIDO_AGORA        409eeb8e (descoberto: True)",
+   "POSITIVA IT-T99-001  None -> READY_FOR_COLLECTION | regua DETAIL/v1 | ELIGIVEL True | ATRAVESSOU True",
+   "NEGATIVA IT-T99-002  CAPABILITY_BLOCK       | ESTADO_NAO_READY       | NAO_ATRAVESSOU True",
+   "NEGATIVA IT-T99-003  UNKNOWN                | ESTADO_NAO_READY       | NAO_ATRAVESSOU True",
+   "DESPROMOCAO IT-T99-001  era ELIGIVEL True -> False | ESTADO_NAO_READY",
+   "   ELIGIBLE 20 -> 19 | SAIRAM ['IT-T99-001'] | ATRAVESSOU True",
+   "PORTAO  ANTES 19  APOS PROMOCAO 20  APOS DESPROMOCAO 19  ENTRARAM ['IT-T99-001']",
+   "INTEGRACAO  {\"ENTRA\": true, \"NUNCA_ENTROU\": true, \"SAI\": true}",
+   "PROVAS_IMPORTADAS          1",
+   "IDEMPOTENCIA_NO_OP         True",
+   "LEGACY_LEAK                0",
+   "PONTE_VIVA                 True"
+  ]
+ },
+ "RED_TEAM_PONTE": {
+  "RC": 0,
+  "FIM": [
+   "BASE suite=True vivo=True",
+   "  RT-A1_livro_do_bot_sobrescreve_o_canonico      MORTO=True  suite",
+   "  RT-A2_promocao_sem_prova_de_canario_passa      MORTO=True  suite",
+   "  RT-A3_legacy_lavada_para_current               MORTO=True  suite",
+   "  RT-A4_policy_block_some_por_omissao            MORTO=True  suite",
+   "  RT-A5_fonte_so_do_bot_desaparece               MORTO=True  suite",
+   "  RT-A6_fonte_so_da_collection_desaparece        MORTO=True  suite",
+   "  RT-A7_identidade_duplicada_passa               MORTO=True  suite",
+   "  RT-A8_ponte_apaga_em_vez_de_acrescentar        MORTO=True  suite",
+   "  RT-A9_reconciliacao_sem_proveniencia           MORTO=True  suite",
+   "  RT-A10_portao_deixa_de_morder                  MORTO=True  suite",
+   "  RT-A11_portao_ignora_revisao_humana            MORTO=True  suite",
+   "  RT-A12_regua_aceita_capa_como_item             MORTO=True  suite",
+   "  RT-A13_ponte_presa_a_um_commit_fixo            MORTO=True  suite",
+   "  RT-A14_prova_do_bot_nao_atravessa              MORTO=True  prova ao vivo",
+   "  RT-A15_colisao_de_prova_sobrepoe_a_local       MORTO=True  suite",
+   "  RT-A16_despromocao_do_bot_nao_atravessa        MORTO=True  suite",
+   "  RT-A17_regua_ignora_gate_reprovado             MORTO=True  suite",
+   "ATAQUES 17  MORTOS 17  SURVIVORS 0"
+  ]
+ },
+ "SUPERVISOR_ESTADO": {
+  "RC": 0,
+  "FIM": [
+   " \"SUPERVISOR_ALIVE\": false,",
+   " \"WORKER_STATE\": \"DOWN\",",
+   " \"WORKER_PID\": null,",
+   " \"WORKER_ALIVE\": false,",
+   " \"HEARTBEAT_AT\": null,",
+   " \"HEARTBEAT_AGE_S\": null,",
+   " \"HEARTBEAT_STALE\": false,",
+   " \"HEARTBEAT_TIMEOUT_S\": 300,",
+   " \"QUEUE_ELIGIBLE_NOW\": 0,",
+   " \"STOP_REQUESTED\": false,",
+   " \"LAST_PROGRESS_AT\": null,",
+   " \"RESTARTS_TOTAL\": 0,",
+   " \"LAST_RESTART_AT\": null,",
+   " \"LAST_RESTART_REASON\": null,",
+   " \"SERVICE_DIAGNOSIS\": \"UNKNOWN\",",
+   " \"SERVICE_STATE_IN_FILE\": \"UNKNOWN\",",
+   " \"SERVICE_STATE_MEASURED_VIA\": \"tasklist PID + nome de imagem python + batimento no run log\",",
+   " \"HEARTBEAT_FRESH\": null,",
+   " \"SUPERVISOR_BLOCKED_REASON\": null,",
+   " \"FEEDER_CHAMADAS_TOTAL\": 0,",
+   " \"FEEDER_NOOP_TOTAL\": 0,",
+   " \"FEEDER_NOOP_ULTIMO_AT\": null,",
+   " \"FEEDER_ULTIMA_CHAMADA_AT\": null,",
+   " \"LIVENESS_SOURCE\": \"DERIVED_FROM_OS_AT_READ_TIME\"",
+   "}"
+  ]
+ },
+ "PONTE_SAUDE": {
+  "RC": 1,
+  "FIM": [
+   "{",
+   " \"ULTIMO_SHA\": null,",
+   " \"VOLTAS\": 0,",
+   " \"NOOPS\": 0,",
+   " \"TRAVESSIAS\": 0,",
+   " \"FALHAS_CONSECUTIVAS\": 0,",
+   " \"ULTIMO_ERRO\": null,",
+   " \"SAUDE\": \"NUNCA_CORREU\",",
+   " \"VIVACIDADE\": \"NUNCA_DEU_UMA_VOLTA\",",
+   " \"IDADE_S\": null,",
+   " \"A_TRABALHAR\": false",
+   "}"
+  ]
+ },
+ "SUPERVISOR_VOLTA": {
+  "RC": 0,
+  "FIM": [
+   "{\"ACCAO_FILA_VAZIA\": \"IDLE\", \"HOOK_CHAMADO\": 1, \"WORKERS_LANCADOS\": 0, \"ACCAO_DEPOIS_DE_SAIDA_LIMPA\": \"IDLE\", \"CRASHES_DEPOIS_DE_SAIDA_LIMPA\": 0}"
+  ]
+ },
+ "MODULOS_DE_PROVA": {
+  "RC": 0,
+  "FIM": [
+   "test_supervisor_lanca_o_worker_com_saida_ociosa (curadoria.test_gatilho_ocioso.TestSaidaOciosaNaoECrash.test_supervisor_lanca_o_worker_com_saida_ociosa) ... ok",
+   "test_tres_saidas_ociosas_em_120s_nao_bloqueiam (curadoria.test_gatilho_ocioso.TestSaidaOciosaNaoECrash.test_tres_saidas_ociosas_em_120s_nao_bloqueiam) ... ok",
+   "test_log_grande_roda_no_arranque (curadoria.test_worker_pendurado.TestCanoSemLeitor.test_log_grande_roda_no_arranque) ... ok",
+   "test_worker_falador_termina_e_o_que_disse_fica_no_log (curadoria.test_worker_pendurado.TestCanoSemLeitor.test_worker_falador_termina_e_o_que_disse_fica_no_log) ... ok",
+   "test_orfa_velha_e_recuperada_e_acorda_o_worker (curadoria.test_worker_pendurado.TestOrfaComServicoParado.test_orfa_velha_e_recuperada_e_acorda_o_worker) ... ok",
+   "test_tarefa_em_curso_recente_nao_e_tocada (curadoria.test_worker_pendurado.TestOrfaComServicoParado.test_tarefa_em_curso_recente_nao_e_tocada) ... ok",
+   "test_correr_arranca_o_fio_de_pulso_sozinho (curadoria.test_worker_pendurado.TestPulsoDuranteATarefa.test_correr_arranca_o_fio_de_pulso_sozinho) ... ok",
+   "test_tarefa_encravada_deixa_de_pulsar_no_teto (curadoria.test_worker_pendurado.TestPulsoDuranteATarefa.test_tarefa_encravada_deixa_de_pulsar_no_teto) ... ok",
+   "test_tarefa_longa_pulsa_durante (curadoria.test_worker_pendurado.TestPulsoDuranteATarefa.test_tarefa_longa_pulsa_durante) ... ok",
+   "test_correr_pulsa_a_cada_tarefa (curadoria.test_worker_pendurado.TestPulsoPorTarefa.test_correr_pulsa_a_cada_tarefa) ... ok",
+   "test_pulso_novo_vence_diario_velho (curadoria.test_worker_pendurado.TestPulsoPorTarefa.test_pulso_novo_vence_diario_velho) ... ok",
+   "test_worker_vivo_a_meio_de_uma_volta_longa (curadoria.test_worker_pendurado.TestPulsoPorTarefa.test_worker_vivo_a_meio_de_uma_volta_longa) ... ok",
+   "test_pendurado_e_terminado_antes_de_relancar (curadoria.test_worker_pendurado.TestUmSoEscritor.test_pendurado_e_terminado_antes_de_relancar) ... ok",
+   "test_candidata_registada_tematica_vira_semente (curadoria.test_discovery_sementes.TestRegistadoNaoImpedeSemente.test_candidata_registada_tematica_vira_semente) ... ok",
+   "test_varias_registadas_todas_livres (curadoria.test_discovery_sementes.TestRegistadoNaoImpedeSemente.test_varias_registadas_todas_livres) ... ok",
+   "test_registada_e_rejeitada_continua_fora (curadoria.test_discovery_sementes.TestSementeGastaContinuaFora.test_registada_e_rejeitada_continua_fora) ... ok",
+   "test_regra_nao_afrouxa_unknown_e_generica (curadoria.test_discovery_sementes.TestSementeGastaContinuaFora.test_regra_nao_afrouxa_unknown_e_generica) ... ok",
+   "test_rejeitada_continua_fora (curadoria.test_discovery_sementes.TestSementeGastaContinuaFora.test_rejeitada_continua_fora) ... ok",
+   "test_semente_processada_nao_repete (curadoria.test_discovery_sementes.TestSementeGastaContinuaFora.test_semente_processada_nao_repete) ... ok",
+   "test_tecto_por_corrida_mantido (curadoria.test_discovery_sementes.TestSementeGastaContinuaFora.test_tecto_por_corrida_mantido) ... ok",
+   "",
+   "----------------------------------------------------------------------",
+   "Ran 28 tests in 9.145s",
+   "",
+   "OK"
+  ]
+ },
+ "COPIA_SUJA_DEPOIS": [
+  " M curadoria/LIFECYCLE-QUEUE-V1.json"
+ ],
+ "COPIA_TAR": {
+  "RC": 0,
+  "TEM_GIT": false
+ },
+ "ENSAIO_WORKER_PENDURADO": {
+  "RC": 0,
+  "FIM": [
+   "{",
+   " \"DATASET\": \"WORKER-PENDURADO-ENSAIO-V1\",",
+   " \"CANAL_STDOUT\": \"o de supervisor._lancar_worker (medido: outro)\",",
+   " \"TAREFAS\": 80,",
+   " \"FECHADAS_NO_FIM\": 80,",
+   " \"VIVO_NO_FIM\": false,",
+   " \"RC\": 0,",
+   " \"SEGUNDO_EM_QUE_PAROU_DE_AVANCAR\": 10,",
+   " \"BYTES_DE_STDOUT_ESCRITOS\": 0,",
+   " \"EVENTOS_NO_DIARIO\": [",
+   "  \"ARRANQUE\",",
+   "  \"VOLTA\",",
+   "  \"WORKER_OCIOSO_SAIU\"",
+   " ],",
+   " \"PENDURADO\": false",
+   "}"
+  ]
+ },
+ "ENSAIO_GATILHO_OCIOSO": {
+  "RC": 0,
+  "FIM": [
+   " \"ASSERCOES\": {",
+   "  \"IDLE_ANTES_DO_RELOGIO\": true,",
+   "  \"RELANCADO_QUANDO_VENCE\": true,",
+   "  \"WORKER_PROCESSOU\": true,",
+   "  \"WORKER_OCIOSO_SAIU\": true,",
+   "  \"SUPERVISOR_VIU_SAIDA_LIMPA\": true,",
+   "  \"IDLE_DEPOIS\": true,",
+   "  \"GATILHO_CORREU_DEPOIS_DA_SAIDA\": true,",
+   "  \"NAO_BLOQUEOU\": true,",
+   "  \"SEM_ECO_NA_JANELA\": true",
+   " },",
+   " \"PASS\": true",
+   "}",
+   "",
+   "Exception in thread Thread-3 (_readerthread):",
+   "Traceback (most recent call last):",
+   "  File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py\", line 1075, in _bootstrap_inner",
+   "    self.run()",
+   "  File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py\", line 1012, in run",
+   "    self._target(*self._args, **self._kwargs)",
+   "  File \"C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 1599, in _readerthread",
+   "    buffer.append(fh.read())",
+   "                  ^^^^^^^^^",
+   "  File \"<frozen codecs>\", line 322, in decode",
+   "UnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 7: invalid start byte"
+  ]
+ },
+ "COPIA_TAR_REMOVIDA": true,
+ "WORKTREE_REMOVIDA": true
+}

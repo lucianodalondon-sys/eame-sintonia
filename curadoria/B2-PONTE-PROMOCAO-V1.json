@@ -1,0 +1,124 @@
+{
+ "DATASET": "B2-PONTE-PROMOCAO-V1",
+ "FOTOGRAFIA": "C:\\Users\\London1\\sintonia-gabarito\\B1-SNAPSHOT-20260923T051430Z",
+ "CAUSAS": {
+  "PASS_PARCIAL": "o bot VIVO corre source-curator-service-v1 @409eeb8e, anterior a UNIFICACAO-V1: o worker desta linha ja manda PASS_PARCIAL para CONTRACTED_CANARY_FAILED (test_um_so_canario_promove, verde). Falta DEPLOY, nao codigo. O texto 'PASS_PARCIAL' no livro e escrito pela reconciliacao ao traduzir a promocao do bot",
+  "PROVA_NAO_IMPORTADA": "a ponte VIVA corre ponte-curador-v1 @20c06500, anterior a be09703c (a chave sintetica nunca casava com a nua: 0 provas importadas). E as ja atravessadas nunca voltavam ao plano. Corrigido: recuperacao idempotente das refs que o livro canonico ja cita",
+  "CONTRATO_AUSENTE": "nenhuma peca escrevia o contrato do bot no livro que o portao le (CONTRATOS_C so servia para decidir). Corrigido: importar_contratos_do_bot, so o que falta, nunca sobrepoe, colisao dita",
+  "DIVERGENCIA_DOIS_DONOS": "as 8 elegiveis tem contrato DIFERENTE no bot (o bot mede a homepage; o portao le a listagem afinada) e IT-T5-041 nem existe no bot — prova viva T02077: 'BLOCK VALIDATE_ROUTE sem contrato', sem transicao. Corrigido na raiz do lado da ponte: dono_do_contrato — READY_CURRENT sem o mesmo contrato no bot -> NOT_READY (CANARY_PENDING) com o motivo",
+  "GIT_NO_CAMINHO_CORRECCAO_DA_B1": "a B1 disse GIT_NO_CAMINHO=NO; e falso em parte: carregar_contexto() faz git show dos livros congelados B/B2 (REF_B, REF_B2) em cada processo. Referencias fixas, so leitura — mas e git no runtime. Nao corrigido aqui (proposta: congelar B/B2 em ficheiros)"
+ },
+ "PROVA_EM_COPIA": {
+  "VOLTA": {
+   "ACCAO": "ATRAVESSOU",
+   "LIVRO_CANONICO": {
+    "ANTES": 2103,
+    "DEPOIS": 2113,
+    "APENDIDAS": 10
+   },
+   "PROVAS_IMPORTADAS": 114,
+   "CONTRATOS_IMPORTADOS": 364,
+   "COLISOES_DE_DONO": 9,
+   "PORTAO": {
+    "ELIGIBLE_ANTES": 8,
+    "ELIGIBLE_DEPOIS": 20,
+    "ENTRARAM": [
+     "IT-T5-090",
+     "IT-T5-101",
+     "IT-T7-053",
+     "IT-T7-058",
+     "IT-T7-100",
+     "IT-T7-112",
+     "IT-T7-115",
+     "IT-T7-117",
+     "IT-T7-118",
+     "IT-T7-120",
+     "IT-T7-121",
+     "IT-T7-123",
+     "IT-T7-135",
+     "IT-T8-021",
+     "IT-T8-028",
+     "IT-T8-029",
+     "IT-T8-030",
+     "IT-T8-034",
+     "IT-T8-039",
+     "IT-T8-040"
+    ],
+    "SAIRAM": [
+     "IT-T10-018",
+     "IT-T10-022",
+     "IT-T5-041",
+     "IT-T5-049",
+     "IT-T7-017",
+     "IT-T7-033",
+     "IT-T7-042",
+     "IT-T7-043"
+    ]
+   }
+  },
+  "PAINEL_ANTES": {
+   "READY_TOTAL": 134,
+   "READY_CURRENT_TOTAL": 10,
+   "READY_LEGACY_TOTAL": 124,
+   "HUMAN_REVIEW_REQUIRED": 3,
+   "COLLECTION_ELIGIBLE": 8
+  },
+  "PAINEL_DEPOIS": {
+   "READY_TOTAL": 124,
+   "READY_CURRENT_TOTAL": 21,
+   "READY_LEGACY_TOTAL": 103,
+   "HUMAN_REVIEW_REQUIRED": 2,
+   "COLLECTION_ELIGIBLE": 20
+  },
+  "ENTRARAM": [
+   "IT-T5-090",
+   "IT-T5-101",
+   "IT-T7-053",
+   "IT-T7-058",
+   "IT-T7-100",
+   "IT-T7-112",
+   "IT-T7-115",
+   "IT-T7-117",
+   "IT-T7-118",
+   "IT-T7-120",
+   "IT-T7-121",
+   "IT-T7-123",
+   "IT-T7-135",
+   "IT-T8-021",
+   "IT-T8-028",
+   "IT-T8-029",
+   "IT-T8-030",
+   "IT-T8-034",
+   "IT-T8-039",
+   "IT-T8-040"
+  ],
+  "SAIRAM": [
+   "IT-T10-018",
+   "IT-T10-022",
+   "IT-T5-041",
+   "IT-T5-049",
+   "IT-T7-017",
+   "IT-T7-033",
+   "IT-T7-042",
+   "IT-T7-043"
+  ],
+  "FICHEIROS_REAIS_INTOCADOS": true,
+  "APENDIDAS_10": "as 8 elegiveis + IT-T9-015 e IT-T9-019 (READY_CURRENT em revisao humana, sem contrato no bot), todas READY->CANARY_PENDING com DONO_DO_CONTRATO",
+  "EXEMPLO_PROMOTION": "IT-T8-030 Informatore Zootecnico: contrato importado do bot, item aberto CONTENT com 18227 caracteres em paragrafos",
+  "EXEMPLO_DEMOTION": "IT-T5-041: o bot nao tem contrato — READY -> CANARY_PENDING"
+ },
+ "RETIRADA_M5B": "respeitada: a marca vive no contrato (ESTADO_CATALOGO) e o portao a le (origin/unificacao-v1 collection_gate.py:144). importar_contratos_do_bot nunca sobrepoe um contrato existente e dono_do_contrato so compara a aquisicao. Sem ficheiros comuns com a unificacao desde a base",
+ "TESTES": {
+  "NOVOS": "curadoria/test_ponte_promocao.py 13/13",
+  "VIZINHOS": "test_reconciliar_livros, test_ponte_automatica, test_ponte_cadeia, test_ponte_candidatas, test_collection_gate: 108/108 antes e depois",
+  "MUTACAO": "8/8 mortos (diff confirmado, sem .pyc)"
+ },
+ "DEPLOY_PLAN": [
+  "0. DECISAO DO DONO antes de ligar: qual contrato o bot mede para as 7 elegiveis de contrato diferente (o afinado desta arvore ou o dele). Sem isto, a regra do dono tira-as do portao na 1.a volta (8 -> 20 em copia, com 20 novas a entrar)",
+  "1. Entregar ao bot, pela porta de contratos dele (S2/coordenacao), os contratos afinados escolhidos no passo 0 — a ponte NAO escreve na bancada do bot",
+  "2. Reiniciar o bot sobre a linha unificada (worker com o juiz dos quatro passos: PASS_PARCIAL deixa de promover)",
+  "3. Reiniciar o observador da ponte sobre esta branch (importacao de provas corrigida + recuperacao + contratos + dono)",
+  "4. Primeira volta com --forcar e ler o log: PROVAS_IMPORTADAS, CONTRATOS_IMPORTADOS, COLISOES_DE_DONO, ENTRARAM/SAIRAM",
+  "5. Revalidacao periodica das elegiveis pelo bot: NAO existe (alimentar_fila so re-mede CONTRACTED_CANARY_FAILED). Proposta fora do meu writeset: enfileirar REVALIDATE das READY_CURRENT a cada N dias"
+ ]
+}

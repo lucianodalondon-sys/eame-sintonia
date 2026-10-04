@@ -39,8 +39,13 @@ ele e recusado com o motivo escrito, em vez de aceite em silencio.
 from __future__ import annotations
 
 import json
+import os
 import re
+import sys
 from dataclasses import dataclass, field, asdict
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho de importacao
 
 # ── ACIONAMENTO: quem mandou coletar ────────────────────────────────────────
 MANUAL = "MANUAL"                        # uma pessoa pediu
@@ -58,40 +63,39 @@ TOTAL = "TOTAL"              # tudo, do inicio
 ESCOPOS = (PONTUAL, INCREMENTAL, TOTAL)
 
 # ── ALVO: o assunto que se quer ─────────────────────────────────────────────
-# NAO E UMA LISTA INVENTADA. Sao os territorios que o atlas de fontes ja usa
-# (T1..T13) — a mesma taxonomia com que as 54 fontes italianas e as 23 do atlas
-# europeu ja estao classificadas. Inventar aqui uma segunda lista de assuntos
-# criaria duas verdades sobre a mesma pergunta.
+# ⚠️ ESTE FICHEIRO JA DECLAROU A SUA PROPRIA TABELA, E ELA ESTAVA ERRADA.
 #
-# Os apelidos existem porque uma pessoa nao diz «T7»: diz «pesquisadores».
-ALVOS = {
-    "T1": "Cultura e producao",
-    "T2": "Clima e tempo",
-    "T3": "Praga e doenca",
-    "T4": "Regulatorio",
-    "T5": "Preco e mercado",
-    "T7": "Ciencia e ensaio",
-    "T9": "Concorrente",
-    "T10": "Politica e subsidio",
-    "T11": "Solo e agua",
-    "T12": "Substancia ativa",
-    "T13": "Outro",
-}
+# O comentario que aqui estava dizia, com todas as letras, a coisa certa:
+#
+#     «NAO E UMA LISTA INVENTADA. Sao os territorios que o atlas de fontes ja
+#      usa (T1..T13) ... Inventar aqui uma segunda lista de assuntos criaria
+#      duas verdades sobre a mesma pergunta.»
+#
+# E depois inventava-a na mesma. Cinco codigos diziam aqui uma coisa e no Atlas
+# outra — `T5`, `T7`, `T10`, `T11`, `T12` — e `T6` e `T8` nem existiam nesta
+# copia. Medido ao vivo, com selecao real:
+#
+#     «colete ciencia da italia»  ->  12 COOPERATIVAS (IT-T7-001..012)
+#
+# porque `T7` aqui era «Ciencia e ensaio» e no Atlas e TECHNICAL NETWORK. As
+# cinco fontes cientificas italianas reais ficavam invisiveis ao pedido.
+#
+#     UMA INTENCAO ESCRITA NO COMENTARIO NAO E UMA LEI NO CODIGO.
+#
+# Agora nao ha tabela nenhuma aqui. O dono e `leis/territorios.py`, que LE o
+# Atlas — a mesma tabela que qualquer pessoa le, e a mesma que `scan_sources.py`
+# usa para escrever a ficha de cada fonte.
+#
+#     ONE CONCEPT -> ONE OWNER.
+import territorios as terr  # noqa: E402
 
-APELIDOS = {
-    "pesquisadores": "T7", "materiais de pesquisadores": "T7",
-    "pesquisador": "T7", "ciencia": "T7", "artigos": "T7",
-    "artigos cientificos": "T7", "ensaio": "T7",
-    "concorrentes": "T9", "concorrente": "T9", "competidores": "T9",
-    "regulatorio": "T4", "rotulos": "T4", "registro": "T4",
-    "praga": "T3", "pragas": "T3", "doenca": "T3", "doencas": "T3",
-    "clima": "T2", "tempo": "T2",
-    "preco": "T5", "precos": "T5", "mercado": "T5",
-    "cultura": "T1", "producao": "T1", "cereais": "T1",
-    "politica": "T10", "subsidio": "T10",
-    "solo": "T11", "agua": "T11",
-    "substancia ativa": "T12", "moa": "T12",
-}
+#: `{codigo: nome}`, do dono. Mantem-se o nome `ALVOS` porque e ele que os
+#: chamadores desta casa ja conhecem — o que muda e de onde o valor vem.
+ALVOS = {c: d["NOME"] for c, d in terr.TERRITORIOS.items()}
+
+#: As palavras que uma pessoa usa. Tambem do dono: guardadas longe da tabela,
+#: foi assim que `"ciencia" -> T7` sobreviveu a `T7` ter mudado de significado.
+APELIDOS = terr.APELIDOS
 
 # ── ESTADOS DA VIDA DE UM ITEM ──────────────────────────────────────────────
 # Poucos, e escolhidos para que seja IMPOSSIVEL confundir duas coisas que o

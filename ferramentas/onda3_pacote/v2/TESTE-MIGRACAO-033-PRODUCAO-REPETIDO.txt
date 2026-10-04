@@ -1,0 +1,18 @@
+Could not find platform independent libraries <prefix>
+..........C:\tl-base\tests\test_migracao_033_sala.py:61: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\tl-base\\supabase\\migrations\\033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql' mode='r' encoding='utf-8'>
+  sql = open(MIG, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.C:\tl-base\tests\test_migracao_033_sala.py:77: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\tl-base\\supabase\\migrations\\033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql' mode='r' encoding='utf-8'>
+  sql = open(MIG, encoding="utf-8").read().lower()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\tl-base\tests\test_migracao_033_sala.py:85: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\tl-base\\supabase\\migrations\\033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql' mode='r' encoding='utf-8'>
+  self.assertTrue("NÃO EXECUTADA" in open(MIG, encoding="utf-8").read())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.C:\tl-base\tests\test_migracao_033_sala.py:58: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\tl-base\\supabase\\migrations\\033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql' mode='r' encoding='utf-8'>
+  self.assertIn("default '%s'::json" % d, open(MIG, encoding="utf-8").read())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+...
+----------------------------------------------------------------------
+Ran 15 tests in 245.951s
+
+OK

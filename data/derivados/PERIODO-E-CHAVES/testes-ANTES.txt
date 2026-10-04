@@ -1,0 +1,157 @@
+Could not find platform independent libraries <prefix>
+test_a_barra_lateral_nao_conta (tests.test_periodo_e_chaves.ACulturaForaDeT1.test_a_barra_lateral_nao_conta) ... ok
+test_a_evidencia_de_outra_regua_nao_e_cultura (tests.test_periodo_e_chaves.ACulturaForaDeT1.test_a_evidencia_de_outra_regua_nao_e_cultura)
+Uma decisao T2 com `cultura: True` na evidencia NAO da cultura: so o texto do item conta. ... ok
+test_a_frase_que_prova_o_lugar_nomeia_a_cultura (tests.test_periodo_e_chaves.ACulturaForaDeT1.test_a_frase_que_prova_o_lugar_nomeia_a_cultura) ... FAIL
+test_mora_de_pagamento_nao_e_fruta (tests.test_periodo_e_chaves.ACulturaForaDeT1.test_mora_de_pagamento_nao_e_fruta) ... ok
+test_o_titulo_nomeia_a_cultura (tests.test_periodo_e_chaves.ACulturaForaDeT1.test_o_titulo_nomeia_a_cultura) ... FAIL
+test_t1_continua_pela_regua (tests.test_periodo_e_chaves.ACulturaForaDeT1.test_t1_continua_pela_regua) ... ok
+test_a_fiera_bolzano_continua_a_ser_o_local (tests.test_periodo_e_chaves.ARegiaoNaoEPedacoDeNome.test_a_fiera_bolzano_continua_a_ser_o_local) ... ok
+test_arpa_lazio_e_quem_publica (tests.test_periodo_e_chaves.ARegiaoNaoEPedacoDeNome.test_arpa_lazio_e_quem_publica) ... FAIL
+test_bologna_fiere_e_empresa (tests.test_periodo_e_chaves.ARegiaoNaoEPedacoDeNome.test_bologna_fiere_e_empresa) ... FAIL
+test_presso_o_orgao_e_o_local (tests.test_periodo_e_chaves.ARegiaoNaoEPedacoDeNome.test_presso_o_orgao_e_o_local) ... ok
+test_so_le_a_frase (tests.test_periodo_e_chaves.ARegiaoNaoEPedacoDeNome.test_so_le_a_frase) ... ERROR
+test_a_calculada_da_publicacao_passa_marcada (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_a_calculada_da_publicacao_passa_marcada) ... ERROR
+test_a_janela_leva_o_periodo_com_base (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_a_janela_leva_o_periodo_com_base) ... FAIL
+test_data_que_nao_existe_nao_e_periodo (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_data_que_nao_existe_nao_e_periodo) ... ERROR
+test_formas_reais_da_sala (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_formas_reais_da_sala) ... ERROR
+test_mes_com_ano_e_intervalo_entre_meses (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_mes_com_ano_e_intervalo_entre_meses) ... ERROR
+test_sem_ano_escrito_fica_nao_sei_mesmo_com_publicacao (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_sem_ano_escrito_fica_nao_sei_mesmo_com_publicacao) ... ERROR
+test_so_publicacao_nao_da_periodo (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_so_publicacao_nao_da_periodo) ... ERROR
+
+======================================================================
+ERROR: test_so_le_a_frase (tests.test_periodo_e_chaves.ARegiaoNaoEPedacoDeNome.test_so_le_a_frase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 106, in test_so_le_a_frase
+    self.assertEqual(F._e_pedaco_de_nome("oltre che Bologna Fiere, socio", 10, "Bologna"), "Bologna Fiere")
+                     ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'leis.fato_do_texto' has no attribute '_e_pedaco_de_nome'
+
+======================================================================
+ERROR: test_a_calculada_da_publicacao_passa_marcada (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_a_calculada_da_publicacao_passa_marcada)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 66, in test_a_calculada_da_publicacao_passa_marcada
+    p = _periodo("2026-09-07/2026-09-13", base="RELATIVA_A_PUBLICACAO")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 23, in _periodo
+    return A.periodo_do_fato(dict({"fact_time": fact_time, "fact_time_basis": base}, **extra))
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'admissao' has no attribute 'periodo_do_fato'
+
+======================================================================
+ERROR: test_data_que_nao_existe_nao_e_periodo (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_data_que_nao_existe_nao_e_periodo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 61, in test_data_que_nao_existe_nao_e_periodo
+    self.assertEqual(_periodo("31 febbraio 2026")["VALOR"], NAO_SEI)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 23, in _periodo
+    return A.periodo_do_fato(dict({"fact_time": fact_time, "fact_time_basis": base}, **extra))
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'admissao' has no attribute 'periodo_do_fato'
+
+======================================================================
+ERROR: test_formas_reais_da_sala (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_formas_reais_da_sala)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 39, in test_formas_reais_da_sala
+    p = _periodo(ft)
+        ^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 23, in _periodo
+    return A.periodo_do_fato(dict({"fact_time": fact_time, "fact_time_basis": base}, **extra))
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'admissao' has no attribute 'periodo_do_fato'
+
+======================================================================
+ERROR: test_mes_com_ano_e_intervalo_entre_meses (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_mes_com_ano_e_intervalo_entre_meses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 44, in test_mes_com_ano_e_intervalo_entre_meses
+    self.assertEqual(_periodo("maggio 2026")["VALOR"], "2026-05")
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 23, in _periodo
+    return A.periodo_do_fato(dict({"fact_time": fact_time, "fact_time_basis": base}, **extra))
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'admissao' has no attribute 'periodo_do_fato'
+
+======================================================================
+ERROR: test_sem_ano_escrito_fica_nao_sei_mesmo_com_publicacao (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_sem_ano_escrito_fica_nao_sei_mesmo_com_publicacao)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 50, in test_sem_ano_escrito_fica_nao_sei_mesmo_com_publicacao
+    p = _periodo(ft, published_at="2026-09-01", captured_at="2026-09-20T10:00:00Z")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 23, in _periodo
+    return A.periodo_do_fato(dict({"fact_time": fact_time, "fact_time_basis": base}, **extra))
+           ^^^^^^^^^^^^^^^^^
+AttributeError: module 'admissao' has no attribute 'periodo_do_fato'
+
+======================================================================
+ERROR: test_so_publicacao_nao_da_periodo (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_so_publicacao_nao_da_periodo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 55, in test_so_publicacao_nao_da_periodo
+    p = A.periodo_do_fato({"published_at": "2026-05-10", "captured_at": "2026-09-20T12:00:00Z"})
+        ^^^^^^^^^^^^^^^^^
+AttributeError: module 'admissao' has no attribute 'periodo_do_fato'
+
+======================================================================
+FAIL: test_a_frase_que_prova_o_lugar_nomeia_a_cultura (tests.test_periodo_e_chaves.ACulturaForaDeT1.test_a_frase_que_prova_o_lugar_nomeia_a_cultura)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 137, in test_a_frase_que_prova_o_lugar_nomeia_a_cultura
+    self.assertEqual(sorted(j["CULTURA"]["VALOR"]), ["mela", "meleto"])
+AssertionError: Lists differ: [' ', 'A', 'E', 'I', 'N', 'O', 'S'] != ['mela', 'meleto']
+
+First differing element 0:
+' '
+'mela'
+
+First list contains 5 additional elements.
+First extra element 2:
+'E'
+
+- [' ', 'A', 'E', 'I', 'N', 'O', 'S']
++ ['mela', 'meleto']
+
+======================================================================
+FAIL: test_o_titulo_nomeia_a_cultura (tests.test_periodo_e_chaves.ACulturaForaDeT1.test_o_titulo_nomeia_a_cultura)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 125, in test_o_titulo_nomeia_a_cultura
+    self.assertEqual(j["CULTURA"]["VALOR"], esperado, titulo)
+AssertionError: 'NAO SEI' != ['fragole'] : Le fragole al Mercato Ortofrutticolo di Milano - YouTube
+
+======================================================================
+FAIL: test_arpa_lazio_e_quem_publica (tests.test_periodo_e_chaves.ARegiaoNaoEPedacoDeNome.test_arpa_lazio_e_quem_publica)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 92, in test_arpa_lazio_e_quem_publica
+    self.assertNotEqual(F.campos_do_fato(t)["fact_location"], "Lazio")
+AssertionError: 'Lazio' == 'Lazio'
+
+======================================================================
+FAIL: test_bologna_fiere_e_empresa (tests.test_periodo_e_chaves.ARegiaoNaoEPedacoDeNome.test_bologna_fiere_e_empresa)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 87, in test_bologna_fiere_e_empresa
+    self.assertNotEqual(F.campos_do_fato(t)["fact_location"], "Bologna")
+AssertionError: 'Bologna' == 'Bologna'
+
+======================================================================
+FAIL: test_a_janela_leva_o_periodo_com_base (tests.test_periodo_e_chaves.OPeriodoVemSoDoFactTime.test_a_janela_leva_o_periodo_com_base)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 75, in test_a_janela_leva_o_periodo_com_base
+    self.assertEqual(j["JANELA"]["VALOR"], "2026-11-12/2026-11-13")
+AssertionError: 'NAO SEI' != '2026-11-12/2026-11-13'
+- NAO SEI
++ 2026-11-12/2026-11-13
+
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.095s
+
+FAILED (failures=5, errors=7)

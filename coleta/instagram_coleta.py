@@ -274,7 +274,7 @@ def _portao_da_fase_anterior(fase):
     return True, ''
 
 
-def _rodar(fase, entrada, *, run_id, conta, evidencia):
+def _rodar(fase, entrada, *, run_id, conta, evidencia, autorizacao=None):
     """Uma execução paga, pela porta única, com teto e build fixos."""
     ator, build = ATORES[fase]
     chaves = ap.pool()
@@ -287,7 +287,12 @@ def _rodar(fase, entrada, *, run_id, conta, evidencia):
             platform='INSTAGRAM', country=(conta or {}).get('COUNTRY', 'MULTI'),
             mission=MISSION, query=(conta or {}).get('ACCOUNT_URL', run_id),
             source_version='build %s, captura de %s' % (build, coletor.agora()[:10]),
-            evidence_path=evidencia, teto_usd=TETO[fase], build=build)
+            evidence_path=evidencia, teto_usd=TETO[fase], build=build,
+            # A autorizacao DESCE — este ficheiro nao a fabrica. O `teto_usd`
+            # desta fase ja estava declarado em `TETO`, e continua a ser o
+            # pedido: a guarda recusa se ele passar do autorizado.
+            autorizacao=autorizacao,
+            motivo_do_gasto=getattr(autorizacao, 'motivo', None))
         man['TOKEN_POSITION_USED'] = pos
         man['RUNNER_NAME'] = RUNNER
         man['FASE'] = fase

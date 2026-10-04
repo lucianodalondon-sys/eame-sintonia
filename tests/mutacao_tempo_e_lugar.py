@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""MUTAÇÃO DO TEMPO-E-LUGAR — as duas confusões que a lei proíbe têm de morder.
+
+    publicação       -> fact_time      reprova
+    source_location  -> fact_location  reprova
+
+E o encanamento: se uma paragem deixar de passar o recado, reprova.
+
+Cada mutante estraga o CÓDIGO, corre `tests.test_tempo_e_lugar_atravessa` e
+exige VERMELHO. O ficheiro é restaurado da cópia em memória (não por
+`git checkout`, que apagaria trabalho por commitar), sempre, mesmo em falha.
+Corre com `-B` e sem .pyc: um mutante do mesmo tamanho engana o .pyc.
+
+    py tests/mutacao_tempo_e_lugar.py
+"""
+import io
+import os
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PY = sys.executable
+MODULO = "tests.test_tempo_e_lugar_atravessa"
+
+CASOS = [
+    ("coleta/italy_executor.py",
+     '    fora = {"PUBLISHED_AT": escolhida["PUBLISHED_AT"],',
+     '    fora = {"FACT_TIME": escolhida["PUBLISHED_AT"], "PUBLISHED_AT": escolhida["PUBLISHED_AT"],',
+     "M1 · a publicacao vira FACT_TIME no tradutor do livro"),
+    ("coleta/italy_executor.py",
+     '        fora.update(cf.lugar_para_o_contrato(cf.lugar_da_fonte(sid)))',
+     '        fora.update(cf.lugar_para_o_contrato(cf.lugar_da_fonte(sid))); fora["FACT_LOCATION"] = fora.get("SOURCE_LOCATION")',
+     "M2 · a sede vira FACT_LOCATION no tradutor do livro"),
+    ("coleta/ingresso.py",
+     '    "PUBLISHED_AT": "published_at",',
+     '    "PUBLISHED_AT": "fact_time",',
+     "M3 · o tradutor da porta poe a publicacao no tempo do facto"),
+    ("coleta/ingresso.py",
+     '    "SOURCE_LOCATION": "source_location",',
+     '    "SOURCE_LOCATION": "fact_location",',
+     "M4 · o tradutor da porta poe a sede no lugar do facto"),
+    ("coleta/italy_executor.py",
+     '        if especie["E_PUBLICACAO"]:',
+     '        if True:',
+     "M5 · validade passa por publicacao"),
+    ("coleta/ingresso.py",
+     '                         "TEMPO_E_LUGAR": dict((tempo_e_lugar or {}).get(',
+     '                         "TEMPO_E_LUGAR": {} if True else dict((tempo_e_lugar or {}).get(',
+     "M6 · a unidade da derivacao larga o recado"),
+    ("orquestrador/orquestrador.py",
+     '    tl = estruturado.get("TEMPO_E_LUGAR") or {}',
+     '    tl = {}',
+     "M7 · o item da porta larga o recado"),
+    ("coleta/italy_executor.py",
+     '    if valor and not re.match(r"^\\d{4}", valor):',
+     '    if False:',
+     "M8 · prosa do coletor volta a ser um instante"),
+    ("orquestrador/orquestrador.py",
+     '    bruto.update(_fato_do_texto(estruturado.get("TEXTO") or "", bruto,',
+     '    bruto.update({}) if True else bruto.update(_fato_do_texto(estruturado.get("TEXTO") or "", bruto,',
+     "M9 · o extractor do texto (LUGAR-FATO) desligado"),
+    ("orquestrador/orquestrador.py",
+     '                               r["fact_location"], r["fact_location_basis"])):',
+     '                               bruto.get("SOURCE_LOCATION") or r["fact_location"], r["fact_location_basis"])):',
+     "M10 · a sede empurrada para o lugar do facto na ligacao do extractor"),
+    ("orquestrador/orquestrador.py",
+     '    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"),',
+     '    r = FT.campos_do_fato(texto, bruto.get("COLLECTED_AT"),',
+     "M11 · a relativa conta-se a partir da COLHEITA e nao da publicacao (D63)"),
+    ("admissao/admissao.py",
+     '    return SIM, ("o item nao diz quando o fato aconteceu nem quando foi "',
+     '    return NAO_SEI, ("o item nao diz quando o fato aconteceu nem quando foi "',
+     "M12 · a falta de data volta a barrar o item (D62)"),
+    ("admissao/admissao.py",
+     '        elif base == "FACT_TIME_BASIS" and (',
+     '        elif False and (',
+     "M13 · a completude esconde que a data foi calculada (D63)"),
+    ("orquestrador/orquestrador.py",
+     '            fora[valor], fora[base] = v, b',
+     '            fora[valor], fora[base] = v, "TEXTO: %s" % b',
+     "M14 · a base da data calculada ganha prefixo e deixa de ser a palavra da lei (DA-7)"),
+    ("coleta/italy_executor.py",
+     '    candidatos = [c for c in (contrato, pagina) if _afirma(c.get("PUBLISHED_AT"))]',
+     '    candidatos = [c for c in (pagina, contrato) if _afirma(c.get("PUBLISHED_AT"))]',
+     "M15 · a pagina passa a frente do contrato (DA-9)"),
+    ("coleta/italy_executor.py",
+     '        if a is None or b is None or abs((a - b).days) > DIAS_DE_DISCORDANCIA:',
+     '        if False:',
+     "M16 · o conflito entre as duas fontes passa calado (DA-9)"),
+    ("orquestrador/orquestrador.py",
+     '    base_pub = (None if publicacao.get("PUBLISHED_AT_CONFLITO")',
+     '    base_pub = (None if False',
+     "M17 · a publicacao em conflito ancora a data relativa (DA-9)"),
+]
+
+
+def corre():
+    env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
+    r = subprocess.run([PY, "-B", "-m", "unittest", MODULO], cwd=RAIZ,
+                       capture_output=True, text=True, env=env)
+    return r.returncode == 0, (r.stdout + r.stderr).strip().splitlines()[-1:]
+
+
+def main():
+    print("MUTACAO_DO_TEMPO_E_LUGAR")
+    mordeu, falhas = 0, []
+    for ficheiro, velho, novo, nome in CASOS:
+        caminho = os.path.join(RAIZ, ficheiro)
+        original = io.open(caminho, encoding="utf-8", newline="").read()
+        n = original.count(velho)
+        if n != 1:
+            print("  NAO_APLICOU  %s (ocorrencias=%d)" % (nome, n))
+            falhas.append(nome)
+            continue
+        try:
+            io.open(caminho, "w", encoding="utf-8", newline="").write(
+                original.replace(velho, novo))
+            verde, cauda = corre()
+        finally:
+            io.open(caminho, "w", encoding="utf-8", newline="").write(original)
+        if verde:
+            print("  NAO_MORDEU   %s" % nome)
+            falhas.append(nome)
+        else:
+            mordeu += 1
+            print("  MORDEU       %s — %s" % (nome, cauda[0][:80] if cauda else ""))
+    print()
+    print("MUTACOES_MORDERAM=%d/%d" % (mordeu, len(CASOS)))
+    return 0 if not falhas else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

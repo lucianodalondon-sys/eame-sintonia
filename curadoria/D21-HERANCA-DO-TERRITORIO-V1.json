@@ -1,0 +1,203 @@
+{
+ "DATASET": "D21-HERANCA-DO-TERRITORIO-V1",
+ "MEDIDO_EM": "2026-09-23T12:42:02Z",
+ "LEI": "D21 (DECISOES-DONO-2026-09-23 linha 199, opcao A): o canal herda o territorio do site da MESMA organizacao so com ligacao oficial canal<->site escrita na ficha + SOURCE_ID e territorio do site na casa; conflito ou falta de prova = NAO SEI; nome/logotipo nao bastam.",
+ "COMO": "curadoria/rota_do_scrap_youtube.heranca_do_site, chamada pelo QUALIFY do worker; ensaio com a lane redirecionada (curadoria/ensaiar_qualify_youtube.py). Os SOURCE_ID do ensaio sao os que o registo daria HOJE; o numero real e cunhado pelo servico quando a tarefa QUALIFY correr.",
+ "RESUMO": {
+  "CANAIS_DISTINTOS": 7,
+  "HERDAM": 5,
+  "NAO_SEI": 2
+ },
+ "LINHAS": [
+  {
+   "CANDIDATA_ID": "CAND-0300",
+   "NOME": "Canal YOUTUBE em youtube.com",
+   "CANAL": "UCNXmEqmby16fYsXOLP012tw",
+   "TERRITORIO_HERDADO": "T12",
+   "PROVA": {
+    "REGRA": "D21",
+    "SITE": "https://www.regione.sicilia.it/",
+    "HOST": "regione.sicilia.it",
+    "LIGACAO": "NOTA: DISCOVERED_FROM + DISCOVERY_METHOD=CRAWL_LINK",
+    "SOURCE_IDS_DO_SITE": [
+     "IT-T12-037",
+     "IT-T12-040",
+     "IT-T12-061",
+     "IT-T12-065",
+     "IT-T12-082",
+     "IT-T12-093",
+     "IT-T12-096",
+     "IT-T12-097",
+     "IT-T12-100"
+    ],
+    "TERRITORIO": "T12"
+   },
+   "QUALIFY_ENSAIO": {
+    "RESULTADO": "OK",
+    "CLASSE": null,
+    "SOURCE_ID_NO_ENSAIO": "IT-T12-128",
+    "PORQUE": "qualificada: CAND-0300 -> IT-T12-128 (T12)"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0423",
+   "NOME": "Canal YOUTUBE em youtube.com",
+   "CANAL": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "TERRITORIO_HERDADO": "T5",
+   "PROVA": {
+    "REGRA": "D21",
+    "SITE": "https://www.crea.gov.it/centri-di-ricerca",
+    "HOST": "crea.gov.it",
+    "LIGACAO": "NOTA: DISCOVERED_FROM + DISCOVERY_METHOD=CRAWL_LINK",
+    "SOURCE_IDS_DO_SITE": [
+     "IT-T5-056",
+     "IT-T5-058",
+     "IT-T5-059",
+     "IT-T5-060",
+     "IT-T5-070",
+     "IT-T5-072",
+     "IT-T5-074",
+     "IT-T5-075",
+     "IT-T5-076",
+     "IT-T5-077",
+     "IT-T5-078",
+     "IT-T5-079",
+     "IT-T5-081"
+    ],
+    "TERRITORIO": "T5"
+   },
+   "QUALIFY_ENSAIO": {
+    "RESULTADO": "OK",
+    "CLASSE": null,
+    "SOURCE_ID_NO_ENSAIO": "IT-T5-085",
+    "PORQUE": "qualificada: CAND-0423 -> IT-T5-085 (T5)"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0193",
+   "NOME": "Granarolo — Youtube ufficiale",
+   "CANAL": "UCQX-qwzhBwwJaIFcLL3RI2w",
+   "TERRITORIO_HERDADO": "NAO SEI",
+   "PROVA": {
+    "PORQUE": "D21: o site granarolo.it nao tem SOURCE_ID na casa — NAO SEI"
+   },
+   "QUALIFY_ENSAIO": {
+    "RESULTADO": "BLOCK",
+    "CLASSE": "SEMANTIC",
+    "SOURCE_ID_NO_ENSAIO": null,
+    "PORQUE": "territorio indeterminado pelo nome (Granarolo — Youtube ufficiale) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou caracterizacao · sem decisao semantica registad"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0234",
+   "NOME": "Interpoma — Youtube ufficiale",
+   "CANAL": "UCCIKHiNQVo8mIJyu_6aYHWA",
+   "TERRITORIO_HERDADO": "NAO SEI",
+   "PROVA": {
+    "PORQUE": "D21: o site interpoma.it nao tem SOURCE_ID na casa — NAO SEI"
+   },
+   "QUALIFY_ENSAIO": {
+    "RESULTADO": "BLOCK",
+    "CLASSE": "SEMANTIC",
+    "SOURCE_ID_NO_ENSAIO": null,
+    "PORQUE": "territorio indeterminado pelo nome (Interpoma — Youtube ufficiale) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou caracterizacao · sem decisao semantica registad"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0219",
+   "NOME": "Olio Officina — Youtube ufficiale",
+   "CANAL": "UCXUG407gp3CnWnfS3ycijhA",
+   "TERRITORIO_HERDADO": "T5",
+   "PROVA": {
+    "REGRA": "D21",
+    "SITE": "https://www.olioofficina.it/",
+    "HOST": "olioofficina.it",
+    "LIGACAO": "ONDE_VIU: declarado no site oficial do dono",
+    "SOURCE_IDS_DO_SITE": [
+     "IT-T5-046"
+    ],
+    "TERRITORIO": "T5"
+   },
+   "QUALIFY_ENSAIO": {
+    "RESULTADO": "OK",
+    "CLASSE": null,
+    "SOURCE_ID_NO_ENSAIO": "IT-T5-086",
+    "PORQUE": "qualificada: CAND-0219 -> IT-T5-086 (T5)"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0221",
+   "NOME": "Societa Entomologica Italiana — Youtube ufficiale",
+   "CANAL": "UCnY1rs74L8pttWxtBiZwULQ",
+   "TERRITORIO_HERDADO": "T3",
+   "PROVA": {
+    "REGRA": "D21",
+    "SITE": "https://www.societaentomologicaitaliana.it/",
+    "HOST": "societaentomologicaitaliana.it",
+    "LIGACAO": "ONDE_VIU: declarado no site oficial do dono",
+    "SOURCE_IDS_DO_SITE": [
+     "IT-T3-020"
+    ],
+    "TERRITORIO": "T3"
+   },
+   "QUALIFY_ENSAIO": {
+    "RESULTADO": "OK",
+    "CLASSE": null,
+    "SOURCE_ID_NO_ENSAIO": "IT-T3-023",
+    "PORQUE": "qualificada: CAND-0221 -> IT-T3-023 (T3)"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0335",
+   "NOME": "You Tube",
+   "CANAL": "UCCMlh614oidOkq-HNSa9RVA",
+   "TERRITORIO_HERDADO": "T2",
+   "PROVA": {
+    "REGRA": "D21",
+    "SITE": "https://www.arpae.it/",
+    "HOST": "arpae.it",
+    "LIGACAO": "NOTA: DISCOVERED_FROM + DISCOVERY_METHOD=CRAWL_LINK",
+    "SOURCE_IDS_DO_SITE": [
+     "IT-T2-001",
+     "IT-T2-039",
+     "IT-T2-051",
+     "IT-T2-054",
+     "IT-T2-056"
+    ],
+    "TERRITORIO": "T2"
+   },
+   "QUALIFY_ENSAIO": {
+    "RESULTADO": "OK",
+    "CLASSE": null,
+    "SOURCE_ID_NO_ENSAIO": "IT-T2-071",
+    "PORQUE": "qualificada: CAND-0335 -> IT-T2-071 (T2)"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0332",
+   "NOME": "Youtube",
+   "CANAL": "UCCMlh614oidOkq-HNSa9RVA",
+   "TERRITORIO_HERDADO": "T2",
+   "PROVA": {
+    "REGRA": "D21",
+    "SITE": "https://www.arpae.it/",
+    "HOST": "arpae.it",
+    "LIGACAO": "NOTA: DISCOVERED_FROM + DISCOVERY_METHOD=CRAWL_LINK",
+    "SOURCE_IDS_DO_SITE": [
+     "IT-T2-001",
+     "IT-T2-039",
+     "IT-T2-051",
+     "IT-T2-054",
+     "IT-T2-056"
+    ],
+    "TERRITORIO": "T2"
+   },
+   "QUALIFY_ENSAIO": {
+    "RESULTADO": "OK",
+    "CLASSE": null,
+    "SOURCE_ID_NO_ENSAIO": "IT-T2-071",
+    "PORQUE": "o canal UCCMlh614oidOkq-HNSa9RVA ja e IT-T2-071: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+   }
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T3-019",
+ "SOURCE": "Agroinnova — Centro di Competenza per l'Innovazione in campo agro-ambientale",
+ "OWNER": "Universita di Torino",
+ "URL": "https://www.agroinnova.unito.it/it",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:09Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica PAGINA; exemplo confirmado: text/html, 69444 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.agroinnova.unito.it/it",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Home page | Centro Interdipartimentale per l&#039;Innovazione in campo Agro-ambientale – AGROINNOVA",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 75802
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca",
+  "TIPO_ITEM": "PAGINA",
+  "ROTULO_NO_SITE": "Progetti di Ricerca",
+  "TITULO": "Progetti di Ricerca | Centro Interdipartimentale per l&#039;Innovazione in campo Agro-ambientale – AGROINNOVA",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 69444,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "2119bd89d5242138cc57d327783ab8874d92ef193693981a207241534ed95a2e",
+  "DATA_VISIVEL": "2026-06-04",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

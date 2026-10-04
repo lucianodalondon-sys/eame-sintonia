@@ -1,0 +1,79 @@
+{
+ "GERADO_EM": "2026-09-22T12:48:28.401220+00:00",
+ "TOTAL": 8,
+ "SURVIVORS": 0,
+ "RESULTADOS": [
+  {
+   "MUTANTE": "M1_READY_IGUAL_DISCOVERED",
+   "DESCRICAO": "READY_CURRENT passa a contar tambem CONTRACT_PENDING (conflacao)",
+   "TESTE_ASSASSINO": "test_telemetria.py TestTelemetria.test_ready_e_subconjunto_das_concluidas",
+   "MUTANT_IN_SOURCE": "YES",
+   "MUTATION_APPLIED": "YES",
+   "BASELINE_PASSED": "YES",
+   "MUTANT_KILLED": "YES"
+  },
+  {
+   "MUTANTE": "M2_PAINEL_CONFIA_NO_JSON",
+   "DESCRICAO": "liveness do supervisor confia no ficheiro, nao no SO",
+   "TESTE_ASSASSINO": "test_telemetria.py TestTelemetria.test_json_stale_nao_diz_running_se_processo_morreu",
+   "MUTANT_IN_SOURCE": "YES",
+   "MUTATION_APPLIED": "YES",
+   "BASELINE_PASSED": "YES",
+   "MUTANT_KILLED": "YES"
+  },
+  {
+   "MUTANTE": "M3_READY_INCREMENTA_2X",
+   "DESCRICAO": "contador de READY incrementa 2x na mesma transicao",
+   "TESTE_ASSASSINO": "test_telemetria.py TestTelemetria.test_janela_24h_inclui_evento_correto",
+   "MUTANT_IN_SOURCE": "YES",
+   "MUTATION_APPLIED": "YES",
+   "BASELINE_PASSED": "YES",
+   "MUTANT_KILLED": "YES"
+  },
+  {
+   "MUTANTE": "M4_EVENTO_ANTIGO_NA_JANELA_1H",
+   "DESCRICAO": "a janela deixa de filtrar por tempo (evento antigo entra)",
+   "TESTE_ASSASSINO": "test_telemetria.py TestTelemetria.test_janela_1h_nao_inclui_evento_antigo",
+   "MUTANT_IN_SOURCE": "YES",
+   "MUTATION_APPLIED": "YES",
+   "BASELINE_PASSED": "YES",
+   "MUTANT_KILLED": "YES"
+  },
+  {
+   "MUTANTE": "M5_RESTART_ZERA_24H",
+   "DESCRICAO": "a janela 24h passa a comecar na sessao (restart apaga producao)",
+   "TESTE_ASSASSINO": "test_telemetria.py TestTelemetria.test_reiniciar_supervisor_nao_zera_producao_24h",
+   "MUTANT_IN_SOURCE": "YES",
+   "MUTATION_APPLIED": "YES",
+   "BASELINE_PASSED": "YES",
+   "MUTANT_KILLED": "YES"
+  },
+  {
+   "MUTANTE": "M6_BLOQUEIO_CONTA_COMO_READY",
+   "DESCRICAO": "CAPABILITY_BLOCK passa a incrementar READY_CURRENT",
+   "TESTE_ASSASSINO": "test_telemetria.py TestTelemetria.test_bloqueio_nao_conta_como_ready",
+   "MUTANT_IN_SOURCE": "YES",
+   "MUTATION_APPLIED": "YES",
+   "BASELINE_PASSED": "YES",
+   "MUTANT_KILLED": "YES"
+  },
+  {
+   "MUTANTE": "M7_SEM_PROGRESSO_PARECE_NORMAL",
+   "DESCRICAO": "fila com trabalho e zero progresso reporta ACTIVE_PRODUCTIVE",
+   "TESTE_ASSASSINO": "test_telemetria.py TestTelemetria.test_fila_com_trabalho_sem_progresso_nao_e_produtivo",
+   "MUTANT_IN_SOURCE": "YES",
+   "MUTATION_APPLIED": "YES",
+   "BASELINE_PASSED": "YES",
+   "MUTANT_KILLED": "YES"
+  },
+  {
+   "MUTANTE": "M8_CHECKPOINT_SPAM_DIVERGENTE",
+   "DESCRICAO": "checkpoint escreve sempre (fonte divergente/spam, ignora a assinatura)",
+   "TESTE_ASSASSINO": "test_telemetria.py TestTelemetria.test_checkpoint_sem_mudanca_nao_faz_spam",
+   "MUTANT_IN_SOURCE": "YES",
+   "MUTATION_APPLIED": "YES",
+   "BASELINE_PASSED": "YES",
+   "MUTANT_KILLED": "YES"
+  }
+ ]
+}
