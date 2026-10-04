@@ -380,7 +380,23 @@ def main():
             ",".join(C["CUSTO"].get("MODELOS") or []),
             " ".join("%s=%s" % kv for kv in v2.items()) or "NAO_CORREU",
             " ".join("%s=%d" % (d, len(x)) for d, x in (C.get("DESTINOS") or {}).items() if x)))
+    atualizar_estado_vivo(run_id)
     pos_rodada(run_id)
+
+
+def atualizar_estado_vivo(run_id):
+    # ULTIMA RODADA != ESTADO ATUAL (ordem do dono 04/10): acumula a rodada em INTELLIGENCE-CURRENT.json.
+    # Falha aqui NAO desfaz a rodada; o estado vivo anterior fica intacto (escrita atomica).
+    sys.path.insert(0, CODIGO)
+    try:
+        import estado_vivo
+        est, rs = estado_vivo.aplicar_rodadas(RAIZ, [run_id])
+        r = rs[0]
+        log("ESTADO_VIVO %s novos=%d atualizados=%d sem_mudanca=%d sairam=%d | %s" % (
+            run_id, len(r["NOVOS"]), len(r["ATUALIZADOS"]), len(r["SEM_MUDANCA"]), len(r["SAIRAM"]),
+            " ".join("%s=%d" % (g, len(x)) for g, x in est["DESTINOS"].items() if x)))
+    except Exception as e:
+        log("ESTADO_VIVO %s ERRO %r (INTELLIGENCE-CURRENT.json inalterado)" % (run_id, e))
 
 
 # Depois do ULTIMA.txt: entrega ao Casco. Falha aqui NAO desfaz a rodada (ela ja vale).
