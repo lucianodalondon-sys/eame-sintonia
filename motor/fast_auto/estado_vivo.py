@@ -150,7 +150,15 @@ def aplicar(est, run_id, c, sha_c, agora=None):
         so_publicar = [g for g in dest if g in GAVETAS]
         if iid not in por_id:
             if not so_publicar:
-                # NAO_PUBLICAR novo: nao entra no estado vivo (nem como fora); fica so na rodada
+                # NAO_PUBLICAR novo: nao entra no estado vivo; fica so na rodada. MAS se partilha ancora com um
+                # item vivo, o juizo contrario fica VISIVEL nesse item (nao o retira: semelhanca nao prova
+                # identidade -- Invitalia e um subconjunto de Melinda e sao dois itens).
+                for a in anc:
+                    for outro in sorted(por_ancora.get(a, ())):
+                        reg = {"NOVO": iid, "EXISTENTE": outro, "RUN_ID": run_id, "ID_NA_RODADA": local,
+                               "TIPO": "NAO_PUBLICAR_PARTILHA_ANCORA", "ANCORA_EM_COMUM": a[:160]}
+                        est["POSSIVEIS_DUPLICADOS"].append(reg)
+                        por_id[outro]["VIVO"].setdefault("CONFLITOS", []).append(reg)
                 sem_mudanca.append(iid)
                 continue
             # parecido mas nao igual -> registo, nunca fusao silenciosa

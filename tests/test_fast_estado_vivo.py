@@ -139,6 +139,21 @@ class EstadoVivo(unittest.TestCase):
         self.assertEqual(a, b)
         self.assertNotEqual(EV.id_vivo(MELINDA), EV.id_vivo(INVITALIA))
 
+    def test_V11_nao_publicar_parcial_fica_visivel_no_item_vivo_sem_o_retirar(self):
+        # caso real do LAB: Riunite Tour Music Fest = 3 ancoras em FUTURE_RADAR (03/10 16:42),
+        # depois 2 dessas ancoras em NAO_PUBLICAR (04/10 02:42)
+        a1 = ev("F-1", "RAW-2851", "https://riunite/tour", "il 16 ottobre tour music fest")
+        a2 = ev("F-2", "RAW-2851", "https://riunite/tour", "parte di questo progetto da 6 anni")
+        a3 = ev("F-3", "RAW-2850", "https://prosecco/x", "prosecco premiato")
+        rodada(self.raiz, "FAST-A", [obj("C07", "FUTURE_RADAR", [a1, a2, a3], "Due cantine")])
+        rodada(self.raiz, "FAST-B", [obj("C07", "NAO_PUBLICAR", [dict(a1, DOCUMENT_ID="RAW-2567"),
+                                                                 dict(a2, DOCUMENT_ID="RAW-2567")], "Riunite")])
+        est, _ = EV.aplicar_rodadas(self.raiz, ["FAST-A", "FAST-B"], self.arq)
+        self.assertEqual(len(est["DESTINOS"]["FUTURE_RADAR"]), 1)  # nao retira por semelhanca
+        viv = est["OBJETOS"][0]["VIVO"]
+        self.assertEqual({c["TIPO"] for c in viv["CONFLITOS"]}, {"NAO_PUBLICAR_PARTILHA_ANCORA"})
+        self.assertEqual(len(viv["CONFLITOS"]), 2)
+
 
 if __name__ == "__main__":
     unittest.main()
