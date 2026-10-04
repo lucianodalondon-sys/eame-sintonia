@@ -191,9 +191,124 @@ def plateia_do_canal(canal):
     return NAO_SEI, 'canal fora das duas listas declaradas — NAO SEI, nunca profissional por omissao'
 
 
+# ── A ISCA TEM DE APANHAR A FALA, NAO A ESCRITA ─────────────────────────────
+# O casamento era pedaco de texto EXATO, depois de tirar acento e maiuscula. Num
+# lexico onde 47 dos 52 termos italianos sao frases de tres ou quatro palavras,
+# isso exige que o transcritor acerte todas, na ordem, coladas. Medido com fala
+# de campo real:
+#
+#     «...allora il DISERBO DEL MAIS in pre-emergenza, le INFESTANTI NEL MAIS...»
+#
+#     diserbo del mais              ACHA
+#     infestanti del mais           PERDE   -- o agricultor disse «nel», nao «del»
+#     diserbo mais pre-emergenza    PERDE   -- as palavras estao la, separadas
+#
+# Uma preposicao diferente e o termo morre. E some CALADO: o video nao vira
+# NAO_SEI, vira «nao e tecnico» — e e deitado fora sem ninguem saber.
+#
+# DUAS LICOES DO BRASIL, e as duas estao escritas neste repositorio:
+#   · `_ler-fonte.py` ficou com 6 termos enquanto o radar tinha 29, porque
+#     alguem COPIOU a lista para dentro do codigo. Aqui nao se copia nada: o
+#     lexico continua a ser lido de onde vive.
+#   · `aprender-caca.py`: «o termo que achou o agronomo achou o cachaceiro
+#     tambem». Por isso NAO se afrouxa sem limite — ver as tres travas abaixo.
+#
+# O QUE MUDA, E O QUE NAO MUDA
+# Passa a casar por RAIZ e por PALAVRA SOLTA: se as palavras do termo aparecem
+# no texto, conta, mesmo separadas e mesmo flexionadas (`diserbo`/`diserbare`/
+# `diserbato` sao a mesma raiz `diserb`). Em italiano a flexao e no fim da
+# palavra, e por isso a raiz resolve a maior parte.
+#
+# AS TRES TRAVAS, para nao virar peneira furada:
+#   1. palavra curta (< 5 letras) tem de bater INTEIRA — `del`, `mais`, `vite`
+#      nao viram raiz, senao `vite` apanhava `vitello` e `viteria`;
+#   2. TODAS as palavras do termo tem de aparecer — nao basta uma;
+#   3. nao ha correcao de erro de escrita. Correcao esperta acerta e erra sem
+#      avisar, e depois ninguem sabe porque um video entrou. Erro de letra
+#      continua a perder, e isso fica dito.
+PISO_DA_RAIZ = 5          # abaixo disto a palavra tem de bater inteira
+
+# A PREPOSICAO NAO E A ISCA. Medido: com as palavras curtas a exigir casamento
+# inteiro, so 36 dos 52 termos italianos sobreviviam a uma troca de preposicao —
+# e trocar preposicao e o que a fala faz o tempo todo («infestanti NEL mais»
+# contra «infestanti DEL mais»). O sentido esta em `infestanti` e em `mais`; o
+# `del` nao carrega assunto nenhum.
+#
+# A lista e a mesma ideia que `youtube_relevancia.py` ja usa para nao propor
+# palavra de funcao como candidata a lexico. Aqui serve para o contrario — para
+# nao EXIGIR palavra de funcao — e por isso so tem italiano: e a lingua dos
+# termos deste ficheiro.
+SEM_ASSUNTO = {
+    'il', 'lo', 'la', 'i', 'gli', 'le', 'un', 'uno', 'una',
+    'di', 'del', 'dello', 'della', 'dei', 'degli', 'delle',
+    'a', 'al', 'allo', 'alla', 'ai', 'agli', 'alle',
+    'da', 'dal', 'dallo', 'dalla', 'dai', 'dagli', 'dalle',
+    'in', 'nel', 'nello', 'nella', 'nei', 'negli', 'nelle',
+    'su', 'sul', 'sullo', 'sulla', 'sui', 'sugli', 'sulle',
+    'con', 'per', 'tra', 'fra', 'e', 'ed', 'o',
+}
+
+
+def _raizes(termo):
+    """As palavras COM ASSUNTO de um termo, reduzidas a raiz quando sao longas.
+
+    Palavra de funcao sai fora: ela nao e isca, e exigi-la faz o termo morrer
+    numa troca de preposicao. Palavra curta que TEM assunto (`mais`, `vite`,
+    `melo`, `riso`) fica inteira de proposito — cortada viraria raiz demasiado
+    curta e `vite` apanharia `vitello`.
+    """
+    fora = []
+    for palavra in _n(termo).replace('-', ' ').split():
+        if palavra in SEM_ASSUNTO:
+            continue
+        fora.append(palavra[:-2] if len(palavra) >= PISO_DA_RAIZ else palavra)
+    return [x for x in fora if x]
+
+
+# AS PALAVRAS TEM DE ESTAR PERTO, e esta trava nasceu de um falso positivo no
+# ensaio: «il nuovo trattore con motore DISERBANTE, MAIS e vite» casou com
+# `diserbo del mais`. As duas palavras estavam la — separadas por uma frase
+# inteira de propaganda de trator.
+#
+# Numa transcricao de cinco mil palavras, quaisquer duas palavras comuns acabam
+# por co-ocorrer. Exigir so «estao ambas no texto» transforma a isca num coador,
+# e e literalmente a cicatriz do `aprender-caca.py` do Brasil: o termo que achou
+# o agronomo achou o cachaceiro tambem.
+#
+# Dezoito palavras e cerca de uma frase falada. Quem diz «diserbo» e «mais» na
+# mesma frase esta a falar de herbicida no milho; quem os diz a duas paginas de
+# distancia pode estar a falar de duas coisas.
+JANELA_DE_PALAVRAS = 18
+
+
+def _perto(texto, pedacos):
+    """As raizes aparecem todas dentro de uma janela de fala? → True/False."""
+    palavras = texto.split()
+    onde = []
+    for p in pedacos:
+        pos = [i for i, w in enumerate(palavras) if p in w]
+        if not pos:
+            return False
+        onde.append(pos)
+    # a janela mais curta que apanha uma ocorrencia de cada raiz
+    for i in onde[0]:
+        if all(any(abs(j - i) <= JANELA_DE_PALAVRAS for j in outras)
+               for outras in onde[1:]):
+            return True
+    return False
+
+
 def _tem(texto, termos):
+    """→ o termo que casou, ou None. Casa por raiz, palavra solta e proximidade.
+
+    Devolve o termo ORIGINAL, nao a raiz: quem le a evidencia depois quer ver a
+    palavra que a casa escolheu, nao o pedaco que o casamento usou.
+    """
     for t in termos:
-        if _n(t) in texto:
+        if _n(t) in texto:            # o caminho exato continua a ser o primeiro
+            return t
+        pedacos = _raizes(t)
+        if pedacos and _perto(texto, pedacos):
             return t
     return None
 

@@ -1,0 +1,105 @@
+{
+ "O_QUE_ISTO_E": "Quanto a porta de admissao apanha nos itens italianos que TEM texto. Nao mede tamanho de vocabulario: mede decisoes sobre itens reais.",
+ "COMO_REFAZER": "py system-map/scripts/recall_da_porta_it.py",
+ "VERSAO_DA_REGRA": "2",
+ "ITENS_COM_TEXTO": 49,
+ "DECISOES": {
+  "SIM": 42,
+  "NAO_SEI": 7
+ },
+ "EM_PERCENTAGEM": {
+  "SIM": 85.7,
+  "NAO_SEI": 14.3
+ },
+ "POR_FICHEIRO": {
+  "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json": {
+   "NAO_SEI": 3,
+   "SIM": 1
+  },
+  "data/samples/IT-MERCADO/EUROSTAT-apri_pi_outq-output-price-index-IT.json": {
+   "NAO_SEI": 3,
+   "SIM": 1
+  },
+  "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json": {
+   "SIM": 39
+  },
+  "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/adama-orticole-2026-06-03.BROWSER-EXTRACT.json": {
+   "SIM": 1
+  },
+  "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json": {
+   "NAO_SEI": 1
+  }
+ },
+ "EXEMPLOS": {
+  "SIM": [
+   {
+    "FICHEIRO": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+    "TEXTO": "Commission Implementing Regulation (EU) 2024/2198 of 4 September 2024 renewing the approval of the active substance folpet in accordance with Regulation (EC) No",
+    "PORQUE": "fala de prova — que e do que «T7» trata",
+    "PROVA": {
+     "palavras": [
+      "prova"
+     ]
+    }
+   },
+   {
+    "FICHEIRO": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+    "TEXTO": "Commission Implementing Regulation (EU) 2024/2221 of 6 September 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval",
+    "PORQUE": "fala de prova — que e do que «T7» trata",
+    "PROVA": {
+     "palavras": [
+      "prova"
+     ]
+    }
+   },
+   {
+    "FICHEIRO": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+    "TEXTO": "Commission Implementing Regulation (EU) 2025/1489 of 24 July 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval per",
+    "PORQUE": "fala de prova — que e do que «T7» trata",
+    "PROVA": {
+     "palavras": [
+      "prova"
+     ]
+    }
+   },
+   {
+    "FICHEIRO": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+    "TEXTO": "Commission Implementing Regulation (EU) 2024/1206 of 29 April 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval pe",
+    "PORQUE": "fala de prova — que e do que «T7» trata",
+    "PROVA": {
+     "palavras": [
+      "prova"
+     ]
+    }
+   }
+  ],
+  "NAO": [],
+  "NAO_SEI": [
+   {
+    "FICHEIRO": "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json",
+    "TEXTO": "<p>Price indices of the means of agricultural production measure changes over time in the prices paid by farmers for goods and services used as inputs, includin",
+    "PORQUE": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+    "PROVA": {}
+   },
+   {
+    "FICHEIRO": "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json",
+    "TEXTO": "Explanatory texts (metadata)",
+    "PORQUE": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+    "PROVA": {}
+   },
+   {
+    "FICHEIRO": "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json",
+    "TEXTO": "Explanatory texts (metadata)",
+    "PORQUE": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+    "PROVA": {}
+   },
+   {
+    "FICHEIRO": "data/samples/IT-MERCADO/EUROSTAT-apri_pi_outq-output-price-index-IT.json",
+    "TEXTO": "<p>Price indices of agricultural products represents the measure of transaction prices reflecting revenue received by the producer for goods and services actual",
+    "PORQUE": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+    "PROVA": {}
+   }
+  ]
+ },
+ "O_QUE_ISTO_NAO_DIZ": "Nao diz se as decisoes estao CERTAS. Para isso era preciso alguem que leia italiano marcar a mao o que devia passar, e essa lista nao existe. Sem ela, o acerto e NAO SEI — e dizer que e alto seria inventar."
+}
