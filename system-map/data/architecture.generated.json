@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/int-fast-v22-casos-v1",
-    "HEAD": "495d85d7b9818f5f922cfb228b464ca12ec897c2",
-    "GENERATED_AT": "2026-10-02T20:25:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f472c2bcd1c5346c6318926f34b09d5478bebdb5720688d9a2a63889988985d9"
+    "BRANCH": "claude/int-fast-run-auto-001-v1",
+    "HEAD": "786731f5ca5090e86a4fbbf4a059b48e8f75e7d8",
+    "GENERATED_AT": "2026-10-03T20:57:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a12d96ccea534243f4d46dcb29f071384e48b4060ec32f89129914cbea3116c2"
   },
   "FILES": [
     {
@@ -2103,7 +2103,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "c15d700d32fe9696e0a6698fcc3280e6fe78c7c6",
+      "sha": "89c2e4c5dcfafd6cff92a2e8a6f4293c41cc03a1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19225,14 +19225,21 @@
     },
     {
       "path": "motor/fast_auto/passo1_selecionar.py",
-      "sha": "e8eea1ecc8da69ab6705dabb2ea4339b522d474b",
+      "sha": "d5b6d0aebae98de0edfdb1b57dee69607bcfe79a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "motor/fast_auto/passo2_fatos.py",
-      "sha": "57bb45854b8dc7f9691484b179b37fbb66aad6fb",
+      "sha": "0de11302c962085be1b6af0cec0a8b75469ae29c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/fast_auto/passo2b_verificar.py",
+      "sha": "0c5f21006af648760a2ad44f6e0cc553b85bc1cd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19246,14 +19253,14 @@
     },
     {
       "path": "motor/fast_auto/rodada_fast.py",
-      "sha": "8135d1523c307760ce17321a51c2730b0c5cfd9d",
+      "sha": "91d3efcd2b73cdf3dae220424d21fd47e45edbfd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "motor/fast_casos.py",
-      "sha": "17932e41eaa64ec41e76823a8e7d1db428f0965d",
+      "sha": "3ff94fe42bf70f941ff63fa03fe8118a564fd372",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19274,14 +19281,14 @@
     },
     {
       "path": "motor/fast_cruzamento_comercial.prompt.md",
-      "sha": "2716dd378894bcdd3a52f058eb6ff1633035885d",
+      "sha": "1260956c987388085238a230a31a93e64ed066b7",
       "ext": ".md",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "motor/fast_cruzamento_comercial.py",
-      "sha": "00159a20fab20e04e6163672b1a25c0c778afb0b",
+      "sha": "71d491549ecdacca3053a53a9652f113565ee018",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26694,7 +26701,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6bb7c02d5a4222dde4643ad75009f45a4de5de1b",
+      "sha": "7f1ec2d307671f2152453d99b3509b4398c86ba0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28577,14 +28584,14 @@
     },
     {
       "path": "tests/test_fast_casos.py",
-      "sha": "296061b941920df15470fd4b17fc076a6216c925",
+      "sha": "8a86e7665b47185b26784aeac560e6b3ac48672f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "tests/test_fast_contextos_destino.py",
-      "sha": "4be748c5c8825b9a74b579b704f667c93290c694",
+      "sha": "73fe5ac8ba63651e78440d039bdb5bafef13e1ae",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28611,6 +28618,20 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_fast_rodada_pedido.py",
+      "sha": "1624a6b9fbcb4d7c6e2e4822a3fd3b5f36869a7f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_segunda_leitura.py",
+      "sha": "a79e02b0638bc89da8d271092c5410f1a98c4db3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_fast_texto_limpo.py",
       "sha": "aca91b0eeceb2af70cd3015875a01a2096665fec",
       "ext": ".py",
@@ -28619,7 +28640,7 @@
     },
     {
       "path": "tests/test_fast_texto_nao_mais_forte.py",
-      "sha": "66d38a9749ca154247f088589c0f0114d58edca1",
+      "sha": "2c754cc8dd202a4cb8627dc1f837752ea883002f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28627,6 +28648,13 @@
     {
       "path": "tests/test_fast_texto_no_codigo.py",
       "sha": "795b150007a2705eaf39cffd42b168471d86322d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fast_transcricao.py",
+      "sha": "9feb7db3086b62a67918cee1b3c7f7f20b747036",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -59532,8 +59560,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/fast_auto/rodada_fast.py",
-        "line": 21,
-        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo3_cruzar.py\"]"
+        "line": 24,
+        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]"
       }
     },
     {
@@ -59543,8 +59571,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/fast_auto/rodada_fast.py",
-        "line": 21,
-        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo3_cruzar.py\"]"
+        "line": 24,
+        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]"
+      }
+    },
+    {
+      "from_file": "motor/fast_auto/rodada_fast.py",
+      "to_file": "motor/fast_auto/passo2b_verificar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/fast_auto/rodada_fast.py",
+        "line": 24,
+        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]"
       }
     },
     {
@@ -59554,8 +59593,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/fast_auto/rodada_fast.py",
-        "line": 21,
-        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo3_cruzar.py\"]"
+        "line": 24,
+        "snippet": "PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]"
       }
     },
     {
@@ -59565,7 +59604,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/fast_auto/rodada_fast.py",
-        "line": 22,
+        "line": 26,
         "snippet": "COMERCIAL = os.path.join(REPO, \"motor\", \"fast_cruzamento_comercial.py\")"
       }
     },
@@ -59576,7 +59615,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/fast_casos.py",
-        "line": 47,
+        "line": 52,
         "snippet": "PROMPT_AGRUPAR = Path(__file__).with_name(\"fast_casos_agrupar.prompt.md\")"
       }
     },
@@ -59587,7 +59626,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/fast_casos.py",
-        "line": 48,
+        "line": 53,
         "snippet": "PROMPT_DOSSIE = Path(__file__).with_name(\"fast_casos_dossie.prompt.md\")"
       }
     },
@@ -59598,7 +59637,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/fast_casos.py",
-        "line": 469,
+        "line": 492,
         "snippet": "(CASOS / \"INDICE.json\").write_text(json.dumps(idx, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
       }
     },
@@ -101717,7 +101756,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fast_contextos_destino.py",
-        "line": 90,
+        "line": 146,
         "snippet": "(Path(t) / \"AGROMET-CONDITIONS.json\").write_text(json.dumps("
       }
     },
@@ -101730,6 +101769,72 @@
         "file": "tests/test_fast_regua_lab_textos_it.py",
         "line": 16,
         "snippet": "_src = (RAIZ / \"motor\" / \"fast_auto\" / \"passo2_fatos.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_rodada_pedido.py",
+      "to_file": "motor/fast_auto/rodada_fast.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_rodada_pedido.py",
+        "line": 23,
+        "snippet": "spec = importlib.util.spec_from_file_location(\"rodada_fast_pedido\", os.path.join(RAIZ, \"motor\", \"fast_auto\", \"rodada_fast.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_segunda_leitura.py",
+      "to_file": "motor/fast_auto/passo1_selecionar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_segunda_leitura.py",
+        "line": 90,
+        "snippet": "self.assertIn('PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]',"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_segunda_leitura.py",
+      "to_file": "motor/fast_auto/passo2_fatos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_segunda_leitura.py",
+        "line": 90,
+        "snippet": "self.assertIn('PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]',"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_segunda_leitura.py",
+      "to_file": "motor/fast_auto/passo2b_verificar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_segunda_leitura.py",
+        "line": 12,
+        "snippet": "spec = importlib.util.spec_from_file_location(\"passo2b\", RAIZ / \"motor\" / \"fast_auto\" / \"passo2b_verificar.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_segunda_leitura.py",
+      "to_file": "motor/fast_auto/passo3_cruzar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_segunda_leitura.py",
+        "line": 90,
+        "snippet": "self.assertIn('PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]',"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_segunda_leitura.py",
+      "to_file": "motor/fast_auto/rodada_fast.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_segunda_leitura.py",
+        "line": 89,
+        "snippet": "src = (RAIZ / \"motor\" / \"fast_auto\" / \"rodada_fast.py\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -101796,6 +101901,28 @@
         "file": "tests/test_fast_texto_no_codigo.py",
         "line": 13,
         "snippet": "spec = importlib.util.spec_from_file_location(\"rodada_fast\", os.path.join(RAIZ, \"motor\", \"fast_auto\", \"rodada_fast.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_transcricao.py",
+      "to_file": "motor/fast_auto/passo1_selecionar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_transcricao.py",
+        "line": 10,
+        "snippet": "FONTE = open(os.path.join(RAIZ, \"motor\", \"fast_auto\", \"passo1_selecionar.py\"), encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "tests/test_fast_transcricao.py",
+      "to_file": "motor/fast_auto/rodada_fast.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fast_transcricao.py",
+        "line": 16,
+        "snippet": "spec = importlib.util.spec_from_file_location(\"rodada_fast_tr\", os.path.join(RAIZ, \"motor\", \"fast_auto\", \"rodada_fast.py\"))"
       }
     },
     {
@@ -114899,10 +115026,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4286,
-    "files_readable": 1808,
-    "files_code_dir": 2259,
-    "file_edges": 7657,
+    "files_tracked": 4290,
+    "files_readable": 1812,
+    "files_code_dir": 2263,
+    "file_edges": 7666,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

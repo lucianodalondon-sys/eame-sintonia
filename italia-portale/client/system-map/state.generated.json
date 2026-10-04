@@ -2795,6 +2795,7 @@
       "motor/cruzamentos_max.py",
       "motor/fast_auto/passo1_selecionar.py",
       "motor/fast_auto/passo2_fatos.py",
+      "motor/fast_auto/passo2b_verificar.py",
       "motor/fast_auto/passo3_cruzar.py",
       "motor/fast_auto/rodada_fast.py",
       "motor/fast_casos.py",
@@ -4163,9 +4164,12 @@
       "tests/test_fast_cruzamento_comercial.py",
       "tests/test_fast_regua_lab.py",
       "tests/test_fast_regua_lab_textos_it.py",
+      "tests/test_fast_rodada_pedido.py",
+      "tests/test_fast_segunda_leitura.py",
       "tests/test_fast_texto_limpo.py",
       "tests/test_fast_texto_nao_mais_forte.py",
       "tests/test_fast_texto_no_codigo.py",
+      "tests/test_fast_transcricao.py",
       "tests/test_fato_do_texto.py",
       "tests/test_fechar_ground_truth_t3.py",
       "tests/test_feed_discovery.py",
@@ -4881,10 +4885,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/int-fast-v22-casos-v1",
-    "HEAD": "495d85d7b9818f5f922cfb228b464ca12ec897c2",
-    "GENERATED_AT": "2026-10-02T20:25:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f472c2bcd1c5346c6318926f34b09d5478bebdb5720688d9a2a63889988985d9"
+    "BRANCH": "claude/int-fast-run-auto-001-v1",
+    "HEAD": "786731f5ca5090e86a4fbbf4a059b48e8f75e7d8",
+    "GENERATED_AT": "2026-10-03T20:57:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a12d96ccea534243f4d46dcb29f071384e48b4060ec32f89129914cbea3116c2"
   },
   "FAMILIES": [
     {
@@ -14334,7 +14338,7 @@
             "degrau": 1,
             "nome": "CANDIDATA",
             "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-            "quantas": 267,
+            "quantas": 268,
             "onde": "candidatas/FONTES-CANDIDATAS.json",
             "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
           },
@@ -14370,7 +14374,7 @@
           "IMPRENSA": 25,
           "INSTAGRAM": 26,
           "LINKEDIN": 68,
-          "ORGANIZACAO": 512,
+          "ORGANIZACAO": 513,
           "YOUTUBE": 82
         },
         "candidatas": [
@@ -29771,6 +29775,22 @@
                 "quando": "2026-09-25"
               }
             ]
+          },
+          {
+            "CANDIDATA_ID": "CAND-1200",
+            "TIPO": "ORGANIZACAO",
+            "TIPO_SIGNIFICA": "Instituto, associacao, consorcio, universidade, cooperativa.",
+            "PAIS": "IT",
+            "NOME": "Confagricoltura Cremona — portale LiberaCR",
+            "URL": "https://www.liberacr.it/",
+            "PARA_QUE_SERVE": "responder ER-CASE-001-CAMPO_COOPERATIVA (CASE-001): relato de campo/cooperativa",
+            "QUEM_VIU": "luciano",
+            "ONDE_VIU": "liberacr.it/103526 (BUSCA_ATIVA)",
+            "QUANDO": "2026-10-03",
+            "NOTA": "",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
           },
           {
             "CANDIDATA_ID": "CAND-0153",
@@ -50557,14 +50577,15 @@
       "files": [
         "motor/fast_auto/passo1_selecionar.py",
         "motor/fast_auto/passo2_fatos.py",
+        "motor/fast_auto/passo2b_verificar.py",
         "motor/fast_auto/passo3_cruzar.py",
         "motor/fast_auto/rodada_fast.py",
         "motor/fast_casos.py",
         "motor/fast_cruzamento_comercial.py"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
-      "status_reason": "existe teste que exercita isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -50584,6 +50605,7 @@
         "papel": "NAO SEI",
         "listas": [
           "BLOCO",
+          "CADEIA_BUSCA_ATIVA",
           "CAMPOS",
           "CLASSES",
           "DESTINOS",
@@ -50597,13 +50619,14 @@
           "PREFIXOS_CASCA",
           "SKIP",
           "TAGS_CASCA",
+          "TEXTOS_OBRIGATORIOS_IT",
           "TIPOS_DE_FONTE",
           "TOKENS_CASCA",
           "_CAMPOS_FAST"
         ],
-        "palavras": 274,
+        "palavras": 298,
         "por_lingua": {},
-        "sem_marca_de_lingua": 274,
+        "sem_marca_de_lingua": 298,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -50649,6 +50672,7 @@
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/SCIENCE/scientific-records.json",
         "motor/fast_auto/passo1_selecionar.py",
         "motor/fast_auto/passo2_fatos.py",
+        "motor/fast_auto/passo2b_verificar.py",
         "motor/fast_auto/passo3_cruzar.py",
         "motor/fast_casos_agrupar.prompt.md",
         "motor/fast_casos_dossie.prompt.md",
@@ -73556,9 +73580,12 @@
         "tests/test_fast_cruzamento_comercial.py",
         "tests/test_fast_regua_lab.py",
         "tests/test_fast_regua_lab_textos_it.py",
+        "tests/test_fast_rodada_pedido.py",
+        "tests/test_fast_segunda_leitura.py",
         "tests/test_fast_texto_limpo.py",
         "tests/test_fast_texto_nao_mais_forte.py",
         "tests/test_fast_texto_no_codigo.py",
+        "tests/test_fast_transcricao.py",
         "tests/test_fato_do_texto.py",
         "tests/test_fechar_ground_truth_t3.py",
         "tests/test_feed_discovery.py",
@@ -73755,7 +73782,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 358,
+      "file_count": 361,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -74170,6 +74197,7 @@
           "ROTA_M2",
           "ROTULO_ITALIA",
           "RUNS",
+          "SC",
           "SEIS",
           "SEM_BYTES",
           "SEM_DSN",
@@ -74188,19 +74216,20 @@
           "VALORES",
           "VAZIO",
           "VERBOS_DE_CALCULO",
+          "VIS",
           "VOCABULARIO_DA_COLLECTION",
           "WAV",
           "YT_CURADOR",
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 2382,
+        "palavras": 2410,
         "por_lingua": {
-          "IT": 12,
+          "IT": 13,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 2365,
+        "sem_marca_de_lingua": 2392,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -74647,6 +74676,7 @@
         "motor/cruzamentos_max.py",
         "motor/fast_auto/passo1_selecionar.py",
         "motor/fast_auto/passo2_fatos.py",
+        "motor/fast_auto/passo2b_verificar.py",
         "motor/fast_auto/passo3_cruzar.py",
         "motor/fast_auto/rodada_fast.py",
         "motor/fast_cruzamento_comercial.prompt.md",
@@ -115665,7 +115695,7 @@
       "evidence": [
         {
           "file": "motor/fast_casos.py",
-          "line": 469,
+          "line": 492,
           "snippet": "(CASOS / \"INDICE.json\").write_text(json.dumps(idx, ensure_ascii=False, indent=1), encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-FAST-CEREBRO--WRITES-->C-PROVA-JANELA-FORMAS",
@@ -115696,7 +115726,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "FAST — o cerebro da rodada automatica (via paralela do Projeto FDS): RAW -> texto -> fatos -> sinais -> cruzamento comercial -> casos alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "FAST — o cerebro da rodada automatica (via paralela do Projeto FDS): RAW -> texto -> fatos -> sinais -> cruzamento comercial -> casos alimenta Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_fast_auto_rodada.py",
@@ -115747,6 +115777,102 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_fast_rodada_pedido.py",
+          "line": 23,
+          "snippet": "spec = importlib.util.spec_from_file_location(\"rodada_fast_pedido\", os.path.join(RAIZ, \"motor\", \"fast_auto\", \"rodada_fast.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+            "FROM": "C-INT-FAST-CEREBRO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fast_segunda_leitura.py",
+          "line": 12,
+          "snippet": "spec = importlib.util.spec_from_file_location(\"passo2b\", RAIZ / \"motor\" / \"fast_auto\" / \"passo2b_verificar.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+            "FROM": "C-INT-FAST-CEREBRO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fast_segunda_leitura.py",
+          "line": 89,
+          "snippet": "src = (RAIZ / \"motor\" / \"fast_auto\" / \"rodada_fast.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+            "FROM": "C-INT-FAST-CEREBRO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fast_segunda_leitura.py",
+          "line": 90,
+          "snippet": "self.assertIn('PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+            "FROM": "C-INT-FAST-CEREBRO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fast_segunda_leitura.py",
+          "line": 90,
+          "snippet": "self.assertIn('PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+            "FROM": "C-INT-FAST-CEREBRO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fast_segunda_leitura.py",
+          "line": 90,
+          "snippet": "self.assertIn('PASSOS = [\"passo1_selecionar.py\", \"passo2_fatos.py\", \"passo2b_verificar.py\", \"passo3_cruzar.py\"]',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
+            "FROM": "C-INT-FAST-CEREBRO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_fast_texto_limpo.py",
           "line": 11,
           "snippet": "FONTE = open(os.path.join(RAIZ, \"motor\", \"fast_auto\", \"passo1_selecionar.py\"), encoding=\"utf-8\").read()",
@@ -115782,38 +115908,6 @@
           "file": "tests/test_fast_texto_nao_mais_forte.py",
           "line": 18,
           "snippet": "src = (RAIZ / \"motor\" / \"fast_auto\" / \"passo2_fatos.py\").read_text(encoding=\"utf-8\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
-            "FROM": "C-INT-FAST-CEREBRO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_fast_texto_nao_mais_forte.py",
-          "line": 29,
-          "snippet": "src = (RAIZ / \"motor\" / \"fast_cruzamento_comercial.py\").read_text(encoding=\"utf-8\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
-            "FROM": "C-INT-FAST-CEREBRO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_fast_texto_no_codigo.py",
-          "line": 13,
-          "snippet": "spec = importlib.util.spec_from_file_location(\"rodada_fast\", os.path.join(RAIZ, \"motor\", \"fast_auto\", \"rodada_fast.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-FAST-CEREBRO--READS-->C-TESTES",
             "FROM": "C-INT-FAST-CEREBRO",
@@ -177777,8 +177871,8 @@
     "edges_proven": 1890,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4286,
-    "files_covered": 1989,
+    "files_tracked": 4290,
+    "files_covered": 1993,
     "files_code_unclaimed": 0,
     "roles_proven": 210,
     "roles_declared_only": 12,
