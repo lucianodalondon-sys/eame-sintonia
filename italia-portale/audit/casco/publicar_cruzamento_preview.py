@@ -1,7 +1,9 @@
 """Publica SOZINHO o cruzamento comercial mais novo no ENDERECO DE TESTE. Nunca em Production.
 
 Uma passagem idempotente (a tarefa agendada SINTONIA-CASCO-CRUZAMENTO chama de 10 em 10 min):
-  1. segue a rodada AUTOMATICA da Intelligence: <FAST-AUTO>/ULTIMA.txt (uma linha RUN_ID=<id>, gravada por ultimo)
+  0. (04/10, ordem do dono) FONTE = ESTADO VIVO ACUMULADO <FAST-AUTO>/INTELLIGENCE-CURRENT.json (escolher_vivo);
+     a ultima rodada fica so para auditoria/historico. O texto do passo 1 abaixo e o comportamento ANTIGO.
+  1. (antigo) segue a rodada AUTOMATICA da Intelligence: <FAST-AUTO>/ULTIMA.txt (uma linha RUN_ID=<id>, gravada por ultimo)
      -> <FAST-AUTO>/<id>/CRUZAMENTO-COMERCIAL.json, conferido pelo SHA256SUMS.txt DESSA rodada. Ponteiro fora do
      formato, id com / \\ .., sha que nao bate ou ficheiro em falta = nao faz nada (falha fechada). A pasta
      sintonia-fluxo-unico/remessa-* deixou de ser fonte (fica como historico);
@@ -65,6 +67,25 @@ def escolher(raiz):
     return {'RUN_ID': run, 'PASTA': pasta, 'SHA': h}
 
 
+def escolher_vivo(raiz):
+    """FONTE DO CASCO = ESTADO VIVO ACUMULADO (<FAST-AUTO>/INTELLIGENCE-CURRENT.json + .sha256), nunca a ultima
+    rodada isolada. None se o arquivo ou o sha nao conferem (a tela fica no que ja estava no ar). Sem recuo para
+    ULTIMA.txt: recuar traria de volta o defeito de uma rodada vazia zerar as ferramentas."""
+    arq = os.path.join(raiz, 'INTELLIGENCE-CURRENT.json')
+    s = arq + '.sha256'
+    if not (os.path.isfile(arq) and os.path.isfile(s)):
+        return None
+    h = sha_de(arq)
+    linhas = [x.split() for x in open(s, encoding='utf-8') if x.strip()]
+    if not any(len(p) >= 2 and p[0] == h and p[-1].lstrip('*') == 'INTELLIGENCE-CURRENT.json' for p in linhas):
+        return None
+    try:
+        run = json.load(open(arq, encoding='utf-8')).get('ULTIMA_RODADA_APLICADA') or '?'
+    except ValueError:
+        return None
+    return {'RUN_ID': 'VIVO@' + run, 'PASTA': arq, 'SHA': h}
+
+
 def vercel(args, cwd):
     exe = shutil.which('vercel') or shutil.which('vercel.cmd')
     assert '--prod' not in args and 'promote' not in args and 'rollback' not in args, 'proibido: production'
@@ -84,9 +105,9 @@ def main():
     if os.path.exists(os.path.join(a.estado, 'PARAR')):
         log(a.estado, 'PARADO bandeira PARAR')
         return 0
-    esc = escolher(a.fast_auto)
+    esc = escolher_vivo(a.fast_auto)
     if not esc:
-        log(a.estado, 'NADA ULTIMA.txt ausente/invalido ou SHA256SUMS da rodada nao confere em ' + a.fast_auto)
+        log(a.estado, 'NADA INTELLIGENCE-CURRENT.json ausente ou .sha256 nao confere em ' + a.fast_auto)
         return 0
     pasta, h, run = esc['PASTA'], esc['SHA'], esc['RUN_ID']
     commit = subprocess.run(['git', '-C', a.repo, 'rev-parse', a.ref], capture_output=True, text=True).stdout.strip()
@@ -142,7 +163,7 @@ def main():
         if not prova:
             log(a.estado, 'ERRO alias nao serve o sha ' + h[:12] + ' DEPLOY=' + url)
             return 2
-        novo = {'CRUZAMENTO_SHA256': h, 'RUN_ID': run, 'PASTA': pasta, 'COMMIT': commit, 'URL': 'https://' + ALIAS + '/portale',
+        novo = {'FONTE': 'INTELLIGENCE-CURRENT', 'CRUZAMENTO_SHA256': h, 'RUN_ID': run, 'PASTA': pasta, 'COMMIT': commit, 'URL': 'https://' + ALIAS + '/portale',
                 'DEPLOY': url, 'EM': datetime.datetime.now().isoformat(timespec='seconds')}
         json.dump(novo, open(up, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         log(a.estado, 'PUBLICADO ' + h + ' RUN_ID=' + run + ' commit=' + commit[:9]
